@@ -50,6 +50,11 @@ EXPECTED_POINT_COUNTS = {
     "governing_vessel": 28,
     "conception_vessel": 24,
 }
+SOURCE_LOCATION_PREFIXES = (
+    "Source location:",
+    "Manbadagi joylashuv:",
+    "Дереккөздегі орналасуы:",
+)
 
 
 def load_texts() -> dict[str, dict[str, str]]:
@@ -95,7 +100,7 @@ def localized_location(point: dict[str, Any], language: str) -> str:
     value = localized(point, language, "location")
     if language == "ru" or not value:
         return value
-    for prefix in ("Source location:", "Manbadagi joylashuv:", "Дереккөздегі орналасуы:"):
+    for prefix in SOURCE_LOCATION_PREFIXES:
         if value.startswith(prefix):
             value = value[len(prefix):].strip()
             break
@@ -115,6 +120,26 @@ def localized_location(point: dict[str, Any], language: str) -> str:
         "kz": "Дереккөздегі бастапқы орналасуы (орыс тілінде)",
     }
     return f"{labels.get(language, 'Original source location (RU)')}: {value}"
+
+
+def location_translation_status(meridians: list[dict[str, Any]]) -> dict[str, dict[str, int]]:
+    """Count point locations that still depend on source-language wording."""
+    status = {
+        language: {"total": 0, "source": 0, "pending": 0}
+        for language in LANGUAGES
+    }
+    for meridian in meridians:
+        for point in meridian.get("points", []):
+            for language in LANGUAGES:
+                location = localized(point, language, "location")
+                if not location:
+                    continue
+                status[language]["total"] += 1
+                if location.startswith(SOURCE_LOCATION_PREFIXES):
+                    status[language]["source"] += 1
+                if "pending source refinement" in location.lower():
+                    status[language]["pending"] += 1
+    return status
 
 
 def principle_group(principle_id: int, language: str) -> str:
@@ -221,6 +246,7 @@ def build_payload() -> dict[str, Any]:
         "texts": texts,
         "languages": LANGUAGES,
         "recommendedPath": RECOMMENDED_PATH,
+        "translationCoverage": location_translation_status(meridians),
         "meridians": [],
         "principles": {},
     }
@@ -281,6 +307,15 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
 
     if tuple(payload["languages"]) != LANGUAGES:
         issues.append(f"languages mismatch: {payload['languages']}")
+
+    translation_coverage = payload.get("translationCoverage", {})
+    for language in LANGUAGES:
+        item = translation_coverage.get(language)
+        if not item:
+            issues.append(f"{language}: missing translation coverage")
+            continue
+        if item["source"] > item["total"] or item["pending"] > item["total"]:
+            issues.append(f"{language}: impossible translation coverage values {item}")
 
     for language in LANGUAGES:
         language_texts = texts.get(language, {})
@@ -455,6 +490,10 @@ def render(output: Path) -> None:
         <b>Content coverage</b>
         <div id="coverage" class="coverage"></div>
       </div>
+      <div class="state">
+        <b>Location translation</b>
+        <div id="translationCoverage" class="coverage"></div>
+      </div>
     </aside>
   </main>
   <script id="payload" type="application/json">{payload_json}</script>
@@ -467,6 +506,7 @@ def render(output: Path) -> None:
     const screenName = document.getElementById('screenName');
     const stateBox = document.getElementById('state');
     const coverageBox = document.getElementById('coverage');
+    const translationCoverageBox = document.getElementById('translationCoverage');
 
     const state = {{
       language: 'ru',
@@ -537,6 +577,14 @@ def render(output: Path) -> None:
       coverageBox.innerHTML = payload.meridians.map((item) => `
         <div class="bar"><span>${{item.names[state.language]}}</span><b>${{item.pointsCount}}</b></div>
       `).join('');
+      translationCoverageBox.innerHTML = payload.languages.map((language) => {{
+        const item = payload.translationCoverage[language];
+        const ready = Math.max(0, item.total - item.source);
+        return `
+          <div class="bar"><span>${{language.toUpperCase()}} ready locations</span><b>${{ready}}/${{item.total}}</b></div>
+          <div class="bar muted"><span>source RU / pending</span><b>${{item.source}} / ${{item.pending}}</b></div>
+        `;
+      }}).join('');
     }}
 
     function chooseMode(mode) {{
