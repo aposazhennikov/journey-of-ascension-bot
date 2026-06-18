@@ -93,7 +93,7 @@ def localized(item: dict[str, Any], language: str, key: str, default: str = "") 
 
 
 def has_cyrillic(value: str) -> bool:
-    return any("А" <= char <= "я" or char in "ЁёІіЇїЄєҚқҒғҰұҮүӘәӨөҺһҢң" for char in value)
+    return bool(re.search(r"[\u0400-\u04FF]", value or ""))
 
 
 def localized_location(point: dict[str, Any], language: str) -> str:
@@ -336,6 +336,11 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
 
     if tuple(payload["languages"]) != LANGUAGES:
         issues.append(f"languages mismatch: {payload['languages']}")
+
+    if has_cyrillic("What changes when attention rests here"):
+        issues.append("cyrillic detector treats plain English as Cyrillic")
+    if not has_cyrillic("меридиан"):
+        issues.append("cyrillic detector misses Cyrillic text")
 
     translation_coverage = payload.get("translationCoverage", {})
     translation_tasks = payload.get("translationTasks", {})
