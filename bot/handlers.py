@@ -996,6 +996,20 @@ TEXTS_UPDATE = {
         "stop_feedback_prompt": "Xohlasangiz, botdan foydalanishni nima uchun to'xtatganingizni bitta xabarda yozishingiz mumkin. Bu majburiy emas.",
         "stop_feedback_thanks": "Rahmat, fikringizni yetkazaman.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "not_subscribed_test": "Siz hali obuna bo'lmagansiz. Boshlash uchun /start dan foydalaning.",
+        "skip_days_improved": (
+            "📅 <b>O'tkazib yuboriladigan kunlar (ixtiyoriy)</b>\n\n"
+            "Xohlasangiz, bot xabar yubormaydigan hafta kunlarini tanlashingiz mumkin.\n\n"
+            "Masalan: <code>5,6</code> — dam olish kunlarini o'tkazib yuborish.\n"
+            "Agar har kuni xabar olishni istasangiz, hech narsa tanlamang."
+        ),
+        "no_skip_days": "✅ Kunlar tanlanmadi — xabarlar har kuni yuboriladi",
+        "feedback_prompt": (
+            "💌 <b>Fikr va takliflar</b>\n\n"
+            "Botni yanada qulay, tirik va foydali qilish uchun fikringiz muhim.\n\n"
+            "Nima yoqdi? Nima noqulay? Qaysi amaliyot yoki kontent yetishmayapti?\n\n"
+            "Bitta xabar bilan yozishingiz mumkin."
+        ),
+        "feedback_sent": "✅ Rahmat. Fikringiz ishlab chiquvchilarga yuborildi.",
         "setup_complete": (
             "🎉 **Sozlash yakunlandi!**\n\n"
             "📋 **Sozlamalaringiz:**\n"
@@ -1141,6 +1155,20 @@ TEXTS_UPDATE = {
         "stop_feedback_prompt": "Қаласаңыз, ботты не үшін тоқтатқаныңызды бір хабарламамен жаза аласыз. Бұл міндетті емес.",
         "stop_feedback_thanks": "Рақмет, пікіріңізді жеткіземін.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "not_subscribed_test": "Сіз әлі жазылмағансыз. Бастау үшін /start қолданыңыз.",
+        "skip_days_improved": (
+            "📅 <b>Өткізіп жіберілетін күндер (міндетті емес)</b>\n\n"
+            "Қаласаңыз, бот хабар жібермейтін апта күндерін таңдай аласыз.\n\n"
+            "Мысалы: <code>5,6</code> — демалыс күндерін өткізіп жіберу.\n"
+            "Күн сайын хабар алғыңыз келсе, ештеңе таңдамаңыз."
+        ),
+        "no_skip_days": "✅ Күндер таңдалмады — хабарлар күн сайын жіберіледі",
+        "feedback_prompt": (
+            "💌 <b>Пікірлер мен ұсыныстар</b>\n\n"
+            "Ботты ыңғайлы, тірі және пайдалы ету үшін сіздің пікіріңіз маңызды.\n\n"
+            "Не ұнады? Не ыңғайсыз? Қандай тәжірибе немесе контент жетіспейді?\n\n"
+            "Бір хабарлама ретінде жаза аласыз."
+        ),
+        "feedback_sent": "✅ Рақмет. Пікіріңіз әзірлеушілерге жіберілді.",
         "setup_complete": (
             "🎉 **Баптау аяқталды!**\n\n"
             "📋 **Сіздің баптауларыңыз:**\n"
