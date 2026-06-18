@@ -364,10 +364,13 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             issues.append(f"{language}: source-backed locations exist but no translation tasks are shown")
         if len(tasks) > 8:
             issues.append(f"{language}: too many translation tasks shown")
-        if tasks and tasks[0].get("meridianId") != RECOMMENDED_PATH[0]:
-            issues.append(
-                f"{language}: first translation task should follow recommended path, got {tasks[0].get('meridianId')}"
-            )
+        task_path_indexes = [
+            RECOMMENDED_PATH.index(task["meridianId"])
+            for task in tasks
+            if task.get("meridianId") in RECOMMENDED_PATH
+        ]
+        if task_path_indexes != sorted(task_path_indexes):
+            issues.append(f"{language}: translation tasks should follow recommended path order")
         for task in tasks:
             missing_task_keys = {"meridianId", "meridian", "code", "point", "status"} - set(task)
             if missing_task_keys:
