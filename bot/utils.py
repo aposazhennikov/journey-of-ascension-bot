@@ -73,6 +73,60 @@ class PrinciplesManager:
             return False
 
 
+class MeridiansManager:
+    """Manager for Chinese meridians study content."""
+
+    def __init__(self, meridians_file: str = "bot/meridians.json"):
+        self.meridians_file = meridians_file
+        self._meridians: Dict[str, Any] = {"meridians": []}
+
+    async def load_meridians(self) -> None:
+        """Load meridians from JSON file."""
+        try:
+            async with aiofiles.open(self.meridians_file, 'r', encoding='utf-8') as f:
+                content = await f.read()
+                self._meridians = json.loads(content)
+        except Exception as e:
+            print(f"Error loading meridians: {e}")
+            self._meridians = {"meridians": []}
+
+    def get_all_meridians(self) -> List[Dict[str, Any]]:
+        """Get all meridians."""
+        return self._meridians.get("meridians", []).copy()
+
+    def get_meridian_by_id(self, meridian_id: str) -> Optional[Dict[str, Any]]:
+        """Get meridian by ID."""
+        for meridian in self._meridians.get("meridians", []):
+            if meridian.get("id") == meridian_id:
+                return meridian
+        return None
+
+    def get_first_meridian(self) -> Optional[Dict[str, Any]]:
+        """Get the first meridian in the recommended path."""
+        meridians = self.get_all_meridians()
+        return meridians[0] if meridians else None
+
+    def get_next_meridian(self, current_meridian_id: Optional[str], completed_ids: List[str] = None) -> Optional[Dict[str, Any]]:
+        """Get the next meridian after the current one, preferring incomplete meridians."""
+        meridians = self.get_all_meridians()
+        if not meridians:
+            return None
+
+        completed_ids = completed_ids or []
+        if not current_meridian_id:
+            for meridian in meridians:
+                if meridian.get("id") not in completed_ids:
+                    return meridian
+            return meridians[0]
+
+        current_index = next((idx for idx, item in enumerate(meridians) if item.get("id") == current_meridian_id), -1)
+        for offset in range(1, len(meridians) + 1):
+            candidate = meridians[(current_index + offset) % len(meridians)]
+            if candidate.get("id") not in completed_ids:
+                return candidate
+        return meridians[(current_index + 1) % len(meridians)] if current_index >= 0 else meridians[0]
+
+
 def format_principle_message(principle: Dict[str, Any]) -> str:
     """Format principle for sending to user."""
     emoji = principle.get("emoji", "🧘")
@@ -89,6 +143,98 @@ def format_principle_message(principle: Dict[str, Any]) -> str:
         message += f"💡 *{practice_tip}*"
     
     return message
+
+
+def _localized_value(item: Dict[str, Any], language: str, key: str, default: str = "") -> str:
+    """Return a localized value from a content item."""
+    localized = item.get("i18n", {})
+    return localized.get(language, localized.get("en", {})).get(key, default)
+
+
+def format_meridian_intro(meridian: Dict[str, Any], language: str = "en") -> str:
+    """Format meridian overview for the user."""
+    name = _localized_value(meridian, language, "name", meridian.get("id", "Meridian"))
+    description = _localized_value(meridian, language, "description")
+    active_time = meridian.get("active_time", "-")
+    passive_time = meridian.get("passive_time", "-")
+    points = meridian.get("points", [])
+    direction = _localized_value(meridian, language, "direction")
+    practice = _localized_value(meridian, language, "intro_practice")
+
+    labels = {
+        "en": ("Active", "Passive", "Points", "Direction", "Practice"),
+        "ru": ("Активен", "Пассивен", "Точек", "Ход", "Практика"),
+        "uz": ("Faol", "Passiv", "Nuqtalar", "Yo'nalish", "Amaliyot"),
+        "kz": ("Белсенді", "Пассивті", "Нүктелер", "Бағыты", "Тәжірибе"),
+    }.get(language, ("Active", "Passive", "Points", "Direction", "Practice"))
+
+    message = f"**{name}**\n\n"
+    if description:
+        message += f"{description}\n\n"
+    message += f"**{labels[0]}:** {active_time}\n"
+    message += f"**{labels[1]}:** {passive_time}\n"
+    message += f"**{labels[2]}:** {len(points)}\n"
+    if direction:
+        message += f"**{labels[3]}:** {direction}\n"
+    if practice:
+        message += f"\n*{labels[4]}:* {practice}"
+    return message
+
+
+def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: str = "en") -> str:
+    """Format a meridian point for meditation practice."""
+    points = meridian.get("points", [])
+    if point_index < 0 or point_index >= len(points):
+        return format_meridian_intro(meridian, language)
+
+    point = points[point_index]
+    meridian_name = _localized_value(meridian, language, "name", meridian.get("id", "Meridian"))
+    point_name = _localized_value(point, language, "name", point.get("code", "Point"))
+    location = _localized_value(point, language, "location")
+    instruction = _localized_value(point, language, "meditation_instruction")
+    question = _localized_value(point, language, "observation_question")
+
+    labels = {
+        "en": ("Point", "Location", "Focus", "Observe"),
+        "ru": ("Точка", "Расположение", "Концентрация", "Наблюдение"),
+        "uz": ("Nuqta", "Joylashuv", "Diqqat", "Kuzatish"),
+        "kz": ("Нүкте", "Орналасуы", "Зейін", "Бақылау"),
+    }.get(language, ("Point", "Location", "Focus", "Observe"))
+
+    message = f"**{meridian_name}**\n"
+    message += f"**{labels[0]} {point_index + 1}/{len(points)}:** {point.get('code', '')} {point_name}\n\n"
+    if location:
+        message += f"**{labels[1]}:** {location}\n\n"
+    if instruction:
+        message += f"**{labels[2]}:** {instruction}\n\n"
+    if question:
+        message += f"*{labels[3]}:* {question}"
+    return message
+
+
+def get_meridian_image_path(meridian_id: str, point_code: Optional[str] = None) -> Optional[str]:
+    """Get image path for a meridian or a meridian point."""
+    current_dir = Path(__file__).parent.parent
+    filenames = []
+    if point_code:
+        filenames.extend([
+            f"{meridian_id}_{point_code}.jpg",
+            f"{meridian_id}_{point_code}.png",
+        ])
+    else:
+        filenames.extend([f"{meridian_id}.jpg", f"{meridian_id}.png"])
+
+    base_paths = [
+        current_dir / "images" / "meridians",
+        Path("images") / "meridians",
+        Path("/app/images/meridians"),
+    ]
+    for base_path in base_paths:
+        for filename in filenames:
+            image_path = base_path / filename
+            if image_path.exists():
+                return str(image_path)
+    return None
 
 
 def is_valid_timezone(timezone_str: str) -> bool:

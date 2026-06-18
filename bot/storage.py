@@ -18,14 +18,34 @@ class User:
     skip_day_id: List[int] = None
     is_active: bool = True
     last_feedback_time: Optional[float] = None  # Unix timestamp for rate limiting
+    principles_enabled: bool = True
+    meridians_enabled: bool = False
+    meridian_time_for_send: str = "20:00"
+    current_meridian_id: Optional[str] = None
+    current_point_index: int = -1
+    completed_meridians: List[str] = None
     
     def __post_init__(self):
         """Initialize default values."""
         if self.skip_day_id is None:
             self.skip_day_id = []
+        if self.completed_meridians is None:
+            self.completed_meridians = []
         # Ensure last_feedback_time is None if not set
         if not hasattr(self, 'last_feedback_time'):
             self.last_feedback_time = None
+        if not hasattr(self, 'principles_enabled'):
+            self.principles_enabled = True
+        if not hasattr(self, 'meridians_enabled'):
+            self.meridians_enabled = False
+        if not hasattr(self, 'meridian_time_for_send'):
+            self.meridian_time_for_send = "20:00"
+        if not hasattr(self, 'current_meridian_id'):
+            self.current_meridian_id = None
+        if not hasattr(self, 'current_point_index'):
+            self.current_point_index = -1
+        if not hasattr(self, 'completed_meridians') or self.completed_meridians is None:
+            self.completed_meridians = []
 
 
 @dataclass 

@@ -20,7 +20,7 @@ import re
 from .storage import JsonStorage
 from .scheduler import YogaScheduler
 from .handlers import BotHandlers
-from .utils import PrinciplesManager, HealthCheck, get_prometheus_metrics
+from .utils import PrinciplesManager, MeridiansManager, HealthCheck, get_prometheus_metrics
 
 
 class Settings(BaseSettings):
@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     
     # Logging settings.
     log_level: str = Field(default="INFO", description="Logging level")
+
+    # Network settings.
+    telegram_proxy_url: str = Field(default="", description="Proxy URL for Telegram API requests")
     
     class Config:
         env_file = ".env"
@@ -115,6 +118,7 @@ class YogaBot:
         # Initialize components.
         self.storage = JsonStorage(settings.data_dir)
         self.principles_manager = PrinciplesManager()
+        self.meridians_manager = MeridiansManager()
         self.health_check = HealthCheck()
         
         # Initialize Telegram application.
@@ -123,11 +127,20 @@ class YogaBot:
             read_timeout=30.0,
             write_timeout=30.0,
             pool_timeout=20.0,
+            proxy_url=settings.telegram_proxy_url or None,
+        )
+        telegram_get_updates_request = HTTPXRequest(
+            connect_timeout=20.0,
+            read_timeout=30.0,
+            write_timeout=30.0,
+            pool_timeout=20.0,
+            proxy_url=settings.telegram_proxy_url or None,
         )
         self.application = (
             Application.builder()
             .token(settings.bot_token)
             .request(telegram_request)
+            .get_updates_request(telegram_get_updates_request)
             .build()
         )
         self.bot = self.application.bot
@@ -136,7 +149,8 @@ class YogaBot:
         self.scheduler = YogaScheduler(
             self.bot,
             self.storage,
-            self.principles_manager
+            self.principles_manager,
+            self.meridians_manager
         )
         
         # Initialize handlers.
@@ -145,6 +159,7 @@ class YogaBot:
             self.storage,
             self.scheduler,
             self.principles_manager,
+            self.meridians_manager,
             settings.get_admin_ids()
         )
         
@@ -164,6 +179,8 @@ class YogaBot:
             # Load principles.
             await self.principles_manager.load_principles()
             self.logger.info(f"Loaded principles for languages: {list(self.principles_manager._principles.keys())}")
+            await self.meridians_manager.load_meridians()
+            self.logger.info(f"Loaded meridians: {len(self.meridians_manager.get_all_meridians())}")
             
             # Initialize bot application.
             await self.application.initialize()
@@ -213,9 +230,12 @@ class YogaBot:
             # Stop HTTP server.
             await self.stop_http_server()
             
-            # Stop bot application.
-            await self.application.updater.stop()
-            await self.application.stop()
+            # Stop bot application. These guards keep failed startups from
+            # raising secondary shutdown errors that hide the original cause.
+            if self.application.updater and self.application.updater.running:
+                await self.application.updater.stop()
+            if self.application.running:
+                await self.application.stop()
             await self.application.shutdown()
             
             self.logger.info("Yoga bot stopped successfully.")
@@ -260,7 +280,8 @@ class YogaBot:
         health_status.update({
             "bot_running": self.application.running,
             "scheduler_running": self.scheduler.scheduler.running,
-            "languages_loaded": list(self.principles_manager._principles.keys())
+            "languages_loaded": list(self.principles_manager._principles.keys()),
+            "meridians_loaded": len(self.meridians_manager.get_all_meridians())
         })
         
         return web.json_response(health_status)
@@ -310,7 +331,8 @@ class YogaBot:
             "bot": {
                 "running": self.application.running,
                 "uptime_seconds": (datetime.now(timezone.utc) - self.health_check.start_time).total_seconds(),
-                "languages": list(self.principles_manager._principles.keys())
+                "languages": list(self.principles_manager._principles.keys()),
+                "meridians": len(self.meridians_manager.get_all_meridians())
             }
         }
         

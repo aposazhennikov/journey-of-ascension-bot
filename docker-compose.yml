@@ -11,6 +11,7 @@ services:
       - ./data:/app/data
       - ./images:/app/images:ro
       - ./bot/principles.json:/app/bot/principles.json:ro
+      - ./bot/meridians.json:/app/bot/meridians.json:ro
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
       - ADMIN_IDS=${ADMIN_IDS}
@@ -19,6 +20,7 @@ services:
       - DATA_DIR=/app/data
       - HTTP_PORT=8080
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - TELEGRAM_PROXY_URL=${TELEGRAM_PROXY_URL:-}
     env_file:
       - .env
     healthcheck:
