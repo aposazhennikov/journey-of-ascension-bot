@@ -259,7 +259,8 @@ def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, lis
         "main": main,
         "meridians_home": [
             [texts["current_meridian"]],
-            [texts["meridian_change_path"], texts["meridian_measurements"]],
+            [texts["meridian_change_path"]],
+            [texts["meridian_measurements"]],
             [texts["back_to_menu"]],
         ],
         "meridian_intro": [
