@@ -11,6 +11,7 @@ from aiohttp import web
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
 from telegram import Bot
+from telegram.request import HTTPXRequest
 from telegram.ext import Application, ContextTypes
 from pydantic_settings import BaseSettings
 from pydantic import Field
@@ -30,6 +31,7 @@ class Settings(BaseSettings):
     
     # Admin settings.
     admin_ids: str = Field(default="", description="Comma-separated admin user IDs")
+    notify_admins_on_startup: bool = Field(default=False, description="Send startup notifications to admins")
     
     # Storage settings.
     data_dir: str = Field(default="data", description="Data directory path")
@@ -116,7 +118,18 @@ class YogaBot:
         self.health_check = HealthCheck()
         
         # Initialize Telegram application.
-        self.application = Application.builder().token(settings.bot_token).build()
+        telegram_request = HTTPXRequest(
+            connect_timeout=20.0,
+            read_timeout=30.0,
+            write_timeout=30.0,
+            pool_timeout=20.0,
+        )
+        self.application = (
+            Application.builder()
+            .token(settings.bot_token)
+            .request(telegram_request)
+            .build()
+        )
         self.bot = self.application.bot
         
         # Initialize scheduler.
@@ -169,19 +182,19 @@ class YogaBot:
             bot_info = await self.bot.get_me()
             self.logger.info(f"Bot started successfully: @{bot_info.username}")
             
-            # Send startup message to admins.
-            startup_msg = (
-                f"🚀 **Yoga Bot Started**\n\n"
-                f"🕐 Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC\n"
-                f"📊 Languages: {list(self.principles_manager._principles.keys())}\n"
-                f"🌐 HTTP server: http://localhost:{self.settings.http_port}"
-            )
-            
-            for admin_id in self.settings.get_admin_ids():
-                try:
-                    await self.bot.send_message(admin_id, startup_msg, parse_mode='Markdown')
-                except Exception as e:
-                    self.logger.warning(f"Failed to send startup message to admin {admin_id}: {e}")
+            if self.settings.notify_admins_on_startup:
+                startup_msg = (
+                    f"🚀 **Yoga Bot Started**\n\n"
+                    f"🕐 Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC\n"
+                    f"📊 Languages: {list(self.principles_manager._principles.keys())}\n"
+                    f"🌐 HTTP server: http://localhost:{self.settings.http_port}"
+                )
+
+                for admin_id in self.settings.get_admin_ids():
+                    try:
+                        await self.bot.send_message(admin_id, startup_msg, parse_mode='Markdown')
+                    except Exception as e:
+                        self.logger.warning(f"Failed to send startup message to admin {admin_id}: {e}")
             
             self.logger.info("Yoga bot started successfully!")
             
@@ -358,4 +371,4 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("\nShutdown by user.")
-        sys.exit(0) 
+        sys.exit(0)

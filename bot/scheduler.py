@@ -124,12 +124,15 @@ class YogaScheduler:
                 # Log sent message.
                 await self.storage.add_sent_log(chat_id, principle["id"])
                 logger.info(f"Successfully sent principle {principle['id']} to user {chat_id}.")
-                
-                # Schedule next message.
-                await self._schedule_user_message(user)
             else:
                 logger.error(f"Failed to send message to user {chat_id}.")
-                
+
+            # Always schedule the next message for active users. A temporary
+            # Telegram timeout should not break the daily delivery chain.
+            current_user = await self.storage.get_user(chat_id)
+            if current_user and current_user.is_active:
+                await self._schedule_user_message(current_user)
+
         except Exception as e:
             logger.error(f"Error sending principle to user {chat_id}: {e}")
     
@@ -283,4 +286,4 @@ class YogaScheduler:
             
         except Exception as e:
             logger.error(f"Error removing jobs for user {chat_id}: {e}")
-            return 0 
+            return 0
