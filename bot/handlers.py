@@ -579,10 +579,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "This bot is a companion for gradual inner practice.\n\n"
-            "It sends daily reminders about the principles of <b>Yama and Niyama</b>, helping you gently bring them into everyday life.\n\n"
-            "<b>Yama and Niyama</b> are the ethical foundation. They help keep attention, energy, and daily actions aligned.\n\n"
-            "The bot also supports studying <b>Chinese meridians</b>: observing channels and points through body sensation, breath, attention, and inner images.\n\n"
+            "Inner practice begins with a simple observation: we have attention, strength, and energy, and every day we either gather them or scatter them.\n\n"
+            "<b>Yama and Niyama</b> help stop leaking energy through conflict, self-harm, dishonesty, excess, and unconscious habits. Each daily principle is not a one-day rule, but a focus that slowly becomes part of life.\n\n"
+            "<b>Meridians</b> are a practical map of the body and Qi flow. You learn to feel points, notice closed areas, and gently bring attention, breath, and circulation back there.\n\n"
             "What would you like to study?"
         ),
         "initial_mode_question": "What would you like to study?",
@@ -634,10 +633,10 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Meridian Time",
         "mode_menu": (
             "🧭 <b>My Path</b>\n\n"
-            "Choose which direction the bot should support in your daily practice.\n\n"
-            "<b>Yama/Niyama</b> is the ethical foundation: attention, honesty, discipline, and the ability not to waste inner strength.\n\n"
-            "<b>Meridians</b> are the next layer: body awareness, Qi flow, points, channels, and meditative observation.\n\n"
-            "You can practice one direction or keep both active together."
+            "Choose what the bot should help you return to every day.\n\n"
+            "<b>Yama/Niyama</b> is the foundation: less inner noise, fewer energy leaks, more honesty in action.\n\n"
+            "<b>Meridians</b> are the body layer: points, channels, Qi flow, and the skill of feeling areas that were previously silent.\n\n"
+            "You can begin with one direction or keep both active together."
         ),
         "mode_principles_only": "Yama/Niyama foundation",
         "mode_meridians_only": "Meridian study",
@@ -656,7 +655,8 @@ TEXTS_UPDATE = {
         "meridian_change_path": "Change study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
-        "meridian_measurements": "📏 TCM measurements",
+        "meridian_measurements": "📏 How to measure cun",
+        "meridian_back": "🔙 Back to meridians",
         "meridian_measurements_text": (
             "📏 <b>Measurement System in TCM</b>\n\n"
             "Acupuncture point locations are often described in <b>cun</b>. A cun is not a fixed centimeter value: it is a body-relative unit measured on the person being studied.\n\n"
@@ -690,11 +690,11 @@ TEXTS_UPDATE = {
         "meridian_completed": "✅ <b>Meridian completed</b>\n\nChoose the next channel when you are ready.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Our task is to help people move along the spiritual path with more clarity, steadiness, and inner honesty.\n\n"
-            "We are creating a simple and convenient tool for daily practice: a place where ethical principles, attention to the body, meditation, and work with subtle perception can gradually become part of life.\n\n"
-            "<b>Yama/Niyama</b> is the foundation: it helps preserve attention, energy, and inner strength in everyday actions.\n\n"
-            "<b>Meridians</b> are the next layer of practice: observing channels and points through body sensation, breath, attention, and inner images.\n\n"
-            "The bot does not replace your path. It gently reminds, structures practice, and helps you return to what matters."
+            "This bot is meant to be a quiet support for real practice, not a collection of inspiring phrases.\n\n"
+            "Every day it helps you return to one concrete focus: a Yama/Niyama principle or a meridian point. The aim is simple: notice where energy is spent unconsciously, stop wasting it, and learn to direct attention with more care.\n\n"
+            "<b>Yama/Niyama</b> works with behaviour, speech, thoughts, discipline, and honesty with yourself.\n\n"
+            "<b>Meridians</b> work with the body: channels, points, Qi flow, closed areas, breath, touch, and attention.\n\n"
+            "Small repetitions matter. They turn an idea into something you can actually live."
         ),
         "feature_announcement": (
             "🌿 **New feature in Journey of Ascension: Meridians**\n\n"
@@ -724,10 +724,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Этот бот помогает выстроить постепенную внутреннюю практику.\n\n"
-            "Он отправляет ежедневные напоминания о принципах <b>Ямы и Ниямы</b>, помогая плавно внедрять их в свою жизнь.\n\n"
-            "<b>Яма и Нияма</b> — нравственный фундамент. Они помогают не рассеивать внимание, энергию и внутреннюю силу в повседневных действиях.\n\n"
-            "Также в боте есть возможность изучать <b>китайские меридианы</b>: наблюдать каналы и точки через ощущения тела, дыхание, внимание и внутренние образы.\n\n"
+            "Внутренняя практика начинается с простого наблюдения: у нас есть внимание, сила и энергия. Каждый день мы либо собираем их, либо рассеиваем.\n\n"
+            "<b>Яма и Нияма</b> помогают перестать сливать энергию через конфликты, вред себе, нечестность, избыточность и привычки, которые мы обычно не замечаем. Ежедневный принцип — это не правило на один день, а фокус, который постепенно встраивается в жизнь.\n\n"
+            "<b>Меридианы</b> — практическая карта тела и течения Ци. Вы учитесь чувствовать точки, замечать закрытые зоны и мягко возвращать туда внимание, дыхание и циркуляцию.\n\n"
             "Что вы хотели бы изучать?"
         ),
         "initial_mode_question": "Что вы хотели бы изучать?",
@@ -779,10 +778,10 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Время меридианов",
         "mode_menu": (
             "🧭 <b>Мой путь</b>\n\n"
-            "Выберите, какое направление бот будет поддерживать в вашей ежедневной практике.\n\n"
-            "<b>Яма/Нияма</b> — нравственный фундамент: внимание, честность, дисциплина и способность не рассеивать внутреннюю силу.\n\n"
-            "<b>Меридианы</b> — следующий слой: внимание к телу, течение Ци, точки, каналы и медитативное наблюдение.\n\n"
-            "Можно выбрать одно направление или оставить активными оба."
+            "Выберите, к чему бот будет помогать возвращаться каждый день.\n\n"
+            "<b>Яма/Нияма</b> — фундамент: меньше внутреннего шума, меньше утечек энергии, больше честности в поступках.\n\n"
+            "<b>Меридианы</b> — телесный слой: точки, каналы, течение Ци и навык чувствовать зоны, которые раньше были как будто выключены.\n\n"
+            "Можно начать с одного направления или оставить активными оба."
         ),
         "mode_principles_only": "Фундамент Ямы/Ниямы",
         "mode_meridians_only": "Изучение меридианов",
@@ -801,7 +800,8 @@ TEXTS_UPDATE = {
         "meridian_change_path": "Изменить путь изучения",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
-        "meridian_measurements": "📏 Измерения в ТКМ",
+        "meridian_measurements": "📏 Как измерять цуни",
+        "meridian_back": "🔙 К меридианам",
         "meridian_measurements_text": (
             "📏 <b>Система измерений в ТКМ</b>\n\n"
             "Расположение акупунктурных точек часто описывается в <b>цунях</b>. Цунь — это не фиксированное число сантиметров, а относительная мера тела конкретного человека.\n\n"
@@ -835,11 +835,11 @@ TEXTS_UPDATE = {
         "meridian_completed": "✅ <b>Меридиан завершён</b>\n\nВыберите следующий канал, когда будете готовы.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Наша задача — помочь людям двигаться по духовному пути с большей ясностью, устойчивостью и честностью перед собой.\n\n"
-            "Мы создаём удобный инструмент для ежедневной практики: пространство, где нравственные принципы, внимание к телу, медитация и работа с тонким восприятием постепенно становятся частью жизни.\n\n"
-            "<b>Яма/Нияма</b> — фундамент. Он помогает сохранять внимание, энергию и внутреннюю силу в повседневных действиях.\n\n"
-            "<b>Меридианы</b> — следующий слой практики: наблюдение каналов и точек через ощущения тела, дыхание, внимание и внутренние образы.\n\n"
-            "Бот не заменяет ваш путь. Он мягко напоминает, структурирует практику и помогает возвращаться к тому, что действительно важно."
+            "Этот бот задуман как спокойная опора для реальной практики, а не как набор вдохновляющих фраз.\n\n"
+            "Каждый день он возвращает к одному конкретному фокусу: принципу Ямы/Ниямы или точке меридиана. Задача простая: замечать, где энергия уходит бессознательно, переставать её растрачивать и учиться направлять внимание бережнее.\n\n"
+            "<b>Яма/Нияма</b> работает с поведением, речью, мыслями, дисциплиной и честностью перед собой.\n\n"
+            "<b>Меридианы</b> работают через тело: каналы, точки, течение Ци, закрытые зоны, дыхание, касание и внимание.\n\n"
+            "Маленькие повторения важны. Они превращают идею в то, чем действительно можно жить."
         ),
         "feature_announcement": (
             "🌿 **Новая функция в Journey of Ascension: Меридианы**\n\n"
@@ -869,10 +869,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Bu bot bosqichma-bosqich ichki amaliyot uchun hamroh bo'ladi.\n\n"
-            "U <b>Yama va Niyama</b> tamoyillari bo'yicha kundalik eslatmalar yuboradi va ularni hayotga asta-sekin kiritishga yordam beradi.\n\n"
-            "<b>Yama va Niyama</b> axloqiy poydevordir. Ular diqqat, energiya va kundalik harakatlarni uyg'un saqlashga yordam beradi.\n\n"
-            "Bot orqali <b>Xitoy meridianlari</b>ni ham o'rganish mumkin: tana sezgisi, nafas, diqqat va ichki obrazlar orqali kanallar va nuqtalarni kuzatish.\n\n"
+            "Ichki amaliyot oddiy kuzatuvdan boshlanadi: bizda diqqat, kuch va energiya bor. Har kuni biz ularni yo yig'amiz, yo tarqatib yuboramiz.\n\n"
+            "<b>Yama va Niyama</b> energiyani mojaro, o'ziga zarar, nohalollik, ortiqchalik va ko'pincha sezilmaydigan odatlar orqali yo'qotishni kamaytiradi. Kundalik tamoyil bir kunlik qoida emas, balki hayotga asta-sekin kirib boradigan fokusdir.\n\n"
+            "<b>Meridianlar</b> tana va Qi oqimining amaliy xaritasi. Siz nuqtalarni sezishni, yopiq joylarni payqashni va u yerga diqqat, nafas hamda aylanishni muloyim qaytarishni o'rganasiz.\n\n"
             "Nimani o'rganmoqchisiz?"
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
@@ -924,10 +923,10 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Meridian vaqti",
         "mode_menu": (
             "🧭 <b>Mening yo'lim</b>\n\n"
-            "Bot kundalik amaliyotingizda qaysi yo'nalishni qo'llab-quvvatlashini tanlang.\n\n"
-            "<b>Yama/Niyama</b> axloqiy poydevor: diqqat, rostgo'ylik, intizom va ichki kuchni behuda sarflamaslik.\n\n"
-            "<b>Meridianlar</b> keyingi qatlam: tana sezgisi, Qi oqimi, nuqtalar, kanallar va meditatsion kuzatuv.\n\n"
-            "Bitta yo'nalishni tanlashingiz yoki ikkalasini ham faol qoldirishingiz mumkin."
+            "Bot har kuni nimaga qaytishingizga yordam berishini tanlang.\n\n"
+            "<b>Yama/Niyama</b> poydevor: ichki shovqin kamroq, energiya yo'qotish kamroq, harakatlarda ko'proq halollik.\n\n"
+            "<b>Meridianlar</b> tana qatlami: nuqtalar, kanallar, Qi oqimi va avval sezilmagan joylarni his qilish ko'nikmasi.\n\n"
+            "Bitta yo'nalishdan boshlashingiz yoki ikkalasini ham faol qoldirishingiz mumkin."
         ),
         "mode_principles_only": "Yama/Niyama poydevori",
         "mode_meridians_only": "Meridianlarni o'rganish",
@@ -946,7 +945,8 @@ TEXTS_UPDATE = {
         "meridian_change_path": "O'rganish yo'lini o'zgartirish",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
-        "meridian_measurements": "📏 TKM o'lchovlari",
+        "meridian_measurements": "📏 Cunni qanday o'lchash",
+        "meridian_back": "🔙 Meridianlarga qaytish",
         "meridian_measurements_text": (
             "📏 <b>TKMdagi o'lchov tizimi</b>\n\n"
             "Akupunktura nuqtalari ko'pincha <b>cun</b> orqali tasvirlanadi. Cun aniq santimetr emas: u o'rganilayotgan odam tanasiga nisbatan olinadigan o'lchovdir.\n\n"
@@ -980,11 +980,11 @@ TEXTS_UPDATE = {
         "meridian_completed": "✅ <b>Meridian yakunlandi</b>\n\nTayyor bo'lganingizda keyingi kanalni tanlang.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Bizning vazifamiz odamlarga ruhiy yo'lda yanada ravshanlik, barqarorlik va ichki halollik bilan harakat qilishga yordam berishdir.\n\n"
-            "Biz kundalik amaliyot uchun qulay vosita yaratmoqdamiz: axloqiy tamoyillar, tanaga e'tibor, meditatsiya va nozik sezgilar bilan ishlash asta-sekin hayotning bir qismiga aylanishi mumkin bo'lgan makon.\n\n"
-            "<b>Yama/Niyama</b> poydevordir. U kundalik harakatlarda diqqat, energiya va ichki kuchni saqlashga yordam beradi.\n\n"
-            "<b>Meridianlar</b> amaliyotning keyingi qatlami: tana sezgisi, nafas, diqqat va ichki obrazlar orqali kanallar va nuqtalarni kuzatish.\n\n"
-            "Bot yo'lingizni almashtirmaydi. U muloyim eslatadi, amaliyotni tartiblaydi va muhim narsalarga qaytishga yordam beradi."
+            "Bu bot ilhomli iboralar to'plami emas, balki haqiqiy amaliyot uchun sokin tayanch bo'lishi uchun yaratilgan.\n\n"
+            "Har kuni u sizni bitta aniq fokusga qaytaradi: Yama/Niyama tamoyiliga yoki meridian nuqtasiga. Maqsad oddiy: energiya qayerda ongsiz sarflanayotganini ko'rish, uni behuda ketkazmaslik va diqqatni ehtiyotkorroq yo'naltirishni o'rganish.\n\n"
+            "<b>Yama/Niyama</b> xulq, nutq, fikr, intizom va o'zingizga nisbatan halollik bilan ishlaydi.\n\n"
+            "<b>Meridianlar</b> tana orqali ishlaydi: kanallar, nuqtalar, Qi oqimi, yopiq joylar, nafas, teginish va diqqat.\n\n"
+            "Kichik takrorlar muhim. Ular g'oyani yashash mumkin bo'lgan odatga aylantiradi."
         ),
         "feature_announcement": (
             "🌿 **Journey of Ascension'da yangi funksiya: Meridianlar**\n\n"
@@ -1028,10 +1028,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Бұл бот біртіндеп ішкі тәжірибені құруға көмектеседі.\n\n"
-            "Ол <b>Яма мен Нияма</b> қағидалары туралы күнделікті еске салулар жіберіп, оларды өмірге біртіндеп енгізуге көмектеседі.\n\n"
-            "<b>Яма мен Нияма</b> — адамгершілік негіз. Олар зейінді, энергияны және күнделікті әрекеттерді үйлесімде ұстауға көмектеседі.\n\n"
-            "Бот арқылы <b>қытай меридиандарын</b> да зерттеуге болады: дене сезімі, тыныс, зейін және ішкі бейнелер арқылы арналар мен нүктелерді бақылау.\n\n"
+            "Ішкі тәжірибе қарапайым байқаудан басталады: бізде зейін, күш және энергия бар. Күн сайын біз оларды не жинаймыз, не шашыратып аламыз.\n\n"
+            "<b>Яма мен Нияма</b> энергияны қақтығыс, өзіне зиян, адалсыздық, артықтық және байқалмайтын әдеттер арқылы жоғалтуды азайтуға көмектеседі. Күнделікті қағида — бір күндік ереже емес, өмірге біртіндеп енетін фокус.\n\n"
+            "<b>Меридиандар</b> — дене мен Ци ағымының тәжірибелік картасы. Сіз нүктелерді сезуді, жабық аймақтарды байқауды және сол жерге зейін, тыныс пен айналымды жұмсақ қайтаруды үйренесіз.\n\n"
             "Нені зерттегіңіз келеді?"
         ),
         "initial_mode_question": "Нені зерттегіңіз келеді?",
@@ -1083,10 +1082,10 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Меридиан уақыты",
         "mode_menu": (
             "🧭 <b>Менің жолым</b>\n\n"
-            "Бот күнделікті тәжірибеңізде қай бағытты қолдайтынын таңдаңыз.\n\n"
-            "<b>Яма/Нияма</b> — адамгершілік негіз: зейін, шыншылдық, тәртіп және ішкі күшті шашыратпау қабілеті.\n\n"
-            "<b>Меридиандар</b> — келесі қабат: денеге зейін, Ци ағымы, нүктелер, арналар және медитациялық бақылау.\n\n"
-            "Бір бағытты таңдауға немесе екеуін де белсенді қалдыруға болады."
+            "Бот күн сайын неге қайта оралуға көмектесетінін таңдаңыз.\n\n"
+            "<b>Яма/Нияма</b> — негіз: ішкі шу азаяды, энергия шығыны азаяды, әрекетте адалдық көбейеді.\n\n"
+            "<b>Меридиандар</b> — дене қабаты: нүктелер, арналар, Ци ағымы және бұрын сезілмеген аймақтарды сезу дағдысы.\n\n"
+            "Бір бағыттан бастауға немесе екеуін де белсенді қалдыруға болады."
         ),
         "mode_principles_only": "Яма/Нияма негізі",
         "mode_meridians_only": "Меридиандарды зерттеу",
@@ -1105,7 +1104,8 @@ TEXTS_UPDATE = {
         "meridian_change_path": "Зерттеу жолын өзгерту",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
-        "meridian_measurements": "📏 ҚКМ өлшемдері",
+        "meridian_measurements": "📏 Цуньді қалай өлшеу",
+        "meridian_back": "🔙 Меридиандарға қайту",
         "meridian_measurements_text": (
             "📏 <b>ҚКМ-дегі өлшем жүйесі</b>\n\n"
             "Акупунктура нүктелерінің орналасуы жиі <b>цунь</b> арқылы сипатталады. Цунь — нақты сантиметр емес, зерттеліп отырған адамның денесіне қатысты өлшем.\n\n"
@@ -1139,11 +1139,11 @@ TEXTS_UPDATE = {
         "meridian_completed": "✅ <b>Меридиан аяқталды</b>\n\nДайын болғанда келесі арнаны таңдаңыз.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Біздің міндетіміз — адамдарға рухани жолмен көбірек айқындықпен, тұрақтылықпен және өзіне деген адалдықпен жүруге көмектесу.\n\n"
-            "Біз күнделікті тәжірибеге ыңғайлы құрал жасап жатырмыз: адамгершілік қағидалар, денеге зейін, медитация және нәзік қабылдаумен жұмыс біртіндеп өмірдің бөлігіне айналатын кеңістік.\n\n"
-            "<b>Яма/Нияма</b> — негіз. Ол күнделікті әрекеттерде зейінді, энергияны және ішкі күшті сақтауға көмектеседі.\n\n"
-            "<b>Меридиандар</b> — тәжірибенің келесі қабаты: дене сезімі, тыныс, зейін және ішкі бейнелер арқылы арналар мен нүктелерді бақылау.\n\n"
-            "Бот сіздің жолыңызды алмастырмайды. Ол жұмсақ еске салады, тәжірибені құрылымдайды және маңызды нәрсеге қайта оралуға көмектеседі."
+            "Бұл бот шабыт беретін сөздер жинағы емес, нақты тәжірибе үшін тыныш тірек болу үшін жасалған.\n\n"
+            "Күн сайын ол сізді бір нақты фокусқа қайтарады: Яма/Нияма қағидасына немесе меридиан нүктесіне. Мақсат қарапайым: энергияның қайда бейсаналы жұмсалып жатқанын көру, оны босқа шашпау және зейінді ұқыптырақ бағыттауды үйрену.\n\n"
+            "<b>Яма/Нияма</b> мінез-құлықпен, сөзбен, оймен, тәртіппен және өзіңізге адал болумен жұмыс істейді.\n\n"
+            "<b>Меридиандар</b> дене арқылы жұмыс істейді: арналар, нүктелер, Ци ағымы, жабық аймақтар, тыныс, жанасу және зейін.\n\n"
+            "Кішкентай қайталаулар маңызды. Олар идеяны өмірде қолдануға болатын дағдыға айналдырады."
         ),
         "feature_announcement": (
             "🌿 **Journey of Ascension ішіндегі жаңа функция: Меридиандар**\n\n"
@@ -2516,7 +2516,7 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
                 InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")
             ],
-            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="meridian_main")]
+            [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
         ])
 
     def _create_meridian_path_keyboard(self, language: str) -> InlineKeyboardMarkup:
@@ -2540,7 +2540,7 @@ class BotHandlers:
                     callback_data=f"meridian_select:{meridian.get('id')}"
                 ))
             keyboard.append(row)
-        keyboard.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="meridian_main")])
+        keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
         return InlineKeyboardMarkup(keyboard)
 
     def _create_meridian_points_keyboard(self, meridian: Dict[str, Any], language: str) -> InlineKeyboardMarkup:
@@ -2557,7 +2557,7 @@ class BotHandlers:
                     callback_data=f"meridian_point:{index}"
                 )
             ])
-        keyboard.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="meridian_current")])
+        keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_current")])
         return InlineKeyboardMarkup(keyboard)
     
     async def _handle_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -2906,7 +2906,7 @@ class BotHandlers:
                     query,
                     self._get_text("meridian_measurements_text", language),
                     reply_markup=InlineKeyboardMarkup([
-                        [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="meridian_main")]
+                        [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
                     ]),
                     parse_mode='HTML'
                 )

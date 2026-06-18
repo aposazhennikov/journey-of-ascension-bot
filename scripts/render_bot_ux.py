@@ -200,7 +200,7 @@ def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, lis
         "meridian_practice": [
             [texts["prev_point"], texts["next_point"]],
             [texts["all_points"], texts["complete_meridian"]],
-            [texts["back_to_menu"]],
+            [texts["meridian_back"]],
         ],
         "principles": [[texts["principles_random"], texts["principles_all"]], [texts["back_to_menu"]]],
     }
@@ -219,9 +219,12 @@ def render_html(output: Path) -> None:
         kb = build_keyboards(t)
         principle = principles[language][0]
         sections.append(f"<div class='locale'><h1>{language.upper()}</h1>")
+        sections.append(message("Onboarding intro", allow_basic_html(t["onboarding_intro"]), [[t["mode_meridians_only"]], [t["mode_principles_only"]], [t["mode_both"]]]))
         sections.append(message("Main menu", allow_basic_html(t["menu"]), kb["main"]))
+        sections.append(message("My Path", allow_basic_html(t["mode_menu"]), [[t["mode_principles_only"]], [t["mode_meridians_only"]], [t["mode_both"]], [t["back_to_menu"]]]))
+        sections.append(message("About", allow_basic_html(t["about_text"]), [[t["back_to_menu"]]]))
         sections.append(message("Meridians home", allow_basic_html(t["meridians_menu"]), kb["meridians_home"]))
-        sections.append(message("TCM measurements", allow_basic_html(t["meridian_measurements_text"]), [[t["back_to_menu"]]]))
+        sections.append(message("TCM measurements", allow_basic_html(t["meridian_measurements_text"]), [[t["meridian_back"]]]))
         sections.append(message("Conception Vessel intro", format_meridian_intro(conception, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 1", format_meridian_point(conception, 0, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 3", format_meridian_point(conception, 2, language), kb["meridian_practice"]))
