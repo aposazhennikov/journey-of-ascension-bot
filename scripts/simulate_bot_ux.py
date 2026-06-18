@@ -34,6 +34,22 @@ RECOMMENDED_PATH = (
     "gallbladder",
     "liver",
 )
+EXPECTED_POINT_COUNTS = {
+    "lung": 11,
+    "large_intestine": 20,
+    "stomach": 45,
+    "spleen": 21,
+    "heart": 9,
+    "small_intestine": 19,
+    "bladder": 67,
+    "kidney": 27,
+    "pericardium": 9,
+    "triple_burner": 23,
+    "gallbladder": 44,
+    "liver": 14,
+    "governing_vessel": 28,
+    "conception_vessel": 24,
+}
 
 
 def load_texts() -> dict[str, dict[str, str]]:
@@ -269,8 +285,20 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             if "???" in value:
                 issues.append(f"{language}: {key} contains ???")
 
-    if len(meridians) < 14:
-        issues.append(f"expected at least 14 meridians, got {len(meridians)}")
+    if len(meridians) != len(EXPECTED_POINT_COUNTS):
+        issues.append(f"expected {len(EXPECTED_POINT_COUNTS)} meridians, got {len(meridians)}")
+
+    missing_meridians = sorted(set(EXPECTED_POINT_COUNTS) - set(meridians_by_id))
+    if missing_meridians:
+        issues.append(f"missing meridians: {missing_meridians}")
+
+    for meridian_id, expected_count in EXPECTED_POINT_COUNTS.items():
+        item = meridians_by_id.get(meridian_id)
+        if not item:
+            continue
+        actual_count = item["pointsCount"]
+        if actual_count != expected_count:
+            issues.append(f"{meridian_id}: expected {expected_count} points, got {actual_count}")
 
     first_ready = next((mid for mid in payload["recommendedPath"] if mid in ready_ids), None)
     if first_ready != "conception_vessel":

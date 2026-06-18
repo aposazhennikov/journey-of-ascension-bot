@@ -18,6 +18,22 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("en", "ru", "uz", "kz")
+EXPECTED_POINT_COUNTS = {
+    "lung": 11,
+    "large_intestine": 20,
+    "stomach": 45,
+    "spleen": 21,
+    "heart": 9,
+    "small_intestine": 19,
+    "bladder": 67,
+    "kidney": 27,
+    "pericardium": 9,
+    "triple_burner": 23,
+    "gallbladder": 44,
+    "liver": 14,
+    "governing_vessel": 28,
+    "conception_vessel": 24,
+}
 MOJIBAKE_RE = re.compile(
     r"(?:"
     r"Р[ђѓЃєµЅ¶°±Ііґё№»јњќћїЎўЈ¤Ґ¦§Ё©«¬®Ї]"
@@ -331,6 +347,20 @@ def audit() -> list[str]:
                 issues.append(f"{path}: possible mojibake -> {value[:80]}")
 
     meridians = load_json("bot/meridians.json")["meridians"]
+    meridians_by_id = {item["id"]: item for item in meridians}
+    if len(meridians) != len(EXPECTED_POINT_COUNTS):
+        issues.append(f"expected {len(EXPECTED_POINT_COUNTS)} meridians, got {len(meridians)}")
+    missing_meridians = sorted(set(EXPECTED_POINT_COUNTS) - set(meridians_by_id))
+    if missing_meridians:
+        issues.append(f"missing meridians: {missing_meridians}")
+    for meridian_id, expected_count in EXPECTED_POINT_COUNTS.items():
+        item = meridians_by_id.get(meridian_id)
+        if not item:
+            continue
+        actual_count = len(item.get("points", []))
+        if actual_count != expected_count:
+            issues.append(f"{meridian_id}: expected {expected_count} points, got {actual_count}")
+
     image_dir = ROOT / "images" / "meridians"
     for meridian in meridians:
         for point in meridian.get("points", []):

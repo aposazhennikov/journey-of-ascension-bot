@@ -688,7 +688,7 @@ TEXTS_UPDATE = {
         "prev_point": "Previous point",
         "complete_meridian": "Complete meridian",
         "select_meridian": "Choose meridian",
-        "no_points": "Points for this meridian will be added after source content is prepared.",
+        "no_points": "I could not open the points for this meridian right now. Please return to the meridian list or try again later.",
         "meridian_completed": "✅ <b>Meridian completed</b>\n\nChoose the next channel when you are ready.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
@@ -835,7 +835,7 @@ TEXTS_UPDATE = {
         "prev_point": "Предыдущая точка",
         "complete_meridian": "Завершить меридиан",
         "select_meridian": "Выбрать меридиан",
-        "no_points": "Точки этого меридиана будут добавлены после подготовки контента из источников.",
+        "no_points": "Сейчас не удалось открыть точки этого меридиана. Вернитесь к списку меридианов или попробуйте позже.",
         "meridian_completed": "✅ <b>Меридиан завершён</b>\n\nВыберите следующий канал, когда будете готовы.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
@@ -982,7 +982,7 @@ TEXTS_UPDATE = {
         "prev_point": "Oldingi nuqta",
         "complete_meridian": "Meridianni yakunlash",
         "select_meridian": "Meridian tanlash",
-        "no_points": "Bu meridian nuqtalari manba kontenti tayyorlangandan keyin qo'shiladi.",
+        "no_points": "Hozir bu meridian nuqtalarini ochib bo'lmadi. Meridianlar ro'yxatiga qayting yoki keyinroq urinib ko'ring.",
         "meridian_completed": "✅ <b>Meridian yakunlandi</b>\n\nTayyor bo'lganingizda keyingi kanalni tanlang.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
@@ -1143,7 +1143,7 @@ TEXTS_UPDATE = {
         "prev_point": "Алдыңғы нүкте",
         "complete_meridian": "Меридианды аяқтау",
         "select_meridian": "Меридиан таңдау",
-        "no_points": "Бұл меридиан нүктелері дереккөз контенті дайындалғаннан кейін қосылады.",
+        "no_points": "Қазір бұл меридианның нүктелерін ашу мүмкін болмады. Меридиандар тізіміне оралыңыз немесе кейінірек қайталап көріңіз.",
         "meridian_completed": "✅ <b>Меридиан аяқталды</b>\n\nДайын болғанда келесі арнаны таңдаңыз.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
