@@ -18,6 +18,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("en", "ru", "uz", "kz")
+POINTS_PAGE_SIZE = 10
 EXPECTED_POINT_COUNTS = {
     "lung": 11,
     "large_intestine": 20,
@@ -222,6 +223,27 @@ def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, lis
     }
 
 
+def point_page_keyboard(meridian: dict[str, Any], language: str, texts: dict[str, str], page: int = 0) -> list[list[str]]:
+    points = meridian.get("points", [])
+    total_pages = max(1, (len(points) + POINTS_PAGE_SIZE - 1) // POINTS_PAGE_SIZE)
+    page = max(0, min(page, total_pages - 1))
+    start = page * POINTS_PAGE_SIZE
+    buttons = []
+    for index, point in enumerate(points[start:start + POINTS_PAGE_SIZE], start=start):
+        point_i18n = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
+        buttons.append([f"{index + 1}. {point.get('code', '')} {point_i18n.get('name', '')}".strip()])
+    if total_pages > 1:
+        row = []
+        if page > 0:
+            row.append("◀️ 10")
+        row.append(f"{page + 1}/{total_pages}")
+        if page < total_pages - 1:
+            row.append("10 ▶️")
+        buttons.append(row)
+    buttons.append([texts["meridian_back"]])
+    return buttons
+
+
 def render_html(output: Path) -> None:
     texts = load_texts()
     meridians = load_json("bot/meridians.json")["meridians"]
@@ -267,6 +289,7 @@ def render_html(output: Path) -> None:
         sections.append(message("Small Intestine Meridian point 1", format_meridian_point(small_intestine, 0, language), kb["meridian_practice"]))
         sections.append(message("Bladder Meridian intro", format_meridian_intro(bladder, language), kb["meridian_practice"]))
         sections.append(message("Bladder Meridian point 1", format_meridian_point(bladder, 0, language), kb["meridian_practice"]))
+        sections.append(message("Bladder points page 1", f"<b>{escape(t['all_points'])}</b><br><br>Page 1/7", point_page_keyboard(bladder, language, t)))
         sections.append(message("Kidney Meridian intro", format_meridian_intro(kidney, language), kb["meridian_practice"]))
         sections.append(message("Kidney Meridian point 1", format_meridian_point(kidney, 0, language), kb["meridian_practice"]))
         sections.append(message("Pericardium Meridian intro", format_meridian_intro(pericardium, language), kb["meridian_practice"]))

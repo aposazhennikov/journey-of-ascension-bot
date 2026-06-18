@@ -439,6 +439,7 @@ def render(output: Path) -> None:
       learningMode: null,
       currentMeridianId: 'conception_vessel',
       currentPointIndex: -1,
+      currentPointsPage: 0,
       completed: [],
     }};
 
@@ -590,7 +591,7 @@ def render(output: Path) -> None:
         : item.intro[state.language];
       show('Current focus', html, [
         [{{ label: t('prev_point'), action: prevPoint, disabled: item.pointsCount === 0 }}, {{ label: t('next_point'), action: nextPoint, disabled: item.pointsCount === 0 }}],
-        [{{ label: t('all_points'), action: () => setScreen('allPoints'), disabled: item.pointsCount === 0 }}, {{ label: t('complete_meridian'), action: completeMeridian }}],
+        [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('complete_meridian'), action: completeMeridian }}],
         [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
       ]);
     }}
@@ -635,9 +636,24 @@ def render(output: Path) -> None:
 
     function renderAllPoints() {{
       const item = meridian();
-      const buttons = item.points.map((point, index) => [{{ label: `${{index + 1}}. ${{point.code}} ${{point.names[state.language]}}`, action: () => {{ state.currentPointIndex = index; setScreen('currentMeridian'); }} }}]);
+      const pageSize = 10;
+      const totalPages = Math.max(1, Math.ceil(item.points.length / pageSize));
+      state.currentPointsPage = Math.max(0, Math.min(state.currentPointsPage, totalPages - 1));
+      const start = state.currentPointsPage * pageSize;
+      const buttons = item.points.slice(start, start + pageSize).map((point, offset) => {{
+        const index = start + offset;
+        return [{{ label: `${{index + 1}}. ${{point.code}} ${{point.names[state.language]}}`, action: () => {{ state.currentPointIndex = index; setScreen('currentMeridian'); }} }}];
+      }});
+      if (totalPages > 1) {{
+        const nav = [];
+        if (state.currentPointsPage > 0) nav.push({{ label: '◀️ 10', action: () => {{ state.currentPointsPage -= 1; setScreen('allPoints'); }} }});
+        nav.push({{ label: `${{state.currentPointsPage + 1}}/${{totalPages}}`, action: () => {{}} }});
+        if (state.currentPointsPage < totalPages - 1) nav.push({{ label: '10 ▶️', action: () => {{ state.currentPointsPage += 1; setScreen('allPoints'); }} }});
+        buttons.push(nav);
+      }}
       buttons.push([{{ label: t('meridian_back'), action: () => setScreen('currentMeridian') }}]);
-      show('All points', `<b>${{t('all_points')}}</b>`, buttons);
+      const pageNote = totalPages > 1 ? `<br><br>Page ${{state.currentPointsPage + 1}}/${{totalPages}}` : '';
+      show('All points', `<b>${{t('all_points')}}</b>${{pageNote}}`, buttons);
     }}
 
     function renderPrinciples() {{

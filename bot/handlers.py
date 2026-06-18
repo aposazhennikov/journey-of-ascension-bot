@@ -29,6 +29,8 @@ from .utils import (
 
 logger = logging.getLogger(__name__)
 
+MERIDIAN_POINTS_PAGE_SIZE = 10
+
 
 # Multilingual texts
 TEXTS = {
@@ -2698,11 +2700,16 @@ class BotHandlers:
         keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
         return InlineKeyboardMarkup(keyboard)
 
-    def _create_meridian_points_keyboard(self, meridian: Dict[str, Any], language: str) -> InlineKeyboardMarkup:
-        """Create a clickable list of points for the current meridian."""
+    def _create_meridian_points_keyboard(self, meridian: Dict[str, Any], language: str, page: int = 0) -> InlineKeyboardMarkup:
+        """Create a paginated clickable list of points for the current meridian."""
         keyboard = []
         points = meridian.get("points", [])
-        for index, point in enumerate(points):
+        total_pages = max(1, (len(points) + MERIDIAN_POINTS_PAGE_SIZE - 1) // MERIDIAN_POINTS_PAGE_SIZE)
+        page = max(0, min(page, total_pages - 1))
+        start = page * MERIDIAN_POINTS_PAGE_SIZE
+        end = min(start + MERIDIAN_POINTS_PAGE_SIZE, len(points))
+
+        for index, point in enumerate(points[start:end], start=start):
             localized = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
             code = point.get("code", "")
             name = localized.get("name", "")
@@ -2712,8 +2719,34 @@ class BotHandlers:
                     callback_data=f"meridian_point:{index}"
                 )
             ])
+        if total_pages > 1:
+            navigation = []
+            if page > 0:
+                navigation.append(InlineKeyboardButton("◀️ 10", callback_data=f"meridian_points_page:{page - 1}"))
+            navigation.append(InlineKeyboardButton(f"{page + 1}/{total_pages}", callback_data="meridian_noop"))
+            if page < total_pages - 1:
+                navigation.append(InlineKeyboardButton("10 ▶️", callback_data=f"meridian_points_page:{page + 1}"))
+            keyboard.append(navigation)
         keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_current")])
         return InlineKeyboardMarkup(keyboard)
+
+    def _format_meridian_points_page_text(self, language: str, page: int, total_pages: int) -> str:
+        """Build text for the paginated point chooser."""
+        choose_point = {
+            "en": "Choose a point to open its location image and practice.",
+            "ru": "Выберите точку, чтобы открыть изображение расположения и практику.",
+            "uz": "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang.",
+            "kz": "Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз.",
+        }.get(language, "Choose a point to open its location image and practice.")
+        if total_pages <= 1:
+            return f"<b>{self._get_text('all_points', language)}</b>\n\n{choose_point}"
+        page_note = {
+            "en": f"Page {page + 1}/{total_pages}.",
+            "ru": f"Страница {page + 1}/{total_pages}.",
+            "uz": f"Sahifa {page + 1}/{total_pages}.",
+            "kz": f"Бет {page + 1}/{total_pages}.",
+        }.get(language, f"Page {page + 1}/{total_pages}.")
+        return f"<b>{self._get_text('all_points', language)}</b>\n\n{choose_point}\n\n{page_note}"
     
     async def _handle_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /menu command."""
@@ -3188,6 +3221,9 @@ class BotHandlers:
 
             points = meridian.get("points", [])
 
+            if action == "noop":
+                return
+
             if action == "current":
                 text = format_meridian_point(meridian, user.current_point_index, language) if user.current_point_index >= 0 else format_meridian_intro(meridian, language)
                 point_code = points[user.current_point_index].get("code") if user.current_point_index >= 0 and user.current_point_index < len(points) else None
@@ -3206,14 +3242,21 @@ class BotHandlers:
                     text = self._get_text("no_points", language)
                     keyboard = self._create_meridians_menu_keyboard(language)
                 else:
-                    choose_point = {
-                        "en": "Choose a point to open its location image and practice.",
-                        "ru": "Выберите точку, чтобы открыть изображение расположения и практику.",
-                        "uz": "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang.",
-                        "kz": "Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз.",
-                    }.get(language, "Choose a point to open its location image and practice.")
-                    text = f"<b>{self._get_text('all_points', language)}</b>\n\n{choose_point}"
-                    keyboard = self._create_meridian_points_keyboard(meridian, language)
+                    total_pages = max(1, (len(points) + MERIDIAN_POINTS_PAGE_SIZE - 1) // MERIDIAN_POINTS_PAGE_SIZE)
+                    text = self._format_meridian_points_page_text(language, 0, total_pages)
+                    keyboard = self._create_meridian_points_keyboard(meridian, language, page=0)
+                await self._show_meridian_card(query, text, keyboard, language)
+                return
+
+            if action.startswith("points_page:"):
+                if not points:
+                    await self._edit_message_text_safe(query, self._get_text("no_points", language), reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='HTML')
+                    return
+                page = int(action.split(":", 1)[1])
+                total_pages = max(1, (len(points) + MERIDIAN_POINTS_PAGE_SIZE - 1) // MERIDIAN_POINTS_PAGE_SIZE)
+                page = max(0, min(page, total_pages - 1))
+                text = self._format_meridian_points_page_text(language, page, total_pages)
+                keyboard = self._create_meridian_points_keyboard(meridian, language, page=page)
                 await self._show_meridian_card(query, text, keyboard, language)
                 return
 
