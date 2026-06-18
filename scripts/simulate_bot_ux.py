@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import re
 from html import escape
 from pathlib import Path
 from typing import Any
@@ -283,6 +284,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             if "<b>" not in meridian["intro"][language]:
                 issues.append(f"{meridian_id}/{language}: intro has no bold title")
         for index, point in enumerate(meridian["points"]):
+            if not re.match(r"^[A-Z]+[0-9]+$", point["code"]):
+                issues.append(f"{meridian_id} point {index + 1}: non-normalized point code {point['code']!r}")
             for language in LANGUAGES:
                 detail = point["detail"][language]
                 plain = strip_html(detail)

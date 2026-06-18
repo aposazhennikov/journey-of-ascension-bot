@@ -17,25 +17,25 @@ HEADERS = {"User-Agent": "Mozilla/5.0 Journey of Ascension content importer"}
 
 LANG_META = {
     "en": {
-        "focus": "Rest attention on this point for 3-5 minutes. Notice warmth, pressure, pulsation, emptiness, thoughts, or images without forcing a result.",
+        "focus": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
         "question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?",
         "source_location": "Source location",
         "source_note": "Classical note",
     },
     "ru": {
-        "focus": "Удерживайте внимание на этой точке 3-5 минут. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы без усилия получить результат.",
+        "focus": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
         "question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?",
         "source_location": "Расположение",
         "source_note": "Классическое примечание",
     },
     "uz": {
-        "focus": "Diqqatni ushbu nuqtada 3-5 daqiqa ushlab turing. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni majburlamasdan kuzating.",
+        "focus": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
         "question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?",
         "source_location": "Manbadagi joylashuv",
         "source_note": "Klassik izoh",
     },
     "kz": {
-        "focus": "Зейінді осы нүктеде 3-5 минут ұстаңыз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді күш салмай бақылаңыз.",
+        "focus": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
         "question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?",
         "source_location": "Дереккөздегі орналасуы",
         "source_note": "Классикалық түсіндірме",
@@ -44,6 +44,37 @@ LANG_META = {
 
 
 MERIDIANS = [
+    {
+        "id": "lung",
+        "category_id": 17,
+        "source_url": "https://shiyanbin.ru/meridian-legkih-p/",
+        "active_time": "03:00-05:00",
+        "passive_time": "15:00-17:00",
+        "names": {
+            "en": "Lung Meridian",
+            "ru": "Меридиан лёгких",
+            "uz": "O'pka meridiani",
+            "kz": "Өкпе меридианы",
+        },
+        "direction": {
+            "en": "From the upper chest along the inner side of the arm toward the thumb.",
+            "ru": "От верхней части груди по внутренней стороне руки к большому пальцу.",
+            "uz": "Ko'krakning yuqori qismidan qo'lning ichki tomoni bo'ylab bosh barmoqqa.",
+            "kz": "Кеуденің жоғарғы бөлігінен қолдың ішкі жағымен бас бармаққа қарай.",
+        },
+        "intro": {
+            "en": "The Lung Meridian is used here as a map for observing breath, the chest, the inner line of the arm, and the quality of receiving and releasing.",
+            "ru": "Меридиан лёгких здесь используется как карта наблюдения дыхания, грудной клетки, внутренней линии руки и способности принимать и отпускать.",
+            "uz": "O'pka meridiani bu yerda nafas, ko'krak, qo'lning ichki chizig'i hamda qabul qilish va qo'yib yuborish sifatini kuzatish xaritasi sifatida ishlatiladi.",
+            "kz": "Өкпе меридианы бұл жерде тынысты, кеудені, қолдың ішкі сызығын және қабылдау мен босату сапасын бақылау картасы ретінде қолданылады.",
+        },
+        "practice": {
+            "en": "Sit calmly, soften the chest and shoulders, then follow the channel from the chest through the inner arm to the thumb together with natural breathing.",
+            "ru": "Сядьте спокойно, смягчите грудь и плечи, затем ведите внимание от груди по внутренней стороне руки к большому пальцу вместе с естественным дыханием.",
+            "uz": "Sokin o'tiring, ko'krak va yelkalarni yumshating, keyin diqqatni tabiiy nafas bilan ko'krakdan qo'lning ichki tomoni bo'ylab bosh barmoqqa olib boring.",
+            "kz": "Тыныш отырыңыз, кеуде мен иықты жұмсартыңыз, содан кейін зейінді табиғи тыныспен кеудеден қолдың ішкі жағымен бас бармаққа қарай жүргізіңіз.",
+        },
+    },
     {
         "id": "governing_vessel",
         "category_id": 29,
@@ -156,11 +187,30 @@ def point_entries(category_html: str) -> list[tuple[str, str]]:
         match = re.match(r"^([A-ZА-Я]{1,3})\s*(\d+)\s+(.+?)(?:\s*\(([^)]+)\))?$", title, flags=re.I)
         if not match:
             continue
-        code = f"{match.group(1).upper()}{match.group(2)}".replace(".", "")
+        code = normalize_point_code(f"{match.group(1).upper()}{match.group(2)}".replace(".", ""))
         name = match.group(3).strip()
         alt_code = match.group(4).strip() if match.group(4) else ""
         result.append((urllib.parse.urljoin("https://www.eledia.ru/", href), code, name, alt_code))
     return result
+
+
+def normalize_point_code(code: str) -> str:
+    """Normalize visually similar Cyrillic channel letters to Latin codes."""
+    translation = str.maketrans({
+        "А": "A",
+        "В": "B",
+        "Е": "E",
+        "К": "K",
+        "М": "M",
+        "Н": "H",
+        "О": "O",
+        "Р": "P",
+        "С": "C",
+        "Т": "T",
+        "У": "Y",
+        "Х": "X",
+    })
+    return code.translate(translation)
 
 
 def get_image_url(point_html: str) -> str | None:
