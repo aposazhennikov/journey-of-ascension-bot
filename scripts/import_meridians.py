@@ -138,6 +138,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "spleen",
+        "category_id": 20,
+        "source_url": "https://shiyanbin.ru/meridian-selezenki-rp/",
+        "active_time": "09:00-11:00",
+        "passive_time": "21:00-23:00",
+        "names": {
+            "en": "Spleen Meridian",
+            "ru": "Меридиан селезёнки",
+            "uz": "Taloq meridiani",
+            "kz": "Көкбауыр меридианы",
+        },
+        "direction": {
+            "en": "From the big toe along the inner side of the foot and leg, then upward through the abdomen and chest.",
+            "ru": "От большого пальца стопы по внутренней стороне стопы и ноги, затем вверх через живот и грудь.",
+            "uz": "Oyoq bosh barmog'idan panja va oyoqning ichki tomoni bo'ylab, keyin qorin va ko'krak orqali yuqoriga.",
+            "kz": "Аяқтың бас бармағынан табан мен аяқтың ішкі жағымен, содан кейін іш пен кеуде арқылы жоғары.",
+        },
+        "intro": {
+            "en": "The Spleen Meridian is used here as a map for observing assimilation, inner steadiness, the medial line of the leg, and how the body distributes strength after receiving nourishment.",
+            "ru": "Меридиан селезёнки здесь используется как карта наблюдения усвоения, внутренней устойчивости, медиальной линии ноги и того, как тело распределяет силы после получения питания.",
+            "uz": "Taloq meridiani bu yerda o'zlashtirish, ichki barqarorlik, oyoqning ichki chizig'i va tana oziqlanishdan keyin kuchni qanday taqsimlashini kuzatish xaritasi sifatida ishlatiladi.",
+            "kz": "Көкбауыр меридианы бұл жерде сіңіруді, ішкі тұрақтылықты, аяқтың ішкі сызығын және дене қоректенуден кейін күшті қалай бөлетінін бақылау картасы ретінде қолданылады.",
+        },
+        "practice": {
+            "en": "Relax the feet, knees, abdomen, and chest. Let attention rise from the big toe along the inner leg toward the abdomen and chest, noticing where the channel feels stable, heavy, warm, or unclear.",
+            "ru": "Расслабьте стопы, колени, живот и грудь. Ведите внимание от большого пальца стопы по внутренней стороне ноги к животу и груди, замечая, где канал ощущается устойчивым, тяжёлым, тёплым или неясным.",
+            "uz": "Panja, tizza, qorin va ko'krakni bo'shating. Diqqatni oyoq bosh barmog'idan oyoqning ichki tomoni bo'ylab qorin va ko'krakka olib boring, kanal qayerda barqaror, og'ir, iliq yoki noaniq sezilishini kuzating.",
+            "kz": "Табанды, тізені, ішті және кеудені босатыңыз. Зейінді аяқтың бас бармағынан аяқтың ішкі жағымен іш пен кеудеге қарай жүргізіп, арна қай жерде тұрақты, ауыр, жылы немесе анық емес екенін байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
