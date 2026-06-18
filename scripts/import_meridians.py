@@ -387,6 +387,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "liver",
+        "category_id": 28,
+        "source_url": "https://shiyanbin.ru/meridian-pecheni-f/",
+        "active_time": "01:00-03:00",
+        "passive_time": "13:00-15:00",
+        "names": {
+            "en": "Liver Meridian",
+            "ru": "Меридиан печени",
+            "uz": "Jigar meridiani",
+            "kz": "Бауыр меридианы",
+        },
+        "direction": {
+            "en": "From the big toe along the inner foot and leg through the pelvis, abdomen, ribs, throat, and eyes.",
+            "ru": "От большого пальца стопы по внутренней стороне стопы и ноги через таз, живот, рёбра, горло и глаза.",
+            "uz": "Oyoq bosh barmog'idan panja va oyoqning ichki tomoni bo'ylab chanoq, qorin, qovurg'alar, tomoq va ko'zlarga.",
+            "kz": "Аяқтың бас бармағынан табан мен аяқтың ішкі жағымен жамбас, іш, қабырға, тамақ және көзге қарай.",
+        },
+        "intro": {
+            "en": "The Liver Meridian is used here as a map for observing the free movement of Qi: inner legs, pelvis, ribs, throat, eyes, irritation, pressure, planning, and the ability to direct force without becoming hard.",
+            "ru": "Меридиан печени здесь используется как карта свободного движения Ци: внутренняя линия ног, таз, рёбра, горло, глаза, раздражение, давление, планирование и способность направлять силу, не становясь жёстким.",
+            "uz": "Jigar meridiani bu yerda Qi erkin harakatini kuzatish xaritasi sifatida ishlatiladi: oyoqlarning ichki chizig'i, chanoq, qovurg'alar, tomoq, ko'zlar, jahldorlik, bosim, rejalash va qattiqlashmasdan kuchni yo'naltirish qobiliyati.",
+            "kz": "Бауыр меридианы бұл жерде Цидің еркін қозғалысын бақылау картасы ретінде қолданылады: аяқтың ішкі сызығы, жамбас, қабырға, тамақ, көз, ашу, қысым, жоспарлау және қатаймай күшті бағыттау қабілеті.",
+        },
+        "practice": {
+            "en": "Relax the big toe, inner legs, pelvis, ribs, throat, and eyes. Let attention rise through the channel and notice where movement feels stuck, angry, pressured, flexible, or quietly directed.",
+            "ru": "Расслабьте большой палец стопы, внутреннюю сторону ног, таз, рёбра, горло и глаза. Ведите внимание вверх по каналу и замечайте, где движение ощущается застрявшим, злым, давящим, гибким или спокойно направленным.",
+            "uz": "Oyoq bosh barmog'i, oyoqlarning ichki tomoni, chanoq, qovurg'alar, tomoq va ko'zlarni bo'shating. Diqqatni kanal bo'ylab yuqoriga olib boring va harakat qayerda tiqilib qolgan, jahlli, bosimli, moslashuvchan yoki sokin yo'naltirilgan sezilishini kuzating.",
+            "kz": "Аяқтың бас бармағын, аяқтың ішкі жағын, жамбасты, қабырғаларды, тамақты және көзді босатыңыз. Зейінді арна бойымен жоғары жүргізіп, қозғалыстың қай жерде тұрып қалған, ашулы, қысымды, икемді немесе тыныш бағытталған сезілетінін байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
