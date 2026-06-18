@@ -105,6 +105,13 @@ def localized_location(point: dict[str, Any], language: str) -> str:
     else:
         if not has_cyrillic(value):
             return value
+    if value.lower().startswith("pending source refinement"):
+        pending_labels = {
+            "en": "The exact source location is being clarified. For now, use the image and the surrounding anatomical landmarks as your guide.",
+            "uz": "Nuqtaning aniq joylashuvi manba bo'yicha aniqlashtirilmoqda. Hozircha rasm va atrofdagi anatomik belgilardan yo'l-yo'riq sifatida foydalaning.",
+            "kz": "Нүктенің нақты орналасуы дереккөз бойынша нақтыланып жатыр. Әзірге суретті және айналасындағы анатомиялық белгілерді бағдар ретінде қолданыңыз.",
+        }
+        return pending_labels.get(language, pending_labels["en"])
     labels = {
         "en": "Original source location (RU)",
         "uz": "Manbadagi asl joylashuv (rus tilida)",
