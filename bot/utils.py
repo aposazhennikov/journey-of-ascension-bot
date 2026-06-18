@@ -195,6 +195,39 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     instruction = escape(_localized_value(point, language, "meditation_instruction"))
     question = escape(_localized_value(point, language, "observation_question"))
 
+    practice_notes = {
+        "en": (
+            "Begin with the first point: find it through body sensation, breath, and attention. "
+            "If the sensation is weak, treat the point as not yet open: give it more time, gently massage it, "
+            "and imagine breathing through it until concentration becomes steady and easy.",
+            "First recall the points you have already studied. Without losing them, add the current point and connect it with the previous ones as one line of attention. "
+            "If it is hard to feel, treat it as not yet open: gently massage it, breathe through it with attention, and stay longer until the sensation becomes stable."
+        ),
+        "ru": (
+            "Начните с первой точки: найдите её через ощущение тела, дыхание и внимание. "
+            "Если ощущение слабое, считайте точку пока закрытой: уделите ей больше времени, мягко помассируйте её "
+            "и представляйте вдох и выдох через неё, пока концентрация не станет лёгкой и устойчивой.",
+            "Сначала вспомните и удерживайте ощущение уже пройденных точек. Не отпуская их, добавьте текущую точку и соедините её с предыдущими в одну линию внимания. "
+            "Если точка не ощущается, считайте её пока закрытой: мягко помассируйте её, дышите через неё вниманием и оставайтесь дольше, пока ощущение не станет устойчивым."
+        ),
+        "uz": (
+            "Birinchi nuqtadan boshlang: uni tana sezgisi, nafas va diqqat orqali toping. "
+            "Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq vaqt bering, yengil massaj qiling "
+            "va diqqat barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+            "Avval oldin o'rganilgan nuqtalarni eslang va sezib turing. Ularni yo'qotmasdan, hozirgi nuqtani qo'shing va oldingilari bilan bitta diqqat chizig'iga ulang. "
+            "Agar nuqta sezilmasa, uni hali ochilmagan deb qabul qiling: yengil massaj qiling, diqqat bilan shu nuqta orqali nafas oling va sezgi barqaror bo'lguncha turing."
+        ),
+        "kz": (
+            "Бірінші нүктеден бастаңыз: оны дене сезімі, тыныс және зейін арқылы табыңыз. "
+            "Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек уақыт бөліңіз, жеңіл уқалаңыз "
+            "және шоғырлану тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+            "Алдымен бұрын өткен нүктелердің сезімін еске түсіріп, ұстап тұрыңыз. Оларды жібермей, қазіргі нүктені қосып, алдыңғыларымен бір зейін сызығына біріктіріңіз. "
+            "Егер нүкте сезілмесе, оны әзірге ашылмаған деп қабылдаңыз: жеңіл уқалаңыз, зейінмен сол нүкте арқылы тыныстаңыз және сезім тұрақталғанша ұзағырақ болыңыз."
+        ),
+    }
+    first_note, next_note = practice_notes.get(language, practice_notes["en"])
+    practice_note = escape(first_note if point_index == 0 else next_note)
+
     labels = {
         "en": ("Point", "Location", "Focus", "Observe"),
         "ru": ("Точка", "Расположение", "Концентрация", "Наблюдение"),
@@ -208,8 +241,11 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
         message += f"<b>{escape(labels[1])}:</b> {location}\n\n"
     if instruction:
         message += f"<b>{escape(labels[2])}:</b> {instruction}\n\n"
+    message += f"{practice_note}\n\n"
     if question:
-        message += f"<i>{escape(labels[3])}:</i> {question}"
+        with_question = message + f"<i>{escape(labels[3])}:</i> {question}"
+        if len(with_question) <= 1024:
+            message = with_question
     return message
 
 
