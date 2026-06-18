@@ -142,6 +142,34 @@ def location_translation_status(meridians: list[dict[str, Any]]) -> dict[str, di
     return status
 
 
+def location_translation_tasks(
+    meridians: list[dict[str, Any]],
+    limit_per_language: int = 8,
+) -> dict[str, list[dict[str, str]]]:
+    """Return concrete point-location translation tasks for the QA sidebar."""
+    tasks = {language: [] for language in LANGUAGES if language != "ru"}
+    for meridian in meridians:
+        meridian_id = meridian.get("id", "")
+        for point in meridian.get("points", []):
+            code = point.get("code", "")
+            for language in tasks:
+                if len(tasks[language]) >= limit_per_language:
+                    continue
+                location = localized(point, language, "location")
+                if not location.startswith(SOURCE_LOCATION_PREFIXES):
+                    continue
+                tasks[language].append(
+                    {
+                        "meridianId": meridian_id,
+                        "meridian": localized(meridian, language, "name", meridian_id),
+                        "code": code,
+                        "point": localized(point, language, "name", code),
+                        "status": "pending" if "pending source refinement" in location.lower() else "source",
+                    }
+                )
+    return tasks
+
+
 def principle_group(principle_id: int, language: str) -> str:
     values = {
         "en": ("Yama", "Niyama"),
@@ -247,6 +275,7 @@ def build_payload() -> dict[str, Any]:
         "languages": LANGUAGES,
         "recommendedPath": RECOMMENDED_PATH,
         "translationCoverage": location_translation_status(meridians),
+        "translationTasks": location_translation_tasks(meridians),
         "meridians": [],
         "principles": {},
     }
@@ -309,6 +338,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append(f"languages mismatch: {payload['languages']}")
 
     translation_coverage = payload.get("translationCoverage", {})
+    translation_tasks = payload.get("translationTasks", {})
     for language in LANGUAGES:
         item = translation_coverage.get(language)
         if not item:
@@ -316,6 +346,20 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             continue
         if item["source"] > item["total"] or item["pending"] > item["total"]:
             issues.append(f"{language}: impossible translation coverage values {item}")
+        tasks = translation_tasks.get(language, [])
+        if language == "ru":
+            if tasks:
+                issues.append("ru: should not have location translation tasks")
+        elif item["source"] and not tasks:
+            issues.append(f"{language}: source-backed locations exist but no translation tasks are shown")
+        if len(tasks) > 8:
+            issues.append(f"{language}: too many translation tasks shown")
+        for task in tasks:
+            missing_task_keys = {"meridianId", "meridian", "code", "point", "status"} - set(task)
+            if missing_task_keys:
+                issues.append(f"{language}: incomplete translation task {task}")
+            if task.get("status") not in {"source", "pending"}:
+                issues.append(f"{language}: invalid translation task status {task.get('status')!r}")
 
     for language in LANGUAGES:
         language_texts = texts.get(language, {})
@@ -455,6 +499,8 @@ def render(output: Path) -> None:
     .muted {{ color: rgba(36,48,34,.68); }}
     .coverage {{ display: grid; gap: 6px; margin-top: 10px; font-size: 14px; }}
     .bar {{ display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }}
+    .task {{ padding: 6px 0; border-top: 1px solid rgba(36,48,34,.14); line-height: 1.25; }}
+    .task small {{ display: block; color: rgba(36,48,34,.68); margin-top: 2px; }}
     @media (max-width: 820px) {{ .app {{ grid-template-columns: 1fr; }} .phone {{ max-width: none; }} }}
   </style>
 </head>
@@ -494,6 +540,10 @@ def render(output: Path) -> None:
         <b>Location translation</b>
         <div id="translationCoverage" class="coverage"></div>
       </div>
+      <div class="state">
+        <b>Next location tasks</b>
+        <div id="translationTasks" class="coverage"></div>
+      </div>
     </aside>
   </main>
   <script id="payload" type="application/json">{payload_json}</script>
@@ -507,6 +557,7 @@ def render(output: Path) -> None:
     const stateBox = document.getElementById('state');
     const coverageBox = document.getElementById('coverage');
     const translationCoverageBox = document.getElementById('translationCoverage');
+    const translationTasksBox = document.getElementById('translationTasks');
 
     const state = {{
       language: 'ru',
@@ -585,6 +636,18 @@ def render(output: Path) -> None:
           <div class="bar muted"><span>source RU / pending</span><b>${{item.source}} / ${{item.pending}}</b></div>
         `;
       }}).join('');
+      translationTasksBox.innerHTML = payload.languages
+        .filter((language) => language !== 'ru')
+        .map((language) => {{
+          const tasks = (payload.translationTasks[language] || []).slice(0, 4);
+          const items = tasks.map((task) => `
+            <div class="task">
+              <b>${{language.toUpperCase()}} · ${{task.code}}</b> · ${{task.meridian}}
+              <small>${{task.point}}${{task.status === 'pending' ? ' · pending source' : ' · source RU'}}</small>
+            </div>
+          `).join('');
+          return `<div class="muted">${{language.toUpperCase()}}</div>${{items || '<div class="muted">No open tasks</div>'}}`;
+        }}).join('');
     }}
 
     function chooseMode(mode) {{
