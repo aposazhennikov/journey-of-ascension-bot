@@ -214,6 +214,112 @@ def build_payload() -> dict[str, Any]:
     return payload
 
 
+def strip_html(value: str) -> str:
+    return (
+        value.replace("<br>", "\n")
+        .replace("<b>", "")
+        .replace("</b>", "")
+        .replace("<i>", "")
+        .replace("</i>", "")
+    )
+
+
+def audit_payload(payload: dict[str, Any]) -> list[str]:
+    """Check core UX-flow invariants modeled by the simulator."""
+    issues: list[str] = []
+    texts = payload["texts"]
+    meridians = payload["meridians"]
+    meridians_by_id = {item["id"]: item for item in meridians}
+    ready_ids = [item["id"] for item in meridians if item["pointsCount"] > 0]
+
+    if tuple(payload["languages"]) != LANGUAGES:
+        issues.append(f"languages mismatch: {payload['languages']}")
+
+    for language in LANGUAGES:
+        language_texts = texts.get(language, {})
+        missing = sorted(set(texts["en"].keys()) - set(language_texts.keys()))
+        if missing:
+            issues.append(f"{language}: missing text keys: {', '.join(missing[:12])}")
+
+        onboarding = language_texts.get("onboarding_intro", "")
+        for marker in ("<b>", "Yama", "Meridian"):
+            if marker == "Yama" and language in {"ru", "kz"}:
+                marker = "Яма"
+            if marker == "Meridian" and language in {"ru", "kz"}:
+                marker = "Меридиан"
+            if marker == "Meridian" and language == "uz":
+                marker = "Meridian"
+            if marker not in onboarding:
+                issues.append(f"{language}: onboarding does not mention {marker!r}")
+
+        energy_markers = {
+            "en": "energy",
+            "ru": "энерг",
+            "uz": "energiya",
+            "kz": "энерг",
+        }
+        if energy_markers[language] not in onboarding.lower():
+            issues.append(f"{language}: onboarding does not explain energy")
+
+        for key in ("mode_menu", "about_text", "meridians_menu", "meridian_measurements_text"):
+            value = language_texts.get(key, "")
+            if "<b>" not in value:
+                issues.append(f"{language}: {key} has no bold formatting")
+            if "???" in value:
+                issues.append(f"{language}: {key} contains ???")
+
+    if len(meridians) < 14:
+        issues.append(f"expected at least 14 meridians, got {len(meridians)}")
+
+    first_ready = next((mid for mid in payload["recommendedPath"] if mid in ready_ids), None)
+    if first_ready != "conception_vessel":
+        issues.append(f"recommended path should start with conception_vessel, got {first_ready}")
+
+    for meridian_id in ready_ids:
+        meridian = meridians_by_id[meridian_id]
+        if not meridian["points"]:
+            issues.append(f"{meridian_id}: marked ready but has no point payload")
+        for language in LANGUAGES:
+            if "<b>" not in meridian["intro"][language]:
+                issues.append(f"{meridian_id}/{language}: intro has no bold title")
+        for index, point in enumerate(meridian["points"]):
+            for language in LANGUAGES:
+                detail = point["detail"][language]
+                plain = strip_html(detail)
+                if "???" in plain:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: contains ???")
+                if "<b>" not in detail:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: no bold formatting")
+                if language == "ru" and index == 0 and "закрыт" not in plain:
+                    issues.append(f"{meridian_id} point 1/ru: missing closed-point guidance")
+                if language == "ru" and index > 0 and "уже пройденных точек" not in plain:
+                    issues.append(f"{meridian_id} point {index + 1}/ru: missing cumulative-point guidance")
+
+    for item in meridians:
+        if item["pointsCount"] == 0:
+            for language in LANGUAGES:
+                if not texts[language].get("coming_soon"):
+                    issues.append(f"{language}: missing coming_soon label for unavailable meridians")
+
+    for language in LANGUAGES:
+        long_buttons = []
+        button_sources = [
+            texts[language].get("mode_principles_only", ""),
+            texts[language].get("mode_meridians_only", ""),
+            texts[language].get("mode_both", ""),
+            texts[language].get("meridian_measurements", ""),
+            texts[language].get("meridian_change_path", ""),
+        ]
+        button_sources.extend(item["names"][language] for item in meridians)
+        for label in button_sources:
+            if len(label) > 42:
+                long_buttons.append(label)
+        if long_buttons:
+            issues.append(f"{language}: long button labels: {long_buttons[:5]}")
+
+    return issues
+
+
 def render(output: Path) -> None:
     payload = build_payload()
     payload_json = json.dumps(payload, ensure_ascii=False)
@@ -588,8 +694,20 @@ def render(output: Path) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default="tmp/ux_simulator.html")
+    parser.add_argument("--audit-only", action="store_true")
     args = parser.parse_args()
-    render(ROOT / args.output)
+    payload = build_payload()
+    issues = audit_payload(payload)
+    if not args.audit_only:
+        render(ROOT / args.output)
+
+    if issues:
+        print("Simulator audit issues:")
+        for issue in issues:
+            print(f"- {issue}")
+        return 1
+
+    print("Simulator audit passed: critical UX flows look consistent.")
     return 0
 
 
