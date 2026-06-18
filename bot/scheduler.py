@@ -165,7 +165,7 @@ class YogaScheduler:
                 return
             
             # Format message.
-            message_text = format_principle_message(principle)
+            message_text = format_principle_message(principle, user.language)
             
             # Send message with retry logic.
             success = await self._send_message_with_retry(chat_id, message_text, principle_id=principle["id"])
@@ -299,26 +299,26 @@ class YogaScheduler:
                                         chat_id=chat_id, 
                                         photo=photo, 
                                         caption=message, 
-                                        parse_mode='Markdown'
+                                        parse_mode='HTML'
                                     )
                                 logger.info(f"Successfully sent image for principle {principle_id}")
                             except Exception as img_error:
                                 logger.error(f"Error sending image {image_path}: {img_error}")
                                 # Fallback to text message
-                                sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
+                                sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='HTML')
                                 logger.info("Sent fallback text message")
                         else:
                             logger.warning(f"Image path is None for principle {principle_id}")
                             # Fallback to text message
-                            sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
+                            sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='HTML')
                     else:
                         logger.info(f"No image found for principle {principle_id}, sending text only")
                         # Send text message
-                        sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
+                        sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='HTML')
                 else:
                     logger.info("No principle_id provided, sending text message")
                     # Send text message
-                    sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
+                    sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='HTML')
                 
                 # Store message ID for dialog cleanup
                 if sent_message:
@@ -369,14 +369,14 @@ class YogaScheduler:
             
             # Test message in user's language
             test_prefixes = {
-                "en": "🧪 **Test Message**\n\n",
-                "ru": "🧪 **Тестовое сообщение**\n\n",
-                "uz": "🧪 **Test xabari**\n\n",
-                "kz": "🧪 **Тест хабар**\n\n"
+                "en": "🧪 <b>Test message</b>\n\n",
+                "ru": "🧪 <b>Тестовое сообщение</b>\n\n",
+                "uz": "🧪 <b>Test xabari</b>\n\n",
+                "kz": "🧪 <b>Тест хабары</b>\n\n"
             }
             test_prefix = test_prefixes.get(language, test_prefixes["en"])
-                
-            message_text = f"{test_prefix}{format_principle_message(principle)}"
+
+            message_text = f"{test_prefix}{format_principle_message(principle, language, max_length=1024 - len(test_prefix))}"
             
             return await self._send_message_with_retry(chat_id, message_text, principle_id=principle["id"])
             

@@ -168,22 +168,83 @@ class MeridiansManager:
         return meridians[(current_index + 1) % len(meridians)] if current_index >= 0 else meridians[0]
 
 
-def format_principle_message(principle: Dict[str, Any]) -> str:
-    """Format principle for sending to user."""
+def format_principle_message(principle: Dict[str, Any], language: str = "en", max_length: int = 1024) -> str:
+    """Format a daily Yama/Niyama focus as an HTML caption-safe message."""
+    labels = {
+        "en": ("Part", "Today's focus", "Practice"),
+        "ru": ("Часть", "Фокус дня", "Практика"),
+        "uz": ("Qismi", "Bugungi fokus", "Amaliyot"),
+        "kz": ("Бөлігі", "Бүгінгі фокус", "Тәжірибе"),
+    }.get(language, ("Part", "Today's focus", "Practice"))
+    groups = {
+        "en": ("Yama", "Niyama"),
+        "ru": ("Яма", "Нияма"),
+        "uz": ("Yama", "Niyama"),
+        "kz": ("Яма", "Нияма"),
+    }.get(language, ("Yama", "Niyama"))
+    reminders = {
+        "en": "We do not leave the other principles behind. Today this one becomes the main lens through which you watch thoughts, words, and actions.",
+        "ru": "Остальные принципы не откладываются в сторону. Сегодня этот принцип просто становится главным фокусом, через который вы наблюдаете мысли, речь и поступки.",
+        "uz": "Boshqa tamoyillar chetga surilmaydi. Bugun shu tamoyil fikr, so'z va harakatlarni kuzatish uchun asosiy fokus bo'ladi.",
+        "kz": "Қалған қағидалар шетте қалмайды. Бүгін осы қағида ойды, сөзді және әрекетті бақылауға арналған негізгі фокус болады.",
+    }.get(language)
+
+    principle_id = int(principle.get("id", 0) or 0)
+    group = groups[0] if principle_id <= 5 else groups[1]
     emoji = principle.get("emoji", "🧘")
     name = principle.get("name", "")
     short_desc = principle.get("short_description", "")
     description = principle.get("description", "")
     practice_tip = principle.get("practice_tip", "")
-    
-    message = f"**{name}** {emoji}\n\n"
-    message += f"{short_desc}\n\n"
-    message += f"{description}\n\n"
-    
-    if practice_tip:
-        message += f"💡 *{practice_tip}*"
-    
-    return message
+
+    def shorten(value: str, limit: int) -> str:
+        if limit <= 0:
+            return ""
+        if len(value) <= limit:
+            return value
+        if limit <= 3:
+            return value[:limit]
+        return value[:limit - 3].rstrip() + "..."
+
+    def build(desc: str, practice: str) -> str:
+        parts = [
+            f"<b>{escape(name)}</b> {escape(emoji)}".strip(),
+            f"<b>{escape(labels[0])}:</b> {escape(group)}",
+        ]
+        if short_desc:
+            parts.append(escape(short_desc))
+        if reminders:
+            parts.append(f"<b>{escape(labels[1])}:</b> {escape(reminders)}")
+        if desc:
+            parts.append(escape(desc))
+        if practice:
+            parts.append(f"💡 <b>{escape(labels[2])}:</b> <i>{escape(practice)}</i>")
+        return "\n\n".join(part for part in parts if part)
+
+    text = build(description, practice_tip)
+    if len(text) <= max_length:
+        return text
+
+    desc = description
+    practice = practice_tip
+    while len(build(desc, practice)) > max_length and len(desc) > 20:
+        overflow = len(build(desc, practice)) - max_length
+        desc = shorten(desc, max(20, len(desc) - overflow - 8))
+
+    text = build(desc, practice)
+    if len(text) <= max_length:
+        return text
+
+    desc = ""
+    text = build(desc, practice)
+    while len(text) > max_length and len(practice) > 20:
+        overflow = len(text) - max_length
+        practice = shorten(practice, max(20, len(practice) - overflow - 8))
+        text = build(desc, practice)
+
+    if len(text) <= max_length:
+        return text
+    return build("", "")
 
 
 def _localized_value(item: Dict[str, Any], language: str, key: str, default: str = "") -> str:

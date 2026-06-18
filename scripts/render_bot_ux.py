@@ -219,8 +219,7 @@ def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, lis
         "main": main,
         "meridians_home": [
             [texts["current_meridian"]],
-            [texts["meridian_change_path"]],
-            [texts["meridian_measurements"]],
+            [texts["meridian_change_path"], texts["meridian_measurements"]],
             [texts["back_to_menu"]],
         ],
         "meridian_practice": [
@@ -388,7 +387,7 @@ def audit() -> list[str]:
             if key in {"menu", "settings_menu"} and "<b>" not in value:
                 issues.append(f"{language}: {key} has no bold title after HTML normalization")
 
-    for relative_path in ("bot/handlers.py", "bot/utils.py"):
+    for relative_path in ("bot/handlers.py", "bot/utils.py", "bot/scheduler.py"):
         source = (ROOT / relative_path).read_text(encoding="utf-8-sig")
         for line_number, line in enumerate(source.splitlines(), 1):
             if "???" in line:

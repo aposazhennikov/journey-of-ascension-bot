@@ -658,7 +658,7 @@ TEXTS_UPDATE = {
         "meridian_change_path": "🧭 Study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
-        "meridian_measurements": "📏 How to measure cun",
+        "meridian_measurements": "📏 TCM measurements",
         "meridian_back": "🔙 Back to meridians",
         "coming_soon": "soon",
         "meridian_measurements_text": (
@@ -679,10 +679,10 @@ TEXTS_UPDATE = {
             "<b>If a point is hard to feel</b>, do not force it. Treat it as an area that needs more attention: soften the body, breathe through the point, and stay with it until the sensation becomes steadier.\n\n"
             "<b>How to move:</b> keep the points you have already felt in awareness, then add the next one. Gradually the separate points become one living line.\n\n"
             "This does not replace medical diagnosis or treatment. It is a practice of awareness, prevention, and inner discipline.\n\n"
-            "Continue your current focus, choose a study path, or open the cun guide if the point location mentions distances."
+            "Choose what you want to do now: continue practice, choose a study path, or open the TCM measurement guide for cun distances."
         ),
         "choose_meridian": "☯️ <b>Choose a meridian:</b>",
-        "current_meridian": "Start / continue",
+        "current_meridian": "Continue practice",
         "all_points": "All points",
         "next_point": "Next point",
         "prev_point": "Previous point",
@@ -802,7 +802,7 @@ TEXTS_UPDATE = {
         "meridian_change_path": "🧭 Путь изучения",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
-        "meridian_measurements": "📏 Как мерить цуни",
+        "meridian_measurements": "📏 Измерения в ТКМ",
         "meridian_back": "🔙 К меридианам",
         "coming_soon": "скоро",
         "meridian_measurements_text": (
@@ -823,10 +823,10 @@ TEXTS_UPDATE = {
             "<b>Если точка не ощущается</b>, не нужно давить силой. Считайте её зоной, которой пока нужно больше внимания: расслабьте тело, подышите через точку и оставайтесь с ней, пока ощущение не станет устойчивее.\n\n"
             "<b>Как двигаться:</b> удерживайте уже найденные точки вниманием и добавляйте следующую. Постепенно отдельные точки начинают собираться в живую линию меридиана.\n\n"
             "Эта практика не заменяет медицинскую диагностику и лечение. Это инструмент осознанности, профилактики и внутренней дисциплины.\n\n"
-            "Продолжите текущий фокус, выберите путь изучения или откройте подсказку по цуням, если в описании точки указано расстояние."
+            "Выберите, что сделать сейчас: продолжить практику, выбрать путь изучения или открыть справку по системе измерений в ТКМ для расстояний в цунях."
         ),
         "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
-        "current_meridian": "Начать / продолжить",
+        "current_meridian": "Продолжить практику",
         "all_points": "Все точки",
         "next_point": "Следующая точка",
         "prev_point": "Предыдущая точка",
@@ -946,7 +946,7 @@ TEXTS_UPDATE = {
         "meridian_change_path": "🧭 O'rganish yo'li",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
-        "meridian_measurements": "📏 Cunni qanday o'lchash",
+        "meridian_measurements": "📏 TKM o'lchovlari",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "coming_soon": "tez orada",
         "meridian_measurements_text": (
@@ -967,10 +967,10 @@ TEXTS_UPDATE = {
             "<b>Agar nuqta sezilmasa</b>, kuch bilan bosmang. Uni ko'proq e'tibor kerak bo'lgan zona deb qabul qiling: tanani yumshating, nuqta orqali nafas olayotgandek tasavvur qiling va sezgi barqarorroq bo'lguncha qoling.\n\n"
             "<b>Qanday harakatlanish kerak:</b> oldin topilgan nuqtalarni diqqatda ushlab, keyingisini qo'shing. Asta-sekin alohida nuqtalar meridianning tirik chizig'iga yig'iladi.\n\n"
             "Bu amaliyot tibbiy tashxis va davolanishni almashtirmaydi. U ongli kuzatuv, profilaktika va ichki intizom vositasidir.\n\n"
-            "Joriy fokusni davom ettiring, o'rganish yo'lini tanlang yoki nuqta tavsifida masofa berilgan bo'lsa, cun bo'yicha yo'riqnomani oching."
+            "Hozir nima qilishni tanlang: amaliyotni davom ettirish, o'rganish yo'lini tanlash yoki cun masofalari uchun TKM o'lchovlari qo'llanmasini ochish."
         ),
         "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
-        "current_meridian": "Boshlash / davom etish",
+        "current_meridian": "Amaliyotni davom ettirish",
         "all_points": "Barcha nuqtalar",
         "next_point": "Keyingi nuqta",
         "prev_point": "Oldingi nuqta",
@@ -1104,7 +1104,7 @@ TEXTS_UPDATE = {
         "meridian_change_path": "🧭 Зерттеу жолы",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
-        "meridian_measurements": "📏 Цуньді қалай өлшеу",
+        "meridian_measurements": "📏 ТҚМ өлшемдері",
         "meridian_back": "🔙 Меридиандарға қайту",
         "coming_soon": "жақында",
         "meridian_measurements_text": (
@@ -1125,10 +1125,10 @@ TEXTS_UPDATE = {
             "<b>Егер нүкте сезілмесе</b>, күшпен басудың қажеті жоқ. Оны көбірек зейін керек аймақ деп қабылдаңыз: денені жұмсартыңыз, сол нүкте арқылы тыныстап тұрғандай елестетіңіз және сезім тұрақталғанша бірге болыңыз.\n\n"
             "<b>Қалай жылжу керек:</b> бұрын табылған нүктелерді зейінде ұстап, келесі нүктені қосыңыз. Біртіндеп бөлек нүктелер меридианның тірі сызығына жиналады.\n\n"
             "Бұл тәжірибе медициналық диагностика мен емді алмастырмайды. Ол саналылық, алдын алу және ішкі тәртіп құралы ретінде қолданылады.\n\n"
-            "Ағымдағы фокусты жалғастырыңыз, зерттеу жолын таңдаңыз немесе нүкте сипаттамасында қашықтық берілсе, цунь бойынша нұсқаулықты ашыңыз."
+            "Қазір не істегіңіз келетінін таңдаңыз: тәжірибені жалғастыру, зерттеу жолын таңдау немесе цунь қашықтықтары үшін ТҚМ өлшемдері нұсқаулығын ашу."
         ),
         "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
-        "current_meridian": "Бастау / жалғастыру",
+        "current_meridian": "Тәжірибені жалғастыру",
         "all_points": "Барлық нүктелер",
         "next_point": "Келесі нүкте",
         "prev_point": "Алдыңғы нүкте",
@@ -1900,10 +1900,11 @@ class BotHandlers:
             
             principle = await self.scheduler.get_next_principle_for_user(target_chat_id)
             if principle:
-                principle_text = format_principle_message(principle)
+                target_user = await self.storage.get_user(target_chat_id)
+                target_language = target_user.language if target_user else "en"
+                principle_text = format_principle_message(principle, target_language)
                 message_text = self._get_admin_text("next_principle", user_id=target_chat_id, principle=principle_text)
-                # Send without Markdown to avoid parsing errors
-                await update.message.reply_text(message_text)
+                await update.message.reply_text(message_text, parse_mode='HTML')
             else:
                 text = self._get_admin_text("no_principles", user_id=target_chat_id)
                 await update.message.reply_text(text)
@@ -2642,8 +2643,10 @@ class BotHandlers:
         """Create compact meridians section keyboard."""
         return InlineKeyboardMarkup([
             [InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")],
-            [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
-            [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
+            [
+                InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path"),
+                InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")
+            ],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
