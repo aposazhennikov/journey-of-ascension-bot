@@ -700,9 +700,10 @@ TEXTS_UPDATE = {
             "Small repetitions matter. They turn an idea into something you can actually live."
         ),
         "feature_announcement": (
-            "🌿 **New feature in Journey of Ascension: Meridians**\n\n"
-            "You can now study Chinese meridians as a separate practice. Choose a meridian, move through points manually, and use daily reminders to return attention to the current focus.\n\n"
-            "Open /menu and choose **Meridians**."
+            "☯️ <b>New in Journey of Ascension: meridian practice</b>\n\n"
+            "You can now study Chinese meridians inside the bot: choose a channel, open each point with its image, and move through the practice at your own pace.\n\n"
+            "The daily reminder does not rush you forward. It simply brings you back to the current focus so attention can become steadier.\n\n"
+            "Open /menu and choose <b>Meridians</b>."
         ),
         "already_subscribed": "🕊️ You are already subscribed to Journey of Ascension.\n\nUse /menu to choose practices or /settings to change reminders.",
         "unsubscribed": "The bot has been stopped. Reminders will no longer be sent.\n\nUse /start if you want to return.",
@@ -845,9 +846,10 @@ TEXTS_UPDATE = {
             "Маленькие повторения важны. Они превращают идею в то, чем действительно можно жить."
         ),
         "feature_announcement": (
-            "🌿 **Новая функция в Journey of Ascension: Меридианы**\n\n"
-            "Теперь можно изучать китайские меридианы как отдельную практику. Выберите меридиан, проходите точки вручную и используйте ежедневные напоминания, чтобы возвращать внимание к текущему фокусу.\n\n"
-            "Откройте /menu и выберите **Меридианы**."
+            "☯️ <b>Новое в Journey of Ascension: практика меридианов</b>\n\n"
+            "Теперь внутри бота можно изучать китайские меридианы: выбирать канал, открывать каждую точку с изображением и двигаться по практике в своём темпе.\n\n"
+            "Ежедневное напоминание не торопит вас дальше. Оно просто возвращает к текущему фокусу, чтобы внимание становилось устойчивее.\n\n"
+            "Откройте /menu и выберите <b>Меридианы</b>."
         ),
         "already_subscribed": "🕊️ Вы уже подписаны на Journey of Ascension.\n\nИспользуйте /menu для выбора практик или /settings для настройки напоминаний.",
         "unsubscribed": "Бот остановлен. Напоминания больше не будут приходить.\n\nЕсли захотите вернуться, используйте /start.",
@@ -990,9 +992,10 @@ TEXTS_UPDATE = {
             "Kichik takrorlar muhim. Ular g'oyani yashash mumkin bo'lgan odatga aylantiradi."
         ),
         "feature_announcement": (
-            "🌿 **Journey of Ascension'da yangi funksiya: Meridianlar**\n\n"
-            "Endi Xitoy meridianlarini alohida amaliyot sifatida o'rganish mumkin. Meridian tanlang, nuqtalar bo'ylab qo'lda o'ting va kundalik eslatmalar orqali joriy fokusga qayting.\n\n"
-            "/menu ni oching va **Meridianlar** bo'limini tanlang."
+            "☯️ <b>Journey of Ascension'da yangilik: meridian amaliyoti</b>\n\n"
+            "Endi bot ichida Xitoy meridianlarini o'rganish mumkin: kanalni tanlang, har bir nuqtani rasmi bilan oching va amaliyotda o'z ritmingizda yuring.\n\n"
+            "Kundalik eslatma sizni shoshiltirmaydi. U faqat joriy fokusga qaytaradi, shunda diqqat asta-sekin barqarorroq bo'ladi.\n\n"
+            "/menu ni oching va <b>Meridianlar</b> bo'limini tanlang."
         ),
         "already_subscribed": "🕊️ Siz Journey of Ascension'ga allaqachon obuna bo'lgansiz.\n\nAmaliyotlarni tanlash uchun /menu yoki eslatmalarni sozlash uchun /settings dan foydalaning.",
         "unsubscribed": "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
@@ -1149,9 +1152,10 @@ TEXTS_UPDATE = {
             "Кішкентай қайталаулар маңызды. Олар идеяны өмірде қолдануға болатын дағдыға айналдырады."
         ),
         "feature_announcement": (
-            "🌿 **Journey of Ascension ішіндегі жаңа функция: Меридиандар**\n\n"
-            "Енді қытай меридиандарын бөлек тәжірибе ретінде зерттеуге болады. Меридиан таңдаңыз, нүктелермен қолмен жылжыңыз және күнделікті еске салулар арқылы ағымдағы фокусқа оралыңыз.\n\n"
-            "/menu ашып, **Меридиандар** бөлімін таңдаңыз."
+            "☯️ <b>Journey of Ascension ішіндегі жаңалық: меридиан тәжірибесі</b>\n\n"
+            "Енді бот ішінде қытай меридиандарын зерттеуге болады: арнаны таңдаңыз, әр нүктені суретімен ашыңыз және тәжірибеде өз ырғағыңызбен жүріңіз.\n\n"
+            "Күнделікті еске салу сізді асықтырмайды. Ол тек ағымдағы фокусқа қайтарады, сонда зейін біртіндеп тұрақтанады.\n\n"
+            "/menu ашып, <b>Меридиандар</b> бөлімін таңдаңыз."
         ),
         "already_subscribed": "🕊️ Сіз Journey of Ascension-ға бұрыннан жазылғансыз.\n\nТәжірибелерді таңдау үшін /menu немесе еске салуларды өзгерту үшін /settings қолданыңыз.",
         "unsubscribed": "Бот тоқтатылды. Еске салулар енді жіберілмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
@@ -2093,7 +2097,7 @@ class BotHandlers:
         for user in active_users:
             try:
                 text = self._get_text(text_key, user.language)
-                await context.bot.send_message(user.chat_id, text, parse_mode='Markdown')
+                await context.bot.send_message(user.chat_id, text, parse_mode='HTML')
                 sent_count += 1
             except Exception:
                 failed_count += 1

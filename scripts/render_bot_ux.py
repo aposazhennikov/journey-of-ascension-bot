@@ -292,6 +292,7 @@ def render_html(output: Path) -> None:
         sections.append(message("My Path", allow_basic_html(t["mode_menu"]), [[t["mode_principles_only"]], [t["mode_meridians_only"]], [t["mode_both"]], [t["back_to_menu"]]]))
         sections.append(message("Settings", allow_basic_html(normalize_bot_html(t["settings_menu"])), [[t["change_modes"], t["change_meridian_time"]], [t["back_to_menu"]]]))
         sections.append(message("About", allow_basic_html(t["about_text"]), [[t["back_to_menu"]]]))
+        sections.append(message("Feature announcement", allow_basic_html(t["feature_announcement"])))
         sections.append(message("Meridians home", allow_basic_html(t["meridians_menu"]), kb["meridians_home"]))
         sections.append(message("TCM measurements", allow_basic_html(t["meridian_measurements_text"]), [[t["meridian_back"]]]))
         sections.append(message("Lung Meridian intro", format_meridian_intro(lung, language), kb["meridian_intro"]))
@@ -389,6 +390,7 @@ def audit() -> list[str]:
             "mode_menu",
             "meridians_menu",
             "meridian_measurements_text",
+            "feature_announcement",
         )
         for key in html_keys:
             value = normalize_bot_html(texts.get(language, {}).get(key, ""))
