@@ -577,8 +577,9 @@ TEXTS_UPDATE = {
         "onboarding_intro": (
             "**Journey of Ascension**\n\n"
             "This bot is a companion for gradual inner practice.\n\n"
+            "It sends daily reminders about the principles of **Yama and Niyama**, helping you gently bring them into everyday life.\n\n"
             "**Yama and Niyama** are the ethical foundation. They help keep attention, energy, and daily actions aligned.\n\n"
-            "**Meridians** are the next layer: observing channels and points through body sensation, breath, attention, and inner images.\n\n"
+            "The bot also supports studying **Chinese meridians**: observing channels and points through body sensation, breath, attention, and inner images.\n\n"
             "First we will set up your daily Yama/Niyama reminder. Later you can open the menu and enable meridian practice too."
         ),
         "continue_setup": "Continue",
@@ -636,8 +637,9 @@ TEXTS_UPDATE = {
         "onboarding_intro": (
             "**Journey of Ascension**\n\n"
             "Этот бот помогает выстроить постепенную внутреннюю практику.\n\n"
+            "Он отправляет ежедневные напоминания о принципах **Ямы и Ниямы**, помогая плавно внедрять их в свою жизнь.\n\n"
             "**Яма и Нияма** — нравственный фундамент. Они помогают не рассеивать внимание, энергию и внутреннюю силу в повседневных действиях.\n\n"
-            "**Меридианы** — следующий слой практики: наблюдение каналов и точек через ощущения тела, дыхание, внимание и внутренние образы.\n\n"
+            "Также в боте есть возможность изучать **китайские меридианы**: наблюдать каналы и точки через ощущения тела, дыхание, внимание и внутренние образы.\n\n"
             "Сначала настроим ежедневное напоминание по Яме/Нияме. Позже в меню можно будет включить практику меридианов."
         ),
         "continue_setup": "Продолжить",
@@ -695,8 +697,9 @@ TEXTS_UPDATE = {
         "onboarding_intro": (
             "**Journey of Ascension**\n\n"
             "Bu bot bosqichma-bosqich ichki amaliyot uchun hamroh bo'ladi.\n\n"
+            "U **Yama va Niyama** tamoyillari bo'yicha kundalik eslatmalar yuboradi va ularni hayotga asta-sekin kiritishga yordam beradi.\n\n"
             "**Yama va Niyama** axloqiy poydevordir. Ular diqqat, energiya va kundalik harakatlarni uyg'un saqlashga yordam beradi.\n\n"
-            "**Meridianlar** keyingi qatlam: tana sezgisi, nafas, diqqat va ichki obrazlar orqali kanallar va nuqtalarni kuzatish amaliyoti.\n\n"
+            "Bot orqali **Xitoy meridianlari**ni ham o'rganish mumkin: tana sezgisi, nafas, diqqat va ichki obrazlar orqali kanallar va nuqtalarni kuzatish.\n\n"
             "Avval kundalik Yama/Niyama eslatmasini sozlaymiz. Keyin menyudan meridian amaliyotini ham yoqishingiz mumkin."
         ),
         "continue_setup": "Davom etish",
@@ -754,8 +757,9 @@ TEXTS_UPDATE = {
         "onboarding_intro": (
             "**Journey of Ascension**\n\n"
             "Бұл бот біртіндеп ішкі тәжірибені құруға көмектеседі.\n\n"
+            "Ол **Яма мен Нияма** қағидалары туралы күнделікті еске салулар жіберіп, оларды өмірге біртіндеп енгізуге көмектеседі.\n\n"
             "**Яма мен Нияма** — адамгершілік негіз. Олар зейінді, энергияны және күнделікті әрекеттерді үйлесімде ұстауға көмектеседі.\n\n"
-            "**Меридиандар** — келесі қабат: дене сезімі, тыныс, зейін және ішкі бейнелер арқылы арналар мен нүктелерді бақылау тәжірибесі.\n\n"
+            "Бот арқылы **қытай меридиандарын** да зерттеуге болады: дене сезімі, тыныс, зейін және ішкі бейнелер арқылы арналар мен нүктелерді бақылау.\n\n"
             "Алдымен күнделікті Яма/Нияма еске салуын баптаймыз. Кейін мәзірден меридиан тәжірибесін де қоса аласыз."
         ),
         "continue_setup": "Жалғастыру",
