@@ -152,15 +152,24 @@ def _localized_value(item: Dict[str, Any], language: str, key: str, default: str
     return localized.get(language, localized.get("en", {})).get(key, default)
 
 
+def _content_html(value: str) -> str:
+    """Escape local content while allowing basic Telegram HTML formatting."""
+    escaped = escape(value)
+    for tag in ("b", "i"):
+        escaped = escaped.replace(f"&lt;{tag}&gt;", f"<{tag}>")
+        escaped = escaped.replace(f"&lt;/{tag}&gt;", f"</{tag}>")
+    return escaped
+
+
 def format_meridian_intro(meridian: Dict[str, Any], language: str = "en") -> str:
     """Format meridian overview for the user."""
     name = escape(_localized_value(meridian, language, "name", meridian.get("id", "Meridian")))
-    description = escape(_localized_value(meridian, language, "description"))
+    description = _content_html(_localized_value(meridian, language, "description"))
     active_time = meridian.get("active_time", "-")
     passive_time = meridian.get("passive_time", "-")
     points = meridian.get("points", [])
-    direction = escape(_localized_value(meridian, language, "direction"))
-    practice = escape(_localized_value(meridian, language, "intro_practice"))
+    direction = _content_html(_localized_value(meridian, language, "direction"))
+    practice = _content_html(_localized_value(meridian, language, "intro_practice"))
 
     labels = {
         "en": ("Active", "Passive", "Points", "Direction", "Practice"),

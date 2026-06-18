@@ -656,10 +656,23 @@ TEXTS_UPDATE = {
         "meridian_change_path": "Change study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
+        "meridian_measurements": "📏 TCM measurements",
+        "meridian_measurements_text": (
+            "📏 <b>Measurement System in TCM</b>\n\n"
+            "Acupuncture point locations are often described in <b>cun</b>. A cun is not a fixed centimeter value: it is a body-relative unit measured on the person being studied.\n\n"
+            "<b>1 cun:</b> the width of the thumb at the interphalangeal joint.\n\n"
+            "<b>1.5 cun:</b> the width of the index and middle fingers together.\n\n"
+            "<b>2 cun:</b> the width of three fingers together: index, middle, and ring finger.\n\n"
+            "<b>3 cun:</b> the width of four fingers together, from index to little finger.\n\n"
+            "<b>5 cun:</b> measure 3 cun and add about 2 cun, or divide the anatomical segment into equal parts if the source gives a proportional distance.\n\n"
+            "Use cun as an orientation tool, then refine the point by touch: local sensitivity, a small hollow, warmth, pressure, or a clear response to attention."
+        ),
         "meridians_menu": (
             "☯️ <b>Meridians</b>\n\n"
-            "Studying Chinese meridians helps understand the principles of Traditional Chinese Medicine and gives practical tools for mindful care of the body.\n\n"
-            "Meridians are described as a network of energetic channels through which vital force, Qi, circulates.\n\n"
+            "<b>Why study meridians?</b>\n\n"
+            "In this bot, meridians are studied as a practice of attention: you learn to observe the body, breath, inner sensations, and the movement of energy more subtly.\n\n"
+            "In Traditional Chinese Medicine, meridians are described as a network of energetic channels through which vital force, Qi, circulates.\n\n"
+            "This gives several practical directions for study:\n\n"
             "<b>Self-observation:</b> knowing which organ system a meridian is connected with helps notice imbalance signals earlier.\n\n"
             "<b>Restoring balance:</b> attention, acupressure, massage, qigong, and gentle work with active points can help release tension and support circulation.\n\n"
             "<b>Biorhythms:</b> each channel has a two-hour peak of activity. This helps plan rest, food, practice, and daily rhythm more harmoniously.\n\n"
@@ -788,10 +801,23 @@ TEXTS_UPDATE = {
         "meridian_change_path": "Изменить путь изучения",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
+        "meridian_measurements": "📏 Измерения в ТКМ",
+        "meridian_measurements_text": (
+            "📏 <b>Система измерений в ТКМ</b>\n\n"
+            "Расположение акупунктурных точек часто описывается в <b>цунях</b>. Цунь — это не фиксированное число сантиметров, а относительная мера тела конкретного человека.\n\n"
+            "<b>1 цунь:</b> ширина большого пальца в области межфалангового сустава.\n\n"
+            "<b>1,5 цуня:</b> ширина двух пальцев вместе — указательного и среднего.\n\n"
+            "<b>2 цуня:</b> ширина трёх пальцев вместе — указательного, среднего и безымянного.\n\n"
+            "<b>3 цуня:</b> ширина четырёх сомкнутых пальцев — от указательного до мизинца.\n\n"
+            "<b>5 цуней:</b> можно отмерить 3 цуня и добавить около 2 цуней, либо разделить нужный анатомический участок на равные части, если источник даёт пропорциональное расстояние.\n\n"
+            "Используйте цуни как ориентир, а затем уточняйте точку через тело: локальная чувствительность, небольшое углубление, тепло, давление или ясный отклик на внимание."
+        ),
         "meridians_menu": (
             "☯️ <b>Меридианы</b>\n\n"
-            "Изучение китайских меридианов помогает понять принципы традиционной китайской медицины и получить практические инструменты для внимательного отношения к здоровью.\n\n"
-            "Меридианы описываются как сеть энергетических каналов, по которым циркулирует жизненная сила — Ци.\n\n"
+            "<b>Зачем изучать меридианы?</b>\n\n"
+            "В этом боте меридианы изучаются как практика внимания: человек учится тоньше наблюдать тело, дыхание, внутренние ощущения и движение энергии.\n\n"
+            "В традиционной китайской медицине меридианы описываются как сеть энергетических каналов, по которым циркулирует жизненная сила — Ци.\n\n"
+            "Такое изучение даёт несколько практических направлений:\n\n"
             "<b>Самонаблюдение:</b> понимание того, с какой системой органов связан конкретный меридиан, помогает раньше замечать сигналы дисбаланса.\n\n"
             "<b>Восстановление баланса:</b> внимание, акупрессура, массаж, цигун и мягкая работа с активными точками помогают снимать напряжение и поддерживать циркуляцию.\n\n"
             "<b>Биоритмы:</b> у каждого канала есть двухчасовой пик активности. Это помогает гармоничнее планировать сон, питание, нагрузку и практику.\n\n"
@@ -920,10 +946,23 @@ TEXTS_UPDATE = {
         "meridian_change_path": "O'rganish yo'lini o'zgartirish",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
+        "meridian_measurements": "📏 TKM o'lchovlari",
+        "meridian_measurements_text": (
+            "📏 <b>TKMdagi o'lchov tizimi</b>\n\n"
+            "Akupunktura nuqtalari ko'pincha <b>cun</b> orqali tasvirlanadi. Cun aniq santimetr emas: u o'rganilayotgan odam tanasiga nisbatan olinadigan o'lchovdir.\n\n"
+            "<b>1 cun:</b> bosh barmoqning bo'g'im sohasidagi kengligi.\n\n"
+            "<b>1,5 cun:</b> ikki barmoq kengligi: ko'rsatkich va o'rta barmoq.\n\n"
+            "<b>2 cun:</b> uch barmoq kengligi: ko'rsatkich, o'rta va nomsiz barmoq.\n\n"
+            "<b>3 cun:</b> to'rt barmoq kengligi: ko'rsatkichdan kichik barmoqqacha.\n\n"
+            "<b>5 cun:</b> 3 cun o'lchab, taxminan 2 cun qo'shing yoki manbada proporsional masofa berilgan bo'lsa, anatomik qismni teng bo'laklarga ajrating.\n\n"
+            "Cunni yo'nalish sifatida ishlating, keyin nuqtani tana orqali aniqlang: mahalliy sezgirlik, kichik chuqurcha, iliqlik, bosim yoki diqqatga aniq javob."
+        ),
         "meridians_menu": (
             "☯️ <b>Meridianlar</b>\n\n"
-            "Xitoy meridianlarini o'rganish an'anaviy xitoy tibbiyoti tamoyillarini tushunishga va tanaga e'tiborli munosabat uchun amaliy vositalar olishga yordam beradi.\n\n"
-            "Meridianlar hayotiy kuch — Qi harakatlanadigan energetik kanallar tarmog'i sifatida tasvirlanadi.\n\n"
+            "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
+            "Bu botda meridianlar diqqat amaliyoti sifatida o'rganiladi: tana, nafas, ichki sezgilar va energiya harakatini nozikroq kuzatishni o'rganasiz.\n\n"
+            "An'anaviy xitoy tibbiyotida meridianlar hayotiy kuch — Qi harakatlanadigan energetik kanallar tarmog'i sifatida tasvirlanadi.\n\n"
+            "Bunday o'rganish bir nechta amaliy yo'nalish beradi:\n\n"
             "<b>O'zini kuzatish:</b> meridian qaysi organ tizimi bilan bog'liqligini bilish nomutanosiblik belgilarini ertaroq sezishga yordam beradi.\n\n"
             "<b>Muvozanatni tiklash:</b> diqqat, akupressura, massaj, qigong va faol nuqtalar bilan yumshoq ishlash taranglikni kamaytirish va aylanishni qo'llab-quvvatlashga yordam beradi.\n\n"
             "<b>Bioritmlar:</b> har bir kanalning ikki soatlik faollik cho'qqisi bor. Bu uyqu, ovqatlanish, yuklama va amaliyotni uyg'unroq rejalashga yordam beradi.\n\n"
@@ -1052,10 +1091,23 @@ TEXTS_UPDATE = {
         "meridian_change_path": "Зерттеу жолын өзгерту",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
+        "meridian_measurements": "📏 ҚКМ өлшемдері",
+        "meridian_measurements_text": (
+            "📏 <b>ҚКМ-дегі өлшем жүйесі</b>\n\n"
+            "Акупунктура нүктелерінің орналасуы жиі <b>цунь</b> арқылы сипатталады. Цунь — нақты сантиметр емес, зерттеліп отырған адамның денесіне қатысты өлшем.\n\n"
+            "<b>1 цунь:</b> бас бармақтың буын тұсындағы ені.\n\n"
+            "<b>1,5 цунь:</b> екі саусақтың ені: сұқ және ортаңғы саусақ.\n\n"
+            "<b>2 цунь:</b> үш саусақтың ені: сұқ, ортаңғы және аты жоқ саусақ.\n\n"
+            "<b>3 цунь:</b> төрт саусақтың ені: сұқ саусақтан шынашаққа дейін.\n\n"
+            "<b>5 цунь:</b> 3 цунь өлшеп, шамамен 2 цунь қосыңыз немесе дереккөз пропорциялық қашықтық берсе, анатомиялық бөлікті тең бөліктерге бөліңіз.\n\n"
+            "Цуньді бағдар ретінде қолданыңыз, кейін нүктені дене арқылы нақтылаңыз: жергілікті сезімталдық, шағын ойыс, жылу, қысым немесе зейінге айқын жауап."
+        ),
         "meridians_menu": (
             "☯️ <b>Меридиандар</b>\n\n"
-            "Қытай меридиандарын зерттеу дәстүрлі қытай медицинасының қағидаларын түсінуге және денсаулыққа саналы қарауға арналған тәжірибелік құралдар алуға көмектеседі.\n\n"
-            "Меридиандар өмірлік күш — Ци айналатын энергетикалық арналар желісі ретінде сипатталады.\n\n"
+            "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
+            "Бұл ботта меридиандар зейін тәжірибесі ретінде зерттеледі: денені, тынысты, ішкі сезімдерді және энергия қозғалысын нәзігрек бақылауды үйренесіз.\n\n"
+            "Дәстүрлі қытай медицинасында меридиандар өмірлік күш — Ци айналатын энергетикалық арналар желісі ретінде сипатталады.\n\n"
+            "Мұндай зерттеу бірнеше тәжірибелік бағыт береді:\n\n"
             "<b>Өзін-өзі бақылау:</b> белгілі бір меридиан қай орган жүйесімен байланысты екенін түсіну теңгерімсіздік белгілерін ертерек байқауға көмектеседі.\n\n"
             "<b>Тепе-теңдікті қалпына келтіру:</b> зейін, акупрессура, массаж, цигун және белсенді нүктелермен жұмсақ жұмыс кернеуді азайтып, айналымды қолдауға көмектеседі.\n\n"
             "<b>Биоритмдер:</b> әр арнаның екі сағаттық ең белсенді кезеңі бар. Бұл ұйқыны, тамақтануды, жүктемені және тәжірибені үйлесімді жоспарлауға көмектеседі.\n\n"
@@ -2414,12 +2466,20 @@ class BotHandlers:
         ])
 
     def _create_meridians_menu_keyboard(self, language: str) -> InlineKeyboardMarkup:
-        """Create meridians section keyboard."""
+        """Create compact meridians section keyboard."""
         return InlineKeyboardMarkup([
             [
                 InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current"),
                 InlineKeyboardButton(self._get_text("select_meridian", language), callback_data="meridian_choose")
             ],
+            [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
+            [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
+            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+        ])
+
+    def _create_meridian_practice_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create navigation keyboard for an opened meridian or point."""
+        return InlineKeyboardMarkup([
             [
                 InlineKeyboardButton(self._get_text("prev_point", language), callback_data="meridian_prev"),
                 InlineKeyboardButton(self._get_text("next_point", language), callback_data="meridian_next")
@@ -2428,8 +2488,7 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
                 InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")
             ],
-            [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
-            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="meridian_main")]
         ])
 
     def _create_meridian_path_keyboard(self, language: str) -> InlineKeyboardMarkup:
@@ -2814,6 +2873,17 @@ class BotHandlers:
                 )
                 return
 
+            if action == "measurements":
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("meridian_measurements_text", language),
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="meridian_main")]
+                    ]),
+                    parse_mode='HTML'
+                )
+                return
+
             if action.startswith("path:"):
                 path_mode = action.split(":", 1)[1]
                 user.meridian_learning_mode = path_mode
@@ -2833,7 +2903,7 @@ class BotHandlers:
                     await self._edit_message_text_safe(
                         query,
                         text,
-                        reply_markup=self._create_meridians_menu_keyboard(language),
+                        reply_markup=self._create_meridian_practice_keyboard(language),
                         parse_mode='HTML'
                     )
                     return
@@ -2891,7 +2961,7 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridians_menu_keyboard(language),
+                    self._create_meridian_practice_keyboard(language),
                     language,
                     meridian.get("id")
                 )
@@ -2923,7 +2993,7 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridians_menu_keyboard(language),
+                    self._create_meridian_practice_keyboard(language),
                     language,
                     meridian.get("id"),
                     point_code
@@ -2958,7 +3028,7 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridians_menu_keyboard(language),
+                    self._create_meridian_practice_keyboard(language),
                     language,
                     meridian.get("id"),
                     point_code
@@ -2979,7 +3049,7 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridians_menu_keyboard(language),
+                    self._create_meridian_practice_keyboard(language),
                     language,
                     meridian.get("id"),
                     point_code
@@ -3001,7 +3071,7 @@ class BotHandlers:
 
                 await self.storage.save_user(user)
                 text = self._get_text("meridian_completed", language)
-                keyboard = self._create_meridians_menu_keyboard(language) if user.current_meridian_id else self._create_meridian_choice_keyboard(language)
+                keyboard = self._create_meridian_practice_keyboard(language) if user.current_meridian_id else self._create_meridian_choice_keyboard(language)
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:
