@@ -574,6 +574,14 @@ TEXTS_UPDATE = {
             "Meridians are the next step: learning to feel attention, body, and energy through direct observation.\n\n"
             "Let's start with choosing your preferred language:"
         ),
+        "onboarding_intro": (
+            "**Journey of Ascension**\n\n"
+            "This bot is a companion for gradual inner practice.\n\n"
+            "**Yama and Niyama** are the ethical foundation. They help keep attention, energy, and daily actions aligned.\n\n"
+            "**Meridians** are the next layer: observing channels and points through body sensation, breath, attention, and inner images.\n\n"
+            "First we will set up your daily Yama/Niyama reminder. Later you can open the menu and enable meridian practice too."
+        ),
+        "continue_setup": "Continue",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Meridians",
         "menu_modes": "🧭 Practice Modes",
@@ -625,6 +633,14 @@ TEXTS_UPDATE = {
             "Меридианы — следующая ступень: учиться чувствовать внимание, тело и энергию через прямое наблюдение.\n\n"
             "Начнём с выбора языка:"
         ),
+        "onboarding_intro": (
+            "**Journey of Ascension**\n\n"
+            "Этот бот помогает выстроить постепенную внутреннюю практику.\n\n"
+            "**Яма и Нияма** — нравственный фундамент. Они помогают не рассеивать внимание, энергию и внутреннюю силу в повседневных действиях.\n\n"
+            "**Меридианы** — следующий слой практики: наблюдение каналов и точек через ощущения тела, дыхание, внимание и внутренние образы.\n\n"
+            "Сначала настроим ежедневное напоминание по Яме/Нияме. Позже в меню можно будет включить практику меридианов."
+        ),
+        "continue_setup": "Продолжить",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Меридианы",
         "menu_modes": "🧭 Режимы практики",
@@ -676,6 +692,14 @@ TEXTS_UPDATE = {
             "Meridianlar keyingi bosqich: diqqat, tana va energiyani bevosita kuzatish orqali sezishni o'rganish.\n\n"
             "Avval tilni tanlaymiz:"
         ),
+        "onboarding_intro": (
+            "**Journey of Ascension**\n\n"
+            "Bu bot bosqichma-bosqich ichki amaliyot uchun hamroh bo'ladi.\n\n"
+            "**Yama va Niyama** axloqiy poydevordir. Ular diqqat, energiya va kundalik harakatlarni uyg'un saqlashga yordam beradi.\n\n"
+            "**Meridianlar** keyingi qatlam: tana sezgisi, nafas, diqqat va ichki obrazlar orqali kanallar va nuqtalarni kuzatish amaliyoti.\n\n"
+            "Avval kundalik Yama/Niyama eslatmasini sozlaymiz. Keyin menyudan meridian amaliyotini ham yoqishingiz mumkin."
+        ),
+        "continue_setup": "Davom etish",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Meridianlar",
         "menu_modes": "🧭 Amaliyot rejimlari",
@@ -727,6 +751,14 @@ TEXTS_UPDATE = {
             "Меридиандар — келесі саты: зейін, дене және энергияны тікелей бақылау арқылы сезуді үйрену.\n\n"
             "Алдымен тілді таңдайық:"
         ),
+        "onboarding_intro": (
+            "**Journey of Ascension**\n\n"
+            "Бұл бот біртіндеп ішкі тәжірибені құруға көмектеседі.\n\n"
+            "**Яма мен Нияма** — адамгершілік негіз. Олар зейінді, энергияны және күнделікті әрекеттерді үйлесімде ұстауға көмектеседі.\n\n"
+            "**Меридиандар** — келесі қабат: дене сезімі, тыныс, зейін және ішкі бейнелер арқылы арналар мен нүктелерді бақылау тәжірибесі.\n\n"
+            "Алдымен күнделікті Яма/Нияма еске салуын баптаймыз. Кейін мәзірден меридиан тәжірибесін де қоса аласыз."
+        ),
+        "continue_setup": "Жалғастыру",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Меридиандар",
         "menu_modes": "🧭 Тәжірибе режимдері",
@@ -821,6 +853,7 @@ class BotHandlers:
         
         # Callback query handlers.
         self.application.add_handler(CallbackQueryHandler(self._handle_language_callback, pattern="^lang_"))
+        self.application.add_handler(CallbackQueryHandler(self._handle_intro_callback, pattern="^intro_continue$"))
         self.application.add_handler(CallbackQueryHandler(self._handle_timezone_callback, pattern="^tz_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_skipday_callback, pattern="^skipday_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_menu_callback, pattern="^menu_"))
@@ -866,15 +899,13 @@ class BotHandlers:
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
             
-            # Show language selection message
-            welcome_message = (
-                "🕊️ **Welcome to Yoga Principles Bot!**\n\n"
-                "Please choose your language / Пожалуйста, выберите язык:"
-            )
-            
+            # Show multilingual language selection message before we know the user's language.
             welcome_message = (
                 "🕊️ **Welcome to Journey of Ascension!**\n\n"
-                "Please choose your language / Пожалуйста, выберите язык:"
+                "Please choose your language.\n"
+                "Пожалуйста, выберите язык.\n\n"
+                "Tilni tanlang.\n"
+                "Тілді таңдаңыз."
             )
             message = await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode='Markdown')
             await self.storage.add_bot_message(chat_id, message.message_id, "welcome")
@@ -932,23 +963,47 @@ class BotHandlers:
                 # New user registration
                 logger.debug(f"Starting registration for new user {chat_id} in language {language}")
                 self.user_states[chat_id] = {
-                    "step": "timezone",
+                    "step": "intro",
                     "language": language,
                     "registration_message_id": query.message.message_id  # Save message ID for editing
                 }
                 
-                # Send language confirmation and timezone step with buttons.
+                # Send language confirmation and onboarding intro before setup.
                 confirmation = self._get_text("language_chosen", language)
-                timezone_msg = self._get_text("timezone_step", language)
+                intro_msg = self._get_text("onboarding_intro", language)
+                combined_msg = f"{confirmation}\n\n{intro_msg}"
+                keyboard = InlineKeyboardMarkup([[
+                    InlineKeyboardButton(self._get_text("continue_setup", language), callback_data="intro_continue")
+                ]])
                 
-                combined_msg = f"{confirmation}\n\n{timezone_msg}"
-                keyboard = self._create_timezone_keyboard(language)
-                
-                logger.debug(f"Sending timezone selection in {language} to user {chat_id}")
+                logger.debug(f"Sending onboarding intro in {language} to user {chat_id}")
                 await query.edit_message_text(combined_msg, reply_markup=keyboard, parse_mode='Markdown')
             
         except Exception as e:
             logger.error(f"Error in language callback for user {chat_id}: {e}")
+            await query.edit_message_text(self._get_text("error", language))
+
+    async def _handle_intro_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Continue from onboarding intro to timezone selection."""
+        query = update.callback_query
+        chat_id = query.message.chat.id
+
+        try:
+            await query.answer()
+            user_state = self.user_states.get(chat_id)
+            if not user_state or user_state.get("step") != "intro":
+                logger.debug(f"Invalid state for intro callback {chat_id}: {user_state}")
+                return
+
+            language = user_state["language"]
+            user_state["step"] = "timezone"
+            text = self._get_text("timezone_step", language)
+            keyboard = self._create_timezone_keyboard(language)
+            await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+
+        except Exception as e:
+            logger.error(f"Error in intro callback for user {chat_id}: {e}")
+            language = self.user_states.get(chat_id, {}).get("language", "en")
             await query.edit_message_text(self._get_text("error", language))
     
     async def _handle_timezone_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -1053,9 +1108,11 @@ class BotHandlers:
                 await self._complete_skip_days_selection(update, selected_days, language)
                 
             elif skipday_data == "none":
-                # Clear all selections
+                # Clear all selections and finish this step immediately. If no
+                # days were selected already, updating the keyboard is a no-op
+                # and feels broken to the user.
                 user_state["selected_skip_days"] = []
-                await self._update_skip_days_keyboard(query, language, [])
+                await self._complete_skip_days_selection(update, [], language)
                 
             elif skipday_data == "weekends":
                 # Select weekends (Saturday=5, Sunday=6)
