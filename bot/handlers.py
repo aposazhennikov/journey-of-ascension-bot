@@ -1427,13 +1427,13 @@ class BotHandlers:
             
             # Show multilingual language selection message before we know the user's language.
             welcome_message = (
-                "🕊️ **Welcome to Journey of Ascension!**\n\n"
+                "🕊️ <b>Journey of Ascension</b>\n\n"
                 "Please choose your language.\n"
                 "Пожалуйста, выберите язык.\n\n"
                 "Tilni tanlang.\n"
                 "Тілді таңдаңыз."
             )
-            message = await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode='Markdown')
+            message = await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode='HTML')
             await self.storage.add_bot_message(chat_id, message.message_id, "welcome")
             
         except Exception as e:

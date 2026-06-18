@@ -206,6 +206,16 @@ def message(title: str, body: str, buttons: list[list[str]] | None = None) -> st
     )
 
 
+def language_selection_text() -> str:
+    return (
+        "🕊️ <b>Journey of Ascension</b>\n\n"
+        "Please choose your language.\n"
+        "Пожалуйста, выберите язык.\n\n"
+        "Tilni tanlang.\n"
+        "Тілді таңдаңыз."
+    )
+
+
 def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, list[list[str]]]:
     main = [
         [texts["menu_principles"], texts["menu_meridians"]],
@@ -287,6 +297,7 @@ def render_html(output: Path) -> None:
         kb = build_keyboards(t)
         principle = principles[language][0]
         sections.append(f"<div class='locale'><h1>{language.upper()}</h1>")
+        sections.append(message("Language selection", allow_basic_html(language_selection_text()), [["🇺🇸 English", "🇷🇺 Русский"], ["🇺🇿 O'zbek", "🇰🇿 Қазақ"]]))
         sections.append(message("Onboarding intro", allow_basic_html(t["onboarding_intro"]), [[t["mode_meridians_only"]], [t["mode_principles_only"]], [t["mode_both"]]]))
         sections.append(message("Main menu", allow_basic_html(normalize_bot_html(t["menu"])), kb["main"]))
         sections.append(message("My Path", allow_basic_html(t["mode_menu"]), [[t["mode_principles_only"]], [t["mode_meridians_only"]], [t["mode_both"]], [t["back_to_menu"]]]))
@@ -376,6 +387,12 @@ def iter_strings(value: Any, path: str = ""):
 def audit() -> list[str]:
     issues: list[str] = []
     texts = load_texts()
+    start_text = language_selection_text()
+    if "**" in start_text:
+        issues.append("language selection text leaves Markdown bold")
+    if "<b>Journey of Ascension</b>" not in start_text:
+        issues.append("language selection text does not bold the bot name")
+
     for language in LANGUAGES:
         missing = sorted(set(texts["en"].keys()) - set(texts.get(language, {}).keys()))
         if missing:
