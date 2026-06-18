@@ -655,10 +655,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Guided path",
         "meridian_free_choice": "👐 Free study",
-        "meridian_change_path": "🧭 Study path",
+        "meridian_change_path": "🧭 Choose study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
-        "meridian_measurements": "📏 How to measure cun",
+        "meridian_measurements": "📏 Cun and TCM measurements",
         "meridian_back": "🔙 Back to meridians",
         "coming_soon": "soon",
         "meridian_measurements_text": (
@@ -801,10 +801,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Идти по нашему пути",
         "meridian_free_choice": "👐 Изучать самостоятельно",
-        "meridian_change_path": "🧭 Путь изучения",
+        "meridian_change_path": "🧭 Выбрать путь изучения",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
-        "meridian_measurements": "📏 Как мерить в цунях",
+        "meridian_measurements": "📏 Цуни и измерения ТКМ",
         "meridian_back": "🔙 К меридианам",
         "coming_soon": "скоро",
         "meridian_measurements_text": (
@@ -947,10 +947,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Yo'l bo'yicha",
         "meridian_free_choice": "👐 Mustaqil o'rganish",
-        "meridian_change_path": "🧭 O'rganish yo'li",
+        "meridian_change_path": "🧭 O'rganish yo'lini tanlash",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
-        "meridian_measurements": "📏 Cunni qanday o'lchash",
+        "meridian_measurements": "📏 Cun va TKM o'lchovlari",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "coming_soon": "tez orada",
         "meridian_measurements_text": (
@@ -1107,10 +1107,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Біздің жолмен",
         "meridian_free_choice": "👐 Өз бетімше",
-        "meridian_change_path": "🧭 Зерттеу жолы",
+        "meridian_change_path": "🧭 Зерттеу жолын таңдау",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
-        "meridian_measurements": "📏 Цуньді қалай өлшеу",
+        "meridian_measurements": "📏 Цунь және ТҚМ өлшемдері",
         "meridian_back": "🔙 Меридиандарға қайту",
         "coming_soon": "жақында",
         "meridian_measurements_text": (
@@ -2643,10 +2643,8 @@ class BotHandlers:
         """Create compact meridians section keyboard."""
         return InlineKeyboardMarkup([
             [InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")],
-            [
-                InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path"),
-                InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")
-            ],
+            [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
+            [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
