@@ -3636,33 +3636,360 @@
       "id": "heart",
       "active_time": "11:00-13:00",
       "passive_time": "23:00-01:00",
+      "source_url": "https://shiyanbin.ru/meridian-serdtsa-s/",
+      "points_source_url": "https://www.eledia.ru/publ/21",
       "i18n": {
         "en": {
           "name": "Heart Meridian",
-          "description": "A study module placeholder. Full content will be added from approved sources.",
-          "direction": "From the heart area along the inner arm to the little finger.",
-          "intro_practice": "Observe how attention on the channel affects thoughts, emotion, and quietness."
+          "description": "The Heart Meridian is used here as a map for observing the chest, inner arm, clarity of attention, emotional heat, and the quiet center from which action becomes cleaner.",
+          "direction": "From the chest and axilla along the inner side of the arm toward the little finger.",
+          "intro_practice": "Soften the chest, armpit, elbow, wrist, and little finger. Let attention move along the inner arm without dramatizing emotion: just notice heat, tightness, tenderness, or quietness."
         },
         "ru": {
           "name": "Меридиан сердца",
-          "description": "Заготовка учебного модуля. Полный контент будет добавлен из согласованных источников.",
-          "direction": "От области сердца по внутренней стороне руки к мизинцу.",
-          "intro_practice": "Наблюдайте, как внимание к каналу меняет мысли, эмоции и внутреннюю тишину."
+          "description": "Меридиан сердца здесь используется как карта наблюдения груди, внутренней линии руки, ясности внимания, эмоционального жара и тихого центра, из которого действие становится чище. Меридиан Сердца парный, относится к системе инь; движение энергии центробежное, энергия исходит от Меридиана Селезенки (поджелудочной железы) и передается Меридиану Тонкой кишки. Максимальная активность Меридиана Сердца с 11 до 13 часов. На Меридиане Сердца 9 точек",
+          "direction": "От груди и подмышечной области по внутренней стороне руки к мизинцу.",
+          "intro_practice": "Смягчите грудь, подмышку, локоть, запястье и мизинец. Ведите внимание по внутренней стороне руки без драматизации эмоций: просто замечайте жар, сжатие, чувствительность или тишину."
         },
         "uz": {
           "name": "Yurak meridiani",
-          "description": "O'quv moduli uchun tayyor tuzilma. To'liq kontent tasdiqlangan manbalardan qo'shiladi.",
-          "direction": "Yurak sohasidan qo'lning ichki tomoni bo'ylab jimjiloqqa.",
-          "intro_practice": "Kanalga diqqat fikrlar, hissiyotlar va sokinlikka qanday ta'sir qilishini kuzating."
+          "description": "Yurak meridiani bu yerda ko'krak, qo'lning ichki chizig'i, diqqat ravshanligi, hissiy issiqlik va harakatni tiniqlashtiradigan sokin markazni kuzatish xaritasi sifatida ishlatiladi.",
+          "direction": "Ko'krak va qo'ltiq sohasidan qo'lning ichki tomoni bo'ylab jimjiloq barmoqqa.",
+          "intro_practice": "Ko'krak, qo'ltiq, tirsak, bilak va jimjiloqni yumshating. Hissiyotni kuchaytirmasdan diqqatni qo'lning ichki tomoni bo'ylab olib boring: faqat issiqlik, siqilish, noziklik yoki sokinlikni kuzating."
         },
         "kz": {
           "name": "Жүрек меридианы",
-          "description": "Оқу модулінің құрылымы. Толық контент келісілген дереккөздерден қосылады.",
-          "direction": "Жүрек аймағынан қолдың ішкі жағымен шынашаққа қарай.",
-          "intro_practice": "Арнаға зейін ойға, эмоцияға және тыныштыққа қалай әсер ететінін бақылаңыз."
+          "description": "Жүрек меридианы бұл жерде кеудені, қолдың ішкі сызығын, зейіннің айқындығын, эмоциялық қызуды және әрекетті тазарақ ететін тыныш орталықты бақылау картасы ретінде қолданылады.",
+          "direction": "Кеуде мен қолтық аймағынан қолдың ішкі жағымен шынашаққа қарай.",
+          "intro_practice": "Кеудені, қолтықты, шынтақты, білекті және шынашақты жұмсартыңыз. Эмоцияны ұлғайтпай, зейінді қолдың ішкі жағымен жүргізіңіз: жылуды, қысылуды, нәзіктікті немесе тыныштықты ғана байқаңыз."
         }
       },
-      "points": []
+      "points": [
+        {
+          "code": "C1",
+          "alt_code": "HE 1",
+          "source_url": "https://www.eledia.ru/publ/21-1-0-459",
+          "image": "heart_C1.gif",
+          "i18n": {
+            "en": {
+              "name": "Цзи-цюань",
+              "location": "Source location: при отведенной руке в центре подмышечной впадины, у медиальной стороны подмышечной артерии",
+              "meaning": "Classical note: «цзи» — «самый глубокий»; «цюань» — «родник». Точка расположена в самом глубоком месте подмышечной впадины, напоминающей родник",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Цзи-цюань",
+              "location": "при отведенной руке в центре подмышечной впадины, у медиальной стороны подмышечной артерии",
+              "meaning": "«цзи» — «самый глубокий»; «цюань» — «родник». Точка расположена в самом глубоком месте подмышечной впадины, напоминающей родник",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Цзи-цюань",
+              "location": "Manbadagi joylashuv: при отведенной руке в центре подмышечной впадины, у медиальной стороны подмышечной артерии",
+              "meaning": "Klassik izoh: «цзи» — «самый глубокий»; «цюань» — «родник». Точка расположена в самом глубоком месте подмышечной впадины, напоминающей родник",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Цзи-цюань",
+              "location": "Дереккөздегі орналасуы: при отведенной руке в центре подмышечной впадины, у медиальной стороны подмышечной артерии",
+              "meaning": "Классикалық түсіндірме: «цзи» — «самый глубокий»; «цюань» — «родник». Точка расположена в самом глубоком месте подмышечной впадины, напоминающей родник",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "C2",
+          "alt_code": "HE 2",
+          "source_url": "https://www.eledia.ru/publ/21-1-0-460",
+          "image": "heart_C2.gif",
+          "i18n": {
+            "en": {
+              "name": "Цин-лин",
+              "location": "Source location: на линии, соединяющей точки Цзи-цю-ань С.1 и Шао-хай С.З, на 3 цуня выше точки Шао-хай С.З",
+              "meaning": "Classical note: «цин» — «зеленый»; «лин» — «душа, божественное». Зеленый это цвет весны, цвет жизнеспособности всего сущего. Сердце — корень жизни, управляет кровеносными сосудами, хранит жизненный дух Шэнь. Точка Цин-лин С.2 относится к ручному шао-инь каналу сердца. Точки этого канала содействуют нормализации циркуляции в кровеносных сосудах, поддерживают жизнеспособность божественного духа Шэнь",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Цин-лин",
+              "location": "на линии, соединяющей точки Цзи-цю-ань С.1 и Шао-хай С.З, на 3 цуня выше точки Шао-хай С.З",
+              "meaning": "«цин» — «зеленый»; «лин» — «душа, божественное». Зеленый это цвет весны, цвет жизнеспособности всего сущего. Сердце — корень жизни, управляет кровеносными сосудами, хранит жизненный дух Шэнь. Точка Цин-лин С.2 относится к ручному шао-инь каналу сердца. Точки этого канала содействуют нормализации циркуляции в кровеносных сосудах, поддерживают жизнеспособность божественного духа Шэнь",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Цин-лин",
+              "location": "Manbadagi joylashuv: на линии, соединяющей точки Цзи-цю-ань С.1 и Шао-хай С.З, на 3 цуня выше точки Шао-хай С.З",
+              "meaning": "Klassik izoh: «цин» — «зеленый»; «лин» — «душа, божественное». Зеленый это цвет весны, цвет жизнеспособности всего сущего. Сердце — корень жизни, управляет кровеносными сосудами, хранит жизненный дух Шэнь. Точка Цин-лин С.2 относится к ручному шао-инь каналу сердца. Точки этого канала содействуют нормализации циркуляции в кровеносных сосудах, поддерживают жизнеспособность божественного духа Шэнь",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Цин-лин",
+              "location": "Дереккөздегі орналасуы: на линии, соединяющей точки Цзи-цю-ань С.1 и Шао-хай С.З, на 3 цуня выше точки Шао-хай С.З",
+              "meaning": "Классикалық түсіндірме: «цин» — «зеленый»; «лин» — «душа, божественное». Зеленый это цвет весны, цвет жизнеспособности всего сущего. Сердце — корень жизни, управляет кровеносными сосудами, хранит жизненный дух Шэнь. Точка Цин-лин С.2 относится к ручному шао-инь каналу сердца. Точки этого канала содействуют нормализации циркуляции в кровеносных сосудах, поддерживают жизнеспособность божественного духа Шэнь",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "C3",
+          "alt_code": "HE 3",
+          "source_url": "https://www.eledia.ru/publ/21-1-0-53",
+          "image": "heart_C3.gif",
+          "i18n": {
+            "en": {
+              "name": "Шао-хай",
+              "location": "Source location: при согнутой в локтевом суставе под прямым углом руке в углублении между локтевым краем складки локтевого сгиба и медиальным над мыщелком плечевой кости",
+              "meaning": "Classical note: точка-устье (Вода) ручного шао-инь канала сердца «шао» — «[ручной] шао- [инь канал сердца]»; «хай» — «море». Шао-хай С.3 - точка-устье ручного шао-инь канала сердца. В точках-устьях канальная Ци становится обильной, подобно реке, впадающей в море (хай)",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шао-хай",
+              "location": "при согнутой в локтевом суставе под прямым углом руке в углублении между локтевым краем складки локтевого сгиба и медиальным над мыщелком плечевой кости",
+              "meaning": "точка-устье (Вода) ручного шао-инь канала сердца «шао» — «[ручной] шао- [инь канал сердца]»; «хай» — «море». Шао-хай С.3 - точка-устье ручного шао-инь канала сердца. В точках-устьях канальная Ци становится обильной, подобно реке, впадающей в море (хай)",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шао-хай",
+              "location": "Manbadagi joylashuv: при согнутой в локтевом суставе под прямым углом руке в углублении между локтевым краем складки локтевого сгиба и медиальным над мыщелком плечевой кости",
+              "meaning": "Klassik izoh: точка-устье (Вода) ручного шао-инь канала сердца «шао» — «[ручной] шао- [инь канал сердца]»; «хай» — «море». Шао-хай С.3 - точка-устье ручного шао-инь канала сердца. В точках-устьях канальная Ци становится обильной, подобно реке, впадающей в море (хай)",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шао-хай",
+              "location": "Дереккөздегі орналасуы: при согнутой в локтевом суставе под прямым углом руке в углублении между локтевым краем складки локтевого сгиба и медиальным над мыщелком плечевой кости",
+              "meaning": "Классикалық түсіндірме: точка-устье (Вода) ручного шао-инь канала сердца «шао» — «[ручной] шао- [инь канал сердца]»; «хай» — «море». Шао-хай С.3 - точка-устье ручного шао-инь канала сердца. В точках-устьях канальная Ци становится обильной, подобно реке, впадающей в море (хай)",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "C4",
+          "alt_code": "HE 4",
+          "source_url": "https://www.eledia.ru/publ/21-1-0-52",
+          "image": "heart_C4.gif",
+          "i18n": {
+            "en": {
+              "name": "Лин-дао",
+              "location": "Source location: у лучевой стороны сухожилия локтевого сгибателя запястья, на 1,5 цуня выше проксимальной лучезапястной складки",
+              "meaning": "Classical note: точка-река (Металл) ручного шао-инь канала сердца «лин» — «душа, божественное»; «дао» — «путь; прокладывать путь». Сердце хранит жизненный дух Шэнь. Точка Лин-дао С.4 относится к ручному шао-инь каналу сердца, способствует нормализации состояния жизненного духа Шэнь. Воздействие на точку можно сравнить с прокладыванием пути (дао) к божественному (лин) духу Шэнь",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Лин-дао",
+              "location": "у лучевой стороны сухожилия локтевого сгибателя запястья, на 1,5 цуня выше проксимальной лучезапястной складки",
+              "meaning": "точка-река (Металл) ручного шао-инь канала сердца «лин» — «душа, божественное»; «дао» — «путь; прокладывать путь». Сердце хранит жизненный дух Шэнь. Точка Лин-дао С.4 относится к ручному шао-инь каналу сердца, способствует нормализации состояния жизненного духа Шэнь. Воздействие на точку можно сравнить с прокладыванием пути (дао) к божественному (лин) духу Шэнь",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Лин-дао",
+              "location": "Manbadagi joylashuv: у лучевой стороны сухожилия локтевого сгибателя запястья, на 1,5 цуня выше проксимальной лучезапястной складки",
+              "meaning": "Klassik izoh: точка-река (Металл) ручного шао-инь канала сердца «лин» — «душа, божественное»; «дао» — «путь; прокладывать путь». Сердце хранит жизненный дух Шэнь. Точка Лин-дао С.4 относится к ручному шао-инь каналу сердца, способствует нормализации состояния жизненного духа Шэнь. Воздействие на точку можно сравнить с прокладыванием пути (дао) к божественному (лин) духу Шэнь",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Лин-дао",
+              "location": "Дереккөздегі орналасуы: у лучевой стороны сухожилия локтевого сгибателя запястья, на 1,5 цуня выше проксимальной лучезапястной складки",
+              "meaning": "Классикалық түсіндірме: точка-река (Металл) ручного шао-инь канала сердца «лин» — «душа, божественное»; «дао» — «путь; прокладывать путь». Сердце хранит жизненный дух Шэнь. Точка Лин-дао С.4 относится к ручному шао-инь каналу сердца, способствует нормализации состояния жизненного духа Шэнь. Воздействие на точку можно сравнить с прокладыванием пути (дао) к божественному (лин) духу Шэнь",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "C5",
+          "alt_code": "HE 5",
+          "source_url": "https://www.eledia.ru/publ/21-1-0-51",
+          "image": "heart_C5.gif",
+          "i18n": {
+            "en": {
+              "name": "Тун-ли",
+              "location": "Source location: у лучевой стороны сухожилия локтевого сгибателя запястья, на 1 цунь выше проксимальной лучезаиястной складки",
+              "meaning": "Classical note: точка коллатерали ручного шао-инь канала сердца, соединяющейся с ручным тай-ян каналом тонкого кишечника «тун» — «проходить»; «ли» - «место соединения». Тун-ли С.5 — точка коллатерали ручного шао-инь канала сердца, от нее отходит коллатераль ручного шао-инь, проходит (тун) к месту соединения (ли) с ручным тай-ян каналом тонкого кишечника",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Тун-ли",
+              "location": "у лучевой стороны сухожилия локтевого сгибателя запястья, на 1 цунь выше проксимальной лучезаиястной складки",
+              "meaning": "точка коллатерали ручного шао-инь канала сердца, соединяющейся с ручным тай-ян каналом тонкого кишечника «тун» — «проходить»; «ли» - «место соединения». Тун-ли С.5 — точка коллатерали ручного шао-инь канала сердца, от нее отходит коллатераль ручного шао-инь, проходит (тун) к месту соединения (ли) с ручным тай-ян каналом тонкого кишечника",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Тун-ли",
+              "location": "Manbadagi joylashuv: у лучевой стороны сухожилия локтевого сгибателя запястья, на 1 цунь выше проксимальной лучезаиястной складки",
+              "meaning": "Klassik izoh: точка коллатерали ручного шао-инь канала сердца, соединяющейся с ручным тай-ян каналом тонкого кишечника «тун» — «проходить»; «ли» - «место соединения». Тун-ли С.5 — точка коллатерали ручного шао-инь канала сердца, от нее отходит коллатераль ручного шао-инь, проходит (тун) к месту соединения (ли) с ручным тай-ян каналом тонкого кишечника",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Тун-ли",
+              "location": "Дереккөздегі орналасуы: у лучевой стороны сухожилия локтевого сгибателя запястья, на 1 цунь выше проксимальной лучезаиястной складки",
+              "meaning": "Классикалық түсіндірме: точка коллатерали ручного шао-инь канала сердца, соединяющейся с ручным тай-ян каналом тонкого кишечника «тун» — «проходить»; «ли» - «место соединения». Тун-ли С.5 — точка коллатерали ручного шао-инь канала сердца, от нее отходит коллатераль ручного шао-инь, проходит (тун) к месту соединения (ли) с ручным тай-ян каналом тонкого кишечника",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "C6",
+          "alt_code": "HE 6",
+          "source_url": "https://www.eledia.ru/publ/21-1-0-49",
+          "image": "heart_C6.gif",
+          "i18n": {
+            "en": {
+              "name": "Инь-си",
+              "location": "Source location: на лучевой стороне сухожилия локтевого сгибателя кисти, на 0,5 цуня выше проксимальной лучезапястной складки",
+              "meaning": "Classical note: точка-щель ручного шао-инь канала сердца «инь» — «Инь-канал; недостаток Инь»; «си» - «точка-щель». Инь-си С.6 — точка-щель ручного шао-инь канала сердца, ее основной функцией является восполнение недостатка Инь, отсюда и название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Инь-си",
+              "location": "на лучевой стороне сухожилия локтевого сгибателя кисти, на 0,5 цуня выше проксимальной лучезапястной складки",
+              "meaning": "точка-щель ручного шао-инь канала сердца «инь» — «Инь-канал; недостаток Инь»; «си» - «точка-щель». Инь-си С.6 — точка-щель ручного шао-инь канала сердца, ее основной функцией является восполнение недостатка Инь, отсюда и название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Инь-си",
+              "location": "Manbadagi joylashuv: на лучевой стороне сухожилия локтевого сгибателя кисти, на 0,5 цуня выше проксимальной лучезапястной складки",
+              "meaning": "Klassik izoh: точка-щель ручного шао-инь канала сердца «инь» — «Инь-канал; недостаток Инь»; «си» - «точка-щель». Инь-си С.6 — точка-щель ручного шао-инь канала сердца, ее основной функцией является восполнение недостатка Инь, отсюда и название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Инь-си",
+              "location": "Дереккөздегі орналасуы: на лучевой стороне сухожилия локтевого сгибателя кисти, на 0,5 цуня выше проксимальной лучезапястной складки",
+              "meaning": "Классикалық түсіндірме: точка-щель ручного шао-инь канала сердца «инь» — «Инь-канал; недостаток Инь»; «си» - «точка-щель». Инь-си С.6 — точка-щель ручного шао-инь канала сердца, ее основной функцией является восполнение недостатка Инь, отсюда и название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "C7",
+          "alt_code": "HE 7",
+          "source_url": "https://www.eledia.ru/publ/21-1-0-50",
+          "image": "heart_C7.gif",
+          "i18n": {
+            "en": {
+              "name": "Шэнь-мэнь",
+              "location": "Source location: у локтевого края проксимальной лучезапястной складки, у лучевого края сухожилия локтевого сгибателя запястья, в щели между гороховидной и локтевой костями",
+              "meaning": "Classical note: 1. Точка первичной Ци ручного шао-инь канала сердца. 2. Точка-быстрина (Земля) ручного шао-инь канала сердца «шэнь» - «жизненный дух Шэнь»; «мэнь» — «ворота». Сердце хранит жизненный дух Шэнь. Шэнь-мэнь С.7 — точка-быстрина и точка первичной Ци ручного шао-инь канала сердца, эффективна при лечении расстройств жизненного духа Шэнь, сравнивается с «воротами» (мэнь) жизненного духа Шэнь",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шэнь-мэнь",
+              "location": "у локтевого края проксимальной лучезапястной складки, у лучевого края сухожилия локтевого сгибателя запястья, в щели между гороховидной и локтевой костями",
+              "meaning": "1. Точка первичной Ци ручного шао-инь канала сердца. 2. Точка-быстрина (Земля) ручного шао-инь канала сердца «шэнь» - «жизненный дух Шэнь»; «мэнь» — «ворота». Сердце хранит жизненный дух Шэнь. Шэнь-мэнь С.7 — точка-быстрина и точка первичной Ци ручного шао-инь канала сердца, эффективна при лечении расстройств жизненного духа Шэнь, сравнивается с «воротами» (мэнь) жизненного духа Шэнь",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шэнь-мэнь",
+              "location": "Manbadagi joylashuv: у локтевого края проксимальной лучезапястной складки, у лучевого края сухожилия локтевого сгибателя запястья, в щели между гороховидной и локтевой костями",
+              "meaning": "Klassik izoh: 1. Точка первичной Ци ручного шао-инь канала сердца. 2. Точка-быстрина (Земля) ручного шао-инь канала сердца «шэнь» - «жизненный дух Шэнь»; «мэнь» — «ворота». Сердце хранит жизненный дух Шэнь. Шэнь-мэнь С.7 — точка-быстрина и точка первичной Ци ручного шао-инь канала сердца, эффективна при лечении расстройств жизненного духа Шэнь, сравнивается с «воротами» (мэнь) жизненного духа Шэнь",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шэнь-мэнь",
+              "location": "Дереккөздегі орналасуы: у локтевого края проксимальной лучезапястной складки, у лучевого края сухожилия локтевого сгибателя запястья, в щели между гороховидной и локтевой костями",
+              "meaning": "Классикалық түсіндірме: 1. Точка первичной Ци ручного шао-инь канала сердца. 2. Точка-быстрина (Земля) ручного шао-инь канала сердца «шэнь» - «жизненный дух Шэнь»; «мэнь» — «ворота». Сердце хранит жизненный дух Шэнь. Шэнь-мэнь С.7 — точка-быстрина и точка первичной Ци ручного шао-инь канала сердца, эффективна при лечении расстройств жизненного духа Шэнь, сравнивается с «воротами» (мэнь) жизненного духа Шэнь",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "C8",
+          "alt_code": "HE 8",
+          "source_url": "https://www.eledia.ru/publ/21-1-0-74",
+          "image": "heart_C8.gif",
+          "i18n": {
+            "en": {
+              "name": "Шао-фу",
+              "location": "Source location: на ладонной поверхности кисти между IV и V пястными костями, на уровне точки Лао-гун МС.8. При сгибании кисти в кулак кончик мизинца соответствует расположению точки",
+              "meaning": "Classical note: точка-ручей (Огонь) ручного шао-инь канала сердца «шао» - «[ручной] шао- [инь канал сердца]»; «фу» — «дворец, средоточие, место скопления». Сердце хранит жизненный дух Шэнь, то есть является «дворцом» (фу) жизненного духа Шэнь. Точка относится к ручному шао-инь каналу сердца, может использоваться при различных расстройствах жизненного духа Шэнь",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шао-фу",
+              "location": "на ладонной поверхности кисти между IV и V пястными костями, на уровне точки Лао-гун МС.8. При сгибании кисти в кулак кончик мизинца соответствует расположению точки",
+              "meaning": "точка-ручей (Огонь) ручного шао-инь канала сердца «шао» - «[ручной] шао- [инь канал сердца]»; «фу» — «дворец, средоточие, место скопления». Сердце хранит жизненный дух Шэнь, то есть является «дворцом» (фу) жизненного духа Шэнь. Точка относится к ручному шао-инь каналу сердца, может использоваться при различных расстройствах жизненного духа Шэнь",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шао-фу",
+              "location": "Manbadagi joylashuv: на ладонной поверхности кисти между IV и V пястными костями, на уровне точки Лао-гун МС.8. При сгибании кисти в кулак кончик мизинца соответствует расположению точки",
+              "meaning": "Klassik izoh: точка-ручей (Огонь) ручного шао-инь канала сердца «шао» - «[ручной] шао- [инь канал сердца]»; «фу» — «дворец, средоточие, место скопления». Сердце хранит жизненный дух Шэнь, то есть является «дворцом» (фу) жизненного духа Шэнь. Точка относится к ручному шао-инь каналу сердца, может использоваться при различных расстройствах жизненного духа Шэнь",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шао-фу",
+              "location": "Дереккөздегі орналасуы: на ладонной поверхности кисти между IV и V пястными костями, на уровне точки Лао-гун МС.8. При сгибании кисти в кулак кончик мизинца соответствует расположению точки",
+              "meaning": "Классикалық түсіндірме: точка-ручей (Огонь) ручного шао-инь канала сердца «шао» - «[ручной] шао- [инь канал сердца]»; «фу» — «дворец, средоточие, место скопления». Сердце хранит жизненный дух Шэнь, то есть является «дворцом» (фу) жизненного духа Шэнь. Точка относится к ручному шао-инь каналу сердца, может использоваться при различных расстройствах жизненного духа Шэнь",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "C9",
+          "alt_code": "HE 9",
+          "source_url": "https://www.eledia.ru/publ/21-1-0-32",
+          "image": "heart_C9.gif",
+          "i18n": {
+            "en": {
+              "name": "Шао-чун",
+              "location": "Source location: на лучевой стороне мизинца, приблизительно на 0,1 цуня от угла ногтя",
+              "meaning": "Classical note: точка-исток (Дерево) ручного шао-инь канала сердца «шао» — «[ручной] шао-[инь канал сердца]; маленький, небольшой»; «чун» — «пробиваться, рваться вперед, устремляться». Шао-чун С.9 является точкой-истоком ручного шао-инь канала сердца. В точках-истоках канальная Ци еще мала, как вода, пробивающаяся из небольшого родника",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шао-чун",
+              "location": "на лучевой стороне мизинца, приблизительно на 0,1 цуня от угла ногтя",
+              "meaning": "точка-исток (Дерево) ручного шао-инь канала сердца «шао» — «[ручной] шао-[инь канал сердца]; маленький, небольшой»; «чун» — «пробиваться, рваться вперед, устремляться». Шао-чун С.9 является точкой-истоком ручного шао-инь канала сердца. В точках-истоках канальная Ци еще мала, как вода, пробивающаяся из небольшого родника",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шао-чун",
+              "location": "Manbadagi joylashuv: на лучевой стороне мизинца, приблизительно на 0,1 цуня от угла ногтя",
+              "meaning": "Klassik izoh: точка-исток (Дерево) ручного шао-инь канала сердца «шао» — «[ручной] шао-[инь канал сердца]; маленький, небольшой»; «чун» — «пробиваться, рваться вперед, устремляться». Шао-чун С.9 является точкой-истоком ручного шао-инь канала сердца. В точках-истоках канальная Ци еще мала, как вода, пробивающаяся из небольшого родника",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шао-чун",
+              "location": "Дереккөздегі орналасуы: на лучевой стороне мизинца, приблизительно на 0,1 цуня от угла ногтя",
+              "meaning": "Классикалық түсіндірме: точка-исток (Дерево) ручного шао-инь канала сердца «шао» — «[ручной] шао-[инь канал сердца]; маленький, небольшой»; «чун» — «пробиваться, рваться вперед, устремляться». Шао-чун С.9 является точкой-истоком ручного шао-инь канала сердца. В точках-истоках канальная Ци еще мала, как вода, пробивающаяся из небольшого родника",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        }
+      ]
     },
     {
       "id": "small_intestine",

@@ -169,6 +169,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "heart",
+        "category_id": 21,
+        "source_url": "https://shiyanbin.ru/meridian-serdtsa-s/",
+        "active_time": "11:00-13:00",
+        "passive_time": "23:00-01:00",
+        "names": {
+            "en": "Heart Meridian",
+            "ru": "Меридиан сердца",
+            "uz": "Yurak meridiani",
+            "kz": "Жүрек меридианы",
+        },
+        "direction": {
+            "en": "From the chest and axilla along the inner side of the arm toward the little finger.",
+            "ru": "От груди и подмышечной области по внутренней стороне руки к мизинцу.",
+            "uz": "Ko'krak va qo'ltiq sohasidan qo'lning ichki tomoni bo'ylab jimjiloq barmoqqa.",
+            "kz": "Кеуде мен қолтық аймағынан қолдың ішкі жағымен шынашаққа қарай.",
+        },
+        "intro": {
+            "en": "The Heart Meridian is used here as a map for observing the chest, inner arm, clarity of attention, emotional heat, and the quiet center from which action becomes cleaner.",
+            "ru": "Меридиан сердца здесь используется как карта наблюдения груди, внутренней линии руки, ясности внимания, эмоционального жара и тихого центра, из которого действие становится чище.",
+            "uz": "Yurak meridiani bu yerda ko'krak, qo'lning ichki chizig'i, diqqat ravshanligi, hissiy issiqlik va harakatni tiniqlashtiradigan sokin markazni kuzatish xaritasi sifatida ishlatiladi.",
+            "kz": "Жүрек меридианы бұл жерде кеудені, қолдың ішкі сызығын, зейіннің айқындығын, эмоциялық қызуды және әрекетті тазарақ ететін тыныш орталықты бақылау картасы ретінде қолданылады.",
+        },
+        "practice": {
+            "en": "Soften the chest, armpit, elbow, wrist, and little finger. Let attention move along the inner arm without dramatizing emotion: just notice heat, tightness, tenderness, or quietness.",
+            "ru": "Смягчите грудь, подмышку, локоть, запястье и мизинец. Ведите внимание по внутренней стороне руки без драматизации эмоций: просто замечайте жар, сжатие, чувствительность или тишину.",
+            "uz": "Ko'krak, qo'ltiq, tirsak, bilak va jimjiloqni yumshating. Hissiyotni kuchaytirmasdan diqqatni qo'lning ichki tomoni bo'ylab olib boring: faqat issiqlik, siqilish, noziklik yoki sokinlikni kuzating.",
+            "kz": "Кеудені, қолтықты, шынтақты, білекті және шынашақты жұмсартыңыз. Эмоцияны ұлғайтпай, зейінді қолдың ішкі жағымен жүргізіңіз: жылуды, қысылуды, нәзіктікті немесе тыныштықты ғана байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
