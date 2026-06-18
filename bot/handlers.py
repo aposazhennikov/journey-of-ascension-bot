@@ -583,6 +583,18 @@ TEXTS_UPDATE = {
             "What would you like to study?"
         ),
         "initial_mode_question": "What would you like to study?",
+        "timezone_step_principles": (
+            "📍 **Step 1/3: Time Zone**\n\n"
+            "Choose your time zone so the bot can send Yama/Niyama reminders at the correct local time for you."
+        ),
+        "timezone_step_meridians": (
+            "📍 **Step 1/3: Time Zone**\n\n"
+            "Choose your time zone so the bot can send meridian study reminders at the correct local time for you."
+        ),
+        "timezone_step_both": (
+            "📍 **Step 1/3: Time Zone**\n\n"
+            "Choose your time zone so the bot can send Yama/Niyama and meridian reminders at the correct local time for you."
+        ),
         "continue_setup": "Continue",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Meridians",
@@ -644,6 +656,18 @@ TEXTS_UPDATE = {
             "Что вы хотели бы изучать?"
         ),
         "initial_mode_question": "Что вы хотели бы изучать?",
+        "timezone_step_principles": (
+            "📍 **Шаг 1/3: Часовой пояс**\n\n"
+            "Выберите ваш часовой пояс, чтобы бот присылал напоминания по Яме и Нияме в правильное для вас местное время."
+        ),
+        "timezone_step_meridians": (
+            "📍 **Шаг 1/3: Часовой пояс**\n\n"
+            "Выберите ваш часовой пояс, чтобы бот присылал материалы и напоминания по меридианам в правильное для вас местное время."
+        ),
+        "timezone_step_both": (
+            "📍 **Шаг 1/3: Часовой пояс**\n\n"
+            "Выберите ваш часовой пояс, чтобы бот присылал напоминания по Яме/Нияме и материалы по меридианам в правильное для вас местное время."
+        ),
         "continue_setup": "Продолжить",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Меридианы",
@@ -705,6 +729,18 @@ TEXTS_UPDATE = {
             "Nimani o'rganmoqchisiz?"
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
+        "timezone_step_principles": (
+            "📍 **1/3-qadam: Vaqt mintaqasi**\n\n"
+            "Bot Yama/Niyama eslatmalarini sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
+        ),
+        "timezone_step_meridians": (
+            "📍 **1/3-qadam: Vaqt mintaqasi**\n\n"
+            "Bot meridianlar bo'yicha material va eslatmalarni sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
+        ),
+        "timezone_step_both": (
+            "📍 **1/3-qadam: Vaqt mintaqasi**\n\n"
+            "Bot Yama/Niyama va meridianlar bo'yicha eslatmalarni sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
+        ),
         "continue_setup": "Davom etish",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Meridianlar",
@@ -766,6 +802,18 @@ TEXTS_UPDATE = {
             "Нені зерттегіңіз келеді?"
         ),
         "initial_mode_question": "Нені зерттегіңіз келеді?",
+        "timezone_step_principles": (
+            "📍 **1/3-қадам: Уақыт белдеуі**\n\n"
+            "Бот Яма/Нияма еске салуларын сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
+        ),
+        "timezone_step_meridians": (
+            "📍 **1/3-қадам: Уақыт белдеуі**\n\n"
+            "Бот меридиандар туралы материалдар мен еске салуларды сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
+        ),
+        "timezone_step_both": (
+            "📍 **1/3-қадам: Уақыт белдеуі**\n\n"
+            "Бот Яма/Нияма және меридиандар бойынша еске салуларды сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
+        ),
         "continue_setup": "Жалғастыру",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Меридиандар",
@@ -881,6 +929,21 @@ class BotHandlers:
     def _get_admin_text(self, key: str, **kwargs) -> str:
         """Get admin text."""
         return ADMIN_TEXTS.get(key, key).format(**kwargs)
+
+    def _get_timezone_step_text(self, language: str, user_state: Optional[Dict[str, Any]] = None) -> str:
+        """Get contextual timezone prompt based on selected practice modes."""
+        user_state = user_state or {}
+        principles_enabled = user_state.get("principles_enabled", True)
+        meridians_enabled = user_state.get("meridians_enabled", False)
+
+        if principles_enabled and meridians_enabled:
+            key = "timezone_step_both"
+        elif meridians_enabled:
+            key = "timezone_step_meridians"
+        else:
+            key = "timezone_step_principles"
+
+        return self._get_text(key, language)
     
     async def _handle_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
@@ -1006,7 +1069,7 @@ class BotHandlers:
             user_state["principles_enabled"] = mode in ["principles", "both"]
             user_state["meridians_enabled"] = mode in ["meridians", "both"]
             user_state["step"] = "timezone"
-            text = self._get_text("timezone_step", language)
+            text = self._get_timezone_step_text(language, user_state)
             keyboard = self._create_timezone_keyboard(language)
             await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
 
