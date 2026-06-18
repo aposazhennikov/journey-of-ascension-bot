@@ -408,6 +408,8 @@ def audit() -> list[str]:
             "meridians_menu",
             "meridian_measurements_text",
             "feature_announcement",
+            "skip_days_step",
+            "setup_complete",
         )
         for key in html_keys:
             value = normalize_bot_html(texts.get(language, {}).get(key, ""))

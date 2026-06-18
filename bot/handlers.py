@@ -1257,6 +1257,10 @@ class BotHandlers:
         """Normalize legacy Markdown-bold text for HTML parse mode."""
         return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text)
 
+    def _text_html(self, key: str, language: str = "en", **kwargs) -> str:
+        """Get localized text normalized for HTML parse mode."""
+        return self._as_html(self._get_text(key, language, **kwargs))
+
     def _get_admin_text(self, key: str, **kwargs) -> str:
         """Get admin text."""
         return ADMIN_TEXTS.get(key, key).format(**kwargs)
@@ -1664,31 +1668,10 @@ class BotHandlers:
     
     async def _update_skip_days_keyboard(self, query, language: str, selected_days: List[int]) -> None:
         """Update skip days keyboard with current selection."""
-        text = self._get_text("skip_days_step", language)
-        
-        # Add current selection info
-        if selected_days:
-            days_display = self._format_skip_days(selected_days, language)
-            if language == "en":
-                text += f"\n\n🔸 **Selected days to skip:** {days_display}"
-            elif language == "ru":
-                text += f"\n\n🔸 **Выбранные дни для пропуска:** {days_display}"
-            elif language == "uz":
-                text += f"\n\n🔸 **O'tkazib yuborish uchun tanlangan kunlar:** {days_display}"
-            elif language == "kz":
-                text += f"\n\n🔸 **Өткізіп жіберу үшін таңдалған күндер:** {days_display}"
-        else:
-            if language == "en":
-                text += f"\n\n🔸 **No days selected** - messages will be sent daily"
-            elif language == "ru":
-                text += f"\n\n🔸 **Дни не выбраны** - сообщения будут отправляться ежедневно"
-            elif language == "uz":
-                text += f"\n\n🔸 **Kunlar tanlanmagan** - xabarlar har kuni yuboriladi"
-            elif language == "kz":
-                text += f"\n\n🔸 **Күндер таңдалмаған** - хабарлар күн сайын жіберіледі"
-        
+        text = f"{self._text_html('skip_days_step', language)}\n\n{self._format_skip_days_note(selected_days, language)}"
+
         keyboard = self._create_skip_days_keyboard(language, selected_days)
-        await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+        await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
     
     async def _complete_skip_days_selection(self, update: Update, selected_days: List[int], language: str) -> None:
         """Complete skip days selection and create user or update settings."""
@@ -1723,11 +1706,11 @@ class BotHandlers:
                                 confirmation = "✅ O'tkazib yuborish kunlari tozalandi - kundalik xabarlar yoqildi"
                             elif language == "kz":
                                 confirmation = "✅ Өткізіп жіберу күндері тазаланды - күнделікті хабарлар қосылды"
-                        
-                        text = f"{confirmation}\n\n{self._get_text('menu', language)}"
+
+                        text = f"{escape(confirmation)}\n\n{self._text_html('menu', language)}"
                         keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-                        
-                        await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+
+                        await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                     else:
                         await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='Markdown')
                         
@@ -1770,11 +1753,11 @@ class BotHandlers:
                 logger.debug(f"Setup complete text for user {chat_id} in language {language}: {text[:100]}...")
                 
                 # Add menu after setup completion
-                text += f"\n\n{self._get_text('menu', language)}"
+                text += f"\n\n{self._text_html('menu', language)}"
                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                 logger.debug(f"Final setup message for user {chat_id} in language {language}: {text[:150]}...")
-                
-                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                 # Store the final message ID
                 await self.storage.add_bot_message(chat_id, query.message.message_id, "setup_complete")
             else:
@@ -2237,7 +2220,7 @@ class BotHandlers:
             del self.user_states[chat_id]
 
             text = self._format_setup_complete(user, language, self._format_skip_days([], language))
-            text += f"\n\n{self._get_text('menu', language)}"
+            text += f"\n\n{self._text_html('menu', language)}"
             keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
 
             if message_id:
@@ -2246,44 +2229,34 @@ class BotHandlers:
                     message_id=message_id,
                     text=text,
                     reply_markup=keyboard,
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
                 await self.storage.add_bot_message(chat_id, message_id, "setup_complete")
             else:
-                sent = await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                sent = await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
                 await self.storage.add_bot_message(chat_id, sent.message_id, "setup_complete")
             return
 
         self.user_states[chat_id]["step"] = "skip_days"
         self.user_states[chat_id]["selected_skip_days"] = []  # Initialize empty selection
-        
+
         confirmation = self._get_text("time_saved", language)
-        skip_days_msg = self._get_text("skip_days_step", language)
-        
-        combined_msg = f"{confirmation}\n\n{skip_days_msg}"
-        
-        # Add info about no days selected initially
-        if language == "en":
-            combined_msg += f"\n\n🔸 **No days selected** - messages will be sent daily"
-        elif language == "ru":
-            combined_msg += f"\n\n🔸 **Дни не выбраны** - сообщения будут отправляться ежедневно"
-        elif language == "uz":
-            combined_msg += f"\n\n🔸 **Kunlar tanlanmagan** - xabarlar har kuni yuboriladi"
-        elif language == "kz":
-            combined_msg += f"\n\n🔸 **Күндер таңдалмаған** - хабарлар күн сайын жіберіледі"
-        
+        skip_days_msg = self._text_html("skip_days_step", language)
+
+        combined_msg = f"{escape(confirmation)}\n\n{skip_days_msg}\n\n{self._format_skip_days_note([], language)}"
+
         keyboard = self._create_skip_days_keyboard(language, [])
-        
+
         if message_id:
             await self._edit_bot_message_text_safe(
                 chat_id=chat_id,
                 message_id=message_id,
                 text=combined_msg,
                 reply_markup=keyboard,
-                parse_mode='Markdown'
+                parse_mode='HTML'
             )
         else:
-            await update.message.reply_text(combined_msg, parse_mode='Markdown')
+            await update.message.reply_text(combined_msg, parse_mode='HTML')
     
 
     
@@ -2303,12 +2276,31 @@ class BotHandlers:
         day_names = day_names_map.get(language, day_names_map["en"])
         return ", ".join([day_names[day] for day in skip_days])
 
+    def _format_skip_days_note(self, skip_days: List[int], language: str, current: bool = False) -> str:
+        """Format current skip-days state for HTML messages."""
+        if skip_days:
+            label = {
+                "en": "Current selection" if current else "Selected days to skip",
+                "ru": "Текущий выбор" if current else "Выбранные дни для пропуска",
+                "uz": "Joriy tanlov" if current else "O'tkazib yuborish uchun tanlangan kunlar",
+                "kz": "Ағымдағы таңдау" if current else "Өткізіп жіберу үшін таңдалған күндер",
+            }.get(language, "Selected days to skip")
+            return f"🔸 <b>{label}:</b> {escape(self._format_skip_days(skip_days, language))}"
+
+        empty = {
+            "en": "No days selected — messages will be sent daily",
+            "ru": "Дни не выбраны — сообщения будут отправляться ежедневно",
+            "uz": "Kunlar tanlanmagan — xabarlar har kuni yuboriladi",
+            "kz": "Күндер таңдалмаған — хабарлар күн сайын жіберіледі",
+        }.get(language, "No days selected — messages will be sent daily")
+        return f"🔸 <b>{empty}</b>"
+
     def _format_setup_complete(self, user, language: str, skip_days_display: str) -> str:
         """Format setup summary according to the selected practice modes."""
         labels = {
             "en": {
-                "done": "🎉 **Setup complete!**",
-                "settings": "📋 **Your settings:**",
+                "done": "🎉 <b>Setup complete!</b>",
+                "settings": "📋 <b>Your settings:</b>",
                 "mode": "🧭 Practice:",
                 "principles": "Yama/Niyama",
                 "meridians": "Meridians",
@@ -2321,8 +2313,8 @@ class BotHandlers:
                 "hint": "You can open /menu at any time to adjust your path, reminders, or meridian practice.",
             },
             "ru": {
-                "done": "🎉 **Настройка завершена!**",
-                "settings": "📋 **Ваши настройки:**",
+                "done": "🎉 <b>Настройка завершена!</b>",
+                "settings": "📋 <b>Ваши настройки:</b>",
                 "mode": "🧭 Практика:",
                 "principles": "Яма/Нияма",
                 "meridians": "Меридианы",
@@ -2335,8 +2327,8 @@ class BotHandlers:
                 "hint": "В любой момент можно открыть /menu, изменить путь, напоминания или практику меридианов.",
             },
             "uz": {
-                "done": "🎉 **Sozlash yakunlandi!**",
-                "settings": "📋 **Sozlamalaringiz:**",
+                "done": "🎉 <b>Sozlash yakunlandi!</b>",
+                "settings": "📋 <b>Sozlamalaringiz:</b>",
                 "mode": "🧭 Amaliyot:",
                 "principles": "Yama/Niyama",
                 "meridians": "Meridianlar",
@@ -2349,8 +2341,8 @@ class BotHandlers:
                 "hint": "Istalgan vaqtda /menu ni ochib, yo'l, eslatmalar yoki meridian amaliyotini o'zgartirishingiz mumkin.",
             },
             "kz": {
-                "done": "🎉 **Баптау аяқталды!**",
-                "settings": "📋 **Баптауларыңыз:**",
+                "done": "🎉 <b>Баптау аяқталды!</b>",
+                "settings": "📋 <b>Баптауларыңыз:</b>",
                 "mode": "🧭 Тәжірибе:",
                 "principles": "Яма/Нияма",
                 "meridians": "Меридиандар",
@@ -2376,22 +2368,22 @@ class BotHandlers:
             "",
             labels["settings"],
             f"{labels['mode']} {mode}",
-            f"{labels['timezone']} `{user.timezone}`",
+            f"{labels['timezone']} <code>{escape(user.timezone)}</code>",
         ]
 
         if user.principles_enabled and user.meridians_enabled:
             lines.extend([
-                f"{labels['principle_time']} `{user.time_for_send}`",
-                f"{labels['meridian_time']} `{user.meridian_time_for_send}`",
-                f"{labels['skip']} {skip_days_display}",
+                f"{labels['principle_time']} <code>{escape(user.time_for_send)}</code>",
+                f"{labels['meridian_time']} <code>{escape(user.meridian_time_for_send)}</code>",
+                f"{labels['skip']} {escape(skip_days_display)}",
             ])
         elif user.principles_enabled:
             lines.extend([
-                f"{labels['time']} `{user.time_for_send}`",
-                f"{labels['skip']} {skip_days_display}",
+                f"{labels['time']} <code>{escape(user.time_for_send)}</code>",
+                f"{labels['skip']} {escape(skip_days_display)}",
             ])
         else:
-            lines.append(f"{labels['time']} `{user.meridian_time_for_send}`")
+            lines.append(f"{labels['time']} <code>{escape(user.meridian_time_for_send)}</code>")
 
         lines.extend(["", labels["hint"]])
         return "\n".join(lines)
@@ -3022,37 +3014,16 @@ class BotHandlers:
                     "selected_skip_days": current_skip_days.copy()
                 }
                 
-                text = self._get_text("skip_days_step", language)
-                
-                # Add current selection info
-                if current_skip_days:
-                    days_display = self._format_skip_days(current_skip_days, language)
-                    if language == "en":
-                        text += f"\n\n🔸 **Current selection:** {days_display}"
-                    elif language == "ru":
-                        text += f"\n\n🔸 **Текущий выбор:** {days_display}"
-                    elif language == "uz":
-                        text += f"\n\n🔸 **Joriy tanlov:** {days_display}"
-                    elif language == "kz":
-                        text += f"\n\n🔸 **Ағымдағы таңдау:** {days_display}"
-                else:
-                    if language == "en":
-                        text += f"\n\n🔸 **No days selected** - messages are sent daily"
-                    elif language == "ru":
-                        text += f"\n\n🔸 **Дни не выбраны** - сообщения отправляются ежедневно"
-                    elif language == "uz":
-                        text += f"\n\n🔸 **Kunlar tanlanmagan** - xabarlar har kuni yuboriladi"
-                    elif language == "kz":
-                        text += f"\n\n🔸 **Күндер таңдалмаған** - хабарлар күн сайын жіберіледі"
-                
+                text = f"{self._text_html('skip_days_step', language)}\n\n{self._format_skip_days_note(current_skip_days, language, current=True)}"
+
                 keyboard = self._create_skip_days_keyboard(language, current_skip_days, add_back_button=True)
-                
-                await self._edit_message_text_safe(query, 
-                    text, 
+
+                await self._edit_message_text_safe(query,
+                    text,
                     reply_markup=keyboard,
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
-                
+
         except Exception as e:
             logger.error(f"Error in change callback for user {chat_id}: {e}")
             await self._edit_message_text_safe(query, self._get_text("error", language))
