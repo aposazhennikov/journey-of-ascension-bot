@@ -3995,33 +3995,720 @@
       "id": "small_intestine",
       "active_time": "13:00-15:00",
       "passive_time": "01:00-03:00",
+      "source_url": "https://shiyanbin.ru/meridian-tonkoj-kishki-ig/",
+      "points_source_url": "https://www.eledia.ru/publ/22",
       "i18n": {
         "en": {
           "name": "Small Intestine Meridian",
-          "description": "A study module placeholder. Full content will be added from approved sources.",
-          "direction": "From the little finger along the outer arm to the face.",
-          "intro_practice": "Trace the channel with relaxed attention and notice clarity or tension."
+          "description": "The Small Intestine Meridian is used here as a map for observing how the body separates clear from unclear: tension in the arm, shoulder blade, neck, jaw, and the ability to digest impressions without carrying everything inside.",
+          "direction": "From the little finger along the outer side of the arm through the shoulder blade, neck, cheek, and ear.",
+          "intro_practice": "Relax the little finger, wrist, elbow, shoulder blade, neck, and jaw. Let attention move from the little finger toward the ear, noticing where the line feels sharp, hot, blocked, or unexpectedly clear."
         },
         "ru": {
           "name": "Меридиан тонкого кишечника",
-          "description": "Заготовка учебного модуля. Полный контент будет добавлен из согласованных источников.",
-          "direction": "От мизинца по внешней стороне руки к лицу.",
-          "intro_practice": "Проследите канал расслабленным вниманием и отметьте ясность или напряжение."
+          "description": "Меридиан тонкого кишечника здесь используется как карта наблюдения того, как тело отделяет ясное от неясного: напряжение руки, лопатки, шеи, челюсти и способность переваривать впечатления, не таща всё внутрь себя. Меридиан Тонкой кишки парный, относится к системе ян; направление энергии центростремительное; энергия идет от Меридиана Сердца и переходит в Меридиан Мочевого пузыря; максимальная активность меридиана с 13 до 15 часов. На Меридиане Тонкой кишки 19 точек",
+          "direction": "От мизинца по наружной стороне руки через лопатку, шею, щёку и область уха.",
+          "intro_practice": "Расслабьте мизинец, запястье, локоть, лопатку, шею и челюсть. Ведите внимание от мизинца к уху, замечая, где линия ощущается резкой, горячей, закрытой или неожиданно ясной."
         },
         "uz": {
           "name": "Ingichka ichak meridiani",
-          "description": "O'quv moduli uchun tayyor tuzilma. To'liq kontent tasdiqlangan manbalardan qo'shiladi.",
-          "direction": "Jimjiloqdan qo'lning tashqi tomoni bo'ylab yuzga.",
-          "intro_practice": "Kanalni bo'sh diqqat bilan kuzating va ravshanlik yoki taranglikni sezing."
+          "description": "Ingichka ichak meridiani bu yerda tana ravshanni noaniqdan qanday ajratishini kuzatish xaritasi sifatida ishlatiladi: qo'l, kurak, bo'yin, jag' tarangligi va taassurotlarni ichda ortiqcha ko'tarmasdan hazm qilish qobiliyati.",
+          "direction": "Jimjiloqdan qo'lning tashqi tomoni bo'ylab kurak, bo'yin, yonoq va quloq sohasiga.",
+          "intro_practice": "Jimjiloq, bilak, tirsak, kurak, bo'yin va jag'ni bo'shating. Diqqatni jimjiloqdan quloqqa qarab olib boring, chiziq qayerda o'tkir, issiq, yopiq yoki kutilmaganda ravshan sezilishini kuzating."
         },
         "kz": {
           "name": "Ащы ішек меридианы",
-          "description": "Оқу модулінің құрылымы. Толық контент келісілген дереккөздерден қосылады.",
-          "direction": "Шынашақтан қолдың сыртқы жағымен бетке қарай.",
-          "intro_practice": "Арнаны босаң зейінмен қадағалап, айқындықты немесе кернеуді байқаңыз."
+          "description": "Ащы ішек меридианы бұл жерде дененің айқынды айқын еместен қалай ажырататынын бақылау картасы ретінде қолданылады: қол, жауырын, мойын, жақ кернеуі және әсерлерді іште артық көтермей қорыту қабілеті.",
+          "direction": "Шынашақтан қолдың сыртқы жағымен жауырын, мойын, бет және құлақ аймағына қарай.",
+          "intro_practice": "Шынашақты, білекті, шынтақты, жауырынды, мойынды және жақты босатыңыз. Зейінді шынашақтан құлаққа қарай жүргізіп, сызықтың қай жерде өткір, ыстық, жабық немесе күтпегендей айқын сезілетінін байқаңыз."
         }
       },
-      "points": []
+      "points": [
+        {
+          "code": "IG1",
+          "alt_code": "SI 1",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-372",
+          "image": "small_intestine_IG1.gif",
+          "i18n": {
+            "en": {
+              "name": "Шао-цзэ",
+              "location": "Source location: на локтевой стороне мизинца, приблизительно на 0,1 цуня кнаружи от угла ногтя",
+              "meaning": "Classical note: точка-исток (Металл) ручного тай-ян канала тонкого кишечника «шао» — «маленький»; «цзэ» — «заболоченное место». Шао-цзэ IG.1 является точкой-истоком, из которой, как из маленького родника на заболоченной местности, начинает свой путь канальная Ци ручного тай-ян канала тонкого кишечника",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шао-цзэ",
+              "location": "на локтевой стороне мизинца, приблизительно на 0,1 цуня кнаружи от угла ногтя",
+              "meaning": "точка-исток (Металл) ручного тай-ян канала тонкого кишечника «шао» — «маленький»; «цзэ» — «заболоченное место». Шао-цзэ IG.1 является точкой-истоком, из которой, как из маленького родника на заболоченной местности, начинает свой путь канальная Ци ручного тай-ян канала тонкого кишечника",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шао-цзэ",
+              "location": "Manbadagi joylashuv: на локтевой стороне мизинца, приблизительно на 0,1 цуня кнаружи от угла ногтя",
+              "meaning": "Klassik izoh: точка-исток (Металл) ручного тай-ян канала тонкого кишечника «шао» — «маленький»; «цзэ» — «заболоченное место». Шао-цзэ IG.1 является точкой-истоком, из которой, как из маленького родника на заболоченной местности, начинает свой путь канальная Ци ручного тай-ян канала тонкого кишечника",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шао-цзэ",
+              "location": "Дереккөздегі орналасуы: на локтевой стороне мизинца, приблизительно на 0,1 цуня кнаружи от угла ногтя",
+              "meaning": "Классикалық түсіндірме: точка-исток (Металл) ручного тай-ян канала тонкого кишечника «шао» — «маленький»; «цзэ» — «заболоченное место». Шао-цзэ IG.1 является точкой-истоком, из которой, как из маленького родника на заболоченной местности, начинает свой путь канальная Ци ручного тай-ян канала тонкого кишечника",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG2",
+          "alt_code": "SI 2",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-400",
+          "image": "small_intestine_IG2.gif",
+          "i18n": {
+            "en": {
+              "name": "Цянь-гу",
+              "location": "Source location: при сжатой в кулак кисти в углублении кпереди от локтевого края V пястно-фалангового сустава, на конце поперечной складки, на границе тыльной и ладонной поверхности кисти",
+              "meaning": "Classical note: гочка-ручей (Вода) ручного тай-ян канала тонкого кишечника «цянь» - «впереди, передний»; «ту» — «ущелье, русло горного потока». Точка расположена в углублении кпереди от пястно-фалангового сустава, на конце поперечной складки, напоминающей русло горного потока. Кроме того, она расположена кпереди от точки Хоу-си IG.3, поэтому сравнивается с «передним ущельем (руслом горного потока)», в то время как Хоу-си IG.3 — «задний горный ручей»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Цянь-гу",
+              "location": "при сжатой в кулак кисти в углублении кпереди от локтевого края V пястно-фалангового сустава, на конце поперечной складки, на границе тыльной и ладонной поверхности кисти",
+              "meaning": "гочка-ручей (Вода) ручного тай-ян канала тонкого кишечника «цянь» - «впереди, передний»; «ту» — «ущелье, русло горного потока». Точка расположена в углублении кпереди от пястно-фалангового сустава, на конце поперечной складки, напоминающей русло горного потока. Кроме того, она расположена кпереди от точки Хоу-си IG.3, поэтому сравнивается с «передним ущельем (руслом горного потока)», в то время как Хоу-си IG.3 — «задний горный ручей»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Цянь-гу",
+              "location": "Manbadagi joylashuv: при сжатой в кулак кисти в углублении кпереди от локтевого края V пястно-фалангового сустава, на конце поперечной складки, на границе тыльной и ладонной поверхности кисти",
+              "meaning": "Klassik izoh: гочка-ручей (Вода) ручного тай-ян канала тонкого кишечника «цянь» - «впереди, передний»; «ту» — «ущелье, русло горного потока». Точка расположена в углублении кпереди от пястно-фалангового сустава, на конце поперечной складки, напоминающей русло горного потока. Кроме того, она расположена кпереди от точки Хоу-си IG.3, поэтому сравнивается с «передним ущельем (руслом горного потока)», в то время как Хоу-си IG.3 — «задний горный ручей»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Цянь-гу",
+              "location": "Дереккөздегі орналасуы: при сжатой в кулак кисти в углублении кпереди от локтевого края V пястно-фалангового сустава, на конце поперечной складки, на границе тыльной и ладонной поверхности кисти",
+              "meaning": "Классикалық түсіндірме: гочка-ручей (Вода) ручного тай-ян канала тонкого кишечника «цянь» - «впереди, передний»; «ту» — «ущелье, русло горного потока». Точка расположена в углублении кпереди от пястно-фалангового сустава, на конце поперечной складки, напоминающей русло горного потока. Кроме того, она расположена кпереди от точки Хоу-си IG.3, поэтому сравнивается с «передним ущельем (руслом горного потока)», в то время как Хоу-си IG.3 — «задний горный ручей»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG3",
+          "alt_code": "SI 3",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-417",
+          "image": "small_intestine_IG3.gif",
+          "i18n": {
+            "en": {
+              "name": "Хоу-си",
+              "location": "Source location: при сжатой в кулак кисти в углублении кзади от локтевого края головки V пястно-фалангового сустава, на конце поперечной складки ладони, на границе тыльной и ладонной поверхности кисти",
+              "meaning": "Classical note: 1. Точка-быстрина (Дерево) ручного тай-ян канала тонкого кишечника. 2. Одна из точек слияния восьми сосудов, связанная с сосудом Ду-май. Название: «хоу» — «сзади, задний»; «си» — «горный ручей». При сжатой в кулак кисти возвышение мышц кзади от пястно-фалангового сустава мизинца напоминают вершину горы. Точка расположена на конце поперечной складки ладони, которая похожа на ручей, текущий с вершины горы. Кроме того, она расположена сзади точки Цянь-гу IG.2, поэтому сравнивается с «задним горным ручьем», в то время как Цянь-гу IG.2 — «переднее ущелье (русло горного потока)»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Хоу-си",
+              "location": "при сжатой в кулак кисти в углублении кзади от локтевого края головки V пястно-фалангового сустава, на конце поперечной складки ладони, на границе тыльной и ладонной поверхности кисти",
+              "meaning": "1. Точка-быстрина (Дерево) ручного тай-ян канала тонкого кишечника. 2. Одна из точек слияния восьми сосудов, связанная с сосудом Ду-май. Название: «хоу» — «сзади, задний»; «си» — «горный ручей». При сжатой в кулак кисти возвышение мышц кзади от пястно-фалангового сустава мизинца напоминают вершину горы. Точка расположена на конце поперечной складки ладони, которая похожа на ручей, текущий с вершины горы. Кроме того, она расположена сзади точки Цянь-гу IG.2, поэтому сравнивается с «задним горным ручьем», в то время как Цянь-гу IG.2 — «переднее ущелье (русло горного потока)»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Хоу-си",
+              "location": "Manbadagi joylashuv: при сжатой в кулак кисти в углублении кзади от локтевого края головки V пястно-фалангового сустава, на конце поперечной складки ладони, на границе тыльной и ладонной поверхности кисти",
+              "meaning": "Klassik izoh: 1. Точка-быстрина (Дерево) ручного тай-ян канала тонкого кишечника. 2. Одна из точек слияния восьми сосудов, связанная с сосудом Ду-май. Название: «хоу» — «сзади, задний»; «си» — «горный ручей». При сжатой в кулак кисти возвышение мышц кзади от пястно-фалангового сустава мизинца напоминают вершину горы. Точка расположена на конце поперечной складки ладони, которая похожа на ручей, текущий с вершины горы. Кроме того, она расположена сзади точки Цянь-гу IG.2, поэтому сравнивается с «задним горным ручьем», в то время как Цянь-гу IG.2 — «переднее ущелье (русло горного потока)»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Хоу-си",
+              "location": "Дереккөздегі орналасуы: при сжатой в кулак кисти в углублении кзади от локтевого края головки V пястно-фалангового сустава, на конце поперечной складки ладони, на границе тыльной и ладонной поверхности кисти",
+              "meaning": "Классикалық түсіндірме: 1. Точка-быстрина (Дерево) ручного тай-ян канала тонкого кишечника. 2. Одна из точек слияния восьми сосудов, связанная с сосудом Ду-май. Название: «хоу» — «сзади, задний»; «си» — «горный ручей». При сжатой в кулак кисти возвышение мышц кзади от пястно-фалангового сустава мизинца напоминают вершину горы. Точка расположена на конце поперечной складки ладони, которая похожа на ручей, текущий с вершины горы. Кроме того, она расположена сзади точки Цянь-гу IG.2, поэтому сравнивается с «задним горным ручьем», в то время как Цянь-гу IG.2 — «переднее ущелье (русло горного потока)»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG4",
+          "alt_code": "SI 4",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-406",
+          "image": "small_intestine_IG4.gif",
+          "i18n": {
+            "en": {
+              "name": "Вань-гу",
+              "location": "Source location: на локтевом крае ладони, в углублении между основанием V пястной кости и трехгранной костью",
+              "meaning": "Classical note: точка первичной Ци ручного тай-ян канала тонкого кишечника «вань» — «запястье»; «гу» — «кость». «Вань-гу» - древний анатомический термин, обозначающий восемь костей (гу) области запястья (вань), возле которых расположена эта точка",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Вань-гу",
+              "location": "на локтевом крае ладони, в углублении между основанием V пястной кости и трехгранной костью",
+              "meaning": "точка первичной Ци ручного тай-ян канала тонкого кишечника «вань» — «запястье»; «гу» — «кость». «Вань-гу» - древний анатомический термин, обозначающий восемь костей (гу) области запястья (вань), возле которых расположена эта точка",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Вань-гу",
+              "location": "Manbadagi joylashuv: на локтевом крае ладони, в углублении между основанием V пястной кости и трехгранной костью",
+              "meaning": "Klassik izoh: точка первичной Ци ручного тай-ян канала тонкого кишечника «вань» — «запястье»; «гу» — «кость». «Вань-гу» - древний анатомический термин, обозначающий восемь костей (гу) области запястья (вань), возле которых расположена эта точка",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Вань-гу",
+              "location": "Дереккөздегі орналасуы: на локтевом крае ладони, в углублении между основанием V пястной кости и трехгранной костью",
+              "meaning": "Классикалық түсіндірме: точка первичной Ци ручного тай-ян канала тонкого кишечника «вань» — «запястье»; «гу» — «кость». «Вань-гу» - древний анатомический термин, обозначающий восемь костей (гу) области запястья (вань), возле которых расположена эта точка",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG5",
+          "alt_code": "SI 5",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-288",
+          "image": "small_intestine_IG5.gif",
+          "i18n": {
+            "en": {
+              "name": "Ян-гу",
+              "location": "Source location: на локтевом крае лучезапястного сустава, в углублении между шиловидным отростком локтевой кости и трехгранной костью",
+              "meaning": "Classical note: точка-река (Огонь) ручного тай-ян канала тонкого кишечника «ян» — «Ян-сторона тела»; «гу» — «ущелье». Точка относится к ручному тай-ян каналу тонкого кишечника, расположена на Ян-стороне руки в углублении, напоминающем горное ущелье",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Ян-гу",
+              "location": "на локтевом крае лучезапястного сустава, в углублении между шиловидным отростком локтевой кости и трехгранной костью",
+              "meaning": "точка-река (Огонь) ручного тай-ян канала тонкого кишечника «ян» — «Ян-сторона тела»; «гу» — «ущелье». Точка относится к ручному тай-ян каналу тонкого кишечника, расположена на Ян-стороне руки в углублении, напоминающем горное ущелье",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Ян-гу",
+              "location": "Manbadagi joylashuv: на локтевом крае лучезапястного сустава, в углублении между шиловидным отростком локтевой кости и трехгранной костью",
+              "meaning": "Klassik izoh: точка-река (Огонь) ручного тай-ян канала тонкого кишечника «ян» — «Ян-сторона тела»; «гу» — «ущелье». Точка относится к ручному тай-ян каналу тонкого кишечника, расположена на Ян-стороне руки в углублении, напоминающем горное ущелье",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Ян-гу",
+              "location": "Дереккөздегі орналасуы: на локтевом крае лучезапястного сустава, в углублении между шиловидным отростком локтевой кости и трехгранной костью",
+              "meaning": "Классикалық түсіндірме: точка-река (Огонь) ручного тай-ян канала тонкого кишечника «ян» — «Ян-сторона тела»; «гу» — «ущелье». Точка относится к ручному тай-ян каналу тонкого кишечника, расположена на Ян-стороне руки в углублении, напоминающем горное ущелье",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG6",
+          "alt_code": "SI 6",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-461",
+          "image": "small_intestine_IG6.gif",
+          "i18n": {
+            "en": {
+              "name": "Ян-лао",
+              "location": "Source location: над головкой локтевой кости. При использовании точки пациент прикладывает ладонь к груди, точка расположена в углублении у лучевого края головки локтевой кости",
+              "meaning": "Classical note: точка-щель ручного тай-ян канала тонкого кишечника «ян» — «питать; поддерживать»; «лао» — «старость». Точка относится к ручному тай-ян каналу тонкого кишечника. В тонком кишечнике чистое отделяется от мутного, очищенная часть поступает для питания организма. Укалывание этой точки способствует поддержанию здоровья пожилых людей, используется при лечении снижения остроты зрения, боли в пояснице и других «болезней старости»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Ян-лао",
+              "location": "над головкой локтевой кости. При использовании точки пациент прикладывает ладонь к груди, точка расположена в углублении у лучевого края головки локтевой кости",
+              "meaning": "точка-щель ручного тай-ян канала тонкого кишечника «ян» — «питать; поддерживать»; «лао» — «старость». Точка относится к ручному тай-ян каналу тонкого кишечника. В тонком кишечнике чистое отделяется от мутного, очищенная часть поступает для питания организма. Укалывание этой точки способствует поддержанию здоровья пожилых людей, используется при лечении снижения остроты зрения, боли в пояснице и других «болезней старости»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Ян-лао",
+              "location": "Manbadagi joylashuv: над головкой локтевой кости. При использовании точки пациент прикладывает ладонь к груди, точка расположена в углублении у лучевого края головки локтевой кости",
+              "meaning": "Klassik izoh: точка-щель ручного тай-ян канала тонкого кишечника «ян» — «питать; поддерживать»; «лао» — «старость». Точка относится к ручному тай-ян каналу тонкого кишечника. В тонком кишечнике чистое отделяется от мутного, очищенная часть поступает для питания организма. Укалывание этой точки способствует поддержанию здоровья пожилых людей, используется при лечении снижения остроты зрения, боли в пояснице и других «болезней старости»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Ян-лао",
+              "location": "Дереккөздегі орналасуы: над головкой локтевой кости. При использовании точки пациент прикладывает ладонь к груди, точка расположена в углублении у лучевого края головки локтевой кости",
+              "meaning": "Классикалық түсіндірме: точка-щель ручного тай-ян канала тонкого кишечника «ян» — «питать; поддерживать»; «лао» — «старость». Точка относится к ручному тай-ян каналу тонкого кишечника. В тонком кишечнике чистое отделяется от мутного, очищенная часть поступает для питания организма. Укалывание этой точки способствует поддержанию здоровья пожилых людей, используется при лечении снижения остроты зрения, боли в пояснице и других «болезней старости»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG7",
+          "alt_code": "SI 7",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-462",
+          "image": "small_intestine_IG7.gif",
+          "i18n": {
+            "en": {
+              "name": "Чжи-чжэн",
+              "location": "Source location: на линии, соединяющей точки Ян-гу IG.5 и Сяо-хай IG.8, на 5 цуней выше лучезапястной складки",
+              "meaning": "Classical note: точка коллатерали ручного тай-ян канала тонкого кишечника, соединяющейся с ручным шао-инь каналом сердца «чжи» - «ответвление»; «чжэн» - «прямой, основной». Чжи-чжэн IG.7 — точка коллатерали ручного тай-ян канала тонкого кишечника, от которой ответвляется коллатераль к ручному шао-инь каналу сердца. В книге «Хуанди нэй цзин тай су» (Величайшая простота Канона Желтого императора о внутреннем, VII в.) говорится: «„Чжэн\" - это основной канал; „чжи\" — это коллатералъ»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Чжи-чжэн",
+              "location": "на линии, соединяющей точки Ян-гу IG.5 и Сяо-хай IG.8, на 5 цуней выше лучезапястной складки",
+              "meaning": "точка коллатерали ручного тай-ян канала тонкого кишечника, соединяющейся с ручным шао-инь каналом сердца «чжи» - «ответвление»; «чжэн» - «прямой, основной». Чжи-чжэн IG.7 — точка коллатерали ручного тай-ян канала тонкого кишечника, от которой ответвляется коллатераль к ручному шао-инь каналу сердца. В книге «Хуанди нэй цзин тай су» (Величайшая простота Канона Желтого императора о внутреннем, VII в.) говорится: «„Чжэн\" - это основной канал; „чжи\" — это коллатералъ»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Чжи-чжэн",
+              "location": "Manbadagi joylashuv: на линии, соединяющей точки Ян-гу IG.5 и Сяо-хай IG.8, на 5 цуней выше лучезапястной складки",
+              "meaning": "Klassik izoh: точка коллатерали ручного тай-ян канала тонкого кишечника, соединяющейся с ручным шао-инь каналом сердца «чжи» - «ответвление»; «чжэн» - «прямой, основной». Чжи-чжэн IG.7 — точка коллатерали ручного тай-ян канала тонкого кишечника, от которой ответвляется коллатераль к ручному шао-инь каналу сердца. В книге «Хуанди нэй цзин тай су» (Величайшая простота Канона Желтого императора о внутреннем, VII в.) говорится: «„Чжэн\" - это основной канал; „чжи\" — это коллатералъ»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Чжи-чжэн",
+              "location": "Дереккөздегі орналасуы: на линии, соединяющей точки Ян-гу IG.5 и Сяо-хай IG.8, на 5 цуней выше лучезапястной складки",
+              "meaning": "Классикалық түсіндірме: точка коллатерали ручного тай-ян канала тонкого кишечника, соединяющейся с ручным шао-инь каналом сердца «чжи» - «ответвление»; «чжэн» - «прямой, основной». Чжи-чжэн IG.7 — точка коллатерали ручного тай-ян канала тонкого кишечника, от которой ответвляется коллатераль к ручному шао-инь каналу сердца. В книге «Хуанди нэй цзин тай су» (Величайшая простота Канона Желтого императора о внутреннем, VII в.) говорится: «„Чжэн\" - это основной канал; „чжи\" — это коллатералъ»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG8",
+          "alt_code": "SI 8",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-463",
+          "image": "small_intestine_IG8.gif",
+          "i18n": {
+            "en": {
+              "name": "Сяо-хай",
+              "location": "Source location: при согнутой в локтевом суставе руке, в углублении между локтевым отростком локтевой кости и медиальным надмыщелком плечевой кости",
+              "meaning": "Classical note: точка-устье (Земля) ручного тай-ян канала тонкого кишечника «сяо» - «тонкий [кишечник]»; «хай» — «море». Сяо-хай IG.8 — точка-устье ручного тай-ян канала тонкого кишечника. Достигая этой точки канальная Ци становится обильной, подобно реке, впадающей в море",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Сяо-хай",
+              "location": "при согнутой в локтевом суставе руке, в углублении между локтевым отростком локтевой кости и медиальным надмыщелком плечевой кости",
+              "meaning": "точка-устье (Земля) ручного тай-ян канала тонкого кишечника «сяо» - «тонкий [кишечник]»; «хай» — «море». Сяо-хай IG.8 — точка-устье ручного тай-ян канала тонкого кишечника. Достигая этой точки канальная Ци становится обильной, подобно реке, впадающей в море",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Сяо-хай",
+              "location": "Manbadagi joylashuv: при согнутой в локтевом суставе руке, в углублении между локтевым отростком локтевой кости и медиальным надмыщелком плечевой кости",
+              "meaning": "Klassik izoh: точка-устье (Земля) ручного тай-ян канала тонкого кишечника «сяо» - «тонкий [кишечник]»; «хай» — «море». Сяо-хай IG.8 — точка-устье ручного тай-ян канала тонкого кишечника. Достигая этой точки канальная Ци становится обильной, подобно реке, впадающей в море",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Сяо-хай",
+              "location": "Дереккөздегі орналасуы: при согнутой в локтевом суставе руке, в углублении между локтевым отростком локтевой кости и медиальным надмыщелком плечевой кости",
+              "meaning": "Классикалық түсіндірме: точка-устье (Земля) ручного тай-ян канала тонкого кишечника «сяо» - «тонкий [кишечник]»; «хай» — «море». Сяо-хай IG.8 — точка-устье ручного тай-ян канала тонкого кишечника. Достигая этой точки канальная Ци становится обильной, подобно реке, впадающей в море",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG9",
+          "alt_code": "SI 9",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-464",
+          "image": "small_intestine_IG9.gif",
+          "i18n": {
+            "en": {
+              "name": "Цзянь-чжэнь",
+              "location": "Source location: кзади и книзу от плечевого сустава, между плечевой костью и лопаткой, на 1 цунь выше задней подмышечной складки",
+              "meaning": "Classical note: «цзянь» — «область плечевого сустава»; «чжэнь» — «прямой, прямо». Точка расположена кзади и книзу от плечевого сустава, прямо (чжэнь) вверх от подмышечной складки",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Цзянь-чжэнь",
+              "location": "кзади и книзу от плечевого сустава, между плечевой костью и лопаткой, на 1 цунь выше задней подмышечной складки",
+              "meaning": "«цзянь» — «область плечевого сустава»; «чжэнь» — «прямой, прямо». Точка расположена кзади и книзу от плечевого сустава, прямо (чжэнь) вверх от подмышечной складки",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Цзянь-чжэнь",
+              "location": "Manbadagi joylashuv: кзади и книзу от плечевого сустава, между плечевой костью и лопаткой, на 1 цунь выше задней подмышечной складки",
+              "meaning": "Klassik izoh: «цзянь» — «область плечевого сустава»; «чжэнь» — «прямой, прямо». Точка расположена кзади и книзу от плечевого сустава, прямо (чжэнь) вверх от подмышечной складки",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Цзянь-чжэнь",
+              "location": "Дереккөздегі орналасуы: кзади и книзу от плечевого сустава, между плечевой костью и лопаткой, на 1 цунь выше задней подмышечной складки",
+              "meaning": "Классикалық түсіндірме: «цзянь» — «область плечевого сустава»; «чжэнь» — «прямой, прямо». Точка расположена кзади и книзу от плечевого сустава, прямо (чжэнь) вверх от подмышечной складки",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG10",
+          "alt_code": "SI 10",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-418",
+          "image": "small_intestine_IG10.gif",
+          "i18n": {
+            "en": {
+              "name": "Нао-шу",
+              "location": "Source location: прямо вверх отточки Цзянь-чжэнь IG.9, в углублении иод остью лопатки",
+              "meaning": "Classical note: 1. Точка пересечения ручного тай-ян канала тонкого кишечника, сосудов Ян-вэй-май и Ян-цяо-май. 2. Точка пересечения ручного тай-ян канала тонкого кишечника, ножного тай-ян канала мочевого пузыря, сосудов Ян-вэй-май и Ян-цяо-май «нао» — «плечо»; «шу» — «акуиунктурная точка». Свое название точка Нао-шу IG.10 получила по месту расположения",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Нао-шу",
+              "location": "прямо вверх отточки Цзянь-чжэнь IG.9, в углублении иод остью лопатки",
+              "meaning": "1. Точка пересечения ручного тай-ян канала тонкого кишечника, сосудов Ян-вэй-май и Ян-цяо-май. 2. Точка пересечения ручного тай-ян канала тонкого кишечника, ножного тай-ян канала мочевого пузыря, сосудов Ян-вэй-май и Ян-цяо-май «нао» — «плечо»; «шу» — «акуиунктурная точка». Свое название точка Нао-шу IG.10 получила по месту расположения",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Нао-шу",
+              "location": "Manbadagi joylashuv: прямо вверх отточки Цзянь-чжэнь IG.9, в углублении иод остью лопатки",
+              "meaning": "Klassik izoh: 1. Точка пересечения ручного тай-ян канала тонкого кишечника, сосудов Ян-вэй-май и Ян-цяо-май. 2. Точка пересечения ручного тай-ян канала тонкого кишечника, ножного тай-ян канала мочевого пузыря, сосудов Ян-вэй-май и Ян-цяо-май «нао» — «плечо»; «шу» — «акуиунктурная точка». Свое название точка Нао-шу IG.10 получила по месту расположения",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Нао-шу",
+              "location": "Дереккөздегі орналасуы: прямо вверх отточки Цзянь-чжэнь IG.9, в углублении иод остью лопатки",
+              "meaning": "Классикалық түсіндірме: 1. Точка пересечения ручного тай-ян канала тонкого кишечника, сосудов Ян-вэй-май и Ян-цяо-май. 2. Точка пересечения ручного тай-ян канала тонкого кишечника, ножного тай-ян канала мочевого пузыря, сосудов Ян-вэй-май и Ян-цяо-май «нао» — «плечо»; «шу» — «акуиунктурная точка». Свое название точка Нао-шу IG.10 получила по месту расположения",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG11",
+          "alt_code": "SI 11",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-419",
+          "image": "small_intestine_IG11.gif",
+          "i18n": {
+            "en": {
+              "name": "Тянь-цзун",
+              "location": "Source location: в центре подостной ямки, в месте соединения верхней 1/з и нижних 2/з линии между нижним краем ости лопатки и нижним углом лопатки",
+              "meaning": "Classical note: «тянь» - «небесный»; «цзун» — «основа, середина». Верхняя часть человеческого тела называется «небесной». Точка расположена в середине подостной ямки, отсюда и название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Тянь-цзун",
+              "location": "в центре подостной ямки, в месте соединения верхней 1/з и нижних 2/з линии между нижним краем ости лопатки и нижним углом лопатки",
+              "meaning": "«тянь» - «небесный»; «цзун» — «основа, середина». Верхняя часть человеческого тела называется «небесной». Точка расположена в середине подостной ямки, отсюда и название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Тянь-цзун",
+              "location": "Manbadagi joylashuv: в центре подостной ямки, в месте соединения верхней 1/з и нижних 2/з линии между нижним краем ости лопатки и нижним углом лопатки",
+              "meaning": "Klassik izoh: «тянь» - «небесный»; «цзун» — «основа, середина». Верхняя часть человеческого тела называется «небесной». Точка расположена в середине подостной ямки, отсюда и название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Тянь-цзун",
+              "location": "Дереккөздегі орналасуы: в центре подостной ямки, в месте соединения верхней 1/з и нижних 2/з линии между нижним краем ости лопатки и нижним углом лопатки",
+              "meaning": "Классикалық түсіндірме: «тянь» - «небесный»; «цзун» — «основа, середина». Верхняя часть человеческого тела называется «небесной». Точка расположена в середине подостной ямки, отсюда и название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG12",
+          "alt_code": "SI 12",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-465",
+          "image": "small_intestine_IG12.gif",
+          "i18n": {
+            "en": {
+              "name": "Бин-фэн",
+              "location": "Source location: в надостной ямке, прямо вверх от точки Тянь-цзун IG.11, в углублении, образующимся при поднятии рук",
+              "meaning": "Classical note: точка пересечения ручного тай-ян канала тонкого кишечника, ручного ян-мин канала толстого кишечника, ручного шао-ян канала Сань-цзяо и ножного шао-ян канала желчного пузыря «бин» — «управлять, держать в руках»; «фэн» — «ветер». Эта точка используется при лечении локальных болевых синдромов, вызванных восприятием внешнего патогенного ветра, то есть может «управлять ветром»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Бин-фэн",
+              "location": "в надостной ямке, прямо вверх от точки Тянь-цзун IG.11, в углублении, образующимся при поднятии рук",
+              "meaning": "точка пересечения ручного тай-ян канала тонкого кишечника, ручного ян-мин канала толстого кишечника, ручного шао-ян канала Сань-цзяо и ножного шао-ян канала желчного пузыря «бин» — «управлять, держать в руках»; «фэн» — «ветер». Эта точка используется при лечении локальных болевых синдромов, вызванных восприятием внешнего патогенного ветра, то есть может «управлять ветром»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Бин-фэн",
+              "location": "Manbadagi joylashuv: в надостной ямке, прямо вверх от точки Тянь-цзун IG.11, в углублении, образующимся при поднятии рук",
+              "meaning": "Klassik izoh: точка пересечения ручного тай-ян канала тонкого кишечника, ручного ян-мин канала толстого кишечника, ручного шао-ян канала Сань-цзяо и ножного шао-ян канала желчного пузыря «бин» — «управлять, держать в руках»; «фэн» — «ветер». Эта точка используется при лечении локальных болевых синдромов, вызванных восприятием внешнего патогенного ветра, то есть может «управлять ветром»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Бин-фэн",
+              "location": "Дереккөздегі орналасуы: в надостной ямке, прямо вверх от точки Тянь-цзун IG.11, в углублении, образующимся при поднятии рук",
+              "meaning": "Классикалық түсіндірме: точка пересечения ручного тай-ян канала тонкого кишечника, ручного ян-мин канала толстого кишечника, ручного шао-ян канала Сань-цзяо и ножного шао-ян канала желчного пузыря «бин» — «управлять, держать в руках»; «фэн» — «ветер». Эта точка используется при лечении локальных болевых синдромов, вызванных восприятием внешнего патогенного ветра, то есть может «управлять ветром»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG13",
+          "alt_code": "SI 13",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-382",
+          "image": "small_intestine_IG13.gif",
+          "i18n": {
+            "en": {
+              "name": "Цюй-юань",
+              "location": "Source location: у медиального края надостиой ямки, приблизительно в середине соединительной линии между точкой Нао-шу IG.10 и остистым отростком II грудного позвонка",
+              "meaning": "Classical note: «цюй» — «изогнутый»; «юань» — «стена». Точка расположена у медиального края надостной ямки, окружена возвышающимися костями, словно изогнутой стеной",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Цюй-юань",
+              "location": "у медиального края надостиой ямки, приблизительно в середине соединительной линии между точкой Нао-шу IG.10 и остистым отростком II грудного позвонка",
+              "meaning": "«цюй» — «изогнутый»; «юань» — «стена». Точка расположена у медиального края надостной ямки, окружена возвышающимися костями, словно изогнутой стеной",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Цюй-юань",
+              "location": "Manbadagi joylashuv: у медиального края надостиой ямки, приблизительно в середине соединительной линии между точкой Нао-шу IG.10 и остистым отростком II грудного позвонка",
+              "meaning": "Klassik izoh: «цюй» — «изогнутый»; «юань» — «стена». Точка расположена у медиального края надостной ямки, окружена возвышающимися костями, словно изогнутой стеной",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Цюй-юань",
+              "location": "Дереккөздегі орналасуы: у медиального края надостиой ямки, приблизительно в середине соединительной линии между точкой Нао-шу IG.10 и остистым отростком II грудного позвонка",
+              "meaning": "Классикалық түсіндірме: «цюй» — «изогнутый»; «юань» — «стена». Точка расположена у медиального края надостной ямки, окружена возвышающимися костями, словно изогнутой стеной",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG14",
+          "alt_code": "SI 14",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-45",
+          "image": "small_intestine_IG14.gif",
+          "i18n": {
+            "en": {
+              "name": "Цзянь-вай-шу",
+              "location": "Source location: на 3 цуня кнаружи от места под остистым отростком I грудного позвонка",
+              "meaning": "Classical note: «цзянь» — «надплечье»; «вай» - «наружный, кнаружи»; «шу» -«акупунктурная точка». Цзянь-вай-шу IG.14 расположена кнаружи от точки Цзянь-чжун-шу IG.15, называется «наружной точкой надплечья»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Цзянь-вай-шу",
+              "location": "на 3 цуня кнаружи от места под остистым отростком I грудного позвонка",
+              "meaning": "«цзянь» — «надплечье»; «вай» - «наружный, кнаружи»; «шу» -«акупунктурная точка». Цзянь-вай-шу IG.14 расположена кнаружи от точки Цзянь-чжун-шу IG.15, называется «наружной точкой надплечья»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Цзянь-вай-шу",
+              "location": "Manbadagi joylashuv: на 3 цуня кнаружи от места под остистым отростком I грудного позвонка",
+              "meaning": "Klassik izoh: «цзянь» — «надплечье»; «вай» - «наружный, кнаружи»; «шу» -«акупунктурная точка». Цзянь-вай-шу IG.14 расположена кнаружи от точки Цзянь-чжун-шу IG.15, называется «наружной точкой надплечья»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Цзянь-вай-шу",
+              "location": "Дереккөздегі орналасуы: на 3 цуня кнаружи от места под остистым отростком I грудного позвонка",
+              "meaning": "Классикалық түсіндірме: «цзянь» — «надплечье»; «вай» - «наружный, кнаружи»; «шу» -«акупунктурная точка». Цзянь-вай-шу IG.14 расположена кнаружи от точки Цзянь-чжун-шу IG.15, называется «наружной точкой надплечья»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG15",
+          "alt_code": "SI 15",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-65",
+          "image": "small_intestine_IG15.gif",
+          "i18n": {
+            "en": {
+              "name": "Цзянь-чжун-шу",
+              "location": "Source location: на 2 цуня кнаружи от места под остистым отростком VII шейного позвонка — точки Да-чжуй VG.14",
+              "meaning": "Classical note: «цзянь» - «надплечье»; «чжун» — «середина»; «шу» — «акупунктурная точка». Цзянь-чжун-шу IG.15 расположена ближе к срединной линии тела от точки Цзянь-вай-шу IG.14",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Цзянь-чжун-шу",
+              "location": "на 2 цуня кнаружи от места под остистым отростком VII шейного позвонка — точки Да-чжуй VG.14",
+              "meaning": "«цзянь» - «надплечье»; «чжун» — «середина»; «шу» — «акупунктурная точка». Цзянь-чжун-шу IG.15 расположена ближе к срединной линии тела от точки Цзянь-вай-шу IG.14",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Цзянь-чжун-шу",
+              "location": "Manbadagi joylashuv: на 2 цуня кнаружи от места под остистым отростком VII шейного позвонка — точки Да-чжуй VG.14",
+              "meaning": "Klassik izoh: «цзянь» - «надплечье»; «чжун» — «середина»; «шу» — «акупунктурная точка». Цзянь-чжун-шу IG.15 расположена ближе к срединной линии тела от точки Цзянь-вай-шу IG.14",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Цзянь-чжун-шу",
+              "location": "Дереккөздегі орналасуы: на 2 цуня кнаружи от места под остистым отростком VII шейного позвонка — точки Да-чжуй VG.14",
+              "meaning": "Классикалық түсіндірме: «цзянь» - «надплечье»; «чжун» — «середина»; «шу» — «акупунктурная точка». Цзянь-чжун-шу IG.15 расположена ближе к срединной линии тела от точки Цзянь-вай-шу IG.14",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG16",
+          "alt_code": "SI 16",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-384",
+          "image": "small_intestine_IG16.gif",
+          "i18n": {
+            "en": {
+              "name": "Тянь-чуан",
+              "location": "Source location: в боковой части шеи, кзади и книзу от угла нижней челюсти, у заднего края грудино-ключично-сосцевидной мышцы, на 0,5 цуня назад и вверх от точки Фу-ту GI.18",
+              "meaning": "Classical note: 1. «Тянь» - «небесный»; «чуан» — «окно». Голова относится к верхней («небесной») части человеческого тела. С «окнами» сравниваются «отверстия головы» — уши, глаза, ноздри и рот. Тянь-чуан IG.16 используется при лечении болезней «отверстий головы» — шума в ушах, глухоты, боли и отечности слизистой оболочки горла, отсюда и название. 2. «Тянь» — «небесный»; «чуан» — «окно». Точка расположена в «небесной» части человеческого тела, между мышцами, словно в окне",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Тянь-чуан",
+              "location": "в боковой части шеи, кзади и книзу от угла нижней челюсти, у заднего края грудино-ключично-сосцевидной мышцы, на 0,5 цуня назад и вверх от точки Фу-ту GI.18",
+              "meaning": "1. «Тянь» - «небесный»; «чуан» — «окно». Голова относится к верхней («небесной») части человеческого тела. С «окнами» сравниваются «отверстия головы» — уши, глаза, ноздри и рот. Тянь-чуан IG.16 используется при лечении болезней «отверстий головы» — шума в ушах, глухоты, боли и отечности слизистой оболочки горла, отсюда и название. 2. «Тянь» — «небесный»; «чуан» — «окно». Точка расположена в «небесной» части человеческого тела, между мышцами, словно в окне",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Тянь-чуан",
+              "location": "Manbadagi joylashuv: в боковой части шеи, кзади и книзу от угла нижней челюсти, у заднего края грудино-ключично-сосцевидной мышцы, на 0,5 цуня назад и вверх от точки Фу-ту GI.18",
+              "meaning": "Klassik izoh: 1. «Тянь» - «небесный»; «чуан» — «окно». Голова относится к верхней («небесной») части человеческого тела. С «окнами» сравниваются «отверстия головы» — уши, глаза, ноздри и рот. Тянь-чуан IG.16 используется при лечении болезней «отверстий головы» — шума в ушах, глухоты, боли и отечности слизистой оболочки горла, отсюда и название. 2. «Тянь» — «небесный»; «чуан» — «окно». Точка расположена в «небесной» части человеческого тела, между мышцами, словно в окне",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Тянь-чуан",
+              "location": "Дереккөздегі орналасуы: в боковой части шеи, кзади и книзу от угла нижней челюсти, у заднего края грудино-ключично-сосцевидной мышцы, на 0,5 цуня назад и вверх от точки Фу-ту GI.18",
+              "meaning": "Классикалық түсіндірме: 1. «Тянь» - «небесный»; «чуан» — «окно». Голова относится к верхней («небесной») части человеческого тела. С «окнами» сравниваются «отверстия головы» — уши, глаза, ноздри и рот. Тянь-чуан IG.16 используется при лечении болезней «отверстий головы» — шума в ушах, глухоты, боли и отечности слизистой оболочки горла, отсюда и название. 2. «Тянь» — «небесный»; «чуан» — «окно». Точка расположена в «небесной» части человеческого тела, между мышцами, словно в окне",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG17",
+          "alt_code": "SI 17",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-383",
+          "image": "small_intestine_IG17.gif",
+          "i18n": {
+            "en": {
+              "name": "Тянь-жун",
+              "location": "Source location: кзади от угла нижней челюсти, в углублении у переднего края грудино-ключично-сосцевидной мышцы",
+              "meaning": "Classical note: «тянь» — «небесный»; «жун» — «внешний вид, облик, лицо». Голова относится к «небесной» части человеческого тела. Достигнув этой точки, Ци и кровь ручного тай-ян канала тонкого кишечника вливаются в лицо, отсюда и название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Тянь-жун",
+              "location": "кзади от угла нижней челюсти, в углублении у переднего края грудино-ключично-сосцевидной мышцы",
+              "meaning": "«тянь» — «небесный»; «жун» — «внешний вид, облик, лицо». Голова относится к «небесной» части человеческого тела. Достигнув этой точки, Ци и кровь ручного тай-ян канала тонкого кишечника вливаются в лицо, отсюда и название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Тянь-жун",
+              "location": "Manbadagi joylashuv: кзади от угла нижней челюсти, в углублении у переднего края грудино-ключично-сосцевидной мышцы",
+              "meaning": "Klassik izoh: «тянь» — «небесный»; «жун» — «внешний вид, облик, лицо». Голова относится к «небесной» части человеческого тела. Достигнув этой точки, Ци и кровь ручного тай-ян канала тонкого кишечника вливаются в лицо, отсюда и название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Тянь-жун",
+              "location": "Дереккөздегі орналасуы: кзади от угла нижней челюсти, в углублении у переднего края грудино-ключично-сосцевидной мышцы",
+              "meaning": "Классикалық түсіндірме: «тянь» — «небесный»; «жун» — «внешний вид, облик, лицо». Голова относится к «небесной» части человеческого тела. Достигнув этой точки, Ци и кровь ручного тай-ян канала тонкого кишечника вливаются в лицо, отсюда и название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG18",
+          "alt_code": "SI 18",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-466",
+          "image": "small_intestine_IG18.gif",
+          "i18n": {
+            "en": {
+              "name": "Цюань-ляо",
+              "location": "Source location: прямо вниз от наружного угла глаза, в углублении у нижнего края скуловой кости",
+              "meaning": "Classical note: точка пересечения ручного тай-ян канала тонкого кишечника и ручного шао-ян канала Сань-цзяо «цюань» — «скуловая кость»; «ляо» -- «аку-пунктурная точка в углублении кости». Точка расположена в углублении скуловой кости, отсюда и название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Цюань-ляо",
+              "location": "прямо вниз от наружного угла глаза, в углублении у нижнего края скуловой кости",
+              "meaning": "точка пересечения ручного тай-ян канала тонкого кишечника и ручного шао-ян канала Сань-цзяо «цюань» — «скуловая кость»; «ляо» -- «аку-пунктурная точка в углублении кости». Точка расположена в углублении скуловой кости, отсюда и название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Цюань-ляо",
+              "location": "Manbadagi joylashuv: прямо вниз от наружного угла глаза, в углублении у нижнего края скуловой кости",
+              "meaning": "Klassik izoh: точка пересечения ручного тай-ян канала тонкого кишечника и ручного шао-ян канала Сань-цзяо «цюань» — «скуловая кость»; «ляо» -- «аку-пунктурная точка в углублении кости». Точка расположена в углублении скуловой кости, отсюда и название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Цюань-ляо",
+              "location": "Дереккөздегі орналасуы: прямо вниз от наружного угла глаза, в углублении у нижнего края скуловой кости",
+              "meaning": "Классикалық түсіндірме: точка пересечения ручного тай-ян канала тонкого кишечника и ручного шао-ян канала Сань-цзяо «цюань» — «скуловая кость»; «ляо» -- «аку-пунктурная точка в углублении кости». Точка расположена в углублении скуловой кости, отсюда и название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "IG19",
+          "alt_code": "SI 19",
+          "source_url": "https://www.eledia.ru/publ/22-1-0-467",
+          "image": "small_intestine_IG19.gif",
+          "i18n": {
+            "en": {
+              "name": "Тин-гун",
+              "location": "Source location: при открытом рте в углублении между козелком и височно-нижнечелюстным суставом",
+              "meaning": "Classical note: точка пересечения ручного тай-ян канала тонкого кишечника, ручного шао-ян канала Сань-цзяо, ножного шао-ян канала желчного пузыря «тин» — «слух»; «гун» — «дворец». Точка расположена впереди козелка, используется при лечении глухоты и шума в ушах, является важной точкой восстановления слуха, поэтому сравнивается с «дворцом слуха»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Тин-гун",
+              "location": "при открытом рте в углублении между козелком и височно-нижнечелюстным суставом",
+              "meaning": "точка пересечения ручного тай-ян канала тонкого кишечника, ручного шао-ян канала Сань-цзяо, ножного шао-ян канала желчного пузыря «тин» — «слух»; «гун» — «дворец». Точка расположена впереди козелка, используется при лечении глухоты и шума в ушах, является важной точкой восстановления слуха, поэтому сравнивается с «дворцом слуха»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Тин-гун",
+              "location": "Manbadagi joylashuv: при открытом рте в углублении между козелком и височно-нижнечелюстным суставом",
+              "meaning": "Klassik izoh: точка пересечения ручного тай-ян канала тонкого кишечника, ручного шао-ян канала Сань-цзяо, ножного шао-ян канала желчного пузыря «тин» — «слух»; «гун» — «дворец». Точка расположена впереди козелка, используется при лечении глухоты и шума в ушах, является важной точкой восстановления слуха, поэтому сравнивается с «дворцом слуха»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Тин-гун",
+              "location": "Дереккөздегі орналасуы: при открытом рте в углублении между козелком и височно-нижнечелюстным суставом",
+              "meaning": "Классикалық түсіндірме: точка пересечения ручного тай-ян канала тонкого кишечника, ручного шао-ян канала Сань-цзяо, ножного шао-ян канала желчного пузыря «тин» — «слух»; «гун» — «дворец». Точка расположена впереди козелка, используется при лечении глухоты и шума в ушах, является важной точкой восстановления слуха, поэтому сравнивается с «дворцом слуха»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        }
+      ]
     },
     {
       "id": "bladder",

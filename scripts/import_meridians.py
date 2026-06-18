@@ -200,6 +200,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "small_intestine",
+        "category_id": 22,
+        "source_url": "https://shiyanbin.ru/meridian-tonkoj-kishki-ig/",
+        "active_time": "13:00-15:00",
+        "passive_time": "01:00-03:00",
+        "names": {
+            "en": "Small Intestine Meridian",
+            "ru": "Меридиан тонкого кишечника",
+            "uz": "Ingichka ichak meridiani",
+            "kz": "Ащы ішек меридианы",
+        },
+        "direction": {
+            "en": "From the little finger along the outer side of the arm through the shoulder blade, neck, cheek, and ear.",
+            "ru": "От мизинца по наружной стороне руки через лопатку, шею, щёку и область уха.",
+            "uz": "Jimjiloqdan qo'lning tashqi tomoni bo'ylab kurak, bo'yin, yonoq va quloq sohasiga.",
+            "kz": "Шынашақтан қолдың сыртқы жағымен жауырын, мойын, бет және құлақ аймағына қарай.",
+        },
+        "intro": {
+            "en": "The Small Intestine Meridian is used here as a map for observing how the body separates clear from unclear: tension in the arm, shoulder blade, neck, jaw, and the ability to digest impressions without carrying everything inside.",
+            "ru": "Меридиан тонкого кишечника здесь используется как карта наблюдения того, как тело отделяет ясное от неясного: напряжение руки, лопатки, шеи, челюсти и способность переваривать впечатления, не таща всё внутрь себя.",
+            "uz": "Ingichka ichak meridiani bu yerda tana ravshanni noaniqdan qanday ajratishini kuzatish xaritasi sifatida ishlatiladi: qo'l, kurak, bo'yin, jag' tarangligi va taassurotlarni ichda ortiqcha ko'tarmasdan hazm qilish qobiliyati.",
+            "kz": "Ащы ішек меридианы бұл жерде дененің айқынды айқын еместен қалай ажырататынын бақылау картасы ретінде қолданылады: қол, жауырын, мойын, жақ кернеуі және әсерлерді іште артық көтермей қорыту қабілеті.",
+        },
+        "practice": {
+            "en": "Relax the little finger, wrist, elbow, shoulder blade, neck, and jaw. Let attention move from the little finger toward the ear, noticing where the line feels sharp, hot, blocked, or unexpectedly clear.",
+            "ru": "Расслабьте мизинец, запястье, локоть, лопатку, шею и челюсть. Ведите внимание от мизинца к уху, замечая, где линия ощущается резкой, горячей, закрытой или неожиданно ясной.",
+            "uz": "Jimjiloq, bilak, tirsak, kurak, bo'yin va jag'ni bo'shating. Diqqatni jimjiloqdan quloqqa qarab olib boring, chiziq qayerda o'tkir, issiq, yopiq yoki kutilmaganda ravshan sezilishini kuzating.",
+            "kz": "Шынашақты, білекті, шынтақты, жауырынды, мойынды және жақты босатыңыз. Зейінді шынашақтан құлаққа қарай жүргізіп, сызықтың қай жерде өткір, ыстық, жабық немесе күтпегендей айқын сезілетінін байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
