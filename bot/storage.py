@@ -24,6 +24,7 @@ class User:
     current_meridian_id: Optional[str] = None
     current_point_index: int = -1
     completed_meridians: List[str] = None
+    meridian_learning_mode: Optional[str] = None
     
     def __post_init__(self):
         """Initialize default values."""
@@ -46,6 +47,8 @@ class User:
             self.current_point_index = -1
         if not hasattr(self, 'completed_meridians') or self.completed_meridians is None:
             self.completed_meridians = []
+        if not hasattr(self, 'meridian_learning_mode'):
+            self.meridian_learning_mode = None
 
 
 @dataclass 

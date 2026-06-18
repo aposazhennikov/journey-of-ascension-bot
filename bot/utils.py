@@ -3,6 +3,7 @@
 import json
 import random
 import os
+from html import escape
 from datetime import datetime, timezone, timedelta
 from typing import List, Dict, Any, Optional
 from pathlib import Path
@@ -153,13 +154,13 @@ def _localized_value(item: Dict[str, Any], language: str, key: str, default: str
 
 def format_meridian_intro(meridian: Dict[str, Any], language: str = "en") -> str:
     """Format meridian overview for the user."""
-    name = _localized_value(meridian, language, "name", meridian.get("id", "Meridian"))
-    description = _localized_value(meridian, language, "description")
+    name = escape(_localized_value(meridian, language, "name", meridian.get("id", "Meridian")))
+    description = escape(_localized_value(meridian, language, "description"))
     active_time = meridian.get("active_time", "-")
     passive_time = meridian.get("passive_time", "-")
     points = meridian.get("points", [])
-    direction = _localized_value(meridian, language, "direction")
-    practice = _localized_value(meridian, language, "intro_practice")
+    direction = escape(_localized_value(meridian, language, "direction"))
+    practice = escape(_localized_value(meridian, language, "intro_practice"))
 
     labels = {
         "en": ("Active", "Passive", "Points", "Direction", "Practice"),
@@ -168,16 +169,16 @@ def format_meridian_intro(meridian: Dict[str, Any], language: str = "en") -> str
         "kz": ("Белсенді", "Пассивті", "Нүктелер", "Бағыты", "Тәжірибе"),
     }.get(language, ("Active", "Passive", "Points", "Direction", "Practice"))
 
-    message = f"**{name}**\n\n"
+    message = f"<b>{name}</b>\n\n"
     if description:
         message += f"{description}\n\n"
-    message += f"**{labels[0]}:** {active_time}\n"
-    message += f"**{labels[1]}:** {passive_time}\n"
-    message += f"**{labels[2]}:** {len(points)}\n"
+    message += f"<b>{escape(labels[0])}:</b> {escape(str(active_time))}\n"
+    message += f"<b>{escape(labels[1])}:</b> {escape(str(passive_time))}\n"
+    message += f"<b>{escape(labels[2])}:</b> {len(points)}\n"
     if direction:
-        message += f"**{labels[3]}:** {direction}\n"
+        message += f"<b>{escape(labels[3])}:</b> {direction}\n"
     if practice:
-        message += f"\n*{labels[4]}:* {practice}"
+        message += f"\n<i>{escape(labels[4])}:</i> {practice}"
     return message
 
 
@@ -188,11 +189,11 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
         return format_meridian_intro(meridian, language)
 
     point = points[point_index]
-    meridian_name = _localized_value(meridian, language, "name", meridian.get("id", "Meridian"))
-    point_name = _localized_value(point, language, "name", point.get("code", "Point"))
-    location = _localized_value(point, language, "location")
-    instruction = _localized_value(point, language, "meditation_instruction")
-    question = _localized_value(point, language, "observation_question")
+    meridian_name = escape(_localized_value(meridian, language, "name", meridian.get("id", "Meridian")))
+    point_name = escape(_localized_value(point, language, "name", point.get("code", "Point")))
+    location = escape(_localized_value(point, language, "location"))
+    instruction = escape(_localized_value(point, language, "meditation_instruction"))
+    question = escape(_localized_value(point, language, "observation_question"))
 
     labels = {
         "en": ("Point", "Location", "Focus", "Observe"),
@@ -201,14 +202,14 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
         "kz": ("Нүкте", "Орналасуы", "Зейін", "Бақылау"),
     }.get(language, ("Point", "Location", "Focus", "Observe"))
 
-    message = f"**{meridian_name}**\n"
-    message += f"**{labels[0]} {point_index + 1}/{len(points)}:** {point.get('code', '')} {point_name}\n\n"
+    message = f"<b>{meridian_name}</b>\n"
+    message += f"<b>{escape(labels[0])} {point_index + 1}/{len(points)}:</b> {escape(str(point.get('code', '')))} {point_name}\n\n"
     if location:
-        message += f"**{labels[1]}:** {location}\n\n"
+        message += f"<b>{escape(labels[1])}:</b> {location}\n\n"
     if instruction:
-        message += f"**{labels[2]}:** {instruction}\n\n"
+        message += f"<b>{escape(labels[2])}:</b> {instruction}\n\n"
     if question:
-        message += f"*{labels[3]}:* {question}"
+        message += f"<i>{escape(labels[3])}:</i> {question}"
     return message
 
 
@@ -220,9 +221,10 @@ def get_meridian_image_path(meridian_id: str, point_code: Optional[str] = None) 
         filenames.extend([
             f"{meridian_id}_{point_code}.jpg",
             f"{meridian_id}_{point_code}.png",
+            f"{meridian_id}_{point_code}.gif",
         ])
     else:
-        filenames.extend([f"{meridian_id}.jpg", f"{meridian_id}.png"])
+        filenames.extend([f"{meridian_id}.jpg", f"{meridian_id}.png", f"{meridian_id}.gif"])
 
     base_paths = [
         current_dir / "images" / "meridians",

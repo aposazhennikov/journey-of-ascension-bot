@@ -231,18 +231,26 @@ class YogaScheduler:
                 sent_message = None
                 if image_path:
                     try:
-                        with open(image_path, 'rb') as photo:
-                            sent_message = await self.bot.send_photo(
-                                chat_id=chat_id,
-                                photo=photo,
-                                caption=message,
-                                parse_mode='Markdown'
-                            )
+                        with open(image_path, 'rb') as media_file:
+                            if image_path.lower().endswith(".gif"):
+                                sent_message = await self.bot.send_animation(
+                                    chat_id=chat_id,
+                                    animation=media_file,
+                                    caption=message,
+                                    parse_mode='HTML'
+                                )
+                            else:
+                                sent_message = await self.bot.send_photo(
+                                    chat_id=chat_id,
+                                    photo=media_file,
+                                    caption=message,
+                                    parse_mode='HTML'
+                                )
                     except Exception as img_error:
                         logger.error(f"Error sending meridian image {image_path}: {img_error}")
-                        sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
+                        sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='HTML')
                 else:
-                    sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
+                    sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='HTML')
 
                 if sent_message:
                     await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")

@@ -4,7 +4,7 @@ import asyncio
 import logging
 from html import escape
 from typing import List, Dict, Any, Optional
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaAnimation
 from telegram.ext import (
     Application, CommandHandler, MessageHandler, CallbackQueryHandler,
     filters, ContextTypes
@@ -22,7 +22,8 @@ from .utils import (
     format_principle_message,
     format_meridian_intro,
     format_meridian_point,
-    get_principle_image_path
+    get_principle_image_path,
+    get_meridian_image_path
 )
 
 
@@ -616,7 +617,7 @@ TEXTS_UPDATE = {
         "menu": "📋 **Journey of Ascension**",
         "menu_principles": "🧘🏻✨ Yama/Niyama",
         "menu_meridians": "☯️ Meridians",
-        "menu_modes": "🧭 Practice Modes",
+        "menu_modes": "🧭 My Path",
         "menu_stop": "⏹ Stop bot",
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
@@ -629,17 +630,43 @@ TEXTS_UPDATE = {
         "principles_random": "Random principle",
         "principles_all": "All principles",
         "principles_empty": "Principles are not available yet.",
-        "change_modes": "🧭 Practice Modes",
-        "change_meridian_time": "🌿 Meridian Time",
-        "mode_menu": "🧭 **Practice Modes**\n\nChoose what daily practices should be active.",
-        "mode_principles_only": "Moral principles: Yama/Niyama",
-        "mode_meridians_only": "Chinese meridians",
-        "mode_both": "All together",
-        "mode_saved": "✅ Practice modes saved.",
-        "meridian_time_step": "🌿 **Meridian Reminder Time**\n\nEnter time in HH:MM format, for example 20:00.",
+        "change_modes": "🧭 My Path",
+        "change_meridian_time": "☯️ Meridian Time",
+        "mode_menu": (
+            "🧭 <b>My Path</b>\n\n"
+            "Choose which direction the bot should support in your daily practice.\n\n"
+            "<b>Yama/Niyama</b> is the ethical foundation: attention, honesty, discipline, and the ability not to waste inner strength.\n\n"
+            "<b>Meridians</b> are the next layer: body awareness, Qi flow, points, channels, and meditative observation.\n\n"
+            "You can practice one direction or keep both active together."
+        ),
+        "mode_principles_only": "Yama/Niyama foundation",
+        "mode_meridians_only": "Meridian study",
+        "mode_both": "Both directions",
+        "mode_saved": "✅ <b>Your path has been updated.</b>",
+        "meridian_time_step": "☯️ <b>Meridian Reminder Time</b>\n\nEnter time in HH:MM format, for example 20:00.",
         "meridian_time_saved": "✅ Meridian reminder time saved.",
-        "meridians_menu": "🌿 **Meridians**\n\nStudy the channel by attention. Open the current focus, move through points manually, or choose another meridian.",
-        "choose_meridian": "Choose a meridian:",
+        "meridian_mode_menu": (
+            "☯️ <b>How would you like to study meridians?</b>\n\n"
+            "<b>Guided path</b> means the bot leads you through the meridians in a recommended order. You complete one channel, then move to the next.\n\n"
+            "<b>Free study</b> means you choose any meridian yourself and explore it in your own order.\n\n"
+            "Both options keep your progress and daily reminders."
+        ),
+        "meridian_guided_path": "🧭 Guided path",
+        "meridian_free_choice": "👐 Free study",
+        "meridian_change_path": "Change study path",
+        "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
+        "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
+        "meridians_menu": (
+            "☯️ <b>Meridians</b>\n\n"
+            "Studying Chinese meridians helps understand the principles of Traditional Chinese Medicine and gives practical tools for mindful care of the body.\n\n"
+            "Meridians are described as a network of energetic channels through which vital force, Qi, circulates.\n\n"
+            "<b>Self-observation:</b> knowing which organ system a meridian is connected with helps notice imbalance signals earlier.\n\n"
+            "<b>Restoring balance:</b> attention, acupressure, massage, qigong, and gentle work with active points can help release tension and support circulation.\n\n"
+            "<b>Biorhythms:</b> each channel has a two-hour peak of activity. This helps plan rest, food, practice, and daily rhythm more harmoniously.\n\n"
+            "<b>Stress prevention:</b> qigong and meditative work with channels can calm the nervous system and soften bodily clamps.\n\n"
+            "This practice does not replace medical diagnosis or treatment. It is a tool for awareness, prevention, and inner discipline."
+        ),
+        "choose_meridian": "☯️ <b>Choose a meridian:</b>",
         "current_meridian": "Current focus",
         "all_points": "All points",
         "next_point": "Next point",
@@ -647,7 +674,7 @@ TEXTS_UPDATE = {
         "complete_meridian": "Complete meridian",
         "select_meridian": "Choose meridian",
         "no_points": "Points for this meridian will be added after source content is prepared.",
-        "meridian_completed": "✅ Meridian completed. Choose the next channel when you are ready.",
+        "meridian_completed": "✅ <b>Meridian completed</b>\n\nChoose the next channel when you are ready.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "Our task is to help people move along the spiritual path with more clarity, steadiness, and inner honesty.\n\n"
@@ -722,7 +749,7 @@ TEXTS_UPDATE = {
         "menu": "📋 **Journey of Ascension**",
         "menu_principles": "🧘🏻✨ Яма/Нияма",
         "menu_meridians": "☯️ Меридианы",
-        "menu_modes": "🧭 Режимы практики",
+        "menu_modes": "🧭 Мой путь",
         "menu_stop": "⏹ Остановить бота",
         "principles_menu": (
             "🕊️ <b>Яма/Нияма</b>\n\n"
@@ -735,17 +762,43 @@ TEXTS_UPDATE = {
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
         "principles_empty": "Принципы пока недоступны.",
-        "change_modes": "🧭 Режимы практики",
-        "change_meridian_time": "🌿 Время меридианов",
-        "mode_menu": "🧭 **Режимы практики**\n\nВыберите, какие ежедневные практики должны быть активны.",
-        "mode_principles_only": "Нравственные принципы Ямы и Ниямы",
-        "mode_meridians_only": "Китайские меридианы",
-        "mode_both": "Все вместе",
-        "mode_saved": "✅ Режимы практики сохранены.",
-        "meridian_time_step": "🌿 **Время напоминания по меридианам**\n\nВведите время в формате ЧЧ:ММ, например 20:00.",
+        "change_modes": "🧭 Мой путь",
+        "change_meridian_time": "☯️ Время меридианов",
+        "mode_menu": (
+            "🧭 <b>Мой путь</b>\n\n"
+            "Выберите, какое направление бот будет поддерживать в вашей ежедневной практике.\n\n"
+            "<b>Яма/Нияма</b> — нравственный фундамент: внимание, честность, дисциплина и способность не рассеивать внутреннюю силу.\n\n"
+            "<b>Меридианы</b> — следующий слой: внимание к телу, течение Ци, точки, каналы и медитативное наблюдение.\n\n"
+            "Можно выбрать одно направление или оставить активными оба."
+        ),
+        "mode_principles_only": "Фундамент Ямы/Ниямы",
+        "mode_meridians_only": "Изучение меридианов",
+        "mode_both": "Оба направления",
+        "mode_saved": "✅ <b>Ваш путь обновлён.</b>",
+        "meridian_time_step": "☯️ <b>Время напоминания по меридианам</b>\n\nВведите время в формате ЧЧ:ММ, например 20:00.",
         "meridian_time_saved": "✅ Время напоминаний по меридианам сохранено.",
-        "meridians_menu": "🌿 **Меридианы**\n\nИзучайте канал вниманием. Откройте текущий фокус, переходите по точкам вручную или выберите другой меридиан.",
-        "choose_meridian": "Выберите меридиан:",
+        "meridian_mode_menu": (
+            "☯️ <b>Как вы хотите изучать меридианы?</b>\n\n"
+            "<b>Идти по нашему пути</b> — бот ведёт вас по меридианам в рекомендованном порядке. Вы завершаете один канал и переходите к следующему.\n\n"
+            "<b>Изучать самостоятельно</b> — вы сами выбираете любой меридиан и двигаетесь в своём порядке.\n\n"
+            "В обоих вариантах сохраняется прогресс и работают ежедневные напоминания."
+        ),
+        "meridian_guided_path": "🧭 Идти по нашему пути",
+        "meridian_free_choice": "👐 Изучать самостоятельно",
+        "meridian_change_path": "Изменить путь изучения",
+        "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
+        "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
+        "meridians_menu": (
+            "☯️ <b>Меридианы</b>\n\n"
+            "Изучение китайских меридианов помогает понять принципы традиционной китайской медицины и получить практические инструменты для внимательного отношения к здоровью.\n\n"
+            "Меридианы описываются как сеть энергетических каналов, по которым циркулирует жизненная сила — Ци.\n\n"
+            "<b>Самонаблюдение:</b> понимание того, с какой системой органов связан конкретный меридиан, помогает раньше замечать сигналы дисбаланса.\n\n"
+            "<b>Восстановление баланса:</b> внимание, акупрессура, массаж, цигун и мягкая работа с активными точками помогают снимать напряжение и поддерживать циркуляцию.\n\n"
+            "<b>Биоритмы:</b> у каждого канала есть двухчасовой пик активности. Это помогает гармоничнее планировать сон, питание, нагрузку и практику.\n\n"
+            "<b>Профилактика стресса:</b> цигун и медитативная работа с каналами могут успокаивать нервную систему и расслаблять телесные зажимы.\n\n"
+            "Эта практика не заменяет медицинскую диагностику и лечение. Она служит инструментом осознанности, профилактики и внутренней дисциплины."
+        ),
+        "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
         "current_meridian": "Текущий фокус",
         "all_points": "Все точки",
         "next_point": "Следующая точка",
@@ -753,7 +806,7 @@ TEXTS_UPDATE = {
         "complete_meridian": "Завершить меридиан",
         "select_meridian": "Выбрать меридиан",
         "no_points": "Точки этого меридиана будут добавлены после подготовки контента из источников.",
-        "meridian_completed": "✅ Меридиан завершён. Выберите следующий канал, когда будете готовы.",
+        "meridian_completed": "✅ <b>Меридиан завершён</b>\n\nВыберите следующий канал, когда будете готовы.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "Наша задача — помочь людям двигаться по духовному пути с большей ясностью, устойчивостью и честностью перед собой.\n\n"
@@ -828,7 +881,7 @@ TEXTS_UPDATE = {
         "menu": "📋 **Journey of Ascension**",
         "menu_principles": "🧘🏻✨ Yama/Niyama",
         "menu_meridians": "☯️ Meridianlar",
-        "menu_modes": "🧭 Amaliyot rejimlari",
+        "menu_modes": "🧭 Mening yo'lim",
         "menu_stop": "⏹ Botni to'xtatish",
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
@@ -841,17 +894,43 @@ TEXTS_UPDATE = {
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
         "principles_empty": "Tamoyillar hozircha mavjud emas.",
-        "change_modes": "🧭 Amaliyot rejimlari",
-        "change_meridian_time": "🌿 Meridian vaqti",
-        "mode_menu": "🧭 **Amaliyot rejimlari**\n\nQaysi kundalik amaliyotlar faol bo'lishini tanlang.",
-        "mode_principles_only": "Axloqiy tamoyillar: Yama/Niyama",
-        "mode_meridians_only": "Xitoy meridianlari",
-        "mode_both": "Hammasi birga",
-        "mode_saved": "✅ Amaliyot rejimlari saqlandi.",
-        "meridian_time_step": "🌿 **Meridian eslatma vaqti**\n\nVaqtni HH:MM formatida kiriting, masalan 20:00.",
+        "change_modes": "🧭 Mening yo'lim",
+        "change_meridian_time": "☯️ Meridian vaqti",
+        "mode_menu": (
+            "🧭 <b>Mening yo'lim</b>\n\n"
+            "Bot kundalik amaliyotingizda qaysi yo'nalishni qo'llab-quvvatlashini tanlang.\n\n"
+            "<b>Yama/Niyama</b> axloqiy poydevor: diqqat, rostgo'ylik, intizom va ichki kuchni behuda sarflamaslik.\n\n"
+            "<b>Meridianlar</b> keyingi qatlam: tana sezgisi, Qi oqimi, nuqtalar, kanallar va meditatsion kuzatuv.\n\n"
+            "Bitta yo'nalishni tanlashingiz yoki ikkalasini ham faol qoldirishingiz mumkin."
+        ),
+        "mode_principles_only": "Yama/Niyama poydevori",
+        "mode_meridians_only": "Meridianlarni o'rganish",
+        "mode_both": "Ikkala yo'nalish",
+        "mode_saved": "✅ <b>Yo'lingiz yangilandi.</b>",
+        "meridian_time_step": "☯️ <b>Meridian eslatma vaqti</b>\n\nVaqtni HH:MM formatida kiriting, masalan 20:00.",
         "meridian_time_saved": "✅ Meridian eslatma vaqti saqlandi.",
-        "meridians_menu": "🌿 **Meridianlar**\n\nKanalni diqqat orqali o'rganing. Joriy fokusni oching, nuqtalar bo'ylab qo'lda o'ting yoki boshqa meridianni tanlang.",
-        "choose_meridian": "Meridianni tanlang:",
+        "meridian_mode_menu": (
+            "☯️ <b>Meridianlarni qanday o'rganmoqchisiz?</b>\n\n"
+            "<b>Yo'l bo'yicha</b> — bot meridianlar bo'ylab tavsiya etilgan tartibda olib boradi. Bir kanalni yakunlab, keyingisiga o'tasiz.\n\n"
+            "<b>Mustaqil o'rganish</b> — istalgan meridianni o'zingiz tanlab, o'z tartibingizda o'rganasiz.\n\n"
+            "Ikkala variantda ham progress va kundalik eslatmalar saqlanadi."
+        ),
+        "meridian_guided_path": "🧭 Yo'l bo'yicha",
+        "meridian_free_choice": "👐 Mustaqil o'rganish",
+        "meridian_change_path": "O'rganish yo'lini o'zgartirish",
+        "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
+        "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
+        "meridians_menu": (
+            "☯️ <b>Meridianlar</b>\n\n"
+            "Xitoy meridianlarini o'rganish an'anaviy xitoy tibbiyoti tamoyillarini tushunishga va tanaga e'tiborli munosabat uchun amaliy vositalar olishga yordam beradi.\n\n"
+            "Meridianlar hayotiy kuch — Qi harakatlanadigan energetik kanallar tarmog'i sifatida tasvirlanadi.\n\n"
+            "<b>O'zini kuzatish:</b> meridian qaysi organ tizimi bilan bog'liqligini bilish nomutanosiblik belgilarini ertaroq sezishga yordam beradi.\n\n"
+            "<b>Muvozanatni tiklash:</b> diqqat, akupressura, massaj, qigong va faol nuqtalar bilan yumshoq ishlash taranglikni kamaytirish va aylanishni qo'llab-quvvatlashga yordam beradi.\n\n"
+            "<b>Bioritmlar:</b> har bir kanalning ikki soatlik faollik cho'qqisi bor. Bu uyqu, ovqatlanish, yuklama va amaliyotni uyg'unroq rejalashga yordam beradi.\n\n"
+            "<b>Stress profilaktikasi:</b> qigong va kanallar bilan meditatsion ishlash asab tizimini tinchlantirishi va tana zo'riqishlarini yumshatishi mumkin.\n\n"
+            "Bu amaliyot tibbiy tashxis va davolanishni almashtirmaydi. U ongli kuzatuv, profilaktika va ichki intizom vositasidir."
+        ),
+        "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
         "current_meridian": "Joriy fokus",
         "all_points": "Barcha nuqtalar",
         "next_point": "Keyingi nuqta",
@@ -859,7 +938,7 @@ TEXTS_UPDATE = {
         "complete_meridian": "Meridianni yakunlash",
         "select_meridian": "Meridian tanlash",
         "no_points": "Bu meridian nuqtalari manba kontenti tayyorlangandan keyin qo'shiladi.",
-        "meridian_completed": "✅ Meridian yakunlandi. Tayyor bo'lganingizda keyingi kanalni tanlang.",
+        "meridian_completed": "✅ <b>Meridian yakunlandi</b>\n\nTayyor bo'lganingizda keyingi kanalni tanlang.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "Bizning vazifamiz odamlarga ruhiy yo'lda yanada ravshanlik, barqarorlik va ichki halollik bilan harakat qilishga yordam berishdir.\n\n"
@@ -934,7 +1013,7 @@ TEXTS_UPDATE = {
         "menu": "📋 **Journey of Ascension**",
         "menu_principles": "🧘🏻✨ Яма/Нияма",
         "menu_meridians": "☯️ Меридиандар",
-        "menu_modes": "🧭 Тәжірибе режимдері",
+        "menu_modes": "🧭 Менің жолым",
         "menu_stop": "⏹ Ботты тоқтату",
         "principles_menu": (
             "🕊️ <b>Яма/Нияма</b>\n\n"
@@ -947,17 +1026,43 @@ TEXTS_UPDATE = {
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
         "principles_empty": "Қағидалар әзірге қолжетімді емес.",
-        "change_modes": "🧭 Тәжірибе режимдері",
-        "change_meridian_time": "🌿 Меридиан уақыты",
-        "mode_menu": "🧭 **Тәжірибе режимдері**\n\nҚай күнделікті тәжірибелер белсенді болатынын таңдаңыз.",
-        "mode_principles_only": "Адамгершілік қағидалары: Яма/Нияма",
-        "mode_meridians_only": "Қытай меридиандары",
-        "mode_both": "Барлығы бірге",
-        "mode_saved": "✅ Тәжірибе режимдері сақталды.",
-        "meridian_time_step": "🌿 **Меридиан еске салу уақыты**\n\nУақытты HH:MM форматында енгізіңіз, мысалы 20:00.",
+        "change_modes": "🧭 Менің жолым",
+        "change_meridian_time": "☯️ Меридиан уақыты",
+        "mode_menu": (
+            "🧭 <b>Менің жолым</b>\n\n"
+            "Бот күнделікті тәжірибеңізде қай бағытты қолдайтынын таңдаңыз.\n\n"
+            "<b>Яма/Нияма</b> — адамгершілік негіз: зейін, шыншылдық, тәртіп және ішкі күшті шашыратпау қабілеті.\n\n"
+            "<b>Меридиандар</b> — келесі қабат: денеге зейін, Ци ағымы, нүктелер, арналар және медитациялық бақылау.\n\n"
+            "Бір бағытты таңдауға немесе екеуін де белсенді қалдыруға болады."
+        ),
+        "mode_principles_only": "Яма/Нияма негізі",
+        "mode_meridians_only": "Меридиандарды зерттеу",
+        "mode_both": "Екі бағыт та",
+        "mode_saved": "✅ <b>Жолыңыз жаңартылды.</b>",
+        "meridian_time_step": "☯️ <b>Меридиан еске салу уақыты</b>\n\nУақытты HH:MM форматында енгізіңіз, мысалы 20:00.",
         "meridian_time_saved": "✅ Меридиан еске салу уақыты сақталды.",
-        "meridians_menu": "🌿 **Меридиандар**\n\nАрнаны зейін арқылы зерттеңіз. Ағымдағы фокусты ашыңыз, нүктелермен қолмен жылжыңыз немесе басқа меридианды таңдаңыз.",
-        "choose_meridian": "Меридианды таңдаңыз:",
+        "meridian_mode_menu": (
+            "☯️ <b>Меридиандарды қалай зерттегіңіз келеді?</b>\n\n"
+            "<b>Біздің жолмен</b> — бот меридиандарды ұсынылған ретпен жүргізеді. Бір арнаны аяқтап, келесісіне өтесіз.\n\n"
+            "<b>Өз бетіңізше</b> — кез келген меридианды өзіңіз таңдап, өз ретіңізбен зерттейсіз.\n\n"
+            "Екі нұсқада да прогресс сақталады және күнделікті еске салулар жұмыс істейді."
+        ),
+        "meridian_guided_path": "🧭 Біздің жолмен",
+        "meridian_free_choice": "👐 Өз бетімше",
+        "meridian_change_path": "Зерттеу жолын өзгерту",
+        "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
+        "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
+        "meridians_menu": (
+            "☯️ <b>Меридиандар</b>\n\n"
+            "Қытай меридиандарын зерттеу дәстүрлі қытай медицинасының қағидаларын түсінуге және денсаулыққа саналы қарауға арналған тәжірибелік құралдар алуға көмектеседі.\n\n"
+            "Меридиандар өмірлік күш — Ци айналатын энергетикалық арналар желісі ретінде сипатталады.\n\n"
+            "<b>Өзін-өзі бақылау:</b> белгілі бір меридиан қай орган жүйесімен байланысты екенін түсіну теңгерімсіздік белгілерін ертерек байқауға көмектеседі.\n\n"
+            "<b>Тепе-теңдікті қалпына келтіру:</b> зейін, акупрессура, массаж, цигун және белсенді нүктелермен жұмсақ жұмыс кернеуді азайтып, айналымды қолдауға көмектеседі.\n\n"
+            "<b>Биоритмдер:</b> әр арнаның екі сағаттық ең белсенді кезеңі бар. Бұл ұйқыны, тамақтануды, жүктемені және тәжірибені үйлесімді жоспарлауға көмектеседі.\n\n"
+            "<b>Стресстің алдын алу:</b> цигун және арналармен медитациялық жұмыс жүйке жүйесін тыныштандырып, денедегі қысымды жұмсартуы мүмкін.\n\n"
+            "Бұл тәжірибе медициналық диагностика мен емді алмастырмайды. Ол саналылық, алдын алу және ішкі тәртіп құралы ретінде қолданылады."
+        ),
+        "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
         "current_meridian": "Ағымдағы фокус",
         "all_points": "Барлық нүктелер",
         "next_point": "Келесі нүкте",
@@ -965,7 +1070,7 @@ TEXTS_UPDATE = {
         "complete_meridian": "Меридианды аяқтау",
         "select_meridian": "Меридиан таңдау",
         "no_points": "Бұл меридиан нүктелері дереккөз контенті дайындалғаннан кейін қосылады.",
-        "meridian_completed": "✅ Меридиан аяқталды. Дайын болғанда келесі арнаны таңдаңыз.",
+        "meridian_completed": "✅ <b>Меридиан аяқталды</b>\n\nДайын болғанда келесі арнаны таңдаңыз.",
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "Біздің міндетіміз — адамдарға рухани жолмен көбірек айқындықпен, тұрақтылықпен және өзіне деген адалдықпен жүруге көмектесу.\n\n"
@@ -1126,7 +1231,7 @@ class BotHandlers:
         }.get(language, "Niyama")
         return yama if principle_id <= 5 else niyama
 
-    def _format_principle_detail(self, principle: Dict[str, Any], language: str) -> str:
+    def _format_principle_detail(self, principle: Dict[str, Any], language: str, max_length: Optional[int] = None) -> str:
         """Format a selected principle with its Yama/Niyama group."""
         group = self._get_principle_group_name(int(principle.get("id", 0)), language)
         part_label = {
@@ -1142,23 +1247,50 @@ class BotHandlers:
             "kz": "Тәжірибе",
         }.get(language, "Practice")
 
-        emoji = escape(principle.get("emoji", ""))
-        name = escape(principle.get("name", ""))
-        short_description = escape(principle.get("short_description", ""))
-        description = escape(principle.get("description", ""))
-        practice_tip = escape(principle.get("practice_tip", ""))
+        emoji = principle.get("emoji", "")
+        name = principle.get("name", "")
+        short_description = principle.get("short_description", "")
+        description = principle.get("description", "")
+        practice_tip = principle.get("practice_tip", "")
 
-        lines = [
-            f"<b>{name}</b> {emoji}".strip(),
-            f"<b>{escape(part_label)}:</b> {escape(group)}",
-        ]
-        if short_description:
-            lines.extend(["", short_description])
-        if description:
-            lines.extend(["", description])
-        if practice_tip:
-            lines.extend(["", f"💡 <b>{escape(practice_label)}:</b> <i>{practice_tip}</i>"])
-        return "\n".join(lines)
+        def build(desc: str, practice: str) -> str:
+            lines = [
+                f"<b>{escape(name)}</b> {escape(emoji)}".strip(),
+                f"<b>{escape(part_label)}:</b> {escape(group)}",
+            ]
+            if short_description:
+                lines.extend(["", escape(short_description)])
+            if desc:
+                lines.extend(["", escape(desc)])
+            if practice:
+                lines.extend(["", f"💡 <b>{escape(practice_label)}:</b> <i>{escape(practice)}</i>"])
+            return "\n".join(lines)
+
+        text = build(description, practice_tip)
+        if not max_length or len(text) <= max_length:
+            return text
+
+        desc = description
+        practice = practice_tip
+        overflow = len(text) - max_length
+        if practice and len(practice) > overflow + 20:
+            practice = practice[:max(0, len(practice) - overflow - 1)].rstrip() + "..."
+        elif desc and len(desc) > overflow + 20:
+            desc = desc[:max(0, len(desc) - overflow - 1)].rstrip() + "..."
+        else:
+            practice = ""
+
+        text = build(desc, practice)
+        if len(text) <= max_length:
+            return text
+
+        practice = ""
+        text = build(desc, practice)
+        while len(text) > max_length and len(desc) > 20:
+            overflow = len(text) - max_length
+            desc = desc[:max(20, len(desc) - overflow - 4)].rstrip() + "..."
+            text = build(desc, practice)
+        return text
     
     async def _handle_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
@@ -2279,6 +2411,15 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
                 InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")
             ],
+            [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
+            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+        ])
+
+    def _create_meridian_path_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create meridian learning mode selection keyboard."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("meridian_guided_path", language), callback_data="meridian_path:guided")],
+            [InlineKeyboardButton(self._get_text("meridian_free_choice", language), callback_data="meridian_path:free")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
@@ -2296,6 +2437,23 @@ class BotHandlers:
                 ))
             keyboard.append(row)
         keyboard.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="meridian_main")])
+        return InlineKeyboardMarkup(keyboard)
+
+    def _create_meridian_points_keyboard(self, meridian: Dict[str, Any], language: str) -> InlineKeyboardMarkup:
+        """Create a clickable list of points for the current meridian."""
+        keyboard = []
+        points = meridian.get("points", [])
+        for index, point in enumerate(points):
+            localized = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
+            code = point.get("code", "")
+            name = localized.get("name", "")
+            keyboard.append([
+                InlineKeyboardButton(
+                    f"{index + 1}. {code} {name}".strip(),
+                    callback_data=f"meridian_point:{index}"
+                )
+            ])
+        keyboard.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="meridian_current")])
         return InlineKeyboardMarkup(keyboard)
     
     async def _handle_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -2350,12 +2508,16 @@ class BotHandlers:
             elif action == "modes":
                 text = self._get_text("mode_menu", language)
                 keyboard = self._create_practice_modes_keyboard(language)
-                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
             elif action == "meridians":
-                text = self._get_text("meridians_menu", language)
-                keyboard = self._create_meridians_menu_keyboard(language)
-                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+                if not getattr(user, "meridian_learning_mode", None):
+                    text = self._get_text("meridian_mode_menu", language)
+                    keyboard = self._create_meridian_path_keyboard(language)
+                else:
+                    text = self._get_text("meridians_menu", language)
+                    keyboard = self._create_meridians_menu_keyboard(language)
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                 
             elif action == "test":
                 await self._edit_message_text_safe(query, self._get_text("sending_test", language))
@@ -2415,7 +2577,7 @@ class BotHandlers:
                 if not principle:
                     await self._edit_message_text_safe(query, self._get_text("principles_empty", language))
                     return
-                await self._send_principle_detail(chat_id, principle, language)
+                await self._show_principle_detail(query, principle, language)
                 return
             elif action == "all":
                 text = self._format_principles_list(language)
@@ -2430,7 +2592,7 @@ class BotHandlers:
                 if not principle:
                     await self._edit_message_text_safe(query, self._get_text("principles_empty", language))
                     return
-                await self._send_principle_detail(chat_id, principle, language)
+                await self._show_principle_detail(query, principle, language)
                 return
             else:
                 text = self._get_text("principles_menu", language)
@@ -2503,7 +2665,7 @@ class BotHandlers:
             elif setting == "modes":
                 text = self._get_text("mode_menu", language)
                 keyboard = self._create_practice_modes_keyboard(language)
-                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
             elif setting == "meridian_time":
                 self.user_states[chat_id] = {"step": "change_meridian_time", "language": language, "settings_message_id": query.message.message_id}
@@ -2511,7 +2673,7 @@ class BotHandlers:
                 await self._edit_message_text_safe(query, 
                     self._get_text("meridian_time_step", language),
                     reply_markup=InlineKeyboardMarkup(keyboard),
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
                 
             elif setting == "time":
@@ -2603,9 +2765,10 @@ class BotHandlers:
             await self.storage.save_user(user)
             await self.scheduler.schedule_user_immediately(chat_id)
 
-            text = f"{self._get_text('mode_saved', language)}\n\n{self._get_text('menu', language)}"
+            menu_text = self._get_text("menu", language).replace("**", "<b>", 1).replace("**", "</b>", 1)
+            text = f"{self._get_text('mode_saved', language)}\n\n{menu_text}"
             keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-            await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+            await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:
             logger.error(f"Error in mode callback for user {chat_id}: {e}")
@@ -2625,19 +2788,73 @@ class BotHandlers:
                 await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
                 return
 
+            if action == "path":
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("meridian_mode_menu", language),
+                    reply_markup=self._create_meridian_path_keyboard(language),
+                    parse_mode='HTML'
+                )
+                return
+
+            if action.startswith("path:"):
+                path_mode = action.split(":", 1)[1]
+                user.meridian_learning_mode = path_mode
+                user.meridians_enabled = True
+
+                if path_mode == "guided":
+                    if not user.current_meridian_id:
+                        next_meridian = self.meridians_manager.get_next_meridian(None, user.completed_meridians)
+                        if next_meridian:
+                            user.current_meridian_id = next_meridian["id"]
+                            user.current_point_index = -1
+                    await self.storage.save_user(user)
+                    await self.scheduler.schedule_user_immediately(chat_id)
+                    meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id) if user.current_meridian_id else None
+                    intro = format_meridian_intro(meridian, language) if meridian else self._get_text("meridians_menu", language)
+                    text = f"{self._get_text('meridian_guided_saved', language)}\n\n{intro}"
+                    await self._edit_message_text_safe(
+                        query,
+                        text,
+                        reply_markup=self._create_meridians_menu_keyboard(language),
+                        parse_mode='HTML'
+                    )
+                    return
+
+                user.current_meridian_id = None
+                user.current_point_index = -1
+                await self.storage.save_user(user)
+                await self.scheduler.schedule_user_immediately(chat_id)
+                text = f"{self._get_text('meridian_free_saved', language)}\n\n{self._get_text('choose_meridian', language)}"
+                await self._edit_message_text_safe(
+                    query,
+                    text,
+                    reply_markup=self._create_meridian_choice_keyboard(language),
+                    parse_mode='HTML'
+                )
+                return
+
             if action == "main":
-                await self._edit_message_text_safe(query, 
-                    self._get_text("meridians_menu", language),
-                    reply_markup=self._create_meridians_menu_keyboard(language),
-                    parse_mode='Markdown'
+                if not getattr(user, "meridian_learning_mode", None):
+                    text = self._get_text("meridian_mode_menu", language)
+                    keyboard = self._create_meridian_path_keyboard(language)
+                else:
+                    text = self._get_text("meridians_menu", language)
+                    keyboard = self._create_meridians_menu_keyboard(language)
+                await self._edit_message_text_safe(query,
+                    text,
+                    reply_markup=keyboard,
+                    parse_mode='HTML'
                 )
                 return
 
             if action == "choose":
+                user.meridian_learning_mode = "free"
+                await self.storage.save_user(user)
                 await self._edit_message_text_safe(query, 
                     self._get_text("choose_meridian", language),
                     reply_markup=self._create_meridian_choice_keyboard(language),
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
                 return
 
@@ -2647,17 +2864,32 @@ class BotHandlers:
                 if not meridian:
                     await self._edit_message_text_safe(query, self._get_text("error", language))
                     return
+                user.meridian_learning_mode = "free"
                 user.current_meridian_id = meridian_id
                 user.current_point_index = -1
                 user.meridians_enabled = True
                 await self.storage.save_user(user)
                 await self.scheduler.schedule_user_immediately(chat_id)
                 text = format_meridian_intro(meridian, language)
-                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                await self._show_meridian_card(
+                    query,
+                    text,
+                    self._create_meridians_menu_keyboard(language),
+                    language,
+                    meridian.get("id")
+                )
                 return
 
             meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id) if user.current_meridian_id else None
             if not meridian:
+                if getattr(user, "meridian_learning_mode", None) == "free":
+                    await self._edit_message_text_safe(
+                        query,
+                        self._get_text("choose_meridian", language),
+                        reply_markup=self._create_meridian_choice_keyboard(language),
+                        parse_mode='HTML'
+                    )
+                    return
                 meridian = self.meridians_manager.get_first_meridian()
                 if not meridian:
                     await self._edit_message_text_safe(query, self._get_text("no_points", language))
@@ -2670,24 +2902,55 @@ class BotHandlers:
 
             if action == "current":
                 text = format_meridian_point(meridian, user.current_point_index, language) if user.current_point_index >= 0 else format_meridian_intro(meridian, language)
-                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                point_code = points[user.current_point_index].get("code") if user.current_point_index >= 0 and user.current_point_index < len(points) else None
+                await self._show_meridian_card(
+                    query,
+                    text,
+                    self._create_meridians_menu_keyboard(language),
+                    language,
+                    meridian.get("id"),
+                    point_code
+                )
                 return
 
             if action == "all":
                 if not points:
                     text = self._get_text("no_points", language)
+                    keyboard = self._create_meridians_menu_keyboard(language)
                 else:
-                    point_lines = []
-                    for idx, point in enumerate(points, start=1):
-                        localized = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
-                        point_lines.append(f"{idx}. {point.get('code', '')} {localized.get('name', '')}".strip())
-                    text = "\n".join(point_lines)
-                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                    choose_point = {
+                        "en": "Choose a point to open its location image and practice.",
+                        "ru": "Выберите точку, чтобы открыть изображение расположения и практику.",
+                        "uz": "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang.",
+                        "kz": "Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз.",
+                    }.get(language, "Choose a point to open its location image and practice.")
+                    text = f"<b>{self._get_text('all_points', language)}</b>\n\n{choose_point}"
+                    keyboard = self._create_meridian_points_keyboard(meridian, language)
+                await self._show_meridian_card(query, text, keyboard, language)
+                return
+
+            if action.startswith("point:"):
+                point_index = int(action.split(":", 1)[1])
+                if point_index < 0 or point_index >= len(points):
+                    await self._edit_message_text_safe(query, self._get_text("error", language))
+                    return
+                user.current_point_index = point_index
+                await self.storage.save_user(user)
+                point_code = points[point_index].get("code")
+                text = format_meridian_point(meridian, point_index, language)
+                await self._show_meridian_card(
+                    query,
+                    text,
+                    self._create_meridians_menu_keyboard(language),
+                    language,
+                    meridian.get("id"),
+                    point_code
+                )
                 return
 
             if action in ["next", "prev"]:
                 if not points:
-                    await self._edit_message_text_safe(query, self._get_text("no_points", language), reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                    await self._edit_message_text_safe(query, self._get_text("no_points", language), reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='HTML')
                     return
                 if action == "next":
                     user.current_point_index = min(user.current_point_index + 1, len(points) - 1)
@@ -2695,19 +2958,34 @@ class BotHandlers:
                     user.current_point_index = max(user.current_point_index - 1, 0)
                 await self.storage.save_user(user)
                 text = format_meridian_point(meridian, user.current_point_index, language)
-                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                point_code = points[user.current_point_index].get("code")
+                await self._show_meridian_card(
+                    query,
+                    text,
+                    self._create_meridians_menu_keyboard(language),
+                    language,
+                    meridian.get("id"),
+                    point_code
+                )
                 return
 
             if action == "complete":
                 if user.current_meridian_id and user.current_meridian_id not in user.completed_meridians:
                     user.completed_meridians.append(user.current_meridian_id)
-                next_meridian = self.meridians_manager.get_next_meridian(user.current_meridian_id, user.completed_meridians)
-                if next_meridian:
-                    user.current_meridian_id = next_meridian["id"]
+
+                if getattr(user, "meridian_learning_mode", None) == "guided":
+                    next_meridian = self.meridians_manager.get_next_meridian(user.current_meridian_id, user.completed_meridians)
+                    if next_meridian:
+                        user.current_meridian_id = next_meridian["id"]
+                        user.current_point_index = -1
+                else:
+                    user.current_meridian_id = None
                     user.current_point_index = -1
+
                 await self.storage.save_user(user)
                 text = self._get_text("meridian_completed", language)
-                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                keyboard = self._create_meridians_menu_keyboard(language) if user.current_meridian_id else self._create_meridian_choice_keyboard(language)
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:
             logger.error(f"Error in meridian callback for user {chat_id}: {e}")
@@ -3173,35 +3451,180 @@ class BotHandlers:
                 del self.user_states[chat_id]
             await update.message.reply_text(self._get_text("error", language))
 
-    async def _send_principle_detail(self, chat_id: int, principle: Dict[str, Any], language: str) -> None:
-        """Send a selected Yama/Niyama principle with its image and detailed text."""
+    async def _show_principle_detail(self, query, principle: Dict[str, Any], language: str) -> None:
+        """Show a selected Yama/Niyama principle in the current menu message."""
         principle_id = int(principle.get("id", 0))
-        group = self._get_principle_group_name(principle_id, language)
-        part_label = {
-            "en": "Part",
-            "ru": "Часть",
-            "uz": "Qismi",
-            "kz": "Бөлігі",
-        }.get(language, "Part")
-        name = principle.get("name", "")
+        chat_id = query.message.chat.id
+        keyboard = self._create_principles_menu_keyboard(language)
+        text = self._format_principle_detail(principle, language)
         image_path = get_principle_image_path(principle_id)
 
         if image_path:
-            try:
+            caption = self._format_principle_detail(principle, language, max_length=1024)
+            if not query.message.photo:
+                try:
+                    await query.delete_message()
+                except Exception:
+                    pass
                 with open(image_path, "rb") as photo:
-                    sent_photo = await self.application.bot.send_photo(
+                    sent_message = await self.application.bot.send_photo(
                         chat_id=chat_id,
                         photo=photo,
-                        caption=f"<b>{escape(name)}</b>\n<b>{escape(part_label)}:</b> {escape(group)}",
+                        caption=caption,
+                        reply_markup=keyboard,
                         parse_mode='HTML'
                     )
-                await self.storage.add_bot_message(chat_id, sent_photo.message_id, "principle_image")
-            except Exception as e:
-                logger.warning(f"Could not send principle image {image_path} to {chat_id}: {e}")
+                await self.storage.add_bot_message(chat_id, sent_message.message_id, "principle")
+                return
 
-        text = self._format_principle_detail(principle, language)
-        sent_message = await self.application.bot.send_message(chat_id=chat_id, text=text, parse_mode='HTML')
-        await self.storage.add_bot_message(chat_id, sent_message.message_id, "principle")
+            try:
+                with open(image_path, "rb") as photo:
+                    await query.edit_message_media(
+                        media=InputMediaPhoto(
+                            media=photo,
+                            caption=caption,
+                            parse_mode='HTML'
+                        ),
+                        reply_markup=keyboard
+                    )
+                await self.storage.add_bot_message(chat_id, query.message.message_id, "principle")
+                return
+            except BadRequest as e:
+                if "message is not modified" in str(e).lower():
+                    logger.debug("Ignored Telegram no-op media edit for principle detail")
+                    return
+                if "no media" in str(e).lower() or "there is no media" in str(e).lower():
+                    try:
+                        await query.delete_message()
+                    except Exception:
+                        pass
+                    with open(image_path, "rb") as photo:
+                        sent_message = await self.application.bot.send_photo(
+                            chat_id=chat_id,
+                            photo=photo,
+                            caption=caption,
+                            reply_markup=keyboard,
+                            parse_mode='HTML'
+                        )
+                    await self.storage.add_bot_message(chat_id, sent_message.message_id, "principle")
+                    return
+                logger.warning(f"Could not edit principle message as media for {chat_id}: {e}")
+            except Exception as e:
+                logger.warning(f"Could not show principle image {image_path} to {chat_id}: {e}")
+
+        try:
+            await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
+            await self.storage.add_bot_message(chat_id, query.message.message_id, "principle")
+        except BadRequest as e:
+            if "there is no text in the message to edit" in str(e).lower() and query.message.photo:
+                await query.delete_message()
+                sent_message = await self.application.bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode='HTML'
+                )
+                await self.storage.add_bot_message(chat_id, sent_message.message_id, "principle")
+            else:
+                raise
+
+    def _fit_html_caption(self, text: str, max_length: int = 1024) -> str:
+        """Fit simple HTML text into Telegram caption limit without cutting tags."""
+        if len(text) <= max_length:
+            return text
+
+        parts = text.split("\n\n")
+        kept = []
+        for part in parts:
+            candidate = "\n\n".join([*kept, part]) if kept else part
+            if len(candidate) <= max_length - 3:
+                kept.append(part)
+            else:
+                break
+
+        if kept:
+            return "\n\n".join(kept) + "..."
+
+        plain = text.replace("<b>", "").replace("</b>", "").replace("<i>", "").replace("</i>", "")
+        return escape(plain[:max_length - 3].rstrip()) + "..."
+
+    async def _show_meridian_card(
+        self,
+        query,
+        text: str,
+        keyboard: InlineKeyboardMarkup,
+        language: str,
+        meridian_id: Optional[str] = None,
+        point_code: Optional[str] = None
+    ) -> None:
+        """Show meridian content with an image when available."""
+        chat_id = query.message.chat.id
+        image_path = get_meridian_image_path(meridian_id, point_code) if meridian_id else None
+
+        if image_path:
+            caption = self._fit_html_caption(text)
+            is_gif = image_path.lower().endswith(".gif")
+            has_media = bool(query.message.photo or query.message.animation)
+            if not has_media:
+                try:
+                    await query.delete_message()
+                except Exception:
+                    pass
+                with open(image_path, "rb") as media_file:
+                    if is_gif:
+                        sent_message = await self.application.bot.send_animation(
+                            chat_id=chat_id,
+                            animation=media_file,
+                            caption=caption,
+                            reply_markup=keyboard,
+                            parse_mode='HTML'
+                        )
+                    else:
+                        sent_message = await self.application.bot.send_photo(
+                            chat_id=chat_id,
+                            photo=media_file,
+                            caption=caption,
+                            reply_markup=keyboard,
+                            parse_mode='HTML'
+                        )
+                await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
+                return
+
+            try:
+                with open(image_path, "rb") as media_file:
+                    media = (
+                        InputMediaAnimation(media=media_file, caption=caption, parse_mode='HTML')
+                        if is_gif
+                        else InputMediaPhoto(media=media_file, caption=caption, parse_mode='HTML')
+                    )
+                    await query.edit_message_media(
+                        media=media,
+                        reply_markup=keyboard
+                    )
+                await self.storage.add_bot_message(chat_id, query.message.message_id, "meridian")
+                return
+            except BadRequest as e:
+                if "message is not modified" in str(e).lower():
+                    return
+                logger.warning(f"Could not edit meridian message as media for {chat_id}: {e}")
+            except Exception as e:
+                logger.warning(f"Could not show meridian image {image_path} to {chat_id}: {e}")
+
+        if query.message.photo or query.message.animation:
+            try:
+                await query.delete_message()
+            except Exception:
+                pass
+            sent_message = await self.application.bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode='HTML'
+            )
+            await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
+            return
+
+        await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
     
     async def _handle_feedback_stats(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /feedback_stats command (admin only)."""
