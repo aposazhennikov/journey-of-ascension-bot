@@ -1874,8 +1874,8 @@ class BotHandlers:
                 # Популярные часовые пояса для региона
                 ("🇷🇺 Moscow +3", "Europe/Moscow"),
                 ("🇺🇿 Tashkent +5", "Asia/Tashkent"),
-                ("🇰🇿 Almaty +6", "Asia/Almaty"),
-                ("🇺🇦 Kiev +2", "Europe/Kiev"),
+                ("🇰🇿 Almaty +5", "Asia/Almaty"),
+                ("🇺🇦 Kyiv +3", "Europe/Kyiv"),
                 ("🇹🇷 Istanbul +3", "Europe/Istanbul"),
                 ("🇦🇿 Baku +4", "Asia/Baku"),
                 ("🇦🇲 Yerevan +4", "Asia/Yerevan"),
@@ -1888,8 +1888,8 @@ class BotHandlers:
             "ru": [
                 ("🇷🇺 Москва +3", "Europe/Moscow"),
                 ("🇺🇿 Ташкент +5", "Asia/Tashkent"),
-                ("🇰🇿 Алматы +6", "Asia/Almaty"),
-                ("🇺🇦 Киев +2", "Europe/Kiev"),
+                ("🇰🇿 Алматы +5", "Asia/Almaty"),
+                ("🇺🇦 Киев +3", "Europe/Kyiv"),
                 ("🇹🇷 Стамбул +3", "Europe/Istanbul"),
                 ("🇦🇿 Баку +4", "Asia/Baku"),
                 ("🇦🇲 Ереван +4", "Asia/Yerevan"),
@@ -1902,7 +1902,7 @@ class BotHandlers:
             "uz": [
                 ("🇺🇿 Toshkent +5", "Asia/Tashkent"),
                 ("🇺🇿 Samarqand +5", "Asia/Samarkand"),
-                ("🇰🇿 Almaty +6", "Asia/Almaty"),
+                ("🇰🇿 Almaty +5", "Asia/Almaty"),
                 ("🇷🇺 Moskva +3", "Europe/Moscow"),
                 ("🇹🇷 Istanbul +3", "Europe/Istanbul"),
                 ("🇦🇿 Boku +4", "Asia/Baku"),
@@ -1910,12 +1910,12 @@ class BotHandlers:
                 ("🇬🇪 Tbilisi +4", "Asia/Tbilisi"),
                 ("🇰🇬 Bishkek +6", "Asia/Bishkek"),
                 ("🇹🇲 Ashgabat +5", "Asia/Ashgabat"),
-                ("🇺🇦 Kiev +2", "Europe/Kiev"),
+                ("🇺🇦 Kyiv +3", "Europe/Kyiv"),
                 ("🌍 UTC +0", "UTC"),
             ],
             "kz": [
-                ("🇰🇿 Алматы +6", "Asia/Almaty"),
-                ("🇰🇿 Нұр-Сұлтан +6", "Asia/Almaty"),
+                ("🇰🇿 Алматы +5", "Asia/Almaty"),
+                ("🇰🇿 Астана +5", "Asia/Almaty"),
                 ("🇰🇿 Ақтөбе +5", "Asia/Aqtobe"),
                 ("🇺🇿 Ташкент +5", "Asia/Tashkent"),
                 ("🇷🇺 Мәскеу +3", "Europe/Moscow"),
@@ -1924,7 +1924,7 @@ class BotHandlers:
                 ("🇦🇿 Баку +4", "Asia/Baku"),
                 ("🇦🇲 Ереван +4", "Asia/Yerevan"),
                 ("🇬🇪 Тбилиси +4", "Asia/Tbilisi"),
-                ("🇺🇦 Киев +2", "Europe/Kiev"),
+                ("🇺🇦 Киев +3", "Europe/Kyiv"),
                 ("🌍 UTC +0", "UTC"),
             ]
         }
