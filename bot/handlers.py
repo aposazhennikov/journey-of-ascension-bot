@@ -80,11 +80,11 @@ TEXTS = {
         ),
         "already_subscribed": (
             "🧘 You're already subscribed to daily yoga principles!\n\n"
-            "Use /settings to change settings or /stop to unsubscribe."
+            "Use /settings to change settings or /stop to stop the bot."
         ),
         "unsubscribed": (
-            "😔 You have unsubscribed from yoga principles newsletter.\n\n"
-            "Use /start to subscribe again."
+            "The bot has been stopped. Reminders will no longer be sent.\n\n"
+            "Use /start if you want to return."
         ),
         "not_subscribed": "You were not subscribed to the newsletter.",
         "current_settings": (
@@ -111,7 +111,7 @@ TEXTS = {
         "sending_test": "🧪 Sending test message...",
         "menu_about": "ℹ️ About Bot",
         "menu_feedback": "💌 Feedback & Ideas",
-        "menu_stop": "❌ Unsubscribe",
+        "menu_stop": "⏹ Stop bot",
         "settings_menu": "⚙️ **Settings Menu**\n\nWhat would you like to change?",
         "change_language": "🌐 Change Language",
         "change_time": "⏰ Change Send Time",
@@ -209,11 +209,11 @@ TEXTS = {
         ),
         "already_subscribed": (
             "🧘 Вы уже подписаны на ежедневные принципы йоги!\n\n"
-            "Используйте /settings для изменения настроек или /stop для отписки."
+            "Используйте /settings для изменения настроек или /stop, чтобы остановить бота."
         ),
         "unsubscribed": (
-            "😔 Вы отписались от рассылки принципов йоги.\n\n"
-            "Используйте /start чтобы подписаться снова."
+            "Бот остановлен. Напоминания больше не будут приходить.\n\n"
+            "Если захотите вернуться, используйте /start."
         ),
         "not_subscribed": "Вы не были подписаны на рассылку.",
         "current_settings": (
@@ -240,7 +240,7 @@ TEXTS = {
         "sending_test": "🧪 Отправляю тестовое сообщение...",
         "menu_about": "ℹ️ О боте",
         "menu_feedback": "💌 Отзывы и идеи",
-        "menu_stop": "❌ Отписаться",
+        "menu_stop": "⏹ Остановить бота",
         "settings_menu": "⚙️ **Меню настроек**\n\nЧто вы хотите изменить?",
         "change_language": "🌐 Изменить язык",
         "change_time": "⏰ Изменить время отправки",
@@ -338,7 +338,7 @@ TEXTS = {
             "/test dan test xabarini olish uchun foydalaning."
         ),
         "already_subscribed": "Siz allaqachon obuna bo'lgansiz. Sozlamalarni o'zgartirish uchun /settings dan foydalaning.",
-        "unsubscribed": "✅ Siz muvaffaqiyatli obunani bekor qildingiz. Qayta obuna bo'lish uchun /start dan foydalaning.",
+        "unsubscribed": "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "not_subscribed": "Siz yangiliklar ro'yxatiga obuna bo'lmagan edingiz.",
         "current_settings": (
             "⚙️ **Sizning joriy sozlamalaringiz:**\n\n"
@@ -365,7 +365,7 @@ TEXTS = {
         "sending_test": "🧪 Test xabarini yubormoqdaman...",
         "menu_about": "ℹ️ Bot haqida",
         "menu_feedback": "💌 Fikr va takliflar",
-        "menu_stop": "❌ Obunani bekor qilish",
+        "menu_stop": "⏹ Botni to'xtatish",
         "settings_menu": "⚙️ **Sozlamalar menyusi**\n\nNimani o'zgartirmoqchisiz?",
         "change_language": "🌐 Tilni o'zgartirish",
         "change_time": "⏰ Yuborish vaqtini o'zgartirish",
@@ -446,7 +446,7 @@ TEXTS = {
             "/test арқылы тест хабарын алу үшін пайдаланыңыз."
         ),
         "already_subscribed": "Сіз қазірдің өзінде жазылғансыз. Баптауларды өзгерту үшін /settings пайдаланыңыз.",
-        "unsubscribed": "✅ Сіз сәтті жазылудан бас тарттыңыз. Қайта жазылу үшін /start пайдаланыңыз.",
+        "unsubscribed": "Бот тоқтатылды. Еске салулар енді жіберілмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "not_subscribed": "Сіз жаңалықтар тізіміне жазылмағансыз.",
         "current_settings": (
             "⚙️ **Сіздің ағымдағы баптауларыңыз:**\n\n"
@@ -474,7 +474,7 @@ TEXTS = {
         "sending_test": "🧪 Тест хабарын жіберуде...",
         "menu_about": "ℹ️ Бот туралы",
         "menu_feedback": "💌 Пікірлер мен ұсыныстар",
-        "menu_stop": "❌ Жазылудан бас тарту",
+        "menu_stop": "⏹ Ботты тоқтату",
         "settings_menu": "⚙️ **Баптаулар мәзірі**\n\nНені өзгерткіңіз келеді?",
         "change_language": "🌐 Тілді өзгерту",
         "change_time": "⏰ Жіберу уақытын өзгерту",
@@ -612,8 +612,17 @@ TEXTS_UPDATE = {
         ),
         "continue_setup": "Continue",
         "menu": "📋 **Journey of Ascension**",
-        "menu_meridians": "🌿 Meridians",
+        "menu_principles": "🧘🏻✨ Yama/Niyama",
+        "menu_meridians": "🐉✨ Meridians",
         "menu_modes": "🧭 Practice Modes",
+        "menu_stop": "⏹ Stop bot",
+        "principles_menu": (
+            "🕊️ **Yama/Niyama**\n\n"
+            "These are the ethical foundations of practice. You can open a random principle for contemplation or view the full list."
+        ),
+        "principles_random": "Random principle",
+        "principles_all": "All principles",
+        "principles_empty": "Principles are not available yet.",
         "change_modes": "🧭 Practice Modes",
         "change_meridian_time": "🌿 Meridian Time",
         "mode_menu": "🧭 **Practice Modes**\n\nChoose what daily practices should be active.",
@@ -644,7 +653,9 @@ TEXTS_UPDATE = {
             "Open /menu and choose **Meridians**."
         ),
         "already_subscribed": "🕊️ You are already subscribed to Journey of Ascension.\n\nUse /menu to choose practices or /settings to change reminders.",
-        "unsubscribed": "You have unsubscribed from Journey of Ascension reminders.\n\nUse /start to subscribe again.",
+        "unsubscribed": "The bot has been stopped. Reminders will no longer be sent.\n\nUse /start if you want to return.",
+        "stop_feedback_prompt": "If you want, you can send one message and tell why you decided to stop using the bot. This is optional.",
+        "stop_feedback_thanks": "Thank you, I will pass on your feedback.\n\nUse /start if you want to return.",
         "not_subscribed_test": "You're not subscribed yet. Use /start to begin.",
         "setup_complete": (
             "🎉 **Setup Complete!**\n\n"
@@ -700,8 +711,17 @@ TEXTS_UPDATE = {
         ),
         "continue_setup": "Продолжить",
         "menu": "📋 **Journey of Ascension**",
-        "menu_meridians": "🌿 Меридианы",
+        "menu_principles": "🧘🏻✨ Яма/Нияма",
+        "menu_meridians": "🐉✨ Меридианы",
         "menu_modes": "🧭 Режимы практики",
+        "menu_stop": "⏹ Остановить бота",
+        "principles_menu": (
+            "🕊️ **Яма/Нияма**\n\n"
+            "Это нравственный фундамент практики. Можно открыть случайный принцип для размышления или посмотреть весь список."
+        ),
+        "principles_random": "Случайный принцип",
+        "principles_all": "Все принципы",
+        "principles_empty": "Принципы пока недоступны.",
         "change_modes": "🧭 Режимы практики",
         "change_meridian_time": "🌿 Время меридианов",
         "mode_menu": "🧭 **Режимы практики**\n\nВыберите, какие ежедневные практики должны быть активны.",
@@ -732,7 +752,9 @@ TEXTS_UPDATE = {
             "Откройте /menu и выберите **Меридианы**."
         ),
         "already_subscribed": "🕊️ Вы уже подписаны на Journey of Ascension.\n\nИспользуйте /menu для выбора практик или /settings для настройки напоминаний.",
-        "unsubscribed": "Вы отписались от напоминаний Journey of Ascension.\n\nИспользуйте /start, чтобы подписаться снова.",
+        "unsubscribed": "Бот остановлен. Напоминания больше не будут приходить.\n\nЕсли захотите вернуться, используйте /start.",
+        "stop_feedback_prompt": "Если хотите, можете одним сообщением написать, почему решили остановить бота. Это необязательно.",
+        "stop_feedback_thanks": "Спасибо, я передам обратную связь.\n\nЕсли захотите вернуться, используйте /start.",
         "not_subscribed_test": "Вы пока не подписаны. Используйте /start, чтобы начать.",
         "setup_complete": (
             "🎉 **Настройка завершена!**\n\n"
@@ -788,8 +810,17 @@ TEXTS_UPDATE = {
         ),
         "continue_setup": "Davom etish",
         "menu": "📋 **Journey of Ascension**",
-        "menu_meridians": "🌿 Meridianlar",
+        "menu_principles": "🧘🏻✨ Yama/Niyama",
+        "menu_meridians": "🐉✨ Meridianlar",
         "menu_modes": "🧭 Amaliyot rejimlari",
+        "menu_stop": "⏹ Botni to'xtatish",
+        "principles_menu": (
+            "🕊️ **Yama/Niyama**\n\n"
+            "Bu amaliyotning axloqiy poydevori. Tafakkur uchun tasodifiy tamoyilni ochish yoki to'liq ro'yxatni ko'rish mumkin."
+        ),
+        "principles_random": "Tasodifiy tamoyil",
+        "principles_all": "Barcha tamoyillar",
+        "principles_empty": "Tamoyillar hozircha mavjud emas.",
         "change_modes": "🧭 Amaliyot rejimlari",
         "change_meridian_time": "🌿 Meridian vaqti",
         "mode_menu": "🧭 **Amaliyot rejimlari**\n\nQaysi kundalik amaliyotlar faol bo'lishini tanlang.",
@@ -820,7 +851,9 @@ TEXTS_UPDATE = {
             "/menu ni oching va **Meridianlar** bo'limini tanlang."
         ),
         "already_subscribed": "🕊️ Siz Journey of Ascension'ga allaqachon obuna bo'lgansiz.\n\nAmaliyotlarni tanlash uchun /menu yoki eslatmalarni sozlash uchun /settings dan foydalaning.",
-        "unsubscribed": "Siz Journey of Ascension eslatmalaridan obunani bekor qildingiz.\n\nQayta boshlash uchun /start dan foydalaning.",
+        "unsubscribed": "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
+        "stop_feedback_prompt": "Xohlasangiz, botdan foydalanishni nima uchun to'xtatganingizni bitta xabarda yozishingiz mumkin. Bu majburiy emas.",
+        "stop_feedback_thanks": "Rahmat, fikringizni yetkazaman.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "not_subscribed_test": "Siz hali obuna bo'lmagansiz. Boshlash uchun /start dan foydalaning.",
         "setup_complete": (
             "🎉 **Sozlash yakunlandi!**\n\n"
@@ -876,8 +909,17 @@ TEXTS_UPDATE = {
         ),
         "continue_setup": "Жалғастыру",
         "menu": "📋 **Journey of Ascension**",
-        "menu_meridians": "🌿 Меридиандар",
+        "menu_principles": "🧘🏻✨ Яма/Нияма",
+        "menu_meridians": "🐉✨ Меридиандар",
         "menu_modes": "🧭 Тәжірибе режимдері",
+        "menu_stop": "⏹ Ботты тоқтату",
+        "principles_menu": (
+            "🕊️ **Яма/Нияма**\n\n"
+            "Бұл тәжірибенің адамгершілік негізі. Ойлану үшін кездейсоқ қағиданы ашуға немесе толық тізімді көруге болады."
+        ),
+        "principles_random": "Кездейсоқ қағида",
+        "principles_all": "Барлық қағидалар",
+        "principles_empty": "Қағидалар әзірге қолжетімді емес.",
         "change_modes": "🧭 Тәжірибе режимдері",
         "change_meridian_time": "🌿 Меридиан уақыты",
         "mode_menu": "🧭 **Тәжірибе режимдері**\n\nҚай күнделікті тәжірибелер белсенді болатынын таңдаңыз.",
@@ -908,7 +950,9 @@ TEXTS_UPDATE = {
             "/menu ашып, **Меридиандар** бөлімін таңдаңыз."
         ),
         "already_subscribed": "🕊️ Сіз Journey of Ascension-ға бұрыннан жазылғансыз.\n\nТәжірибелерді таңдау үшін /menu немесе еске салуларды өзгерту үшін /settings қолданыңыз.",
-        "unsubscribed": "Сіз Journey of Ascension еске салуларынан жазылудан бас тарттыңыз.\n\nҚайта бастау үшін /start қолданыңыз.",
+        "unsubscribed": "Бот тоқтатылды. Еске салулар енді жіберілмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
+        "stop_feedback_prompt": "Қаласаңыз, ботты не үшін тоқтатқаныңызды бір хабарламамен жаза аласыз. Бұл міндетті емес.",
+        "stop_feedback_thanks": "Рақмет, пікіріңізді жеткіземін.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "not_subscribed_test": "Сіз әлі жазылмағансыз. Бастау үшін /start қолданыңыз.",
         "setup_complete": (
             "🎉 **Баптау аяқталды!**\n\n"
@@ -973,6 +1017,7 @@ class BotHandlers:
         self.application.add_handler(CallbackQueryHandler(self._handle_timezone_callback, pattern="^tz_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_skipday_callback, pattern="^skipday_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_menu_callback, pattern="^menu_"))
+        self.application.add_handler(CallbackQueryHandler(self._handle_principles_callback, pattern="^principles_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_settings_callback, pattern="^settings_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_change_callback, pattern="^change_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_mode_callback, pattern="^mode_"))
@@ -1019,6 +1064,23 @@ class BotHandlers:
             key = "time_step_principles"
 
         return self._get_text(key, language)
+
+    def _format_principles_list(self, language: str) -> str:
+        """Format all Yama/Niyama principles as a compact catalogue."""
+        principles = self.principles_manager.get_all_principles(language)
+        if not principles:
+            return self._get_text("principles_empty", language)
+
+        title = self._get_text("principles_all", language)
+        lines = [f"🕊️ **{title}**", ""]
+        for index, principle in enumerate(principles, start=1):
+            emoji = principle.get("emoji", "")
+            name = principle.get("name", "")
+            short_description = principle.get("short_description", "")
+            lines.append(f"{index}. {emoji} **{name}**")
+            if short_description:
+                lines.append(short_description)
+        return "\n".join(lines)
     
     async def _handle_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
@@ -1095,7 +1157,7 @@ class BotHandlers:
                     
                     confirmation = self._get_text("language_chosen", language)
                     text = f"{confirmation}\n\n{self._get_text('menu', language)}"
-                    keyboard = self._create_main_menu_keyboard(language)
+                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                     logger.debug(f"Sending menu in {language} to user {chat_id}")
                     
                     message = await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
@@ -1204,7 +1266,7 @@ class BotHandlers:
                                 del self.user_states[chat_id]
                                 
                                 text = f"{self._get_text('timezone_saved', language)}\n\n{self._get_text('menu', language)}"
-                                keyboard = self._create_main_menu_keyboard(language)
+                                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                                 await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
                             else:
                                 await query.edit_message_text(self._get_text("setup_error", language), parse_mode='Markdown')
@@ -1345,7 +1407,7 @@ class BotHandlers:
                                 confirmation = "✅ Өткізіп жіберу күндері тазаланды - күнделікті хабарлар қосылды"
                         
                         text = f"{confirmation}\n\n{self._get_text('menu', language)}"
-                        keyboard = self._create_main_menu_keyboard(language)
+                        keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                         
                         await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
                     else:
@@ -1397,7 +1459,7 @@ class BotHandlers:
                 
                 # Add menu after setup completion
                 text += f"\n\n{self._get_text('menu', language)}"
-                keyboard = self._create_main_menu_keyboard(language)
+                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                 logger.debug(f"Final setup message for user {chat_id} in language {language}: {text[:150]}...")
                 
                 await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
@@ -1422,7 +1484,8 @@ class BotHandlers:
             
             success = await self.storage.deactivate_user(chat_id)
             if success:
-                text = self._get_text("unsubscribed", language)
+                text = f"{self._get_text('unsubscribed', language)}\n\n{self._get_text('stop_feedback_prompt', language)}"
+                self.user_states[chat_id] = {"step": "stop_feedback", "language": language}
                 # Remove user from scheduler
                 await self.scheduler.remove_user_jobs(chat_id)
             else:
@@ -1488,6 +1551,9 @@ class BotHandlers:
     async def _handle_test(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /test command."""
         chat_id = update.effective_chat.id
+
+        if chat_id not in self.admin_ids:
+            return
         
         try:
             user = await self.storage.get_user(chat_id)
@@ -1755,6 +1821,8 @@ class BotHandlers:
                 await self._handle_change_meridian_time_input(update, message_text, language)
             elif step == "feedback":
                 await self._handle_feedback_input(update, message_text, language)
+            elif step == "stop_feedback":
+                await self._handle_stop_feedback_input(update, message_text, language)
                 
         except Exception as e:
             logger.error(f"Error in message handler for user {chat_id}: {e}")
@@ -2025,16 +2093,16 @@ class BotHandlers:
         
         return InlineKeyboardMarkup(keyboard)
     
-    def _create_main_menu_keyboard(self, language: str) -> InlineKeyboardMarkup:
+    def _create_main_menu_keyboard(self, language: str, is_admin: bool = False) -> InlineKeyboardMarkup:
         """Create main menu keyboard."""
         keyboard = [
             [
-                InlineKeyboardButton(self._get_text("menu_meridians", language), callback_data="menu_meridians"),
-                InlineKeyboardButton(self._get_text("menu_modes", language), callback_data="menu_modes")
+                InlineKeyboardButton(self._get_text("menu_principles", language), callback_data="menu_principles"),
+                InlineKeyboardButton(self._get_text("menu_meridians", language), callback_data="menu_meridians")
             ],
             [
-                InlineKeyboardButton(self._get_text("menu_settings", language), callback_data="menu_settings"),
-                InlineKeyboardButton(self._get_text("menu_test", language), callback_data="menu_test")
+                InlineKeyboardButton(self._get_text("menu_modes", language), callback_data="menu_modes"),
+                InlineKeyboardButton(self._get_text("menu_settings", language), callback_data="menu_settings")
             ],
             [
                 InlineKeyboardButton(self._get_text("menu_about", language), callback_data="menu_about"),
@@ -2044,7 +2112,13 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("menu_stop", language), callback_data="menu_stop")
             ]
         ]
+        if is_admin:
+            keyboard.append([InlineKeyboardButton(self._get_text("menu_test", language), callback_data="menu_test")])
         return InlineKeyboardMarkup(keyboard)
+
+    def _create_main_menu_keyboard_for_user(self, chat_id: int, language: str) -> InlineKeyboardMarkup:
+        """Create main menu keyboard with admin-only actions when applicable."""
+        return self._create_main_menu_keyboard(language, is_admin=chat_id in self.admin_ids)
     
     def _create_settings_menu_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create settings menu keyboard."""
@@ -2066,6 +2140,16 @@ class BotHandlers:
             ]
         ]
         return InlineKeyboardMarkup(keyboard)
+
+    def _create_principles_menu_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create Yama/Niyama section keyboard."""
+        return InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(self._get_text("principles_random", language), callback_data="principles_random"),
+                InlineKeyboardButton(self._get_text("principles_all", language), callback_data="principles_all")
+            ],
+            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+        ])
 
     def _create_practice_modes_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create practice mode selection keyboard."""
@@ -2131,7 +2215,7 @@ class BotHandlers:
                 return
             
             text = self._get_text("menu", language)
-            keyboard = self._create_main_menu_keyboard(language)
+            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
             
             await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
             
@@ -2162,6 +2246,11 @@ class BotHandlers:
                 keyboard = self._create_settings_menu_keyboard(language)
                 await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
 
+            elif action == "principles":
+                text = self._get_text("principles_menu", language)
+                keyboard = self._create_principles_menu_keyboard(language)
+                await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+
             elif action == "modes":
                 text = self._get_text("mode_menu", language)
                 keyboard = self._create_practice_modes_keyboard(language)
@@ -2177,7 +2266,7 @@ class BotHandlers:
                 success = await self.scheduler.send_test_message(chat_id, language)
                 if success:
                     text = self._get_text("menu", language)
-                    keyboard = self._create_main_menu_keyboard(language)
+                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                     await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
                 else:
                     await query.edit_message_text(self._get_text("test_failed", language))
@@ -2198,17 +2287,52 @@ class BotHandlers:
             elif action == "stop":
                 success = await self.storage.deactivate_user(chat_id)
                 if success:
-                    await query.edit_message_text(self._get_text("unsubscribed", language), parse_mode='Markdown')
+                    await self.scheduler.remove_user_jobs(chat_id)
+                    self.user_states[chat_id] = {"step": "stop_feedback", "language": language}
+                    text = f"{self._get_text('unsubscribed', language)}\n\n{self._get_text('stop_feedback_prompt', language)}"
+                    await query.edit_message_text(text, parse_mode='Markdown')
                 else:
                     await query.edit_message_text(self._get_text("not_subscribed", language))
                     
             elif action == "main":
                 text = self._get_text("menu", language)
-                keyboard = self._create_main_menu_keyboard(language)
+                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                 await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
                 
         except Exception as e:
             logger.error(f"Error in menu callback for user {chat_id}: {e}")
+            await query.edit_message_text(self._get_text("error", language))
+
+    async def _handle_principles_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle Yama/Niyama section callbacks."""
+        query = update.callback_query
+        chat_id = query.message.chat.id
+        action = query.data.split("_", 1)[1]
+
+        try:
+            await query.answer()
+            user = await self.storage.get_user(chat_id)
+            language = user.language if user else "en"
+
+            if action == "random":
+                principle = self.principles_manager.get_random_principle(language)
+                text = format_principle_message(principle) if principle else self._get_text("principles_empty", language)
+            elif action == "all":
+                text = self._format_principles_list(language)
+            else:
+                text = self._get_text("principles_menu", language)
+
+            keyboard = self._create_principles_menu_keyboard(language)
+            await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+
+        except Exception as e:
+            logger.error(f"Error in principles callback for user {chat_id}: {e}")
+            language = "en"
+            try:
+                user = await self.storage.get_user(chat_id)
+                language = user.language if user else "en"
+            except Exception:
+                pass
             await query.edit_message_text(self._get_text("error", language))
     
     async def _handle_settings_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -2366,7 +2490,7 @@ class BotHandlers:
             await self.scheduler.schedule_user_immediately(chat_id)
 
             text = f"{self._get_text('mode_saved', language)}\n\n{self._get_text('menu', language)}"
-            keyboard = self._create_main_menu_keyboard(language)
+            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
             await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
 
         except Exception as e:
@@ -2535,7 +2659,7 @@ class BotHandlers:
                     del self.user_states[chat_id]
                     
                     text = f"{self._get_text('timezone_saved', language)}\n\n{self._get_text('menu', language)}"
-                    keyboard = self._create_main_menu_keyboard(language)
+                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                     
                     if message_id:
                         await self.application.bot.edit_message_text(
@@ -2615,7 +2739,7 @@ class BotHandlers:
                     del self.user_states[chat_id]
                     
                     text = f"{self._get_text('time_saved', language)}\n\n{self._get_text('menu', language)}"
-                    keyboard = self._create_main_menu_keyboard(language)
+                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                     
                     if message_id:
                         await self.application.bot.edit_message_text(
@@ -2695,7 +2819,7 @@ class BotHandlers:
                 del self.user_states[chat_id]
 
             text = f"{self._get_text('meridian_time_saved', language)}\n\n{self._get_text('menu', language)}"
-            keyboard = self._create_main_menu_keyboard(language)
+            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
             if message_id:
                 await self.application.bot.edit_message_text(
                     chat_id=chat_id,
@@ -2801,7 +2925,7 @@ class BotHandlers:
             # Validate feedback length
             if len(feedback_text) > 1000:
                 text = self._get_text("feedback_too_long", language)
-                keyboard = self._create_main_menu_keyboard(language)
+                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                 await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
                 del self.user_states[chat_id]
                 return
@@ -2810,7 +2934,7 @@ class BotHandlers:
             can_send = await self.storage.can_send_feedback(chat_id, rate_limit_minutes=10)
             if not can_send:
                 text = self._get_text("feedback_rate_limit", language)
-                keyboard = self._create_main_menu_keyboard(language)
+                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                 await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
                 del self.user_states[chat_id]
                 return
@@ -2857,7 +2981,7 @@ class BotHandlers:
             else:
                 text = f"{self._get_text('feedback_error', language)}\n\n{self._get_text('menu', language)}"
             
-            keyboard = self._create_main_menu_keyboard(language)
+            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
             message = await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
             
             # Delete the previous bot message (feedback prompt) for clean dialog
@@ -2868,8 +2992,62 @@ class BotHandlers:
             logger.error(f"Error handling feedback from user {chat_id}: {e}")
             del self.user_states[chat_id]
             text = f"{self._get_text('error', language)}\n\n{self._get_text('menu', language)}"
-            keyboard = self._create_main_menu_keyboard(language)
+            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
             await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+
+    async def _handle_stop_feedback_input(self, update: Update, feedback_text: str, language: str) -> None:
+        """Handle optional feedback after the user stops the bot."""
+        chat_id = update.effective_chat.id
+
+        try:
+            if len(feedback_text) > 1000:
+                await update.message.reply_text(self._get_text("feedback_too_long", language))
+                return
+
+            username = update.message.from_user.username or f"user_{chat_id}"
+
+            from datetime import datetime, timezone
+            import uuid
+
+            feedback = Feedback(
+                id=str(uuid.uuid4())[:8],
+                chat_id=chat_id,
+                username=username,
+                language=language,
+                message=f"[stop_reason] {feedback_text}",
+                timestamp=datetime.now(timezone.utc).isoformat(),
+                message_length=len(feedback_text)
+            )
+
+            success = await self.storage.add_feedback(feedback)
+
+            if chat_id in self.user_states:
+                del self.user_states[chat_id]
+
+            if success:
+                await update.message.reply_text(self._get_text("stop_feedback_thanks", language), parse_mode='Markdown')
+
+                admin_text = (
+                    "🛑 Stop feedback received\n\n"
+                    f"User: {chat_id} (@{username})\n"
+                    f"Language: {language}\n"
+                    f"Length: {len(feedback_text)} chars\n"
+                    f"Message: {feedback_text}"
+                )
+
+                for admin_id in self.admin_ids:
+                    try:
+                        await self.application.bot.send_message(admin_id, admin_text)
+                    except Exception:
+                        pass
+            else:
+                await update.message.reply_text(self._get_text("feedback_error", language))
+
+        except Exception as e:
+            logger.error(f"Error handling stop feedback from user {chat_id}: {e}")
+            if chat_id in self.user_states:
+                del self.user_states[chat_id]
+            await update.message.reply_text(self._get_text("error", language))
     
     async def _handle_feedback_stats(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /feedback_stats command (admin only)."""
