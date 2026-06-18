@@ -76,6 +76,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "large_intestine",
+        "category_id": 18,
+        "source_url": "https://shiyanbin.ru/meridian-tolstoj-kishki-gi/",
+        "active_time": "05:00-07:00",
+        "passive_time": "17:00-19:00",
+        "names": {
+            "en": "Large Intestine Meridian",
+            "ru": "Меридиан толстой кишки",
+            "uz": "Yo'g'on ichak meridiani",
+            "kz": "Тоқ ішек меридианы",
+        },
+        "direction": {
+            "en": "From the index finger along the outer side of the arm through the shoulder and neck to the face.",
+            "ru": "От указательного пальца по наружной стороне руки через плечо и шею к лицу.",
+            "uz": "Ko'rsatkich barmoqdan qo'lning tashqi tomoni bo'ylab yelka va bo'yin orqali yuzga.",
+            "kz": "Сұқ саусақтан қолдың сыртқы жағымен иық пен мойын арқылы бетке қарай.",
+        },
+        "intro": {
+            "en": "The Large Intestine Meridian is used here as a map for observing the outer line of the arm, the shoulder, neck, face, and the inner skill of releasing what is no longer needed.",
+            "ru": "Меридиан толстой кишки здесь используется как карта наблюдения наружной линии руки, плеча, шеи, лица и внутреннего навыка отпускать то, что уже не нужно.",
+            "uz": "Yo'g'on ichak meridiani bu yerda qo'lning tashqi chizig'i, yelka, bo'yin, yuz va endi kerak bo'lmagan narsani qo'yib yuborish ko'nikmasini kuzatish xaritasi sifatida ishlatiladi.",
+            "kz": "Тоқ ішек меридианы бұл жерде қолдың сыртқы сызығын, иықты, мойынды, бетті және енді қажет емес нәрсені босату дағдысын бақылау картасы ретінде қолданылады.",
+        },
+        "practice": {
+            "en": "Relax the hand, jaw, and shoulders. Let attention travel from the index finger along the outer arm toward the face, noticing where the line feels clear and where it feels silent.",
+            "ru": "Расслабьте кисть, челюсть и плечи. Ведите внимание от указательного пальца по наружной стороне руки к лицу, замечая, где линия ощущается ясно, а где будто молчит.",
+            "uz": "Kaft, jag' va yelkalarni bo'shating. Diqqatni ko'rsatkich barmoqdan qo'lning tashqi tomoni bo'ylab yuzga olib boring, qayerda chiziq aniq, qayerda esa jimdek ekanini kuzating.",
+            "kz": "Қолды, жақты және иықты босатыңыз. Зейінді сұқ саусақтан қолдың сыртқы жағымен бетке қарай жүргізіп, сызық қай жерде анық, қай жерде үнсіз сияқты екенін байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",

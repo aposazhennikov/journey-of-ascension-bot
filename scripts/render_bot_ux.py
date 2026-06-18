@@ -211,6 +211,7 @@ def render_html(output: Path) -> None:
     meridians = load_json("bot/meridians.json")["meridians"]
     principles = load_json("bot/principles.json")
     lung = next(item for item in meridians if item["id"] == "lung")
+    large_intestine = next(item for item in meridians if item["id"] == "large_intestine")
     conception = next(item for item in meridians if item["id"] == "conception_vessel")
     governing = next(item for item in meridians if item["id"] == "governing_vessel")
 
@@ -228,6 +229,8 @@ def render_html(output: Path) -> None:
         sections.append(message("TCM measurements", allow_basic_html(t["meridian_measurements_text"]), [[t["meridian_back"]]]))
         sections.append(message("Lung Meridian intro", format_meridian_intro(lung, language), kb["meridian_practice"]))
         sections.append(message("Lung Meridian point 1", format_meridian_point(lung, 0, language), kb["meridian_practice"]))
+        sections.append(message("Large Intestine intro", format_meridian_intro(large_intestine, language), kb["meridian_practice"]))
+        sections.append(message("Large Intestine point 1", format_meridian_point(large_intestine, 0, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel intro", format_meridian_intro(conception, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 1", format_meridian_point(conception, 0, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 3", format_meridian_point(conception, 2, language), kb["meridian_practice"]))
