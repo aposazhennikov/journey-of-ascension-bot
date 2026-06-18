@@ -1,7 +1,8 @@
-"""Command handlers for yoga bot."""
+﻿"""Command handlers for yoga bot."""
 
 import asyncio
 import logging
+from html import escape
 from typing import List, Dict, Any, Optional
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -20,7 +21,8 @@ from .utils import (
     validate_skip_days,
     format_principle_message,
     format_meridian_intro,
-    format_meridian_point
+    format_meridian_point,
+    get_principle_image_path
 )
 
 
@@ -613,12 +615,16 @@ TEXTS_UPDATE = {
         "continue_setup": "Continue",
         "menu": "📋 **Journey of Ascension**",
         "menu_principles": "🧘🏻✨ Yama/Niyama",
-        "menu_meridians": "🐉✨ Meridians",
+        "menu_meridians": "☯️ Meridians",
         "menu_modes": "🧭 Practice Modes",
         "menu_stop": "⏹ Stop bot",
         "principles_menu": (
-            "🕊️ **Yama/Niyama**\n\n"
-            "These are the ethical foundations of practice. You can open a random principle for contemplation or view the full list."
+            "🕊️ <b>Yama/Niyama</b>\n\n"
+            "Yama and Niyama are the basic moral and ethical disciplines of yoga. They form the foundation for self-discipline, spiritual growth, and harmonious relations with the world.\n\n"
+            "They are the first two limbs of classical eight-limbed yoga.\n\n"
+            "<b>Yama</b> is how we relate to the outer world: non-violence, truthfulness, non-stealing, moderation, and non-possessiveness.\n\n"
+            "<b>Niyama</b> is how we work with ourselves: purity, contentment, discipline, self-study, and surrender of the fruits of action.\n\n"
+            "Open a random principle for contemplation or view the full list."
         ),
         "principles_random": "Random principle",
         "principles_all": "All principles",
@@ -643,9 +649,12 @@ TEXTS_UPDATE = {
         "no_points": "Points for this meridian will be added after source content is prepared.",
         "meridian_completed": "✅ Meridian completed. Choose the next channel when you are ready.",
         "about_text": (
-            "🕊️ **Journey of Ascension**\n\n"
-            "This bot supports gradual inner practice. Yama and Niyama remain the ethical foundation: without them, accumulated energy is easily scattered.\n\n"
-            "The meridian module is the next step. It helps you study channels and points through attention, sensation, thought flow, and inner images."
+            "🕊️ <b>Journey of Ascension</b>\n\n"
+            "Our task is to help people move along the spiritual path with more clarity, steadiness, and inner honesty.\n\n"
+            "We are creating a simple and convenient tool for daily practice: a place where ethical principles, attention to the body, meditation, and work with subtle perception can gradually become part of life.\n\n"
+            "<b>Yama/Niyama</b> is the foundation: it helps preserve attention, energy, and inner strength in everyday actions.\n\n"
+            "<b>Meridians</b> are the next layer of practice: observing channels and points through body sensation, breath, attention, and inner images.\n\n"
+            "The bot does not replace your path. It gently reminds, structures practice, and helps you return to what matters."
         ),
         "feature_announcement": (
             "🌿 **New feature in Journey of Ascension: Meridians**\n\n"
@@ -712,12 +721,16 @@ TEXTS_UPDATE = {
         "continue_setup": "Продолжить",
         "menu": "📋 **Journey of Ascension**",
         "menu_principles": "🧘🏻✨ Яма/Нияма",
-        "menu_meridians": "🐉✨ Меридианы",
+        "menu_meridians": "☯️ Меридианы",
         "menu_modes": "🧭 Режимы практики",
         "menu_stop": "⏹ Остановить бота",
         "principles_menu": (
-            "🕊️ **Яма/Нияма**\n\n"
-            "Это нравственный фундамент практики. Можно открыть случайный принцип для размышления или посмотреть весь список."
+            "🕊️ <b>Яма/Нияма</b>\n\n"
+            "Яма и Нияма — это базовые морально-этические правила и ступени в йоге. Они формируют фундамент для самодисциплины, духовного развития и гармоничных отношений с миром.\n\n"
+            "Они образуют первые две ступени классической восьмиступенчатой йоги.\n\n"
+            "<b>Яма</b> — принципы взаимодействия с окружающим миром: ненасилие, правдивость, неворовство, умеренность и нестяжательство.\n\n"
+            "<b>Нияма</b> — принципы работы над собой: чистота, удовлетворённость, дисциплина, самоизучение и посвящение плодов практики высшему.\n\n"
+            "Можно открыть случайный принцип для размышления или посмотреть весь список."
         ),
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
@@ -742,9 +755,12 @@ TEXTS_UPDATE = {
         "no_points": "Точки этого меридиана будут добавлены после подготовки контента из источников.",
         "meridian_completed": "✅ Меридиан завершён. Выберите следующий канал, когда будете готовы.",
         "about_text": (
-            "🕊️ **Journey of Ascension**\n\n"
-            "Бот поддерживает постепенную внутреннюю практику. Яма и Нияма остаются нравственным фундаментом: без них накопленная энергия легко рассеивается.\n\n"
-            "Модуль меридианов — следующая ступень. Он помогает изучать каналы и точки через внимание, ощущения, поток мыслей и внутренние образы."
+            "🕊️ <b>Journey of Ascension</b>\n\n"
+            "Наша задача — помочь людям двигаться по духовному пути с большей ясностью, устойчивостью и честностью перед собой.\n\n"
+            "Мы создаём удобный инструмент для ежедневной практики: пространство, где нравственные принципы, внимание к телу, медитация и работа с тонким восприятием постепенно становятся частью жизни.\n\n"
+            "<b>Яма/Нияма</b> — фундамент. Он помогает сохранять внимание, энергию и внутреннюю силу в повседневных действиях.\n\n"
+            "<b>Меридианы</b> — следующий слой практики: наблюдение каналов и точек через ощущения тела, дыхание, внимание и внутренние образы.\n\n"
+            "Бот не заменяет ваш путь. Он мягко напоминает, структурирует практику и помогает возвращаться к тому, что действительно важно."
         ),
         "feature_announcement": (
             "🌿 **Новая функция в Journey of Ascension: Меридианы**\n\n"
@@ -811,12 +827,16 @@ TEXTS_UPDATE = {
         "continue_setup": "Davom etish",
         "menu": "📋 **Journey of Ascension**",
         "menu_principles": "🧘🏻✨ Yama/Niyama",
-        "menu_meridians": "🐉✨ Meridianlar",
+        "menu_meridians": "☯️ Meridianlar",
         "menu_modes": "🧭 Amaliyot rejimlari",
         "menu_stop": "⏹ Botni to'xtatish",
         "principles_menu": (
-            "🕊️ **Yama/Niyama**\n\n"
-            "Bu amaliyotning axloqiy poydevori. Tafakkur uchun tasodifiy tamoyilni ochish yoki to'liq ro'yxatni ko'rish mumkin."
+            "🕊️ <b>Yama/Niyama</b>\n\n"
+            "Yama va Niyama yogadagi asosiy axloqiy qoidalar va bosqichlardir. Ular o'zini tarbiyalash, ruhiy rivojlanish va dunyo bilan uyg'un munosabatlar uchun poydevor yaratadi.\n\n"
+            "Ular klassik sakkiz bosqichli yoganing birinchi ikki pog'onasidir.\n\n"
+            "<b>Yama</b> tashqi dunyo bilan munosabat tamoyillari: zarar yetkazmaslik, rostgo'ylik, o'g'irlamaslik, mo'tadillik va ortiqcha egalik qilmaslik.\n\n"
+            "<b>Niyama</b> o'z ustida ishlash tamoyillari: poklik, qanoat, intizom, o'zini o'rganish va amaliyot mevasini oliy maqsadga bag'ishlash.\n\n"
+            "Tafakkur uchun tasodifiy tamoyilni ochish yoki to'liq ro'yxatni ko'rish mumkin."
         ),
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
@@ -841,9 +861,12 @@ TEXTS_UPDATE = {
         "no_points": "Bu meridian nuqtalari manba kontenti tayyorlangandan keyin qo'shiladi.",
         "meridian_completed": "✅ Meridian yakunlandi. Tayyor bo'lganingizda keyingi kanalni tanlang.",
         "about_text": (
-            "🕊️ **Journey of Ascension**\n\n"
-            "Bot bosqichma-bosqich ichki amaliyotni qo'llab-quvvatlaydi. Yama va Niyama axloqiy poydevor bo'lib qoladi: ularsiz yig'ilgan energiya oson tarqaladi.\n\n"
-            "Meridian moduli keyingi bosqichdir. U kanallar va nuqtalarni diqqat, sezgi, fikr oqimi va ichki obrazlar orqali o'rganishga yordam beradi."
+            "🕊️ <b>Journey of Ascension</b>\n\n"
+            "Bizning vazifamiz odamlarga ruhiy yo'lda yanada ravshanlik, barqarorlik va ichki halollik bilan harakat qilishga yordam berishdir.\n\n"
+            "Biz kundalik amaliyot uchun qulay vosita yaratmoqdamiz: axloqiy tamoyillar, tanaga e'tibor, meditatsiya va nozik sezgilar bilan ishlash asta-sekin hayotning bir qismiga aylanishi mumkin bo'lgan makon.\n\n"
+            "<b>Yama/Niyama</b> poydevordir. U kundalik harakatlarda diqqat, energiya va ichki kuchni saqlashga yordam beradi.\n\n"
+            "<b>Meridianlar</b> amaliyotning keyingi qatlami: tana sezgisi, nafas, diqqat va ichki obrazlar orqali kanallar va nuqtalarni kuzatish.\n\n"
+            "Bot yo'lingizni almashtirmaydi. U muloyim eslatadi, amaliyotni tartiblaydi va muhim narsalarga qaytishga yordam beradi."
         ),
         "feature_announcement": (
             "🌿 **Journey of Ascension'da yangi funksiya: Meridianlar**\n\n"
@@ -910,12 +933,16 @@ TEXTS_UPDATE = {
         "continue_setup": "Жалғастыру",
         "menu": "📋 **Journey of Ascension**",
         "menu_principles": "🧘🏻✨ Яма/Нияма",
-        "menu_meridians": "🐉✨ Меридиандар",
+        "menu_meridians": "☯️ Меридиандар",
         "menu_modes": "🧭 Тәжірибе режимдері",
         "menu_stop": "⏹ Ботты тоқтату",
         "principles_menu": (
-            "🕊️ **Яма/Нияма**\n\n"
-            "Бұл тәжірибенің адамгершілік негізі. Ойлану үшін кездейсоқ қағиданы ашуға немесе толық тізімді көруге болады."
+            "🕊️ <b>Яма/Нияма</b>\n\n"
+            "Яма мен Нияма — йогадағы негізгі моральдық-этикалық қағидалар мен сатылар. Олар өзін-өзі тәрбиелеуге, рухани дамуға және әлеммен үйлесімді қарым-қатынасқа негіз болады.\n\n"
+            "Олар классикалық сегіз сатылы йоганың алғашқы екі сатысын құрайды.\n\n"
+            "<b>Яма</b> сыртқы әлеммен қарым-қатынас қағидалары: зиян келтірмеу, шыншылдық, ұрламау, ұстамдылық және дүниеқоңыздықтан арылу.\n\n"
+            "<b>Нияма</b> өзімен жұмыс істеу қағидалары: тазалық, қанағат, тәртіп, өзін-өзі зерттеу және тәжірибе жемісін жоғары мақсатқа арнау.\n\n"
+            "Ойлану үшін кездейсоқ қағиданы ашуға немесе толық тізімді көруге болады."
         ),
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
@@ -940,9 +967,12 @@ TEXTS_UPDATE = {
         "no_points": "Бұл меридиан нүктелері дереккөз контенті дайындалғаннан кейін қосылады.",
         "meridian_completed": "✅ Меридиан аяқталды. Дайын болғанда келесі арнаны таңдаңыз.",
         "about_text": (
-            "🕊️ **Journey of Ascension**\n\n"
-            "Бот біртіндеп ішкі тәжірибені қолдайды. Яма мен Нияма адамгершілік негіз болып қалады: онсыз жиналған энергия оңай шашырайды.\n\n"
-            "Меридиан модулі — келесі саты. Ол арналар мен нүктелерді зейін, сезім, ой ағымы және ішкі бейнелер арқылы зерттеуге көмектеседі."
+            "🕊️ <b>Journey of Ascension</b>\n\n"
+            "Біздің міндетіміз — адамдарға рухани жолмен көбірек айқындықпен, тұрақтылықпен және өзіне деген адалдықпен жүруге көмектесу.\n\n"
+            "Біз күнделікті тәжірибеге ыңғайлы құрал жасап жатырмыз: адамгершілік қағидалар, денеге зейін, медитация және нәзік қабылдаумен жұмыс біртіндеп өмірдің бөлігіне айналатын кеңістік.\n\n"
+            "<b>Яма/Нияма</b> — негіз. Ол күнделікті әрекеттерде зейінді, энергияны және ішкі күшті сақтауға көмектеседі.\n\n"
+            "<b>Меридиандар</b> — тәжірибенің келесі қабаты: дене сезімі, тыныс, зейін және ішкі бейнелер арқылы арналар мен нүктелерді бақылау.\n\n"
+            "Бот сіздің жолыңызды алмастырмайды. Ол жұмсақ еске салады, тәжірибені құрылымдайды және маңызды нәрсеге қайта оралуға көмектеседі."
         ),
         "feature_announcement": (
             "🌿 **Journey of Ascension ішіндегі жаңа функция: Меридиандар**\n\n"
@@ -1066,20 +1096,68 @@ class BotHandlers:
         return self._get_text(key, language)
 
     def _format_principles_list(self, language: str) -> str:
-        """Format all Yama/Niyama principles as a compact catalogue."""
+        """Format all Yama/Niyama principles as a compact catalogue heading."""
         principles = self.principles_manager.get_all_principles(language)
         if not principles:
             return self._get_text("principles_empty", language)
 
         title = self._get_text("principles_all", language)
-        lines = [f"🕊️ **{title}**", ""]
-        for index, principle in enumerate(principles, start=1):
-            emoji = principle.get("emoji", "")
-            name = principle.get("name", "")
-            short_description = principle.get("short_description", "")
-            lines.append(f"{index}. {emoji} **{name}**")
-            if short_description:
-                lines.append(short_description)
+        intro = {
+            "en": "Choose a principle to open the detailed description and image.",
+            "ru": "Выберите принцип, чтобы открыть подробное описание и изображение.",
+            "uz": "Batafsil tavsif va rasmni ochish uchun tamoyilni tanlang.",
+            "kz": "Толық сипаттама мен суретті ашу үшін қағиданы таңдаңыз.",
+        }.get(language, "Choose a principle to open the detailed description and image.")
+        return f"🕊️ <b>{title}</b>\n\n{intro}"
+
+    def _get_principle_group_name(self, principle_id: int, language: str) -> str:
+        """Return Yama/Niyama group name for a principle."""
+        yama = {
+            "en": "Yama",
+            "ru": "Яма",
+            "uz": "Yama",
+            "kz": "Яма",
+        }.get(language, "Yama")
+        niyama = {
+            "en": "Niyama",
+            "ru": "Нияма",
+            "uz": "Niyama",
+            "kz": "Нияма",
+        }.get(language, "Niyama")
+        return yama if principle_id <= 5 else niyama
+
+    def _format_principle_detail(self, principle: Dict[str, Any], language: str) -> str:
+        """Format a selected principle with its Yama/Niyama group."""
+        group = self._get_principle_group_name(int(principle.get("id", 0)), language)
+        part_label = {
+            "en": "Part",
+            "ru": "Часть",
+            "uz": "Qismi",
+            "kz": "Бөлігі",
+        }.get(language, "Part")
+        practice_label = {
+            "en": "Practice",
+            "ru": "Практика",
+            "uz": "Amaliyot",
+            "kz": "Тәжірибе",
+        }.get(language, "Practice")
+
+        emoji = escape(principle.get("emoji", ""))
+        name = escape(principle.get("name", ""))
+        short_description = escape(principle.get("short_description", ""))
+        description = escape(principle.get("description", ""))
+        practice_tip = escape(principle.get("practice_tip", ""))
+
+        lines = [
+            f"<b>{name}</b> {emoji}".strip(),
+            f"<b>{escape(part_label)}:</b> {escape(group)}",
+        ]
+        if short_description:
+            lines.extend(["", short_description])
+        if description:
+            lines.extend(["", description])
+        if practice_tip:
+            lines.extend(["", f"💡 <b>{escape(practice_label)}:</b> <i>{practice_tip}</i>"])
         return "\n".join(lines)
     
     async def _handle_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -1160,13 +1238,13 @@ class BotHandlers:
                     keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                     logger.debug(f"Sending menu in {language} to user {chat_id}")
                     
-                    message = await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                    message = await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
                     if message:
                         await self.storage.add_bot_message(chat_id, message.message_id, "menu")
                         logger.debug(f"Stored menu message for user {chat_id}")
                 else:
                     logger.error(f"Failed to save language change for user {chat_id}")
-                    await query.edit_message_text(self._get_text("setup_error", language))
+                    await self._edit_message_text_safe(query, self._get_text("setup_error", language))
             else:
                 # New user registration
                 logger.debug(f"Starting registration for new user {chat_id} in language {language}")
@@ -1183,11 +1261,11 @@ class BotHandlers:
                 keyboard = self._create_registration_modes_keyboard(language)
                 
                 logger.debug(f"Sending onboarding intro in {language} to user {chat_id}")
-                await query.edit_message_text(combined_msg, reply_markup=keyboard, parse_mode='HTML')
+                await self._edit_message_text_safe(query, combined_msg, reply_markup=keyboard, parse_mode='HTML')
             
         except Exception as e:
             logger.error(f"Error in language callback for user {chat_id}: {e}")
-            await query.edit_message_text(self._get_text("error", language))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
 
     async def _handle_intro_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Save initial practice mode and continue to timezone selection."""
@@ -1208,12 +1286,12 @@ class BotHandlers:
             user_state["step"] = "timezone"
             text = self._get_timezone_step_text(language, user_state)
             keyboard = self._create_timezone_keyboard(language)
-            await query.edit_message_text(text, reply_markup=keyboard, parse_mode='HTML')
+            await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:
             logger.error(f"Error in intro callback for user {chat_id}: {e}")
             language = self.user_states.get(chat_id, {}).get("language", "en")
-            await query.edit_message_text(self._get_text("error", language))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
     
     async def _handle_timezone_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle timezone selection callback."""
@@ -1246,7 +1324,7 @@ class BotHandlers:
                     "Please enter your timezone in IANA format:\n\n"
                     "Examples: Europe/Moscow, Asia/Tashkent, UTC"
                 )
-                await query.edit_message_text(custom_msg, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, custom_msg, parse_mode='Markdown')
             else:
                 # Use selected timezone
                 timezone_str = tz_data
@@ -1267,9 +1345,9 @@ class BotHandlers:
                                 
                                 text = f"{self._get_text('timezone_saved', language)}\n\n{self._get_text('menu', language)}"
                                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-                                await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
                             else:
-                                await query.edit_message_text(self._get_text("setup_error", language), parse_mode='Markdown')
+                                await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='Markdown')
                     else:
                         # Handle new registration
                         self.user_states[chat_id]["timezone"] = timezone_str
@@ -1280,14 +1358,14 @@ class BotHandlers:
                         
                         combined_msg = f"{confirmation}\n\n{time_msg}"
                         
-                        await query.edit_message_text(combined_msg, parse_mode='HTML')
+                        await self._edit_message_text_safe(query, combined_msg, parse_mode='HTML')
                 else:
-                    await query.edit_message_text(self._get_text("invalid_timezone", language), parse_mode='Markdown')
+                    await self._edit_message_text_safe(query, self._get_text("invalid_timezone", language), parse_mode='Markdown')
             
         except Exception as e:
             logger.error(f"Error in timezone callback for user {chat_id}: {e}")
             language = self.user_states.get(chat_id, {}).get("language", "en")
-            await query.edit_message_text(self._get_text("error", language))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
     
     async def _handle_skipday_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle skip days selection callback."""
@@ -1342,7 +1420,7 @@ class BotHandlers:
         except Exception as e:
             logger.error(f"Error in skipday callback for user {chat_id}: {e}")
             language = self.user_states.get(chat_id, {}).get("language", "en")
-            await query.edit_message_text(self._get_text("error", language))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
     
     async def _update_skip_days_keyboard(self, query, language: str, selected_days: List[int]) -> None:
         """Update skip days keyboard with current selection."""
@@ -1409,13 +1487,13 @@ class BotHandlers:
                         text = f"{confirmation}\n\n{self._get_text('menu', language)}"
                         keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                         
-                        await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                        await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
                     else:
-                        await query.edit_message_text(self._get_text("setup_error", language), parse_mode='Markdown')
+                        await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='Markdown')
                         
             except Exception as e:
                 logger.error(f"Error updating skip days for user {chat_id}: {e}")
-                await query.edit_message_text(self._get_text("error", language), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, self._get_text("error", language), parse_mode='Markdown')
                 
         else:
             # Handle new registration
@@ -1462,11 +1540,11 @@ class BotHandlers:
                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                 logger.debug(f"Final setup message for user {chat_id} in language {language}: {text[:150]}...")
                 
-                await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
                 # Store the final message ID
                 await self.storage.add_bot_message(chat_id, query.message.message_id, "setup_complete")
             else:
-                await query.edit_message_text(self._get_text("setup_error", language), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='Markdown')
     
     async def _handle_stop(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /stop command."""
@@ -1837,7 +1915,7 @@ class BotHandlers:
         
         if not is_valid_timezone(timezone_str):
             if message_id:
-                await self.application.bot.edit_message_text(
+                await self._edit_bot_message_text_safe(
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_timezone", language),
@@ -1857,7 +1935,7 @@ class BotHandlers:
         combined_msg = f"{confirmation}\n\n{time_msg}"
         
         if message_id:
-            await self.application.bot.edit_message_text(
+            await self._edit_bot_message_text_safe(
                 chat_id=chat_id,
                 message_id=message_id,
                 text=combined_msg,
@@ -1874,7 +1952,7 @@ class BotHandlers:
         
         if not is_valid_time_format(time_str):
             if message_id:
-                await self.application.bot.edit_message_text(
+                await self._edit_bot_message_text_safe(
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_time", language),
@@ -1907,7 +1985,7 @@ class BotHandlers:
         keyboard = self._create_skip_days_keyboard(language, [])
         
         if message_id:
-            await self.application.bot.edit_message_text(
+            await self._edit_bot_message_text_safe(
                 chat_id=chat_id,
                 message_id=message_id,
                 text=combined_msg,
@@ -2151,6 +2229,24 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
+    def _create_principles_list_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create a clickable list of all Yama/Niyama principles."""
+        principles = self.principles_manager.get_all_principles(language)
+        keyboard = []
+        for principle in principles:
+            principle_id = int(principle.get("id", 0))
+            group = self._get_principle_group_name(principle_id, language)
+            emoji = principle.get("emoji", "")
+            name = principle.get("name", "")
+            keyboard.append([
+                InlineKeyboardButton(
+                    f"{group}: {emoji} {name}".strip(),
+                    callback_data=f"principles_show:{principle_id}"
+                )
+            ])
+        keyboard.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="principles_back")])
+        return InlineKeyboardMarkup(keyboard)
+
     def _create_practice_modes_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create practice mode selection keyboard."""
         return InlineKeyboardMarkup([
@@ -2244,37 +2340,37 @@ class BotHandlers:
             if action == "settings":
                 text = self._get_text("settings_menu", language)
                 keyboard = self._create_settings_menu_keyboard(language)
-                await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
 
             elif action == "principles":
                 text = self._get_text("principles_menu", language)
                 keyboard = self._create_principles_menu_keyboard(language)
-                await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
             elif action == "modes":
                 text = self._get_text("mode_menu", language)
                 keyboard = self._create_practice_modes_keyboard(language)
-                await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
 
             elif action == "meridians":
                 text = self._get_text("meridians_menu", language)
                 keyboard = self._create_meridians_menu_keyboard(language)
-                await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
                 
             elif action == "test":
-                await query.edit_message_text(self._get_text("sending_test", language))
+                await self._edit_message_text_safe(query, self._get_text("sending_test", language))
                 success = await self.scheduler.send_test_message(chat_id, language)
                 if success:
                     text = self._get_text("menu", language)
                     keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-                    await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                    await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
                 else:
-                    await query.edit_message_text(self._get_text("test_failed", language))
+                    await self._edit_message_text_safe(query, self._get_text("test_failed", language))
                     
             elif action == "about":
                 text = self._get_text("about_text", language)
                 keyboard = [[InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]]
-                await query.edit_message_text(text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='HTML')
                 
             elif action == "feedback":
                 # Set user state to expect feedback input
@@ -2282,7 +2378,7 @@ class BotHandlers:
                 
                 text = self._get_text("feedback_prompt", language)
                 keyboard = [[InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]]
-                await query.edit_message_text(text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
                 
             elif action == "stop":
                 success = await self.storage.deactivate_user(chat_id)
@@ -2290,18 +2386,18 @@ class BotHandlers:
                     await self.scheduler.remove_user_jobs(chat_id)
                     self.user_states[chat_id] = {"step": "stop_feedback", "language": language}
                     text = f"{self._get_text('unsubscribed', language)}\n\n{self._get_text('stop_feedback_prompt', language)}"
-                    await query.edit_message_text(text, parse_mode='Markdown')
+                    await self._edit_message_text_safe(query, text, parse_mode='Markdown')
                 else:
-                    await query.edit_message_text(self._get_text("not_subscribed", language))
+                    await self._edit_message_text_safe(query, self._get_text("not_subscribed", language))
                     
             elif action == "main":
                 text = self._get_text("menu", language)
                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-                await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
                 
         except Exception as e:
             logger.error(f"Error in menu callback for user {chat_id}: {e}")
-            await query.edit_message_text(self._get_text("error", language))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
 
     async def _handle_principles_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle Yama/Niyama section callbacks."""
@@ -2316,14 +2412,32 @@ class BotHandlers:
 
             if action == "random":
                 principle = self.principles_manager.get_random_principle(language)
-                text = format_principle_message(principle) if principle else self._get_text("principles_empty", language)
+                if not principle:
+                    await self._edit_message_text_safe(query, self._get_text("principles_empty", language))
+                    return
+                await self._send_principle_detail(chat_id, principle, language)
+                return
             elif action == "all":
                 text = self._format_principles_list(language)
+                keyboard = self._create_principles_list_keyboard(language)
+                parse_mode = 'HTML'
+            elif action.startswith("show:"):
+                principle_id = int(action.split(":", 1)[1])
+                principle = next(
+                    (item for item in self.principles_manager.get_all_principles(language) if int(item.get("id", 0)) == principle_id),
+                    None
+                )
+                if not principle:
+                    await self._edit_message_text_safe(query, self._get_text("principles_empty", language))
+                    return
+                await self._send_principle_detail(chat_id, principle, language)
+                return
             else:
                 text = self._get_text("principles_menu", language)
+                keyboard = self._create_principles_menu_keyboard(language)
+                parse_mode = 'HTML'
 
-            keyboard = self._create_principles_menu_keyboard(language)
-            await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+            await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode=parse_mode)
 
         except Exception as e:
             logger.error(f"Error in principles callback for user {chat_id}: {e}")
@@ -2333,7 +2447,7 @@ class BotHandlers:
                 language = user.language if user else "en"
             except Exception:
                 pass
-            await query.edit_message_text(self._get_text("error", language))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
     
     async def _handle_settings_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle settings callback queries (back to settings menu)."""
@@ -2348,11 +2462,11 @@ class BotHandlers:
             
             text = self._get_text("settings_menu", language)
             keyboard = self._create_settings_menu_keyboard(language)
-            await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+            await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
             
         except Exception as e:
             logger.error(f"Error in settings callback for user {chat_id}: {e}")
-            await query.edit_message_text(self._get_text("error", language))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
     
     async def _handle_change_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle change settings callback queries."""
@@ -2380,7 +2494,7 @@ class BotHandlers:
                         InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="settings_back")
                     ]
                 ]
-                await query.edit_message_text(
+                await self._edit_message_text_safe(query, 
                     self._get_text("choose_language", language), 
                     reply_markup=InlineKeyboardMarkup(keyboard), 
                     parse_mode='Markdown'
@@ -2389,12 +2503,12 @@ class BotHandlers:
             elif setting == "modes":
                 text = self._get_text("mode_menu", language)
                 keyboard = self._create_practice_modes_keyboard(language)
-                await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
 
             elif setting == "meridian_time":
                 self.user_states[chat_id] = {"step": "change_meridian_time", "language": language, "settings_message_id": query.message.message_id}
                 keyboard = [[InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="settings_back")]]
-                await query.edit_message_text(
+                await self._edit_message_text_safe(query, 
                     self._get_text("meridian_time_step", language),
                     reply_markup=InlineKeyboardMarkup(keyboard),
                     parse_mode='Markdown'
@@ -2403,7 +2517,7 @@ class BotHandlers:
             elif setting == "time":
                 self.user_states[chat_id] = {"step": "change_time", "language": language, "settings_message_id": query.message.message_id}
                 keyboard = [[InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="settings_back")]]
-                await query.edit_message_text(
+                await self._edit_message_text_safe(query, 
                     self._get_text("time_step", language), 
                     reply_markup=InlineKeyboardMarkup(keyboard),
                     parse_mode='Markdown'
@@ -2412,7 +2526,7 @@ class BotHandlers:
             elif setting == "timezone":
                 self.user_states[chat_id] = {"step": "change_timezone", "language": language, "settings_message_id": query.message.message_id}
                 keyboard = self._create_timezone_keyboard(language, add_back_button=True)
-                await query.edit_message_text(
+                await self._edit_message_text_safe(query, 
                     self._get_text("timezone_step", language), 
                     reply_markup=keyboard,
                     parse_mode='Markdown'
@@ -2453,7 +2567,7 @@ class BotHandlers:
                 
                 keyboard = self._create_skip_days_keyboard(language, current_skip_days, add_back_button=True)
                 
-                await query.edit_message_text(
+                await self._edit_message_text_safe(query, 
                     text, 
                     reply_markup=keyboard,
                     parse_mode='Markdown'
@@ -2461,7 +2575,7 @@ class BotHandlers:
                 
         except Exception as e:
             logger.error(f"Error in change callback for user {chat_id}: {e}")
-            await query.edit_message_text(self._get_text("error", language))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
 
     async def _handle_mode_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle practice mode selection."""
@@ -2474,7 +2588,7 @@ class BotHandlers:
             user = await self.storage.get_user(chat_id)
             language = user.language if user else "en"
             if not user:
-                await query.edit_message_text(self._get_text("not_subscribed_test", language))
+                await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
                 return
 
             user.principles_enabled = mode in ["principles", "both"]
@@ -2491,11 +2605,11 @@ class BotHandlers:
 
             text = f"{self._get_text('mode_saved', language)}\n\n{self._get_text('menu', language)}"
             keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-            await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+            await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
 
         except Exception as e:
             logger.error(f"Error in mode callback for user {chat_id}: {e}")
-            await query.edit_message_text(self._get_text("error", "en"))
+            await self._edit_message_text_safe(query, self._get_text("error", "en"))
 
     async def _handle_meridian_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle meridian study navigation."""
@@ -2508,11 +2622,11 @@ class BotHandlers:
             user = await self.storage.get_user(chat_id)
             language = user.language if user else "en"
             if not user:
-                await query.edit_message_text(self._get_text("not_subscribed_test", language))
+                await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
                 return
 
             if action == "main":
-                await query.edit_message_text(
+                await self._edit_message_text_safe(query, 
                     self._get_text("meridians_menu", language),
                     reply_markup=self._create_meridians_menu_keyboard(language),
                     parse_mode='Markdown'
@@ -2520,7 +2634,7 @@ class BotHandlers:
                 return
 
             if action == "choose":
-                await query.edit_message_text(
+                await self._edit_message_text_safe(query, 
                     self._get_text("choose_meridian", language),
                     reply_markup=self._create_meridian_choice_keyboard(language),
                     parse_mode='Markdown'
@@ -2531,7 +2645,7 @@ class BotHandlers:
                 meridian_id = action.split(":", 1)[1]
                 meridian = self.meridians_manager.get_meridian_by_id(meridian_id)
                 if not meridian:
-                    await query.edit_message_text(self._get_text("error", language))
+                    await self._edit_message_text_safe(query, self._get_text("error", language))
                     return
                 user.current_meridian_id = meridian_id
                 user.current_point_index = -1
@@ -2539,14 +2653,14 @@ class BotHandlers:
                 await self.storage.save_user(user)
                 await self.scheduler.schedule_user_immediately(chat_id)
                 text = format_meridian_intro(meridian, language)
-                await query.edit_message_text(text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
                 return
 
             meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id) if user.current_meridian_id else None
             if not meridian:
                 meridian = self.meridians_manager.get_first_meridian()
                 if not meridian:
-                    await query.edit_message_text(self._get_text("no_points", language))
+                    await self._edit_message_text_safe(query, self._get_text("no_points", language))
                     return
                 user.current_meridian_id = meridian["id"]
                 user.current_point_index = -1
@@ -2556,7 +2670,7 @@ class BotHandlers:
 
             if action == "current":
                 text = format_meridian_point(meridian, user.current_point_index, language) if user.current_point_index >= 0 else format_meridian_intro(meridian, language)
-                await query.edit_message_text(text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
                 return
 
             if action == "all":
@@ -2568,12 +2682,12 @@ class BotHandlers:
                         localized = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
                         point_lines.append(f"{idx}. {point.get('code', '')} {localized.get('name', '')}".strip())
                     text = "\n".join(point_lines)
-                await query.edit_message_text(text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
                 return
 
             if action in ["next", "prev"]:
                 if not points:
-                    await query.edit_message_text(self._get_text("no_points", language), reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                    await self._edit_message_text_safe(query, self._get_text("no_points", language), reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
                     return
                 if action == "next":
                     user.current_point_index = min(user.current_point_index + 1, len(points) - 1)
@@ -2581,7 +2695,7 @@ class BotHandlers:
                     user.current_point_index = max(user.current_point_index - 1, 0)
                 await self.storage.save_user(user)
                 text = format_meridian_point(meridian, user.current_point_index, language)
-                await query.edit_message_text(text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
                 return
 
             if action == "complete":
@@ -2593,7 +2707,7 @@ class BotHandlers:
                     user.current_point_index = -1
                 await self.storage.save_user(user)
                 text = self._get_text("meridian_completed", language)
-                await query.edit_message_text(text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='Markdown')
 
         except Exception as e:
             logger.error(f"Error in meridian callback for user {chat_id}: {e}")
@@ -2602,7 +2716,7 @@ class BotHandlers:
                 language = user.language if user else "en"
             except Exception:
                 language = "en"
-            await query.edit_message_text(self._get_text("error", language))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
 
     async def _handle_broadcast_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle localized broadcast templates."""
@@ -2617,15 +2731,15 @@ class BotHandlers:
         try:
             await query.answer()
             if action != "meridians_announcement":
-                await query.edit_message_text(self._get_admin_text("broadcast_usage"))
+                await self._edit_message_text_safe(query, self._get_admin_text("broadcast_usage"))
                 return
 
             sent_count, failed_count, total = await self._send_localized_broadcast("feature_announcement", context)
             result_text = self._get_admin_text("broadcast_result", sent=sent_count, failed=failed_count, total=total)
-            await query.edit_message_text(result_text)
+            await self._edit_message_text_safe(query, result_text)
         except Exception as e:
             logger.error(f"Error in broadcast callback for admin {chat_id}: {e}")
-            await query.edit_message_text("Error during broadcast.")
+            await self._edit_message_text_safe(query, "Error during broadcast.")
 
     async def _handle_change_timezone_input(self, update: Update, timezone_str: str, language: str) -> None:
         """Handle timezone change input."""
@@ -2635,7 +2749,7 @@ class BotHandlers:
         
         if not is_valid_timezone(timezone_str):
             if message_id:
-                await self.application.bot.edit_message_text(
+                await self._edit_bot_message_text_safe(
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_timezone", language),
@@ -2662,7 +2776,7 @@ class BotHandlers:
                     keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                     
                     if message_id:
-                        await self.application.bot.edit_message_text(
+                        await self._edit_bot_message_text_safe(
                             chat_id=chat_id,
                             message_id=message_id,
                             text=text,
@@ -2674,7 +2788,7 @@ class BotHandlers:
                 else:
                     error_text = self._get_text("setup_error", language)
                     if message_id:
-                        await self.application.bot.edit_message_text(
+                        await self._edit_bot_message_text_safe(
                             chat_id=chat_id,
                             message_id=message_id,
                             text=error_text,
@@ -2685,7 +2799,7 @@ class BotHandlers:
             else:
                 error_text = self._get_text("not_subscribed_test", language)
                 if message_id:
-                    await self.application.bot.edit_message_text(
+                    await self._edit_bot_message_text_safe(
                         chat_id=chat_id,
                         message_id=message_id,
                         text=error_text,
@@ -2698,7 +2812,7 @@ class BotHandlers:
             logger.error(f"Error changing timezone for user {chat_id}: {e}")
             error_text = self._get_text("error", language)
             if message_id:
-                await self.application.bot.edit_message_text(
+                await self._edit_bot_message_text_safe(
                     chat_id=chat_id,
                     message_id=message_id,
                     text=error_text,
@@ -2715,7 +2829,7 @@ class BotHandlers:
         
         if not is_valid_time_format(time_str):
             if message_id:
-                await self.application.bot.edit_message_text(
+                await self._edit_bot_message_text_safe(
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_time", language),
@@ -2742,7 +2856,7 @@ class BotHandlers:
                     keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                     
                     if message_id:
-                        await self.application.bot.edit_message_text(
+                        await self._edit_bot_message_text_safe(
                             chat_id=chat_id,
                             message_id=message_id,
                             text=text,
@@ -2754,7 +2868,7 @@ class BotHandlers:
                 else:
                     error_text = self._get_text("setup_error", language)
                     if message_id:
-                        await self.application.bot.edit_message_text(
+                        await self._edit_bot_message_text_safe(
                             chat_id=chat_id,
                             message_id=message_id,
                             text=error_text,
@@ -2765,7 +2879,7 @@ class BotHandlers:
             else:
                 error_text = self._get_text("not_subscribed_test", language)
                 if message_id:
-                    await self.application.bot.edit_message_text(
+                    await self._edit_bot_message_text_safe(
                         chat_id=chat_id,
                         message_id=message_id,
                         text=error_text,
@@ -2778,7 +2892,7 @@ class BotHandlers:
             logger.error(f"Error changing time for user {chat_id}: {e}")
             error_text = self._get_text("error", language)
             if message_id:
-                await self.application.bot.edit_message_text(
+                await self._edit_bot_message_text_safe(
                     chat_id=chat_id,
                     message_id=message_id,
                     text=error_text,
@@ -2795,7 +2909,7 @@ class BotHandlers:
 
         if not is_valid_time_format(time_str):
             if message_id:
-                await self.application.bot.edit_message_text(
+                await self._edit_bot_message_text_safe(
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_time", language),
@@ -2821,7 +2935,7 @@ class BotHandlers:
             text = f"{self._get_text('meridian_time_saved', language)}\n\n{self._get_text('menu', language)}"
             keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
             if message_id:
-                await self.application.bot.edit_message_text(
+                await self._edit_bot_message_text_safe(
                     chat_id=chat_id,
                     message_id=message_id,
                     text=text,
@@ -2845,14 +2959,24 @@ class BotHandlers:
             logger.debug(f"Could not delete message {message_id} in chat {chat_id}: {e}")
             return False
 
-    async def _edit_message_text_safe(self, query, text: str, **kwargs) -> bool:
+    async def _edit_bot_message_text_safe(self, **kwargs):
+        """Edit a bot message and ignore Telegram's no-op edit error."""
+        try:
+            return await self.application.bot.edit_message_text(**kwargs)
+        except BadRequest as e:
+            if "message is not modified" in str(e).lower():
+                logger.debug("Ignored Telegram no-op edit for bot message")
+                return None
+            raise
+
+    async def _edit_message_text_safe(self, query, text: str, **kwargs):
         """Edit a callback message and ignore Telegram's no-op edit error."""
         try:
-            await query.edit_message_text(text, **kwargs)
-            return True
+            return await query.edit_message_text(text, **kwargs)
         except BadRequest as e:
-            if "Message is not modified" in str(e):
-                return True
+            if "message is not modified" in str(e).lower():
+                logger.debug("Ignored Telegram no-op edit for callback message")
+                return query.message
             raise
     
     async def _delete_user_message_delayed(self, chat_id: int, message_id: int, delay: float = 0.5) -> None:
@@ -3048,6 +3172,36 @@ class BotHandlers:
             if chat_id in self.user_states:
                 del self.user_states[chat_id]
             await update.message.reply_text(self._get_text("error", language))
+
+    async def _send_principle_detail(self, chat_id: int, principle: Dict[str, Any], language: str) -> None:
+        """Send a selected Yama/Niyama principle with its image and detailed text."""
+        principle_id = int(principle.get("id", 0))
+        group = self._get_principle_group_name(principle_id, language)
+        part_label = {
+            "en": "Part",
+            "ru": "Часть",
+            "uz": "Qismi",
+            "kz": "Бөлігі",
+        }.get(language, "Part")
+        name = principle.get("name", "")
+        image_path = get_principle_image_path(principle_id)
+
+        if image_path:
+            try:
+                with open(image_path, "rb") as photo:
+                    sent_photo = await self.application.bot.send_photo(
+                        chat_id=chat_id,
+                        photo=photo,
+                        caption=f"<b>{escape(name)}</b>\n<b>{escape(part_label)}:</b> {escape(group)}",
+                        parse_mode='HTML'
+                    )
+                await self.storage.add_bot_message(chat_id, sent_photo.message_id, "principle_image")
+            except Exception as e:
+                logger.warning(f"Could not send principle image {image_path} to {chat_id}: {e}")
+
+        text = self._format_principle_detail(principle, language)
+        sent_message = await self.application.bot.send_message(chat_id=chat_id, text=text, parse_mode='HTML')
+        await self.storage.add_bot_message(chat_id, sent_message.message_id, "principle")
     
     async def _handle_feedback_stats(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /feedback_stats command (admin only)."""
