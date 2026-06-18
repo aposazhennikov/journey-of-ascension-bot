@@ -148,7 +148,12 @@ def location_translation_tasks(
 ) -> dict[str, list[dict[str, str]]]:
     """Return concrete point-location translation tasks for the QA sidebar."""
     tasks = {language: [] for language in LANGUAGES if language != "ru"}
-    for meridian in meridians:
+    path_order = {meridian_id: index for index, meridian_id in enumerate(RECOMMENDED_PATH)}
+    ordered_meridians = sorted(
+        meridians,
+        key=lambda meridian: path_order.get(meridian.get("id", ""), len(path_order)),
+    )
+    for meridian in ordered_meridians:
         meridian_id = meridian.get("id", "")
         for point in meridian.get("points", []):
             code = point.get("code", "")
@@ -359,6 +364,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             issues.append(f"{language}: source-backed locations exist but no translation tasks are shown")
         if len(tasks) > 8:
             issues.append(f"{language}: too many translation tasks shown")
+        if tasks and tasks[0].get("meridianId") != RECOMMENDED_PATH[0]:
+            issues.append(
+                f"{language}: first translation task should follow recommended path, got {tasks[0].get('meridianId')}"
+            )
         for task in tasks:
             missing_task_keys = {"meridianId", "meridian", "code", "point", "status"} - set(task)
             if missing_task_keys:
