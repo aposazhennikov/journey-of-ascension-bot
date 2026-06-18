@@ -584,16 +584,31 @@ TEXTS_UPDATE = {
         ),
         "initial_mode_question": "What would you like to study?",
         "timezone_step_principles": (
-            "📍 **Step 1/3: Time Zone**\n\n"
-            "Choose your time zone so the bot can send Yama/Niyama reminders at the correct local time for you."
+            "📍 <b>Step 1/3: Time Zone</b>\n\n"
+            "Choose your time zone so the bot can send <b>Yama/Niyama</b> reminders at the correct local time for you."
         ),
         "timezone_step_meridians": (
-            "📍 **Step 1/3: Time Zone**\n\n"
-            "Choose your time zone so the bot can send meridian study reminders at the correct local time for you."
+            "📍 <b>Step 1/3: Time Zone</b>\n\n"
+            "Choose your time zone so the bot can send <b>meridian</b> study reminders at the correct local time for you."
         ),
         "timezone_step_both": (
-            "📍 **Step 1/3: Time Zone**\n\n"
-            "Choose your time zone so the bot can send Yama/Niyama and meridian reminders at the correct local time for you."
+            "📍 <b>Step 1/3: Time Zone</b>\n\n"
+            "Choose your time zone so the bot can send <b>Yama/Niyama</b> and <b>meridian</b> reminders at the correct local time for you."
+        ),
+        "time_step_principles": (
+            "⏰ <b>Step 2/3: Reminder Time</b>\n\n"
+            "Choose the time when the bot should send your daily <b>Yama/Niyama</b> principle.\n\n"
+            "Format: HH:MM, for example 08:00 or 20:30."
+        ),
+        "time_step_meridians": (
+            "⏰ <b>Step 2/3: Reminder Time</b>\n\n"
+            "Choose the time when the bot should send your daily <b>meridian</b> focus.\n\n"
+            "Format: HH:MM, for example 08:00 or 20:30."
+        ),
+        "time_step_both": (
+            "⏰ <b>Step 2/3: Reminder Time</b>\n\n"
+            "Choose the time when the bot should send your daily <b>Yama/Niyama</b> principle and <b>meridian</b> focus.\n\n"
+            "Format: HH:MM, for example 08:00 or 20:30."
         ),
         "continue_setup": "Continue",
         "menu": "📋 **Journey of Ascension**",
@@ -657,16 +672,31 @@ TEXTS_UPDATE = {
         ),
         "initial_mode_question": "Что вы хотели бы изучать?",
         "timezone_step_principles": (
-            "📍 **Шаг 1/3: Часовой пояс**\n\n"
-            "Выберите ваш часовой пояс, чтобы бот присылал напоминания по Яме и Нияме в правильное для вас местное время."
+            "📍 <b>Шаг 1/3: Часовой пояс</b>\n\n"
+            "Выберите ваш часовой пояс, чтобы бот присылал напоминания по <b>Яме и Нияме</b> в правильное для вас местное время."
         ),
         "timezone_step_meridians": (
-            "📍 **Шаг 1/3: Часовой пояс**\n\n"
-            "Выберите ваш часовой пояс, чтобы бот присылал материалы и напоминания по меридианам в правильное для вас местное время."
+            "📍 <b>Шаг 1/3: Часовой пояс</b>\n\n"
+            "Выберите ваш часовой пояс, чтобы бот присылал материалы и напоминания по <b>меридианам</b> в правильное для вас местное время."
         ),
         "timezone_step_both": (
-            "📍 **Шаг 1/3: Часовой пояс**\n\n"
-            "Выберите ваш часовой пояс, чтобы бот присылал напоминания по Яме/Нияме и материалы по меридианам в правильное для вас местное время."
+            "📍 <b>Шаг 1/3: Часовой пояс</b>\n\n"
+            "Выберите ваш часовой пояс, чтобы бот присылал напоминания по <b>Яме/Нияме</b> и материалы по <b>меридианам</b> в правильное для вас местное время."
+        ),
+        "time_step_principles": (
+            "⏰ <b>Шаг 2/3: Время отправки</b>\n\n"
+            "Укажите время, когда бот будет присылать ежедневный принцип <b>Ямы/Ниямы</b>.\n\n"
+            "Формат: ЧЧ:ММ, например 08:00 или 20:30."
+        ),
+        "time_step_meridians": (
+            "⏰ <b>Шаг 2/3: Время отправки</b>\n\n"
+            "Укажите время, когда бот будет присылать ежедневный фокус по <b>меридианам</b>.\n\n"
+            "Формат: ЧЧ:ММ, например 08:00 или 20:30."
+        ),
+        "time_step_both": (
+            "⏰ <b>Шаг 2/3: Время отправки</b>\n\n"
+            "Укажите время, когда бот будет присылать ежедневный принцип <b>Ямы/Ниямы</b> и фокус по <b>меридианам</b>.\n\n"
+            "Формат: ЧЧ:ММ, например 08:00 или 20:30."
         ),
         "continue_setup": "Продолжить",
         "menu": "📋 **Journey of Ascension**",
@@ -730,16 +760,31 @@ TEXTS_UPDATE = {
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
         "timezone_step_principles": (
-            "📍 **1/3-qadam: Vaqt mintaqasi**\n\n"
-            "Bot Yama/Niyama eslatmalarini sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
+            "📍 <b>1/3-qadam: Vaqt mintaqasi</b>\n\n"
+            "Bot <b>Yama/Niyama</b> eslatmalarini sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
         ),
         "timezone_step_meridians": (
-            "📍 **1/3-qadam: Vaqt mintaqasi**\n\n"
-            "Bot meridianlar bo'yicha material va eslatmalarni sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
+            "📍 <b>1/3-qadam: Vaqt mintaqasi</b>\n\n"
+            "Bot <b>meridianlar</b> bo'yicha material va eslatmalarni sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
         ),
         "timezone_step_both": (
-            "📍 **1/3-qadam: Vaqt mintaqasi**\n\n"
-            "Bot Yama/Niyama va meridianlar bo'yicha eslatmalarni sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
+            "📍 <b>1/3-qadam: Vaqt mintaqasi</b>\n\n"
+            "Bot <b>Yama/Niyama</b> va <b>meridianlar</b> bo'yicha eslatmalarni sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
+        ),
+        "time_step_principles": (
+            "⏰ <b>2/3-qadam: Yuborish vaqti</b>\n\n"
+            "Bot kundalik <b>Yama/Niyama</b> tamoyilini qachon yuborishini tanlang.\n\n"
+            "Format: HH:MM, masalan 08:00 yoki 20:30."
+        ),
+        "time_step_meridians": (
+            "⏰ <b>2/3-qadam: Yuborish vaqti</b>\n\n"
+            "Bot kundalik <b>meridian</b> fokusini qachon yuborishini tanlang.\n\n"
+            "Format: HH:MM, masalan 08:00 yoki 20:30."
+        ),
+        "time_step_both": (
+            "⏰ <b>2/3-qadam: Yuborish vaqti</b>\n\n"
+            "Bot kundalik <b>Yama/Niyama</b> tamoyili va <b>meridian</b> fokusini qachon yuborishini tanlang.\n\n"
+            "Format: HH:MM, masalan 08:00 yoki 20:30."
         ),
         "continue_setup": "Davom etish",
         "menu": "📋 **Journey of Ascension**",
@@ -803,16 +848,31 @@ TEXTS_UPDATE = {
         ),
         "initial_mode_question": "Нені зерттегіңіз келеді?",
         "timezone_step_principles": (
-            "📍 **1/3-қадам: Уақыт белдеуі**\n\n"
-            "Бот Яма/Нияма еске салуларын сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
+            "📍 <b>1/3-қадам: Уақыт белдеуі</b>\n\n"
+            "Бот <b>Яма/Нияма</b> еске салуларын сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
         ),
         "timezone_step_meridians": (
-            "📍 **1/3-қадам: Уақыт белдеуі**\n\n"
-            "Бот меридиандар туралы материалдар мен еске салуларды сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
+            "📍 <b>1/3-қадам: Уақыт белдеуі</b>\n\n"
+            "Бот <b>меридиандар</b> туралы материалдар мен еске салуларды сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
         ),
         "timezone_step_both": (
-            "📍 **1/3-қадам: Уақыт белдеуі**\n\n"
-            "Бот Яма/Нияма және меридиандар бойынша еске салуларды сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
+            "📍 <b>1/3-қадам: Уақыт белдеуі</b>\n\n"
+            "Бот <b>Яма/Нияма</b> және <b>меридиандар</b> бойынша еске салуларды сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
+        ),
+        "time_step_principles": (
+            "⏰ <b>2/3-қадам: Жіберу уақыты</b>\n\n"
+            "Бот күнделікті <b>Яма/Нияма</b> қағидасын қашан жіберетінін таңдаңыз.\n\n"
+            "Формат: HH:MM, мысалы 08:00 немесе 20:30."
+        ),
+        "time_step_meridians": (
+            "⏰ <b>2/3-қадам: Жіберу уақыты</b>\n\n"
+            "Бот күнделікті <b>меридиан</b> фокусын қашан жіберетінін таңдаңыз.\n\n"
+            "Формат: HH:MM, мысалы 08:00 немесе 20:30."
+        ),
+        "time_step_both": (
+            "⏰ <b>2/3-қадам: Жіберу уақыты</b>\n\n"
+            "Бот күнделікті <b>Яма/Нияма</b> қағидасын және <b>меридиан</b> фокусын қашан жіберетінін таңдаңыз.\n\n"
+            "Формат: HH:MM, мысалы 08:00 немесе 20:30."
         ),
         "continue_setup": "Жалғастыру",
         "menu": "📋 **Journey of Ascension**",
@@ -944,6 +1004,21 @@ class BotHandlers:
             key = "timezone_step_principles"
 
         return self._get_text(key, language)
+
+    def _get_time_step_text(self, language: str, user_state: Optional[Dict[str, Any]] = None) -> str:
+        """Get contextual send-time prompt based on selected practice modes."""
+        user_state = user_state or {}
+        principles_enabled = user_state.get("principles_enabled", True)
+        meridians_enabled = user_state.get("meridians_enabled", False)
+
+        if principles_enabled and meridians_enabled:
+            key = "time_step_both"
+        elif meridians_enabled:
+            key = "time_step_meridians"
+        else:
+            key = "time_step_principles"
+
+        return self._get_text(key, language)
     
     async def _handle_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
@@ -1071,7 +1146,7 @@ class BotHandlers:
             user_state["step"] = "timezone"
             text = self._get_timezone_step_text(language, user_state)
             keyboard = self._create_timezone_keyboard(language)
-            await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+            await query.edit_message_text(text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:
             logger.error(f"Error in intro callback for user {chat_id}: {e}")
@@ -1139,11 +1214,11 @@ class BotHandlers:
                         self.user_states[chat_id]["step"] = "time"
                         
                         confirmation = self._get_text("timezone_saved", language)
-                        time_msg = self._get_text("time_step", language)
+                        time_msg = self._get_time_step_text(language, self.user_states[chat_id])
                         
                         combined_msg = f"{confirmation}\n\n{time_msg}"
                         
-                        await query.edit_message_text(combined_msg, parse_mode='Markdown')
+                        await query.edit_message_text(combined_msg, parse_mode='HTML')
                 else:
                     await query.edit_message_text(self._get_text("invalid_timezone", language), parse_mode='Markdown')
             
@@ -1709,7 +1784,7 @@ class BotHandlers:
         self.user_states[chat_id]["step"] = "time"
         
         confirmation = self._get_text("timezone_saved", language)
-        time_msg = self._get_text("time_step", language)
+        time_msg = self._get_time_step_text(language, user_state)
         
         combined_msg = f"{confirmation}\n\n{time_msg}"
         
@@ -1718,10 +1793,10 @@ class BotHandlers:
                 chat_id=chat_id,
                 message_id=message_id,
                 text=combined_msg,
-                parse_mode='Markdown'
+                parse_mode='HTML'
             )
         else:
-            await update.message.reply_text(combined_msg, parse_mode='Markdown')
+            await update.message.reply_text(combined_msg, parse_mode='HTML')
     
     async def _handle_time_input(self, update: Update, time_str: str, language: str) -> None:
         """Handle time input during registration."""
