@@ -44,6 +44,11 @@ MOJIBAKE_RE = re.compile(
     r"|вЂ|вњ|рџ"
     r")"
 )
+SOURCE_MOJIBAKE_FRAGMENTS = (
+    "Рђ", "Р‘", "РЃ", "Рќ", "Рџ", "РЎ", "Рў", "Рњ",
+    "СЃ", "С‚", "С‹", "СЊ", "СЋ", "СЏ",
+    "ТЇ", "Т›", "Т“", "У™", "вЂ", "рџ",
+)
 
 
 def load_texts() -> dict[str, dict[str, str]]:
@@ -360,6 +365,14 @@ def audit() -> list[str]:
         missing = sorted(set(texts["en"].keys()) - set(texts.get(language, {}).keys()))
         if missing:
             issues.append(f"{language}: missing text keys: {', '.join(missing[:12])}")
+
+    for relative_path in ("bot/handlers.py", "bot/utils.py"):
+        source = (ROOT / relative_path).read_text(encoding="utf-8-sig")
+        for line_number, line in enumerate(source.splitlines(), 1):
+            if "???" in line:
+                issues.append(f"{relative_path}:{line_number}: contains ???")
+            if any(fragment in line for fragment in SOURCE_MOJIBAKE_FRAGMENTS):
+                issues.append(f"{relative_path}:{line_number}: possible mojibake -> {line[:80]}")
 
     for relative_path in ("bot/meridians.json", "bot/principles.json"):
         data = load_json(relative_path)

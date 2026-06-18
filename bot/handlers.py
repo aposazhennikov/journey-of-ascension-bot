@@ -657,7 +657,7 @@ TEXTS_UPDATE = {
         "meridian_change_path": "🧭 Study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
-        "meridian_measurements": "📏 Cun and measurements",
+        "meridian_measurements": "📏 How to measure cun",
         "meridian_back": "🔙 Back to meridians",
         "coming_soon": "soon",
         "meridian_measurements_text": (
@@ -673,15 +673,12 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
-            "In this bot, meridians are studied as a living practice of attention, not as dry anatomy. You learn to observe the body, breath, inner sensations, and the movement of energy more subtly.\n\n"
-            "In Traditional Chinese Medicine, meridians are described as a network of energetic channels through which vital force, Qi, circulates.\n\n"
-            "This gives several practical directions:\n\n"
-            "<b>Self-observation:</b> knowing which organ system a meridian is connected with helps notice imbalance signals earlier.\n\n"
-            "<b>Restoring balance:</b> attention, acupressure, massage, qigong, and gentle work with active points can help release tension and support circulation.\n\n"
-            "<b>Biorhythms:</b> each channel has a two-hour peak of activity. This helps plan rest, food, practice, and daily rhythm more harmoniously.\n\n"
-            "<b>Stress prevention:</b> qigong and meditative work with channels can calm the nervous system and soften bodily clamps.\n\n"
-            "This practice does not replace medical diagnosis or treatment. It is a tool for awareness, prevention, and inner discipline.\n\n"
-            "Start with the current focus, or choose your study path if you want to follow the bot's route or explore freely."
+            "Meridians are a map for learning how attention lives in the body. In Traditional Chinese Medicine they are described as channels through which Qi moves.\n\n"
+            "Here we study them through practice: open one point, find it on the image, touch the area gently if needed, and listen for warmth, pressure, pulsation, emptiness, resistance, or a clear inner response.\n\n"
+            "<b>If a point is hard to feel</b>, do not force it. Treat it as an area that needs more attention: soften the body, breathe through the point, and stay with it until the sensation becomes steadier.\n\n"
+            "<b>How to move:</b> keep the points you have already felt in awareness, then add the next one. Gradually the separate points become one living line.\n\n"
+            "This does not replace medical diagnosis or treatment. It is a practice of awareness, prevention, and inner discipline.\n\n"
+            "Continue your current focus, choose a study path, or open the cun guide if the point location mentions distances."
         ),
         "choose_meridian": "☯️ <b>Choose a meridian:</b>",
         "current_meridian": "Start / continue",
@@ -804,7 +801,7 @@ TEXTS_UPDATE = {
         "meridian_change_path": "🧭 Путь изучения",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
-        "meridian_measurements": "📏 Цуни и измерения",
+        "meridian_measurements": "📏 Как мерить цуни",
         "meridian_back": "🔙 К меридианам",
         "coming_soon": "скоро",
         "meridian_measurements_text": (
@@ -820,15 +817,12 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
-            "В этом боте меридианы изучаются как живая практика внимания, а не как сухая анатомия. Человек учится тоньше наблюдать тело, дыхание, внутренние ощущения и движение энергии.\n\n"
-            "В традиционной китайской медицине меридианы описываются как сеть энергетических каналов, по которым циркулирует жизненная сила — Ци.\n\n"
-            "Такое изучение даёт несколько практических направлений:\n\n"
-            "<b>Самонаблюдение:</b> понимание того, с какой системой органов связан конкретный меридиан, помогает раньше замечать сигналы дисбаланса.\n\n"
-            "<b>Восстановление баланса:</b> внимание, акупрессура, массаж, цигун и мягкая работа с активными точками помогают снимать напряжение и поддерживать циркуляцию.\n\n"
-            "<b>Биоритмы:</b> у каждого канала есть двухчасовой пик активности. Это помогает гармоничнее планировать сон, питание, нагрузку и практику.\n\n"
-            "<b>Профилактика стресса:</b> цигун и медитативная работа с каналами могут успокаивать нервную систему и расслаблять телесные зажимы.\n\n"
-            "Эта практика не заменяет медицинскую диагностику и лечение. Она служит инструментом осознанности, профилактики и внутренней дисциплины.\n\n"
-            "Начните с текущего фокуса или выберите путь изучения: идти по маршруту бота либо исследовать меридианы самостоятельно."
+            "Меридианы — это карта, через которую можно учиться чувствовать, как внимание живёт в теле. В традиционной китайской медицине они описываются как каналы, по которым движется Ци.\n\n"
+            "Здесь мы изучаем их не как сухую теорию, а через практику: открываем точку, смотрим её расположение на изображении, при необходимости мягко касаемся области и слушаем отклик — тепло, давление, пульсацию, пустоту, сопротивление или ясное ощущение.\n\n"
+            "<b>Если точка не ощущается</b>, не нужно давить силой. Считайте её зоной, которой пока нужно больше внимания: расслабьте тело, подышите через точку и оставайтесь с ней, пока ощущение не станет устойчивее.\n\n"
+            "<b>Как двигаться:</b> удерживайте уже найденные точки вниманием и добавляйте следующую. Постепенно отдельные точки начинают собираться в живую линию меридиана.\n\n"
+            "Эта практика не заменяет медицинскую диагностику и лечение. Это инструмент осознанности, профилактики и внутренней дисциплины.\n\n"
+            "Продолжите текущий фокус, выберите путь изучения или откройте подсказку по цуням, если в описании точки указано расстояние."
         ),
         "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
         "current_meridian": "Начать / продолжить",
@@ -951,7 +945,7 @@ TEXTS_UPDATE = {
         "meridian_change_path": "🧭 O'rganish yo'li",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
-        "meridian_measurements": "📏 Cun va o'lchovlar",
+        "meridian_measurements": "📏 Cunni qanday o'lchash",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "coming_soon": "tez orada",
         "meridian_measurements_text": (
@@ -967,15 +961,12 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
-            "Bu botda meridianlar quruq anatomiya emas, balki tirik diqqat amaliyoti sifatida o'rganiladi. Siz tana, nafas, ichki sezgilar va energiya harakatini nozikroq kuzatishni o'rganasiz.\n\n"
-            "An'anaviy xitoy tibbiyotida meridianlar hayotiy kuch — Qi harakatlanadigan energetik kanallar tarmog'i sifatida tasvirlanadi.\n\n"
-            "Bunday o'rganish bir nechta amaliy yo'nalish beradi:\n\n"
-            "<b>O'zini kuzatish:</b> meridian qaysi organ tizimi bilan bog'liqligini bilish nomutanosiblik belgilarini ertaroq sezishga yordam beradi.\n\n"
-            "<b>Muvozanatni tiklash:</b> diqqat, akupressura, massaj, qigong va faol nuqtalar bilan yumshoq ishlash taranglikni kamaytirish va aylanishni qo'llab-quvvatlashga yordam beradi.\n\n"
-            "<b>Bioritmlar:</b> har bir kanalning ikki soatlik faollik cho'qqisi bor. Bu uyqu, ovqatlanish, yuklama va amaliyotni uyg'unroq rejalashga yordam beradi.\n\n"
-            "<b>Stress profilaktikasi:</b> qigong va kanallar bilan meditatsion ishlash asab tizimini tinchlantirishi va tana zo'riqishlarini yumshatishi mumkin.\n\n"
+            "Meridianlar diqqat tanada qanday yashashini sezishga yordam beradigan xaritadir. An'anaviy xitoy tibbiyotida ular Qi harakatlanadigan kanallar sifatida tasvirlanadi.\n\n"
+            "Bu yerda biz ularni quruq nazariya sifatida emas, amaliyot orqali o'rganamiz: nuqtani ochasiz, rasmda joylashuvini ko'rasiz, kerak bo'lsa joyini yengil ushlaysiz va javobni tinglaysiz — iliqlik, bosim, pulsatsiya, bo'shliq, qarshilik yoki aniq sezgi.\n\n"
+            "<b>Agar nuqta sezilmasa</b>, kuch bilan bosmang. Uni ko'proq e'tibor kerak bo'lgan zona deb qabul qiling: tanani yumshating, nuqta orqali nafas olayotgandek tasavvur qiling va sezgi barqarorroq bo'lguncha qoling.\n\n"
+            "<b>Qanday harakatlanish kerak:</b> oldin topilgan nuqtalarni diqqatda ushlab, keyingisini qo'shing. Asta-sekin alohida nuqtalar meridianning tirik chizig'iga yig'iladi.\n\n"
             "Bu amaliyot tibbiy tashxis va davolanishni almashtirmaydi. U ongli kuzatuv, profilaktika va ichki intizom vositasidir.\n\n"
-            "Joriy fokusdan boshlang yoki o'rganish yo'lini tanlang: bot yo'li bo'yicha yurish yoki meridianlarni mustaqil o'rganish."
+            "Joriy fokusni davom ettiring, o'rganish yo'lini tanlang yoki nuqta tavsifida masofa berilgan bo'lsa, cun bo'yicha yo'riqnomani oching."
         ),
         "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
         "current_meridian": "Boshlash / davom etish",
@@ -1112,7 +1103,7 @@ TEXTS_UPDATE = {
         "meridian_change_path": "🧭 Зерттеу жолы",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
-        "meridian_measurements": "📏 Цунь және өлшемдер",
+        "meridian_measurements": "📏 Цуньді қалай өлшеу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "coming_soon": "жақында",
         "meridian_measurements_text": (
@@ -1128,15 +1119,12 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридиандар</b>\n\n"
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
-            "Бұл ботта меридиандар құрғақ анатомия емес, тірі зейін тәжірибесі ретінде зерттеледі. Сіз денені, тынысты, ішкі сезімдерді және энергия қозғалысын нәзігрек бақылауды үйренесіз.\n\n"
-            "Дәстүрлі қытай медицинасында меридиандар өмірлік күш — Ци айналатын энергетикалық арналар желісі ретінде сипатталады.\n\n"
-            "Мұндай зерттеу бірнеше тәжірибелік бағыт береді:\n\n"
-            "<b>Өзін-өзі бақылау:</b> белгілі бір меридиан қай орган жүйесімен байланысты екенін түсіну теңгерімсіздік белгілерін ертерек байқауға көмектеседі.\n\n"
-            "<b>Тепе-теңдікті қалпына келтіру:</b> зейін, акупрессура, массаж, цигун және белсенді нүктелермен жұмсақ жұмыс кернеуді азайтып, айналымды қолдауға көмектеседі.\n\n"
-            "<b>Биоритмдер:</b> әр арнаның екі сағаттық ең белсенді кезеңі бар. Бұл ұйқыны, тамақтануды, жүктемені және тәжірибені үйлесімді жоспарлауға көмектеседі.\n\n"
-            "<b>Стресстің алдын алу:</b> цигун және арналармен медитациялық жұмыс жүйке жүйесін тыныштандырып, денедегі қысымды жұмсартуы мүмкін.\n\n"
+            "Меридиандар зейіннің денеде қалай өмір сүретінін сезуге көмектесетін карта. Дәстүрлі қытай медицинасында олар Ци қозғалатын арналар ретінде сипатталады.\n\n"
+            "Мұнда біз оларды құрғақ теория ретінде емес, тәжірибе арқылы зерттейміз: нүктені ашасыз, суреттен орналасуын көресіз, қажет болса аймақты жеңіл ұстайсыз және жауапты тыңдайсыз — жылу, қысым, пульсация, бос кеңістік, қарсылық немесе анық сезім.\n\n"
+            "<b>Егер нүкте сезілмесе</b>, күшпен басудың қажеті жоқ. Оны көбірек зейін керек аймақ деп қабылдаңыз: денені жұмсартыңыз, сол нүкте арқылы тыныстап тұрғандай елестетіңіз және сезім тұрақталғанша бірге болыңыз.\n\n"
+            "<b>Қалай жылжу керек:</b> бұрын табылған нүктелерді зейінде ұстап, келесі нүктені қосыңыз. Біртіндеп бөлек нүктелер меридианның тірі сызығына жиналады.\n\n"
             "Бұл тәжірибе медициналық диагностика мен емді алмастырмайды. Ол саналылық, алдын алу және ішкі тәртіп құралы ретінде қолданылады.\n\n"
-            "Ағымдағы фокустан бастаңыз немесе зерттеу жолын таңдаңыз: бот маршрутымен жүру не меридиандарды өз бетіңізше зерттеу."
+            "Ағымдағы фокусты жалғастырыңыз, зерттеу жолын таңдаңыз немесе нүкте сипаттамасында қашықтық берілсе, цунь бойынша нұсқаулықты ашыңыз."
         ),
         "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
         "current_meridian": "Бастау / жалғастыру",
