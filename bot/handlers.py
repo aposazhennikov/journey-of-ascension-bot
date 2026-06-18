@@ -1253,6 +1253,15 @@ class BotHandlers:
         description = principle.get("description", "")
         practice_tip = principle.get("practice_tip", "")
 
+        def shorten(value: str, limit: int) -> str:
+            if limit <= 0:
+                return ""
+            if len(value) <= limit:
+                return value
+            if limit <= 3:
+                return value[:limit]
+            return value[:limit - 3].rstrip() + "..."
+
         def build(desc: str, practice: str) -> str:
             lines = [
                 f"<b>{escape(name)}</b> {escape(emoji)}".strip(),
@@ -1270,27 +1279,35 @@ class BotHandlers:
         if not max_length or len(text) <= max_length:
             return text
 
+        # Telegram photo captions are limited, so keep the practical exercise visible
+        # and shorten the explanatory description first.
         desc = description
         practice = practice_tip
-        overflow = len(text) - max_length
-        if practice and len(practice) > overflow + 20:
-            practice = practice[:max(0, len(practice) - overflow - 1)].rstrip() + "..."
-        elif desc and len(desc) > overflow + 20:
-            desc = desc[:max(0, len(desc) - overflow - 1)].rstrip() + "..."
-        else:
-            practice = ""
+
+        while len(build(desc, practice)) > max_length and len(desc) > 20:
+            overflow = len(build(desc, practice)) - max_length
+            desc = shorten(desc, max(20, len(desc) - overflow - 8))
 
         text = build(desc, practice)
         if len(text) <= max_length:
             return text
 
-        practice = ""
+        desc = ""
         text = build(desc, practice)
-        while len(text) > max_length and len(desc) > 20:
+        while len(text) > max_length and len(practice) > 20:
             overflow = len(text) - max_length
-            desc = desc[:max(20, len(desc) - overflow - 4)].rstrip() + "..."
+            practice = shorten(practice, max(20, len(practice) - overflow - 8))
             text = build(desc, practice)
-        return text
+
+        if len(text) <= max_length:
+            return text
+
+        text = build("", "")
+        if len(text) <= max_length:
+            return text
+
+        plain = f"{name} {emoji}\n{part_label}: {group}"
+        return escape(shorten(plain, max_length))
     
     async def _handle_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
@@ -3252,9 +3269,22 @@ class BotHandlers:
         try:
             return await query.edit_message_text(text, **kwargs)
         except BadRequest as e:
-            if "message is not modified" in str(e).lower():
+            error_text = str(e).lower()
+            if "message is not modified" in error_text:
                 logger.debug("Ignored Telegram no-op edit for callback message")
                 return query.message
+            if "there is no text in the message to edit" in error_text and query.message:
+                logger.debug("Replacing callback media message with text message")
+                chat_id = query.message.chat.id
+                try:
+                    await query.delete_message()
+                except Exception as delete_error:
+                    logger.debug(f"Could not delete media message before text replacement: {delete_error}")
+                return await self.application.bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    **kwargs
+                )
             raise
     
     async def _delete_user_message_delayed(self, chat_id: int, message_id: int, delay: float = 0.5) -> None:
