@@ -263,6 +263,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "kidney",
+        "category_id": 24,
+        "source_url": "https://shiyanbin.ru/meridian-pochek-r/",
+        "active_time": "17:00-19:00",
+        "passive_time": "05:00-07:00",
+        "names": {
+            "en": "Kidney Meridian",
+            "ru": "Меридиан почек",
+            "uz": "Buyrak meridiani",
+            "kz": "Бүйрек меридианы",
+        },
+        "direction": {
+            "en": "From the sole of the foot up the inner leg through the abdomen and chest toward the root of the tongue.",
+            "ru": "От подошвы стопы вверх по внутренней стороне ноги через живот и грудь к корню языка.",
+            "uz": "Oyoq kaftidan oyoqning ichki tomoni bo'ylab qorin va ko'krak orqali til ildiziga.",
+            "kz": "Табаннан аяқтың ішкі жағымен іш пен кеуде арқылы тіл түбіне қарай.",
+        },
+        "intro": {
+            "en": "The Kidney Meridian is used here as a map for observing deep resource: feet, inner legs, pelvis, lower back, breath depth, fear, will, and the quiet strength that is not loud but steady.",
+            "ru": "Меридиан почек здесь используется как карта наблюдения глубинного ресурса: стопы, внутренняя линия ног, таз, поясница, глубина дыхания, страх, воля и тихая сила, которая не шумит, но держит.",
+            "uz": "Buyrak meridiani bu yerda chuqur resursni kuzatish xaritasi sifatida ishlatiladi: panjalar, oyoqlarning ichki chizig'i, chanoq, bel, nafas chuqurligi, qo'rquv, iroda va baland ovoz qilmaydigan, ammo ushlab turadigan sokin kuch.",
+            "kz": "Бүйрек меридианы бұл жерде терең ресурсты бақылау картасы ретінде қолданылады: табандар, аяқтың ішкі сызығы, жамбас, бел, тыныстың тереңдігі, қорқыныш, ерік және айқайламайтын, бірақ ұстап тұратын тыныш күш.",
+        },
+        "practice": {
+            "en": "Begin at the soles and let attention rise slowly along the inner legs toward the pelvis, abdomen, and chest. Notice where the body feels empty, cold, deep, grounded, or quietly alive.",
+            "ru": "Начните с подошв и медленно ведите внимание по внутренней стороне ног к тазу, животу и груди. Замечайте, где тело ощущается пустым, холодным, глубоким, заземлённым или тихо живым.",
+            "uz": "Panjalardan boshlang va diqqatni oyoqlarning ichki tomoni bo'ylab chanoq, qorin va ko'krakka sekin olib boring. Tana qayerda bo'sh, sovuq, chuqur, tayanchli yoki sokin tirik sezilishini kuzating.",
+            "kz": "Табаннан бастап, зейінді аяқтың ішкі жағымен жамбасқа, ішке және кеудеге қарай баяу жүргізіңіз. Дененің қай жерде бос, суық, терең, орнықты немесе тыныш тірі сезілетінін байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",

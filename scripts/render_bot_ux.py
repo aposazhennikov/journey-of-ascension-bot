@@ -217,6 +217,7 @@ def render_html(output: Path) -> None:
     heart = next(item for item in meridians if item["id"] == "heart")
     small_intestine = next(item for item in meridians if item["id"] == "small_intestine")
     bladder = next(item for item in meridians if item["id"] == "bladder")
+    kidney = next(item for item in meridians if item["id"] == "kidney")
     conception = next(item for item in meridians if item["id"] == "conception_vessel")
     governing = next(item for item in meridians if item["id"] == "governing_vessel")
 
@@ -246,6 +247,8 @@ def render_html(output: Path) -> None:
         sections.append(message("Small Intestine Meridian point 1", format_meridian_point(small_intestine, 0, language), kb["meridian_practice"]))
         sections.append(message("Bladder Meridian intro", format_meridian_intro(bladder, language), kb["meridian_practice"]))
         sections.append(message("Bladder Meridian point 1", format_meridian_point(bladder, 0, language), kb["meridian_practice"]))
+        sections.append(message("Kidney Meridian intro", format_meridian_intro(kidney, language), kb["meridian_practice"]))
+        sections.append(message("Kidney Meridian point 1", format_meridian_point(kidney, 0, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel intro", format_meridian_intro(conception, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 1", format_meridian_point(conception, 0, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 3", format_meridian_point(conception, 2, language), kb["meridian_practice"]))

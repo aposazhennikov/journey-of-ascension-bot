@@ -7161,33 +7161,1008 @@
       "id": "kidney",
       "active_time": "17:00-19:00",
       "passive_time": "05:00-07:00",
+      "source_url": "https://shiyanbin.ru/meridian-pochek-r/",
+      "points_source_url": "https://www.eledia.ru/publ/24",
       "i18n": {
         "en": {
           "name": "Kidney Meridian",
-          "description": "A study module placeholder. Full content will be added from approved sources.",
-          "direction": "From the sole up the inner leg and torso to the chest.",
-          "intro_practice": "Feel the lower body, breath, and inner depth while following the channel."
+          "description": "The Kidney Meridian is used here as a map for observing deep resource: feet, inner legs, pelvis, lower back, breath depth, fear, will, and the quiet strength that is not loud but steady.",
+          "direction": "From the sole of the foot up the inner leg through the abdomen and chest toward the root of the tongue.",
+          "intro_practice": "Begin at the soles and let attention rise slowly along the inner legs toward the pelvis, abdomen, and chest. Notice where the body feels empty, cold, deep, grounded, or quietly alive."
         },
         "ru": {
           "name": "Меридиан почек",
-          "description": "Заготовка учебного модуля. Полный контент будет добавлен из согласованных источников.",
-          "direction": "От подошвы вверх по внутренней стороне ноги и корпуса к груди.",
-          "intro_practice": "Чувствуйте нижнюю часть тела, дыхание и внутреннюю глубину, следуя по каналу."
+          "description": "Меридиан почек здесь используется как карта наблюдения глубинного ресурса: стопы, внутренняя линия ног, таз, поясница, глубина дыхания, страх, воля и тихая сила, которая не шумит, но держит. Меридиан Почек парный, относится к системе инь; движение энергии центростремительное; принимает энергию от Меридиана Мочевого пузыря и передает ее Меридиану Перикарда. Период максимальной активности Меридиана Почек с 17 до 19 часов. На меридиане почек 27 точек",
+          "direction": "От подошвы стопы вверх по внутренней стороне ноги через живот и грудь к корню языка.",
+          "intro_practice": "Начните с подошв и медленно ведите внимание по внутренней стороне ног к тазу, животу и груди. Замечайте, где тело ощущается пустым, холодным, глубоким, заземлённым или тихо живым."
         },
         "uz": {
           "name": "Buyrak meridiani",
-          "description": "O'quv moduli uchun tayyor tuzilma. To'liq kontent tasdiqlangan manbalardan qo'shiladi.",
-          "direction": "Oyoq tagidan ichki oyoq va tana bo'ylab ko'krakka.",
-          "intro_practice": "Kanal bo'ylab yurib, pastki tana, nafas va ichki chuqurlikni his qiling."
+          "description": "Buyrak meridiani bu yerda chuqur resursni kuzatish xaritasi sifatida ishlatiladi: panjalar, oyoqlarning ichki chizig'i, chanoq, bel, nafas chuqurligi, qo'rquv, iroda va baland ovoz qilmaydigan, ammo ushlab turadigan sokin kuch.",
+          "direction": "Oyoq kaftidan oyoqning ichki tomoni bo'ylab qorin va ko'krak orqali til ildiziga.",
+          "intro_practice": "Panjalardan boshlang va diqqatni oyoqlarning ichki tomoni bo'ylab chanoq, qorin va ko'krakka sekin olib boring. Tana qayerda bo'sh, sovuq, chuqur, tayanchli yoki sokin tirik sezilishini kuzating."
         },
         "kz": {
           "name": "Бүйрек меридианы",
-          "description": "Оқу модулінің құрылымы. Толық контент келісілген дереккөздерден қосылады.",
-          "direction": "Табаннан ішкі аяқ және дене арқылы кеудеге.",
-          "intro_practice": "Арна бойымен жүріп, төменгі денені, тынысты және ішкі тереңдікті сезіңіз."
+          "description": "Бүйрек меридианы бұл жерде терең ресурсты бақылау картасы ретінде қолданылады: табандар, аяқтың ішкі сызығы, жамбас, бел, тыныстың тереңдігі, қорқыныш, ерік және айқайламайтын, бірақ ұстап тұратын тыныш күш.",
+          "direction": "Табаннан аяқтың ішкі жағымен іш пен кеуде арқылы тіл түбіне қарай.",
+          "intro_practice": "Табаннан бастап, зейінді аяқтың ішкі жағымен жамбасқа, ішке және кеудеге қарай баяу жүргізіңіз. Дененің қай жерде бос, суық, терең, орнықты немесе тыныш тірі сезілетінін байқаңыз."
         }
       },
-      "points": []
+      "points": [
+        {
+          "code": "R1",
+          "alt_code": "KID 1",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-305",
+          "image": "kidney_R1.gif",
+          "i18n": {
+            "en": {
+              "name": "Юн-цюань",
+              "location": "Source location: в середине подошвы, между II и III плюсневыми костями, в углублении, образующемся при поджатии пальцев стопы, на 1/3 расстояния от основания II - III пальцев до заднего края пятки, на 2/5 расстояния от кончика II пальца до заднего края пятки",
+              "meaning": "Classical note: точка-исток (Дерево) ножного шао-инь канала почек «юн» - «бурлящий, вырывающийся наружу»; «цюань» — «источник, родник». Юн-цюань R.1 расположена в углублении в середине подошвы, является точкой-истоком канала почек, откуда словно из родника «вырывается наружу» канальная Ци ножного шао-инь канала почек",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Юн-цюань",
+              "location": "в середине подошвы, между II и III плюсневыми костями, в углублении, образующемся при поджатии пальцев стопы, на 1/3 расстояния от основания II - III пальцев до заднего края пятки, на 2/5 расстояния от кончика II пальца до заднего края пятки",
+              "meaning": "точка-исток (Дерево) ножного шао-инь канала почек «юн» - «бурлящий, вырывающийся наружу»; «цюань» — «источник, родник». Юн-цюань R.1 расположена в углублении в середине подошвы, является точкой-истоком канала почек, откуда словно из родника «вырывается наружу» канальная Ци ножного шао-инь канала почек",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Юн-цюань",
+              "location": "Manbadagi joylashuv: в середине подошвы, между II и III плюсневыми костями, в углублении, образующемся при поджатии пальцев стопы, на 1/3 расстояния от основания II - III пальцев до заднего края пятки, на 2/5 расстояния от кончика II пальца до заднего края пятки",
+              "meaning": "Klassik izoh: точка-исток (Дерево) ножного шао-инь канала почек «юн» - «бурлящий, вырывающийся наружу»; «цюань» — «источник, родник». Юн-цюань R.1 расположена в углублении в середине подошвы, является точкой-истоком канала почек, откуда словно из родника «вырывается наружу» канальная Ци ножного шао-инь канала почек",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Юн-цюань",
+              "location": "Дереккөздегі орналасуы: в середине подошвы, между II и III плюсневыми костями, в углублении, образующемся при поджатии пальцев стопы, на 1/3 расстояния от основания II - III пальцев до заднего края пятки, на 2/5 расстояния от кончика II пальца до заднего края пятки",
+              "meaning": "Классикалық түсіндірме: точка-исток (Дерево) ножного шао-инь канала почек «юн» - «бурлящий, вырывающийся наружу»; «цюань» — «источник, родник». Юн-цюань R.1 расположена в углублении в середине подошвы, является точкой-истоком канала почек, откуда словно из родника «вырывается наружу» канальная Ци ножного шао-инь канала почек",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R2",
+          "alt_code": "KID 2",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-501",
+          "image": "kidney_R2.gif",
+          "i18n": {
+            "en": {
+              "name": "Жань-гу",
+              "location": "Source location: в углублении кпереди от нижнего края бугорка ладьевидной кости",
+              "meaning": "Classical note: точка-ручей (Огонь) ножного шао-инь канала почек «жань» — древнее название бугорка ладьевидной кости; «гу» — «впадина, углубление». Точка расположена в углублении кпереди от нижнего края бугорка ладьевидной кости, отсюда и название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Жань-гу",
+              "location": "в углублении кпереди от нижнего края бугорка ладьевидной кости",
+              "meaning": "точка-ручей (Огонь) ножного шао-инь канала почек «жань» — древнее название бугорка ладьевидной кости; «гу» — «впадина, углубление». Точка расположена в углублении кпереди от нижнего края бугорка ладьевидной кости, отсюда и название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Жань-гу",
+              "location": "Manbadagi joylashuv: в углублении кпереди от нижнего края бугорка ладьевидной кости",
+              "meaning": "Klassik izoh: точка-ручей (Огонь) ножного шао-инь канала почек «жань» — древнее название бугорка ладьевидной кости; «гу» — «впадина, углубление». Точка расположена в углублении кпереди от нижнего края бугорка ладьевидной кости, отсюда и название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Жань-гу",
+              "location": "Дереккөздегі орналасуы: в углублении кпереди от нижнего края бугорка ладьевидной кости",
+              "meaning": "Классикалық түсіндірме: точка-ручей (Огонь) ножного шао-инь канала почек «жань» — древнее название бугорка ладьевидной кости; «гу» — «впадина, углубление». Точка расположена в углублении кпереди от нижнего края бугорка ладьевидной кости, отсюда и название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R3",
+          "alt_code": "KID 3",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-307",
+          "image": "kidney_R3.gif",
+          "i18n": {
+            "en": {
+              "name": "Тай-си",
+              "location": "Source location: в углублении между медиальной лодыжкой и пяточным сухожилием",
+              "meaning": "Classical note: 1. Точка-быстрина (Земля) ножного шао-инь канала почек. 2. Точка первичной Ци ножного шао-инь канала почек 1. «Тай» - «большой»; «си» — «горный ручей». Тай-си R.3 — точка-быстрина ножного шао-инь канала почек. В месте расположения этой точки Ци уже достаточно мощна и напоминает большой горный ручей. 2. «Тай» — «большой»; «си» — «горный ручей». Точка расположена между медиальной лодыжкой и пяточным сухожилием, в месте, напоминающем русло большого горного ручья",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Тай-си",
+              "location": "в углублении между медиальной лодыжкой и пяточным сухожилием",
+              "meaning": "1. Точка-быстрина (Земля) ножного шао-инь канала почек. 2. Точка первичной Ци ножного шао-инь канала почек 1. «Тай» - «большой»; «си» — «горный ручей». Тай-си R.3 — точка-быстрина ножного шао-инь канала почек. В месте расположения этой точки Ци уже достаточно мощна и напоминает большой горный ручей. 2. «Тай» — «большой»; «си» — «горный ручей». Точка расположена между медиальной лодыжкой и пяточным сухожилием, в месте, напоминающем русло большого горного ручья",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Тай-си",
+              "location": "Manbadagi joylashuv: в углублении между медиальной лодыжкой и пяточным сухожилием",
+              "meaning": "Klassik izoh: 1. Точка-быстрина (Земля) ножного шао-инь канала почек. 2. Точка первичной Ци ножного шао-инь канала почек 1. «Тай» - «большой»; «си» — «горный ручей». Тай-си R.3 — точка-быстрина ножного шао-инь канала почек. В месте расположения этой точки Ци уже достаточно мощна и напоминает большой горный ручей. 2. «Тай» — «большой»; «си» — «горный ручей». Точка расположена между медиальной лодыжкой и пяточным сухожилием, в месте, напоминающем русло большого горного ручья",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Тай-си",
+              "location": "Дереккөздегі орналасуы: в углублении между медиальной лодыжкой и пяточным сухожилием",
+              "meaning": "Классикалық түсіндірме: 1. Точка-быстрина (Земля) ножного шао-инь канала почек. 2. Точка первичной Ци ножного шао-инь канала почек 1. «Тай» - «большой»; «си» — «горный ручей». Тай-си R.3 — точка-быстрина ножного шао-инь канала почек. В месте расположения этой точки Ци уже достаточно мощна и напоминает большой горный ручей. 2. «Тай» — «большой»; «си» — «горный ручей». Точка расположена между медиальной лодыжкой и пяточным сухожилием, в месте, напоминающем русло большого горного ручья",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R4",
+          "alt_code": "KID 4",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-77",
+          "image": "kidney_R4.gif",
+          "i18n": {
+            "en": {
+              "name": "Да-чжун",
+              "location": "Source location: на 0,5 цуня книзу и кзади от точки Тай-си R.3, кпереди от места прикрепления пяточного сухожилия к пяточной кости",
+              "meaning": "Classical note: точка коллатерали ножного шао-инь канала почек, соединяющейся с ножным тай-ян каналом мочевого пузыря 1. «Да» — «большой, важный»; «чжун» - древний анатомический термин, означающий пятку. Когда человек стоит, вес тела опирается на пятки. Точка расположена в области пяточной кости, ответственном и важном (да) месте. 2. «Да» — «большой»; «чжун» — «собираться». Точка Да-чжун R.4 расположена в области пяточной кости, имеющей сравнительно большой (да) размер, здесь собирается (чжун) Ян Ци всех верхних частей тела",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Да-чжун",
+              "location": "на 0,5 цуня книзу и кзади от точки Тай-си R.3, кпереди от места прикрепления пяточного сухожилия к пяточной кости",
+              "meaning": "точка коллатерали ножного шао-инь канала почек, соединяющейся с ножным тай-ян каналом мочевого пузыря 1. «Да» — «большой, важный»; «чжун» - древний анатомический термин, означающий пятку. Когда человек стоит, вес тела опирается на пятки. Точка расположена в области пяточной кости, ответственном и важном (да) месте. 2. «Да» — «большой»; «чжун» — «собираться». Точка Да-чжун R.4 расположена в области пяточной кости, имеющей сравнительно большой (да) размер, здесь собирается (чжун) Ян Ци всех верхних частей тела",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Да-чжун",
+              "location": "Manbadagi joylashuv: на 0,5 цуня книзу и кзади от точки Тай-си R.3, кпереди от места прикрепления пяточного сухожилия к пяточной кости",
+              "meaning": "Klassik izoh: точка коллатерали ножного шао-инь канала почек, соединяющейся с ножным тай-ян каналом мочевого пузыря 1. «Да» — «большой, важный»; «чжун» - древний анатомический термин, означающий пятку. Когда человек стоит, вес тела опирается на пятки. Точка расположена в области пяточной кости, ответственном и важном (да) месте. 2. «Да» — «большой»; «чжун» — «собираться». Точка Да-чжун R.4 расположена в области пяточной кости, имеющей сравнительно большой (да) размер, здесь собирается (чжун) Ян Ци всех верхних частей тела",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Да-чжун",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня книзу и кзади от точки Тай-си R.3, кпереди от места прикрепления пяточного сухожилия к пяточной кости",
+              "meaning": "Классикалық түсіндірме: точка коллатерали ножного шао-инь канала почек, соединяющейся с ножным тай-ян каналом мочевого пузыря 1. «Да» — «большой, важный»; «чжун» - древний анатомический термин, означающий пятку. Когда человек стоит, вес тела опирается на пятки. Точка расположена в области пяточной кости, ответственном и важном (да) месте. 2. «Да» — «большой»; «чжун» — «собираться». Точка Да-чжун R.4 расположена в области пяточной кости, имеющей сравнительно большой (да) размер, здесь собирается (чжун) Ян Ци всех верхних частей тела",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R5",
+          "alt_code": "KID 5",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-502",
+          "image": "kidney_R5.gif",
+          "i18n": {
+            "en": {
+              "name": "Шуй-цюань",
+              "location": "Source location: на 1 цунь прямо вниз от точки Тай-си R.3 , кзади и книзу от медиальной лодыжки",
+              "meaning": "Classical note: точка-щель ножного шао-инь канала почек «шуй» — «вода»; «цюань» — «родник». Ножной шао-инь канал почек от Шуй-цюань R.5 поднимается вверх, поэтому точка сравнивается с родником, который соотносится с элементом Вода",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шуй-цюань",
+              "location": "на 1 цунь прямо вниз от точки Тай-си R.3 , кзади и книзу от медиальной лодыжки",
+              "meaning": "точка-щель ножного шао-инь канала почек «шуй» — «вода»; «цюань» — «родник». Ножной шао-инь канал почек от Шуй-цюань R.5 поднимается вверх, поэтому точка сравнивается с родником, который соотносится с элементом Вода",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шуй-цюань",
+              "location": "Manbadagi joylashuv: на 1 цунь прямо вниз от точки Тай-си R.3 , кзади и книзу от медиальной лодыжки",
+              "meaning": "Klassik izoh: точка-щель ножного шао-инь канала почек «шуй» — «вода»; «цюань» — «родник». Ножной шао-инь канал почек от Шуй-цюань R.5 поднимается вверх, поэтому точка сравнивается с родником, который соотносится с элементом Вода",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шуй-цюань",
+              "location": "Дереккөздегі орналасуы: на 1 цунь прямо вниз от точки Тай-си R.3 , кзади и книзу от медиальной лодыжки",
+              "meaning": "Классикалық түсіндірме: точка-щель ножного шао-инь канала почек «шуй» — «вода»; «цюань» — «родник». Ножной шао-инь канал почек от Шуй-цюань R.5 поднимается вверх, поэтому точка сравнивается с родником, который соотносится с элементом Вода",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R6",
+          "alt_code": "KID 6",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-40",
+          "image": "kidney_R6.gif",
+          "i18n": {
+            "en": {
+              "name": "Чжао-хай",
+              "location": "Source location: в углублении у нижнего края медиальной лодыжки",
+              "meaning": "Classical note: 1. Одна из точек слияния восьми сосудов, связанная с сосудом Инь-цяо-май. 2. Точка пересечения ножного шао-инь канала почек и сосуда Инь-цяо-май 1. «Чжао» - «отражать»; «хай» — «море». Чжао-хай R.6 расположена сзади Жань-гу R.2 — точки-ручья ножного шао-инь канала почек. Точкам-ручьям каналов цзан-органов соответствует элемент Огонь, поэтому можно сказать, что «огонь» точки Жань-гу R.2 отражается на Чжао-хай R.6. В этой точке начинается сосуд Инь-цяо-май, сюда, словно в море, собирается Ци почек. 2. «Чжао» — «освещать, озарять»; «хай» — «море». Точка относится к ножному шао-инь каналу почек. Ци почек обширна как море, она «озаряет» весь организм",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Чжао-хай",
+              "location": "в углублении у нижнего края медиальной лодыжки",
+              "meaning": "1. Одна из точек слияния восьми сосудов, связанная с сосудом Инь-цяо-май. 2. Точка пересечения ножного шао-инь канала почек и сосуда Инь-цяо-май 1. «Чжао» - «отражать»; «хай» — «море». Чжао-хай R.6 расположена сзади Жань-гу R.2 — точки-ручья ножного шао-инь канала почек. Точкам-ручьям каналов цзан-органов соответствует элемент Огонь, поэтому можно сказать, что «огонь» точки Жань-гу R.2 отражается на Чжао-хай R.6. В этой точке начинается сосуд Инь-цяо-май, сюда, словно в море, собирается Ци почек. 2. «Чжао» — «освещать, озарять»; «хай» — «море». Точка относится к ножному шао-инь каналу почек. Ци почек обширна как море, она «озаряет» весь организм",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Чжао-хай",
+              "location": "Manbadagi joylashuv: в углублении у нижнего края медиальной лодыжки",
+              "meaning": "Klassik izoh: 1. Одна из точек слияния восьми сосудов, связанная с сосудом Инь-цяо-май. 2. Точка пересечения ножного шао-инь канала почек и сосуда Инь-цяо-май 1. «Чжао» - «отражать»; «хай» — «море». Чжао-хай R.6 расположена сзади Жань-гу R.2 — точки-ручья ножного шао-инь канала почек. Точкам-ручьям каналов цзан-органов соответствует элемент Огонь, поэтому можно сказать, что «огонь» точки Жань-гу R.2 отражается на Чжао-хай R.6. В этой точке начинается сосуд Инь-цяо-май, сюда, словно в море, собирается Ци почек. 2. «Чжао» — «освещать, озарять»; «хай» — «море». Точка относится к ножному шао-инь каналу почек. Ци почек обширна как море, она «озаряет» весь организм",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Чжао-хай",
+              "location": "Дереккөздегі орналасуы: в углублении у нижнего края медиальной лодыжки",
+              "meaning": "Классикалық түсіндірме: 1. Одна из точек слияния восьми сосудов, связанная с сосудом Инь-цяо-май. 2. Точка пересечения ножного шао-инь канала почек и сосуда Инь-цяо-май 1. «Чжао» - «отражать»; «хай» — «море». Чжао-хай R.6 расположена сзади Жань-гу R.2 — точки-ручья ножного шао-инь канала почек. Точкам-ручьям каналов цзан-органов соответствует элемент Огонь, поэтому можно сказать, что «огонь» точки Жань-гу R.2 отражается на Чжао-хай R.6. В этой точке начинается сосуд Инь-цяо-май, сюда, словно в море, собирается Ци почек. 2. «Чжао» — «освещать, озарять»; «хай» — «море». Точка относится к ножному шао-инь каналу почек. Ци почек обширна как море, она «озаряет» весь организм",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R7",
+          "alt_code": "KID 7",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-165",
+          "image": "kidney_R7.gif",
+          "i18n": {
+            "en": {
+              "name": "Фу-лю",
+              "location": "Source location: на 2 цуня прямо вверх от точки Тай-си R.3, у переднего края пяточного сухожилия",
+              "meaning": "Classical note: точка-река (Металл) ножного шао-инь канала почек «фу» - «вновь возвращаться»; «лю» — «стремительное течение». Ножной шао-инь канал почек, достигая точки Тай-си R.3, не идет дальше прямо вверх, а делает петлю под внутренней лодыжкой, после чего вновь возвращается к «прямому пути» и «стремительно течет» к точке Фу-лю R.7",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Фу-лю",
+              "location": "на 2 цуня прямо вверх от точки Тай-си R.3, у переднего края пяточного сухожилия",
+              "meaning": "точка-река (Металл) ножного шао-инь канала почек «фу» - «вновь возвращаться»; «лю» — «стремительное течение». Ножной шао-инь канал почек, достигая точки Тай-си R.3, не идет дальше прямо вверх, а делает петлю под внутренней лодыжкой, после чего вновь возвращается к «прямому пути» и «стремительно течет» к точке Фу-лю R.7",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Фу-лю",
+              "location": "Manbadagi joylashuv: на 2 цуня прямо вверх от точки Тай-си R.3, у переднего края пяточного сухожилия",
+              "meaning": "Klassik izoh: точка-река (Металл) ножного шао-инь канала почек «фу» - «вновь возвращаться»; «лю» — «стремительное течение». Ножной шао-инь канал почек, достигая точки Тай-си R.3, не идет дальше прямо вверх, а делает петлю под внутренней лодыжкой, после чего вновь возвращается к «прямому пути» и «стремительно течет» к точке Фу-лю R.7",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Фу-лю",
+              "location": "Дереккөздегі орналасуы: на 2 цуня прямо вверх от точки Тай-си R.3, у переднего края пяточного сухожилия",
+              "meaning": "Классикалық түсіндірме: точка-река (Металл) ножного шао-инь канала почек «фу» - «вновь возвращаться»; «лю» — «стремительное течение». Ножной шао-инь канал почек, достигая точки Тай-си R.3, не идет дальше прямо вверх, а делает петлю под внутренней лодыжкой, после чего вновь возвращается к «прямому пути» и «стремительно течет» к точке Фу-лю R.7",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R8",
+          "alt_code": "KID 8",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-503",
+          "image": "kidney_R8.gif",
+          "i18n": {
+            "en": {
+              "name": "Цзяо-синь",
+              "location": "Source location: на 0,5 цуня кпереди от точки Фу-лю R.7 , у заднего края внутренней поверхности большой берцовой кости",
+              "meaning": "Classical note: точка-щель сосуда Инь-цяо-май «цзяо» — «пересечение»; «синь» — «искренность». Пяти элементам соответствует «пять добродетелей» — человеколюбие, благопристойность, искренность, справедливость, мудрость. Искренность соотносится с элементом Земля и селезенкой. После прохождения точки Цзяо-синь R.8 ножной шао-инь канал почек пересекается со всеми ножными Инь-каналами в точке Сань-инь-цзяо RP.6 ножного тай-инь канала селезенки, поэтому точка и называется «пересечение с „искренностью\"»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Цзяо-синь",
+              "location": "на 0,5 цуня кпереди от точки Фу-лю R.7 , у заднего края внутренней поверхности большой берцовой кости",
+              "meaning": "точка-щель сосуда Инь-цяо-май «цзяо» — «пересечение»; «синь» — «искренность». Пяти элементам соответствует «пять добродетелей» — человеколюбие, благопристойность, искренность, справедливость, мудрость. Искренность соотносится с элементом Земля и селезенкой. После прохождения точки Цзяо-синь R.8 ножной шао-инь канал почек пересекается со всеми ножными Инь-каналами в точке Сань-инь-цзяо RP.6 ножного тай-инь канала селезенки, поэтому точка и называется «пересечение с „искренностью\"»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Цзяо-синь",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кпереди от точки Фу-лю R.7 , у заднего края внутренней поверхности большой берцовой кости",
+              "meaning": "Klassik izoh: точка-щель сосуда Инь-цяо-май «цзяо» — «пересечение»; «синь» — «искренность». Пяти элементам соответствует «пять добродетелей» — человеколюбие, благопристойность, искренность, справедливость, мудрость. Искренность соотносится с элементом Земля и селезенкой. После прохождения точки Цзяо-синь R.8 ножной шао-инь канал почек пересекается со всеми ножными Инь-каналами в точке Сань-инь-цзяо RP.6 ножного тай-инь канала селезенки, поэтому точка и называется «пересечение с „искренностью\"»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Цзяо-синь",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кпереди от точки Фу-лю R.7 , у заднего края внутренней поверхности большой берцовой кости",
+              "meaning": "Классикалық түсіндірме: точка-щель сосуда Инь-цяо-май «цзяо» — «пересечение»; «синь» — «искренность». Пяти элементам соответствует «пять добродетелей» — человеколюбие, благопристойность, искренность, справедливость, мудрость. Искренность соотносится с элементом Земля и селезенкой. После прохождения точки Цзяо-синь R.8 ножной шао-инь канал почек пересекается со всеми ножными Инь-каналами в точке Сань-инь-цзяо RP.6 ножного тай-инь канала селезенки, поэтому точка и называется «пересечение с „искренностью\"»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R9",
+          "alt_code": "KID 9",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-414",
+          "image": "kidney_R9.gif",
+          "i18n": {
+            "en": {
+              "name": "Чжу-бинь",
+              "location": "Source location: ниже медиального брюшка икроножной мышцы, на 5 цуней прямо вверх от точки Тай-си R.3",
+              "meaning": "Classical note: точка-щель сосуда Инь-вэй-май 1. «Чжу» — «деревянная трамбовка, используемая при строительстве стен»; «бинь» - «надколенник». Точка расположена у нижнего края твердой, как трамбовка, икроножной мышцы, являющейся «опорой» колена. 2. «Чжу» — «фундамент здания»; «бинь» — «надколенник». При движениях в голеностопном суставе икроножная мышца, у нижнего края которой расположена точка, становится жесткой, служит «фундаментом колена»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Чжу-бинь",
+              "location": "ниже медиального брюшка икроножной мышцы, на 5 цуней прямо вверх от точки Тай-си R.3",
+              "meaning": "точка-щель сосуда Инь-вэй-май 1. «Чжу» — «деревянная трамбовка, используемая при строительстве стен»; «бинь» - «надколенник». Точка расположена у нижнего края твердой, как трамбовка, икроножной мышцы, являющейся «опорой» колена. 2. «Чжу» — «фундамент здания»; «бинь» — «надколенник». При движениях в голеностопном суставе икроножная мышца, у нижнего края которой расположена точка, становится жесткой, служит «фундаментом колена»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Чжу-бинь",
+              "location": "Manbadagi joylashuv: ниже медиального брюшка икроножной мышцы, на 5 цуней прямо вверх от точки Тай-си R.3",
+              "meaning": "Klassik izoh: точка-щель сосуда Инь-вэй-май 1. «Чжу» — «деревянная трамбовка, используемая при строительстве стен»; «бинь» - «надколенник». Точка расположена у нижнего края твердой, как трамбовка, икроножной мышцы, являющейся «опорой» колена. 2. «Чжу» — «фундамент здания»; «бинь» — «надколенник». При движениях в голеностопном суставе икроножная мышца, у нижнего края которой расположена точка, становится жесткой, служит «фундаментом колена»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Чжу-бинь",
+              "location": "Дереккөздегі орналасуы: ниже медиального брюшка икроножной мышцы, на 5 цуней прямо вверх от точки Тай-си R.3",
+              "meaning": "Классикалық түсіндірме: точка-щель сосуда Инь-вэй-май 1. «Чжу» — «деревянная трамбовка, используемая при строительстве стен»; «бинь» - «надколенник». Точка расположена у нижнего края твердой, как трамбовка, икроножной мышцы, являющейся «опорой» колена. 2. «Чжу» — «фундамент здания»; «бинь» — «надколенник». При движениях в голеностопном суставе икроножная мышца, у нижнего края которой расположена точка, становится жесткой, служит «фундаментом колена»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R10",
+          "alt_code": "KID 10",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-504",
+          "image": "kidney_R10.gif",
+          "i18n": {
+            "en": {
+              "name": "Инь-гy",
+              "location": "Source location: при согнутой в коленном суставе ноге на внутреннем конце подколенной складки, между сухожилиями полуперепончатой и полусухожильной мышц",
+              "meaning": "Classical note: точка-устье (Вода) ножного шао-инь канала почек «инь» — внутренняя Инь-сторона; «гу» - «углубление, ущелье, впадина». Точка расположена на Инь-стороне подколенной складки, в напоминающем ущелье углублении между сухожилиями полуперепончатой и полусухожильной мышц, отсюда и название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Инь-гy",
+              "location": "при согнутой в коленном суставе ноге на внутреннем конце подколенной складки, между сухожилиями полуперепончатой и полусухожильной мышц",
+              "meaning": "точка-устье (Вода) ножного шао-инь канала почек «инь» — внутренняя Инь-сторона; «гу» - «углубление, ущелье, впадина». Точка расположена на Инь-стороне подколенной складки, в напоминающем ущелье углублении между сухожилиями полуперепончатой и полусухожильной мышц, отсюда и название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Инь-гy",
+              "location": "Manbadagi joylashuv: при согнутой в коленном суставе ноге на внутреннем конце подколенной складки, между сухожилиями полуперепончатой и полусухожильной мышц",
+              "meaning": "Klassik izoh: точка-устье (Вода) ножного шао-инь канала почек «инь» — внутренняя Инь-сторона; «гу» - «углубление, ущелье, впадина». Точка расположена на Инь-стороне подколенной складки, в напоминающем ущелье углублении между сухожилиями полуперепончатой и полусухожильной мышц, отсюда и название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Инь-гy",
+              "location": "Дереккөздегі орналасуы: при согнутой в коленном суставе ноге на внутреннем конце подколенной складки, между сухожилиями полуперепончатой и полусухожильной мышц",
+              "meaning": "Классикалық түсіндірме: точка-устье (Вода) ножного шао-инь канала почек «инь» — внутренняя Инь-сторона; «гу» - «углубление, ущелье, впадина». Точка расположена на Инь-стороне подколенной складки, в напоминающем ущелье углублении между сухожилиями полуперепончатой и полусухожильной мышц, отсюда и название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R11",
+          "alt_code": "KID 11",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-505",
+          "image": "kidney_R11.gif",
+          "i18n": {
+            "en": {
+              "name": "Хэн-гу",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Цюй-гу VC.2, расположенной на 5 цуней ниже пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май «хэн» — «поперек, поперечный»; «гу» — «кость». Хэн-гу (доcл, «поперечная кость») — древнее название лобковой кости. Точка расположена у верхнего края лобковой кости, отсюда и название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Хэн-гу",
+              "location": "на 0,5 цуня кнаружи от точки Цюй-гу VC.2, расположенной на 5 цуней ниже пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май «хэн» — «поперек, поперечный»; «гу» — «кость». Хэн-гу (доcл, «поперечная кость») — древнее название лобковой кости. Точка расположена у верхнего края лобковой кости, отсюда и название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Хэн-гу",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Цюй-гу VC.2, расположенной на 5 цуней ниже пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май «хэн» — «поперек, поперечный»; «гу» — «кость». Хэн-гу (доcл, «поперечная кость») — древнее название лобковой кости. Точка расположена у верхнего края лобковой кости, отсюда и название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Хэн-гу",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Цюй-гу VC.2, расположенной на 5 цуней ниже пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май «хэн» — «поперек, поперечный»; «гу» — «кость». Хэн-гу (доcл, «поперечная кость») — древнее название лобковой кости. Точка расположена у верхнего края лобковой кости, отсюда и название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R12",
+          "alt_code": "KID 12",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-506",
+          "image": "kidney_R12.gif",
+          "i18n": {
+            "en": {
+              "name": "Да-хэ",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Чжун-цзи VC.3, расположенной на 4 цуня ниже пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май «да» — «большой»; «хэ» — «расцвет, процветающий». В этой точке пересекаются ножной шао-инь канал почек и сосуд Чун-май. Внутрь от точки находится матка. При беременности в месте расположения точки Да-хэ R.12 образуется большая (да) выпуклость, что является проявлением «расцвета (хэ) Инь-Ци». Кроме того, точка способствует укреплению квинтэссенции Цзин почек, ее можно сравнить с местом большого (да) расцвета (хэ) и скопления квинтэссенции Цзин почек",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Да-хэ",
+              "location": "на 0,5 цуня кнаружи от точки Чжун-цзи VC.3, расположенной на 4 цуня ниже пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май «да» — «большой»; «хэ» — «расцвет, процветающий». В этой точке пересекаются ножной шао-инь канал почек и сосуд Чун-май. Внутрь от точки находится матка. При беременности в месте расположения точки Да-хэ R.12 образуется большая (да) выпуклость, что является проявлением «расцвета (хэ) Инь-Ци». Кроме того, точка способствует укреплению квинтэссенции Цзин почек, ее можно сравнить с местом большого (да) расцвета (хэ) и скопления квинтэссенции Цзин почек",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Да-хэ",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Чжун-цзи VC.3, расположенной на 4 цуня ниже пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май «да» — «большой»; «хэ» — «расцвет, процветающий». В этой точке пересекаются ножной шао-инь канал почек и сосуд Чун-май. Внутрь от точки находится матка. При беременности в месте расположения точки Да-хэ R.12 образуется большая (да) выпуклость, что является проявлением «расцвета (хэ) Инь-Ци». Кроме того, точка способствует укреплению квинтэссенции Цзин почек, ее можно сравнить с местом большого (да) расцвета (хэ) и скопления квинтэссенции Цзин почек",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Да-хэ",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Чжун-цзи VC.3, расположенной на 4 цуня ниже пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май «да» — «большой»; «хэ» — «расцвет, процветающий». В этой точке пересекаются ножной шао-инь канал почек и сосуд Чун-май. Внутрь от точки находится матка. При беременности в месте расположения точки Да-хэ R.12 образуется большая (да) выпуклость, что является проявлением «расцвета (хэ) Инь-Ци». Кроме того, точка способствует укреплению квинтэссенции Цзин почек, ее можно сравнить с местом большого (да) расцвета (хэ) и скопления квинтэссенции Цзин почек",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R13",
+          "alt_code": "KID 13",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-507",
+          "image": "kidney_R13.gif",
+          "i18n": {
+            "en": {
+              "name": "Ци-сюэ",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Гуань-юань VC.4, расположенной на 3 цуня ниже пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май. Название: «Ци» — «Ци (основная материальная субстанция образования всего сущего во Вселенной)»; «сюэ» - «акупунктурная точка». Ян Сюаньцао (VII в.) писал: «Движение Ци ниже пупка между почками — это „киноварное поле” (дань-тянь)». С «киноварным полем» чаще всего связывают точку Гуань-юань VC.4. Ци-сюэ R.13 расположена кнаружи от Гуань-юань VC.4, поэтому и называется «точка Ци»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Ци-сюэ",
+              "location": "на 0,5 цуня кнаружи от точки Гуань-юань VC.4, расположенной на 3 цуня ниже пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май. Название: «Ци» — «Ци (основная материальная субстанция образования всего сущего во Вселенной)»; «сюэ» - «акупунктурная точка». Ян Сюаньцао (VII в.) писал: «Движение Ци ниже пупка между почками — это „киноварное поле” (дань-тянь)». С «киноварным полем» чаще всего связывают точку Гуань-юань VC.4. Ци-сюэ R.13 расположена кнаружи от Гуань-юань VC.4, поэтому и называется «точка Ци»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Ци-сюэ",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Гуань-юань VC.4, расположенной на 3 цуня ниже пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май. Название: «Ци» — «Ци (основная материальная субстанция образования всего сущего во Вселенной)»; «сюэ» - «акупунктурная точка». Ян Сюаньцао (VII в.) писал: «Движение Ци ниже пупка между почками — это „киноварное поле” (дань-тянь)». С «киноварным полем» чаще всего связывают точку Гуань-юань VC.4. Ци-сюэ R.13 расположена кнаружи от Гуань-юань VC.4, поэтому и называется «точка Ци»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Ци-сюэ",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Гуань-юань VC.4, расположенной на 3 цуня ниже пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май. Название: «Ци» — «Ци (основная материальная субстанция образования всего сущего во Вселенной)»; «сюэ» - «акупунктурная точка». Ян Сюаньцао (VII в.) писал: «Движение Ци ниже пупка между почками — это „киноварное поле” (дань-тянь)». С «киноварным полем» чаще всего связывают точку Гуань-юань VC.4. Ци-сюэ R.13 расположена кнаружи от Гуань-юань VC.4, поэтому и называется «точка Ци»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R14",
+          "alt_code": "KID 14",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-508",
+          "image": "kidney_R14.gif",
+          "i18n": {
+            "en": {
+              "name": "Сы-мань",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Ши-мэнь VC.5, расположенной на 2 цуня ниже пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Сы» — «четыре [типа болезней]»; «мань» — «переполнение». Эта точка используется при лечении описанных в книге «Чжэнь цзю цзя и цзин» (Канон основ иглоукалывания и прижигания, 282 г.) четырех типов болезней, связанных с переполнением: 1) затвердения ниже пупка, грыжа; 2) скопление крови в матке; 3) озноб, вздутие живота, камень мочеточника; 4) дизентерия, понос, боль в животе. 2. «Сы» — «четыре [конечности]»; «мань» — «быть наполненным». Ян Сюаньцао (VII в.) писал: «Движение Ци ниже пупка между почками - это „киноварное поле (данъ-тянъ)».",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Сы-мань",
+              "location": "на 0,5 цуня кнаружи от точки Ши-мэнь VC.5, расположенной на 2 цуня ниже пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Сы» — «четыре [типа болезней]»; «мань» — «переполнение». Эта точка используется при лечении описанных в книге «Чжэнь цзю цзя и цзин» (Канон основ иглоукалывания и прижигания, 282 г.) четырех типов болезней, связанных с переполнением: 1) затвердения ниже пупка, грыжа; 2) скопление крови в матке; 3) озноб, вздутие живота, камень мочеточника; 4) дизентерия, понос, боль в животе. 2. «Сы» — «четыре [конечности]»; «мань» — «быть наполненным». Ян Сюаньцао (VII в.) писал: «Движение Ци ниже пупка между почками - это „киноварное поле (данъ-тянъ)».",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Сы-мань",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Ши-мэнь VC.5, расположенной на 2 цуня ниже пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Сы» — «четыре [типа болезней]»; «мань» — «переполнение». Эта точка используется при лечении описанных в книге «Чжэнь цзю цзя и цзин» (Канон основ иглоукалывания и прижигания, 282 г.) четырех типов болезней, связанных с переполнением: 1) затвердения ниже пупка, грыжа; 2) скопление крови в матке; 3) озноб, вздутие живота, камень мочеточника; 4) дизентерия, понос, боль в животе. 2. «Сы» — «четыре [конечности]»; «мань» — «быть наполненным». Ян Сюаньцао (VII в.) писал: «Движение Ци ниже пупка между почками - это „киноварное поле (данъ-тянъ)».",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Сы-мань",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Ши-мэнь VC.5, расположенной на 2 цуня ниже пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Сы» — «четыре [типа болезней]»; «мань» — «переполнение». Эта точка используется при лечении описанных в книге «Чжэнь цзю цзя и цзин» (Канон основ иглоукалывания и прижигания, 282 г.) четырех типов болезней, связанных с переполнением: 1) затвердения ниже пупка, грыжа; 2) скопление крови в матке; 3) озноб, вздутие живота, камень мочеточника; 4) дизентерия, понос, боль в животе. 2. «Сы» — «четыре [конечности]»; «мань» — «быть наполненным». Ян Сюаньцао (VII в.) писал: «Движение Ци ниже пупка между почками - это „киноварное поле (данъ-тянъ)».",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R15",
+          "alt_code": "KID 15",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-509",
+          "image": "kidney_R15.gif",
+          "i18n": {
+            "en": {
+              "name": "Чжун-чжу",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Инь-цзяо VC.7, расположенной на 1 цунь ниже пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Чжун» — «внутрь, середина»; «чжу» — «вливаться». Точка относится к ножному шао-инь каналу почек, внутрь от нее расположена матка. Ножной шао-инь почек поднимается по животу, в месте расположения этой точки квинтэссенция Цзин почек вливается внутрь в матку. 2. «Чжун» - «Чжун-цзяо (средняя часть Сань-цзяо)»; «чжу» — «вливаться». Точка расположена на животе, в месте, где ножной шао-инь канал почек вливается в Чжун-цзяо — среднюю часть Сань-цзяо",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Чжун-чжу",
+              "location": "на 0,5 цуня кнаружи от точки Инь-цзяо VC.7, расположенной на 1 цунь ниже пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Чжун» — «внутрь, середина»; «чжу» — «вливаться». Точка относится к ножному шао-инь каналу почек, внутрь от нее расположена матка. Ножной шао-инь почек поднимается по животу, в месте расположения этой точки квинтэссенция Цзин почек вливается внутрь в матку. 2. «Чжун» - «Чжун-цзяо (средняя часть Сань-цзяо)»; «чжу» — «вливаться». Точка расположена на животе, в месте, где ножной шао-инь канал почек вливается в Чжун-цзяо — среднюю часть Сань-цзяо",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Чжун-чжу",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Инь-цзяо VC.7, расположенной на 1 цунь ниже пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Чжун» — «внутрь, середина»; «чжу» — «вливаться». Точка относится к ножному шао-инь каналу почек, внутрь от нее расположена матка. Ножной шао-инь почек поднимается по животу, в месте расположения этой точки квинтэссенция Цзин почек вливается внутрь в матку. 2. «Чжун» - «Чжун-цзяо (средняя часть Сань-цзяо)»; «чжу» — «вливаться». Точка расположена на животе, в месте, где ножной шао-инь канал почек вливается в Чжун-цзяо — среднюю часть Сань-цзяо",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Чжун-чжу",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Инь-цзяо VC.7, расположенной на 1 цунь ниже пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Чжун» — «внутрь, середина»; «чжу» — «вливаться». Точка относится к ножному шао-инь каналу почек, внутрь от нее расположена матка. Ножной шао-инь почек поднимается по животу, в месте расположения этой точки квинтэссенция Цзин почек вливается внутрь в матку. 2. «Чжун» - «Чжун-цзяо (средняя часть Сань-цзяо)»; «чжу» — «вливаться». Точка расположена на животе, в месте, где ножной шао-инь канал почек вливается в Чжун-цзяо — среднюю часть Сань-цзяо",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R16",
+          "alt_code": "KID 16",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-510",
+          "image": "kidney_R16.gif",
+          "i18n": {
+            "en": {
+              "name": "Хуан-шу",
+              "location": "Source location: на 0,5 цуня кнаружи от середины пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чуи-май «хуан» - «оболочка»; «шу» — «акупунктурная точка». Под «хуан» подразумевается «оболочка живота», то есть брюшина. Точка расположена на животе, используется при лечении болезней живота, отсюда и название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Хуан-шу",
+              "location": "на 0,5 цуня кнаружи от середины пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чуи-май «хуан» - «оболочка»; «шу» — «акупунктурная точка». Под «хуан» подразумевается «оболочка живота», то есть брюшина. Точка расположена на животе, используется при лечении болезней живота, отсюда и название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Хуан-шу",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от середины пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чуи-май «хуан» - «оболочка»; «шу» — «акупунктурная точка». Под «хуан» подразумевается «оболочка живота», то есть брюшина. Точка расположена на животе, используется при лечении болезней живота, отсюда и название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Хуан-шу",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от середины пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чуи-май «хуан» - «оболочка»; «шу» — «акупунктурная точка». Под «хуан» подразумевается «оболочка живота», то есть брюшина. Точка расположена на животе, используется при лечении болезней живота, отсюда и название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R17",
+          "alt_code": "KID 17",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-511",
+          "image": "kidney_R17.gif",
+          "i18n": {
+            "en": {
+              "name": "Шан-цюй",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Ся-вань VC.10, расположенной на 2 цуня выше пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «шан» — один из «пяти звуков» китайской пентатоники; «цюй» — «изгиб». Звук «шан» соотносится с элементом Металл. Среди шести фу-органов к элементу Металл относится толстый кишечник. Внутрь от точки находится «место изгиба» толстого кишечника, отсюда и название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шан-цюй",
+              "location": "на 0,5 цуня кнаружи от точки Ся-вань VC.10, расположенной на 2 цуня выше пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «шан» — один из «пяти звуков» китайской пентатоники; «цюй» — «изгиб». Звук «шан» соотносится с элементом Металл. Среди шести фу-органов к элементу Металл относится толстый кишечник. Внутрь от точки находится «место изгиба» толстого кишечника, отсюда и название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шан-цюй",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Ся-вань VC.10, расположенной на 2 цуня выше пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «шан» — один из «пяти звуков» китайской пентатоники; «цюй» — «изгиб». Звук «шан» соотносится с элементом Металл. Среди шести фу-органов к элементу Металл относится толстый кишечник. Внутрь от точки находится «место изгиба» толстого кишечника, отсюда и название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шан-цюй",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Ся-вань VC.10, расположенной на 2 цуня выше пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «шан» — один из «пяти звуков» китайской пентатоники; «цюй» — «изгиб». Звук «шан» соотносится с элементом Металл. Среди шести фу-органов к элементу Металл относится толстый кишечник. Внутрь от точки находится «место изгиба» толстого кишечника, отсюда и название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R18",
+          "alt_code": "KID 18",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-512",
+          "image": "kidney_R18.gif",
+          "i18n": {
+            "en": {
+              "name": "Ши-гуань",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Цзянь-ли VC.11, расположенной на 3 цуня выше пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «ши» — «камень, каменный; бесплодная женщина»; «гуань» — «быть заваленным; засов; иметь отношение». Точка используется при лечении нарушения свободной циркуляции Ци желудка и кишечника, когда в животе образуются затвердения, напоминающие камни, возникают запоры, когда кал словно завален камнями в животе. Воздействие на точку Ши-гуань R.18 можно сравнить с открыванием засова ворот. Когда «ворота» откроются, восстановится свободная циркуляция Ци, исчезнут затвердения и прекратятся запоры. Кроме того, точка используется при лечении женского бесплодия",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Ши-гуань",
+              "location": "на 0,5 цуня кнаружи от точки Цзянь-ли VC.11, расположенной на 3 цуня выше пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «ши» — «камень, каменный; бесплодная женщина»; «гуань» — «быть заваленным; засов; иметь отношение». Точка используется при лечении нарушения свободной циркуляции Ци желудка и кишечника, когда в животе образуются затвердения, напоминающие камни, возникают запоры, когда кал словно завален камнями в животе. Воздействие на точку Ши-гуань R.18 можно сравнить с открыванием засова ворот. Когда «ворота» откроются, восстановится свободная циркуляция Ци, исчезнут затвердения и прекратятся запоры. Кроме того, точка используется при лечении женского бесплодия",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Ши-гуань",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Цзянь-ли VC.11, расположенной на 3 цуня выше пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «ши» — «камень, каменный; бесплодная женщина»; «гуань» — «быть заваленным; засов; иметь отношение». Точка используется при лечении нарушения свободной циркуляции Ци желудка и кишечника, когда в животе образуются затвердения, напоминающие камни, возникают запоры, когда кал словно завален камнями в животе. Воздействие на точку Ши-гуань R.18 можно сравнить с открыванием засова ворот. Когда «ворота» откроются, восстановится свободная циркуляция Ци, исчезнут затвердения и прекратятся запоры. Кроме того, точка используется при лечении женского бесплодия",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Ши-гуань",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Цзянь-ли VC.11, расположенной на 3 цуня выше пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «ши» — «камень, каменный; бесплодная женщина»; «гуань» — «быть заваленным; засов; иметь отношение». Точка используется при лечении нарушения свободной циркуляции Ци желудка и кишечника, когда в животе образуются затвердения, напоминающие камни, возникают запоры, когда кал словно завален камнями в животе. Воздействие на точку Ши-гуань R.18 можно сравнить с открыванием засова ворот. Когда «ворота» откроются, восстановится свободная циркуляция Ци, исчезнут затвердения и прекратятся запоры. Кроме того, точка используется при лечении женского бесплодия",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R19",
+          "alt_code": "KID 19",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-328",
+          "image": "kidney_R19.gif",
+          "i18n": {
+            "en": {
+              "name": "Инь-ду",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Чжун-вань VC.12, расположенной на 4 цуня выше пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Инь» — «Инь-часть туловища»; «ду» — «столица». Точка словно столица расположена в середине внутренней Инь-части туловища, используется при лечении болезней в ее различных областях — боли в эпигастральной области, животе, грудной клетке и подреберье. 2. «Инь» — «Инь-каналы»; «ду» - «столица». Столица — это место схождения всех путей. Инь-ду R.19 — точка пересечения Инь-каналов — ножного шао-инь канала почек и сосуда Чун-май",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Инь-ду",
+              "location": "на 0,5 цуня кнаружи от точки Чжун-вань VC.12, расположенной на 4 цуня выше пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Инь» — «Инь-часть туловища»; «ду» — «столица». Точка словно столица расположена в середине внутренней Инь-части туловища, используется при лечении болезней в ее различных областях — боли в эпигастральной области, животе, грудной клетке и подреберье. 2. «Инь» — «Инь-каналы»; «ду» - «столица». Столица — это место схождения всех путей. Инь-ду R.19 — точка пересечения Инь-каналов — ножного шао-инь канала почек и сосуда Чун-май",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Инь-ду",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Чжун-вань VC.12, расположенной на 4 цуня выше пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Инь» — «Инь-часть туловища»; «ду» — «столица». Точка словно столица расположена в середине внутренней Инь-части туловища, используется при лечении болезней в ее различных областях — боли в эпигастральной области, животе, грудной клетке и подреберье. 2. «Инь» — «Инь-каналы»; «ду» - «столица». Столица — это место схождения всех путей. Инь-ду R.19 — точка пересечения Инь-каналов — ножного шао-инь канала почек и сосуда Чун-май",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Инь-ду",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Чжун-вань VC.12, расположенной на 4 цуня выше пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май 1. «Инь» — «Инь-часть туловища»; «ду» — «столица». Точка словно столица расположена в середине внутренней Инь-части туловища, используется при лечении болезней в ее различных областях — боли в эпигастральной области, животе, грудной клетке и подреберье. 2. «Инь» — «Инь-каналы»; «ду» - «столица». Столица — это место схождения всех путей. Инь-ду R.19 — точка пересечения Инь-каналов — ножного шао-инь канала почек и сосуда Чун-май",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R20",
+          "alt_code": "KID 20",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-329",
+          "image": "kidney_R20.gif",
+          "i18n": {
+            "en": {
+              "name": "Фу-тун-гу",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Шан-вань VC.13, расположенной на 5 цуней выше пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май «фу» — «живот»; «тун» — «проходить»; «гу» — «пища». Точка расположена на животе — месте, через который проходит пища, может использоваться при лечении болезней, связанных с нарушением проходимости Ци пищи",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Фу-тун-гу",
+              "location": "на 0,5 цуня кнаружи от точки Шан-вань VC.13, расположенной на 5 цуней выше пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май «фу» — «живот»; «тун» — «проходить»; «гу» — «пища». Точка расположена на животе — месте, через который проходит пища, может использоваться при лечении болезней, связанных с нарушением проходимости Ци пищи",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Фу-тун-гу",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Шан-вань VC.13, расположенной на 5 цуней выше пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май «фу» — «живот»; «тун» — «проходить»; «гу» — «пища». Точка расположена на животе — месте, через который проходит пища, может использоваться при лечении болезней, связанных с нарушением проходимости Ци пищи",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Фу-тун-гу",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Шан-вань VC.13, расположенной на 5 цуней выше пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май «фу» — «живот»; «тун» — «проходить»; «гу» — «пища». Точка расположена на животе — месте, через который проходит пища, может использоваться при лечении болезней, связанных с нарушением проходимости Ци пищи",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R21",
+          "alt_code": "KID 21",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-168",
+          "image": "kidney_R21.gif",
+          "i18n": {
+            "en": {
+              "name": "Ю-мэнь",
+              "location": "Source location: на 0,5 цуня кнаружи от точки Цзюй-цюэ VC.14, расположенной на 6 цуней выше пупка",
+              "meaning": "Classical note: точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «ю» - «темный, скрытый, глубокий, таинственный»; «мэнь» — «ворота». Ю-мэнь анатомический термин, означающий привратниковое отверстие желудка (пилорус). Точка расположена в эпигастральной области, поэтому и получила такое название",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Ю-мэнь",
+              "location": "на 0,5 цуня кнаружи от точки Цзюй-цюэ VC.14, расположенной на 6 цуней выше пупка",
+              "meaning": "точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «ю» - «темный, скрытый, глубокий, таинственный»; «мэнь» — «ворота». Ю-мэнь анатомический термин, означающий привратниковое отверстие желудка (пилорус). Точка расположена в эпигастральной области, поэтому и получила такое название",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Ю-мэнь",
+              "location": "Manbadagi joylashuv: на 0,5 цуня кнаружи от точки Цзюй-цюэ VC.14, расположенной на 6 цуней выше пупка",
+              "meaning": "Klassik izoh: точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «ю» - «темный, скрытый, глубокий, таинственный»; «мэнь» — «ворота». Ю-мэнь анатомический термин, означающий привратниковое отверстие желудка (пилорус). Точка расположена в эпигастральной области, поэтому и получила такое название",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Ю-мэнь",
+              "location": "Дереккөздегі орналасуы: на 0,5 цуня кнаружи от точки Цзюй-цюэ VC.14, расположенной на 6 цуней выше пупка",
+              "meaning": "Классикалық түсіндірме: точка пересечения ножного шао-инь канала почек и сосуда Чун-май [6] «ю» - «темный, скрытый, глубокий, таинственный»; «мэнь» — «ворота». Ю-мэнь анатомический термин, означающий привратниковое отверстие желудка (пилорус). Точка расположена в эпигастральной области, поэтому и получила такое название",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R22",
+          "alt_code": "KID 22",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-353",
+          "image": "kidney_R22.gif",
+          "i18n": {
+            "en": {
+              "name": "Бу-лан",
+              "location": "Source location: в V межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Classical note: «бу» — «ступень, мера, шаг»; «лан» — «коридор снаружи комнаты». Бу-лан R.22 находится на одном уровне с точкой Чжун-тин VC.16. Вверх от нее по ножному шао-инь каналу почек с двух сторон вдоль сосуда Жэнь-май в межреберных промежутках находятся точки, расставленные ровно, как по меркам {бу), словно коридор снаружи «главного зала императорского дворца» — точки Чжун-тин VC.16",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Бу-лан",
+              "location": "в V межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "«бу» — «ступень, мера, шаг»; «лан» — «коридор снаружи комнаты». Бу-лан R.22 находится на одном уровне с точкой Чжун-тин VC.16. Вверх от нее по ножному шао-инь каналу почек с двух сторон вдоль сосуда Жэнь-май в межреберных промежутках находятся точки, расставленные ровно, как по меркам {бу), словно коридор снаружи «главного зала императорского дворца» — точки Чжун-тин VC.16",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Бу-лан",
+              "location": "Manbadagi joylashuv: в V межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Klassik izoh: «бу» — «ступень, мера, шаг»; «лан» — «коридор снаружи комнаты». Бу-лан R.22 находится на одном уровне с точкой Чжун-тин VC.16. Вверх от нее по ножному шао-инь каналу почек с двух сторон вдоль сосуда Жэнь-май в межреберных промежутках находятся точки, расставленные ровно, как по меркам {бу), словно коридор снаружи «главного зала императорского дворца» — точки Чжун-тин VC.16",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Бу-лан",
+              "location": "Дереккөздегі орналасуы: в V межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Классикалық түсіндірме: «бу» — «ступень, мера, шаг»; «лан» — «коридор снаружи комнаты». Бу-лан R.22 находится на одном уровне с точкой Чжун-тин VC.16. Вверх от нее по ножному шао-инь каналу почек с двух сторон вдоль сосуда Жэнь-май в межреберных промежутках находятся точки, расставленные ровно, как по меркам {бу), словно коридор снаружи «главного зала императорского дворца» — точки Чжун-тин VC.16",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R23",
+          "alt_code": "KID 23",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-401",
+          "image": "kidney_R23.gif",
+          "i18n": {
+            "en": {
+              "name": "Шэнь-фэн",
+              "location": "Source location: в IV межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Classical note: «шэнь» - «жизненный дух Шэнь»; «фэн» — «граница». Жизненный дух Шэнь хранится в сердце. Точка расположена на груди возле сердца, словно на «границе жизненного духа Шэнь»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шэнь-фэн",
+              "location": "в IV межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "«шэнь» - «жизненный дух Шэнь»; «фэн» — «граница». Жизненный дух Шэнь хранится в сердце. Точка расположена на груди возле сердца, словно на «границе жизненного духа Шэнь»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шэнь-фэн",
+              "location": "Manbadagi joylashuv: в IV межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Klassik izoh: «шэнь» - «жизненный дух Шэнь»; «фэн» — «граница». Жизненный дух Шэнь хранится в сердце. Точка расположена на груди возле сердца, словно на «границе жизненного духа Шэнь»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шэнь-фэн",
+              "location": "Дереккөздегі орналасуы: в IV межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Классикалық түсіндірме: «шэнь» - «жизненный дух Шэнь»; «фэн» — «граница». Жизненный дух Шэнь хранится в сердце. Точка расположена на груди возле сердца, словно на «границе жизненного духа Шэнь»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R24",
+          "alt_code": "KID 24",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-402",
+          "image": "kidney_R24.gif",
+          "i18n": {
+            "en": {
+              "name": "Лин-сюй",
+              "location": "Source location: в III межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Classical note: «лин» — «душа, божественное»; «сюй» - «холм». Точка расположена на груди, в месте, напоминающем начало возвышения холма, внутри — сердце, которое управляет «божественным жизненным духом Шэнь»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Лин-сюй",
+              "location": "в III межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "«лин» — «душа, божественное»; «сюй» - «холм». Точка расположена на груди, в месте, напоминающем начало возвышения холма, внутри — сердце, которое управляет «божественным жизненным духом Шэнь»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Лин-сюй",
+              "location": "Manbadagi joylashuv: в III межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Klassik izoh: «лин» — «душа, божественное»; «сюй» - «холм». Точка расположена на груди, в месте, напоминающем начало возвышения холма, внутри — сердце, которое управляет «божественным жизненным духом Шэнь»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Лин-сюй",
+              "location": "Дереккөздегі орналасуы: в III межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Классикалық түсіндірме: «лин» — «душа, божественное»; «сюй» - «холм». Точка расположена на груди, в месте, напоминающем начало возвышения холма, внутри — сердце, которое управляет «божественным жизненным духом Шэнь»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R25",
+          "alt_code": "KID 25",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-311",
+          "image": "kidney_R25.gif",
+          "i18n": {
+            "en": {
+              "name": "Шэнь-цан",
+              "location": "Source location: во II межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Classical note: «шэнь» — «жизненный дух Шэнь»; «цан» - «хранилище». Жизненный дух Шэнь хранится в сердце. Точка расположена возле сердца, поэтому сравнивается с «хранилищем жизненного духа Шэнь»",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шэнь-цан",
+              "location": "во II межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "«шэнь» — «жизненный дух Шэнь»; «цан» - «хранилище». Жизненный дух Шэнь хранится в сердце. Точка расположена возле сердца, поэтому сравнивается с «хранилищем жизненного духа Шэнь»",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шэнь-цан",
+              "location": "Manbadagi joylashuv: во II межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Klassik izoh: «шэнь» — «жизненный дух Шэнь»; «цан» - «хранилище». Жизненный дух Шэнь хранится в сердце. Точка расположена возле сердца, поэтому сравнивается с «хранилищем жизненного духа Шэнь»",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шэнь-цан",
+              "location": "Дереккөздегі орналасуы: во II межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Классикалық түсіндірме: «шэнь» — «жизненный дух Шэнь»; «цан» - «хранилище». Жизненный дух Шэнь хранится в сердце. Точка расположена возле сердца, поэтому сравнивается с «хранилищем жизненного духа Шэнь»",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R26",
+          "alt_code": "KID 26",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-347",
+          "image": "kidney_R26.gif",
+          "i18n": {
+            "en": {
+              "name": "Юй-чжун",
+              "location": "Source location: в I межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Classical note: 1. «Юй» - «разноцветный, великолепный»; «чжун» — «внутри, в». Внутрь отточки расположены легкие. Легкие находятся выше других цзан-органов, сравниваются с «балдахином пяти цзан-органов» — разноцветным и великолепным. 2. «Юй» - «разноцветный, цветущий, процветающий»; «чжун» — «внутри, в». Точка используется при лечении болезней, связанных с «процветанием» патогенной Ци, когда она скапливается внутри грудной клетки",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Юй-чжун",
+              "location": "в I межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "1. «Юй» - «разноцветный, великолепный»; «чжун» — «внутри, в». Внутрь отточки расположены легкие. Легкие находятся выше других цзан-органов, сравниваются с «балдахином пяти цзан-органов» — разноцветным и великолепным. 2. «Юй» - «разноцветный, цветущий, процветающий»; «чжун» — «внутри, в». Точка используется при лечении болезней, связанных с «процветанием» патогенной Ци, когда она скапливается внутри грудной клетки",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Юй-чжун",
+              "location": "Manbadagi joylashuv: в I межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Klassik izoh: 1. «Юй» - «разноцветный, великолепный»; «чжун» — «внутри, в». Внутрь отточки расположены легкие. Легкие находятся выше других цзан-органов, сравниваются с «балдахином пяти цзан-органов» — разноцветным и великолепным. 2. «Юй» - «разноцветный, цветущий, процветающий»; «чжун» — «внутри, в». Точка используется при лечении болезней, связанных с «процветанием» патогенной Ци, когда она скапливается внутри грудной клетки",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Юй-чжун",
+              "location": "Дереккөздегі орналасуы: в I межреберном промежутке, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Классикалық түсіндірме: 1. «Юй» - «разноцветный, великолепный»; «чжун» — «внутри, в». Внутрь отточки расположены легкие. Легкие находятся выше других цзан-органов, сравниваются с «балдахином пяти цзан-органов» — разноцветным и великолепным. 2. «Юй» - «разноцветный, цветущий, процветающий»; «чжун» — «внутри, в». Точка используется при лечении болезней, связанных с «процветанием» патогенной Ци, когда она скапливается внутри грудной клетки",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        },
+        {
+          "code": "R27",
+          "alt_code": "KID 27",
+          "source_url": "https://www.eledia.ru/publ/24-1-0-348",
+          "image": "kidney_R27.gif",
+          "i18n": {
+            "en": {
+              "name": "Шу-фу",
+              "location": "Source location: у нижнего края ключицы, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Classical note: «шу» — «акупунктурная точка»; «фу» — «дворец, средоточие, место скопления». Шу-фу R.27 - последняя точка ножного шао-инь канала почек, Ци которого от ступней достигает грудной клетки и скапливается в этой точке, после чего вливается в ручной цзюэ-инь канал перикарда",
+              "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
+              "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
+            },
+            "ru": {
+              "name": "Шу-фу",
+              "location": "у нижнего края ключицы, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "«шу» — «акупунктурная точка»; «фу» — «дворец, средоточие, место скопления». Шу-фу R.27 - последняя точка ножного шао-инь канала почек, Ци которого от ступней достигает грудной клетки и скапливается в этой точке, после чего вливается в ручной цзюэ-инь канал перикарда",
+              "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
+              "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
+            },
+            "uz": {
+              "name": "Шу-фу",
+              "location": "Manbadagi joylashuv: у нижнего края ключицы, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Klassik izoh: «шу» — «акупунктурная точка»; «фу» — «дворец, средоточие, место скопления». Шу-фу R.27 - последняя точка ножного шао-инь канала почек, Ци которого от ступней достигает грудной клетки и скапливается в этой точке, после чего вливается в ручной цзюэ-инь канал перикарда",
+              "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
+              "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
+            },
+            "kz": {
+              "name": "Шу-фу",
+              "location": "Дереккөздегі орналасуы: у нижнего края ключицы, на 2 цуня кнаружи от передней срединной линии",
+              "meaning": "Классикалық түсіндірме: «шу» — «акупунктурная точка»; «фу» — «дворец, средоточие, место скопления». Шу-фу R.27 - последняя точка ножного шао-инь канала почек, Ци которого от ступней достигает грудной клетки и скапливается в этой точке, после чего вливается в ручной цзюэ-инь канал перикарда",
+              "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
+              "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
+            }
+          }
+        }
+      ]
     },
     {
       "id": "pericardium",
