@@ -294,6 +294,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "pericardium",
+        "category_id": 25,
+        "source_url": "https://shiyanbin.ru/meridian-perikarda-mc/",
+        "active_time": "19:00-21:00",
+        "passive_time": "07:00-09:00",
+        "names": {
+            "en": "Pericardium Meridian",
+            "ru": "Меридиан перикарда",
+            "uz": "Perikard meridiani",
+            "kz": "Перикард меридианы",
+        },
+        "direction": {
+            "en": "From the chest through the inner side of the arm toward the middle finger.",
+            "ru": "От грудной клетки по внутренней стороне руки к среднему пальцу.",
+            "uz": "Ko'krakdan qo'lning ichki tomoni bo'ylab o'rta barmoqqa.",
+            "kz": "Кеудеден қолдың ішкі жағымен ортаңғы саусаққа қарай.",
+        },
+        "intro": {
+            "en": "The Pericardium Meridian is used here as a map for observing the protective layer around the heart: chest, breath, palms, emotional boundaries, and the ability to stay open without becoming scattered.",
+            "ru": "Меридиан перикарда здесь используется как карта наблюдения защитного слоя вокруг сердца: грудь, дыхание, ладони, эмоциональные границы и способность оставаться открытым, не рассыпаясь.",
+            "uz": "Perikard meridiani bu yerda yurak atrofidagi himoya qatlamini kuzatish xaritasi sifatida ishlatiladi: ko'krak, nafas, kaftlar, hissiy chegaralar va tarqalib ketmasdan ochiq qolish qobiliyati.",
+            "kz": "Перикард меридианы бұл жерде жүрек айналасындағы қорғаныш қабатты бақылау картасы ретінде қолданылады: кеуде, тыныс, алақан, эмоциялық шекаралар және шашырамай ашық болу қабілеті.",
+        },
+        "practice": {
+            "en": "Soften the chest, inner arm, wrist, and palm. Let attention move toward the middle finger, noticing where the body protects itself too tightly and where openness feels calm and safe.",
+            "ru": "Смягчите грудь, внутреннюю сторону руки, запястье и ладонь. Ведите внимание к среднему пальцу, замечая, где тело защищается слишком жёстко, а где открытость ощущается спокойной и безопасной.",
+            "uz": "Ko'krak, qo'lning ichki tomoni, bilak va kaftni yumshating. Diqqatni o'rta barmoqqa olib boring, tana qayerda o'zini ortiqcha qattiq himoya qilishini va qayerda ochiqlik sokin hamda xavfsiz sezilishini kuzating.",
+            "kz": "Кеудені, қолдың ішкі жағын, білекті және алақанды жұмсартыңыз. Зейінді ортаңғы саусаққа қарай жүргізіп, дененің қай жерде тым қатты қорғанатынын және қай жерде ашықтық тыныш әрі қауіпсіз сезілетінін байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
