@@ -657,6 +657,7 @@ TEXTS_UPDATE = {
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
         "meridian_measurements": "📏 How to measure cun",
         "meridian_back": "🔙 Back to meridians",
+        "coming_soon": "soon",
         "meridian_measurements_text": (
             "📏 <b>Measurement System in TCM</b>\n\n"
             "Acupuncture point locations are often described in <b>cun</b>. A cun is not a fixed centimeter value: it is a body-relative unit measured on the person being studied.\n\n"
@@ -802,6 +803,7 @@ TEXTS_UPDATE = {
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
         "meridian_measurements": "📏 Как измерять цуни",
         "meridian_back": "🔙 К меридианам",
+        "coming_soon": "скоро",
         "meridian_measurements_text": (
             "📏 <b>Система измерений в ТКМ</b>\n\n"
             "Расположение акупунктурных точек часто описывается в <b>цунях</b>. Цунь — это не фиксированное число сантиметров, а относительная мера тела конкретного человека.\n\n"
@@ -947,6 +949,7 @@ TEXTS_UPDATE = {
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
         "meridian_measurements": "📏 Cunni qanday o'lchash",
         "meridian_back": "🔙 Meridianlarga qaytish",
+        "coming_soon": "tez orada",
         "meridian_measurements_text": (
             "📏 <b>TKMdagi o'lchov tizimi</b>\n\n"
             "Akupunktura nuqtalari ko'pincha <b>cun</b> orqali tasvirlanadi. Cun aniq santimetr emas: u o'rganilayotgan odam tanasiga nisbatan olinadigan o'lchovdir.\n\n"
@@ -1106,6 +1109,7 @@ TEXTS_UPDATE = {
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
         "meridian_measurements": "📏 Цуньді қалай өлшеу",
         "meridian_back": "🔙 Меридиандарға қайту",
+        "coming_soon": "жақында",
         "meridian_measurements_text": (
             "📏 <b>ҚКМ-дегі өлшем жүйесі</b>\n\n"
             "Акупунктура нүктелерінің орналасуы жиі <b>цунь</b> арқылы сипатталады. Цунь — нақты сантиметр емес, зерттеліп отырған адамның денесіне қатысты өлшем.\n\n"
@@ -1755,13 +1759,7 @@ class BotHandlers:
                 
                 skip_days_display = self._format_skip_days(selected_days, language)
                 
-                text = self._get_text(
-                    "setup_complete",
-                    language,
-                    time=user.time_for_send,
-                    timezone=user.timezone,
-                    skip_days=skip_days_display
-                )
+                text = self._format_setup_complete(user, language, skip_days_display)
                 logger.debug(f"Setup complete text for user {chat_id} in language {language}: {text[:100]}...")
                 
                 # Add menu after setup completion
@@ -2193,6 +2191,61 @@ class BotHandlers:
         
         # Save time and move to next step.
         self.user_states[chat_id]["time"] = time_str
+
+        if not user_state.get("principles_enabled", True):
+            from bot.storage import User
+
+            user = User(
+                chat_id=chat_id,
+                language=language,
+                timezone=user_state["timezone"],
+                time_for_send=time_str,
+                meridian_time_for_send=time_str,
+                skip_day_id=[],
+                principles_enabled=False,
+                meridians_enabled=user_state.get("meridians_enabled", True),
+                is_active=True
+            )
+            if user.meridians_enabled and not user.current_meridian_id:
+                first_meridian = self.meridians_manager.get_first_meridian()
+                if first_meridian:
+                    user.current_meridian_id = first_meridian["id"]
+                    user.current_point_index = -1
+
+            success = await self.storage.save_user(user)
+            if not success:
+                if message_id:
+                    await self._edit_bot_message_text_safe(
+                        chat_id=chat_id,
+                        message_id=message_id,
+                        text=self._get_text("setup_error", language),
+                        parse_mode='Markdown'
+                    )
+                else:
+                    await update.message.reply_text(self._get_text("setup_error", language), parse_mode='Markdown')
+                return
+
+            await self.scheduler.schedule_user_immediately(chat_id)
+            del self.user_states[chat_id]
+
+            text = self._format_setup_complete(user, language, self._format_skip_days([], language))
+            text += f"\n\n{self._get_text('menu', language)}"
+            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+
+            if message_id:
+                await self._edit_bot_message_text_safe(
+                    chat_id=chat_id,
+                    message_id=message_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode='Markdown'
+                )
+                await self.storage.add_bot_message(chat_id, message_id, "setup_complete")
+            else:
+                sent = await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await self.storage.add_bot_message(chat_id, sent.message_id, "setup_complete")
+            return
+
         self.user_states[chat_id]["step"] = "skip_days"
         self.user_states[chat_id]["selected_skip_days"] = []  # Initialize empty selection
         
@@ -2241,6 +2294,99 @@ class BotHandlers:
         
         day_names = day_names_map.get(language, day_names_map["en"])
         return ", ".join([day_names[day] for day in skip_days])
+
+    def _format_setup_complete(self, user, language: str, skip_days_display: str) -> str:
+        """Format setup summary according to the selected practice modes."""
+        labels = {
+            "en": {
+                "done": "🎉 **Setup complete!**",
+                "settings": "📋 **Your settings:**",
+                "mode": "🧭 Practice:",
+                "principles": "Yama/Niyama",
+                "meridians": "Meridians",
+                "both": "Yama/Niyama + Meridians",
+                "time": "🕐 Time:",
+                "principle_time": "🕐 Yama/Niyama time:",
+                "meridian_time": "☯️ Meridian time:",
+                "timezone": "🌍 Time zone:",
+                "skip": "📅 Skip Yama/Niyama on:",
+                "hint": "You can open /menu at any time to adjust your path, reminders, or meridian practice.",
+            },
+            "ru": {
+                "done": "🎉 **Настройка завершена!**",
+                "settings": "📋 **Ваши настройки:**",
+                "mode": "🧭 Практика:",
+                "principles": "Яма/Нияма",
+                "meridians": "Меридианы",
+                "both": "Яма/Нияма + Меридианы",
+                "time": "🕐 Время:",
+                "principle_time": "🕐 Время Ямы/Ниямы:",
+                "meridian_time": "☯️ Время меридианов:",
+                "timezone": "🌍 Часовой пояс:",
+                "skip": "📅 Пропускать Яму/Нияму:",
+                "hint": "В любой момент можно открыть /menu, изменить путь, напоминания или практику меридианов.",
+            },
+            "uz": {
+                "done": "🎉 **Sozlash yakunlandi!**",
+                "settings": "📋 **Sozlamalaringiz:**",
+                "mode": "🧭 Amaliyot:",
+                "principles": "Yama/Niyama",
+                "meridians": "Meridianlar",
+                "both": "Yama/Niyama + Meridianlar",
+                "time": "🕐 Vaqt:",
+                "principle_time": "🕐 Yama/Niyama vaqti:",
+                "meridian_time": "☯️ Meridian vaqti:",
+                "timezone": "🌍 Vaqt mintaqasi:",
+                "skip": "📅 Yama/Niyamani o'tkazib yuborish:",
+                "hint": "Istalgan vaqtda /menu ni ochib, yo'l, eslatmalar yoki meridian amaliyotini o'zgartirishingiz mumkin.",
+            },
+            "kz": {
+                "done": "🎉 **Баптау аяқталды!**",
+                "settings": "📋 **Баптауларыңыз:**",
+                "mode": "🧭 Тәжірибе:",
+                "principles": "Яма/Нияма",
+                "meridians": "Меридиандар",
+                "both": "Яма/Нияма + Меридиандар",
+                "time": "🕐 Уақыт:",
+                "principle_time": "🕐 Яма/Нияма уақыты:",
+                "meridian_time": "☯️ Меридиан уақыты:",
+                "timezone": "🌍 Уақыт белдеуі:",
+                "skip": "📅 Яма/Нияманы өткізіп жіберу:",
+                "hint": "Кез келген уақытта /menu ашып, жолды, еске салуларды немесе меридиан тәжірибесін өзгерте аласыз.",
+            },
+        }.get(language)
+
+        if user.principles_enabled and user.meridians_enabled:
+            mode = labels["both"]
+        elif user.meridians_enabled:
+            mode = labels["meridians"]
+        else:
+            mode = labels["principles"]
+
+        lines = [
+            labels["done"],
+            "",
+            labels["settings"],
+            f"{labels['mode']} {mode}",
+            f"{labels['timezone']} `{user.timezone}`",
+        ]
+
+        if user.principles_enabled and user.meridians_enabled:
+            lines.extend([
+                f"{labels['principle_time']} `{user.time_for_send}`",
+                f"{labels['meridian_time']} `{user.meridian_time_for_send}`",
+                f"{labels['skip']} {skip_days_display}",
+            ])
+        elif user.principles_enabled:
+            lines.extend([
+                f"{labels['time']} `{user.time_for_send}`",
+                f"{labels['skip']} {skip_days_display}",
+            ])
+        else:
+            lines.append(f"{labels['time']} `{user.meridian_time_for_send}`")
+
+        lines.extend(["", labels["hint"]])
+        return "\n".join(lines)
     
     def _create_timezone_keyboard(self, language: str, add_back_button: bool = False) -> InlineKeyboardMarkup:
         """Create timezone selection keyboard."""
@@ -2535,9 +2681,17 @@ class BotHandlers:
             row = []
             for meridian in meridians[index:index + 2]:
                 localized = meridian.get("i18n", {}).get(language, meridian.get("i18n", {}).get("en", {}))
+                name = localized.get("name", meridian.get("id"))
+                has_points = bool(meridian.get("points"))
+                if not has_points:
+                    name = f"{name} ({self._get_text('coming_soon', language)})"
                 row.append(InlineKeyboardButton(
-                    localized.get("name", meridian.get("id")),
-                    callback_data=f"meridian_select:{meridian.get('id')}"
+                    name,
+                    callback_data=(
+                        f"meridian_select:{meridian.get('id')}"
+                        if has_points
+                        else f"meridian_unavailable:{meridian.get('id')}"
+                    )
                 ))
             keyboard.append(row)
         keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
@@ -2973,11 +3127,29 @@ class BotHandlers:
                 )
                 return
 
+            if action.startswith("unavailable:"):
+                text = f"{self._get_text('no_points', language)}\n\n{self._get_text('choose_meridian', language)}"
+                await self._edit_message_text_safe(
+                    query,
+                    text,
+                    reply_markup=self._create_meridian_choice_keyboard(language),
+                    parse_mode='HTML'
+                )
+                return
+
             if action.startswith("select:"):
                 meridian_id = action.split(":", 1)[1]
                 meridian = self.meridians_manager.get_meridian_by_id(meridian_id)
                 if not meridian:
                     await self._edit_message_text_safe(query, self._get_text("error", language))
+                    return
+                if not meridian.get("points"):
+                    await self._edit_message_text_safe(
+                        query,
+                        f"{self._get_text('no_points', language)}\n\n{self._get_text('choose_meridian', language)}",
+                        reply_markup=self._create_meridian_choice_keyboard(language),
+                        parse_mode='HTML'
+                    )
                     return
                 user.meridian_learning_mode = "free"
                 user.current_meridian_id = meridian_id

@@ -77,6 +77,23 @@ class PrinciplesManager:
 class MeridiansManager:
     """Manager for Chinese meridians study content."""
 
+    RECOMMENDED_PATH = [
+        "conception_vessel",
+        "governing_vessel",
+        "lung",
+        "large_intestine",
+        "stomach",
+        "spleen",
+        "heart",
+        "small_intestine",
+        "bladder",
+        "kidney",
+        "pericardium",
+        "triple_burner",
+        "gallbladder",
+        "liver",
+    ]
+
     def __init__(self, meridians_file: str = "bot/meridians.json"):
         self.meridians_file = meridians_file
         self._meridians: Dict[str, Any] = {"meridians": []}
@@ -95,6 +112,29 @@ class MeridiansManager:
         """Get all meridians."""
         return self._meridians.get("meridians", []).copy()
 
+    def get_available_meridians(self) -> List[Dict[str, Any]]:
+        """Get meridians that have point content ready for practice."""
+        return [
+            meridian
+            for meridian in self.get_all_meridians()
+            if meridian.get("points")
+        ]
+
+    def get_recommended_path_meridians(self) -> List[Dict[str, Any]]:
+        """Get available meridians in the product's recommended study order."""
+        by_id = {meridian.get("id"): meridian for meridian in self.get_all_meridians()}
+        ordered = [
+            by_id[meridian_id]
+            for meridian_id in self.RECOMMENDED_PATH
+            if by_id.get(meridian_id) and by_id[meridian_id].get("points")
+        ]
+        extra_ready = [
+            meridian
+            for meridian in self.get_available_meridians()
+            if meridian.get("id") not in self.RECOMMENDED_PATH
+        ]
+        return ordered + extra_ready
+
     def get_meridian_by_id(self, meridian_id: str) -> Optional[Dict[str, Any]]:
         """Get meridian by ID."""
         for meridian in self._meridians.get("meridians", []):
@@ -104,12 +144,12 @@ class MeridiansManager:
 
     def get_first_meridian(self) -> Optional[Dict[str, Any]]:
         """Get the first meridian in the recommended path."""
-        meridians = self.get_all_meridians()
+        meridians = self.get_recommended_path_meridians() or self.get_all_meridians()
         return meridians[0] if meridians else None
 
     def get_next_meridian(self, current_meridian_id: Optional[str], completed_ids: List[str] = None) -> Optional[Dict[str, Any]]:
         """Get the next meridian after the current one, preferring incomplete meridians."""
-        meridians = self.get_all_meridians()
+        meridians = self.get_recommended_path_meridians() or self.get_all_meridians()
         if not meridians:
             return None
 
