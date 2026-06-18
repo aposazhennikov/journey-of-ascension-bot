@@ -575,13 +575,14 @@ TEXTS_UPDATE = {
             "Let's start with choosing your preferred language:"
         ),
         "onboarding_intro": (
-            "**Journey of Ascension**\n\n"
+            "<b>Journey of Ascension</b>\n\n"
             "This bot is a companion for gradual inner practice.\n\n"
-            "It sends daily reminders about the principles of **Yama and Niyama**, helping you gently bring them into everyday life.\n\n"
-            "**Yama and Niyama** are the ethical foundation. They help keep attention, energy, and daily actions aligned.\n\n"
-            "The bot also supports studying **Chinese meridians**: observing channels and points through body sensation, breath, attention, and inner images.\n\n"
-            "First we will set up your daily Yama/Niyama reminder. Later you can open the menu and enable meridian practice too."
+            "It sends daily reminders about the principles of <b>Yama and Niyama</b>, helping you gently bring them into everyday life.\n\n"
+            "<b>Yama and Niyama</b> are the ethical foundation. They help keep attention, energy, and daily actions aligned.\n\n"
+            "The bot also supports studying <b>Chinese meridians</b>: observing channels and points through body sensation, breath, attention, and inner images.\n\n"
+            "What would you like to study?"
         ),
+        "initial_mode_question": "What would you like to study?",
         "continue_setup": "Continue",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Meridians",
@@ -589,9 +590,9 @@ TEXTS_UPDATE = {
         "change_modes": "🧭 Practice Modes",
         "change_meridian_time": "🌿 Meridian Time",
         "mode_menu": "🧭 **Practice Modes**\n\nChoose what daily practices should be active.",
-        "mode_principles_only": "Yama/Niyama only",
-        "mode_meridians_only": "Meridians only",
-        "mode_both": "Both practices",
+        "mode_principles_only": "Moral principles: Yama/Niyama",
+        "mode_meridians_only": "Chinese meridians",
+        "mode_both": "All together",
         "mode_saved": "✅ Practice modes saved.",
         "meridian_time_step": "🌿 **Meridian Reminder Time**\n\nEnter time in HH:MM format, for example 20:00.",
         "meridian_time_saved": "✅ Meridian reminder time saved.",
@@ -624,7 +625,7 @@ TEXTS_UPDATE = {
             "🕐 Time: {time}\n"
             "🌍 Time Zone: {timezone}\n"
             "📅 Skip Days: {skip_days}\n\n"
-            "Yama/Niyama is enabled by default as the foundation. You can open /menu to enable meridians or choose another practice mode."
+            "You can open /menu at any time to change your practice mode or explore meridians."
         )
     },
     "ru": {
@@ -635,13 +636,14 @@ TEXTS_UPDATE = {
             "Начнём с выбора языка:"
         ),
         "onboarding_intro": (
-            "**Journey of Ascension**\n\n"
+            "<b>Journey of Ascension</b>\n\n"
             "Этот бот помогает выстроить постепенную внутреннюю практику.\n\n"
-            "Он отправляет ежедневные напоминания о принципах **Ямы и Ниямы**, помогая плавно внедрять их в свою жизнь.\n\n"
-            "**Яма и Нияма** — нравственный фундамент. Они помогают не рассеивать внимание, энергию и внутреннюю силу в повседневных действиях.\n\n"
-            "Также в боте есть возможность изучать **китайские меридианы**: наблюдать каналы и точки через ощущения тела, дыхание, внимание и внутренние образы.\n\n"
-            "Сначала настроим ежедневное напоминание по Яме/Нияме. Позже в меню можно будет включить практику меридианов."
+            "Он отправляет ежедневные напоминания о принципах <b>Ямы и Ниямы</b>, помогая плавно внедрять их в свою жизнь.\n\n"
+            "<b>Яма и Нияма</b> — нравственный фундамент. Они помогают не рассеивать внимание, энергию и внутреннюю силу в повседневных действиях.\n\n"
+            "Также в боте есть возможность изучать <b>китайские меридианы</b>: наблюдать каналы и точки через ощущения тела, дыхание, внимание и внутренние образы.\n\n"
+            "Что вы хотели бы изучать?"
         ),
+        "initial_mode_question": "Что вы хотели бы изучать?",
         "continue_setup": "Продолжить",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Меридианы",
@@ -649,9 +651,9 @@ TEXTS_UPDATE = {
         "change_modes": "🧭 Режимы практики",
         "change_meridian_time": "🌿 Время меридианов",
         "mode_menu": "🧭 **Режимы практики**\n\nВыберите, какие ежедневные практики должны быть активны.",
-        "mode_principles_only": "Только Яма/Нияма",
-        "mode_meridians_only": "Только меридианы",
-        "mode_both": "Обе практики",
+        "mode_principles_only": "Нравственные принципы Ямы и Ниямы",
+        "mode_meridians_only": "Китайские меридианы",
+        "mode_both": "Все вместе",
         "mode_saved": "✅ Режимы практики сохранены.",
         "meridian_time_step": "🌿 **Время напоминания по меридианам**\n\nВведите время в формате ЧЧ:ММ, например 20:00.",
         "meridian_time_saved": "✅ Время напоминаний по меридианам сохранено.",
@@ -684,7 +686,7 @@ TEXTS_UPDATE = {
             "🕐 Время: {time}\n"
             "🌍 Часовой пояс: {timezone}\n"
             "📅 Пропускать: {skip_days}\n\n"
-            "Яма/Нияма включена по умолчанию как фундамент. Откройте /menu, чтобы включить меридианы или выбрать другой режим практики."
+            "В любой момент можно открыть /menu, изменить режим практики или перейти к изучению меридианов."
         )
     },
     "uz": {
@@ -695,13 +697,14 @@ TEXTS_UPDATE = {
             "Avval tilni tanlaymiz:"
         ),
         "onboarding_intro": (
-            "**Journey of Ascension**\n\n"
+            "<b>Journey of Ascension</b>\n\n"
             "Bu bot bosqichma-bosqich ichki amaliyot uchun hamroh bo'ladi.\n\n"
-            "U **Yama va Niyama** tamoyillari bo'yicha kundalik eslatmalar yuboradi va ularni hayotga asta-sekin kiritishga yordam beradi.\n\n"
-            "**Yama va Niyama** axloqiy poydevordir. Ular diqqat, energiya va kundalik harakatlarni uyg'un saqlashga yordam beradi.\n\n"
-            "Bot orqali **Xitoy meridianlari**ni ham o'rganish mumkin: tana sezgisi, nafas, diqqat va ichki obrazlar orqali kanallar va nuqtalarni kuzatish.\n\n"
-            "Avval kundalik Yama/Niyama eslatmasini sozlaymiz. Keyin menyudan meridian amaliyotini ham yoqishingiz mumkin."
+            "U <b>Yama va Niyama</b> tamoyillari bo'yicha kundalik eslatmalar yuboradi va ularni hayotga asta-sekin kiritishga yordam beradi.\n\n"
+            "<b>Yama va Niyama</b> axloqiy poydevordir. Ular diqqat, energiya va kundalik harakatlarni uyg'un saqlashga yordam beradi.\n\n"
+            "Bot orqali <b>Xitoy meridianlari</b>ni ham o'rganish mumkin: tana sezgisi, nafas, diqqat va ichki obrazlar orqali kanallar va nuqtalarni kuzatish.\n\n"
+            "Nimani o'rganmoqchisiz?"
         ),
+        "initial_mode_question": "Nimani o'rganmoqchisiz?",
         "continue_setup": "Davom etish",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Meridianlar",
@@ -709,9 +712,9 @@ TEXTS_UPDATE = {
         "change_modes": "🧭 Amaliyot rejimlari",
         "change_meridian_time": "🌿 Meridian vaqti",
         "mode_menu": "🧭 **Amaliyot rejimlari**\n\nQaysi kundalik amaliyotlar faol bo'lishini tanlang.",
-        "mode_principles_only": "Faqat Yama/Niyama",
-        "mode_meridians_only": "Faqat meridianlar",
-        "mode_both": "Ikkala amaliyot",
+        "mode_principles_only": "Axloqiy tamoyillar: Yama/Niyama",
+        "mode_meridians_only": "Xitoy meridianlari",
+        "mode_both": "Hammasi birga",
         "mode_saved": "✅ Amaliyot rejimlari saqlandi.",
         "meridian_time_step": "🌿 **Meridian eslatma vaqti**\n\nVaqtni HH:MM formatida kiriting, masalan 20:00.",
         "meridian_time_saved": "✅ Meridian eslatma vaqti saqlandi.",
@@ -744,7 +747,7 @@ TEXTS_UPDATE = {
             "🕐 Vaqt: {time}\n"
             "🌍 Vaqt mintaqasi: {timezone}\n"
             "📅 O'tkazib yuborish kunlari: {skip_days}\n\n"
-            "Yama/Niyama poydevor sifatida avtomatik yoqilgan. Meridianlarni yoqish yoki boshqa rejim tanlash uchun /menu ni oching."
+            "Istalgan vaqtda /menu orqali amaliyot rejimini o'zgartirish yoki meridianlarni o'rganishga o'tish mumkin."
         )
     },
     "kz": {
@@ -755,13 +758,14 @@ TEXTS_UPDATE = {
             "Алдымен тілді таңдайық:"
         ),
         "onboarding_intro": (
-            "**Journey of Ascension**\n\n"
+            "<b>Journey of Ascension</b>\n\n"
             "Бұл бот біртіндеп ішкі тәжірибені құруға көмектеседі.\n\n"
-            "Ол **Яма мен Нияма** қағидалары туралы күнделікті еске салулар жіберіп, оларды өмірге біртіндеп енгізуге көмектеседі.\n\n"
-            "**Яма мен Нияма** — адамгершілік негіз. Олар зейінді, энергияны және күнделікті әрекеттерді үйлесімде ұстауға көмектеседі.\n\n"
-            "Бот арқылы **қытай меридиандарын** да зерттеуге болады: дене сезімі, тыныс, зейін және ішкі бейнелер арқылы арналар мен нүктелерді бақылау.\n\n"
-            "Алдымен күнделікті Яма/Нияма еске салуын баптаймыз. Кейін мәзірден меридиан тәжірибесін де қоса аласыз."
+            "Ол <b>Яма мен Нияма</b> қағидалары туралы күнделікті еске салулар жіберіп, оларды өмірге біртіндеп енгізуге көмектеседі.\n\n"
+            "<b>Яма мен Нияма</b> — адамгершілік негіз. Олар зейінді, энергияны және күнделікті әрекеттерді үйлесімде ұстауға көмектеседі.\n\n"
+            "Бот арқылы <b>қытай меридиандарын</b> да зерттеуге болады: дене сезімі, тыныс, зейін және ішкі бейнелер арқылы арналар мен нүктелерді бақылау.\n\n"
+            "Нені зерттегіңіз келеді?"
         ),
+        "initial_mode_question": "Нені зерттегіңіз келеді?",
         "continue_setup": "Жалғастыру",
         "menu": "📋 **Journey of Ascension**",
         "menu_meridians": "🌿 Меридиандар",
@@ -769,9 +773,9 @@ TEXTS_UPDATE = {
         "change_modes": "🧭 Тәжірибе режимдері",
         "change_meridian_time": "🌿 Меридиан уақыты",
         "mode_menu": "🧭 **Тәжірибе режимдері**\n\nҚай күнделікті тәжірибелер белсенді болатынын таңдаңыз.",
-        "mode_principles_only": "Тек Яма/Нияма",
-        "mode_meridians_only": "Тек меридиандар",
-        "mode_both": "Екі тәжірибе де",
+        "mode_principles_only": "Адамгершілік қағидалары: Яма/Нияма",
+        "mode_meridians_only": "Қытай меридиандары",
+        "mode_both": "Барлығы бірге",
         "mode_saved": "✅ Тәжірибе режимдері сақталды.",
         "meridian_time_step": "🌿 **Меридиан еске салу уақыты**\n\nУақытты HH:MM форматында енгізіңіз, мысалы 20:00.",
         "meridian_time_saved": "✅ Меридиан еске салу уақыты сақталды.",
@@ -804,7 +808,7 @@ TEXTS_UPDATE = {
             "🕐 Уақыт: {time}\n"
             "🌍 Уақыт белдеуі: {timezone}\n"
             "📅 Өткізіп жіберу күндері: {skip_days}\n\n"
-            "Яма/Нияма негіз ретінде әдепкі бойынша қосулы. Меридиандарды қосу немесе басқа режим таңдау үшін /menu ашыңыз."
+            "Кез келген уақытта /menu арқылы тәжірибе режимін өзгертуге немесе меридиандарды зерттеуге өтуге болады."
         )
     }
 }
@@ -857,7 +861,7 @@ class BotHandlers:
         
         # Callback query handlers.
         self.application.add_handler(CallbackQueryHandler(self._handle_language_callback, pattern="^lang_"))
-        self.application.add_handler(CallbackQueryHandler(self._handle_intro_callback, pattern="^intro_continue$"))
+        self.application.add_handler(CallbackQueryHandler(self._handle_intro_callback, pattern="^intro_mode_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_timezone_callback, pattern="^tz_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_skipday_callback, pattern="^skipday_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_menu_callback, pattern="^menu_"))
@@ -976,21 +980,20 @@ class BotHandlers:
                 confirmation = self._get_text("language_chosen", language)
                 intro_msg = self._get_text("onboarding_intro", language)
                 combined_msg = f"{confirmation}\n\n{intro_msg}"
-                keyboard = InlineKeyboardMarkup([[
-                    InlineKeyboardButton(self._get_text("continue_setup", language), callback_data="intro_continue")
-                ]])
+                keyboard = self._create_registration_modes_keyboard(language)
                 
                 logger.debug(f"Sending onboarding intro in {language} to user {chat_id}")
-                await query.edit_message_text(combined_msg, reply_markup=keyboard, parse_mode='Markdown')
+                await query.edit_message_text(combined_msg, reply_markup=keyboard, parse_mode='HTML')
             
         except Exception as e:
             logger.error(f"Error in language callback for user {chat_id}: {e}")
             await query.edit_message_text(self._get_text("error", language))
 
     async def _handle_intro_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-        """Continue from onboarding intro to timezone selection."""
+        """Save initial practice mode and continue to timezone selection."""
         query = update.callback_query
         chat_id = query.message.chat.id
+        mode = query.data.rsplit("_", 1)[1]
 
         try:
             await query.answer()
@@ -1000,6 +1003,8 @@ class BotHandlers:
                 return
 
             language = user_state["language"]
+            user_state["principles_enabled"] = mode in ["principles", "both"]
+            user_state["meridians_enabled"] = mode in ["meridians", "both"]
             user_state["step"] = "timezone"
             text = self._get_text("timezone_step", language)
             keyboard = self._create_timezone_keyboard(language)
@@ -1221,9 +1226,17 @@ class BotHandlers:
                 language=language,
                 timezone=user_state["timezone"],
                 time_for_send=user_state["time"],
+                meridian_time_for_send=user_state["time"],
                 skip_day_id=selected_days,
+                principles_enabled=user_state.get("principles_enabled", True),
+                meridians_enabled=user_state.get("meridians_enabled", False),
                 is_active=True
             )
+            if user.meridians_enabled and not user.current_meridian_id:
+                first_meridian = self.meridians_manager.get_first_meridian()
+                if first_meridian:
+                    user.current_meridian_id = first_meridian["id"]
+                    user.current_point_index = -1
             
             success = await self.storage.save_user(user)
             if success:
@@ -1923,6 +1936,14 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("mode_meridians_only", language), callback_data="mode_meridians")],
             [InlineKeyboardButton(self._get_text("mode_both", language), callback_data="mode_both")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+        ])
+
+    def _create_registration_modes_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create initial practice mode keyboard for new-user onboarding."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("mode_meridians_only", language), callback_data="intro_mode_meridians")],
+            [InlineKeyboardButton(self._get_text("mode_principles_only", language), callback_data="intro_mode_principles")],
+            [InlineKeyboardButton(self._get_text("mode_both", language), callback_data="intro_mode_both")],
         ])
 
     def _create_meridians_menu_keyboard(self, language: str) -> InlineKeyboardMarkup:
