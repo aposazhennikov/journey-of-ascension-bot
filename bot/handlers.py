@@ -2,6 +2,7 @@
 
 import asyncio
 import logging
+import re
 from html import escape
 from typing import List, Dict, Any, Optional
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaAnimation
@@ -1243,7 +1244,11 @@ class BotHandlers:
     def _get_text(self, key: str, language: str = "en", **kwargs) -> str:
         """Get localized text."""
         return TEXTS.get(language, TEXTS["en"]).get(key, key).format(**kwargs)
-    
+
+    def _as_html(self, text: str) -> str:
+        """Normalize legacy Markdown-bold text for HTML parse mode."""
+        return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text)
+
     def _get_admin_text(self, key: str, **kwargs) -> str:
         """Get admin text."""
         return ADMIN_TEXTS.get(key, key).format(**kwargs)
@@ -1461,11 +1466,11 @@ class BotHandlers:
                     logger.debug(f"Cleared dialog for user {chat_id} before language change")
                     
                     confirmation = self._get_text("language_chosen", language)
-                    text = f"{confirmation}\n\n{self._get_text('menu', language)}"
+                    text = self._as_html(f"{confirmation}\n\n{self._get_text('menu', language)}")
                     keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                     logger.debug(f"Sending menu in {language} to user {chat_id}")
                     
-                    message = await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+                    message = await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                     if message:
                         await self.storage.add_bot_message(chat_id, message.message_id, "menu")
                         logger.debug(f"Stored menu message for user {chat_id}")
@@ -1570,9 +1575,9 @@ class BotHandlers:
                                 # Clean up state and show menu
                                 del self.user_states[chat_id]
                                 
-                                text = f"{self._get_text('timezone_saved', language)}\n\n{self._get_text('menu', language)}"
+                                text = self._as_html(f"{self._get_text('timezone_saved', language)}\n\n{self._get_text('menu', language)}")
                                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-                                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+                                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                             else:
                                 await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='Markdown')
                     else:
@@ -1824,19 +1829,19 @@ class BotHandlers:
                 skip_days=skip_days_display
             )
             mode_text = {
-                "en": f"\n🧭 Practice modes: Yama/Niyama={'on' if user.principles_enabled else 'off'}, Meridians={'on' if user.meridians_enabled else 'off'}\n🌿 Meridian time: `{user.meridian_time_for_send}`",
-                "ru": f"\n🧭 Режимы: Яма/Нияма={'вкл' if user.principles_enabled else 'выкл'}, Меридианы={'вкл' if user.meridians_enabled else 'выкл'}\n🌿 Время меридианов: `{user.meridian_time_for_send}`",
-                "uz": f"\n🧭 Rejimlar: Yama/Niyama={'yoqilgan' if user.principles_enabled else 'o‘chirilgan'}, Meridianlar={'yoqilgan' if user.meridians_enabled else 'o‘chirilgan'}\n🌿 Meridian vaqti: `{user.meridian_time_for_send}`",
-                "kz": f"\n🧭 Режимдер: Яма/Нияма={'қосулы' if user.principles_enabled else 'өшірулі'}, Меридиандар={'қосулы' if user.meridians_enabled else 'өшірулі'}\n🌿 Меридиан уақыты: `{user.meridian_time_for_send}`"
+                "en": f"\n🧭 Practice modes: Yama/Niyama={'on' if user.principles_enabled else 'off'}, Meridians={'on' if user.meridians_enabled else 'off'}\n🌿 Meridian time: {user.meridian_time_for_send}",
+                "ru": f"\n🧭 Режимы: Яма/Нияма={'вкл' if user.principles_enabled else 'выкл'}, Меридианы={'вкл' if user.meridians_enabled else 'выкл'}\n🌿 Время меридианов: {user.meridian_time_for_send}",
+                "uz": f"\n🧭 Rejimlar: Yama/Niyama={'yoqilgan' if user.principles_enabled else 'o‘chirilgan'}, Meridianlar={'yoqilgan' if user.meridians_enabled else 'o‘chirilgan'}\n🌿 Meridian vaqti: {user.meridian_time_for_send}",
+                "kz": f"\n🧭 Режимдер: Яма/Нияма={'қосулы' if user.principles_enabled else 'өшірулі'}, Меридиандар={'қосулы' if user.meridians_enabled else 'өшірулі'}\n🌿 Меридиан уақыты: {user.meridian_time_for_send}"
             }.get(user.language, "")
             text += mode_text
-            
+
             # Show settings menu instead of just text
-            text += f"\n\n{self._get_text('settings_menu', language=user.language)}"
+            text = self._as_html(f"{text}\n\n{self._get_text('settings_menu', language=user.language)}")
             keyboard = self._create_settings_menu_keyboard(user.language)
-            
-            await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
-            
+
+            await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
+
         except Exception as e:
             logger.error(f"Error in settings handler for user {chat_id}: {e}")
             # Try to get user language for error message
@@ -1865,7 +1870,7 @@ class BotHandlers:
             if not success:
                 text = self._get_text("test_failed", user.language)
                 await update.message.reply_text(text)
-                
+
         except Exception as e:
             logger.error(f"Error in test handler for user {chat_id}: {e}")
             # Try to get user language for error message
@@ -2747,12 +2752,12 @@ class BotHandlers:
             if not user or not user.is_active:
                 await update.message.reply_text(self._get_text("not_subscribed_test", language))
                 return
-            
-            text = self._get_text("menu", language)
+
+            text = self._as_html(self._get_text("menu", language))
             keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-            
-            await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
-            
+
+            await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
+
         except Exception as e:
             logger.error(f"Error in menu handler for user {chat_id}: {e}")
             # Try to get user language for error message
@@ -2776,9 +2781,9 @@ class BotHandlers:
             language = user.language if user else "en"
             
             if action == "settings":
-                text = self._get_text("settings_menu", language)
+                text = self._as_html(self._get_text("settings_menu", language))
                 keyboard = self._create_settings_menu_keyboard(language)
-                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
             elif action == "principles":
                 text = self._get_text("principles_menu", language)
@@ -2803,9 +2808,9 @@ class BotHandlers:
                 await self._edit_message_text_safe(query, self._get_text("sending_test", language))
                 success = await self.scheduler.send_test_message(chat_id, language)
                 if success:
-                    text = self._get_text("menu", language)
+                    text = self._as_html(self._get_text("menu", language))
                     keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-                    await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+                    await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                 else:
                     await self._edit_message_text_safe(query, self._get_text("test_failed", language))
                     
@@ -2820,22 +2825,22 @@ class BotHandlers:
                 
                 text = self._get_text("feedback_prompt", language)
                 keyboard = [[InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]]
-                await self._edit_message_text_safe(query, text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='HTML')
                 
             elif action == "stop":
                 success = await self.storage.deactivate_user(chat_id)
                 if success:
                     await self.scheduler.remove_user_jobs(chat_id)
                     self.user_states[chat_id] = {"step": "stop_feedback", "language": language}
-                    text = f"{self._get_text('unsubscribed', language)}\n\n{self._get_text('stop_feedback_prompt', language)}"
-                    await self._edit_message_text_safe(query, text, parse_mode='Markdown')
+                    text = self._as_html(f"{self._get_text('unsubscribed', language)}\n\n{self._get_text('stop_feedback_prompt', language)}")
+                    await self._edit_message_text_safe(query, text, parse_mode='HTML')
                 else:
                     await self._edit_message_text_safe(query, self._get_text("not_subscribed", language))
                     
             elif action == "main":
-                text = self._get_text("menu", language)
+                text = self._as_html(self._get_text("menu", language))
                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                 
         except Exception as e:
             logger.error(f"Error in menu callback for user {chat_id}: {e}")
@@ -2902,9 +2907,9 @@ class BotHandlers:
             user = await self.storage.get_user(chat_id)
             language = user.language if user else "en"
             
-            text = self._get_text("settings_menu", language)
+            text = self._as_html(self._get_text("settings_menu", language))
             keyboard = self._create_settings_menu_keyboard(language)
-            await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
+            await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
             
         except Exception as e:
             logger.error(f"Error in settings callback for user {chat_id}: {e}")

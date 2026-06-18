@@ -81,6 +81,10 @@ def allow_basic_html(value: str) -> str:
     return escaped
 
 
+def normalize_bot_html(value: str) -> str:
+    return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", value or "")
+
+
 def localized(item: dict[str, Any], language: str, key: str, default: str = "") -> str:
     i18n = item.get("i18n", {})
     return i18n.get(language, i18n.get("en", {})).get(key, default)
@@ -275,8 +279,9 @@ def render_html(output: Path) -> None:
         principle = principles[language][0]
         sections.append(f"<div class='locale'><h1>{language.upper()}</h1>")
         sections.append(message("Onboarding intro", allow_basic_html(t["onboarding_intro"]), [[t["mode_meridians_only"]], [t["mode_principles_only"]], [t["mode_both"]]]))
-        sections.append(message("Main menu", allow_basic_html(t["menu"]), kb["main"]))
+        sections.append(message("Main menu", allow_basic_html(normalize_bot_html(t["menu"])), kb["main"]))
         sections.append(message("My Path", allow_basic_html(t["mode_menu"]), [[t["mode_principles_only"]], [t["mode_meridians_only"]], [t["mode_both"]], [t["back_to_menu"]]]))
+        sections.append(message("Settings", allow_basic_html(normalize_bot_html(t["settings_menu"])), [[t["change_modes"], t["change_meridian_time"]], [t["back_to_menu"]]]))
         sections.append(message("About", allow_basic_html(t["about_text"]), [[t["back_to_menu"]]]))
         sections.append(message("Meridians home", allow_basic_html(t["meridians_menu"]), kb["meridians_home"]))
         sections.append(message("TCM measurements", allow_basic_html(t["meridian_measurements_text"]), [[t["meridian_back"]]]))
@@ -365,6 +370,23 @@ def audit() -> list[str]:
         missing = sorted(set(texts["en"].keys()) - set(texts.get(language, {}).keys()))
         if missing:
             issues.append(f"{language}: missing text keys: {', '.join(missing[:12])}")
+
+        html_keys = (
+            "menu",
+            "settings_menu",
+            "feedback_prompt",
+            "about_text",
+            "principles_menu",
+            "mode_menu",
+            "meridians_menu",
+            "meridian_measurements_text",
+        )
+        for key in html_keys:
+            value = normalize_bot_html(texts.get(language, {}).get(key, ""))
+            if "**" in value:
+                issues.append(f"{language}: {key} leaves Markdown bold in HTML text")
+            if key in {"menu", "settings_menu"} and "<b>" not in value:
+                issues.append(f"{language}: {key} has no bold title after HTML normalization")
 
     for relative_path in ("bot/handlers.py", "bot/utils.py"):
         source = (ROOT / relative_path).read_text(encoding="utf-8-sig")
