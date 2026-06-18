@@ -683,6 +683,7 @@ TEXTS_UPDATE = {
         ),
         "choose_meridian": "☯️ <b>Choose a meridian:</b>",
         "current_meridian": "Continue practice",
+        "meridian_start_points": "Start with point 1",
         "all_points": "All points",
         "next_point": "Next point",
         "prev_point": "Previous point",
@@ -827,6 +828,7 @@ TEXTS_UPDATE = {
         ),
         "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
         "current_meridian": "Продолжить практику",
+        "meridian_start_points": "Начать с первой точки",
         "all_points": "Все точки",
         "next_point": "Следующая точка",
         "prev_point": "Предыдущая точка",
@@ -971,6 +973,7 @@ TEXTS_UPDATE = {
         ),
         "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
         "current_meridian": "Amaliyotni davom ettirish",
+        "meridian_start_points": "1-nuqtadan boshlash",
         "all_points": "Barcha nuqtalar",
         "next_point": "Keyingi nuqta",
         "prev_point": "Oldingi nuqta",
@@ -1129,6 +1132,7 @@ TEXTS_UPDATE = {
         ),
         "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
         "current_meridian": "Тәжірибені жалғастыру",
+        "meridian_start_points": "1-нүктеден бастау",
         "all_points": "Барлық нүктелер",
         "next_point": "Келесі нүкте",
         "prev_point": "Алдыңғы нүкте",
@@ -2650,19 +2654,41 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
-    def _create_meridian_practice_keyboard(self, language: str) -> InlineKeyboardMarkup:
+    def _create_meridian_practice_keyboard(
+        self,
+        language: str,
+        at_intro: bool = False,
+        point_index: Optional[int] = None,
+        points_count: Optional[int] = None
+    ) -> InlineKeyboardMarkup:
         """Create navigation keyboard for an opened meridian or point."""
-        return InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(self._get_text("prev_point", language), callback_data="meridian_prev"),
-                InlineKeyboardButton(self._get_text("next_point", language), callback_data="meridian_next")
-            ],
+        if at_intro:
+            return InlineKeyboardMarkup([
+                [InlineKeyboardButton(self._get_text("meridian_start_points", language), callback_data="meridian_next")],
+                [
+                    InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
+                    InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")
+                ],
+                [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
+            ])
+
+        navigation_row = []
+        if point_index is None or point_index > 0:
+            navigation_row.append(InlineKeyboardButton(self._get_text("prev_point", language), callback_data="meridian_prev"))
+        if point_index is None or points_count is None or point_index < points_count - 1:
+            navigation_row.append(InlineKeyboardButton(self._get_text("next_point", language), callback_data="meridian_next"))
+
+        keyboard = []
+        if navigation_row:
+            keyboard.append(navigation_row)
+        keyboard.extend([
             [
                 InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
                 InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")
             ],
             [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
         ])
+        return InlineKeyboardMarkup(keyboard)
 
     def _create_meridian_path_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create meridian learning mode selection keyboard."""
@@ -3115,7 +3141,7 @@ class BotHandlers:
                     await self._edit_message_text_safe(
                         query,
                         text,
-                        reply_markup=self._create_meridian_practice_keyboard(language),
+                        reply_markup=self._create_meridian_practice_keyboard(language, at_intro=True),
                         parse_mode='HTML'
                     )
                     return
@@ -3191,7 +3217,7 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridian_practice_keyboard(language),
+                    self._create_meridian_practice_keyboard(language, at_intro=True),
                     language,
                     meridian.get("id")
                 )
@@ -3226,7 +3252,12 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridian_practice_keyboard(language),
+                    self._create_meridian_practice_keyboard(
+                        language,
+                        at_intro=user.current_point_index < 0,
+                        point_index=user.current_point_index if user.current_point_index >= 0 else None,
+                        points_count=len(points)
+                    ),
                     language,
                     meridian.get("id"),
                     point_code
@@ -3268,7 +3299,7 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridian_practice_keyboard(language),
+                    self._create_meridian_practice_keyboard(language, point_index=point_index, points_count=len(points)),
                     language,
                     meridian.get("id"),
                     point_code
@@ -3289,7 +3320,7 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridian_practice_keyboard(language),
+                    self._create_meridian_practice_keyboard(language, point_index=user.current_point_index, points_count=len(points)),
                     language,
                     meridian.get("id"),
                     point_code
@@ -3311,7 +3342,7 @@ class BotHandlers:
 
                 await self.storage.save_user(user)
                 text = self._get_text("meridian_completed", language)
-                keyboard = self._create_meridian_practice_keyboard(language) if user.current_meridian_id else self._create_meridian_choice_keyboard(language)
+                keyboard = self._create_meridian_practice_keyboard(language, at_intro=True) if user.current_meridian_id else self._create_meridian_choice_keyboard(language)
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:

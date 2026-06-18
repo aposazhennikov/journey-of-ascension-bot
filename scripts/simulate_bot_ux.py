@@ -591,11 +591,21 @@ def render(output: Path) -> None:
       const html = state.currentPointIndex >= 0 && item.points[state.currentPointIndex]
         ? item.points[state.currentPointIndex].detail[state.language]
         : item.intro[state.language];
-      show('Current focus', html, [
-        [{{ label: t('prev_point'), action: prevPoint, disabled: item.pointsCount === 0 }}, {{ label: t('next_point'), action: nextPoint, disabled: item.pointsCount === 0 }}],
-        [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('complete_meridian'), action: completeMeridian }}],
-        [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
-      ]);
+      const buttons = state.currentPointIndex < 0
+        ? [
+          [{{ label: t('meridian_start_points'), action: nextPoint, disabled: item.pointsCount === 0 }}],
+          [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('complete_meridian'), action: completeMeridian }}],
+          [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
+        ]
+        : [
+          [
+            ...(state.currentPointIndex > 0 ? [{{ label: t('prev_point'), action: prevPoint, disabled: item.pointsCount === 0 }}] : []),
+            ...(state.currentPointIndex < item.pointsCount - 1 ? [{{ label: t('next_point'), action: nextPoint, disabled: item.pointsCount === 0 }}] : []),
+          ],
+          [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('complete_meridian'), action: completeMeridian }}],
+          [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
+        ];
+      show('Current focus', html, buttons);
     }}
 
     function nextPoint() {{
