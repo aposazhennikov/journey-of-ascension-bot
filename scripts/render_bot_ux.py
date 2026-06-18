@@ -212,6 +212,7 @@ def render_html(output: Path) -> None:
     principles = load_json("bot/principles.json")
     lung = next(item for item in meridians if item["id"] == "lung")
     large_intestine = next(item for item in meridians if item["id"] == "large_intestine")
+    stomach = next(item for item in meridians if item["id"] == "stomach")
     conception = next(item for item in meridians if item["id"] == "conception_vessel")
     governing = next(item for item in meridians if item["id"] == "governing_vessel")
 
@@ -231,6 +232,8 @@ def render_html(output: Path) -> None:
         sections.append(message("Lung Meridian point 1", format_meridian_point(lung, 0, language), kb["meridian_practice"]))
         sections.append(message("Large Intestine intro", format_meridian_intro(large_intestine, language), kb["meridian_practice"]))
         sections.append(message("Large Intestine point 1", format_meridian_point(large_intestine, 0, language), kb["meridian_practice"]))
+        sections.append(message("Stomach Meridian intro", format_meridian_intro(stomach, language), kb["meridian_practice"]))
+        sections.append(message("Stomach Meridian point 1", format_meridian_point(stomach, 0, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel intro", format_meridian_intro(conception, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 1", format_meridian_point(conception, 0, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 3", format_meridian_point(conception, 2, language), kb["meridian_practice"]))

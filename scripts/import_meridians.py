@@ -107,6 +107,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "stomach",
+        "category_id": 19,
+        "source_url": "https://shiyanbin.ru/meridian-zheludka-e/",
+        "active_time": "07:00-09:00",
+        "passive_time": "19:00-21:00",
+        "names": {
+            "en": "Stomach Meridian",
+            "ru": "Меридиан желудка",
+            "uz": "Oshqozon meridiani",
+            "kz": "Асқазан меридианы",
+        },
+        "direction": {
+            "en": "From the face downward through the neck, chest, abdomen, front of the leg, and foot.",
+            "ru": "От лица вниз через шею, грудь, живот, переднюю поверхность ноги и стопу.",
+            "uz": "Yuzdan pastga bo'yin, ko'krak, qorin, oyoqning old yuzasi va panja orqali.",
+            "kz": "Беттен төмен қарай мойын, кеуде, іш, аяқтың алдыңғы беті және табан арқылы.",
+        },
+        "intro": {
+            "en": "The Stomach Meridian is used here as a map for observing nourishment, grounding, the front of the body, the legs, and the ability to receive life without inner haste.",
+            "ru": "Меридиан желудка здесь используется как карта наблюдения питания, опоры, передней линии тела, ног и способности принимать жизнь без внутренней спешки.",
+            "uz": "Oshqozon meridiani bu yerda oziqlanish, tayanch, tananing old chizig'i, oyoqlar va hayotni ichki shoshilmasdan qabul qilish qobiliyatini kuzatish xaritasi sifatida ishlatiladi.",
+            "kz": "Асқазан меридианы бұл жерде қоректенуді, тіректі, дененің алдыңғы сызығын, аяқтарды және өмірді ішкі асығыстықсыз қабылдау қабілетін бақылау картасы ретінде қолданылады.",
+        },
+        "practice": {
+            "en": "Soften the face, jaw, abdomen, and thighs. Let attention descend from the face through the front of the body and legs, noticing where the channel feels full, tense, empty, or silent.",
+            "ru": "Смягчите лицо, челюсть, живот и бёдра. Ведите внимание от лица вниз по передней стороне тела и ног, замечая, где канал ощущается наполненным, напряжённым, пустым или молчащим.",
+            "uz": "Yuz, jag', qorin va sonlarni yumshating. Diqqatni yuzdan tananing old tomoni va oyoqlar bo'ylab pastga olib boring, kanal qayerda to'la, tarang, bo'sh yoki jimdek sezilishini kuzating.",
+            "kz": "Бетті, жақты, ішті және санды жұмсартыңыз. Зейінді беттен дененің алдыңғы жағы мен аяқтар бойымен төмен жүргізіп, арна қай жерде толық, қысылған, бос немесе үнсіз сияқты екенін байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
