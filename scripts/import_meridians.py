@@ -325,6 +325,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "triple_burner",
+        "category_id": 26,
+        "source_url": "https://shiyanbin.ru/meridian-treh-obogrevatelej-tr/",
+        "active_time": "21:00-23:00",
+        "passive_time": "09:00-11:00",
+        "names": {
+            "en": "Triple Burner Meridian",
+            "ru": "Меридиан трёх обогревателей",
+            "uz": "Uch isituvchi meridiani",
+            "kz": "Үш жылытқыш меридианы",
+        },
+        "direction": {
+            "en": "From the ring finger along the outer arm through the shoulder, neck, ear, and temple.",
+            "ru": "От безымянного пальца по наружной стороне руки через плечо, шею, ухо и висок.",
+            "uz": "Nomsiz barmoqdan qo'lning tashqi tomoni bo'ylab yelka, bo'yin, quloq va chakkaga.",
+            "kz": "Аты жоқ саусақтан қолдың сыртқы жағымен иық, мойын, құлақ және самайға қарай.",
+        },
+        "intro": {
+            "en": "The Triple Burner Meridian is used here as a map for observing distribution: how warmth, breath, fluids, tension, and attention move between the upper, middle, and lower body.",
+            "ru": "Меридиан трёх обогревателей здесь используется как карта распределения: как тепло, дыхание, жидкости, напряжение и внимание проходят между верхней, средней и нижней частью тела.",
+            "uz": "Uch isituvchi meridiani bu yerda taqsimlanishni kuzatish xaritasi sifatida ishlatiladi: issiqlik, nafas, suyuqliklar, taranglik va diqqat tananing yuqori, o'rta va pastki qismlari orasida qanday harakat qiladi.",
+            "kz": "Үш жылытқыш меридианы бұл жерде таралуды бақылау картасы ретінде қолданылады: жылу, тыныс, сұйықтықтар, кернеу және зейін дененің жоғарғы, орта және төменгі бөліктері арасында қалай қозғалады.",
+        },
+        "practice": {
+            "en": "Relax the ring finger, wrist, elbow, shoulder, neck, and ear. Let attention travel along the outer arm and notice whether warmth spreads evenly or gets caught in one level of the body.",
+            "ru": "Расслабьте безымянный палец, запястье, локоть, плечо, шею и область уха. Ведите внимание по наружной стороне руки и замечайте, распределяется ли тепло ровно или застревает на одном уровне тела.",
+            "uz": "Nomsiz barmoq, bilak, tirsak, yelka, bo'yin va quloq sohasini bo'shating. Diqqatni qo'lning tashqi tomoni bo'ylab olib boring va issiqlik teng tarqaladimi yoki tananing bir darajasida ushlanib qoladimi, kuzating.",
+            "kz": "Аты жоқ саусақты, білекті, шынтақты, иықты, мойынды және құлақ аймағын босатыңыз. Зейінді қолдың сыртқы жағымен жүргізіп, жылудың біркелкі таралатынын немесе дененің бір деңгейінде тұрып қалатынын байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
