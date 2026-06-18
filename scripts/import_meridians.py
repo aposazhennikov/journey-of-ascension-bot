@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -231,6 +232,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "bladder",
+        "category_id": 23,
+        "source_url": "https://shiyanbin.ru/meridian-mochevogo-puzyrya-v/",
+        "active_time": "15:00-17:00",
+        "passive_time": "03:00-05:00",
+        "names": {
+            "en": "Bladder Meridian",
+            "ru": "Меридиан мочевого пузыря",
+            "uz": "Siydik pufagi meridiani",
+            "kz": "Қуық меридианы",
+        },
+        "direction": {
+            "en": "From the inner corner of the eye over the head, down the back and posterior legs toward the little toe.",
+            "ru": "От внутреннего угла глаза через голову, спину и заднюю поверхность ног к мизинцу стопы.",
+            "uz": "Ko'zning ichki burchagidan bosh, orqa va oyoqlarning orqa tomoni bo'ylab oyoq jimjilog'iga.",
+            "kz": "Көздің ішкі бұрышынан бас, арқа және аяқтың артқы бетімен аяқтың шынашағына қарай.",
+        },
+        "intro": {
+            "en": "The Bladder Meridian is used here as a map for observing the whole back line: eyes, head, spine, sacrum, back of the legs, and the body's relationship with effort, fear, rest, and release.",
+            "ru": "Меридиан мочевого пузыря здесь используется как карта наблюдения всей задней линии тела: глаза, голова, позвоночник, крестец, задняя поверхность ног и то, как тело связано с усилием, страхом, отдыхом и отпусканием.",
+            "uz": "Siydik pufagi meridiani bu yerda tananing butun orqa chizig'ini kuzatish xaritasi sifatida ishlatiladi: ko'zlar, bosh, umurtqa, dumg'aza, oyoqlarning orqa tomoni hamda tananing kuch, qo'rquv, dam olish va qo'yib yuborish bilan aloqasi.",
+            "kz": "Қуық меридианы бұл жерде дененің бүкіл артқы сызығын бақылау картасы ретінде қолданылады: көздер, бас, омыртқа, сегізкөз, аяқтың артқы беті және дененің күш салумен, қорқынышпен, демалыспен әрі босатумен байланысы.",
+        },
+        "practice": {
+            "en": "Let the back of the body soften from the eyes and head down through the spine, sacrum, calves, and feet. Notice where the line feels guarded, tired, cold, tense, or suddenly spacious.",
+            "ru": "Позвольте задней линии тела смягчиться от глаз и головы вниз через позвоночник, крестец, икры и стопы. Замечайте, где линия ощущается защищённой, уставшей, холодной, напряжённой или неожиданно просторной.",
+            "uz": "Tananing orqa chizig'i ko'z va boshdan umurtqa, dumg'aza, boldir va panjalargacha yumshashiga ruxsat bering. Chiziq qayerda himoyalangan, charchagan, sovuq, tarang yoki kutilmaganda keng sezilishini kuzating.",
+            "kz": "Дененің артқы сызығы көз бен бастан омыртқа, сегізкөз, балтыр және табанға дейін жұмсарсын. Сызықтың қай жерде қорғанған, шаршаған, суық, керілген немесе күтпегендей кең сезілетінін байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
@@ -349,6 +381,25 @@ def point_entries(category_html: str) -> list[tuple[str, str]]:
     return result
 
 
+def fetch_category_pages(category_url: str, max_pages: int = 8) -> list[str]:
+    """Fetch category listing pages, including Eledia pagination like /publ/23-2."""
+    pages = []
+    for page_num in range(1, max_pages + 1):
+        page_url = category_url if page_num == 1 else f"{category_url}-{page_num}"
+        try:
+            page_html = fetch(page_url)
+        except urllib.error.HTTPError as exc:
+            if exc.code == 404 and page_num > 1:
+                break
+            raise
+        entries = point_entries(page_html)
+        if page_num > 1 and not entries:
+            break
+        pages.append(page_html)
+        time.sleep(0.15)
+    return pages
+
+
 def normalize_point_code(code: str) -> str:
     """Normalize visually similar Cyrillic channel letters to Latin codes."""
     translation = str.maketrans({
@@ -442,8 +493,7 @@ def make_point_i18n(ru_name: str, classification: str, name_note: str, location:
 def build_meridian(meta: dict) -> dict:
     category_url = f"https://www.eledia.ru/publ/{meta['category_id']}"
     print(f"fetch {meta['id']} from {category_url}", flush=True)
-    category_html = fetch(category_url)
-    time.sleep(0.2)
+    category_html = "\n".join(fetch_category_pages(category_url))
     shiyanbin_html = fetch(meta["source_url"])
     time.sleep(0.2)
 
