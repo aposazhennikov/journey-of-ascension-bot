@@ -8,6 +8,7 @@ from telegram.ext import (
     Application, CommandHandler, MessageHandler, CallbackQueryHandler,
     filters, ContextTypes
 )
+from telegram.error import BadRequest
 
 from .storage import JsonStorage, User, Feedback
 from .scheduler import YogaScheduler
@@ -1103,7 +1104,7 @@ class BotHandlers:
                 text += f"\n\n🔸 **Күндер таңдалмаған** - хабарлар күн сайын жіберіледі"
         
         keyboard = self._create_skip_days_keyboard(language, selected_days)
-        await query.edit_message_text(text, reply_markup=keyboard, parse_mode='Markdown')
+        await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='Markdown')
     
     async def _complete_skip_days_selection(self, update: Update, selected_days: List[int], language: str) -> None:
         """Complete skip days selection and create user or update settings."""
@@ -2499,6 +2500,16 @@ class BotHandlers:
         except Exception as e:
             logger.debug(f"Could not delete message {message_id} in chat {chat_id}: {e}")
             return False
+
+    async def _edit_message_text_safe(self, query, text: str, **kwargs) -> bool:
+        """Edit a callback message and ignore Telegram's no-op edit error."""
+        try:
+            await query.edit_message_text(text, **kwargs)
+            return True
+        except BadRequest as e:
+            if "Message is not modified" in str(e):
+                return True
+            raise
     
     async def _delete_user_message_delayed(self, chat_id: int, message_id: int, delay: float = 0.5) -> None:
         """Delete user message with a small delay for better UX."""
