@@ -220,6 +220,7 @@ def render_html(output: Path) -> None:
     kidney = next(item for item in meridians if item["id"] == "kidney")
     pericardium = next(item for item in meridians if item["id"] == "pericardium")
     triple_burner = next(item for item in meridians if item["id"] == "triple_burner")
+    gallbladder = next(item for item in meridians if item["id"] == "gallbladder")
     conception = next(item for item in meridians if item["id"] == "conception_vessel")
     governing = next(item for item in meridians if item["id"] == "governing_vessel")
 
@@ -255,6 +256,8 @@ def render_html(output: Path) -> None:
         sections.append(message("Pericardium Meridian point 1", format_meridian_point(pericardium, 0, language), kb["meridian_practice"]))
         sections.append(message("Triple Burner Meridian intro", format_meridian_intro(triple_burner, language), kb["meridian_practice"]))
         sections.append(message("Triple Burner Meridian point 1", format_meridian_point(triple_burner, 0, language), kb["meridian_practice"]))
+        sections.append(message("Gallbladder Meridian intro", format_meridian_intro(gallbladder, language), kb["meridian_practice"]))
+        sections.append(message("Gallbladder Meridian point 1", format_meridian_point(gallbladder, 0, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel intro", format_meridian_intro(conception, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 1", format_meridian_point(conception, 0, language), kb["meridian_practice"]))
         sections.append(message("Conception Vessel point 3", format_meridian_point(conception, 2, language), kb["meridian_practice"]))

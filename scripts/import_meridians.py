@@ -356,6 +356,37 @@ MERIDIANS = [
         },
     },
     {
+        "id": "gallbladder",
+        "category_id": 27,
+        "source_url": "https://shiyanbin.ru/meridian-zhelchnogo-puzyrya-vb/",
+        "active_time": "23:00-01:00",
+        "passive_time": "11:00-13:00",
+        "names": {
+            "en": "Gallbladder Meridian",
+            "ru": "Меридиан желчного пузыря",
+            "uz": "O't pufagi meridiani",
+            "kz": "Өт қабы меридианы",
+        },
+        "direction": {
+            "en": "From the outer corner of the eye around the side of the head, along the side of the body and leg toward the fourth toe.",
+            "ru": "От наружного угла глаза по боковой поверхности головы, тела и ноги к четвёртому пальцу стопы.",
+            "uz": "Ko'zning tashqi burchagidan bosh, tana va oyoqning yon tomoni bo'ylab oyoqning to'rtinchi barmog'iga.",
+            "kz": "Көздің сыртқы бұрышынан бастың, дененің және аяқтың бүйірімен аяқтың төртінші саусағына қарай.",
+        },
+        "intro": {
+            "en": "The Gallbladder Meridian is used here as a map for observing the side line of the body: temples, jaw, neck, ribs, hips, outer legs, decision-making, and the ability to move without an inner jerk.",
+            "ru": "Меридиан желчного пузыря здесь используется как карта наблюдения боковой линии тела: виски, челюсть, шея, рёбра, тазобедренные суставы, наружная линия ног, принятие решений и способность двигаться без внутреннего рывка.",
+            "uz": "O't pufagi meridiani bu yerda tananing yon chizig'ini kuzatish xaritasi sifatida ishlatiladi: chakka, jag', bo'yin, qovurg'alar, son bo'g'imlari, oyoqlarning tashqi chizig'i, qaror qabul qilish va ichki sapchishsiz harakat qilish qobiliyati.",
+            "kz": "Өт қабы меридианы бұл жерде дененің бүйір сызығын бақылау картасы ретінде қолданылады: самай, жақ, мойын, қабырғалар, жамбас буындары, аяқтың сыртқы сызығы, шешім қабылдау және ішкі серпіліссіз қозғалу қабілеті.",
+        },
+        "practice": {
+            "en": "Soften the temples, jaw, neck, ribs, hips, and outer legs. Let attention travel down the side of the body and notice where movement feels decisive, rigid, restless, or clean.",
+            "ru": "Смягчите виски, челюсть, шею, рёбра, тазобедренные суставы и наружную сторону ног. Ведите внимание вниз по боковой линии тела и замечайте, где движение ощущается решительным, жёстким, беспокойным или чистым.",
+            "uz": "Chakka, jag', bo'yin, qovurg'alar, son bo'g'imlari va oyoqlarning tashqi tomonini yumshating. Diqqatni tananing yon chizig'i bo'ylab pastga olib boring va harakat qayerda qat'iy, qattiq, bezovta yoki tiniq sezilishini kuzating.",
+            "kz": "Самайды, жақты, мойынды, қабырғаларды, жамбас буындарын және аяқтың сыртқы жағын жұмсартыңыз. Зейінді дененің бүйір сызығымен төмен жүргізіп, қозғалыстың қай жерде шешімді, қатты, мазасыз немесе таза сезілетінін байқаңыз.",
+        },
+    },
+    {
         "id": "governing_vessel",
         "category_id": 29,
         "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
