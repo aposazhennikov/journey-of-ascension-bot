@@ -90,6 +90,29 @@ def localized(item: dict[str, Any], language: str, key: str, default: str = "") 
     return i18n.get(language, i18n.get("en", {})).get(key, default)
 
 
+def has_cyrillic(value: str) -> bool:
+    return any("А" <= char <= "я" or char in "ЁёІіЇїЄєҚқҒғҰұҮүӘәӨөҺһҢң" for char in value)
+
+
+def localized_location(point: dict[str, Any], language: str) -> str:
+    value = localized(point, language, "location")
+    if language == "ru" or not value:
+        return value
+    for prefix in ("Source location:", "Manbadagi joylashuv:", "Дереккөздегі орналасуы:"):
+        if value.startswith(prefix):
+            value = value[len(prefix):].strip()
+            break
+    else:
+        if not has_cyrillic(value):
+            return value
+    labels = {
+        "en": "Original source location (RU)",
+        "uz": "Manbadagi asl joylashuv (rus tilida)",
+        "kz": "Дереккөздегі бастапқы орналасуы (орыс тілінде)",
+    }
+    return f"{labels.get(language, 'Original source location (RU)')}: {value}"
+
+
 def format_meridian_intro(meridian: dict[str, Any], language: str) -> str:
     labels = {
         "en": ("Active", "Passive", "Points", "Direction", "Practice"),
@@ -149,7 +172,7 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     parts = [
         f"<b>{escape(localized(meridian, language, 'name'))}</b>",
         f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point.get('code', ''))} {escape(point_i18n.get('name', ''))}",
-        f"<b>{labels[1]}:</b> {escape(point_i18n.get('location', ''))}",
+        f"<b>{labels[1]}:</b> {escape(localized_location(point, language))}",
         f"<b>{labels[2]}:</b> {escape(point_i18n.get('meditation_instruction', ''))}",
         escape(practice_note(point_index, language)),
     ]

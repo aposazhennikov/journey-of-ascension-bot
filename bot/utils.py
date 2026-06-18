@@ -262,6 +262,39 @@ def _content_html(value: str) -> str:
     return escaped
 
 
+def _has_cyrillic(value: str) -> bool:
+    """Detect Cyrillic text in a localized content field."""
+    return any("А" <= char <= "я" or char in "ЁёІіЇїЄєҚқҒғҰұҮүӘәӨөҺһҢң" for char in value)
+
+
+def _localized_location(point: Dict[str, Any], language: str) -> str:
+    """Return point location, making unfinished translations explicit."""
+    location = _localized_value(point, language, "location")
+    if language == "ru" or not location:
+        return location
+
+    prefixes = (
+        "Source location:",
+        "Manbadagi joylashuv:",
+        "Дереккөздегі орналасуы:",
+    )
+    source_location = location
+    for prefix in prefixes:
+        if source_location.startswith(prefix):
+            source_location = source_location[len(prefix):].strip()
+            break
+    else:
+        if not _has_cyrillic(location):
+            return location
+
+    labels = {
+        "en": "Original source location (RU)",
+        "uz": "Manbadagi asl joylashuv (rus tilida)",
+        "kz": "Дереккөздегі бастапқы орналасуы (орыс тілінде)",
+    }
+    return f"{labels.get(language, 'Original source location (RU)')}: {source_location}"
+
+
 def format_meridian_intro(meridian: Dict[str, Any], language: str = "en") -> str:
     """Format meridian overview for the user."""
     name = escape(_localized_value(meridian, language, "name", meridian.get("id", "Meridian")))
@@ -301,7 +334,7 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     point = points[point_index]
     meridian_name = escape(_localized_value(meridian, language, "name", meridian.get("id", "Meridian")))
     point_name = escape(_localized_value(point, language, "name", point.get("code", "Point")))
-    location = escape(_localized_value(point, language, "location"))
+    location = escape(_localized_location(point, language))
     instruction = escape(_localized_value(point, language, "meditation_instruction"))
     question = escape(_localized_value(point, language, "observation_question"))
 
