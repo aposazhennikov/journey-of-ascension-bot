@@ -64,10 +64,10 @@ MERIDIANS = [
             "kz": "Кеуденің жоғарғы бөлігінен қолдың ішкі жағымен бас бармаққа қарай.",
         },
         "intro": {
-            "en": "The Lung Meridian is used here as a map for observing breath, the chest, the inner line of the arm, and the quality of receiving and releasing.",
-            "ru": "Меридиан лёгких здесь используется как карта наблюдения дыхания, грудной клетки, внутренней линии руки и способности принимать и отпускать.",
-            "uz": "O'pka meridiani bu yerda nafas, ko'krak, qo'lning ichki chizig'i hamda qabul qilish va qo'yib yuborish sifatini kuzatish xaritasi sifatida ishlatiladi.",
-            "kz": "Өкпе меридианы бұл жерде тынысты, кеудені, қолдың ішкі сызығын және қабылдау мен босату сапасын бақылау картасы ретінде қолданылады.",
+            "en": "The Lung Meridian helps you observe breath, the chest, the inner line of the arm, and the quality of receiving and releasing.",
+            "ru": "Меридиан лёгких помогает наблюдать дыхание, грудную клетку, внутреннюю линию руки и способность принимать и отпускать.",
+            "uz": "O'pka meridiani nafasni, ko'krakni, qo'lning ichki chizig'ini hamda qabul qilish va qo'yib yuborish sifatini kuzatishga yordam beradi.",
+            "kz": "Өкпе меридианы тынысты, кеудені, қолдың ішкі сызығын және қабылдау мен босату сапасын бақылауға көмектеседі.",
         },
         "practice": {
             "en": "Sit calmly, soften the chest and shoulders, then follow the channel from the chest through the inner arm to the thumb together with natural breathing.",
@@ -95,10 +95,10 @@ MERIDIANS = [
             "kz": "Сұқ саусақтан қолдың сыртқы жағымен иық пен мойын арқылы бетке қарай.",
         },
         "intro": {
-            "en": "The Large Intestine Meridian is used here as a map for observing the outer line of the arm, the shoulder, neck, face, and the inner skill of releasing what is no longer needed.",
-            "ru": "Меридиан толстой кишки здесь используется как карта наблюдения наружной линии руки, плеча, шеи, лица и внутреннего навыка отпускать то, что уже не нужно.",
-            "uz": "Yo'g'on ichak meridiani bu yerda qo'lning tashqi chizig'i, yelka, bo'yin, yuz va endi kerak bo'lmagan narsani qo'yib yuborish ko'nikmasini kuzatish xaritasi sifatida ishlatiladi.",
-            "kz": "Тоқ ішек меридианы бұл жерде қолдың сыртқы сызығын, иықты, мойынды, бетті және енді қажет емес нәрсені босату дағдысын бақылау картасы ретінде қолданылады.",
+            "en": "The Large Intestine Meridian helps you observe the outer line of the arm, the shoulder, neck, face, and the inner skill of releasing what is no longer needed.",
+            "ru": "Меридиан толстой кишки помогает наблюдать наружную линию руки, плечо, шею, лицо и внутренний навык отпускать то, что уже не нужно.",
+            "uz": "Yo'g'on ichak meridiani qo'lning tashqi chizig'i, yelka, bo'yin, yuz va endi kerak bo'lmagan narsani qo'yib yuborish ko'nikmasini kuzatishga yordam beradi.",
+            "kz": "Тоқ ішек меридианы қолдың сыртқы сызығын, иықты, мойынды, бетті және енді қажет емес нәрсені босату дағдысын бақылауға көмектеседі.",
         },
         "practice": {
             "en": "Relax the hand, jaw, and shoulders. Let attention travel from the index finger along the outer arm toward the face, noticing where the line feels clear and where it feels silent.",
@@ -126,10 +126,10 @@ MERIDIANS = [
             "kz": "Беттен төмен қарай мойын, кеуде, іш, аяқтың алдыңғы беті және табан арқылы.",
         },
         "intro": {
-            "en": "The Stomach Meridian is used here as a map for observing nourishment, grounding, the front of the body, the legs, and the ability to receive life without inner haste.",
-            "ru": "Меридиан желудка здесь используется как карта наблюдения питания, опоры, передней линии тела, ног и способности принимать жизнь без внутренней спешки.",
-            "uz": "Oshqozon meridiani bu yerda oziqlanish, tayanch, tananing old chizig'i, oyoqlar va hayotni ichki shoshilmasdan qabul qilish qobiliyatini kuzatish xaritasi sifatida ishlatiladi.",
-            "kz": "Асқазан меридианы бұл жерде қоректенуді, тіректі, дененің алдыңғы сызығын, аяқтарды және өмірді ішкі асығыстықсыз қабылдау қабілетін бақылау картасы ретінде қолданылады.",
+            "en": "The Stomach Meridian helps you observe nourishment, grounding, the front of the body, the legs, and the ability to receive life without inner haste.",
+            "ru": "Меридиан желудка помогает наблюдать питание, опору, переднюю линию тела, ноги и способность принимать жизнь без внутренней спешки.",
+            "uz": "Oshqozon meridiani oziqlanish, tayanch, tananing old chizig'i, oyoqlar va hayotni ichki shoshilmasdan qabul qilish qobiliyatini kuzatishga yordam beradi.",
+            "kz": "Асқазан меридианы қоректенуді, тіректі, дененің алдыңғы сызығын, аяқтарды және өмірді ішкі асығыстықсыз қабылдау қабілетін бақылауға көмектеседі.",
         },
         "practice": {
             "en": "Soften the face, jaw, abdomen, and thighs. Let attention descend from the face through the front of the body and legs, noticing where the channel feels full, tense, empty, or silent.",
@@ -157,10 +157,10 @@ MERIDIANS = [
             "kz": "Аяқтың бас бармағынан табан мен аяқтың ішкі жағымен, содан кейін іш пен кеуде арқылы жоғары.",
         },
         "intro": {
-            "en": "The Spleen Meridian is used here as a map for observing assimilation, inner steadiness, the medial line of the leg, and how the body distributes strength after receiving nourishment.",
-            "ru": "Меридиан селезёнки здесь используется как карта наблюдения усвоения, внутренней устойчивости, медиальной линии ноги и того, как тело распределяет силы после получения питания.",
-            "uz": "Taloq meridiani bu yerda o'zlashtirish, ichki barqarorlik, oyoqning ichki chizig'i va tana oziqlanishdan keyin kuchni qanday taqsimlashini kuzatish xaritasi sifatida ishlatiladi.",
-            "kz": "Көкбауыр меридианы бұл жерде сіңіруді, ішкі тұрақтылықты, аяқтың ішкі сызығын және дене қоректенуден кейін күшті қалай бөлетінін бақылау картасы ретінде қолданылады.",
+            "en": "The Spleen Meridian helps you observe assimilation, inner steadiness, the medial line of the leg, and how the body distributes strength after receiving nourishment.",
+            "ru": "Меридиан селезёнки помогает наблюдать усвоение, внутреннюю устойчивость, медиальную линию ноги и то, как тело распределяет силы после получения питания.",
+            "uz": "Taloq meridiani o'zlashtirish, ichki barqarorlik, oyoqning ichki chizig'i va tana oziqlanishdan keyin kuchni qanday taqsimlashini kuzatishga yordam beradi.",
+            "kz": "Көкбауыр меридианы сіңіруді, ішкі тұрақтылықты, аяқтың ішкі сызығын және дене қоректенуден кейін күшті қалай бөлетінін бақылауға көмектеседі.",
         },
         "practice": {
             "en": "Relax the feet, knees, abdomen, and chest. Let attention rise from the big toe along the inner leg toward the abdomen and chest, noticing where the channel feels stable, heavy, warm, or unclear.",
@@ -188,10 +188,10 @@ MERIDIANS = [
             "kz": "Кеуде мен қолтық аймағынан қолдың ішкі жағымен шынашаққа қарай.",
         },
         "intro": {
-            "en": "The Heart Meridian is used here as a map for observing the chest, inner arm, clarity of attention, emotional heat, and the quiet center from which action becomes cleaner.",
-            "ru": "Меридиан сердца здесь используется как карта наблюдения груди, внутренней линии руки, ясности внимания, эмоционального жара и тихого центра, из которого действие становится чище.",
-            "uz": "Yurak meridiani bu yerda ko'krak, qo'lning ichki chizig'i, diqqat ravshanligi, hissiy issiqlik va harakatni tiniqlashtiradigan sokin markazni kuzatish xaritasi sifatida ishlatiladi.",
-            "kz": "Жүрек меридианы бұл жерде кеудені, қолдың ішкі сызығын, зейіннің айқындығын, эмоциялық қызуды және әрекетті тазарақ ететін тыныш орталықты бақылау картасы ретінде қолданылады.",
+            "en": "The Heart Meridian helps you observe the chest, inner arm, clarity of attention, emotional heat, and the quiet center from which action becomes cleaner.",
+            "ru": "Меридиан сердца помогает наблюдать грудь, внутреннюю линию руки, ясность внимания, эмоциональный жар и тихий центр, из которого действие становится чище.",
+            "uz": "Yurak meridiani ko'krak, qo'lning ichki chizig'i, diqqat ravshanligi, hissiy issiqlik va harakatni tiniqlashtiradigan sokin markazni kuzatishga yordam beradi.",
+            "kz": "Жүрек меридианы кеудені, қолдың ішкі сызығын, зейіннің айқындығын, эмоциялық қызуды және әрекетті тазарақ ететін тыныш орталықты бақылауға көмектеседі.",
         },
         "practice": {
             "en": "Soften the chest, armpit, elbow, wrist, and little finger. Let attention move along the inner arm without dramatizing emotion: just notice heat, tightness, tenderness, or quietness.",
@@ -219,10 +219,10 @@ MERIDIANS = [
             "kz": "Шынашақтан қолдың сыртқы жағымен жауырын, мойын, бет және құлақ аймағына қарай.",
         },
         "intro": {
-            "en": "The Small Intestine Meridian is used here as a map for observing how the body separates clear from unclear: tension in the arm, shoulder blade, neck, jaw, and the ability to digest impressions without carrying everything inside.",
-            "ru": "Меридиан тонкого кишечника здесь используется как карта наблюдения того, как тело отделяет ясное от неясного: напряжение руки, лопатки, шеи, челюсти и способность переваривать впечатления, не таща всё внутрь себя.",
-            "uz": "Ingichka ichak meridiani bu yerda tana ravshanni noaniqdan qanday ajratishini kuzatish xaritasi sifatida ishlatiladi: qo'l, kurak, bo'yin, jag' tarangligi va taassurotlarni ichda ortiqcha ko'tarmasdan hazm qilish qobiliyati.",
-            "kz": "Ащы ішек меридианы бұл жерде дененің айқынды айқын еместен қалай ажырататынын бақылау картасы ретінде қолданылады: қол, жауырын, мойын, жақ кернеуі және әсерлерді іште артық көтермей қорыту қабілеті.",
+            "en": "The Small Intestine Meridian helps you observe how the body separates clear from unclear: tension in the arm, shoulder blade, neck, jaw, and the ability to digest impressions without carrying everything inside.",
+            "ru": "Меридиан тонкого кишечника помогает наблюдать, как тело отделяет ясное от неясного: напряжение руки, лопатки, шеи, челюсти и способность переваривать впечатления, не таща всё внутрь себя.",
+            "uz": "Ingichka ichak meridiani tana ravshanni noaniqdan qanday ajratishini kuzatishga yordam beradi: qo'l, kurak, bo'yin, jag' tarangligi va taassurotlarni ichda ortiqcha ko'tarmasdan hazm qilish qobiliyati.",
+            "kz": "Ащы ішек меридианы дененің айқынды айқын еместен қалай ажырататынын бақылауға көмектеседі: қол, жауырын, мойын, жақ кернеуі және әсерлерді іште артық көтермей қорыту қабілеті.",
         },
         "practice": {
             "en": "Relax the little finger, wrist, elbow, shoulder blade, neck, and jaw. Let attention move from the little finger toward the ear, noticing where the line feels sharp, hot, blocked, or unexpectedly clear.",
@@ -250,10 +250,10 @@ MERIDIANS = [
             "kz": "Көздің ішкі бұрышынан бас, арқа және аяқтың артқы бетімен аяқтың шынашағына қарай.",
         },
         "intro": {
-            "en": "The Bladder Meridian is used here as a map for observing the whole back line: eyes, head, spine, sacrum, back of the legs, and the body's relationship with effort, fear, rest, and release.",
-            "ru": "Меридиан мочевого пузыря здесь используется как карта наблюдения всей задней линии тела: глаза, голова, позвоночник, крестец, задняя поверхность ног и то, как тело связано с усилием, страхом, отдыхом и отпусканием.",
-            "uz": "Siydik pufagi meridiani bu yerda tananing butun orqa chizig'ini kuzatish xaritasi sifatida ishlatiladi: ko'zlar, bosh, umurtqa, dumg'aza, oyoqlarning orqa tomoni hamda tananing kuch, qo'rquv, dam olish va qo'yib yuborish bilan aloqasi.",
-            "kz": "Қуық меридианы бұл жерде дененің бүкіл артқы сызығын бақылау картасы ретінде қолданылады: көздер, бас, омыртқа, сегізкөз, аяқтың артқы беті және дененің күш салумен, қорқынышпен, демалыспен әрі босатумен байланысы.",
+            "en": "The Bladder Meridian helps you observe the whole back line: eyes, head, spine, sacrum, back of the legs, and the body's relationship with effort, fear, rest, and release.",
+            "ru": "Меридиан мочевого пузыря помогает наблюдать всю заднюю линию тела: глаза, голову, позвоночник, крестец, заднюю поверхность ног и то, как тело связано с усилием, страхом, отдыхом и отпусканием.",
+            "uz": "Siydik pufagi meridiani tananing butun orqa chizig'ini kuzatishga yordam beradi: ko'zlar, bosh, umurtqa, dumg'aza, oyoqlarning orqa tomoni hamda tananing kuch, qo'rquv, dam olish va qo'yib yuborish bilan aloqasi.",
+            "kz": "Қуық меридианы дененің бүкіл артқы сызығын бақылауға көмектеседі: көздер, бас, омыртқа, сегізкөз, аяқтың артқы беті және дененің күш салумен, қорқынышпен, демалыспен әрі босатумен байланысы.",
         },
         "practice": {
             "en": "Let the back of the body soften from the eyes and head down through the spine, sacrum, calves, and feet. Notice where the line feels guarded, tired, cold, tense, or suddenly spacious.",
@@ -281,10 +281,10 @@ MERIDIANS = [
             "kz": "Табаннан аяқтың ішкі жағымен іш пен кеуде арқылы тіл түбіне қарай.",
         },
         "intro": {
-            "en": "The Kidney Meridian is used here as a map for observing deep resource: feet, inner legs, pelvis, lower back, breath depth, fear, will, and the quiet strength that is not loud but steady.",
-            "ru": "Меридиан почек здесь используется как карта наблюдения глубинного ресурса: стопы, внутренняя линия ног, таз, поясница, глубина дыхания, страх, воля и тихая сила, которая не шумит, но держит.",
-            "uz": "Buyrak meridiani bu yerda chuqur resursni kuzatish xaritasi sifatida ishlatiladi: panjalar, oyoqlarning ichki chizig'i, chanoq, bel, nafas chuqurligi, qo'rquv, iroda va baland ovoz qilmaydigan, ammo ushlab turadigan sokin kuch.",
-            "kz": "Бүйрек меридианы бұл жерде терең ресурсты бақылау картасы ретінде қолданылады: табандар, аяқтың ішкі сызығы, жамбас, бел, тыныстың тереңдігі, қорқыныш, ерік және айқайламайтын, бірақ ұстап тұратын тыныш күш.",
+            "en": "The Kidney Meridian helps you observe deep resource: feet, inner legs, pelvis, lower back, breath depth, fear, will, and the quiet strength that is not loud but steady.",
+            "ru": "Меридиан почек помогает наблюдать глубинный ресурс: стопы, внутреннюю линию ног, таз, поясницу, глубину дыхания, страх, волю и тихую силу, которая не шумит, но держит.",
+            "uz": "Buyrak meridiani chuqur resursni kuzatishga yordam beradi: panjalar, oyoqlarning ichki chizig'i, chanoq, bel, nafas chuqurligi, qo'rquv, iroda va baland ovoz qilmaydigan, ammo ushlab turadigan sokin kuch.",
+            "kz": "Бүйрек меридианы терең ресурсты бақылауға көмектеседі: табандар, аяқтың ішкі сызығы, жамбас, бел, тыныстың тереңдігі, қорқыныш, ерік және айқайламайтын, бірақ ұстап тұратын тыныш күш.",
         },
         "practice": {
             "en": "Begin at the soles and let attention rise slowly along the inner legs toward the pelvis, abdomen, and chest. Notice where the body feels empty, cold, deep, grounded, or quietly alive.",
@@ -312,10 +312,10 @@ MERIDIANS = [
             "kz": "Кеудеден қолдың ішкі жағымен ортаңғы саусаққа қарай.",
         },
         "intro": {
-            "en": "The Pericardium Meridian is used here as a map for observing the protective layer around the heart: chest, breath, palms, emotional boundaries, and the ability to stay open without becoming scattered.",
-            "ru": "Меридиан перикарда здесь используется как карта наблюдения защитного слоя вокруг сердца: грудь, дыхание, ладони, эмоциональные границы и способность оставаться открытым, не рассыпаясь.",
-            "uz": "Perikard meridiani bu yerda yurak atrofidagi himoya qatlamini kuzatish xaritasi sifatida ishlatiladi: ko'krak, nafas, kaftlar, hissiy chegaralar va tarqalib ketmasdan ochiq qolish qobiliyati.",
-            "kz": "Перикард меридианы бұл жерде жүрек айналасындағы қорғаныш қабатты бақылау картасы ретінде қолданылады: кеуде, тыныс, алақан, эмоциялық шекаралар және шашырамай ашық болу қабілеті.",
+            "en": "The Pericardium Meridian helps you observe the protective layer around the heart: chest, breath, palms, emotional boundaries, and the ability to stay open without becoming scattered.",
+            "ru": "Меридиан перикарда помогает наблюдать защитный слой вокруг сердца: грудь, дыхание, ладони, эмоциональные границы и способность оставаться открытым, не рассыпаясь.",
+            "uz": "Perikard meridiani yurak atrofidagi himoya qatlamini kuzatishga yordam beradi: ko'krak, nafas, kaftlar, hissiy chegaralar va tarqalib ketmasdan ochiq qolish qobiliyati.",
+            "kz": "Перикард меридианы жүрек айналасындағы қорғаныш қабатты бақылауға көмектеседі: кеуде, тыныс, алақан, эмоциялық шекаралар және шашырамай ашық болу қабілеті.",
         },
         "practice": {
             "en": "Soften the chest, inner arm, wrist, and palm. Let attention move toward the middle finger, noticing where the body protects itself too tightly and where openness feels calm and safe.",
@@ -343,10 +343,10 @@ MERIDIANS = [
             "kz": "Аты жоқ саусақтан қолдың сыртқы жағымен иық, мойын, құлақ және самайға қарай.",
         },
         "intro": {
-            "en": "The Triple Burner Meridian is used here as a map for observing distribution: how warmth, breath, fluids, tension, and attention move between the upper, middle, and lower body.",
-            "ru": "Меридиан трёх обогревателей здесь используется как карта распределения: как тепло, дыхание, жидкости, напряжение и внимание проходят между верхней, средней и нижней частью тела.",
-            "uz": "Uch isituvchi meridiani bu yerda taqsimlanishni kuzatish xaritasi sifatida ishlatiladi: issiqlik, nafas, suyuqliklar, taranglik va diqqat tananing yuqori, o'rta va pastki qismlari orasida qanday harakat qiladi.",
-            "kz": "Үш жылытқыш меридианы бұл жерде таралуды бақылау картасы ретінде қолданылады: жылу, тыныс, сұйықтықтар, кернеу және зейін дененің жоғарғы, орта және төменгі бөліктері арасында қалай қозғалады.",
+            "en": "The Triple Burner Meridian helps you observe distribution: how warmth, breath, fluids, tension, and attention move between the upper, middle, and lower body.",
+            "ru": "Меридиан трёх обогревателей помогает наблюдать распределение: как тепло, дыхание, жидкости, напряжение и внимание проходят между верхней, средней и нижней частью тела.",
+            "uz": "Uch isituvchi meridiani taqsimlanishni kuzatishga yordam beradi: issiqlik, nafas, suyuqliklar, taranglik va diqqat tananing yuqori, o'rta va pastki qismlari orasida qanday harakat qiladi.",
+            "kz": "Үш жылытқыш меридианы таралуды бақылауға көмектеседі: жылу, тыныс, сұйықтықтар, кернеу және зейін дененің жоғарғы, орта және төменгі бөліктері арасында қалай қозғалады.",
         },
         "practice": {
             "en": "Relax the ring finger, wrist, elbow, shoulder, neck, and ear. Let attention travel along the outer arm and notice whether warmth spreads evenly or gets caught in one level of the body.",
@@ -374,10 +374,10 @@ MERIDIANS = [
             "kz": "Көздің сыртқы бұрышынан бастың, дененің және аяқтың бүйірімен аяқтың төртінші саусағына қарай.",
         },
         "intro": {
-            "en": "The Gallbladder Meridian is used here as a map for observing the side line of the body: temples, jaw, neck, ribs, hips, outer legs, decision-making, and the ability to move without an inner jerk.",
-            "ru": "Меридиан желчного пузыря здесь используется как карта наблюдения боковой линии тела: виски, челюсть, шея, рёбра, тазобедренные суставы, наружная линия ног, принятие решений и способность двигаться без внутреннего рывка.",
-            "uz": "O't pufagi meridiani bu yerda tananing yon chizig'ini kuzatish xaritasi sifatida ishlatiladi: chakka, jag', bo'yin, qovurg'alar, son bo'g'imlari, oyoqlarning tashqi chizig'i, qaror qabul qilish va ichki sapchishsiz harakat qilish qobiliyati.",
-            "kz": "Өт қабы меридианы бұл жерде дененің бүйір сызығын бақылау картасы ретінде қолданылады: самай, жақ, мойын, қабырғалар, жамбас буындары, аяқтың сыртқы сызығы, шешім қабылдау және ішкі серпіліссіз қозғалу қабілеті.",
+            "en": "The Gallbladder Meridian helps you observe the side line of the body: temples, jaw, neck, ribs, hips, outer legs, decision-making, and the ability to move without an inner jerk.",
+            "ru": "Меридиан желчного пузыря помогает наблюдать боковую линию тела: виски, челюсть, шею, рёбра, тазобедренные суставы, наружную линию ног, принятие решений и способность двигаться без внутреннего рывка.",
+            "uz": "O't pufagi meridiani tananing yon chizig'ini kuzatishga yordam beradi: chakka, jag', bo'yin, qovurg'alar, son bo'g'imlari, oyoqlarning tashqi chizig'i, qaror qabul qilish va ichki sapchishsiz harakat qilish qobiliyati.",
+            "kz": "Өт қабы меридианы дененің бүйір сызығын бақылауға көмектеседі: самай, жақ, мойын, қабырғалар, жамбас буындары, аяқтың сыртқы сызығы, шешім қабылдау және ішкі серпіліссіз қозғалу қабілеті.",
         },
         "practice": {
             "en": "Soften the temples, jaw, neck, ribs, hips, and outer legs. Let attention travel down the side of the body and notice where movement feels decisive, rigid, restless, or clean.",
@@ -405,10 +405,10 @@ MERIDIANS = [
             "kz": "Аяқтың бас бармағынан табан мен аяқтың ішкі жағымен жамбас, іш, қабырға, тамақ және көзге қарай.",
         },
         "intro": {
-            "en": "The Liver Meridian is used here as a map for observing the free movement of Qi: inner legs, pelvis, ribs, throat, eyes, irritation, pressure, planning, and the ability to direct force without becoming hard.",
-            "ru": "Меридиан печени здесь используется как карта свободного движения Ци: внутренняя линия ног, таз, рёбра, горло, глаза, раздражение, давление, планирование и способность направлять силу, не становясь жёстким.",
-            "uz": "Jigar meridiani bu yerda Qi erkin harakatini kuzatish xaritasi sifatida ishlatiladi: oyoqlarning ichki chizig'i, chanoq, qovurg'alar, tomoq, ko'zlar, jahldorlik, bosim, rejalash va qattiqlashmasdan kuchni yo'naltirish qobiliyati.",
-            "kz": "Бауыр меридианы бұл жерде Цидің еркін қозғалысын бақылау картасы ретінде қолданылады: аяқтың ішкі сызығы, жамбас, қабырға, тамақ, көз, ашу, қысым, жоспарлау және қатаймай күшті бағыттау қабілеті.",
+            "en": "The Liver Meridian helps you observe the free movement of Qi: inner legs, pelvis, ribs, throat, eyes, irritation, pressure, planning, and the ability to direct force without becoming hard.",
+            "ru": "Меридиан печени помогает наблюдать свободное движение Ци: внутренняя линия ног, таз, рёбра, горло, глаза, раздражение, давление, планирование и способность направлять силу, не становясь жёстким.",
+            "uz": "Jigar meridiani Qi erkin harakatini kuzatishga yordam beradi: oyoqlarning ichki chizig'i, chanoq, qovurg'alar, tomoq, ko'zlar, jahldorlik, bosim, rejalash va qattiqlashmasdan kuchni yo'naltirish qobiliyati.",
+            "kz": "Бауыр меридианы Цидің еркін қозғалысын бақылауға көмектеседі: аяқтың ішкі сызығы, жамбас, қабырға, тамақ, көз, ашу, қысым, жоспарлау және қатаймай күшті бағыттау қабілеті.",
         },
         "practice": {
             "en": "Relax the big toe, inner legs, pelvis, ribs, throat, and eyes. Let attention rise through the channel and notice where movement feels stuck, angry, pressured, flexible, or quietly directed.",
@@ -436,10 +436,10 @@ MERIDIANS = [
             "kz": "Артқы орта сызық бойымен: аралық аймағынан омыртқа, мойын, бас және бет арқылы жоғары.",
         },
         "intro": {
-            "en": "The Governing Vessel is used here as a map for observing the back midline and the vertical axis of attention.",
-            "ru": "Заднесрединный меридиан здесь используется как карта наблюдения задней срединной линии и вертикальной оси внимания.",
-            "uz": "Orqa o'rta meridian bu yerda orqa o'rta chiziq va diqqatning vertikal o'qini kuzatish xaritasi sifatida ishlatiladi.",
-            "kz": "Артқы орта меридиан бұл жерде артқы орта сызықты және зейіннің тік осін бақылау картасы ретінде қолданылады.",
+            "en": "The Governing Vessel helps you observe the back midline and the vertical axis of attention.",
+            "ru": "Заднесрединный меридиан помогает наблюдать заднюю срединную линию и вертикальную ось внимания.",
+            "uz": "Orqa o'rta meridian orqa o'rta chiziq va diqqatning vertikal o'qini kuzatishga yordam beradi.",
+            "kz": "Артқы орта меридиан артқы орта сызықты және зейіннің тік осін бақылауға көмектеседі.",
         },
         "practice": {
             "en": "Sit upright, relax the jaw and spine, and let attention rise slowly along the back midline without strain.",
@@ -467,10 +467,10 @@ MERIDIANS = [
             "kz": "Алдыңғы орта сызық бойымен: аралық аймағынан іш, кеуде, тамақ және бет арқылы жоғары.",
         },
         "intro": {
-            "en": "The Conception Vessel is used here as a map for observing the front midline, breath, abdomen, chest, and throat.",
-            "ru": "Переднесрединный меридиан здесь используется как карта наблюдения передней срединной линии, дыхания, живота, груди и горла.",
-            "uz": "Old o'rta meridian bu yerda old o'rta chiziq, nafas, qorin, ko'krak va tomoqni kuzatish xaritasi sifatida ishlatiladi.",
-            "kz": "Алдыңғы орта меридиан бұл жерде алдыңғы орта сызықты, тынысты, ішті, кеудені және тамақты бақылау картасы ретінде қолданылады.",
+            "en": "The Conception Vessel helps you observe the front midline, breath, abdomen, chest, and throat.",
+            "ru": "Переднесрединный меридиан помогает наблюдать переднюю срединную линию, дыхание, живот, грудь и горло.",
+            "uz": "Old o'rta meridian old o'rta chiziq, nafas, qorin, ko'krak va tomoqni kuzatishga yordam beradi.",
+            "kz": "Алдыңғы орта меридиан алдыңғы орта сызықты, тынысты, ішті, кеудені және тамақты бақылауға көмектеседі.",
         },
         "practice": {
             "en": "Sit calmly, soften the abdomen and chest, and let attention move along the front midline with natural breathing.",

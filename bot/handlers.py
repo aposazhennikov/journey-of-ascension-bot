@@ -1463,9 +1463,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
-            "In Chinese tradition, meridians describe the channels through which Qi moves. For practice, treat them as a living map of attention: where the body responds easily, where it feels tense, and where an area seems silent.\n\n"
-            "<b>How this helps:</b> when attention, breath, and gentle touch return to a point, the area often becomes warmer, clearer, and more connected with the rest of the channel. One meridian also affects the feeling of neighboring channels, because the system works as a whole.\n\n"
-            "<b>How to study:</b> choose the bot route for a calm sequence, or free choice if you want to open a specific meridian yourself.\n\n"
+            "In Chinese tradition, meridians are channels through which Qi moves. In practice, you start very simply: notice which areas respond to attention, which feel tense, and which are hard to feel at all.\n\n"
+            "<b>How this helps:</b> when attention, breath, and gentle touch return to a point, the area may become warmer, clearer, or easier to include in the whole line of the channel. Neighboring channels can also feel different, because the body works as one system.\n\n"
+            "<b>How to study:</b> choose the bot route if you want a steady order, or free choice if you already know which meridian you want to open.\n\n"
             "<b>Before points:</b> open the <b>cun</b> guide so distances like 1, 1.5, 3, and 5 cun become understandable on your own body.\n\n"
             "This is a practice of awareness and self-observation, not a replacement for medical diagnosis or treatment."
         ),
@@ -1489,11 +1489,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "This bot is a practical companion for the inner path. Its job is simple: return you to one clear focus often enough that practice stops being an idea and starts entering ordinary life.\n\n"
-            "We work with energy in the most observable sense: attention, steadiness, vitality, the ability to act without wasting yourself. When energy leaks through conflict, hurry, resentment, excess, or self-neglect, the whole day becomes heavier.\n\n"
+            "The idea is simple: give you one clear practice focus every day, so inner work does not stay somewhere in theory but starts showing up in ordinary decisions, words, and sensations.\n\n"
+            "Here energy means what you can actually observe: attention, steadiness, vitality, and the ability to act without wasting yourself. When it leaks into conflict, hurry, resentment, excess, or self-neglect, the whole day becomes heavier.\n\n"
             "<b>Yama/Niyama</b> helps close these leaks through behaviour, speech, thoughts, discipline, and honesty with yourself.\n\n"
-            "<b>Meridians</b> brings the work into the body: channels, points, Qi flow, closed areas, breath, touch, and patient attention.\n\n"
-            "Small repetitions matter. They build the path under your feet."
+            "<b>Meridians</b> bring the work into the body: channels, points, Qi flow, closed areas, breath, touch, and patient attention.\n\n"
+            "The bot does not do the practice for you. It just keeps bringing you back to the next honest step."
         ),
         "feature_announcement": (
             "☯️ <b>New in Journey of Ascension: meridian practice</b>\n\n"
@@ -1656,9 +1656,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
-            "В китайской традиции меридианы описывают каналы, по которым движется Ци. В практике относитесь к ним как к живой карте внимания: где тело откликается легко, где есть напряжение, а где зона словно молчит.\n\n"
-            "<b>Как это помогает:</b> когда внимание, дыхание и мягкое касание возвращаются в точку, область часто становится теплее, яснее и лучше включается в общий ход канала. Один меридиан связан с соседними: система работает целиком, а не отдельными кусками.\n\n"
-            "<b>Как изучать:</b> выберите маршрут бота, если хотите спокойную последовательность, или свободный выбор, если хотите открыть конкретный меридиан самостоятельно.\n\n"
+            "В китайской традиции меридианы — это каналы, по которым движется Ци. В практике всё начинается просто: вы замечаете, какие зоны тела откликаются на внимание, где есть напряжение, а какие места пока почти не ощущаются.\n\n"
+            "<b>Как это помогает:</b> когда внимание, дыхание и мягкое касание возвращаются в точку, область может стать теплее, яснее и легче включаться в общую линию канала. Соседние меридианы тоже могут ощущаться иначе, потому что тело работает как единая система.\n\n"
+            "<b>Как изучать:</b> выберите маршрут бота, если хотите устойчивую последовательность, или свободный выбор, если уже знаете, какой меридиан хотите открыть.\n\n"
             "<b>Перед точками:</b> откройте справку по <b>цуням</b>, чтобы расстояния 1, 1,5, 3 и 5 цуней стали понятными на вашем теле.\n\n"
             "Это практика осознанности и самонаблюдения, а не замена медицинской диагностике и лечению."
         ),
@@ -1682,11 +1682,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Этот бот — практичный спутник на внутреннем пути. Его задача проста: возвращать вас к ясному фокусу достаточно часто, чтобы практика перестала быть идеей и начала входить в обычную жизнь.\n\n"
-            "С энергией мы работаем в самом наблюдаемом смысле: внимание, устойчивость, жизненность, способность действовать не растрачивая себя. Когда энергия утекает в конфликт, спешку, обиду, избыток или невнимание к себе, весь день становится тяжелее.\n\n"
+            "Идея простая: каждый день давать один ясный фокус практики, чтобы внутренняя работа не оставалась где-то в теории, а начинала проявляться в обычных решениях, словах и ощущениях.\n\n"
+            "Энергия здесь — это то, что можно наблюдать: внимание, устойчивость, жизненность, способность действовать не растрачивая себя. Когда она утекает в конфликт, спешку, обиду, избыток или невнимание к себе, весь день становится тяжелее.\n\n"
             "<b>Яма/Нияма</b> помогает закрывать эти утечки через поведение, речь, мысли, дисциплину и честность перед собой.\n\n"
             "<b>Меридианы</b> переносят работу в тело: каналы, точки, течение Ци, закрытые зоны, дыхание, касание и терпеливое внимание.\n\n"
-            "Маленькие повторения важны. Они прокладывают путь под ногами."
+            "Бот не делает практику за вас. Он просто снова и снова возвращает к следующему честному шагу."
         ),
         "feature_announcement": (
             "☯️ <b>Новое в Journey of Ascension: практика меридианов</b>\n\n"
@@ -1849,9 +1849,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
-            "Xitoy an'anasida meridianlar Qi harakat qiladigan kanallar sifatida tasvirlanadi. Amaliyotda ularni diqqatning tirik xaritasi deb oling: tana qayerda oson javob beradi, qayerda taranglik bor, qayer jimdek tuyuladi.\n\n"
-            "<b>Bu qanday yordam beradi:</b> diqqat, nafas va yumshoq teginish nuqtaga qaytganda, soha ko'pincha iliqroq, aniqroq va kanalning qolgan qismi bilan bog'langanroq seziladi. Bir meridian qo'shni kanallar sezgisiga ham ta'sir qiladi, chunki tizim yaxlit ishlaydi.\n\n"
-            "<b>Qanday o'rganish:</b> sokin ketma-ketlik kerak bo'lsa bot yo'nalishini tanlang, aniq meridian bilan ishlamoqchi bo'lsangiz erkin tanlovni tanlang.\n\n"
+            "Xitoy an'anasida meridianlar Qi harakat qiladigan kanallar sifatida tasvirlanadi. Amaliyot oddiy boshlanadi: qaysi joylar diqqatga javob berishini, qayerda taranglik borligini va qaysi joylar hozircha deyarli sezilmasligini kuzatasiz.\n\n"
+            "<b>Bu qanday yordam beradi:</b> diqqat, nafas va yumshoq teginish nuqtaga qaytganda, soha iliqroq, aniqroq yoki kanalning umumiy chizig'iga osonroq qo'shilgandek sezilishi mumkin. Qo'shni kanallar ham boshqacha sezilishi mumkin, chunki tana bitta tizim sifatida ishlaydi.\n\n"
+            "<b>Qanday o'rganish:</b> barqaror ketma-ketlik kerak bo'lsa bot yo'nalishini tanlang, qaysi meridianni ochmoqchi ekaningizni bilsangiz erkin tanlovni tanlang.\n\n"
             "<b>Nuqtalardan oldin:</b> <b>cun</b> bo'yicha qo'llanmani oching, shunda 1, 1,5, 3 va 5 cun kabi masofalarni o'z tanangizda tushunish osonlashadi.\n\n"
             "Bu ongli kuzatish va o'zini sezish amaliyoti; u tibbiy tashxis yoki davolanish o'rnini bosmaydi."
         ),
@@ -1875,11 +1875,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Bu bot ichki yo'lda amaliy hamroh bo'lishi uchun yaratilgan. Uning vazifasi oddiy: sizni aniq fokusga yetarlicha tez-tez qaytarish, shunda amaliyot g'oya bo'lib qolmay, kundalik hayotga kira boshlaydi.\n\n"
-            "Energiya bilan eng kuzatiladigan ma'noda ishlaymiz: diqqat, barqarorlik, hayotiylik, o'zingizni sarflamasdan harakat qilish qobiliyati. Energiya ziddiyat, shoshilish, xafagarchilik, ortiqchalik yoki o'ziga e'tiborsizlikka oqib ketsa, butun kun og'irlashadi.\n\n"
+            "G'oya oddiy: har kuni bitta aniq amaliy fokus berish, shunda ichki ish nazariya bo'lib qolmay, kundalik qarorlar, so'zlar va sezgilarda ko'rina boshlaydi.\n\n"
+            "Bu yerda energiya kuzatish mumkin bo'lgan narsa: diqqat, barqarorlik, hayotiylik, o'zingizni sarflamasdan harakat qilish qobiliyati. Energiya ziddiyat, shoshilish, xafagarchilik, ortiqchalik yoki o'ziga e'tiborsizlikka oqib ketsa, butun kun og'irlashadi.\n\n"
             "<b>Yama/Niyama</b> bu oqimlarni xulq, nutq, fikr, intizom va o'zingizga halollik orqali yopishga yordam beradi.\n\n"
             "<b>Meridianlar</b> ishni tanaga olib kiradi: kanallar, nuqtalar, Qi oqimi, yopiq joylar, nafas, teginish va sabrli diqqat.\n\n"
-            "Kichik takrorlar muhim. Ular yo'lni oyog'ingiz ostida paydo qiladi."
+            "Bot amaliyotni sizning o'rningizga bajarmaydi. U sizni keyingi halol qadamga qaytarib turadi."
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension'da yangilik: meridian amaliyoti</b>\n\n"
@@ -2056,9 +2056,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридиандар</b>\n\n"
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
-            "Қытай дәстүрінде меридиандар Ци қозғалатын арналар ретінде сипатталады. Тәжірибеде оларды зейіннің тірі картасы деп қабылдаңыз: дене қай жерде оңай жауап береді, қай жерде кернеу бар, қай аймақ үнсіз сияқты.\n\n"
-            "<b>Бұл қалай көмектеседі:</b> зейін, тыныс және жұмсақ жанасу нүктеге қайта оралғанда, аймақ көбіне жылырақ, анық әрі арнаның қалған бөлігімен байланысқандай сезіледі. Бір меридиан көрші арналардың сезілуіне де әсер етеді, өйткені жүйе тұтас жұмыс істейді.\n\n"
-            "<b>Қалай зерттеу:</b> тыныш реттілік керек болса бот бағытын таңдаңыз, нақты меридианмен жұмыс істегіңіз келсе еркін таңдауды таңдаңыз.\n\n"
+            "Қытай дәстүрінде меридиандар Ци қозғалатын арналар ретінде сипатталады. Тәжірибе қарапайым басталады: қай жер зейінге жауап беретінін, қай жерде кернеу барын және қай аймақ әзірге әрең сезілетінін байқайсыз.\n\n"
+            "<b>Бұл қалай көмектеседі:</b> зейін, тыныс және жұмсақ жанасу нүктеге қайта оралғанда, аймақ жылырақ, анық немесе арнаның жалпы сызығына оңайырақ қосылғандай сезілуі мүмкін. Көрші арналар да басқаша сезілуі мүмкін, өйткені дене бір жүйе ретінде жұмыс істейді.\n\n"
+            "<b>Қалай зерттеу:</b> тұрақты реттілік керек болса бот бағытын таңдаңыз, қай меридианды ашқыңыз келетінін білсеңіз еркін таңдауды таңдаңыз.\n\n"
             "<b>Нүктелерден бұрын:</b> <b>цунь</b> нұсқаулығын ашыңыз, сонда 1, 1,5, 3 және 5 цунь сияқты қашықтықтарды өз денеңізде түсіну оңай болады.\n\n"
             "Бұл саналы бақылау және өзін сезіну тәжірибесі; ол медициналық диагнозды немесе емді алмастырмайды."
         ),
@@ -2082,11 +2082,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Бұл бот ішкі жолдағы практикалық серік болу үшін жасалған. Оның міндеті қарапайым: сізді анық фокусқа жиі қайтарып отыру, сонда тәжірибе идея болып қалмай, күнделікті өмірге кіре бастайды.\n\n"
-            "Энергиямен ең байқалатын мағынада жұмыс істейміз: зейін, тұрақтылық, тіршілік күші, өзіңізді сарқымай әрекет ету қабілеті. Энергия қақтығысқа, асығыстыққа, ренішке, артықтыққа немесе өзіңізге көңіл бөлмеуге кетсе, бүкіл күн ауырлайды.\n\n"
+            "Ойы қарапайым: күн сайын бір анық тәжірибе фокусын беру, сонда ішкі жұмыс теория болып қалмай, күнделікті шешімдерде, сөздерде және сезімдерде көріне бастайды.\n\n"
+            "Бұл жерде энергия — байқауға болатын нәрсе: зейін, тұрақтылық, тіршілік күші, өзіңізді сарқымай әрекет ету қабілеті. Энергия қақтығысқа, асығыстыққа, ренішке, артықтыққа немесе өзіңізге көңіл бөлмеуге кетсе, бүкіл күн ауырлайды.\n\n"
             "<b>Яма/Нияма</b> бұл ағуларды мінез-құлық, сөз, ой, тәртіп және өзіңізге адалдық арқылы жабуға көмектеседі.\n\n"
             "<b>Меридиандар</b> жұмысты денеге әкеледі: арналар, нүктелер, Ци ағымы, жабық аймақтар, тыныс, жанасу және сабырлы зейін.\n\n"
-            "Кішкентай қайталаулар маңызды. Олар жолды аяғыңыздың астында қалыптастырады."
+            "Бот тәжірибені сіздің орныңызға жасамайды. Ол сізді келесі адал қадамға қайта әкеліп тұрады."
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension ішіндегі жаңалық: меридиан тәжірибесі</b>\n\n"

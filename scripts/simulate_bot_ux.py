@@ -828,6 +828,16 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             "inspiring phrases",
             "спокойная опора для реальной практики",
             "вдохновляющих фраз",
+            "practical companion for the inner path",
+            "практичный спутник на внутреннем пути",
+            "amaliy hamroh",
+            "практикалық серік",
+            "living map of attention",
+            "живая карта внимания",
+            "tirik xaritasi",
+            "тірі картасы",
+            "is used here as a map",
+            "здесь используется как карта",
             "rigid target",
             "жёсткую мишень",
             "qat'iy nishon",
@@ -892,14 +902,15 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 issues.append(f"{language}: settings menu is missing rhythm marker {marker!r}")
 
         meridians_home = language_texts.get("meridians_menu", "")
+        meridians_home_lower = meridians_home.lower()
         meridians_home_markers = {
             "en": ("neighboring channels", "not a replacement for medical diagnosis"),
-            "ru": ("соседними", "не замена медицинской диагностике"),
+            "ru": ("соседние меридианы", "не замена медицинской диагностике"),
             "uz": ("qo'shni kanallar", "tibbiy tashxis"),
-            "kz": ("көрші арналардың", "медициналық диагнозды"),
+            "kz": ("көрші арналар", "медициналық диагнозды"),
         }[language]
         for marker in meridians_home_markers:
-            if marker not in meridians_home:
+            if marker.lower() not in meridians_home_lower:
                 issues.append(f"{language}: meridians home is missing beginner-safety marker {marker!r}")
 
         completion = language_texts.get("meridian_completed", "")
@@ -1051,6 +1062,11 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             for marker in markers:
                 if marker not in description:
                     issues.append(f"{meridian_id}/{language}: paired-channel intro is missing marker {marker!r}")
+
+    import_source = (ROOT / "scripts" / "import_meridians.py").read_text(encoding="utf-8")
+    for pattern in ai_voice_patterns:
+        if pattern in import_source:
+            issues.append(f"import_meridians.py contains stiff generated phrasing {pattern!r}")
 
     for meridian_id in ready_ids:
         meridian = meridians_by_id[meridian_id]
