@@ -2325,7 +2325,13 @@ def build_html() -> str:
     function renderAllPrinciples() {{
       const buttons = payload.principles[state.language].map((item, index) => [{{ label: item.button, action: () => renderPrincipleDetail(index) }}]);
       buttons.push([{{ label: t('principles_back'), action: () => setScreen('principles') }}]);
-      show('All principles', `<b>${{t('principles_all')}}</b>`, buttons);
+      const intro = {{
+        en: 'Choose any principle to open its image and practice card. These are not separate lessons to collect; they are ten doors back to the same everyday attention.',
+        ru: 'Выберите любой принцип, чтобы открыть картинку и карточку практики. Это не отдельные уроки для коллекции, а десять дверей к одному и тому же вниманию в обычной жизни.',
+        uz: "Rasm va amaliyot kartasini ochish uchun istalgan tamoyilni tanlang. Bu yig'ib boriladigan alohida darslar emas; ular kundalik diqqatga qaytaradigan o'nta eshik.",
+        kz: 'Сурет пен тәжірибе картасын ашу үшін кез келген қағиданы таңдаңыз. Бұлар жинайтын бөлек сабақтар емес; күнделікті зейінге қайтаратын он есік.',
+      }}[state.language] || '';
+      show('All principles', `<b>${{t('principles_all')}}</b><br><br>${{intro}}`, buttons);
     }}
 
     function renderSimple(key, title = key) {{
