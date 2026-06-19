@@ -332,7 +332,16 @@ def render_html(output: Path) -> None:
         sections.append(message("Onboarding intro", allow_basic_html(t["onboarding_intro"]), [[t["mode_meridians_only"]], [t["mode_principles_only"]], [t["mode_both"]]]))
         sections.append(message("Main menu", allow_basic_html(normalize_bot_html(t["menu"])), kb["main"]))
         sections.append(message("My Path", allow_basic_html(t["mode_menu"]), [[t["mode_principles_only"]], [t["mode_meridians_only"]], [t["mode_both"]], [t["back_to_menu"]]]))
-        sections.append(message("Settings", allow_basic_html(normalize_bot_html(t["settings_menu"])), [[t["change_modes"], t["change_meridian_time"]], [t["back_to_menu"]]]))
+        sections.append(message(
+            "Settings",
+            allow_basic_html(normalize_bot_html(t["settings_menu"])),
+            [
+                [t["change_modes"], t["change_meridian_time"]],
+                [t["change_language"], t["change_time"]],
+                [t["change_timezone"], t["change_skip_days"]],
+                [t["back_to_menu"]],
+            ],
+        ))
         sections.append(message("About", allow_basic_html(t["about_text"]), [[t["back_to_menu"]]]))
         sections.append(message("Feature announcement", allow_basic_html(t["feature_announcement"])))
         sections.append(message("Meridians home", allow_basic_html(t["meridians_menu"]), kb["meridians_home"]))

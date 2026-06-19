@@ -621,6 +621,24 @@ TEXTS_UPDATE = {
         "menu_meridians": "☯️ Meridians",
         "menu_modes": "🧭 My Path",
         "menu_stop": "⏹ Stop bot",
+        "settings_menu": (
+            "⚙️ <b>Settings</b>\n\n"
+            "Here you can tune the rhythm of practice: what the bot reminds you about, when messages arrive, and which days stay quiet."
+        ),
+        "change_language": "🌐 Language",
+        "change_time": "🧘🏻 Yama/Niyama Time",
+        "change_timezone": "🌍 Time Zone",
+        "change_skip_days": "📅 Quiet Days",
+        "time_step": (
+            "🧘🏻 <b>Yama/Niyama Reminder Time</b>\n\n"
+            "Choose when the bot should send the daily principle. A steady time helps the practice become part of ordinary life.\n\n"
+            "Format: HH:MM, for example 08:00 or 20:30."
+        ),
+        "skip_days_step": (
+            "📅 <b>Quiet Days</b>\n\n"
+            "Choose weekdays when the bot should not send Yama/Niyama reminders.\n\n"
+            "Leave everything unselected if you want a daily rhythm."
+        ),
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
             "These are the first two limbs of classical yoga and the ethical foundation of practice.\n\n"
@@ -766,6 +784,24 @@ TEXTS_UPDATE = {
         "menu_meridians": "☯️ Меридианы",
         "menu_modes": "🧭 Мой путь",
         "menu_stop": "⏹ Остановить бота",
+        "settings_menu": (
+            "⚙️ <b>Настройки</b>\n\n"
+            "Здесь можно настроить ритм практики: что бот напоминает, когда приходят сообщения и в какие дни лучше оставить тишину."
+        ),
+        "change_language": "🌐 Язык",
+        "change_time": "🧘🏻 Время Ямы/Ниямы",
+        "change_timezone": "🌍 Часовой пояс",
+        "change_skip_days": "📅 Дни тишины",
+        "time_step": (
+            "🧘🏻 <b>Время напоминания по Яме/Нияме</b>\n\n"
+            "Выберите, когда бот будет присылать ежедневный принцип. Постоянное время помогает практике войти в обычную жизнь.\n\n"
+            "Формат: ЧЧ:ММ, например 08:00 или 20:30."
+        ),
+        "skip_days_step": (
+            "📅 <b>Дни тишины</b>\n\n"
+            "Выберите дни недели, когда бот не должен присылать напоминания по Яме/Нияме.\n\n"
+            "Если хотите ежедневный ритм, оставьте дни невыбранными."
+        ),
         "principles_menu": (
             "🕊️ <b>Яма/Нияма</b>\n\n"
             "Это первые две ступени классической йоги и нравственный фундамент практики.\n\n"
@@ -911,6 +947,24 @@ TEXTS_UPDATE = {
         "menu_meridians": "☯️ Meridianlar",
         "menu_modes": "🧭 Mening yo'lim",
         "menu_stop": "⏹ Botni to'xtatish",
+        "settings_menu": (
+            "⚙️ <b>Sozlamalar</b>\n\n"
+            "Bu yerda amaliyot ritmini sozlaysiz: bot nimani eslatadi, xabarlar qachon keladi va qaysi kunlar sokin qoladi."
+        ),
+        "change_language": "🌐 Til",
+        "change_time": "🧘🏻 Yama/Niyama vaqti",
+        "change_timezone": "🌍 Vaqt mintaqasi",
+        "change_skip_days": "📅 Sokin kunlar",
+        "time_step": (
+            "🧘🏻 <b>Yama/Niyama eslatma vaqti</b>\n\n"
+            "Bot kundalik tamoyilni qachon yuborishini tanlang. Barqaror vaqt amaliyotni kundalik hayotga kiritishga yordam beradi.\n\n"
+            "Format: HH:MM, masalan 08:00 yoki 20:30."
+        ),
+        "skip_days_step": (
+            "📅 <b>Sokin kunlar</b>\n\n"
+            "Bot Yama/Niyama eslatmalarini yubormaydigan hafta kunlarini tanlang.\n\n"
+            "Har kuni ritm kerak bo'lsa, kunlarni tanlamang."
+        ),
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
             "Bular klassik yoganing birinchi ikki pog'onasi va amaliyotning axloqiy poydevoridir.\n\n"
@@ -1070,6 +1124,24 @@ TEXTS_UPDATE = {
         "menu_meridians": "☯️ Меридиандар",
         "menu_modes": "🧭 Менің жолым",
         "menu_stop": "⏹ Ботты тоқтату",
+        "settings_menu": (
+            "⚙️ <b>Баптаулар</b>\n\n"
+            "Мұнда тәжірибе ырғағын реттейсіз: бот нені еске салады, хабарлар қашан келеді және қай күндер тыныш қалады."
+        ),
+        "change_language": "🌐 Тіл",
+        "change_time": "🧘🏻 Яма/Нияма уақыты",
+        "change_timezone": "🌍 Уақыт белдеуі",
+        "change_skip_days": "📅 Тыныш күндер",
+        "time_step": (
+            "🧘🏻 <b>Яма/Нияма еске салу уақыты</b>\n\n"
+            "Бот күнделікті қағиданы қашан жіберетінін таңдаңыз. Тұрақты уақыт тәжірибені күнделікті өмірге енгізуге көмектеседі.\n\n"
+            "Формат: HH:MM, мысалы 08:00 немесе 20:30."
+        ),
+        "skip_days_step": (
+            "📅 <b>Тыныш күндер</b>\n\n"
+            "Бот Яма/Нияма еске салуларын жібермейтін апта күндерін таңдаңыз.\n\n"
+            "Күн сайынғы ырғақ керек болса, күндерді таңдамаңыз."
+        ),
         "principles_menu": (
             "🕊️ <b>Яма/Нияма</b>\n\n"
             "Бұл классикалық йоганың алғашқы екі сатысы және тәжірибенің адамгершілік негізі.\n\n"
@@ -2979,19 +3051,19 @@ class BotHandlers:
             elif setting == "time":
                 self.user_states[chat_id] = {"step": "change_time", "language": language, "settings_message_id": query.message.message_id}
                 keyboard = [[InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="settings_back")]]
-                await self._edit_message_text_safe(query, 
-                    self._get_text("time_step", language), 
+                await self._edit_message_text_safe(query,
+                    self._get_text("time_step", language),
                     reply_markup=InlineKeyboardMarkup(keyboard),
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
                 
             elif setting == "timezone":
                 self.user_states[chat_id] = {"step": "change_timezone", "language": language, "settings_message_id": query.message.message_id}
                 keyboard = self._create_timezone_keyboard(language, add_back_button=True)
-                await self._edit_message_text_safe(query, 
-                    self._get_text("timezone_step", language), 
+                await self._edit_message_text_safe(query,
+                    self._get_text("timezone_step", language),
                     reply_markup=keyboard,
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
                 
             elif setting == "skip_days":

@@ -542,6 +542,9 @@ def render(output: Path) -> None:
         <label for="scenario">Quick scenario</label>
         <select id="scenario">
           <option value="onboarding">New user onboarding</option>
+          <option value="timezone">Time zone step</option>
+          <option value="time">Reminder time step</option>
+          <option value="skipDays">Quiet days step</option>
           <option value="main">Main menu</option>
           <option value="meridians">Meridians section</option>
           <option value="measurements">TCM measurements</option>
@@ -718,10 +721,39 @@ def render(output: Path) -> None:
           : state.language === 'uz'
             ? 'Kunlar tanlanmagan - xabarlar har kuni yuboriladi'
             : 'Күндер таңдалмаған - хабарлар күн сайын жіберіледі';
-      show('Skip days', `${{fmt(t('skip_days_step'))}}<br><br><b>${{note}}</b>`, [
-        [{{ label: '🎯 ' + (t('no_skip_days') || 'No skip days'), action: () => setScreen('main') }}],
-        [{{ label: '📅 Weekends', action: () => setScreen('main') }}],
-      ]);
+      const dayNames = {{
+        en: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        ru: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+        uz: ['Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba', 'Yakshanba'],
+        kz: ['Дүйсенбі', 'Сейсенбі', 'Сәрсенбі', 'Бейсенбі', 'Жұма', 'Сенбі', 'Жексенбі'],
+      }}[state.language] || [];
+      const shortDay = (name) => name.length > 8 ? `${{name.slice(0, 7)}}.` : name;
+      const buttons = [];
+      for (let i = 0; i < dayNames.length; i += 2) {{
+        buttons.push(dayNames.slice(i, i + 2).map((name) => ({{ label: `📅 ${{shortDay(name)}}`, action: () => setScreen('main') }})));
+      }}
+      const noSkip = {{
+        en: '🎯 No Skip Days',
+        ru: '🎯 Не пропускать',
+        uz: "🎯 Kunlarni o'tkazmaslik",
+        kz: '🎯 Күндерді өткізбеу',
+      }}[state.language] || '🎯 No Skip Days';
+      const weekends = {{
+        en: '📅 Weekends Only',
+        ru: '📅 Только выходные',
+        uz: '📅 Faqat dam olish kunlari',
+        kz: '📅 Тек демалыс күндері',
+      }}[state.language] || '📅 Weekends Only';
+      const finish = {{
+        en: '✅ Continue',
+        ru: '✅ Продолжить',
+        uz: '✅ Davom etish',
+        kz: '✅ Жалғастыру',
+      }}[state.language] || '✅ Continue';
+      buttons.push([{{ label: noSkip, action: () => setScreen('main') }}]);
+      buttons.push([{{ label: weekends, action: () => setScreen('main') }}]);
+      buttons.push([{{ label: finish, action: () => setScreen('main') }}]);
+      show('Skip days', `${{fmt(t('skip_days_step'))}}<br><br><b>${{note}}</b>`, buttons);
     }}
 
     function renderMain() {{
@@ -867,6 +899,15 @@ def render(output: Path) -> None:
       show(title, fmt(t(key) || key), [[{{ label: t('back_to_menu'), action: () => setScreen('main') }}]]);
     }}
 
+    function renderSettings() {{
+      show('Settings', fmt(t('settings_menu')), [
+        [{{ label: t('change_modes'), action: () => setScreen('modes') }}, {{ label: t('change_meridian_time'), action: () => setScreen('time') }}],
+        [{{ label: t('change_language'), action: () => setScreen('onboarding') }}, {{ label: t('change_time'), action: () => setScreen('time') }}],
+        [{{ label: t('change_timezone'), action: () => setScreen('timezone') }}, {{ label: t('change_skip_days'), action: () => setScreen('skipDays') }}],
+        [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
+      ]);
+    }}
+
     function render() {{
       renderCoverage();
       const routes = {{
@@ -886,7 +927,7 @@ def render(output: Path) -> None:
         principleDetail: () => renderPrincipleDetail(0),
         allPrinciples: renderAllPrinciples,
         about: () => renderSimple('about_text', 'About'),
-        settings: () => renderSimple('settings_menu', 'Settings'),
+        settings: renderSettings,
         feedback: () => renderSimple('feedback_prompt', 'Feedback'),
         stop: () => renderSimple('stop_feedback_prompt', 'Stop'),
       }};
@@ -922,6 +963,12 @@ def render(output: Path) -> None:
         state.screen = 'about';
       }} else if (scenario === 'settings') {{
         state.screen = 'settings';
+      }} else if (scenario === 'timezone') {{
+        state.screen = 'timezone';
+      }} else if (scenario === 'time') {{
+        state.screen = 'time';
+      }} else if (scenario === 'skipDays') {{
+        state.screen = 'skipDays';
       }} else if (scenario === 'main') {{
         state.screen = 'main';
       }} else {{
