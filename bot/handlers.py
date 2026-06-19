@@ -4,6 +4,7 @@ import asyncio
 import logging
 import re
 from html import escape
+from pathlib import Path
 from typing import List, Dict, Any, Optional
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaAnimation
 from telegram.ext import (
@@ -33,6 +34,7 @@ from .utils import (
 logger = logging.getLogger(__name__)
 
 MERIDIAN_POINTS_PAGE_SIZE = 10
+CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement.png"
 
 
 # Multilingual texts
@@ -111,8 +113,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'no_skip_days': '✅ No quiet days selected — reminders can arrive every day',
         'about_text': '🕊️ <b>Journey of Ascension</b>\n'
                       '\n'
-                      'This bot is meant to be a quiet support for real practice, not a collection of '
-                      'inspiring phrases.\n'
+                      'This bot helps you return to practice in ordinary life: one clear focus, every day.\n'
                       '\n'
                       'Every day it helps you return to one concrete focus: a Yama/Niyama principle or a '
                       'meridian point. The aim is simple: notice where energy is spent unconsciously, stop '
@@ -273,8 +274,8 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                                       'attention.',
         'meridian_point_help_text': '🖐 <b>How to find a point</b>\n'
                                     '\n'
-                                    'Use the image and cun measurements as a map, not as a rigid target. '
-                                    'Find the approximate area, then slow down.\n'
+                                    'Start with the picture and cun measurements to find the general area. '
+                                    'Then slow down and let the body clarify the exact point.\n'
                                     '\n'
                                     '<b>1.</b> Touch the area softly and look for a small hollow, '
                                     'sensitivity, warmth, pressure, or a place where attention catches more '
@@ -411,8 +412,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'no_skip_days': '✅ Дни тишины не выбраны — напоминания могут приходить каждый день',
         'about_text': '🕊️ <b>Journey of Ascension</b>\n'
                       '\n'
-                      'Этот бот задуман как спокойная опора для реальной практики, а не как набор '
-                      'вдохновляющих фраз.\n'
+                      'Этот бот помогает возвращаться к практике в обычной жизни: один ясный фокус каждый день.\n'
                       '\n'
                       'Каждый день он возвращает к одному конкретному фокусу: принципу Ямы/Ниямы или точке '
                       'меридиана. Задача простая: замечать, где энергия уходит бессознательно, переставать '
@@ -577,8 +577,8 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                                       'ясный отклик на внимание.',
         'meridian_point_help_text': '🖐 <b>Как искать точку</b>\n'
                                     '\n'
-                                    'Используйте изображение и цуни как карту, а не как жёсткую мишень. '
-                                    'Найдите примерную область, затем замедлитесь.\n'
+                                    'Сначала найдите примерную область по изображению и цуням. '
+                                    'Потом замедлитесь и уточняйте точку уже через ощущения тела.\n'
                                     '\n'
                                     '<b>1.</b> Мягко касайтесь зоны и ищите небольшое углубление, '
                                     'чувствительность, тепло, давление или место, за которое внимание '
@@ -713,8 +713,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'back_to_menu': '🔙 Menyuga qaytish',
         'about_text': '🕊️ <b>Journey of Ascension</b>\n'
                       '\n'
-                      "Bu bot ilhomli iboralar to'plami emas, balki haqiqiy amaliyot uchun sokin tayanch "
-                      "bo'lishi uchun yaratilgan.\n"
+                      "Bu bot kundalik hayotda amaliyotga qaytishga yordam beradi: har kuni bitta aniq fokus.\n"
                       '\n'
                       'Har kuni u sizni bitta aniq fokusga qaytaradi: Yama/Niyama tamoyiliga yoki meridian '
                       "nuqtasiga. Maqsad oddiy: energiya qayerda ongsiz sarflanayotganini ko'rish, uni "
@@ -880,8 +879,8 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                                       'diqqatga aniq javob.',
         'meridian_point_help_text': '🖐 <b>Nuqtani qanday topish kerak</b>\n'
                                     '\n'
-                                    "Rasm va cun o'lchovlarini qat'iy nishon emas, xarita sifatida "
-                                    'ishlating. Taxminiy joyni toping, keyin sekinlashing.\n'
+                                    "Avval rasm va cun o'lchovlari orqali taxminiy joyni toping. "
+                                    'Keyin sekinlashing va aniq nuqtani tana sezgilari orqali toping.\n'
                                     '\n'
                                     '<b>1.</b> Joyga yumshoq teging va kichik chuqurcha, sezgirlik, '
                                     'issiqlik, bosim yoki diqqat osonroq ushlanadigan nuqtani qidiring.\n'
@@ -1026,8 +1025,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'back_to_menu': '🔙 Мәзірге қайту',
         'about_text': '🕊️ <b>Journey of Ascension</b>\n'
                       '\n'
-                      'Бұл бот шабыт беретін сөздер жинағы емес, нақты тәжірибе үшін тыныш тірек болу үшін '
-                      'жасалған.\n'
+                      'Бұл бот күнделікті өмірде тәжірибеге қайта оралуға көмектеседі: күн сайын бір анық фокус.\n'
                       '\n'
                       'Күн сайын ол сізді бір нақты фокусқа қайтарады: Яма/Нияма қағидасына немесе меридиан '
                       'нүктесіне. Мақсат қарапайым: энергияның қайда бейсаналы жұмсалып жатқанын көру, оны '
@@ -1191,8 +1189,8 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                                       'зейінге айқын жауап.',
         'meridian_point_help_text': '🖐 <b>Нүктені қалай табу керек</b>\n'
                                     '\n'
-                                    'Сурет пен цунь өлшемдерін қатаң нысана емес, карта ретінде қолданыңыз. '
-                                    'Шамамен орынды табыңыз, содан кейін баяулаңыз.\n'
+                                    'Алдымен сурет пен цунь өлшемдері арқылы шамамен орынды табыңыз. '
+                                    'Содан кейін баяулап, нақты нүктені дене сезімі арқылы анықтаңыз.\n'
                                     '\n'
                                     '<b>1.</b> Аймаққа жұмсақ тиіп, кішкентай ойыс, сезімталдық, жылу, қысым '
                                     'немесе зейін оңай ілінетін орынды іздеңіз.\n'
@@ -1436,6 +1434,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Bot route selected.</b>\n\nWe will move gently: one meridian, one point, one stable sensation at a time.",
         "meridian_free_saved": "✅ <b>Free choice selected.</b>\n\nChoose the meridian you want to explore now.",
         "meridian_measurements": "📏 Measure cun",
+        "meridian_measurements_image_caption": "📏 <b>Cun at a glance</b>\nA quick visual guide before you read the full explanation.",
         "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
         "back_to_current_focus": "🔙 Back to current focus",
@@ -1455,7 +1454,7 @@ TEXTS_UPDATE = {
         ),
         "meridian_point_help_text": (
             "🖐 <b>How to find a point</b>\n\n"
-            "Use the image and cun measurements as a map, not as a rigid target. Find the approximate area, then slow down.\n\n"
+            "Start with the picture and cun measurements to find the general area. Then slow down and let the body clarify the exact point.\n\n"
             "<b>1.</b> Touch the area softly and look for a small hollow, sensitivity, warmth, pressure, or a place where attention catches more easily.\n\n"
             "<b>2.</b> If the point feels silent, treat it as not yet open: stay longer, gently massage it, and breathe through it with attention.\n\n"
             "<b>3.</b> Do not force a result. A quiet, steady sensation is enough.\n\n"
@@ -1628,6 +1627,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Выбран маршрут бота.</b>\n\nБудем двигаться мягко: один меридиан, одна точка, одно устойчивое ощущение за раз.",
         "meridian_free_saved": "✅ <b>Выбран свободный выбор.</b>\n\nВыберите меридиан, который хотите исследовать сейчас.",
         "meridian_measurements": "📏 Как измерять цуни",
+        "meridian_measurements_image_caption": "📏 <b>Цуни наглядно</b>\nКороткая схема перед подробным объяснением.",
         "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
         "back_to_current_focus": "🔙 К текущему фокусу",
@@ -1647,7 +1647,7 @@ TEXTS_UPDATE = {
         ),
         "meridian_point_help_text": (
             "🖐 <b>Как искать точку</b>\n\n"
-            "Используйте изображение и цуни как карту, а не как жёсткую мишень. Найдите примерную область, затем замедлитесь.\n\n"
+            "Сначала найдите примерную область по изображению и цуням. Потом замедлитесь и уточняйте точку уже через ощущения тела.\n\n"
             "<b>1.</b> Мягко касайтесь зоны и ищите небольшое углубление, чувствительность, тепло, давление или место, за которое внимание цепляется легче.\n\n"
             "<b>2.</b> Если точка молчит, считайте её пока закрытой: побудьте с ней дольше, мягко помассируйте и представляйте вдох и выдох через неё.\n\n"
             "<b>3.</b> Не выжимайте результат. Достаточно тихого устойчивого ощущения.\n\n"
@@ -1820,6 +1820,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Bot yo'nalishi tanlandi.</b>\n\nYumshoq harakat qilamiz: bir meridian, bir nuqta, bir barqaror sezgi.",
         "meridian_free_saved": "✅ <b>Erkin tanlov tanlandi.</b>\n\nHozir o'rganmoqchi bo'lgan meridianni tanlang.",
         "meridian_measurements": "📏 Cunni o'lchash",
+        "meridian_measurements_image_caption": "📏 <b>Cun ko'rinishda</b>\nBatafsil tushuntirishdan oldin qisqa sxema.",
         "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "back_to_current_focus": "🔙 Joriy fokusga qaytish",
@@ -1839,7 +1840,7 @@ TEXTS_UPDATE = {
         ),
         "meridian_point_help_text": (
             "🖐 <b>Nuqtani qanday topish kerak</b>\n\n"
-            "Rasm va cun o'lchovlarini qat'iy nishon emas, xarita sifatida ishlating. Taxminiy joyni toping, keyin sekinlashing.\n\n"
+            "Avval rasm va cun o'lchovlari orqali taxminiy joyni toping. Keyin sekinlashing va aniq nuqtani tana sezgilari orqali toping.\n\n"
             "<b>1.</b> Joyga yumshoq teging va kichik chuqurcha, sezgirlik, issiqlik, bosim yoki diqqat osonroq ushlanadigan nuqtani qidiring.\n\n"
             "<b>2.</b> Agar nuqta jim bo'lsa, uni hali ochilmagan deb qabul qiling: uzoqroq turing, yengil massaj qiling va shu nuqta orqali nafas olayotganingizni tasavvur qiling.\n\n"
             "<b>3.</b> Natijani majburlamang. Sokin va barqaror sezgi yetarli.\n\n"
@@ -2026,6 +2027,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Бот бағыты таңдалды.</b>\n\nБаяу қозғаламыз: бір меридиан, бір нүкте, бір тұрақты сезім.",
         "meridian_free_saved": "✅ <b>Еркін таңдау таңдалды.</b>\n\nҚазір зерттегіңіз келетін меридианды таңдаңыз.",
         "meridian_measurements": "📏 Цуньді өлшеу",
+        "meridian_measurements_image_caption": "📏 <b>Цунь көрнекі түрде</b>\nТолық түсіндірмеден бұрын қысқа сызба.",
         "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "back_to_current_focus": "🔙 Ағымдағы фокусқа қайту",
@@ -2045,7 +2047,7 @@ TEXTS_UPDATE = {
         ),
         "meridian_point_help_text": (
             "🖐 <b>Нүктені қалай табу керек</b>\n\n"
-            "Сурет пен цунь өлшемдерін қатаң нысана емес, карта ретінде қолданыңыз. Шамамен орынды табыңыз, содан кейін баяулаңыз.\n\n"
+            "Алдымен сурет пен цунь өлшемдері арқылы шамамен орынды табыңыз. Содан кейін баяулап, нақты нүктені дене сезімі арқылы анықтаңыз.\n\n"
             "<b>1.</b> Аймаққа жұмсақ тиіп, кішкентай ойыс, сезімталдық, жылу, қысым немесе зейін оңай ілінетін орынды іздеңіз.\n\n"
             "<b>2.</b> Егер нүкте үнсіз болса, оны әзірге ашылмаған деп қабылдаңыз: ұзағырақ болыңыз, жеңіл уқалаңыз және сол нүкте арқылы тыныс алуды елестетіңіз.\n\n"
             "<b>3.</b> Нәтижені күштемеңіз. Тыныш әрі тұрақты сезім жеткілікті.\n\n"
@@ -4205,6 +4207,18 @@ class BotHandlers:
                 return
 
             if action == "measurements":
+                if CUN_MEASUREMENT_IMAGE_PATH.exists():
+                    try:
+                        with open(CUN_MEASUREMENT_IMAGE_PATH, "rb") as photo:
+                            sent_message = await self.application.bot.send_photo(
+                                chat_id=chat_id,
+                                photo=photo,
+                                caption=self._get_text("meridian_measurements_image_caption", language),
+                                parse_mode='HTML'
+                            )
+                        await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
+                    except Exception as e:
+                        logger.warning(f"Could not send cun measurement image to {chat_id}: {e}")
                 await self._edit_message_text_safe(
                     query,
                     self._get_text("meridian_measurements_text", language),

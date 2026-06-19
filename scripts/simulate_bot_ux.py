@@ -712,6 +712,9 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     raw_meridians_by_id = {item["id"]: item for item in load_json("bot/meridians.json")["meridians"]}
     ready_ids = [item["id"] for item in meridians if item["pointsCount"] > 0]
 
+    if not (ROOT / "images" / "meridians" / "cun_measurement.png").exists():
+        issues.append("missing cun measurement visual asset")
+
     if tuple(payload["languages"]) != LANGUAGES:
         issues.append(f"languages mismatch: {payload['languages']}")
 
@@ -820,6 +823,16 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             "Yoga tamoyillari boti",
             "Йога принциптері боты",
         )
+        ai_voice_patterns = (
+            "quiet support for real practice",
+            "inspiring phrases",
+            "спокойная опора для реальной практики",
+            "вдохновляющих фраз",
+            "rigid target",
+            "жёсткую мишень",
+            "qat'iy nishon",
+            "қатаң нысана",
+        )
         visible_keys = (
             "welcome",
             "onboarding_intro",
@@ -829,6 +842,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             "mode_menu",
             "settings_menu",
             "meridians_menu",
+            "meridian_measurements_image_caption",
+            "meridian_point_help_text",
             "setup_complete",
             "already_subscribed",
             "feature_announcement",
@@ -840,6 +855,9 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             for pattern in stale_patterns:
                 if pattern in value:
                     issues.append(f"{language}: {key} contains stale branding {pattern!r}")
+            for pattern in ai_voice_patterns:
+                if pattern in value:
+                    issues.append(f"{language}: {key} contains stiff generated phrasing {pattern!r}")
 
         raw_language_texts = text_definitions.get("TEXTS", {}).get(language, {})
         for key in visible_keys:
@@ -847,6 +865,12 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             for pattern in stale_patterns:
                 if pattern in value:
                     issues.append(f"{language}: raw TEXTS.{key} contains stale branding {pattern!r}")
+            for pattern in ai_voice_patterns:
+                if pattern in value:
+                    issues.append(f"{language}: raw TEXTS.{key} contains stiff generated phrasing {pattern!r}")
+
+        if not language_texts.get("meridian_measurements_image_caption"):
+            issues.append(f"{language}: missing cun measurement image caption")
 
         for key in ("mode_menu", "about_text", "meridians_menu", "meridian_measurements_text", "meridian_point_help_text"):
             value = language_texts.get(key, "")
@@ -2039,7 +2063,7 @@ def build_html() -> str:
         chooseMeridian: renderChooseMeridian,
         allPoints: renderAllPoints,
         skipDays: renderSkipDays,
-        measurements: () => show('Measurements', fmt(t('meridian_measurements_text')), [[{{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}], [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]]),
+        measurements: () => show('Measurements', fmt(t('meridian_measurements_text')), [[{{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}], [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]], '../images/meridians/cun_measurement.png'),
         pointHelp: () => {{
           const buttons = [];
           if (state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);

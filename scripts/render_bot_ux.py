@@ -639,7 +639,12 @@ def render_html(output: Path) -> None:
         sections.append(message("About", allow_basic_html(t["about_text"]), [[t["back_to_menu"]]]))
         sections.append(message("Feature announcement", allow_basic_html(t["feature_announcement"])))
         sections.append(message("Meridians home", allow_basic_html(t["meridians_menu"]), kb["meridians_home"]))
-        sections.append(message("TCM measurements", allow_basic_html(t["meridian_measurements_text"]), [[t["meridian_back"]]]))
+        sections.append(message(
+            "TCM measurements",
+            allow_basic_html(t["meridian_measurements_text"]),
+            [[t["meridian_back"]]],
+            image="../images/meridians/cun_measurement.png",
+        ))
         sections.append(message("Point search help", allow_basic_html(t["meridian_point_help_text"]), [[t["current_meridian"]], [t["meridian_back"]]]))
         sections.append(meridian_message("Lung Meridian intro", lung, language, kb["meridian_intro"]))
         sections.append(meridian_message("Lung Meridian point 1", lung, language, kb["meridian_first_point"], 0))

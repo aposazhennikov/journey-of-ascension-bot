@@ -21,7 +21,7 @@
       "name": "Астея",
       "emoji": "✨",
       "short_description": "Неприсвоение себе чужого",
-      "description": "Астея — неприсвоение себе чужого. Принцип основан на теории, что Вселенная постоянно стремится к балансу — тот, кто украл, потеряет столько же или даже больше (вспомните карму как причинно-следственный закон). Это касается не только вещей: нельзя присваивать себе чужие мысли, идеи, достижения.",
+      "description": "Астея — неприсвоение чужого. Это касается не только вещей: сюда входят чужое время, внимание, идеи, труд и доверие. Когда мы берём без разрешения или используем человека как ресурс, энергия уходит на напряжение, оправдания и скрытый долг. Астея возвращает отношениям ясность: брать честно, отдавать честно, не питаться чужим.",
       "practice_tip": "Сегодня не присваивайте чужое: вещи, идеи, время, внимание. Перед тем как взять, попросите; перед тем как отвлечь человека, проверьте необходимость. Возвращайте энергию себе через честный обмен."
     },
     {
@@ -37,7 +37,7 @@
       "name": "Апариграха",
       "emoji": "🍃",
       "short_description": "Не-стяжательство и непривязанность",
-      "description": "Апариграха — это принцип йоги, означающий не-стяжательство, не-накопительство или непривязанность к материальным вещам и результатам своей деятельности. В более широком смысле, это свобода от жадности, алчности и привязанностей, а также отказ от излишнего обладания и накопительства. Этот принцип — о бережном отношении к ресурсам природы, которые сейчас истощает общество потребления. Мы покупаем только то, что нам нужно, и не тратим свою энергию на приобретение и обслуживание ненужных вещей.",
+      "description": "Апариграха — не-стяжательство и свобода от лишнего удержания. Это не запрет иметь вещи, а способность видеть, где обладание начинает владеть вами. Лишние покупки, обещания, связи, планы и ожидания требуют обслуживания и тянут внимание. Апариграха возвращает энергию из накопления в присутствие: достаточно того, что действительно служит жизни.",
       "practice_tip": "Сегодня выбирайте достаточность. Не берите лишнего в еде, вещах, словах, мыслях и напряжении. Каждый раз, когда можно не хвататься, отпустите: так энергия перестаёт застревать в удержании."
     },
     {
@@ -45,7 +45,7 @@
       "name": "Шауча",
       "emoji": "🌟",
       "short_description": "Чистота тела, ума и речи",
-      "description": "Шауча — чистота тела, ума и речи.",
+      "description": "Шауча — чистота тела, ума, речи и пространства. Это не стерильность и не борьба с собой, а ясность среды, через которую проходит энергия. Когда тело перегружено, место захламлено, речь груба, а мысли мутные, внимание быстрее устаёт. Шауча помогает убрать лишнее и оставить внутри больше тишины.",
       "practice_tip": "Сегодня освободите одно внешнее и одно внутреннее пространство. Уберите место, приведите тело в порядок, а затем посмотрите: какая мысль или эмоция тоже просит очищения и тишины?"
     },
     {
@@ -69,7 +69,7 @@
       "name": "Свадхьяя",
       "emoji": "📚",
       "short_description": "Самообразование и самопознание",
-      "description": "Свадхьяя — самообразование. Означает изучение информации, не искажающей реальность. Замещение негативного представления о мире на адекватное. Свадхьяя включает в себя осознание своих ментальных и эмоциональных паттернов, наблюдение за своими реакциями на различные ситуации и понимание того, как эти реакции влияют на поведение и ощущения. Свадхьяя также подразумевает стремление к новым знаниям и пониманию, расширение своего кругозора и развитие критического мышления.",
+      "description": "Свадхьяя — самоизучение. Это чтение, размышление и честное наблюдение за собой: какие мысли повторяются, где тело сжимается, какие реакции управляют поведением. Важно не обвинять себя, а видеть точнее. Когда реакция становится понятной, она перестаёт незаметно управлять энергией и появляется возможность выбрать другой шаг.",
       "practice_tip": "Сегодня станьте исследователем себя. Заметьте одну повторяющуюся реакцию: где она начинается в теле, какую мысль приносит, чего хочет защитить? Дополните наблюдение чтением или размышлением."
     },
     {
@@ -103,7 +103,7 @@
       "name": "Asteya",
       "emoji": "✨",
       "short_description": "Non-appropriation of others' property",
-      "description": "Asteya is non-appropriation of others' property. The principle is based on the theory that the Universe constantly strives for balance - one who steals will lose as much or even more (remember karma as a cause-and-effect law). This applies not only to things: you cannot appropriate others' thoughts, ideas, achievements.",
+      "description": "Asteya is not taking what is not freely given. It includes not only things, but also another person's time, attention, ideas, work, and trust. When we take without permission or use someone as a resource, energy goes into tension, excuses, and hidden debt. Asteya restores clarity: receive honestly, give honestly, and do not feed on what belongs to another.",
       "practice_tip": "Today do not take what is not yours: things, ideas, time, attention. Before taking, ask; before distracting someone, check if it is needed. Let energy return through honest exchange."
     },
     {
@@ -119,7 +119,7 @@
       "name": "Aparigraha",
       "emoji": "🍃",
       "short_description": "Non-possessiveness and non-attachment",
-      "description": "Aparigraha is a yoga principle meaning non-possessiveness, non-accumulation, or non-attachment to material things and results of one's activities. In a broader sense, it is freedom from greed, avarice and attachments, as well as rejection of excessive possession and accumulation. This principle is about careful attitude to nature's resources, which consumer society is now depleting. We buy only what we need and don't spend our energy on acquiring and maintaining unnecessary things.",
+      "description": "Aparigraha is non-possessiveness and freedom from unnecessary holding. It does not forbid having things; it asks where possession begins to possess you. Extra purchases, promises, relationships, plans, and expectations all need maintenance and pull attention. Aparigraha returns energy from accumulation into presence: enough is what truly serves life.",
       "practice_tip": "Today choose enough. Do not take extra food, things, words, thoughts, or tension. Whenever you can stop grasping, release it: energy stops getting trapped in holding."
     },
     {
@@ -127,7 +127,7 @@
       "name": "Saucha",
       "emoji": "🌟",
       "short_description": "Purity of body, mind, and speech",
-      "description": "Saucha is purity of body, mind, and speech.",
+      "description": "Saucha is purity of body, mind, speech, and space. It is not sterile perfection or fighting yourself, but a clearer environment for energy to move through. When the body is overloaded, the room is cluttered, speech is rough, and thoughts are muddy, attention tires faster. Saucha removes what is unnecessary and leaves more silence inside.",
       "practice_tip": "Today clear one outer and one inner space. Clean a place, care for the body, then look within: which thought or emotion is also asking for cleanliness and silence?"
     },
     {
@@ -151,7 +151,7 @@
       "name": "Svadhyaya",
       "emoji": "📚",
       "short_description": "Self-education and self-knowledge",
-      "description": "Svadhyaya is self-education. It means studying information that doesn't distort reality. Replacing negative worldview with adequate one. Svadhyaya includes awareness of one's mental and emotional patterns, observing one's reactions to various situations and understanding how these reactions affect behavior and sensations. Svadhyaya also implies striving for new knowledge and understanding, expanding one's horizons and developing critical thinking.",
+      "description": "Svadhyaya is self-study. It includes reading, reflection, and honest observation of yourself: which thoughts repeat, where the body tightens, which reactions shape behavior. The point is not to blame yourself, but to see more clearly. When a reaction becomes visible, it stops quietly directing your energy and another step becomes possible.",
       "practice_tip": "Today become a researcher of yourself. Notice one repeating reaction: where it starts in the body, what thought it brings, what it tries to protect. Add reading or reflection if there is space."
     },
     {
@@ -185,7 +185,7 @@
       "name": "Asteya",
       "emoji": "✨",
       "short_description": "Begonani o'zlashtirib olmaslik",
-      "description": "Asteya - begona narsani o'zlashtirmaslik. Bu tamoyil Koinot doimo muvozanatga intiladi degan nazariyaga asoslanadi - o'g'irlik qilgan kishi shuncha yoki undan ham ko'proq yo'qotadi (karmani sabab-oqibat qonuni sifatida eslaymiz). Bu nafaqat narsalarga tegishli: boshqalarning fikrlari, g'oyalari, yutuqlarini o'zlashtirish mumkin emas.",
+      "description": "Asteya - berilmagan narsani olmaslik. Bu faqat buyumlarga emas, balki boshqa odamning vaqti, e'tibori, g'oyasi, mehnati va ishonchiga ham tegishli. Ruxsatsiz olsak yoki odamdan resurs sifatida foydalansak, energiya zo'riqish, bahona va yashirin qarzga ketadi. Asteya munosabatlarga ravshanlik qaytaradi: halol olish, halol berish, boshqaning hisobidan oziqlanmaslik.",
       "practice_tip": "Bugun o'zingizniki bo'lmagan narsani olmang: buyum, g'oya, vaqt, e'tibor. Olishdan oldin so'rang; birovni chalg'itishdan oldin zarurligini tekshiring. Energiya halol almashinuv orqali qaytadi."
     },
     {
@@ -201,7 +201,7 @@
       "name": "Aparigraha",
       "emoji": "🍃",
       "short_description": "Mol-mulk to'plamaslik va bog'lanmaslik",
-      "description": "Aparigraha - bu yoganing tamoyili bo'lib, mol-mulk to'plamaslik, jamg'armaslik yoki moddiy narsalar va o'z faoliyati natijalariga bog'lanmaslikni anglatadi. Kengroq ma'noda, bu ochko'zlik, hirs va bog'lanishlardan ozod bo'lish, shuningdek, ortiqcha egalik va jamg'arish qilishdan voz kechishdir. Bu tamoyil tabiat resurslariga ehtiyotkorlik bilan munosabatda bo'lish haqida, hozir iste'mol jamiyati ularni tugatamoqda. Biz faqat kerak bo'lgan narsani sotib olamiz va keraksiz narsalarni sotib olish va xizmat ko'rsatishga energiyamizni sarflamaymiz.",
+      "description": "Aparigraha - ortiqcha egalik va ushlab turishdan erkinlik. Bu narsaga ega bo'lishni taqiqlamaydi; faqat qayerda narsa sizni egallay boshlaganini ko'rishga chaqiradi. Ortiqcha xarid, va'da, aloqa, reja va kutishlarning barchasi parvarish talab qiladi va e'tiborni tortadi. Aparigraha energiyani jamg'arishdan hozirlikka qaytaradi: hayotga xizmat qiladigan narsa yetarli.",
       "practice_tip": "Bugun yetarlilikni tanlang. Ortiqcha ovqat, buyum, so'z, fikr yoki zo'riqishni olmang. Qayerda yopishmaslik mumkin bo'lsa, qo'yib yuboring: energiya ushlab turishda qamalib qolmaydi."
     },
     {
@@ -209,7 +209,7 @@
       "name": "Saucha",
       "emoji": "🌟",
       "short_description": "Tana, ong va nutqning pokligi",
-      "description": "Saucha - tana, ong va nutqning pokligi.",
+      "description": "Saucha - tana, ong, nutq va makon pokligi. Bu mukammal sterillik yoki o'zingiz bilan kurash emas; energiya erkinroq harakat qilishi uchun muhitni ravshanlashtirishdir. Tana ortiqcha yuklangan, joy tartibsiz, nutq qo'pol, fikrlar loyqa bo'lsa, diqqat tez charchaydi. Saucha ortiqchani olib tashlab, ichkarida ko'proq sukunat qoldiradi.",
       "practice_tip": "Bugun bitta tashqi va bitta ichki joyni tozalang. Atrofni tartibga keltiring, tanaga g'amxo'rlik qiling, keyin ichkariga qarang: qaysi fikr yoki tuyg'u ham tozalik va sukunat so'rayapti?"
     },
     {
@@ -233,7 +233,7 @@
       "name": "Svadhyaya",
       "emoji": "📚",
       "short_description": "O'z-o'zini tarbiyalash va o'z-o'zini anglash",
-      "description": "Svadhyaya - o'z-o'zini tarbiyalash. Haqiqatni buzmaydigan ma'lumotni o'rganishni anglatadi. Dunyo haqidagi salbiy tasavvurni adekvat bilan almashtirish. Svadhyaya o'zining aqliy va hissiy naqshlarini anglash, turli vaziyatlarga bo'lgan reaktsiyalarini kuzatish va bu reaktsiyalarning xatti-harakatlar va his-tuyg'ularga qanday ta'sir qilishini tushunishni o'z ichiga oladi. Svadhyaya shuningdek yangi bilim va tushunchaga intilish, dunyoqarashni kengaytirish va tanqidiy tafakkurni rivojlantirishni anglatadi.",
+      "description": "Svadhyaya - o'zini o'rganish. U o'qish, mulohaza va o'zingizni halol kuzatishni o'z ichiga oladi: qaysi fikrlar takrorlanadi, tana qayerda siqiladi, qaysi reaksiyalar xatti-harakatni boshqaradi. Maqsad o'zingizni ayblash emas, aniqroq ko'rishdir. Reaksiya ko'ringanida, u energiyangizni yashirin boshqarishni to'xtatadi va boshqa qadam tanlash mumkin bo'ladi.",
       "practice_tip": "Bugun o'zingizni tadqiq qiling. Takrorlanadigan bitta reaksiyani kuzating: u tanada qayerdan boshlanadi, qanday fikr olib keladi, nimani himoya qilmoqchi? Imkon bo'lsa, buni o'qish yoki mulohaza bilan chuqurlashtiring."
     },
     {
@@ -267,7 +267,7 @@
       "name": "Астея",
       "emoji": "✨",
       "short_description": "Басқаның заттарын меншіктемеу",
-      "description": "Астея - басқаның заттарын меншіктемеу. Бұл принцип Ғалам үнемі тепе-теңдікке ұмтылады деген теорияға негізделген - ұрлық жасаған адам сонша немесе одан да көп жоғалтады (карманы себеп-салдар заңы ретінде есте сақтаймыз). Бұл тек заттарға ғана қатысты емес: басқалардың ойлары, идеялары, жетістіктерін меншіктеу болмайды.",
+      "description": "Астея - еркін берілмеген нәрсені алмау. Бұл тек затқа емес, басқа адамның уақытына, назарына, идеясына, еңбегіне және сеніміне де қатысты. Рұқсатсыз алсақ немесе адамды ресурс ретінде қолдансақ, энергия кернеуге, ақталуға және жасырын қарызға кетеді. Астея қарым-қатынасқа айқындық қайтарады: адал алу, адал беру, өзгенің есебінен қоректенбеу.",
       "practice_tip": "Бүгін өзіңіздікі емес нәрсені алмаңыз: зат, идея, уақыт, назар. Алмас бұрын сұраңыз; біреуді бөлмес бұрын оның қажет екенін тексеріңіз. Энергия адал алмасу арқылы қайтады."
     },
     {
@@ -283,7 +283,7 @@
       "name": "Апариграха",
       "emoji": "🍃",
       "short_description": "Мүлік жинамау және байланыспау",
-      "description": "Апариграха - бұл йоганың принципі, мүлік жинамау, жиналымдамау немесе материалдық заттар мен өз қызметі нәтижелеріне байланыспауды білдіреді. Кең мағынада, бұл сараңдық, қызғаныш пен байланыстардан бас тарту, сондай-ақ артық иелену мен жинақтаудан бас тарту. Бұл принцип табиғат ресурстарына сақтықпен қарау туралы, қазір тұтыну қоғамы оларды бітіруде. Біз тек қажетті нәрсені сатып аламыз және қажетсіз заттарды сатып алуға және қызмет көрсетуге энергиямызды жұмсамаймыз.",
+      "description": "Апариграха - артық иелену мен ұстап қалудан еркіндік. Бұл затқа ие болуға тыйым салмайды; тек қай жерде иелік сізді иелене бастағанын көруге шақырады. Артық сатып алу, уәде, байланыс, жоспар және күту күтімді қажет етеді әрі зейінді тартады. Апариграха энергияны жинақтаудан қазіргі сәтке қайтарады: өмірге шын қызмет ететін нәрсе жеткілікті.",
       "practice_tip": "Бүгін жеткіліктілікті таңдаңыз. Артық тамақ, зат, сөз, ой немесе кернеу алмаңыз. Қай жерде жабыспауға болады, сол жерде босатыңыз: энергия ұстауда қамалып қалмайды."
     },
     {
@@ -291,7 +291,7 @@
       "name": "Шауча",
       "emoji": "🌟",
       "short_description": "Дене, ақыл және сөздің таза болуы",
-      "description": "Шауча - дене, ақыл және сөздің таза болуы.",
+      "description": "Шауча - дене, ақыл, сөз және кеңістіктің тазалығы. Бұл мінсіз стерильдік немесе өзіңізбен күрес емес; энергия еркінірек өтуі үшін ортаны айқындау. Дене ауыр, орын ретсіз, сөз дөрекі, ой бұлдыр болса, зейін тез шаршайды. Шауча артықты алып тастап, іште көбірек тыныштық қалдырады.",
       "practice_tip": "Бүгін бір сыртқы және бір ішкі кеңістікті тазартыңыз. Орынды реттеңіз, денеге қамқор болыңыз, содан кейін ішке қараңыз: қай ой немесе сезім де тазалық пен тыныштық сұрап тұр?"
     },
     {
@@ -315,7 +315,7 @@
       "name": "Свадхьяя",
       "emoji": "📚",
       "short_description": "Өзін-өзі тәрбиелеу және өзін-өзі тану",
-      "description": "Свадхьяя - өзін-өзі тәрбиелеу. Шындықты бұрмалмайтын ақпаратты зерттеуді білдіреді. Әлем туралы теріс көзқарасты дұрысымен алмастыру. Свадхьяя өзінің ақылшы және эмоционалдық үлгілерін сеземдеуді, әртүрлі жағдайларға реакцияларын бақылауды және бұл реакциялардың мінез-құлық пен сезімдерге қалай әсер ететінін түсінуді қамтиды. Свадхьяя сондай-ақ жаңа білім мен түсінікке ұмтылуды, дүниетанымды кеңейтуді және сыни ойлауды дамытуды білдіреді.",
+      "description": "Свадхьяя - өзін зерттеу. Оған оқу, ойлану және өзіңізді адал бақылау кіреді: қандай ойлар қайталанады, дене қай жерде қысылады, қандай реакциялар мінез-құлықты басқарады. Мақсат - өзіңізді кінәлау емес, анығырақ көру. Реакция көрінгенде, ол энергияңызды жасырын басқаруды тоқтатады және басқа қадам таңдауға мүмкіндік туады.",
       "practice_tip": "Бүгін өзіңізді зерттеуші болыңыз. Қайталанатын бір реакцияны байқаңыз: ол денеде қайдан басталады, қандай ой әкеледі, нені қорғағысы келеді? Мүмкін болса, мұны оқу немесе ойланумен тереңдетіңіз."
     },
     {
