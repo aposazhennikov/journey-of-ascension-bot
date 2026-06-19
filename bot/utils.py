@@ -184,10 +184,10 @@ def format_principle_message(principle: Dict[str, Any], language: str = "en", ma
         "kz": ("Яма", "Нияма"),
     }.get(language, ("Yama", "Niyama"))
     reminders = {
-        "en": "Keep the other principles alive too. Today this one helps you notice where attention, speech, and action leak energy, and where they can become cleaner.",
-        "ru": "Остальные принципы тоже остаются живыми. Сегодня этот принцип помогает заметить, где через мысли, речь и поступки утекает энергия, а где действие может стать чище.",
-        "uz": "Boshqa tamoyillar ham tirik qoladi. Bugun shu tamoyil fikr, so'z va harakatlarda energiya qayerda oqib ketayotganini va qayerda harakat tozaroq bo'lishini ko'rishga yordam beradi.",
-        "kz": "Қалған қағидалар да тірі қалады. Бүгін осы қағида ой, сөз және әрекет арқылы энергия қайда шашылатынын және әрекет қай жерде тазара алатынын байқауға көмектеседі.",
+        "en": "This is today's emphasis; the other principles stay in practice too.",
+        "ru": "Это акцент дня; остальные принципы тоже остаются в практике.",
+        "uz": "Bu bugungi urg'u; boshqa tamoyillar ham amaliyotda qoladi.",
+        "kz": "Бұл бүгінгі екпін; қалған қағидалар да тәжірибеде қалады.",
     }.get(language)
 
     principle_id = int(principle.get("id", 0) or 0)
@@ -221,6 +221,9 @@ def format_principle_message(principle: Dict[str, Any], language: str = "en", ma
         if practice:
             parts.append(f"💡 <b>{escape(labels[2])}:</b> <i>{escape(practice)}</i>")
         return "\n\n".join(part for part in parts if part)
+
+    if description and len(description) > 220:
+        description = shorten(description, 220)
 
     text = build(description, practice_tip)
     if len(text) <= max_length:

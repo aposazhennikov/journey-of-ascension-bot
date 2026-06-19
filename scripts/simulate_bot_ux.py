@@ -217,17 +217,20 @@ def format_principle(principle: dict[str, Any], language: str) -> str:
         "kz": ("Бөлігі", "Бүгінгі фокус", "Тәжірибе"),
     }[language]
     reminders = {
-        "en": "Keep the other principles alive too. Today this one helps you notice where attention, speech, and action leak energy, and where they can become cleaner.",
-        "ru": "Остальные принципы тоже остаются живыми. Сегодня этот принцип помогает заметить, где через мысли, речь и поступки утекает энергия, а где действие может стать чище.",
-        "uz": "Boshqa tamoyillar ham tirik qoladi. Bugun shu tamoyil fikr, so'z va harakatlarda energiya qayerda oqib ketayotganini va qayerda harakat tozaroq bo'lishini ko'rishga yordam beradi.",
-        "kz": "Қалған қағидалар да тірі қалады. Бүгін осы қағида ой, сөз және әрекет арқылы энергия қайда шашылатынын және әрекет қай жерде тазара алатынын байқауға көмектеседі.",
+        "en": "This is today's emphasis; the other principles stay in practice too.",
+        "ru": "Это акцент дня; остальные принципы тоже остаются в практике.",
+        "uz": "Bu bugungi urg'u; boshqa tamoyillar ham amaliyotda qoladi.",
+        "kz": "Бұл бүгінгі екпін; қалған қағидалар да тәжірибеде қалады.",
     }[language]
+    description = principle.get("description", "")
+    if len(description) > 220:
+        description = description[:217].rstrip() + "..."
     parts = [
         f"<b>{escape(principle.get('name', ''))}</b> {escape(principle.get('emoji', ''))}",
         f"<b>{labels[0]}:</b> {escape(principle_group(int(principle.get('id', 0)), language))}",
         escape(principle.get("short_description", "")),
         f"<b>{labels[1]}:</b> {escape(reminders)}",
-        escape(principle.get("description", "")),
+        escape(description),
         f"💡 <b>{labels[2]}:</b> <i>{escape(principle.get('practice_tip', ''))}</i>",
     ]
     return "<br><br>".join(part for part in parts if part)
