@@ -1426,10 +1426,10 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Meridian Time",
         "mode_menu": (
             "🧭 <b>My Path</b>\n\n"
-            "Choose which practice you want to return to each day.\n\n"
-            "<b>Yama/Niyama</b> is the foundation: less inner noise, fewer energy leaks, more honesty in action.\n\n"
-            "<b>Meridians</b> are the body layer: points, channels, Qi flow, and the habit of patiently including places that are hard to feel at first.\n\n"
-            "You can begin with one direction or keep both active together."
+            "Choose the rhythm that is honest for you now. The point is not to take on more than you can carry; the point is to return regularly and not lose the thread.\n\n"
+            "<b>Yama/Niyama</b> keeps the foundation active: less energy spent on conflict, haste, excess, self-harm, and automatic reactions.\n\n"
+            "<b>Meridians</b> adds the body layer: points, channels, Qi flow, and patient work with places that are still hard to feel.\n\n"
+            "<b>Both directions</b> works well when you want ethics and body awareness to support each other every day."
         ),
         "mode_principles_only": "Yama/Niyama foundation",
         "mode_meridians_only": "Meridian study",
@@ -1627,10 +1627,10 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Время меридианов",
         "mode_menu": (
             "🧭 <b>Мой путь</b>\n\n"
-            "Выберите, к какой практике вы хотите возвращаться каждый день.\n\n"
-            "<b>Яма/Нияма</b> — фундамент: меньше внутреннего шума, меньше утечек энергии, больше честности в поступках.\n\n"
-            "<b>Меридианы</b> — телесный слой: точки, каналы, течение Ци и навык спокойно включать в внимание места, которые сначала почти не ощущаются.\n\n"
-            "Можно начать с одного направления или оставить активными оба."
+            "Выберите ритм, который сейчас честно подходит вам. Задача не в том, чтобы взять на себя слишком много, а в том, чтобы регулярно возвращаться и не терять нить практики.\n\n"
+            "<b>Яма/Нияма</b> держит фундамент: меньше энергии уходит в конфликт, спешку, излишества, вред себе и автоматические реакции.\n\n"
+            "<b>Меридианы</b> добавляют телесный слой: точки, каналы, течение Ци и терпеливую работу с местами, которые пока трудно почувствовать.\n\n"
+            "<b>Оба направления</b> подойдут, если вы хотите, чтобы этика и телесное внимание поддерживали друг друга каждый день."
         ),
         "mode_principles_only": "Фундамент Ямы/Ниямы",
         "mode_meridians_only": "Изучение меридианов",
@@ -1828,10 +1828,10 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Meridian vaqti",
         "mode_menu": (
             "🧭 <b>Mening yo'lim</b>\n\n"
-            "Har kuni qaysi amaliyotga qaytishni xohlayotganingizni tanlang.\n\n"
-            "<b>Yama/Niyama</b> poydevor: ichki shovqin kamroq, energiya yo'qotish kamroq, harakatlarda ko'proq halollik.\n\n"
-            "<b>Meridianlar</b> tana qatlami: nuqtalar, kanallar, Qi oqimi va avval noaniq sezilgan joylarni sabr bilan diqqatga qo'shish ko'nikmasi.\n\n"
-            "Bitta yo'nalishdan boshlashingiz yoki ikkalasini ham faol qoldirishingiz mumkin."
+            "Hozir sizga halol mos keladigan ritmni tanlang. Maqsad ko'p narsani birdan olish emas; maqsad muntazam qaytish va amaliyot ipini yo'qotmaslik.\n\n"
+            "<b>Yama/Niyama</b> poydevorni ushlab turadi: ziddiyat, shoshilish, ortiqchalik, o'zingizga zarar va avtomatik reaksiyalarga kamroq energiya ketadi.\n\n"
+            "<b>Meridianlar</b> tana qatlamini qo'shadi: nuqtalar, kanallar, Qi oqimi va hali qiyin seziladigan joylar bilan sabrli ishlash.\n\n"
+            "<b>Ikkala yo'nalish</b> etika va tana sezgirligi har kuni bir-birini qo'llab-quvvatlashini xohlaganingizda mos keladi."
         ),
         "mode_principles_only": "Yama/Niyama poydevori",
         "mode_meridians_only": "Meridianlarni o'rganish",
@@ -2043,10 +2043,10 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Меридиан уақыты",
         "mode_menu": (
             "🧭 <b>Менің жолым</b>\n\n"
-            "Күн сайын қай тәжірибеге қайта оралғыңыз келетінін таңдаңыз.\n\n"
-            "<b>Яма/Нияма</b> — негіз: ішкі шу азаяды, энергия шығыны азаяды, әрекетте адалдық көбейеді.\n\n"
-            "<b>Меридиандар</b> — дене қабаты: нүктелер, арналар, Ци ағымы және бастапқыда көмескі сезілетін жерлерді сабырмен зейінге қосу дағдысы.\n\n"
-            "Бір бағыттан бастауға немесе екеуін де белсенді қалдыруға болады."
+            "Қазір өзіңізге шын сәйкес келетін ырғақты таңдаңыз. Мақсат — бәрін бірден мойынға алу емес; мақсат — тұрақты оралып, тәжірибе жібін жоғалтпау.\n\n"
+            "<b>Яма/Нияма</b> негізді ұстап тұрады: қақтығысқа, асығыстыққа, артықтыққа, өзіңізге зиянға және автоматты реакцияларға аз энергия кетеді.\n\n"
+            "<b>Меридиандар</b> дене қабатын қосады: нүктелер, арналар, Ци ағымы және әзірге сезілуі қиын жерлермен сабырлы жұмыс.\n\n"
+            "<b>Екі бағыт та</b> этика мен дене зейіні күн сайын бірін-бірі қолдасын десеңіз жарайды."
         ),
         "mode_principles_only": "Яма/Нияма негізі",
         "mode_meridians_only": "Меридиандарды зерттеу",
