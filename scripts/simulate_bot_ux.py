@@ -1784,6 +1784,10 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator meridian-time screen is not contextual for settings vs onboarding")
     if "function renderSettingsSnapshot()" not in html or "Current practice rhythm" not in html or "Текущий ритм практики" not in html:
         issues.append("browser simulator settings screen does not show the current practice rhythm snapshot")
+    if "stop: () => renderSimple('stop_feedback_prompt', 'Practice paused')" not in html:
+        issues.append("browser simulator stop scenario should use practice-pause wording")
+    if "stop: () => renderSimple('stop_feedback_prompt', 'Stop')" in html:
+        issues.append("browser simulator stop scenario still uses dry Stop title")
     if "function currentMode()" not in html or "function modeLabel" not in html or "'✅ '" not in html:
         issues.append("browser simulator practice-mode screen does not mark the active mode")
     principle_detail_start = html.find("function renderPrincipleDetail")
