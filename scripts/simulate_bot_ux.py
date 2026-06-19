@@ -1985,16 +1985,16 @@ def build_html() -> str:
 
     function renderAllPoints() {{
       const item = meridian();
-      const pageSize = 10;
+      const pageSize = 7;
       const totalPages = Math.max(1, Math.ceil(item.points.length / pageSize));
       state.currentPointsPage = Math.max(0, Math.min(state.currentPointsPage, totalPages - 1));
       const start = state.currentPointsPage * pageSize;
       const pageLabels = {{
-        en: ['◀️ Previous 10', 'Page', 'Next 10 ▶️'],
-        ru: ['◀️ Предыдущие 10', 'Стр.', 'Следующие 10 ▶️'],
-        uz: ['◀️ Oldingi 10', 'Sahifa', 'Keyingi 10 ▶️'],
-        kz: ['◀️ Алдыңғы 10', 'Бет', 'Келесі 10 ▶️'],
-      }}[state.language] || ['◀️ Previous 10', 'Page', 'Next 10 ▶️'];
+        en: ['◀️ Previous', 'Page', 'Next ▶️'],
+        ru: ['◀️ Назад', 'Стр.', 'Далее ▶️'],
+        uz: ['◀️ Oldingi', 'Sahifa', 'Keyingi ▶️'],
+        kz: ['◀️ Артқа', 'Бет', 'Келесі ▶️'],
+      }}[state.language] || ['◀️ Previous', 'Page', 'Next ▶️'];
       const buttons = item.points.slice(start, start + pageSize).map((point, offset) => {{
         const index = start + offset;
         return [{{ label: `${{index + 1}}. ${{point.code}} ${{point.names[state.language]}}`, action: () => {{ state.currentPointIndex = index; setScreen('currentMeridian'); }} }}];
@@ -2008,13 +2008,12 @@ def build_html() -> str:
       }}
       buttons.push([{{ label: t('back_to_current_focus'), action: () => setScreen('currentMeridian') }}]);
       const helper = {{
-        en: 'Choose a point to open its location image and practice. The opened point becomes your current focus; the bot will not move further until you press the next button.',
-        ru: 'Выберите точку, чтобы открыть изображение расположения и практику. Открытая точка станет текущим фокусом; бот не пойдёт дальше, пока вы сами не нажмёте следующую кнопку.',
-        uz: "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang. Ochilgan nuqta joriy fokusga aylanadi; keyingi tugmani bosmaguningizcha bot oldinga o'tmaydi.",
-        kz: 'Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз. Ашылған нүкте ағымдағы фокусқа айналады; келесі батырманы өзіңіз басқанша бот әрі қарай өтпейді.',
+        en: 'Choose a point: its image and practice will open, and it will become your current focus. The bot will not move forward by itself.',
+        ru: 'Выберите точку: откроется изображение и практика, а точка станет текущим фокусом. Бот не перейдёт дальше сам.',
+        uz: "Nuqtani tanlang: rasm va amaliyot ochiladi, nuqta esa joriy fokusga aylanadi. Bot o'zi oldinga o'tmaydi.",
+        kz: 'Нүктені таңдаңыз: сурет пен тәжірибе ашылады, нүкте ағымдағы фокусқа айналады. Бот өзі әрі қарай өтпейді.',
       }}[state.language] || '';
-      const pageNote = totalPages > 1 ? `<br><br>${{state.language === 'ru' ? 'Страница' : state.language === 'uz' ? 'Sahifa' : state.language === 'kz' ? 'Бет' : 'Page'}} ${{state.currentPointsPage + 1}}/${{totalPages}}` : '';
-      show('All points', `<b>${{t('all_points')}}</b><br><br>${{helper}}${{pageNote}}`, buttons);
+      show('All points', `<b>${{t('all_points')}}</b><br><br>${{helper}}`, buttons);
     }}
 
     function renderPrinciples() {{

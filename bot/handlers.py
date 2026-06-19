@@ -33,7 +33,7 @@ from .utils import (
 
 logger = logging.getLogger(__name__)
 
-MERIDIAN_POINTS_PAGE_SIZE = 10
+MERIDIAN_POINTS_PAGE_SIZE = 7
 MERIDIAN_SELECTION_PAGE_SIZE = 7
 CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement.png"
 
@@ -3878,11 +3878,11 @@ class BotHandlers:
         if total_pages > 1:
             navigation = []
             labels = {
-                "en": ("◀️ Previous 10", "Page", "Next 10 ▶️"),
-                "ru": ("◀️ Предыдущие 10", "Стр.", "Следующие 10 ▶️"),
-                "uz": ("◀️ Oldingi 10", "Sahifa", "Keyingi 10 ▶️"),
-                "kz": ("◀️ Алдыңғы 10", "Бет", "Келесі 10 ▶️"),
-            }.get(language, ("◀️ Previous 10", "Page", "Next 10 ▶️"))
+                "en": ("◀️ Previous", "Page", "Next ▶️"),
+                "ru": ("◀️ Назад", "Стр.", "Далее ▶️"),
+                "uz": ("◀️ Oldingi", "Sahifa", "Keyingi ▶️"),
+                "kz": ("◀️ Артқа", "Бет", "Келесі ▶️"),
+            }.get(language, ("◀️ Previous", "Page", "Next ▶️"))
             if page > 0:
                 navigation.append(InlineKeyboardButton(labels[0], callback_data=f"meridian_points_page:{page - 1}"))
             navigation.append(InlineKeyboardButton(f"{labels[1]} {page + 1}/{total_pages}", callback_data="meridian_noop"))
@@ -3895,20 +3895,12 @@ class BotHandlers:
     def _format_meridian_points_page_text(self, language: str, page: int, total_pages: int) -> str:
         """Build text for the paginated point chooser."""
         choose_point = {
-            "en": "Choose a point to open its location image and practice. The opened point becomes your current focus; the bot will not move further until you press the next button.",
-            "ru": "Выберите точку, чтобы открыть изображение расположения и практику. Открытая точка станет текущим фокусом; бот не пойдёт дальше, пока вы сами не нажмёте следующую кнопку.",
-            "uz": "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang. Ochilgan nuqta joriy fokusga aylanadi; keyingi tugmani bosmaguningizcha bot oldinga o'tmaydi.",
-            "kz": "Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз. Ашылған нүкте ағымдағы фокусқа айналады; келесі батырманы өзіңіз басқанша бот әрі қарай өтпейді.",
-        }.get(language, "Choose a point to open its location image and practice. The opened point becomes your current focus.")
-        if total_pages <= 1:
-            return f"<b>{self._get_text('all_points', language)}</b>\n\n{choose_point}"
-        page_note = {
-            "en": f"Page {page + 1}/{total_pages}.",
-            "ru": f"Страница {page + 1}/{total_pages}.",
-            "uz": f"Sahifa {page + 1}/{total_pages}.",
-            "kz": f"Бет {page + 1}/{total_pages}.",
-        }.get(language, f"Page {page + 1}/{total_pages}.")
-        return f"<b>{self._get_text('all_points', language)}</b>\n\n{choose_point}\n\n{page_note}"
+            "en": "Choose a point: its image and practice will open, and it will become your current focus. The bot will not move forward by itself.",
+            "ru": "Выберите точку: откроется изображение и практика, а точка станет текущим фокусом. Бот не перейдёт дальше сам.",
+            "uz": "Nuqtani tanlang: rasm va amaliyot ochiladi, nuqta esa joriy fokusga aylanadi. Bot o'zi oldinga o'tmaydi.",
+            "kz": "Нүктені таңдаңыз: сурет пен тәжірибе ашылады, нүкте ағымдағы фокусқа айналады. Бот өзі әрі қарай өтпейді.",
+        }.get(language, "Choose a point to open its image and practice. The bot will not move forward by itself.")
+        return f"<b>{self._get_text('all_points', language)}</b>\n\n{choose_point}"
 
     async def _handle_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /menu command."""

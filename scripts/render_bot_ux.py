@@ -19,7 +19,7 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("en", "ru", "uz", "kz")
-POINTS_PAGE_SIZE = 10
+POINTS_PAGE_SIZE = 7
 EXPECTED_POINT_COUNTS = {
     "lung": 11,
     "large_intestine": 20,
@@ -586,10 +586,10 @@ def point_page_keyboard(meridian: dict[str, Any], language: str, texts: dict[str
     if total_pages > 1:
         row = []
         if page > 0:
-            row.append("◀️ 10")
+            row.append("◀️")
         row.append(f"{page + 1}/{total_pages}")
         if page < total_pages - 1:
-            row.append("10 ▶️")
+            row.append("▶️")
         buttons.append(row)
     buttons.append([texts["meridian_back"]])
     return buttons
@@ -661,13 +661,12 @@ def render_html(output: Path) -> None:
         sections.append(meridian_message("Bladder Meridian intro", bladder, language, kb["meridian_intro"]))
         sections.append(meridian_message("Bladder Meridian point 1", bladder, language, kb["meridian_first_point"], 0))
         point_helper = {
-            "en": "Choose a point to open its location image and practice. The opened point becomes your current focus; the bot will not move further until you press the next button.",
-            "ru": "Выберите точку, чтобы открыть изображение расположения и практику. Открытая точка станет текущим фокусом; бот не пойдёт дальше, пока вы сами не нажмёте следующую кнопку.",
-            "uz": "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang. Ochilgan nuqta joriy fokusga aylanadi; keyingi tugmani bosmaguningizcha bot oldinga o'tmaydi.",
-            "kz": "Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз. Ашылған нүкте ағымдағы фокусқа айналады; келесі батырманы өзіңіз басқанша бот әрі қарай өтпейді.",
+            "en": "Choose a point: its image and practice will open, and it will become your current focus. The bot will not move forward by itself.",
+            "ru": "Выберите точку: откроется изображение и практика, а точка станет текущим фокусом. Бот не перейдёт дальше сам.",
+            "uz": "Nuqtani tanlang: rasm va amaliyot ochiladi, nuqta esa joriy fokusga aylanadi. Bot o'zi oldinga o'tmaydi.",
+            "kz": "Нүктені таңдаңыз: сурет пен тәжірибе ашылады, нүкте ағымдағы фокусқа айналады. Бот өзі әрі қарай өтпейді.",
         }[language]
-        page_label = {"en": "Page", "ru": "Страница", "uz": "Sahifa", "kz": "Бет"}[language]
-        sections.append(message("Bladder points page 1", f"<b>{escape(t['all_points'])}</b><br><br>{escape(point_helper)}<br><br>{page_label} 1/7", point_page_keyboard(bladder, language, t)))
+        sections.append(message("Bladder points page 1", f"<b>{escape(t['all_points'])}</b><br><br>{escape(point_helper)}", point_page_keyboard(bladder, language, t)))
         sections.append(meridian_message("Kidney Meridian intro", kidney, language, kb["meridian_intro"]))
         sections.append(meridian_message("Kidney Meridian point 1", kidney, language, kb["meridian_first_point"], 0))
         sections.append(meridian_message("Pericardium Meridian intro", pericardium, language, kb["meridian_intro"]))
