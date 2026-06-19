@@ -3435,11 +3435,12 @@ class BotHandlers:
                     meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id) if user.current_meridian_id else None
                     intro = format_meridian_intro(meridian, language) if meridian else self._get_text("meridians_menu", language)
                     text = f"{self._get_text('meridian_guided_saved', language)}\n\n{intro}"
-                    await self._edit_message_text_safe(
+                    await self._show_meridian_card(
                         query,
                         text,
-                        reply_markup=self._create_meridian_practice_keyboard(language, at_intro=True),
-                        parse_mode='HTML'
+                        self._create_meridian_practice_keyboard(language, at_intro=True),
+                        language,
+                        meridian.get("id") if meridian else None
                     )
                     return
 
@@ -3644,8 +3645,25 @@ class BotHandlers:
 
                 await self.storage.save_user(user)
                 text = self._get_text("meridian_completed", language)
-                keyboard = self._create_meridian_practice_keyboard(language, at_intro=True) if user.current_meridian_id else self._create_meridian_choice_keyboard(language)
-                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
+                if user.current_meridian_id:
+                    next_meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id)
+                    if next_meridian:
+                        text = f"{text}\n\n{format_meridian_intro(next_meridian, language)}"
+                        await self._show_meridian_card(
+                            query,
+                            text,
+                            self._create_meridian_practice_keyboard(language, at_intro=True),
+                            language,
+                            next_meridian.get("id")
+                        )
+                        return
+
+                await self._edit_message_text_safe(
+                    query,
+                    text,
+                    reply_markup=self._create_meridian_choice_keyboard(language),
+                    parse_mode='HTML'
+                )
 
         except Exception as e:
             logger.error(f"Error in meridian callback for user {chat_id}: {e}")
