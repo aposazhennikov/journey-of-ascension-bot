@@ -333,11 +333,41 @@ def _has_cyrillic(value: str) -> bool:
     return any("А" <= char <= "я" or char in "ЁёІіЇїЄєҚқҒғҰұҮүӘәӨөҺһҢң" for char in value)
 
 
+def _latinize_point_name(name: str) -> str:
+    """Make Cyrillic Chinese point names readable in Latin-script locales."""
+    if not name:
+        return ""
+    text = name.lower().replace("ё", "е")
+    phrase_replacements = (
+        ("чж", "zh"),
+        ("цз", "z"),
+        ("ш", "sh"),
+        ("щ", "shch"),
+        ("ч", "ch"),
+        ("ю", "yu"),
+        ("я", "ya"),
+        ("й", "y"),
+        ("х", "h"),
+        ("э", "e"),
+    )
+    for source, target in phrase_replacements:
+        text = text.replace(source, target)
+    letters = {
+        "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e",
+        "ж": "zh", "з": "z", "и": "i", "к": "k", "л": "l", "м": "m",
+        "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t",
+        "у": "u", "ф": "f", "ц": "c", "ы": "y", "ь": "", "ъ": "",
+    }
+    latin = "".join(letters.get(char, char) for char in text)
+    parts = re.split(r"([-\s])", latin)
+    return "".join(part.capitalize() if part and part not in {"-", " "} else part for part in parts)
+
+
 def localized_point_name(point: Dict[str, Any], language: str) -> str:
     """Return a point name only when it fits the visible interface language."""
     name = _localized_value(point, language, "name", "")
     if language in {"en", "uz"} and _has_cyrillic(name):
-        return ""
+        return _latinize_point_name(name)
     return name
 
 

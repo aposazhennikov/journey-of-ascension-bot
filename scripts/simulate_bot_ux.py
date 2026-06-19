@@ -147,6 +147,33 @@ def has_cyrillic(value: str) -> bool:
     return bool(re.search(r"[\u0400-\u04FF]", value or ""))
 
 
+def latinize_point_name(name: str) -> str:
+    if not name:
+        return ""
+    text = name.lower().replace("ё", "е")
+    for source, target in (
+        ("чж", "zh"),
+        ("цз", "z"),
+        ("ш", "sh"),
+        ("щ", "shch"),
+        ("ч", "ch"),
+        ("ю", "yu"),
+        ("я", "ya"),
+        ("й", "y"),
+        ("х", "h"),
+        ("э", "e"),
+    ):
+        text = text.replace(source, target)
+    letters = {
+        "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e",
+        "ж": "zh", "з": "z", "и": "i", "к": "k", "л": "l", "м": "m",
+        "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t",
+        "у": "u", "ф": "f", "ц": "c", "ы": "y", "ь": "", "ъ": "",
+    }
+    latin = "".join(letters.get(char, char) for char in text)
+    return "".join(part.capitalize() if part and part not in {"-", " "} else part for part in re.split(r"([-\s])", latin))
+
+
 def has_source_or_medical_leak(value: str) -> bool:
     lowered = value.lower()
     return any(phrase in value for phrase in SOURCE_NOTE_PHRASES) or any(phrase in lowered for phrase in HARD_MEDICAL_PHRASES)
@@ -155,7 +182,7 @@ def has_source_or_medical_leak(value: str) -> bool:
 def localized_point_name(point: dict[str, Any], language: str) -> str:
     name = localized(point, language, "name")
     if language in {"en", "uz"} and has_cyrillic(name):
-        return ""
+        return latinize_point_name(name)
     return name
 
 
@@ -478,7 +505,7 @@ def build_payload() -> dict[str, Any]:
                         "code": point.get("code", ""),
                         "image": point.get("image"),
                         "names": {
-                            language: point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {})).get("name", "")
+                            language: localized_point_name(point, language)
                             for language in LANGUAGES
                         },
                         "detail": {
@@ -860,6 +887,11 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 for key in ("name", "location", "meditation_instruction", "observation_question"):
                     if not raw_i18n.get(key):
                         issues.append(f"{meridian_id} point {index + 1}/{language}: missing point i18n field {key}")
+                visible_name = point.get("names", {}).get(language, "")
+                if not visible_name:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: missing visible point name")
+                if language in {"en", "uz"} and has_cyrillic(visible_name):
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: Cyrillic leaked into visible point name")
             for language, localized_point in point.get("raw", {}).get("i18n", {}).items():
                 if "meaning" in localized_point:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: raw source meaning should not be stored in user-facing meridians.json")
