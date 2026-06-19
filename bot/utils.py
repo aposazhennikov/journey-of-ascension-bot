@@ -621,8 +621,8 @@ def _point_area_practice_hint(location: str, language: str) -> str:
         "ru": (
             (("пуп", "живот", "лобков", "промежност", "анус", "половых", "мошон"), "Смягчите живот и таз; пусть дыхание не толкает ощущение, а будто освобождает для него место."),
             (("позвон", "крестц", "копчик", "спин", "затыл"), "Выпрямитесь без напряжения и почувствуйте, как точка включается в заднюю срединную линию."),
-            (("груд", "ребр", "ребер", "межреб", "ключиц", "соск"), "Дайте грудной клетке чуть больше пространства; наблюдайте, меняется ли глубина дыхания."),
-            (("горл", "ше", "подбород", "губ", "нос", "лиц", "лоб", "тем", "голов"), "Расслабьте лицо, язык и горло; иногда точка откликается только после этого."),
+            (("горл", "шеи", "шее", "шейн", "шею", "подбород", "губ", "носа", "носу", "носов", "лицо", "лица", "лицев", "лоб", "тем", "голов"), "Расслабьте лицо, язык и горло; иногда точка откликается только после этого."),
+            (("грудной", "грудная", "грудной клет", "ребр", "ребер", "межреб", "ключиц", "соска", "соски"), "Дайте грудной клетке чуть больше пространства; наблюдайте, меняется ли глубина дыхания."),
             (("рук", "кист", "пал", "локт", "плеч"), "Отпустите плечо и кисть, чтобы внимание не застревало только в поверхности кожи."),
             (("стоп", "пят", "лодыж", "голен", "колен", "бедр"), "Почувствуйте опору и вес тела; так точка легче соединяется с общей линией меридиана."),
         ),
@@ -733,9 +733,10 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     point_name = escape(localized_point_name(point, language))
     source_location = _localized_location(point, language)
     raw_location = _clean_point_location(source_location)
-    location = escape(_compact_point_location(raw_location))
+    compact_location = _compact_point_location(raw_location)
+    location = escape(compact_location)
 
-    area_hint = _point_area_practice_hint(location, language)
+    area_hint = _point_area_practice_hint(compact_location, language)
     base_instruction = _point_sequence_practice_hint(point_index, len(points), language)
     practice_parts = [base_instruction]
     if area_hint:
