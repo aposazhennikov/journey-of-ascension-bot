@@ -312,7 +312,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'select_meridian': 'Choose meridian',
         'no_points': 'I could not open the points for this meridian right now. Please return to the meridian '
                      'list or try again later.',
-        'meridian_completed': '✅ <b>Meridian completed</b>\n\nChoose the next channel when you are ready.',
+        'meridian_completed': (
+            '✅ <b>Meridian completed</b>\n\n'
+            'Before moving on, pass through the whole channel once more with attention: from the first point to the last. '
+            'Notice where the line feels warm and clear, and where it still breaks or goes silent.\n\n'
+            'When the sensation becomes calmer, choose the next channel.'
+        ),
         'feature_announcement': '☯️ <b>New in Journey of Ascension: meridian practice</b>\n'
                                 '\n'
                                 'You can now study Chinese meridians inside the bot: choose a channel, open '
@@ -614,7 +619,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'select_meridian': 'Выбрать меридиан',
         'no_points': 'Сейчас не удалось открыть точки этого меридиана. Вернитесь к списку меридианов или '
                      'попробуйте позже.',
-        'meridian_completed': '✅ <b>Меридиан завершён</b>\n\nВыберите следующий канал, когда будете готовы.',
+        'meridian_completed': (
+            '✅ <b>Меридиан завершён</b>\n\n'
+            'Перед тем как идти дальше, пройдите вниманием весь канал ещё раз: от первой точки до последней. '
+            'Заметьте, где линия тёплая и ясная, а где она пока обрывается или молчит.\n\n'
+            'Когда ощущение станет спокойнее, выбирайте следующий канал.'
+        ),
         'feature_announcement': '☯️ <b>Новое в Journey of Ascension: практика меридианов</b>\n'
                                 '\n'
                                 'Теперь внутри бота можно изучать китайские меридианы: выбирать канал, '
@@ -914,9 +924,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'select_meridian': 'Meridian tanlash',
         'no_points': "Hozir bu meridian nuqtalarini ochib bo'lmadi. Meridianlar ro'yxatiga qayting yoki "
                      "keyinroq urinib ko'ring.",
-        'meridian_completed': '✅ <b>Meridian yakunlandi</b>\n'
-                              '\n'
-                              "Tayyor bo'lganingizda keyingi kanalni tanlang.",
+        'meridian_completed': (
+            "✅ <b>Meridian yakunlandi</b>\n\n"
+            "Keyingi kanalga o'tishdan oldin butun kanalni yana bir marta diqqat bilan bosib chiqing: birinchi nuqtadan oxirgisigacha. "
+            "Chiziq qayerda iliq va ravshan, qayerda esa uzilib yoki jim qolayotganini sezing.\n\n"
+            "Sezgi sokinlashganda keyingi kanalni tanlang."
+        ),
         'feature_announcement': "☯️ <b>Journey of Ascension'da yangilik: meridian amaliyoti</b>\n"
                                 '\n'
                                 "Endi bot ichida Xitoy meridianlarini o'rganish mumkin: kanalni tanlang, har "
@@ -1225,7 +1238,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'select_meridian': 'Меридиан таңдау',
         'no_points': 'Қазір бұл меридианның нүктелерін ашу мүмкін болмады. Меридиандар тізіміне оралыңыз '
                      'немесе кейінірек қайталап көріңіз.',
-        'meridian_completed': '✅ <b>Меридиан аяқталды</b>\n\nДайын болғанда келесі арнаны таңдаңыз.',
+        'meridian_completed': (
+            "✅ <b>Меридиан аяқталды</b>\n\n"
+            "Келесі арнаға өтпес бұрын, бүкіл арнаны зейінмен тағы бір рет өтіңіз: бірінші нүктеден соңғысына дейін. "
+            "Сызық қай жерде жылы әрі анық, қай жерде әзірге үзіліп немесе үнсіз қалатынын байқаңыз.\n\n"
+            "Сезім тынышталған кезде келесі арнаны таңдаңыз."
+        ),
         'feature_announcement': '☯️ <b>Journey of Ascension ішіндегі жаңалық: меридиан тәжірибесі</b>\n'
                                 '\n'
                                 'Енді бот ішінде қытай меридиандарын зерттеуге болады: арнаны таңдаңыз, әр '
@@ -1461,7 +1479,12 @@ TEXTS_UPDATE = {
         "complete_meridian": "Complete meridian",
         "select_meridian": "Choose meridian",
         "no_points": "I could not open the points for this meridian right now. Please return to the meridian list or try again later.",
-        "meridian_completed": "✅ <b>Meridian completed</b>\n\nChoose the next channel when you are ready.",
+        "meridian_completed": (
+            "✅ <b>Meridian completed</b>\n\n"
+            "Before moving on, pass through the whole channel once more with attention: from the first point to the last. "
+            "Notice where the line feels warm and clear, and where it still breaks or goes silent.\n\n"
+            "When the sensation becomes calmer, choose the next channel."
+        ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "This bot is meant to be a quiet support for real practice, not a collection of inspiring phrases.\n\n"
@@ -1635,7 +1658,12 @@ TEXTS_UPDATE = {
         "complete_meridian": "Завершить меридиан",
         "select_meridian": "Выбрать меридиан",
         "no_points": "Сейчас не удалось открыть точки этого меридиана. Вернитесь к списку меридианов или попробуйте позже.",
-        "meridian_completed": "✅ <b>Меридиан завершён</b>\n\nВыберите следующий канал, когда будете готовы.",
+        "meridian_completed": (
+            "✅ <b>Меридиан завершён</b>\n\n"
+            "Перед тем как идти дальше, пройдите вниманием весь канал ещё раз: от первой точки до последней. "
+            "Заметьте, где линия тёплая и ясная, а где она пока обрывается или молчит.\n\n"
+            "Когда ощущение станет спокойнее, выбирайте следующий канал."
+        ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "Этот бот задуман как спокойная опора для реальной практики, а не как набор вдохновляющих фраз.\n\n"
@@ -1809,7 +1837,12 @@ TEXTS_UPDATE = {
         "complete_meridian": "Meridianni yakunlash",
         "select_meridian": "Meridian tanlash",
         "no_points": "Hozir bu meridian nuqtalarini ochib bo'lmadi. Meridianlar ro'yxatiga qayting yoki keyinroq urinib ko'ring.",
-        "meridian_completed": "✅ <b>Meridian yakunlandi</b>\n\nTayyor bo'lganingizda keyingi kanalni tanlang.",
+        "meridian_completed": (
+            "✅ <b>Meridian yakunlandi</b>\n\n"
+            "Keyingi kanalga o'tishdan oldin butun kanalni yana bir marta diqqat bilan bosib chiqing: birinchi nuqtadan oxirgisigacha. "
+            "Chiziq qayerda iliq va ravshan, qayerda esa uzilib yoki jim qolayotganini sezing.\n\n"
+            "Sezgi sokinlashganda keyingi kanalni tanlang."
+        ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "Bu bot ilhomli iboralar to'plami emas, balki haqiqiy amaliyot uchun sokin tayanch bo'lishi uchun yaratilgan.\n\n"
@@ -1997,7 +2030,12 @@ TEXTS_UPDATE = {
         "complete_meridian": "Меридианды аяқтау",
         "select_meridian": "Меридиан таңдау",
         "no_points": "Қазір бұл меридианның нүктелерін ашу мүмкін болмады. Меридиандар тізіміне оралыңыз немесе кейінірек қайталап көріңіз.",
-        "meridian_completed": "✅ <b>Меридиан аяқталды</b>\n\nДайын болғанда келесі арнаны таңдаңыз.",
+        "meridian_completed": (
+            "✅ <b>Меридиан аяқталды</b>\n\n"
+            "Келесі арнаға өтпес бұрын, бүкіл арнаны зейінмен тағы бір рет өтіңіз: бірінші нүктеден соңғысына дейін. "
+            "Сызық қай жерде жылы әрі анық, қай жерде әзірге үзіліп немесе үнсіз қалатынын байқаңыз.\n\n"
+            "Сезім тынышталған кезде келесі арнаны таңдаңыз."
+        ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "Бұл бот шабыт беретін сөздер жинағы емес, нақты тәжірибе үшін тыныш тірек болу үшін жасалған.\n\n"

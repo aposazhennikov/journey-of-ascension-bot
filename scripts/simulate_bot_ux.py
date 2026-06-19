@@ -607,6 +607,17 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             if "???" in value:
                 issues.append(f"{language}: {key} contains ???")
 
+        completion = language_texts.get("meridian_completed", "")
+        completion_markers = {
+            "en": ("whole channel", "goes silent"),
+            "ru": ("весь канал", "молчит"),
+            "uz": ("butun kanal", "jim"),
+            "kz": ("бүкіл арнаны", "үнсіз"),
+        }[language]
+        for marker in completion_markers:
+            if marker not in completion:
+                issues.append(f"{language}: meridian completion text does not guide reflective channel review")
+
     if len(meridians) != len(EXPECTED_POINT_COUNTS):
         issues.append(f"expected {len(EXPECTED_POINT_COUNTS)} meridians, got {len(meridians)}")
 
