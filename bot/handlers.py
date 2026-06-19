@@ -1352,9 +1352,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Practice starts with one honest question: where does my energy go during the day? When it is scattered, attention becomes noisy, reactions get sharper, and even simple actions take more force. When it is gathered, the body is quieter and the mind has more room.\n\n"
-            "<b>Yama and Niyama</b> are the foundation. They are not moral slogans; they are a way to stop leaking strength through speech, habits, conflict, self-harm, haste, and unconscious reactions. <b>Ahimsa</b>, for example, begins with not spending energy on harm, including harm toward yourself.\n\n"
-            "<b>Meridians</b> bring the practice into the body. You learn to follow the channels of Qi through attention, breath, and sensation: some points answer quickly, while others need gentle touch and more time.\n\n"
+            "Practice starts with noticing where your strength goes during an ordinary day. Energy is not an abstract word here: it is attention, vitality, steadiness, and the ability to act without draining yourself.\n\n"
+            "<b>Yama and Niyama</b> are the foundation. They help stop the leaks: harsh speech, conflict, hurry, excess, self-harm, resentment, and automatic reactions. <b>Ahimsa</b>, for example, is not only about not hurting others; it is also about not spending force on damaging yourself and then paying for recovery.\n\n"
+            "<b>Meridians</b> bring the same work into the body. You learn to feel channels of Qi through attention, breath, touch, warmth, pressure, and quiet areas. If a point is hard to feel, it is not a failure; it is a place that asks for more patient practice.\n\n"
             "What would you like to study?"
         ),
         "initial_mode_question": "What would you like to study?",
@@ -1412,10 +1412,10 @@ TEXTS_UPDATE = {
         ),
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
-            "These are the first two limbs of classical yoga and the ethical foundation of practice.\n\n"
-            "<b>Yama</b> protects energy in relation to the world: non-harm, truthfulness, non-stealing, moderation, and non-possessiveness.\n\n"
-            "<b>Niyama</b> gathers energy inside: purity, contentment, discipline, self-study, and surrender of the fruits of action.\n\n"
-            "The daily principle is an accent for observation, not a replacement for the others. We keep integrating all principles into life, and each day one of them becomes especially visible.\n\n"
+            "These are the first two limbs of classical yoga. They are not a list of nice ideas; they are a training of how not to waste energy through speech, habits, reactions, desires, and inner disorder.\n\n"
+            "<b>Yama</b> works with your contact with the world: non-harm, truthfulness, non-stealing, moderation, and non-possessiveness. It teaches you to stop losing force in conflict, pressure, comparison, and grabbing.\n\n"
+            "<b>Niyama</b> works with your inner ground: purity, contentment, discipline, self-study, and surrender of the fruits of action. It gathers attention back into a cleaner rhythm.\n\n"
+            "The daily principle is only the accent of the day. It does not mean you practise Ahimsa today and forget it tomorrow. We keep all principles in life at once; each day one of them comes closer to the surface.\n\n"
             "Open one principle for today or view the full list."
         ),
         "principles_random": "Random principle",
@@ -1483,11 +1483,12 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
-            "In Chinese tradition, meridians describe the paths where Qi moves. In practice, this becomes very concrete: you notice where the body answers attention, where there is tension, and where the sensation is still weak.\n\n"
-            "<b>How this helps:</b> attention, breathing, and gentle touch gradually bring sensitivity back to a point. The area becomes warmer, clearer, and easier to connect with the whole line of the channel.\n\n"
-            "<b>How to study:</b> choose the bot route if you want a calm sequence, or free choice if you already know which meridian you want to study.\n\n"
-            "<b>Before points:</b> open the <b>cun</b> guide. It helps you find the right area on your body; then you refine the point with fingers, breath, and attention.\n\n"
-            "This is self-observation practice. It does not replace a doctor, diagnosis, or treatment."
+            "In Chinese tradition, meridians are the channels through which Qi moves. For practice, this is not a theory to believe in blindly. It is a way to observe the body: where sensation is clear, where the line breaks, where a point feels warm, tense, empty, or silent.\n\n"
+            "<b>What you train:</b> attention, breath, and gentle touch. A point that does not answer at first can be treated as closed for now: stay longer, massage it lightly, breathe through it with attention, and wait until the sensation becomes steadier.\n\n"
+            "<b>How to move:</b> each new point is added to the previous ones. First feel point 1. Then keep it in the background and add point 2. Over time the meridian becomes one living line rather than separate dots.\n\n"
+            "<b>Choose a path:</b> use the bot route if you want a calm sequence from the beginning, or free choice if a specific meridian already draws your attention.\n\n"
+            "<b>Before points:</b> open the <b>cun</b> guide. It helps you find the area; the exact point is refined with fingers, breath, and attention.\n\n"
+            "This is self-observation and inner discipline. It does not replace medical diagnosis or treatment."
         ),
         "choose_meridian": (
             "☯️ <b>Choose a meridian</b>\n\n"
@@ -1514,11 +1515,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "This bot is for people who want practice to become part of the day, not something remembered only after everything is already over.\n\n"
-            "Here energy means what you can notice directly: attention, steadiness, vitality, and the ability to act without wasting yourself. When it leaks into conflict, hurry, resentment, excess, or self-neglect, the whole day becomes heavier.\n\n"
-            "<b>Yama/Niyama</b> helps close these leaks through behaviour, speech, thoughts, discipline, and honesty with yourself.\n\n"
-            "<b>Meridians</b> bring the work into the body: channels, points, Qi flow, closed areas, breath, touch, and patient attention.\n\n"
-            "The bot keeps the thread of practice from getting lost in the day: it brings you back at the right time and shows the next small step."
+            "This bot is made for people who want spiritual practice to become part of real life: not only something to read about, and not something remembered after the day has already carried you away.\n\n"
+            "Here energy means what you can actually notice: attention, vitality, steadiness, warmth in the body, and the ability to act without draining yourself. When energy goes into conflict, hurry, resentment, excess, self-harm, or neglect, you feel it in the mind and in the body.\n\n"
+            "<b>Yama/Niyama</b> gives the foundation: daily principles that help close those leaks through behaviour, speech, thought, discipline, and honesty with yourself.\n\n"
+            "<b>Meridians</b> give the body layer: channels, points, Qi flow, sensitive and closed areas, breath, touch, and the habit of patiently returning attention to the same place.\n\n"
+            "The bot does one simple job: it keeps the thread of practice from disappearing in the noise of the day and shows the next small step."
         ),
         "feature_announcement": (
             "☯️ <b>New in Journey of Ascension: meridian practice</b>\n\n"
