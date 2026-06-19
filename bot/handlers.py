@@ -582,9 +582,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Inner practice begins with a simple observation: we have attention, strength, and energy, and every day we either gather them or scatter them.\n\n"
-            "<b>Yama and Niyama</b> help stop leaking energy through conflict, self-harm, dishonesty, excess, and unconscious habits. Each daily principle is not a one-day rule, but a focus that slowly becomes part of life.\n\n"
-            "<b>Meridians</b> are a practical map of the body and Qi flow. You learn to feel points, notice closed areas, and gently bring attention, breath, and circulation back there.\n\n"
+            "Practice begins with noticing where your energy goes. Scattered energy feels like noisy attention and tired reactions; gathered energy gives more wholeness and cleaner action.\n\n"
+            "<b>Yama and Niyama</b> are the ethical foundation: less harm, inner conflict, excess, and dishonesty. The daily principle is the main lens of the day while all principles slowly enter life.\n\n"
+            "<b>Meridians</b> are the body map of Qi. You learn to feel channels, points, and silent areas, then return attention, breath, touch, and circulation there.\n\n"
             "What would you like to study?"
         ),
         "initial_mode_question": "What would you like to study?",
@@ -729,9 +729,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Внутренняя практика начинается с простого наблюдения: у нас есть внимание, сила и энергия. Каждый день мы либо собираем их, либо рассеиваем.\n\n"
-            "<b>Яма и Нияма</b> помогают перестать сливать энергию через конфликты, вред себе, нечестность, избыточность и привычки, которые мы обычно не замечаем. Ежедневный принцип — это не правило на один день, а фокус, который постепенно встраивается в жизнь.\n\n"
-            "<b>Меридианы</b> — практическая карта тела и течения Ци. Вы учитесь чувствовать точки, замечать закрытые зоны и мягко возвращать туда внимание, дыхание и циркуляцию.\n\n"
+            "Практика начинается с наблюдения: куда уходит энергия. Рассеянная энергия ощущается как шумное внимание и усталые реакции; собранная даёт цельность и более чистое действие.\n\n"
+            "<b>Яма и Нияма</b> — нравственный фундамент: меньше вреда, внутреннего конфликта, избыточности и нечестности. Ежедневный принцип — главный фокус дня, пока все принципы постепенно входят в жизнь.\n\n"
+            "<b>Меридианы</b> — телесная карта Ци. Вы учитесь чувствовать каналы, точки и молчащие зоны, возвращая туда внимание, дыхание, касание и циркуляцию.\n\n"
             "Что вы хотели бы изучать?"
         ),
         "initial_mode_question": "Что вы хотели бы изучать?",
@@ -876,9 +876,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Ichki amaliyot oddiy kuzatuvdan boshlanadi: bizda diqqat, kuch va energiya bor. Har kuni biz ularni yo yig'amiz, yo tarqatib yuboramiz.\n\n"
-            "<b>Yama va Niyama</b> energiyani mojaro, o'ziga zarar, nohalollik, ortiqchalik va ko'pincha sezilmaydigan odatlar orqali yo'qotishni kamaytiradi. Kundalik tamoyil bir kunlik qoida emas, balki hayotga asta-sekin kirib boradigan fokusdir.\n\n"
-            "<b>Meridianlar</b> tana va Qi oqimining amaliy xaritasi. Siz nuqtalarni sezishni, yopiq joylarni payqashni va u yerga diqqat, nafas hamda aylanishni muloyim qaytarishni o'rganasiz.\n\n"
+            "Amaliyot energiya qayerga ketayotganini kuzatishdan boshlanadi. Tarqoq energiya shovqinli diqqat va charchagan reaksiyalar sifatida seziladi; yig'ilgan energiya yaxlitlik va aniqlik beradi.\n\n"
+            "<b>Yama va Niyama</b> axloqiy poydevor: zarar, ichki mojaro, ortiqchalik va nohalollik kamroq bo'ladi. Kundalik tamoyil kunning asosiy fokusi, barcha tamoyillar esa asta-sekin hayotga kiradi.\n\n"
+            "<b>Meridianlar</b> Qi ning tana xaritasidir. Siz kanallar, nuqtalar va jim joylarni sezib, u yerga diqqat, nafas, teginish hamda aylanishni qaytarishni o'rganasiz.\n\n"
             "Nimani o'rganmoqchisiz?"
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
@@ -1037,9 +1037,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Ішкі тәжірибе қарапайым байқаудан басталады: бізде зейін, күш және энергия бар. Күн сайын біз оларды не жинаймыз, не шашыратып аламыз.\n\n"
-            "<b>Яма мен Нияма</b> энергияны қақтығыс, өзіне зиян, адалсыздық, артықтық және байқалмайтын әдеттер арқылы жоғалтуды азайтуға көмектеседі. Күнделікті қағида — бір күндік ереже емес, өмірге біртіндеп енетін фокус.\n\n"
-            "<b>Меридиандар</b> — дене мен Ци ағымының тәжірибелік картасы. Сіз нүктелерді сезуді, жабық аймақтарды байқауды және сол жерге зейін, тыныс пен айналымды жұмсақ қайтаруды үйренесіз.\n\n"
+            "Тәжірибе энергия қайда кетіп жатқанын байқаудан басталады. Шашыраған энергия зейіннің шуылы мен шаршаған реакциялар сияқты сезіледі; жиналған энергия тұтастық пен айқындық береді.\n\n"
+            "<b>Яма мен Нияма</b> — адамгершілік негіз: зиян, ішкі қақтығыс, артықтық және адалсыздық азаяды. Күнделікті қағида — күннің негізгі фокусы, ал барлық қағидалар біртіндеп өмірге енеді.\n\n"
+            "<b>Меридиандар</b> — Ци-дің денедегі картасы. Сіз арналар, нүктелер және үнсіз аймақтарды сезіп, сол жерге зейін, тыныс, жанасу мен айналымды қайтаруды үйренесіз.\n\n"
             "Нені зерттегіңіз келеді?"
         ),
         "initial_mode_question": "Нені зерттегіңіз келеді?",
