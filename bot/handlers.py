@@ -77,13 +77,12 @@ TEXTS = {
             "• `-` or just Enter - don't skip days"
         ),
         "setup_complete": (
-            "🎉 **Setup Complete!**\n\n"
-            "📋 **Your Settings:**\n"
+            "🎉 **Your practice rhythm is ready.**\n\n"
+            "📋 **What is active now:**\n"
             "🕐 Time: {time}\n"
             "🌍 Time Zone: {timezone}\n"
-            "📅 Skip Days: {skip_days}\n\n"
-            "✨ Your first yoga principle will be sent at the next scheduled time!\n\n"
-            "Use /test to get a test message."
+            "📅 Quiet Days: {skip_days}\n\n"
+            "The bot will help you return to practice regularly. Open /menu to choose a path, explore principles, or continue meridians."
         ),
         "already_subscribed": (
             "🕊️ You're already using Journey of Ascension.\n\n"
@@ -206,13 +205,12 @@ TEXTS = {
             "• `-` или просто Enter - не пропускать дни"
         ),
         "setup_complete": (
-            "🎉 **Настройка завершена!**\n\n"
-            "📋 **Ваши настройки:**\n"
+            "🎉 **Ритм практики настроен.**\n\n"
+            "📋 **Что сейчас активно:**\n"
             "🕐 Время: {time}\n"
             "🌍 Часовой пояс: {timezone}\n"
-            "📅 Пропускать: {skip_days}\n\n"
-            "✨ Первый принцип йоги будет отправлен в ближайшее запланированное время!\n\n"
-            "Используйте /test для получения тестового сообщения."
+            "📅 Дни тишины: {skip_days}\n\n"
+            "Бот будет мягко возвращать вас к практике. Откройте /menu, чтобы выбрать путь, посмотреть принципы или продолжить меридианы."
         ),
         "already_subscribed": (
             "🧘 Вы уже подписаны на ежедневные принципы йоги!\n\n"
@@ -336,13 +334,12 @@ TEXTS = {
         ),
         "skip_days_saved": "✅ O'tkazib yuborish kunlari saqlandi!",
         "setup_complete": (
-            "🎉 **Sozlash yakunlandi!**\n\n"
-            "📋 **Sizning sozlamalaringiz:**\n"
+            "🎉 **Amaliyot ritmingiz tayyor.**\n\n"
+            "📋 **Hozir nimalar faol:**\n"
             "🕐 Vaqt: {time}\n"
             "🌍 Vaqt mintaqasi: {timezone}\n"
-            "📅 O'tkazib yuborish kunlari: {skip_days}\n\n"
-            "✨ Birinchi yoga tamoyili keyingi rejalashtirilgan vaqtda yuboriladi!\n\n"
-            "/test dan test xabarini olish uchun foydalaning."
+            "📅 Sokin kunlar: {skip_days}\n\n"
+            "Bot sizni muntazam amaliyotga yumshoq qaytarib turadi. Yo'lni tanlash, tamoyillarni ko'rish yoki meridianlarni davom ettirish uchun /menu ni oching."
         ),
         "already_subscribed": "Siz allaqachon obuna bo'lgansiz. Sozlamalarni o'zgartirish uchun /settings dan foydalaning.",
         "unsubscribed": "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
@@ -444,13 +441,12 @@ TEXTS = {
         ),
         "skip_days_saved": "✅ Өткізіп жіберу күндері сақталды!",
         "setup_complete": (
-            "🎉 **Баптау аяқталды!**\n\n"
-            "📋 **Сіздің баптауларыңыз:**\n"
+            "🎉 **Тәжірибе ырғағы дайын.**\n\n"
+            "📋 **Қазір не белсенді:**\n"
             "🕐 Уақыт: {time}\n"
             "🌍 Уақыт белдеуі: {timezone}\n"
-            "📅 Өткізіп жіберу күндері: {skip_days}\n\n"
-            "✨ Алғашқы йога принципі келесі жоспарланған уақытта жіберіледі!\n\n"
-            "/test арқылы тест хабарын алу үшін пайдаланыңыз."
+            "📅 Тыныш күндер: {skip_days}\n\n"
+            "Бот сізді тәжірибеге жұмсақ түрде қайтарады. Жолды таңдау, қағидаларды көру немесе меридиандарды жалғастыру үшін /menu ашыңыз."
         ),
         "already_subscribed": "Сіз қазірдің өзінде жазылғансыз. Баптауларды өзгерту үшін /settings пайдаланыңыз.",
         "unsubscribed": "Бот тоқтатылды. Еске салулар енді жіберілмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
@@ -740,12 +736,12 @@ TEXTS_UPDATE = {
         "stop_feedback_thanks": "Thank you, I will pass on your feedback.\n\nUse /start if you want to return.",
         "not_subscribed_test": "You're not subscribed yet. Use /start to begin.",
         "setup_complete": (
-            "🎉 **Setup Complete!**\n\n"
-            "📋 **Your Settings:**\n"
+            "🎉 **Your practice rhythm is ready.**\n\n"
+            "📋 **What is active now:**\n"
             "🕐 Time: {time}\n"
             "🌍 Time Zone: {timezone}\n"
-            "📅 Skip Days: {skip_days}\n\n"
-            "You can open /menu at any time to change your practice mode or explore meridians."
+            "📅 Quiet Days: {skip_days}\n\n"
+            "Open /menu whenever you want to explore the lists, change the rhythm, or continue meridian practice."
         )
     },
     "ru": {
@@ -914,12 +910,12 @@ TEXTS_UPDATE = {
         "stop_feedback_thanks": "Спасибо, я передам обратную связь.\n\nЕсли захотите вернуться, используйте /start.",
         "not_subscribed_test": "Вы пока не подписаны. Используйте /start, чтобы начать.",
         "setup_complete": (
-            "🎉 **Настройка завершена!**\n\n"
-            "📋 **Ваши настройки:**\n"
+            "🎉 **Ритм практики настроен.**\n\n"
+            "📋 **Что сейчас активно:**\n"
             "🕐 Время: {time}\n"
             "🌍 Часовой пояс: {timezone}\n"
-            "📅 Пропускать: {skip_days}\n\n"
-            "В любой момент можно открыть /menu, изменить режим практики или перейти к изучению меридианов."
+            "📅 Дни тишины: {skip_days}\n\n"
+            "Открывайте /menu, когда захотите посмотреть списки, изменить ритм или продолжить практику меридианов."
         )
     },
     "uz": {
@@ -1102,12 +1098,12 @@ TEXTS_UPDATE = {
         ),
         "feedback_sent": "✅ Rahmat. Fikringiz ishlab chiquvchilarga yuborildi.",
         "setup_complete": (
-            "🎉 **Sozlash yakunlandi!**\n\n"
-            "📋 **Sozlamalaringiz:**\n"
+            "🎉 **Amaliyot ritmingiz tayyor.**\n\n"
+            "📋 **Hozir nimalar faol:**\n"
             "🕐 Vaqt: {time}\n"
             "🌍 Vaqt mintaqasi: {timezone}\n"
-            "📅 O'tkazib yuborish kunlari: {skip_days}\n\n"
-            "Istalgan vaqtda /menu orqali amaliyot rejimini o'zgartirish yoki meridianlarni o'rganishga o'tish mumkin."
+            "📅 Sokin kunlar: {skip_days}\n\n"
+            "/menu ni ochib, ro'yxatlarni ko'rishingiz, ritmni o'zgartirishingiz yoki meridian amaliyotini davom ettirishingiz mumkin."
         )
     },
     "kz": {
@@ -1290,12 +1286,12 @@ TEXTS_UPDATE = {
         ),
         "feedback_sent": "✅ Рақмет. Пікіріңіз әзірлеушілерге жіберілді.",
         "setup_complete": (
-            "🎉 **Баптау аяқталды!**\n\n"
-            "📋 **Сіздің баптауларыңыз:**\n"
+            "🎉 **Тәжірибе ырғағы дайын.**\n\n"
+            "📋 **Қазір не белсенді:**\n"
             "🕐 Уақыт: {time}\n"
             "🌍 Уақыт белдеуі: {timezone}\n"
-            "📅 Өткізіп жіберу күндері: {skip_days}\n\n"
-            "Кез келген уақытта /menu арқылы тәжірибе режимін өзгертуге немесе меридиандарды зерттеуге өтуге болады."
+            "📅 Тыныш күндер: {skip_days}\n\n"
+            "/menu ашып, тізімдерді көре аласыз, ырғақты өзгерте аласыз немесе меридиан тәжірибесін жалғастыра аласыз."
         )
     }
 }
@@ -2533,8 +2529,8 @@ class BotHandlers:
         """Format setup summary according to the selected practice modes."""
         labels = {
             "en": {
-                "done": "🎉 <b>Setup complete!</b>",
-                "settings": "📋 <b>Your settings:</b>",
+                "done": "🎉 <b>Your practice rhythm is ready.</b>",
+                "settings": "📋 <b>What is active now:</b>",
                 "mode": "🧭 Practice:",
                 "principles": "Yama/Niyama",
                 "meridians": "Meridians",
@@ -2544,11 +2540,14 @@ class BotHandlers:
                 "meridian_time": "☯️ Meridian time:",
                 "timezone": "🌍 Time zone:",
                 "skip": "📅 Quiet days:",
-                "hint": "You can open /menu at any time to adjust your path, reminders, or meridian practice.",
+                "next_principles": "The bot will bring you back to one principle each day. The other principles are not paused; this is simply the day's point of attention.",
+                "next_meridians": "The bot will return you to the current meridian focus. You move through points only when you press the buttons, so the pace stays yours.",
+                "next_both": "The bot will support both layers: daily ethical focus and meridian observation. Keep the practice gentle, regular, and honest.",
+                "hint": "Open /menu whenever you want to explore the lists, change the rhythm, or continue meridian practice.",
             },
             "ru": {
-                "done": "🎉 <b>Настройка завершена!</b>",
-                "settings": "📋 <b>Ваши настройки:</b>",
+                "done": "🎉 <b>Ритм практики настроен.</b>",
+                "settings": "📋 <b>Что сейчас активно:</b>",
                 "mode": "🧭 Практика:",
                 "principles": "Яма/Нияма",
                 "meridians": "Меридианы",
@@ -2558,11 +2557,14 @@ class BotHandlers:
                 "meridian_time": "☯️ Время меридианов:",
                 "timezone": "🌍 Часовой пояс:",
                 "skip": "📅 Дни тишины:",
-                "hint": "В любой момент можно открыть /menu, изменить путь, напоминания или практику меридианов.",
+                "next_principles": "Бот будет каждый день возвращать вас к одному принципу. Остальные принципы не выключаются: это просто акцент дня для внимания.",
+                "next_meridians": "Бот будет возвращать вас к текущему фокусу меридиана. По точкам вы двигаетесь только кнопками, поэтому темп остаётся вашим.",
+                "next_both": "Бот будет поддерживать оба слоя: ежедневный нравственный фокус и наблюдение меридианов. Держите практику мягкой, регулярной и честной.",
+                "hint": "Открывайте /menu, когда захотите посмотреть списки, изменить ритм или продолжить практику меридианов.",
             },
             "uz": {
-                "done": "🎉 <b>Sozlash yakunlandi!</b>",
-                "settings": "📋 <b>Sozlamalaringiz:</b>",
+                "done": "🎉 <b>Amaliyot ritmingiz tayyor.</b>",
+                "settings": "📋 <b>Hozir nimalar faol:</b>",
                 "mode": "🧭 Amaliyot:",
                 "principles": "Yama/Niyama",
                 "meridians": "Meridianlar",
@@ -2572,11 +2574,14 @@ class BotHandlers:
                 "meridian_time": "☯️ Meridian vaqti:",
                 "timezone": "🌍 Vaqt mintaqasi:",
                 "skip": "📅 Sokin kunlar:",
-                "hint": "Istalgan vaqtda /menu ni ochib, yo'l, eslatmalar yoki meridian amaliyotini o'zgartirishingiz mumkin.",
+                "next_principles": "Bot har kuni sizni bitta tamoyilga qaytaradi. Boshqa tamoyillar to'xtamaydi; bu faqat kunning diqqat nuqtasi.",
+                "next_meridians": "Bot sizni joriy meridian fokusiga qaytaradi. Nuqtalar bo'ylab faqat tugmalar orqali o'tasiz, shuning uchun sur'at sizniki bo'lib qoladi.",
+                "next_both": "Bot ikkala qatlamni qo'llab-quvvatlaydi: kundalik axloqiy fokus va meridianlarni kuzatish. Amaliyot yumshoq, muntazam va halol bo'lsin.",
+                "hint": "/menu ni ochib, ro'yxatlarni ko'rishingiz, ritmni o'zgartirishingiz yoki meridian amaliyotini davom ettirishingiz mumkin.",
             },
             "kz": {
-                "done": "🎉 <b>Баптау аяқталды!</b>",
-                "settings": "📋 <b>Баптауларыңыз:</b>",
+                "done": "🎉 <b>Тәжірибе ырғағы дайын.</b>",
+                "settings": "📋 <b>Қазір не белсенді:</b>",
                 "mode": "🧭 Тәжірибе:",
                 "principles": "Яма/Нияма",
                 "meridians": "Меридиандар",
@@ -2586,16 +2591,22 @@ class BotHandlers:
                 "meridian_time": "☯️ Меридиан уақыты:",
                 "timezone": "🌍 Уақыт белдеуі:",
                 "skip": "📅 Тыныш күндер:",
-                "hint": "Кез келген уақытта /menu ашып, жолды, еске салуларды немесе меридиан тәжірибесін өзгерте аласыз.",
+                "next_principles": "Бот күн сайын сізді бір қағидаға қайтарады. Қалған қағидалар тоқтамайды; бұл тек күннің зейін нүктесі.",
+                "next_meridians": "Бот сізді ағымдағы меридиан фокусына қайтарады. Нүктелер бойынша тек батырмалармен өтесіз, сондықтан қарқын өзіңізде қалады.",
+                "next_both": "Бот екі қабатты да қолдайды: күнделікті этикалық фокус және меридиандарды бақылау. Тәжірибе жұмсақ, тұрақты және шынайы болсын.",
+                "hint": "/menu ашып, тізімдерді көре аласыз, ырғақты өзгерте аласыз немесе меридиан тәжірибесін жалғастыра аласыз.",
             },
         }.get(language)
 
         if user.principles_enabled and user.meridians_enabled:
             mode = labels["both"]
+            next_text = labels["next_both"]
         elif user.meridians_enabled:
             mode = labels["meridians"]
+            next_text = labels["next_meridians"]
         else:
             mode = labels["principles"]
+            next_text = labels["next_principles"]
 
         lines = [
             labels["done"],
@@ -2622,7 +2633,7 @@ class BotHandlers:
                 f"{labels['skip']} {escape(skip_days_display)}",
             ])
 
-        lines.extend(["", labels["hint"]])
+        lines.extend(["", next_text, "", labels["hint"]])
         return "\n".join(lines)
 
     def _format_current_settings(self, user, language: str, skip_days_display: str) -> str:

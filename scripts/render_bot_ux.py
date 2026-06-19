@@ -229,6 +229,56 @@ def format_principle(principle: dict[str, Any], language: str) -> str:
     return "\n\n".join(part for part in parts if part)
 
 
+def format_setup_complete_preview(language: str) -> str:
+    lines = {
+        "en": (
+            "🎉 <b>Your practice rhythm is ready.</b>",
+            "📋 <b>What is active now:</b>",
+            "🧭 Practice: Yama/Niyama + Meridians",
+            "🌍 Time zone: <code>Asia/Tashkent</code>",
+            "🕐 Yama/Niyama time: <code>08:00</code>",
+            "☯️ Meridian time: <code>20:00</code>",
+            "📅 Quiet days: None",
+            "The bot will support both layers: daily ethical focus and meridian observation. Keep the practice gentle, regular, and honest.",
+            "Open /menu whenever you want to explore the lists, change the rhythm, or continue meridian practice.",
+        ),
+        "ru": (
+            "🎉 <b>Ритм практики настроен.</b>",
+            "📋 <b>Что сейчас активно:</b>",
+            "🧭 Практика: Яма/Нияма + Меридианы",
+            "🌍 Часовой пояс: <code>Asia/Tashkent</code>",
+            "🕐 Время Ямы/Ниямы: <code>08:00</code>",
+            "☯️ Время меридианов: <code>20:00</code>",
+            "📅 Дни тишины: Нет",
+            "Бот будет поддерживать оба слоя: ежедневный нравственный фокус и наблюдение меридианов. Держите практику мягкой, регулярной и честной.",
+            "Открывайте /menu, когда захотите посмотреть списки, изменить ритм или продолжить практику меридианов.",
+        ),
+        "uz": (
+            "🎉 <b>Amaliyot ritmingiz tayyor.</b>",
+            "📋 <b>Hozir nimalar faol:</b>",
+            "🧭 Amaliyot: Yama/Niyama + Meridianlar",
+            "🌍 Vaqt mintaqasi: <code>Asia/Tashkent</code>",
+            "🕐 Yama/Niyama vaqti: <code>08:00</code>",
+            "☯️ Meridian vaqti: <code>20:00</code>",
+            "📅 Sokin kunlar: Yo'q",
+            "Bot ikkala qatlamni qo'llab-quvvatlaydi: kundalik axloqiy fokus va meridianlarni kuzatish. Amaliyot yumshoq, muntazam va halol bo'lsin.",
+            "/menu ni ochib, ro'yxatlarni ko'rishingiz, ritmni o'zgartirishingiz yoki meridian amaliyotini davom ettirishingiz mumkin.",
+        ),
+        "kz": (
+            "🎉 <b>Тәжірибе ырғағы дайын.</b>",
+            "📋 <b>Қазір не белсенді:</b>",
+            "🧭 Тәжірибе: Яма/Нияма + Меридиандар",
+            "🌍 Уақыт белдеуі: <code>Asia/Tashkent</code>",
+            "🕐 Яма/Нияма уақыты: <code>08:00</code>",
+            "☯️ Меридиан уақыты: <code>20:00</code>",
+            "📅 Тыныш күндер: Жоқ",
+            "Бот екі қабатты да қолдайды: күнделікті этикалық фокус және меридиандарды бақылау. Тәжірибе жұмсақ, тұрақты және шынайы болсын.",
+            "/menu ашып, тізімдерді көре аласыз, ырғақты өзгерте аласыз немесе меридиан тәжірибесін жалғастыра аласыз.",
+        ),
+    }[language]
+    return "\n\n".join(lines)
+
+
 def keyboard(rows: list[list[str]]) -> str:
     rendered_rows = []
     for row in rows:
@@ -381,6 +431,7 @@ def render_html(output: Path) -> None:
         sections.append(f"<div class='locale'><h1>{language.upper()}</h1>")
         sections.append(message("Language selection", allow_basic_html(language_selection_text()), [["🇺🇸 English", "🇷🇺 Русский"], ["🇺🇿 O'zbek", "🇰🇿 Қазақ"]]))
         sections.append(message("Onboarding intro", allow_basic_html(t["onboarding_intro"]), [[t["mode_meridians_only"]], [t["mode_principles_only"]], [t["mode_both"]]]))
+        sections.append(message("Setup complete", format_setup_complete_preview(language), kb["main"]))
         sections.append(message("Main menu", allow_basic_html(normalize_bot_html(t["menu"])), kb["main"]))
         sections.append(message("My Path", allow_basic_html(t["mode_menu"]), [[t["mode_principles_only"]], [t["mode_meridians_only"]], [t["mode_both"]], [t["back_to_menu"]]]))
         sections.append(message(

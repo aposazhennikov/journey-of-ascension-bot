@@ -620,6 +620,25 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if "_as_html" not in stop_handler_source:
             issues.append("/stop handler does not normalize stop text for HTML parse mode")
 
+    dry_setup_phrases = (
+        "Setup complete!",
+        "Настройка завершена!",
+        "Sozlash yakunlandi!",
+        "Баптау аяқталды!",
+    )
+    for phrase in dry_setup_phrases:
+        if phrase in handlers_source:
+            issues.append(f"setup completion still contains dry phrase: {phrase!r}")
+    setup_markers = (
+        "The other principles are not paused",
+        "Остальные принципы не выключаются",
+        "Boshqa tamoyillar to'xtamaydi",
+        "Қалған қағидалар тоқтамайды",
+    )
+    for marker in setup_markers:
+        if marker not in handlers_source:
+            issues.append(f"setup completion is missing living-practice marker: {marker!r}")
+
     return issues
 
 
