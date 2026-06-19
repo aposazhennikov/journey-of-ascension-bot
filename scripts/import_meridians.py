@@ -18,30 +18,51 @@ HEADERS = {"User-Agent": "Mozilla/5.0 Journey of Ascension content importer"}
 
 LANG_META = {
     "en": {
-        "focus": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
         "question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?",
         "source_location": "Source location",
         "source_note": "Classical note",
     },
     "ru": {
-        "focus": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
         "question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?",
         "source_location": "Расположение",
         "source_note": "Классическое примечание",
     },
     "uz": {
-        "focus": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
         "question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?",
         "source_location": "Manbadagi joylashuv",
         "source_note": "Klassik izoh",
     },
     "kz": {
-        "focus": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
         "question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?",
         "source_location": "Дереккөздегі орналасуы",
         "source_note": "Классикалық түсіндірме",
     },
 }
+
+
+POINT_FOCUS_TEXTS = {
+    "en": (
+        "Start with this point only. Find the place with the image, touch, breath, and quiet attention. If the sensation is weak, treat it as not yet open for practice: stay longer, gently massage the area, and imagine breathing through the point until attention can rest there more easily.",
+        "First recall the points you have already studied. Keep their sensation in the background, then add this point and notice whether the meridian line becomes clearer, warmer, denser, or breaks somewhere. If the point is hard to feel, give it more time: touch it softly, breathe through it with attention, and return to the whole line.",
+    ),
+    "ru": (
+        "Начните только с этой точки. Найдите её по изображению, касанию, дыханию и спокойному вниманию. Если ощущение слабое, считайте точку пока закрытой для практики: побудьте дольше, мягко помассируйте область и представляйте дыхание через точку, пока вниманию не станет легче удерживаться здесь.",
+        "Сначала вспомните уже изученные точки. Удерживая их ощущение фоном, добавьте эту точку и посмотрите, становится ли линия меридиана яснее, теплее, плотнее или где-то обрывается. Если точка почти не чувствуется, уделите ей больше времени: мягко коснитесь, подышите через неё вниманием и снова вернитесь ко всей линии.",
+    ),
+    "uz": (
+        "Faqat shu nuqtadan boshlang. Uni rasm, teginish, nafas va sokin diqqat orqali toping. Agar sezgi kuchsiz bo'lsa, nuqtani amaliyot uchun hali ochilmagan deb qabul qiling: uzoqroq turing, sohani yengil massaj qiling va diqqat bu yerda osonroq turmaguncha nuqta orqali nafas olayotganingizni tasavvur qiling.",
+        "Avval o'rgangan nuqtalarni eslang. Ularning sezgisini fonda ushlab, shu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi, kuzating. Agar nuqtani sezish qiyin bo'lsa, unga ko'proq vaqt bering: yumshoq teging, diqqat bilan nafas oling va yana butun chiziqqa qayting.",
+    ),
+    "kz": (
+        "Тек осы нүктеден бастаңыз. Оны сурет, жанасу, тыныс және тыныш зейін арқылы табыңыз. Егер сезім әлсіз болса, нүктені тәжірибе үшін әзірге ашылмаған деп қабылдаңыз: ұзағырақ болыңыз, аймақты жеңіл уқалаңыз және зейін бұл жерде жеңілірек орныққанша нүкте арқылы тыныстап жатқаныңызды елестетіңіз.",
+        "Алдымен бұрын өткен нүктелерді еске түсіріңіз. Олардың сезімін фонда ұстап, осы нүктені қосыңыз да, меридиан сызығы анығырақ, жылырақ, тығызырақ бола ма, әлде бір жерде үзіле ме, бақылаңыз. Егер нүктені сезу қиын болса, оған көбірек уақыт беріңіз: жұмсақ тиіп, зейінмен тыныстаңыз және қайтадан бүкіл сызыққа оралыңыз.",
+    ),
+}
+
+
+def point_focus_text(language: str, point_index: int) -> str:
+    first_text, next_text = POINT_FOCUS_TEXTS.get(language, POINT_FOCUS_TEXTS["en"])
+    return first_text if point_index == 0 else next_text
 
 
 MERIDIANS = [
@@ -622,7 +643,7 @@ def download_image(url: str | None, filename: str) -> str | None:
     return None
 
 
-def make_point_i18n(ru_name: str, classification: str, name_note: str, location: str) -> dict:
+def make_point_i18n(ru_name: str, classification: str, name_note: str, location: str, point_index: int) -> dict:
     result = {}
     for lang, meta in LANG_META.items():
         meaning = " ".join(part for part in [classification, name_note] if part)
@@ -631,7 +652,7 @@ def make_point_i18n(ru_name: str, classification: str, name_note: str, location:
                 "name": ru_name,
                 "location": location or "Расположение будет уточнено после сверки источников.",
                 "meaning": meaning,
-                "meditation_instruction": meta["focus"],
+                "meditation_instruction": point_focus_text(lang, point_index),
                 "observation_question": meta["question"],
             }
         else:
@@ -639,7 +660,7 @@ def make_point_i18n(ru_name: str, classification: str, name_note: str, location:
                 "name": ru_name,
                 "location": f"{meta['source_location']}: {location}" if location else f"{meta['source_location']}: pending source refinement.",
                 "meaning": f"{meta['source_note']}: {meaning}" if meaning else "",
-                "meditation_instruction": meta["focus"],
+                "meditation_instruction": point_focus_text(lang, point_index),
                 "observation_question": meta["question"],
             }
     return result
@@ -654,7 +675,7 @@ def build_meridian(meta: dict) -> dict:
 
     intro_ru_source = first_meaningful_paragraph(shiyanbin_html)
     points = []
-    for point_url, code, ru_name, alt_code in point_entries(category_html):
+    for point_index, (point_url, code, ru_name, alt_code) in enumerate(point_entries(category_html)):
         try:
             point_html = fetch(point_url)
             time.sleep(0.08)
@@ -672,7 +693,7 @@ def build_meridian(meta: dict) -> dict:
                 "alt_code": alt_code,
                 "source_url": point_url,
                 "image": image_name,
-                "i18n": make_point_i18n(ru_name, classification, name_note, location),
+                "i18n": make_point_i18n(ru_name, classification, name_note, location, point_index),
             }
         )
 

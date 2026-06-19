@@ -99,6 +99,22 @@ SOURCE_EDITORIAL_TAILS = (
     "(рис.",
     "(fig.",
 )
+STALE_POINT_INSTRUCTION_PATTERNS = (
+    "without forcing a result",
+    "trying to force a result",
+    "без усилия получить результат",
+    "Перенесите расслабленное внимание",
+    "Rest attention on this point",
+    "Bring relaxed attention to this point",
+    "natijani majburlamasdan",
+    "нәтижені күштемей",
+)
+POINT_PRACTICE_MARKERS = {
+    "en": ("Start with this point only", "First recall the points you have already studied"),
+    "ru": ("Начните только с этой точки", "Сначала вспомните уже изученные точки"),
+    "uz": ("Faqat shu nuqtadan boshlang", "Avval o'rgangan nuqtalarni eslang"),
+    "kz": ("Тек осы нүктеден бастаңыз", "Алдымен бұрын өткен нүктелерді еске түсіріңіз"),
+}
 
 
 def load_text_definitions() -> dict[str, Any]:
@@ -556,7 +572,10 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
         f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",
         f"<b>{labels[1]}:</b> {escape(compact_point_location(location))}",
     ]
-    practice_parts = [practice_note(point_index, language)]
+    base_instruction = localized(point, language, "meditation_instruction")
+    if not base_instruction:
+        base_instruction = practice_note(point_index, language)
+    practice_parts = [base_instruction]
     area_hint = point_area_practice_hint(location, language)
     if area_hint:
         practice_parts.append(area_hint)
@@ -981,10 +1000,20 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
 
     for raw_meridian in raw_meridians_by_id.values():
         meridian_id = raw_meridian.get("id", "")
-        for point in raw_meridian.get("points", []):
+        for point_index, point in enumerate(raw_meridian.get("points", [])):
             point_image = point.get("image")
             if point_image and not (image_dir / point_image).exists():
                 issues.append(f"{meridian_id}/{point.get('code')}: point image is missing on disk: {point_image}")
+            for language in LANGUAGES:
+                instruction = point.get("i18n", {}).get(language, {}).get("meditation_instruction", "")
+                lowered_instruction = instruction.lower()
+                for pattern in STALE_POINT_INSTRUCTION_PATTERNS:
+                    if pattern.lower() in lowered_instruction:
+                        issues.append(f"{meridian_id}/{point.get('code')}/{language}: stale generic point instruction {pattern!r}")
+                first_marker, next_marker = POINT_PRACTICE_MARKERS[language]
+                expected_marker = first_marker if point_index == 0 else next_marker
+                if expected_marker not in instruction:
+                    issues.append(f"{meridian_id}/{point.get('code')}/{language}: point instruction lost staged practice marker")
 
     central_vessel_markers = {
         "conception_vessel": {
@@ -1188,22 +1217,30 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: fitted point caption exceeds Telegram limit")
                 if OBSERVATION_LABELS[language] not in fitted_plain:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: observation prompt is lost after Telegram caption fitting")
-                if language == "ru" and index == 0 and "закрыт" not in plain:
+                if language == "ru" and index == 0 and "\u0437\u0430\u043a\u0440\u044b\u0442" not in readable_plain:
                     issues.append(f"{meridian_id} point 1/ru: missing closed-point guidance")
-                if language == "ru" and index > 0 and "уже пройденных точек" not in plain:
+                if language == "ru" and index > 0 and "\u0443\u0436\u0435 \u0438\u0437\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0447\u043a\u0438" not in readable_plain:
                     issues.append(f"{meridian_id} point {index + 1}/ru: missing cumulative-point guidance")
-                practice_safety_markers = {
-                    "en": ("not yet open for practice", "not as a health conclusion"),
-                    "ru": ("закрыт", "для практики", "не выводом о здоровье"),
-                    "uz": ("amaliyot uchun", "sog'liq xulosasi"),
-                    "kz": ("тәжірибе үшін", "денсаулық қорытындысы"),
+                first_point_markers = {
+                    'en': ('Start with this point only', 'not yet open for practice'),
+                    'ru': ('\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u0442\u043e\u043b\u044c\u043a\u043e \u0441 \u044d\u0442\u043e\u0439 \u0442\u043e\u0447\u043a\u0438', '\u0437\u0430\u043a\u0440\u044b\u0442\u043e\u0439 \u0434\u043b\u044f \u043f\u0440\u0430\u043a\u0442\u0438\u043a\u0438'),
+                    'uz': ('Faqat shu nuqtadan boshlang', 'hali ochilmagan'),
+                    'kz': ('\u0422\u0435\u043a \u043e\u0441\u044b \u043d\u04af\u043a\u0442\u0435\u0434\u0435\u043d \u0431\u0430\u0441\u0442\u0430\u04a3\u044b\u0437', '\u04d9\u0437\u0456\u0440\u0433\u0435 \u0430\u0448\u044b\u043b\u043c\u0430\u0493\u0430\u043d'),
+                }[language]
+                next_point_markers = {
+                    'en': ('points you have already studied', 'return to the whole line'),
+                    'ru': ('\u0443\u0436\u0435 \u0438\u0437\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0447\u043a\u0438', '\u0432\u0435\u0440\u043d\u0438\u0442\u0435\u0441\u044c \u043a\u043e \u0432\u0441\u0435\u0439 \u043b\u0438\u043d\u0438\u0438'),
+                    'uz': ("o'rgangan nuqtalarni", 'butun chiziqqa qayting'),
+                    'kz': ('\u0431\u04b1\u0440\u044b\u043d \u04e9\u0442\u043a\u0435\u043d \u043d\u04af\u043a\u0442\u0435\u043b\u0435\u0440\u0434\u0456', '\u0431\u04af\u043a\u0456\u043b \u0441\u044b\u0437\u044b\u049b\u049b\u0430 \u043e\u0440\u0430\u043b\u044b\u04a3\u044b\u0437'),
                 }[language]
                 if index == 0:
-                    for marker in practice_safety_markers:
+                    for marker in first_point_markers:
                         if marker not in readable_plain:
-                            issues.append(f"{meridian_id} point 1/{language}: first-point practice is missing safety marker {marker!r}")
-                elif index == 1 and practice_safety_markers[0] not in readable_plain:
-                    issues.append(f"{meridian_id} point 2/{language}: follow-up point practice is missing practical closed-point marker")
+                            issues.append(f"{meridian_id} point 1/{language}: first-point practice is missing marker {marker!r}")
+                elif index == 1:
+                    for marker in next_point_markers:
+                        if marker not in readable_plain:
+                            issues.append(f"{meridian_id} point 2/{language}: follow-up point practice is missing marker {marker!r}")
                 final_point_markers = {
                     "en": "whole channel",
                     "ru": "весь канал",

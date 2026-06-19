@@ -352,7 +352,7 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     point_title = " ".join(part for part in (point.get("code", ""), localized_point_name(point, language)) if part)
     source_location = localized_location(point, language)
     location = clean_point_location(source_location)
-    focus = practice_note(point_index, language)
+    focus = localized(point, language, "meditation_instruction") or practice_note(point_index, language)
     setup_hint = point_setup_practice_hint(source_location, language)
     if setup_hint:
         focus = f"{focus} {setup_hint}"

@@ -56,6 +56,24 @@ SOURCE_TAIL_PATTERNS = (
     r"секретные\s+рецепты",
 )
 
+STALE_POINT_INSTRUCTION_PATTERNS = (
+    "without forcing a result",
+    "trying to force a result",
+    "без усилия получить результат",
+    "Перенесите расслабленное внимание",
+    "Rest attention on this point",
+    "Bring relaxed attention to this point",
+    "natijani majburlamasdan",
+    "нәтижені күштемей",
+)
+
+POINT_PRACTICE_MARKERS = {
+    "en": ("Start with this point only", "First recall the points you have already studied"),
+    "ru": ("Начните только с этой точки", "Сначала вспомните уже изученные точки"),
+    "uz": ("Faqat shu nuqtadan boshlang", "Avval o'rgangan nuqtalarni eslang"),
+    "kz": ("Тек осы нүктеден бастаңыз", "Алдымен бұрын өткен нүктелерді еске түсіріңіз"),
+}
+
 
 def has_image(images_dir: Path, stem: str) -> bool:
     return any((images_dir / f"{stem}{extension}").exists() for extension in IMAGE_EXTENSIONS)
@@ -68,6 +86,11 @@ def plain(value: Any) -> str:
 def contains_source_tail(text: str) -> bool:
     normalized = text.lower()
     return any(re.search(pattern, normalized, flags=re.IGNORECASE) for pattern in SOURCE_TAIL_PATTERNS)
+
+
+def contains_stale_point_instruction(text: str) -> bool:
+    normalized = text.lower()
+    return any(pattern.lower() in normalized for pattern in STALE_POINT_INSTRUCTION_PATTERNS)
 
 
 def is_clear_short_location(text: str) -> bool:
@@ -146,6 +169,12 @@ def audit() -> tuple[list[str], list[str]]:
                     warnings.append(f"{meridian_id} {code}/{language}: observation question may be too thin")
                 if contains_source_tail(location):
                     warnings.append(f"{meridian_id} {code}/{language}: location may contain source/editorial tail")
+                if contains_stale_point_instruction(instruction):
+                    errors.append(f"{meridian_id} {code}/{language}: stale generic point instruction")
+                first_marker, next_marker = POINT_PRACTICE_MARKERS[language]
+                expected_marker = first_marker if index == 1 else next_marker
+                if expected_marker not in instruction:
+                    errors.append(f"{meridian_id} {code}/{language}: point instruction lost staged practice marker")
 
     expected_total = sum(EXPECTED_POINT_COUNTS.values())
     if total_points != expected_total:
