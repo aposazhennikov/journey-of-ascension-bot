@@ -677,6 +677,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
         "meridian_measurements": "📏 How to measure cun",
+        "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
         "coming_soon": "soon",
         "meridian_measurements_text": (
@@ -691,6 +692,14 @@ TEXTS_UPDATE = {
             "<b>5 cun:</b> measure 3 cun and add about 2 cun, or divide the anatomical segment into equal parts if the source gives a proportional distance.\n\n"
             "<b>Important:</b> cun is always measured on the body of the person you are working with. For example, 1 cun on your body and 1 cun on another person's body can be different in centimeters.\n\n"
             "Use cun as an orientation tool, then refine the point by touch: local sensitivity, a small hollow, warmth, pressure, or a clear response to attention."
+        ),
+        "meridian_point_help_text": (
+            "🖐 <b>How to find a point</b>\n\n"
+            "Use the image and cun measurements as a map, not as a rigid target. Find the approximate area, then slow down.\n\n"
+            "<b>1.</b> Touch the area softly and look for a small hollow, sensitivity, warmth, pressure, or a place where attention catches more easily.\n\n"
+            "<b>2.</b> If the point feels silent, treat it as not yet open: stay longer, gently massage it, and breathe through it with attention.\n\n"
+            "<b>3.</b> Do not force a result. A quiet, steady sensation is enough.\n\n"
+            "When moving onward, keep the previous points in awareness and add the new one to the same line."
         ),
         "meridians_menu": (
             "☯️ <b>Meridians</b>\n\n"
@@ -842,6 +851,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
         "meridian_measurements": "📏 Как мерить цуни",
+        "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
         "coming_soon": "скоро",
         "meridian_measurements_text": (
@@ -856,6 +866,14 @@ TEXTS_UPDATE = {
             "<b>5 цуней:</b> можно отмерить 3 цуня и добавить около 2 цуней, либо разделить нужный анатомический участок на равные части, если источник даёт пропорциональное расстояние.\n\n"
             "<b>Важно:</b> цунь всегда измеряется по телу того человека, с которым вы работаете. Поэтому 1 цунь на вашем теле и 1 цунь на теле другого человека могут отличаться в сантиметрах.\n\n"
             "Используйте цуни как ориентир, а затем уточняйте точку через тело: локальная чувствительность, небольшое углубление, тепло, давление или ясный отклик на внимание."
+        ),
+        "meridian_point_help_text": (
+            "🖐 <b>Как искать точку</b>\n\n"
+            "Используйте изображение и цуни как карту, а не как жёсткую мишень. Найдите примерную область, затем замедлитесь.\n\n"
+            "<b>1.</b> Мягко касайтесь зоны и ищите небольшое углубление, чувствительность, тепло, давление или место, за которое внимание цепляется легче.\n\n"
+            "<b>2.</b> Если точка молчит, считайте её пока закрытой: побудьте с ней дольше, мягко помассируйте и представляйте вдох и выдох через неё.\n\n"
+            "<b>3.</b> Не выжимайте результат. Достаточно тихого устойчивого ощущения.\n\n"
+            "Когда переходите к следующей точке, не бросайте предыдущие: удерживайте их фоном и добавляйте новую в ту же линию внимания."
         ),
         "meridians_menu": (
             "☯️ <b>Меридианы</b>\n\n"
@@ -1007,6 +1025,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
         "meridian_measurements": "📏 Cunni o'lchash",
+        "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "coming_soon": "tez orada",
         "meridian_measurements_text": (
@@ -1021,6 +1040,14 @@ TEXTS_UPDATE = {
             "<b>5 cun:</b> 3 cun o'lchab, taxminan 2 cun qo'shing yoki manbada proporsional masofa berilgan bo'lsa, anatomik qismni teng bo'laklarga ajrating.\n\n"
             "<b>Muhim:</b> cun doimo ishlayotgan odamning tanasiga qarab o'lchanadi. Shuning uchun sizdagi 1 cun va boshqa odamdagi 1 cun santimetrda farq qilishi mumkin.\n\n"
             "Cunni yo'nalish sifatida ishlating, keyin nuqtani tana orqali aniqlang: mahalliy sezgirlik, kichik chuqurcha, iliqlik, bosim yoki diqqatga aniq javob."
+        ),
+        "meridian_point_help_text": (
+            "🖐 <b>Nuqtani qanday topish kerak</b>\n\n"
+            "Rasm va cun o'lchovlarini qat'iy nishon emas, xarita sifatida ishlating. Taxminiy joyni toping, keyin sekinlashing.\n\n"
+            "<b>1.</b> Joyga yumshoq teging va kichik chuqurcha, sezgirlik, issiqlik, bosim yoki diqqat osonroq ushlanadigan nuqtani qidiring.\n\n"
+            "<b>2.</b> Agar nuqta jim bo'lsa, uni hali ochilmagan deb qabul qiling: uzoqroq turing, yengil massaj qiling va shu nuqta orqali nafas olayotganingizni tasavvur qiling.\n\n"
+            "<b>3.</b> Natijani majburlamang. Sokin va barqaror sezgi yetarli.\n\n"
+            "Keyingi nuqtaga o'tganda oldingilarni fon sifatida sezib, yangi nuqtani shu diqqat chizig'iga qo'shing."
         ),
         "meridians_menu": (
             "☯️ <b>Meridianlar</b>\n\n"
@@ -1186,6 +1213,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
         "meridian_measurements": "📏 Цунь өлшеу",
+        "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "coming_soon": "жақында",
         "meridian_measurements_text": (
@@ -1200,6 +1228,14 @@ TEXTS_UPDATE = {
             "<b>5 цунь:</b> 3 цунь өлшеп, шамамен 2 цунь қосыңыз немесе дереккөз пропорциялық қашықтық берсе, анатомиялық бөлікті тең бөліктерге бөліңіз.\n\n"
             "<b>Маңызды:</b> цунь әрқашан жұмыс істеп отырған адамның денесіне қарай өлшенеді. Сондықтан сіздің денеңіздегі 1 цунь мен басқа адамның денесіндегі 1 цунь сантиметрмен әртүрлі болуы мүмкін.\n\n"
             "Цуньді бағдар ретінде қолданыңыз, кейін нүктені дене арқылы нақтылаңыз: жергілікті сезімталдық, шағын ойыс, жылу, қысым немесе зейінге айқын жауап."
+        ),
+        "meridian_point_help_text": (
+            "🖐 <b>Нүктені қалай табу керек</b>\n\n"
+            "Сурет пен цунь өлшемдерін қатаң нысана емес, карта ретінде қолданыңыз. Шамамен орынды табыңыз, содан кейін баяулаңыз.\n\n"
+            "<b>1.</b> Аймаққа жұмсақ тиіп, кішкентай ойыс, сезімталдық, жылу, қысым немесе зейін оңай ілінетін орынды іздеңіз.\n\n"
+            "<b>2.</b> Егер нүкте үнсіз болса, оны әзірге ашылмаған деп қабылдаңыз: ұзағырақ болыңыз, жеңіл уқалаңыз және сол нүкте арқылы тыныс алуды елестетіңіз.\n\n"
+            "<b>3.</b> Нәтижені күштемеңіз. Тыныш әрі тұрақты сезім жеткілікті.\n\n"
+            "Келесі нүктеге өткенде алдыңғыларды фонда сезіп, жаңа нүктені сол зейін сызығына қосыңыз."
         ),
         "meridians_menu": (
             "☯️ <b>Меридиандар</b>\n\n"
@@ -2797,7 +2833,7 @@ class BotHandlers:
                 [InlineKeyboardButton(self._get_text("meridian_start_points", language), callback_data="meridian_next")],
                 [
                     InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
-                    InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")
+                    InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
                 ],
                 [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
             ])
@@ -2814,8 +2850,9 @@ class BotHandlers:
         keyboard.extend([
             [
                 InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
-                InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")
+                InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
             ],
+            [InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")],
             [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
         ])
         return InlineKeyboardMarkup(keyboard)
@@ -3221,6 +3258,18 @@ class BotHandlers:
                     query,
                     self._get_text("meridian_measurements_text", language),
                     reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
+                    ]),
+                    parse_mode='HTML'
+                )
+                return
+
+            if action == "point_help":
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("meridian_point_help_text", language),
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")],
                         [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
                     ]),
                     parse_mode='HTML'

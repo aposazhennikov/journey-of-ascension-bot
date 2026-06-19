@@ -272,17 +272,19 @@ def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, lis
         ],
         "meridian_intro": [
             [texts["meridian_start_points"]],
-            [texts["all_points"], texts["complete_meridian"]],
+            [texts["all_points"], texts["meridian_point_help"]],
             [texts["meridian_back"]],
         ],
         "meridian_first_point": [
             [texts["next_point"]],
-            [texts["all_points"], texts["complete_meridian"]],
+            [texts["all_points"], texts["meridian_point_help"]],
+            [texts["complete_meridian"]],
             [texts["meridian_back"]],
         ],
         "meridian_practice": [
             [texts["prev_point"], texts["next_point"]],
-            [texts["all_points"], texts["complete_meridian"]],
+            [texts["all_points"], texts["meridian_point_help"]],
+            [texts["complete_meridian"]],
             [texts["meridian_back"]],
         ],
         "principles": [[texts["principles_random"], texts["principles_all"]], [texts["back_to_menu"]]],
@@ -353,6 +355,7 @@ def render_html(output: Path) -> None:
         sections.append(message("Feature announcement", allow_basic_html(t["feature_announcement"])))
         sections.append(message("Meridians home", allow_basic_html(t["meridians_menu"]), kb["meridians_home"]))
         sections.append(message("TCM measurements", allow_basic_html(t["meridian_measurements_text"]), [[t["meridian_back"]]]))
+        sections.append(message("Point search help", allow_basic_html(t["meridian_point_help_text"]), [[t["current_meridian"]], [t["meridian_back"]]]))
         sections.append(message("Lung Meridian intro", format_meridian_intro(lung, language), kb["meridian_intro"]))
         sections.append(message("Lung Meridian point 1", format_meridian_point(lung, 0, language), kb["meridian_first_point"]))
         sections.append(message("Large Intestine intro", format_meridian_intro(large_intestine, language), kb["meridian_intro"]))
@@ -454,6 +457,7 @@ def audit() -> list[str]:
             "mode_menu",
             "meridians_menu",
             "meridian_measurements_text",
+            "meridian_point_help_text",
             "feature_announcement",
             "skip_days_step",
             "setup_complete",

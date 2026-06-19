@@ -419,7 +419,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if energy_markers[language] not in onboarding.lower():
             issues.append(f"{language}: onboarding does not explain energy")
 
-        for key in ("mode_menu", "about_text", "meridians_menu", "meridian_measurements_text"):
+        for key in ("mode_menu", "about_text", "meridians_menu", "meridian_measurements_text", "meridian_point_help_text"):
             value = language_texts.get(key, "")
             if "<b>" not in value:
                 issues.append(f"{language}: {key} has no bold formatting")
@@ -491,6 +491,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             texts[language].get("mode_meridians_only", ""),
             texts[language].get("mode_both", ""),
             texts[language].get("meridian_measurements", ""),
+            texts[language].get("meridian_point_help", ""),
             texts[language].get("meridian_change_path", ""),
         ]
         button_sources.extend(item["names"][language] for item in meridians)
@@ -519,7 +520,7 @@ def render(output: Path) -> None:
     .app {{ max-width: 980px; margin: 0 auto; padding: 22px; display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 18px; }}
     .phone {{ max-width: 520px; min-height: 680px; background: linear-gradient(140deg, #e6f2d2, #b8d59d 55%, #83b98f); border-radius: 24px; padding: 18px 14px; box-shadow: 0 20px 60px rgba(36,48,34,.22); }}
     .top {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; color: rgba(36,48,34,.8); font-weight: 700; }}
-    .bubble {{ background: var(--paper); border-radius: 18px; padding: 18px 20px; box-shadow: 0 1px 2px rgba(0,0,0,.16); max-height: 450px; overflow: auto; }}
+    .bubble {{ background: var(--paper); border-radius: 18px; padding: 18px 20px; box-shadow: 0 1px 2px rgba(0,0,0,.16); overflow: visible; }}
     .bubble b {{ font-weight: 760; }}
     .bubble i {{ color: #3b5a38; }}
     .media {{ width: calc(100% + 40px); margin: -18px -20px 16px; display: block; max-height: 360px; object-fit: cover; border-radius: 18px 18px 4px 4px; background: #edf1ea; }}
@@ -564,6 +565,7 @@ def render(output: Path) -> None:
           <option value="main">Main menu</option>
           <option value="meridians">Meridians section</option>
           <option value="measurements">TCM measurements</option>
+          <option value="pointHelp">Point search help</option>
           <option value="meridianPath">Meridian study path</option>
           <option value="currentPoint">Current meridian point</option>
           <option value="principles">Yama/Niyama section</option>
@@ -817,7 +819,7 @@ def render(output: Path) -> None:
       const buttons = state.currentPointIndex < 0
         ? [
           [{{ label: t('meridian_start_points'), action: nextPoint, disabled: item.pointsCount === 0 }}],
-          [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('complete_meridian'), action: completeMeridian }}],
+          [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}],
           [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
         ]
         : [
@@ -825,7 +827,8 @@ def render(output: Path) -> None:
             ...(state.currentPointIndex > 0 ? [{{ label: t('prev_point'), action: prevPoint, disabled: item.pointsCount === 0 }}] : []),
             ...(state.currentPointIndex < item.pointsCount - 1 ? [{{ label: t('next_point'), action: nextPoint, disabled: item.pointsCount === 0 }}] : []),
           ],
-          [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('complete_meridian'), action: completeMeridian }}],
+          [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}],
+          [{{ label: t('complete_meridian'), action: completeMeridian }}],
           [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
         ];
       show('Current focus', html, buttons, point ? pointImageUrl(point) : meridianImageUrl(item));
@@ -940,6 +943,7 @@ def render(output: Path) -> None:
         allPoints: renderAllPoints,
         skipDays: renderSkipDays,
         measurements: () => show('Measurements', fmt(t('meridian_measurements_text')), [[{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]]),
+        pointHelp: () => show('Point help', fmt(t('meridian_point_help_text')), [[{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}], [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]]),
         principles: renderPrinciples,
         principleDetail: () => renderPrincipleDetail(0),
         allPrinciples: renderAllPrinciples,
@@ -972,6 +976,8 @@ def render(output: Path) -> None:
         state.screen = 'measurements';
       }} else if (scenario === 'meridianPath') {{
         state.screen = 'meridianPath';
+      }} else if (scenario === 'pointHelp') {{
+        state.screen = 'pointHelp';
       }} else if (scenario === 'principles') {{
         state.screen = 'principles';
       }} else if (scenario === 'modes') {{
