@@ -500,6 +500,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     text_definitions = load_text_definitions()
     meridians = payload["meridians"]
     meridians_by_id = {item["id"]: item for item in meridians}
+    raw_meridians_by_id = {item["id"]: item for item in load_json("bot/meridians.json")["meridians"]}
     ready_ids = [item["id"] for item in meridians if item["pointsCount"] > 0]
 
     if tuple(payload["languages"]) != LANGUAGES:
@@ -629,8 +630,16 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         meridian = meridians_by_id[meridian_id]
         if not meridian.get("overviewImage"):
             issues.append(f"{meridian_id}: missing overview image")
+        elif not (ROOT / "images" / "meridians" / meridian["overviewImage"]).exists():
+            issues.append(f"{meridian_id}: overview image file does not exist: {meridian['overviewImage']}")
         if not meridian["points"]:
             issues.append(f"{meridian_id}: marked ready but has no point payload")
+        raw_meridian = raw_meridians_by_id.get(meridian_id, {})
+        for language in LANGUAGES:
+            raw_i18n = raw_meridian.get("i18n", {}).get(language, {})
+            for key in ("name", "description", "direction", "intro_practice"):
+                if not raw_i18n.get(key):
+                    issues.append(f"{meridian_id}/{language}: missing meridian i18n field {key}")
         for language in LANGUAGES:
             intro = meridian["intro"][language]
             if "<b>" not in intro:
@@ -644,6 +653,14 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 issues.append(f"{meridian_id} point {index + 1}: non-normalized point code {point['code']!r}")
             if not point.get("image"):
                 issues.append(f"{meridian_id} point {index + 1}: missing simulator image")
+            elif not (ROOT / "images" / "meridians" / point["image"]).exists():
+                issues.append(f"{meridian_id} point {index + 1}: image file does not exist: {point['image']}")
+            raw_point = raw_meridian.get("points", [])[index] if index < len(raw_meridian.get("points", [])) else {}
+            for language in LANGUAGES:
+                raw_i18n = raw_point.get("i18n", {}).get(language, {})
+                for key in ("name", "location", "meditation_instruction", "observation_question"):
+                    if not raw_i18n.get(key):
+                        issues.append(f"{meridian_id} point {index + 1}/{language}: missing point i18n field {key}")
             for language, localized_point in point.get("raw", {}).get("i18n", {}).items():
                 if "meaning" in localized_point:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: raw source meaning should not be stored in user-facing meridians.json")
