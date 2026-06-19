@@ -3,6 +3,7 @@
 import json
 import random
 import os
+import re
 from html import escape, unescape
 from datetime import datetime, timezone, timedelta
 from typing import List, Dict, Any, Optional
@@ -440,6 +441,7 @@ def _clean_point_location(location: str) -> str:
         if index > 0:
             cleaned = cleaned[:index].rstrip()
             break
+    cleaned = re.sub(r"\s*\((?:рис|fig)\.?\s*\d+[a-zа-я]?\)\s*", " ", cleaned, flags=re.IGNORECASE).strip()
     return cleaned.rstrip(":;,.") + ("." if cleaned and not cleaned.endswith(".") else "")
 
 

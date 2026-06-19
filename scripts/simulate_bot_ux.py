@@ -87,6 +87,8 @@ SOURCE_EDITORIAL_TAILS = (
     "Секретные рецепты",
     "In the book",
     "To find the point",
+    "(рис.",
+    "(fig.",
 )
 
 
@@ -313,6 +315,7 @@ def clean_point_location(location: str) -> str:
         if index > 0:
             cleaned = cleaned[:index].rstrip()
             break
+    cleaned = re.sub(r"\s*\((?:рис|fig)\.?\s*\d+[a-zа-я]?\)\s*", " ", cleaned, flags=re.IGNORECASE).strip()
     return cleaned.rstrip(":;,.") + ("." if cleaned and not cleaned.endswith(".") else "")
 
 
