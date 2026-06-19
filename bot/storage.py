@@ -4,7 +4,7 @@ import json
 import os
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, fields
 import aiofiles
 
 
@@ -49,6 +49,13 @@ class User:
             self.completed_meridians = []
         if not hasattr(self, 'meridian_learning_mode'):
             self.meridian_learning_mode = None
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "User":
+        """Create a user from stored JSON, ignoring fields from older or experimental builds."""
+        allowed_fields = {field.name for field in fields(cls)}
+        clean_data = {key: value for key, value in data.items() if key in allowed_fields}
+        return cls(**clean_data)
 
 
 @dataclass 
@@ -130,7 +137,7 @@ class JsonStorage:
         users_data = await self._read_json(self.users_file)
         user_data = users_data.get(str(chat_id))
         if user_data:
-            return User(**user_data)
+            return User.from_dict(user_data)
         return None
     
     async def save_user(self, user: User) -> bool:
@@ -159,7 +166,7 @@ class JsonStorage:
         active_users = []
         for user_data in users_data.values():
             if user_data.get("is_active", True):
-                active_users.append(User(**user_data))
+                active_users.append(User.from_dict(user_data))
         return active_users
     
     async def deactivate_user(self, chat_id: int) -> bool:

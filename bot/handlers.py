@@ -4241,6 +4241,9 @@ class BotHandlers:
                 await self.storage.save_user(user)
 
             points = meridian.get("points", [])
+            if user.current_point_index < -1 or user.current_point_index >= len(points):
+                user.current_point_index = -1
+                await self.storage.save_user(user)
 
             if action == "noop":
                 return

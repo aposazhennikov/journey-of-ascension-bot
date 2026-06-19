@@ -761,10 +761,15 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             issues.append("en: choose_meridian does not explain the selected meridian becomes current focus")
 
     scheduler_source = (ROOT / "bot" / "scheduler.py").read_text(encoding="utf-8-sig")
+    storage_source = (ROOT / "bot" / "storage.py").read_text(encoding="utf-8-sig")
+    if "def from_dict" not in storage_source or "User(**user_data)" in storage_source:
+        issues.append("storage does not safely migrate stored user records with unknown fields")
     if "astimezone().astimezone(tz=None)" in scheduler_source:
         issues.append("scheduler converts user send times through the machine local timezone")
     if "astimezone(timezone.utc).replace(tzinfo=None)" not in scheduler_source:
         issues.append("scheduler does not explicitly convert scheduled jobs to UTC")
+    if "user.current_point_index < -1 or user.current_point_index >= len(points)" not in scheduler_source:
+        issues.append("scheduler does not normalize stale meridian point indexes")
 
     handlers_source = (ROOT / "bot" / "handlers.py").read_text(encoding="utf-8-sig")
     callback_values = sorted(set(re.findall(r"callback_data=(?:f)?[\"']([^\"']+)", handlers_source)))
@@ -807,6 +812,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         meridian_handler_source = handlers_source[meridian_handler_start:broadcast_handler_start]
         if "meridian_completed" in meridian_handler_source and "format_meridian_intro(next_meridian" in meridian_handler_source:
             issues.append("meridian completion still concatenates the next meridian intro into one caption")
+        if "user.current_point_index < -1 or user.current_point_index >= len(points)" not in meridian_handler_source:
+            issues.append("meridian callback does not normalize stale point indexes before rendering")
 
     detail_formatter_start = handlers_source.find("def _format_principle_detail")
     start_handler_start = handlers_source.find("async def _handle_start")

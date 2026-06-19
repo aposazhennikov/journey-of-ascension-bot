@@ -207,9 +207,13 @@ class YogaScheduler:
                 user.current_point_index = -1
                 await self.storage.save_user(user)
 
+            points = meridian.get("points", [])
+            if user.current_point_index < -1 or user.current_point_index >= len(points):
+                user.current_point_index = -1
+                await self.storage.save_user(user)
+
             if user.current_point_index >= 0:
                 message_text = format_meridian_point(meridian, user.current_point_index, user.language)
-                points = meridian.get("points", [])
                 point_code = points[user.current_point_index].get("code") if user.current_point_index < len(points) else None
                 image_path = get_meridian_image_path(meridian["id"], point_code)
             else:
