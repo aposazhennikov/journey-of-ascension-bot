@@ -1551,28 +1551,28 @@
           "i18n": {
             "en": {
               "name": "Шуй-ту",
-              "location": "Source location: pending source refinement.",
+            "location": "at the outer side of the lower edge of the thyroid cartilage, near the front edge of the sternocleidomastoid muscle, midway between Ren-ying E9 and Qi-she E11",
               "meaning": "",
               "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
             },
             "ru": {
               "name": "Шуй-ту",
-              "location": "Расположение будет уточнено после сверки источников.",
+            "location": "кнаружи от нижнего края щитовидного хряща, у переднего края грудино-ключично-сосцевидной мышцы, посередине линии между точками Жэнь-ин E.9 и Ци-шэ E.11",
               "meaning": "",
               "meditation_instruction": "Перенесите внимание в эту точку без усилия получить результат. Наблюдайте тепло, давление, пульсацию, пустоту, мысли или образы. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше внимания, мягко помассируйте её и представляйте вдох и выдох через неё, пока ощущение не станет устойчивым.",
               "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
             },
             "uz": {
               "name": "Шуй-ту",
-              "location": "Manbadagi joylashuv: pending source refinement.",
+            "location": "qalqonsimon tog'ay pastki chetining tashqi tomonida, to'sh-o'mrov-so'rg'ichsimon mushak oldingi cheti yonida, Ren-ying E9 va Qi-she E11 nuqtalari orasidagi chiziq o'rtasida",
               "meaning": "",
               "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Шуй-ту",
-              "location": "Дереккөздегі орналасуы: pending source refinement.",
+            "location": "қалқанша шеміршектің төменгі жиегінің сырт жағында, төс-бұғана-емізікше бұлшықетінің алдыңғы жиегі жанында, Жэнь-ин E9 және Ци-шэ E11 нүктелері арасындағы сызықтың ортасында",
               "meaning": "",
               "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
@@ -1587,7 +1587,7 @@
           "i18n": {
             "en": {
               "name": "Ци-шэ",
-              "location": "Source location: над верхним краем ключицы, между грудинной и ключичной головками грудино-ключично-сосцевидной мышцы, прямо вниз от точки Жэнь-ин Е.9, на 1,5 цуня кнаружи от точки Тянь-ту VC.22",
+            "location": "above the upper edge of the clavicle, between the sternal and clavicular heads of the sternocleidomastoid muscle, directly below Ren-ying E9 and 1.5 cun lateral to Tian-tu VC22",
               "meaning": "Classical note: «Ци» — «Ци легких или желудка»; «шэ» — «жилище». Из-за различных внутренних нарушений может произойти аномальное поднятие Ци легких с кашлем или аномальное поднятие Ци желудка с икотой, когда Ци выходит наружу через горло. Точка Ци-шэ Е.11 расположена возле легких, относится к ножному ян-мин каналу желудка, ее использование способствует осаждению аномального поднятия Ци легких и желудка, то есть возвращению Ци в «жилище»",
               "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
@@ -1601,14 +1601,14 @@
             },
             "uz": {
               "name": "Ци-шэ",
-              "location": "Manbadagi joylashuv: над верхним краем ключицы, между грудинной и ключичной головками грудино-ключично-сосцевидной мышцы, прямо вниз от точки Жэнь-ин Е.9, на 1,5 цуня кнаружи от точки Тянь-ту VC.22",
+            "location": "o'mrov suyagining yuqori cheti ustida, to'sh-o'mrov-so'rg'ichsimon mushakning to'sh va o'mrov boshchalari orasida, Ren-ying E9 nuqtasidan to'g'ri pastda va Tian-tu VC22 nuqtasidan 1,5 cun tashqarida",
               "meaning": "Klassik izoh: «Ци» — «Ци легких или желудка»; «шэ» — «жилище». Из-за различных внутренних нарушений может произойти аномальное поднятие Ци легких с кашлем или аномальное поднятие Ци желудка с икотой, когда Ци выходит наружу через горло. Точка Ци-шэ Е.11 расположена возле легких, относится к ножному ян-мин каналу желудка, ее использование способствует осаждению аномального поднятия Ци легких и желудка, то есть возвращению Ци в «жилище»",
               "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Ци-шэ",
-              "location": "Дереккөздегі орналасуы: над верхним краем ключицы, между грудинной и ключичной головками грудино-ключично-сосцевидной мышцы, прямо вниз от точки Жэнь-ин Е.9, на 1,5 цуня кнаружи от точки Тянь-ту VC.22",
+            "location": "бұғана сүйегінің жоғарғы жиегінің үстінде, төс-бұғана-емізікше бұлшықетінің төстік және бұғаналық бастары арасында, Жэнь-ин E9 нүктесінен тіке төмен және Тянь-ту VC22 нүктесінен 1,5 цунь сыртқа қарай",
               "meaning": "Классикалық түсіндірме: «Ци» — «Ци легких или желудка»; «шэ» — «жилище». Из-за различных внутренних нарушений может произойти аномальное поднятие Ци легких с кашлем или аномальное поднятие Ци желудка с икотой, когда Ци выходит наружу через горло. Точка Ци-шэ Е.11 расположена возле легких, относится к ножному ян-мин каналу желудка, ее использование способствует осаждению аномального поднятия Ци легких и желудка, то есть возвращению Ци в «жилище»",
               "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
@@ -1623,7 +1623,7 @@
           "i18n": {
             "en": {
               "name": "Цюэ-пэнь",
-              "location": "Source location: в середине надключичной ямки, на 4 цуня кнаружи от передней срединной линии, у заднего края грудино-ключично-сосцевидной мышцы",
+            "location": "in the middle of the supraclavicular fossa, 4 cun lateral to the anterior midline, at the posterior edge of the sternocleidomastoid muscle",
               "meaning": "Classical note: 1. «Цюэ» — «неполный»; «пэнь» - «чашка». Точка расположена в надключичной ямке, напоминающей не доверху наполненную чем-либо чашку. 2. «Цюэ» — «расколотый»; «пэнь» — «чашка». Точка расположена в надключичной ямке, напоминающей расколотую чашку",
               "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
@@ -1637,14 +1637,14 @@
             },
             "uz": {
               "name": "Цюэ-пэнь",
-              "location": "Manbadagi joylashuv: в середине надключичной ямки, на 4 цуня кнаружи от передней срединной линии, у заднего края грудино-ключично-сосцевидной мышцы",
+            "location": "o'mrov usti chuqurchasining o'rtasida, oldingi o'rta chiziqdan 4 cun tashqarida, to'sh-o'mrov-so'rg'ichsimon mushakning orqa chetida",
               "meaning": "Klassik izoh: 1. «Цюэ» — «неполный»; «пэнь» - «чашка». Точка расположена в надключичной ямке, напоминающей не доверху наполненную чем-либо чашку. 2. «Цюэ» — «расколотый»; «пэнь» — «чашка». Точка расположена в надключичной ямке, напоминающей расколотую чашку",
               "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Цюэ-пэнь",
-              "location": "Дереккөздегі орналасуы: в середине надключичной ямки, на 4 цуня кнаружи от передней срединной линии, у заднего края грудино-ключично-сосцевидной мышцы",
+            "location": "бұғана үсті ойығының ортасында, алдыңғы ортаңғы сызықтан 4 цунь сыртқа қарай, төс-бұғана-емізікше бұлшықетінің артқы жиегінде",
               "meaning": "Классикалық түсіндірме: 1. «Цюэ» — «неполный»; «пэнь» - «чашка». Точка расположена в надключичной ямке, напоминающей не доверху наполненную чем-либо чашку. 2. «Цюэ» — «расколотый»; «пэнь» — «чашка». Точка расположена в надключичной ямке, напоминающей расколотую чашку",
               "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
@@ -1659,7 +1659,7 @@
           "i18n": {
             "en": {
               "name": "Ци-ху",
-              "location": "Source location: у нижнего края ключицы, на 4 цуня кнаружи от передней срединной линии",
+            "location": "at the lower edge of the clavicle, 4 cun lateral to the anterior midline",
               "meaning": "Classical note: «Ци ху» — «дверь Ци». Внутрь от точки находится верхняя часть легких. Легкие управляют всей Ци организма. Точка в основном используется для нормализации Ци легких и, следовательно, всей Ци организма, поэтому и сравнивается с «дверью Ци»",
               "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
@@ -1673,14 +1673,14 @@
             },
             "uz": {
               "name": "Ци-ху",
-              "location": "Manbadagi joylashuv: у нижнего края ключицы, на 4 цуня кнаружи от передней срединной линии",
+            "location": "o'mrov suyagining pastki chetida, oldingi o'rta chiziqdan 4 cun tashqarida",
               "meaning": "Klassik izoh: «Ци ху» — «дверь Ци». Внутрь от точки находится верхняя часть легких. Легкие управляют всей Ци организма. Точка в основном используется для нормализации Ци легких и, следовательно, всей Ци организма, поэтому и сравнивается с «дверью Ци»",
               "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Ци-ху",
-              "location": "Дереккөздегі орналасуы: у нижнего края ключицы, на 4 цуня кнаружи от передней срединной линии",
+            "location": "бұғана сүйегінің төменгі жиегінде, алдыңғы ортаңғы сызықтан 4 цунь сыртқа қарай",
               "meaning": "Классикалық түсіндірме: «Ци ху» — «дверь Ци». Внутрь от точки находится верхняя часть легких. Легкие управляют всей Ци организма. Точка в основном используется для нормализации Ци легких и, следовательно, всей Ци организма, поэтому и сравнивается с «дверью Ци»",
               "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
@@ -1695,7 +1695,7 @@
           "i18n": {
             "en": {
               "name": "Ку-фан",
-              "location": "Source location: прямо вверх от соска, в I межреберном промежутке, на 4 цуня кнаружи от передней срединной линии",
+            "location": "directly above the nipple, in the first intercostal space, 4 cun lateral to the anterior midline",
               "meaning": "Classical note: 1. «Ку» — «склад, хранилище»; «фан» - «боковая комната». Вдыхаемый воздух (Ци) словно на складе хранится в легких. Точка Ку-фан Е.14 расположена вблизи легких, сравнивается с «боковой комнатой склада», через которую можно проникнуть на «склад» и воздействовать на Ци легких. 2. «Ку фан» - «склад, хранилище». Грудная клетка, на которой расположена точка, напоминает склад, где «хранятся» сердце и легкие",
               "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
@@ -1709,14 +1709,14 @@
             },
             "uz": {
               "name": "Ку-фан",
-              "location": "Manbadagi joylashuv: прямо вверх от соска, в I межреберном промежутке, на 4 цуня кнаружи от передней срединной линии",
+            "location": "ko'krak uchidan to'g'ri yuqorida, birinchi qovurg'alar oralig'ida, oldingi o'rta chiziqdan 4 cun tashqarida",
               "meaning": "Klassik izoh: 1. «Ку» — «склад, хранилище»; «фан» - «боковая комната». Вдыхаемый воздух (Ци) словно на складе хранится в легких. Точка Ку-фан Е.14 расположена вблизи легких, сравнивается с «боковой комнатой склада», через которую можно проникнуть на «склад» и воздействовать на Ци легких. 2. «Ку фан» - «склад, хранилище». Грудная клетка, на которой расположена точка, напоминает склад, где «хранятся» сердце и легкие",
               "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Ку-фан",
-              "location": "Дереккөздегі орналасуы: прямо вверх от соска, в I межреберном промежутке, на 4 цуня кнаружи от передней срединной линии",
+            "location": "емізіктен тіке жоғары, бірінші қабырғааралық кеңістікте, алдыңғы ортаңғы сызықтан 4 цунь сыртқа қарай",
               "meaning": "Классикалық түсіндірме: 1. «Ку» — «склад, хранилище»; «фан» - «боковая комната». Вдыхаемый воздух (Ци) словно на складе хранится в легких. Точка Ку-фан Е.14 расположена вблизи легких, сравнивается с «боковой комнатой склада», через которую можно проникнуть на «склад» и воздействовать на Ци легких. 2. «Ку фан» - «склад, хранилище». Грудная клетка, на которой расположена точка, напоминает склад, где «хранятся» сердце и легкие",
               "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
@@ -1731,7 +1731,7 @@
           "i18n": {
             "en": {
               "name": "У-и",
-              "location": "Source location: прямо вверх от соска, во II межреберном промежутке, на 4 цуня кнаружи от передней срединной линии",
+            "location": "directly above the nipple, in the second intercostal space, 4 cun lateral to the anterior midline",
               "meaning": "Classical note: 1. «У» — «комната»; «и» — «прикрытие, ширма». Сосок груди можно сравнить с комнатой. Точка У-и Е.15 расположена выше соска, словно «ширма комнаты». 2. «У» — «комната»; «и» — «укрываться, прятаться». Когда вдыхаемый воздух поступает в легкие, он словно «прячется в комнате» на уровне точки У-и Е.15",
               "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
@@ -1745,14 +1745,14 @@
             },
             "uz": {
               "name": "У-и",
-              "location": "Manbadagi joylashuv: прямо вверх от соска, во II межреберном промежутке, на 4 цуня кнаружи от передней срединной линии",
+            "location": "ko'krak uchidan to'g'ri yuqorida, ikkinchi qovurg'alar oralig'ida, oldingi o'rta chiziqdan 4 cun tashqarida",
               "meaning": "Klassik izoh: 1. «У» — «комната»; «и» — «прикрытие, ширма». Сосок груди можно сравнить с комнатой. Точка У-и Е.15 расположена выше соска, словно «ширма комнаты». 2. «У» — «комната»; «и» — «укрываться, прятаться». Когда вдыхаемый воздух поступает в легкие, он словно «прячется в комнате» на уровне точки У-и Е.15",
               "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "У-и",
-              "location": "Дереккөздегі орналасуы: прямо вверх от соска, во II межреберном промежутке, на 4 цуня кнаружи от передней срединной линии",
+            "location": "емізіктен тіке жоғары, екінші қабырғааралық кеңістікте, алдыңғы ортаңғы сызықтан 4 цунь сыртқа қарай",
               "meaning": "Классикалық түсіндірме: 1. «У» — «комната»; «и» — «прикрытие, ширма». Сосок груди можно сравнить с комнатой. Точка У-и Е.15 расположена выше соска, словно «ширма комнаты». 2. «У» — «комната»; «и» — «укрываться, прятаться». Когда вдыхаемый воздух поступает в легкие, он словно «прячется в комнате» на уровне точки У-и Е.15",
               "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
@@ -1767,7 +1767,7 @@
           "i18n": {
             "en": {
               "name": "Ин-чуан",
-              "location": "Source location: прямо вверх от соска, в III межреберном промежутке, на 4 цуня кнаружи от передней срединной линии",
+            "location": "directly above the nipple, in the third intercostal space, 4 cun lateral to the anterior midline",
               "meaning": "Classical note: «ин» - «грудная клегка»; «чуан» — «окно». Точка расположена на грудной клетке, сравнивается с «окном», через которое можно вывести из организма патогенную Ци",
               "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
@@ -1781,14 +1781,14 @@
             },
             "uz": {
               "name": "Ин-чуан",
-              "location": "Manbadagi joylashuv: прямо вверх от соска, в III межреберном промежутке, на 4 цуня кнаружи от передней срединной линии",
+            "location": "ko'krak uchidan to'g'ri yuqorida, uchinchi qovurg'alar oralig'ida, oldingi o'rta chiziqdan 4 cun tashqarida",
               "meaning": "Klassik izoh: «ин» - «грудная клегка»; «чуан» — «окно». Точка расположена на грудной клетке, сравнивается с «окном», через которое можно вывести из организма патогенную Ци",
               "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Ин-чуан",
-              "location": "Дереккөздегі орналасуы: прямо вверх от соска, в III межреберном промежутке, на 4 цуня кнаружи от передней срединной линии",
+            "location": "емізіктен тіке жоғары, үшінші қабырғааралық кеңістікте, алдыңғы ортаңғы сызықтан 4 цунь сыртқа қарай",
               "meaning": "Классикалық түсіндірме: «ин» - «грудная клегка»; «чуан» — «окно». Точка расположена на грудной клетке, сравнивается с «окном», через которое можно вывести из организма патогенную Ци",
               "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
@@ -1803,7 +1803,7 @@
           "i18n": {
             "en": {
               "name": "Жу-чжун",
-              "location": "Source location: в центре соска",
+            "location": "at the center of the nipple",
               "meaning": "Classical note: «жу» — «сосок»; «чжун» — «центр, середина». Точка расположена в центре соска, отсюда и название",
               "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
@@ -1817,14 +1817,14 @@
             },
             "uz": {
               "name": "Жу-чжун",
-              "location": "Manbadagi joylashuv: в центре соска",
+            "location": "ko'krak uchining markazida",
               "meaning": "Klassik izoh: «жу» — «сосок»; «чжун» — «центр, середина». Точка расположена в центре соска, отсюда и название",
               "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Жу-чжун",
-              "location": "Дереккөздегі орналасуы: в центре соска",
+            "location": "емізіктің ортасында",
               "meaning": "Классикалық түсіндірме: «жу» — «сосок»; «чжун» — «центр, середина». Точка расположена в центре соска, отсюда и название",
               "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
@@ -1839,7 +1839,7 @@
           "i18n": {
             "en": {
               "name": "Жу-гэнь",
-              "location": "Source location: в V межреберном промежутке, прямо вниз от соска, на 4 цуня кнаружи от передней срединной линии",
+            "location": "in the fifth intercostal space, directly below the nipple, 4 cun lateral to the anterior midline",
               "meaning": "Classical note: «жу» — «грудь, молочная железа»; «гэнъ» — «корень, основание». Точка расположена у основания груди, отсюда и название",
               "meditation_instruction": "Rest attention on this point without forcing a result. Notice warmth, pressure, pulsation, emptiness, thoughts, or images. If the sensation is weak, treat the point as not yet open: give it more attention, gently massage it, and imagine breathing in and out through it until the sensation becomes steady.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
@@ -1853,14 +1853,14 @@
             },
             "uz": {
               "name": "Жу-гэнь",
-              "location": "Manbadagi joylashuv: в V межреберном промежутке, прямо вниз от соска, на 4 цуня кнаружи от передней срединной линии",
+            "location": "beshinchi qovurg'alar oralig'ida, ko'krak uchidan to'g'ri pastda, oldingi o'rta chiziqdan 4 cun tashqarida",
               "meaning": "Klassik izoh: «жу» — «грудь, молочная железа»; «гэнъ» — «корень, основание». Точка расположена у основания груди, отсюда и название",
               "meditation_instruction": "Diqqatni natijani majburlamasdan shu nuqtaga olib keling. Iliqlik, bosim, pulsatsiya, bo'shliq, fikrlar yoki obrazlarni kuzating. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq e'tibor bering, yengil massaj qiling va sezgi barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Жу-гэнь",
-              "location": "Дереккөздегі орналасуы: в V межреберном промежутке, прямо вниз от соска, на 4 цуня кнаружи от передней срединной линии",
+            "location": "бесінші қабырғааралық кеңістікте, емізіктен тіке төмен, алдыңғы ортаңғы сызықтан 4 цунь сыртқа қарай",
               "meaning": "Классикалық түсіндірме: «жу» — «грудь, молочная железа»; «гэнъ» — «корень, основание». Точка расположена у основания груди, отсюда и название",
               "meditation_instruction": "Нәтижені күштемей, зейінді осы нүктеге әкеліңіз. Жылуды, қысымды, соғуды, бос кеңістікті, ойларды немесе бейнелерді бақылаңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек зейін беріңіз, жеңіл уқалаңыз және сезім тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
