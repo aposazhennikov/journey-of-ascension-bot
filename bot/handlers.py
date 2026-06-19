@@ -61,15 +61,14 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'Choose weekdays when the bot should not send daily practice reminders.\n'
                           '\n'
                           'Leave everything unselected if you want a daily rhythm.',
-        'setup_complete': '🎉 <b>Your practice rhythm is ready.</b>\n'
+        'setup_complete': '🎉 <b>The first step is set.</b>\n'
                           '\n'
-                          '📋 <b>What is active now:</b>\n'
+                          '📋 <b>Your rhythm:</b>\n'
                           '🕐 Time: {time}\n'
                           '🌍 Time Zone: {timezone}\n'
                           '📅 Quiet Days: {skip_days}\n'
                           '\n'
-                          'Open /menu whenever you want to explore the lists, change the rhythm, or continue '
-                          'meridian practice.',
+                          'Use /menu when you want to open the lists, adjust the rhythm, or continue the next small step.',
         'already_subscribed': '🕊️ Journey of Ascension is already open here.\n'
                               '\n'
                               'Use /menu to choose practices or /settings to tune your practice rhythm.',
@@ -370,15 +369,14 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'практике.\n'
                           '\n'
                           'Если хотите ежедневный ритм, оставьте дни невыбранными.',
-        'setup_complete': '🎉 <b>Ритм практики настроен.</b>\n'
+        'setup_complete': '🎉 <b>Первый шаг настроен.</b>\n'
                           '\n'
-                          '📋 <b>Что сейчас активно:</b>\n'
+                          '📋 <b>Ваш ритм:</b>\n'
                           '🕐 Время: {time}\n'
                           '🌍 Часовой пояс: {timezone}\n'
                           '📅 Дни тишины: {skip_days}\n'
                           '\n'
-                          'Открывайте /menu, когда захотите посмотреть списки, изменить ритм или продолжить '
-                          'практику меридианов.',
+                          'Используйте /menu, когда захотите открыть списки, изменить ритм или продолжить следующий небольшой шаг.',
         'already_subscribed': '🕊️ Journey of Ascension уже открыт здесь.\n'
                               '\n'
                               'Используйте /menu для выбора практик или /settings для настройки ритма практики.',
@@ -682,15 +680,14 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'Bot kundalik amaliyot eslatmalarini yubormaydigan hafta kunlarini tanlang.\n'
                           '\n'
                           "Har kuni ritm kerak bo'lsa, kunlarni tanlamang.",
-        'setup_complete': '🎉 <b>Amaliyot ritmingiz tayyor.</b>\n'
+        'setup_complete': '🎉 <b>Birinchi qadam sozlandi.</b>\n'
                           '\n'
-                          '📋 <b>Hozir nimalar faol:</b>\n'
+                          '📋 <b>Ritmingiz:</b>\n'
                           '🕐 Vaqt: {time}\n'
                           '🌍 Vaqt mintaqasi: {timezone}\n'
                           '📅 Sokin kunlar: {skip_days}\n'
                           '\n'
-                          "/menu ni ochib, ro'yxatlarni ko'rishingiz, ritmni o'zgartirishingiz yoki meridian "
-                          'amaliyotini davom ettirishingiz mumkin.',
+                          "Ro'yxatlarni ochish, ritmni o'zgartirish yoki keyingi kichik qadamni davom ettirish uchun /menu dan foydalaning.",
         'already_subscribed': "🕊️ Journey of Ascension bu yerda allaqachon ochilgan.\n"
                               '\n'
                               "Amaliyotlarni tanlash uchun /menu yoki amaliyot ritmini sozlash uchun /settings "
@@ -995,15 +992,14 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'Бот күнделікті тәжірибе еске салуларын жібермейтін апта күндерін таңдаңыз.\n'
                           '\n'
                           'Күн сайынғы ырғақ керек болса, күндерді таңдамаңыз.',
-        'setup_complete': '🎉 <b>Тәжірибе ырғағы дайын.</b>\n'
+        'setup_complete': '🎉 <b>Алғашқы қадам бапталды.</b>\n'
                           '\n'
-                          '📋 <b>Қазір не белсенді:</b>\n'
+                          '📋 <b>Ырғағыңыз:</b>\n'
                           '🕐 Уақыт: {time}\n'
                           '🌍 Уақыт белдеуі: {timezone}\n'
                           '📅 Тыныш күндер: {skip_days}\n'
                           '\n'
-                          '/menu ашып, тізімдерді көре аласыз, ырғақты өзгерте аласыз немесе меридиан '
-                          'тәжірибесін жалғастыра аласыз.',
+                          'Тізімдерді ашу, ырғақты өзгерту немесе келесі шағын қадамды жалғастыру үшін /menu қолданыңыз.',
         'already_subscribed': '🕊️ Journey of Ascension бұл жерде бұрыннан ашық.\n'
                               '\n'
                               'Тәжірибелерді таңдау үшін /menu немесе тәжірибе ырғағын реттеу үшін /settings '
@@ -1536,12 +1532,12 @@ TEXTS_UPDATE = {
         "stop_feedback_thanks": "Thank you. Your note will help make the practice gentler and clearer.\n\nUse /start if you want to return.",
         "not_subscribed_test": "The practice rhythm is not set yet. Use /start to begin.",
         "setup_complete": (
-            "🎉 <b>Your practice rhythm is ready.</b>\n\n"
-            "📋 <b>What is active now:</b>\n"
+            "🎉 <b>The first step is set.</b>\n\n"
+            "📋 <b>Your rhythm:</b>\n"
             "🕐 Time: {time}\n"
             "🌍 Time Zone: {timezone}\n"
             "📅 Quiet Days: {skip_days}\n\n"
-            "Open /menu whenever you want to explore the lists, change the rhythm, or continue meridian practice."
+            "Use /menu when you want to open the lists, adjust the rhythm, or continue the next small step."
         )
     },
     "ru": {
@@ -1737,12 +1733,12 @@ TEXTS_UPDATE = {
         "stop_feedback_thanks": "Спасибо. Эта заметка поможет сделать практику мягче и понятнее.\n\nЕсли захотите вернуться, используйте /start.",
         "not_subscribed_test": "Ритм практики ещё не настроен. Используйте /start, чтобы начать.",
         "setup_complete": (
-            "🎉 <b>Ритм практики настроен.</b>\n\n"
-            "📋 <b>Что сейчас активно:</b>\n"
+            "🎉 <b>Первый шаг настроен.</b>\n\n"
+            "📋 <b>Ваш ритм:</b>\n"
             "🕐 Время: {time}\n"
             "🌍 Часовой пояс: {timezone}\n"
             "📅 Дни тишины: {skip_days}\n\n"
-            "Открывайте /menu, когда захотите посмотреть списки, изменить ритм или продолжить практику меридианов."
+            "Используйте /menu, когда захотите открыть списки, изменить ритм или продолжить следующий небольшой шаг."
         )
     },
     "uz": {
@@ -1952,12 +1948,12 @@ TEXTS_UPDATE = {
         ),
         "feedback_sent": "✅ Rahmat. Fikringiz ishlab chiquvchilarga yuborildi.",
         "setup_complete": (
-            "🎉 <b>Amaliyot ritmingiz tayyor.</b>\n\n"
-            "📋 <b>Hozir nimalar faol:</b>\n"
+            "🎉 <b>Birinchi qadam sozlandi.</b>\n\n"
+            "📋 <b>Ritmingiz:</b>\n"
             "🕐 Vaqt: {time}\n"
             "🌍 Vaqt mintaqasi: {timezone}\n"
             "📅 Sokin kunlar: {skip_days}\n\n"
-            "/menu ni ochib, ro'yxatlarni ko'rishingiz, ritmni o'zgartirishingiz yoki meridian amaliyotini davom ettirishingiz mumkin."
+            "Ro'yxatlarni ochish, ritmni o'zgartirish yoki keyingi kichik qadamni davom ettirish uchun /menu dan foydalaning."
         )
     },
     "kz": {
@@ -2167,12 +2163,12 @@ TEXTS_UPDATE = {
         ),
         "feedback_sent": "✅ Рақмет. Пікіріңіз әзірлеушілерге жіберілді.",
         "setup_complete": (
-            "🎉 <b>Тәжірибе ырғағы дайын.</b>\n\n"
-            "📋 <b>Қазір не белсенді:</b>\n"
+            "🎉 <b>Алғашқы қадам бапталды.</b>\n\n"
+            "📋 <b>Ырғағыңыз:</b>\n"
             "🕐 Уақыт: {time}\n"
             "🌍 Уақыт белдеуі: {timezone}\n"
             "📅 Тыныш күндер: {skip_days}\n\n"
-            "/menu ашып, тізімдерді көре аласыз, ырғақты өзгерте аласыз немесе меридиан тәжірибесін жалғастыра аласыз."
+            "Тізімдерді ашу, ырғақты өзгерту немесе келесі шағын қадамды жалғастыру үшін /menu қолданыңыз."
         )
     }
 }
