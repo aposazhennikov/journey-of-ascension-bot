@@ -271,23 +271,65 @@ def format_meridian_intro(meridian: dict[str, Any], language: str) -> str:
 def practice_note(point_index: int, language: str) -> str:
     notes = {
         "en": (
-            "Begin with the first point: find it through body sensation, breath, and attention. If the sensation is weak, treat the point as not yet open: give it more time, gently massage it, and imagine breathing through it until concentration becomes steady and easy.",
-            "First recall the points you have already studied. Without losing them, add the current point and connect it with the previous ones as one line of attention. If it is hard to feel, treat it as not yet open: gently massage it, breathe through it with attention, and stay longer until the sensation becomes stable.",
+            "Begin with the first point: find it through body sensation, breath, and attention. If it feels weak, treat it as not yet open: stay longer, massage it gently, and breathe through it with attention.",
+            "Recall the points you have already studied. Keep them in the background, add the current point, and connect them as one line of attention. If it is hard to feel, massage it gently and stay until the sensation becomes steadier.",
         ),
         "ru": (
-            "Начните с первой точки: найдите её через ощущение тела, дыхание и внимание. Если ощущение слабое, считайте точку пока закрытой: уделите ей больше времени, мягко помассируйте её и представляйте вдох и выдох через неё, пока концентрация не станет лёгкой и устойчивой.",
-            "Сначала вспомните и удерживайте ощущение уже пройденных точек. Не отпуская их, добавьте текущую точку и соедините её с предыдущими в одну линию внимания. Если точка не ощущается, считайте её пока закрытой: мягко помассируйте её, дышите через неё вниманием и оставайтесь дольше, пока ощущение не станет устойчивым.",
+            "Начните с первой точки: найдите её через ощущение тела, дыхание и внимание. Если ощущение слабое, считайте точку пока закрытой: побудьте дольше, мягко помассируйте её и дышите через неё вниманием.",
+            "Вспомните ощущение уже пройденных точек. Удерживая их фоном, добавьте текущую и соедините всё в одну линию внимания. Если точка не ощущается, мягко помассируйте её и оставайтесь дольше, пока ощущение не станет устойчивее.",
         ),
         "uz": (
-            "Birinchi nuqtadan boshlang: uni tana sezgisi, nafas va diqqat orqali toping. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: unga ko'proq vaqt bering, yengil massaj qiling va diqqat barqaror bo'lguncha shu nuqta orqali nafas olayotganingizni tasavvur qiling.",
-            "Avval oldin o'rganilgan nuqtalarni eslang va sezib turing. Ularni yo'qotmasdan, hozirgi nuqtani qo'shing va oldingilari bilan bitta diqqat chizig'iga ulang. Agar nuqta sezilmasa, uni hali ochilmagan deb qabul qiling: yengil massaj qiling, diqqat bilan shu nuqta orqali nafas oling va sezgi barqaror bo'lguncha turing.",
+            "Birinchi nuqtadan boshlang: uni tana sezgisi, nafas va diqqat orqali toping. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: uzoqroq turing, yengil massaj qiling va diqqat bilan shu nuqta orqali nafas oling.",
+            "Oldin o'rganilgan nuqtalarni eslang. Ularni fon sifatida ushlab, hozirgi nuqtani qo'shing va bitta diqqat chizig'iga ulang. Agar nuqta sezilmasa, yengil massaj qiling va sezgi barqarorroq bo'lguncha turing.",
         ),
         "kz": (
-            "Бірінші нүктеден бастаңыз: оны дене сезімі, тыныс және зейін арқылы табыңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: оған көбірек уақыт бөліңіз, жеңіл уқалаңыз және шоғырлану тұрақталғанша осы нүкте арқылы дем алып-шығаруды елестетіңіз.",
-            "Алдымен бұрын өткен нүктелердің сезімін еске түсіріп, ұстап тұрыңыз. Оларды жібермей, қазіргі нүктені қосып, алдыңғыларымен бір зейін сызығына біріктіріңіз. Егер нүкте сезілмесе, оны әзірге ашылмаған деп қабылдаңыз: жеңіл уқалаңыз, зейінмен сол нүкте арқылы тыныстаңыз және сезім тұрақталғанша ұзағырақ болыңыз.",
+            "Бірінші нүктеден бастаңыз: оны дене сезімі, тыныс және зейін арқылы табыңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: ұзағырақ болыңыз, жеңіл уқалаңыз және зейінмен сол нүкте арқылы тыныстаңыз.",
+            "Бұрын өткен нүктелерді еске түсіріңіз. Оларды фон ретінде ұстап, қазіргі нүктені қосыңыз да, бәрін бір зейін сызығына біріктіріңіз. Егер нүкте сезілмесе, жеңіл уқалап, сезім тұрақтырақ болғанша ұзағырақ болыңыз.",
         ),
     }
     return notes[language][0 if point_index == 0 else 1]
+
+
+def point_area_practice_hint(location: str, language: str) -> str:
+    normalized = (location or "").lower()
+    cues = {
+        "ru": (
+            (("пуп", "живот", "лобков", "промеж", "анус", "половых", "мошон"), "Смягчите живот и таз; пусть дыхание не толкает ощущение, а будто освобождает для него место."),
+            (("позвон", "крестц", "копчик", "спин", "затыл"), "Выпрямитесь без напряжения и почувствуйте, как точка включается в заднюю срединную линию."),
+            (("груд", "ребр", "ключиц"), "Дайте грудной клетке чуть больше пространства; наблюдайте, меняется ли глубина дыхания."),
+            (("горл", "ше", "подбород", "губ", "нос", "лиц", "лоб", "тем", "голов"), "Расслабьте лицо, язык и горло; иногда точка откликается только после этого."),
+            (("рук", "кист", "пал", "локт", "плеч"), "Отпустите плечо и кисть, чтобы внимание не застревало только в поверхности кожи."),
+            (("стоп", "пят", "лодыж", "голен", "колен", "бедр"), "Почувствуйте опору и вес тела; так точка легче соединяется с общей линией меридиана."),
+        ),
+        "en": (
+            (("navel", "abdomen", "pubic", "perine", "anus", "genital", "scrot"), "Soften the belly and pelvis; let the breath make room for the sensation instead of pushing it."),
+            (("vertebra", "sacral", "coccyx", "spine", "back", "occip"), "Lengthen the spine without strain and feel how the point joins the central back line."),
+            (("chest", "rib", "clavicle"), "Give the chest a little more space and notice whether the depth of breathing changes."),
+            (("throat", "neck", "chin", "lip", "nose", "face", "forehead", "head"), "Relax the face, tongue, and throat; sometimes the point responds only after that."),
+            (("arm", "hand", "finger", "elbow", "shoulder"), "Release the shoulder and hand so attention does not stay only on the surface of the skin."),
+            (("foot", "heel", "ankle", "leg", "knee", "thigh"), "Feel the support and weight of the body; the point can then connect more easily with the meridian line."),
+        ),
+        "uz": (
+            (("kindik", "qorin", "pub", "oraliq", "anus", "jinsiy"), "Qorin va tosni yumshating; nafas sezgini itarmasin, unga joy ochsin."),
+            (("umurtqa", "dumg'aza", "dum", "orqa", "ensa"), "Umurtqani zo'riqmasdan tik tuting va nuqta orqa o'rta chiziqqa qanday qo'shilishini sezing."),
+            (("ko'krak", "qovurg", "o'mrov"), "Ko'krak qafasiga biroz kenglik bering va nafas chuqurligi o'zgaradimi, kuzating."),
+            (("tomoq", "bo'yin", "iyak", "lab", "burun", "yuz", "peshona", "bosh"), "Yuz, til va tomoqni bo'shating; ba'zan nuqta shundan keyingina javob beradi."),
+            (("qo'l", "kaft", "barmoq", "tirsak", "yelka"), "Yelka va kaftni bo'shating, shunda diqqat faqat teri yuzasida qolib ketmaydi."),
+            (("oyoq", "tovon", "to'piq", "boldir", "tizza", "son"), "Tana tayanchini va og'irligini sezing; shunda nuqta meridian chizig'iga osonroq ulanadi."),
+        ),
+        "kz": (
+            (("кіндік", "іш", "қасаға", "аралық", "анус", "жыныс"), "Іш пен жамбасты жұмсартыңыз; тыныс сезімді итермей, оған орын ашсын."),
+            (("омыртқа", "сегізкөз", "құйымшақ", "арқа", "шүйде"), "Омыртқаны күш салмай түзеу ұстап, нүктенің артқы ортаңғы сызыққа қалай қосылатынын сезіңіз."),
+            (("кеуде", "қабырға", "бұғана"), "Кеуде қуысына аздап кеңістік беріп, тыныс тереңдігі өзгере ме, байқаңыз."),
+            (("тамақ", "мойын", "иек", "ерін", "мұрын", "бет", "маңдай", "бас"), "Бет, тіл және тамақты босатыңыз; кейде нүкте содан кейін ғана жауап береді."),
+            (("қол", "алақан", "саусақ", "шынтақ", "иық"), "Иық пен алақанды босатыңыз, сонда зейін тек тері бетінде қалып қоймайды."),
+            (("аяқ", "өкше", "тобық", "балтыр", "тізе", "сан"), "Дененің тірегі мен салмағын сезіңіз; сонда нүкте меридиан сызығына жеңілірек қосылады."),
+        ),
+    }.get(language, ())
+    for keywords, cue in cues:
+        if any(keyword in normalized for keyword in keywords):
+            return cue
+    return ""
 
 
 def short_point_area(location: str, limit: int = 96) -> str:
@@ -368,8 +410,12 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
         f"<b>{escape(localized(meridian, language, 'name'))}</b>",
         f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",
         f"<b>{labels[1]}:</b> {escape(compact_point_location(location))}",
-        f"<b>{labels[2]}:</b> {escape(practice_note(point_index, language))}",
     ]
+    practice_parts = [practice_note(point_index, language)]
+    area_hint = point_area_practice_hint(location, language)
+    if area_hint:
+        practice_parts.append(area_hint)
+    parts.append(f"<b>{labels[2]}:</b> {escape(' '.join(practice_parts))}")
     question = point_observation_prompt(point, point_index, language, point_title, location)
     if question:
         parts.append(f"<i>{labels[3]}:</i> {escape(question)}")
@@ -896,6 +942,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     if re.search(r"parse_mode=[\"']Markdown[\"']", bot_sources):
         issues.append("bot still sends messages with Markdown parse mode")
     utils_source = (ROOT / "bot" / "utils.py").read_text(encoding="utf-8-sig")
+    if "_point_area_practice_hint" not in utils_source:
+        issues.append("meridian point formatter does not add body-area practice cues")
+    if "Смягчите живот и таз" not in utils_source or "Lengthen the spine" not in utils_source:
+        issues.append("meridian point body-area cues are missing abdomen or spine guidance")
     principle_image_start = utils_source.find("def get_principle_image_path")
     principle_image_end = utils_source.find("def has_principle_image")
     if principle_image_start != -1 and principle_image_end != -1:
@@ -955,6 +1005,8 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator scenarios do not reset shared state before opening")
     if "function currentMeridianName()" not in html or "if (!state.currentMeridianId) return '-'" not in html:
         issues.append("browser simulator state panel shows a fallback meridian when no current focus is selected")
+    if "Смягчите живот и таз" not in html or "Soften the belly and pelvis" not in html:
+        issues.append("browser simulator point cards do not include body-area practice cues")
     if "const timeRow = []" not in html or "state.principlesEnabled" not in html or "state.meridiansEnabled" not in html:
         issues.append("browser simulator settings screen is not mode-aware")
     return issues
