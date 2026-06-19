@@ -604,6 +604,12 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if not texts[language].get("meridian_measurements") or not texts[language].get("meridian_change_path"):
             issues.append(f"{language}: meridians home is missing path or cun guide entry")
 
+    scheduler_source = (ROOT / "bot" / "scheduler.py").read_text(encoding="utf-8-sig")
+    if "astimezone().astimezone(tz=None)" in scheduler_source:
+        issues.append("scheduler converts user send times through the machine local timezone")
+    if "astimezone(timezone.utc).replace(tzinfo=None)" not in scheduler_source:
+        issues.append("scheduler does not explicitly convert scheduled jobs to UTC")
+
     return issues
 
 

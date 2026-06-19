@@ -2,7 +2,7 @@
 
 import asyncio
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, Any, Optional
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -96,7 +96,7 @@ class YogaScheduler:
             )
             
             # Convert to UTC for scheduler.
-            next_send_time_utc = next_send_time.astimezone().astimezone(tz=None).replace(tzinfo=None)
+            next_send_time_utc = next_send_time.astimezone(timezone.utc).replace(tzinfo=None)
             
             # Create unique job ID.
             job_id = f"principle_user_{user.chat_id}_{next_send_time_utc.strftime('%Y%m%d_%H%M')}"
@@ -131,7 +131,7 @@ class YogaScheduler:
                 user.meridian_time_for_send,
                 user.skip_day_id
             )
-            next_send_time_utc = next_send_time.astimezone().astimezone(tz=None).replace(tzinfo=None)
+            next_send_time_utc = next_send_time.astimezone(timezone.utc).replace(tzinfo=None)
             job_id = f"meridian_user_{user.chat_id}_{next_send_time_utc.strftime('%Y%m%d_%H%M')}"
 
             self.scheduler.add_job(
