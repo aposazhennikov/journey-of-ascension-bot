@@ -123,7 +123,7 @@ class YogaScheduler:
             for job in existing_jobs:
                 self.scheduler.remove_job(job.id)
 
-            if not user.meridians_enabled:
+            if not user.meridians_enabled or not user.meridian_learning_mode:
                 return
 
             next_send_time = get_next_send_time(
@@ -192,7 +192,7 @@ class YogaScheduler:
         try:
             logger.info(f"Sending meridian focus to user {chat_id}...")
             user = await self.storage.get_user(chat_id)
-            if not user or not user.is_active or not user.meridians_enabled:
+            if not user or not user.is_active or not user.meridians_enabled or not user.meridian_learning_mode:
                 return
             if not self.meridians_manager:
                 logger.warning("Meridians manager is not configured.")
