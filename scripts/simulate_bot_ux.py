@@ -852,10 +852,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             issues.append(f"{language}: onboarding does not give Ahimsa as an energy example")
 
         onboarding_depth_markers = {
-            "en": ("self", "leak", "silent"),
-            "ru": ("самому себе", "сливать", "молчат"),
-            "uz": ("o'zingizga", "yo'qotmaslik", "jim"),
-            "kz": ("өзіңізге", "шашпау", "үнсіз"),
+            "en": ("self", "leak", "more time"),
+            "ru": ("самому себе", "сливать", "больше времени"),
+            "uz": ("o'zingizga", "yo'qotmaslik", "ko'proq vaqt"),
+            "kz": ("өзіңізге", "шашпау", "көбірек уақыт"),
         }[language]
         for marker in onboarding_depth_markers:
             if marker.lower() not in onboarding.lower():
@@ -895,6 +895,21 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             "живая карта внимания",
             "tirik xaritasi",
             "тірі картасы",
+            "body map of Qi",
+            "body map of Qi movement",
+            "телесная карта Ци",
+            "tana xaritas",
+            "денедегі карт",
+            "areas that were previously silent",
+            "как будто выключены",
+            "go'yo jim",
+            "үнсіз немесе",
+            "avval sezilmagan",
+            "бұрын сезілмеген",
+            "modest but important",
+            "скромная, но важная",
+            "Botning vazifasi oddiy",
+            "Боттың міндеті қарапайым",
             "is used here as a map",
             "здесь используется как карта",
             "rigid target",

@@ -144,8 +144,8 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                             'leaks through speech, thoughts, habits, and reactions. <b>Ahimsa</b> begins '
                             'with not spending force on harm.\n'
                             '\n'
-                            '<b>Meridians</b> are the body map of Qi. You learn to feel channels, points, '
-                            'and quiet areas that ask for touch, breath, and patient attention.\n'
+                            '<b>Meridians</b> bring the practice into the body. You learn to follow channels, '
+                            'points, and quiet areas through touch, breath, and patient attention.\n'
                             '\n'
                             'What would you like to study?',
         'initial_mode_question': 'What would you like to study?',
@@ -208,7 +208,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                      'honesty in action.\n'
                      '\n'
                      '<b>Meridians</b> are the body layer: points, channels, Qi flow, and the skill of '
-                     'feeling areas that were previously silent.\n'
+                     'patiently including places that are hard to feel at first.\n'
                      '\n'
                      'You can begin with one direction or keep both active together.',
         'mode_principles_only': 'Yama/Niyama foundation',
@@ -293,8 +293,8 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           '\n'
                           '<b>Why study meridians?</b>\n'
                           '\n'
-                          'Meridians are a body map of Qi movement. They help you notice where attention '
-                          'flows freely and where an area feels silent, tense, or closed.\n'
+                          'Meridians describe how Qi is observed through the body. They help you notice where '
+                          'attention flows freely and where an area feels faint, tense, or closed.\n'
                           '\n'
                           "<b>How to start:</b> the bot can lead you through a recommended order, or you can "
                           'freely choose any meridian yourself.\n'
@@ -443,8 +443,8 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                             'мысли, привычки и реакции. <b>Ахимса</b> начинается с того, чтобы не тратить '
                             'силу на вред.\n'
                             '\n'
-                            '<b>Меридианы</b> — телесная карта Ци. Вы учитесь чувствовать каналы, точки и '
-                            'тихие зоны, которым нужны касание, дыхание и терпеливое внимание.\n'
+                            '<b>Меридианы</b> переносят практику в тело. Вы учитесь проходить каналы, точки '
+                            'и тихие зоны через касание, дыхание и терпеливое внимание.\n'
                             '\n'
                             'Что вы хотели бы изучать?',
         'initial_mode_question': 'Что вы хотели бы изучать?',
@@ -506,8 +506,8 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                      '<b>Яма/Нияма</b> — фундамент: меньше внутреннего шума, меньше утечек энергии, больше '
                      'честности в поступках.\n'
                      '\n'
-                     '<b>Меридианы</b> — телесный слой: точки, каналы, течение Ци и навык чувствовать зоны, '
-                     'которые раньше были как будто выключены.\n'
+                     '<b>Меридианы</b> — телесный слой: точки, каналы, течение Ци и навык спокойно включать '
+                     'в внимание места, которые сначала почти не ощущаются.\n'
                      '\n'
                      'Можно начать с одного направления или оставить активными оба.',
         'mode_principles_only': 'Фундамент Ямы/Ниямы',
@@ -738,8 +738,8 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                             "reaksiyalar orqali oqib ketishini kamaytiradi. <b>Ahimsa</b> kuchni zarar "
                             'yetkazishga sarflamaslikdan boshlanadi.\n'
                             '\n'
-                            '<b>Meridianlar</b> Qi ning tana xaritasidir. Siz kanallar, nuqtalar va '
-                            "teginish, nafas hamda sabrli diqqat so'raydigan sokin joylarni sezasiz.\n"
+                            '<b>Meridianlar</b> amaliyotni tanaga olib kiradi. Siz kanallar, nuqtalar va '
+                            "teginish, nafas hamda sabrli diqqat so'raydigan joylarni sezasiz.\n"
                             '\n'
                             "Nimani o'rganmoqchisiz?",
         'initial_mode_question': "Nimani o'rganmoqchisiz?",
@@ -800,8 +800,8 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                      "<b>Yama/Niyama</b> poydevor: ichki shovqin kamroq, energiya yo'qotish kamroq, "
                      "harakatlarda ko'proq halollik.\n"
                      '\n'
-                     '<b>Meridianlar</b> tana qatlami: nuqtalar, kanallar, Qi oqimi va avval sezilmagan '
-                     "joylarni his qilish ko'nikmasi.\n"
+                     '<b>Meridianlar</b> tana qatlami: nuqtalar, kanallar, Qi oqimi va avval noaniq sezilgan '
+                     "joylarni sabr bilan diqqatga qo'shish ko'nikmasi.\n"
                      '\n'
                      "Bitta yo'nalishdan boshlashingiz yoki ikkalasini ham faol qoldirishingiz mumkin.",
         'mode_principles_only': 'Yama/Niyama poydevori',
@@ -1040,8 +1040,8 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                             '<b>Яма мен Нияма</b> — негіз: олар энергияның сөз, ой, әдет және реакция '
                             'арқылы шашылуын азайтады. <b>Ахимса</b> күшті зиянға жұмсамаудан басталады.\n'
                             '\n'
-                            '<b>Меридиандар</b> — Ци-дің денедегі картасы. Сіз арналар, нүктелер және '
-                            'жанасу, тыныс пен сабырлы зейін сұрайтын тыныш аймақтарды сезесіз.\n'
+                            '<b>Меридиандар</b> тәжірибені денеге әкеледі. Сіз арналар, нүктелер және '
+                            'жанасу, тыныс пен сабырлы зейін сұрайтын аймақтарды сезесіз.\n'
                             '\n'
                             'Нені зерттегіңіз келеді?',
         'initial_mode_question': 'Нені зерттегіңіз келеді?',
@@ -1102,8 +1102,8 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                      '<b>Яма/Нияма</b> — негіз: ішкі шу азаяды, энергия шығыны азаяды, әрекетте адалдық '
                      'көбейеді.\n'
                      '\n'
-                     '<b>Меридиандар</b> — дене қабаты: нүктелер, арналар, Ци ағымы және бұрын сезілмеген '
-                     'аймақтарды сезу дағдысы.\n'
+                     '<b>Меридиандар</b> — дене қабаты: нүктелер, арналар, Ци ағымы және бастапқыда көмескі '
+                     'сезілетін жерлерді сабырмен зейінге қосу дағдысы.\n'
                      '\n'
                      'Бір бағыттан бастауға немесе екеуін де белсенді қалдыруға болады.',
         'mode_principles_only': 'Яма/Нияма негізі',
@@ -1315,7 +1315,7 @@ TEXTS_UPDATE = {
             "<b>Journey of Ascension</b>\n\n"
             "Practice starts with one honest question: where does my energy go during the day? When it is scattered, attention becomes noisy, reactions get sharper, and even simple actions take more force. When it is gathered, the body is quieter and the mind has more room.\n\n"
             "<b>Yama and Niyama</b> are the foundation. They are not moral slogans; they are a way to stop leaking strength through speech, habits, conflict, self-harm, haste, and unconscious reactions. <b>Ahimsa</b>, for example, begins with not spending energy on harm, including harm toward yourself.\n\n"
-            "<b>Meridians</b> are the body map of Qi. In practice you learn to notice channels, points, and areas that feel silent or hard to sense. Such places usually ask for patient attention, gentle touch, breath, and time.\n\n"
+            "<b>Meridians</b> bring the practice into the body. You learn to follow the channels of Qi through attention, breath, and sensation: some points answer quickly, while others need gentle touch and more time.\n\n"
             "What would you like to study?"
         ),
         "initial_mode_question": "What would you like to study?",
@@ -1389,7 +1389,7 @@ TEXTS_UPDATE = {
             "🧭 <b>My Path</b>\n\n"
             "Choose which practice you want to return to each day.\n\n"
             "<b>Yama/Niyama</b> is the foundation: less inner noise, fewer energy leaks, more honesty in action.\n\n"
-            "<b>Meridians</b> are the body layer: points, channels, Qi flow, and the skill of feeling areas that were previously silent.\n\n"
+            "<b>Meridians</b> are the body layer: points, channels, Qi flow, and the habit of patiently including places that are hard to feel at first.\n\n"
             "You can begin with one direction or keep both active together."
         ),
         "mode_principles_only": "Yama/Niyama foundation",
@@ -1444,7 +1444,7 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
-            "In Chinese tradition, meridians are channels through which Qi moves. In practice, you start very simply: notice which areas respond to attention, which feel tense, and which are hard to feel at all.\n\n"
+            "In Chinese tradition, meridians describe channels of Qi. In practice, begin very simply: notice where the body responds to attention, where there is tension, and where sensation is still faint.\n\n"
             "<b>How this helps:</b> when attention, breath, and gentle touch return to a point, the area may become warmer, clearer, or easier to include in the whole line of the channel. Neighboring channels can also feel different, because the body works as one system.\n\n"
             "<b>How to study:</b> choose the bot route if you want a steady order, or free choice if you already know which meridian you want to open.\n\n"
             "<b>Before points:</b> open the <b>cun</b> guide so distances like 1, 1.5, 3, and 5 cun become understandable on your own body.\n\n"
@@ -1474,7 +1474,7 @@ TEXTS_UPDATE = {
             "Here energy means what you can notice directly: attention, steadiness, vitality, and the ability to act without wasting yourself. When it leaks into conflict, hurry, resentment, excess, or self-neglect, the whole day becomes heavier.\n\n"
             "<b>Yama/Niyama</b> helps close these leaks through behaviour, speech, thoughts, discipline, and honesty with yourself.\n\n"
             "<b>Meridians</b> bring the work into the body: channels, points, Qi flow, closed areas, breath, touch, and patient attention.\n\n"
-            "The task of the bot is modest but important: return you to practice at the right moment and make the next step clear."
+            "The bot keeps the thread of practice from getting lost in the day: it brings you back at the right time and shows the next small step."
         ),
         "feature_announcement": (
             "☯️ <b>New in Journey of Ascension: meridian practice</b>\n\n"
@@ -1508,7 +1508,7 @@ TEXTS_UPDATE = {
             "<b>Journey of Ascension</b>\n\n"
             "Практика начинается с честного вопроса: куда в течение дня уходит моя энергия? Когда она рассеяна, внимание шумит, реакции становятся резче, а даже простые действия требуют больше сил. Когда энергия собирается, тело тише, а в уме появляется больше пространства.\n\n"
             "<b>Яма и Нияма</b> — фундамент. Это не моральные лозунги, а способ перестать сливать силу через речь, привычки, конфликты, вред себе, спешку и бессознательные реакции. <b>Ахимса</b>, например, начинается с того, чтобы не тратить энергию на вред — в том числе на вред самому себе.\n\n"
-            "<b>Меридианы</b> — телесная карта Ци. В практике вы учитесь замечать каналы, точки и зоны, которые словно молчат или плохо ощущаются. Обычно таким местам нужны терпеливое внимание, мягкое касание, дыхание и время.\n\n"
+            "<b>Меридианы</b> переносят практику в тело. Вы учитесь проходить каналы Ци вниманием, дыханием и ощущением: одни точки откликаются быстро, другим нужны мягкое касание и больше времени.\n\n"
             "Что вы хотели бы изучать?"
         ),
         "initial_mode_question": "Что вы хотели бы изучать?",
@@ -1582,7 +1582,7 @@ TEXTS_UPDATE = {
             "🧭 <b>Мой путь</b>\n\n"
             "Выберите, к какой практике вы хотите возвращаться каждый день.\n\n"
             "<b>Яма/Нияма</b> — фундамент: меньше внутреннего шума, меньше утечек энергии, больше честности в поступках.\n\n"
-            "<b>Меридианы</b> — телесный слой: точки, каналы, течение Ци и навык чувствовать зоны, которые раньше были как будто выключены.\n\n"
+            "<b>Меридианы</b> — телесный слой: точки, каналы, течение Ци и навык спокойно включать в внимание места, которые сначала почти не ощущаются.\n\n"
             "Можно начать с одного направления или оставить активными оба."
         ),
         "mode_principles_only": "Фундамент Ямы/Ниямы",
@@ -1637,7 +1637,7 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
-            "В китайской традиции меридианы — это каналы, по которым движется Ци. В практике всё начинается просто: вы замечаете, какие зоны тела откликаются на внимание, где есть напряжение, а какие места пока почти не ощущаются.\n\n"
+            "В китайской традиции меридианы описывают каналы Ци. В практике всё начинается просто: вы замечаете, где тело откликается на внимание, где есть напряжение, а где ощущение пока едва заметно.\n\n"
             "<b>Как это помогает:</b> когда внимание, дыхание и мягкое касание возвращаются в точку, область может стать теплее, яснее и легче включаться в общую линию канала. Соседние меридианы тоже могут ощущаться иначе, потому что тело работает как единая система.\n\n"
             "<b>Как изучать:</b> выберите маршрут бота, если хотите устойчивую последовательность, или свободный выбор, если уже знаете, какой меридиан хотите открыть.\n\n"
             "<b>Перед точками:</b> откройте справку по <b>цуням</b>, чтобы расстояния 1, 1,5, 3 и 5 цуней стали понятными на вашем теле.\n\n"
@@ -1667,7 +1667,7 @@ TEXTS_UPDATE = {
             "Энергия здесь — это то, что можно наблюдать: внимание, устойчивость, жизненность, способность действовать не растрачивая себя. Когда она утекает в конфликт, спешку, обиду, избыток или невнимание к себе, весь день становится тяжелее.\n\n"
             "<b>Яма/Нияма</b> помогает закрывать эти утечки через поведение, речь, мысли, дисциплину и честность перед собой.\n\n"
             "<b>Меридианы</b> переносят работу в тело: каналы, точки, течение Ци, закрытые зоны, дыхание, касание и терпеливое внимание.\n\n"
-            "Задача бота скромная, но важная: вовремя вернуть вас к практике и сделать следующий шаг понятным."
+            "Бот помогает не потерять нить практики в обычном дне: вовремя возвращает к фокусу и показывает следующий небольшой шаг."
         ),
         "feature_announcement": (
             "☯️ <b>Новое в Journey of Ascension: практика меридианов</b>\n\n"
@@ -1701,7 +1701,7 @@ TEXTS_UPDATE = {
             "<b>Journey of Ascension</b>\n\n"
             "Amaliyot halol savoldan boshlanadi: kun davomida energiyam qayerga ketmoqda? U tarqoq bo'lsa, diqqat shovqinli bo'ladi, reaksiya keskinlashadi, oddiy ishlar ham ko'proq kuch oladi. Energiya yig'ilsa, tana sokinroq, ong esa kengroq bo'ladi.\n\n"
             "<b>Yama va Niyama</b> poydevor. Bular quruq axloqiy shiorlar emas; ular kuchni nutq, odat, ziddiyat, o'zingizga zarar, shoshilish va ongsiz reaksiyalar orqali yo'qotmaslikka yordam beradi. <b>Ahimsa</b>, masalan, energiyani zarar yetkazishga, jumladan o'zingizga zarar yetkazishga sarflamaslikdan boshlanadi.\n\n"
-            "<b>Meridianlar</b> Qi ning tana xaritasidir. Amaliyotda siz kanallar, nuqtalar va go'yo jim yoki sezilishi qiyin bo'lgan joylarni payqashni o'rganasiz. Bunday joylarga odatda sabrli diqqat, yumshoq teginish, nafas va vaqt kerak.\n\n"
+            "<b>Meridianlar</b> amaliyotni tanaga olib kiradi. Siz Qi kanallarini diqqat, nafas va sezgi orqali kuzatishni o'rganasiz: ba'zi nuqtalar tez javob beradi, ba'zilariga yumshoq teginish va ko'proq vaqt kerak bo'ladi.\n\n"
             "Nimani o'rganmoqchisiz?"
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
@@ -1775,7 +1775,7 @@ TEXTS_UPDATE = {
             "🧭 <b>Mening yo'lim</b>\n\n"
             "Har kuni qaysi amaliyotga qaytishni xohlayotganingizni tanlang.\n\n"
             "<b>Yama/Niyama</b> poydevor: ichki shovqin kamroq, energiya yo'qotish kamroq, harakatlarda ko'proq halollik.\n\n"
-            "<b>Meridianlar</b> tana qatlami: nuqtalar, kanallar, Qi oqimi va avval sezilmagan joylarni his qilish ko'nikmasi.\n\n"
+            "<b>Meridianlar</b> tana qatlami: nuqtalar, kanallar, Qi oqimi va avval noaniq sezilgan joylarni sabr bilan diqqatga qo'shish ko'nikmasi.\n\n"
             "Bitta yo'nalishdan boshlashingiz yoki ikkalasini ham faol qoldirishingiz mumkin."
         ),
         "mode_principles_only": "Yama/Niyama poydevori",
@@ -1860,7 +1860,7 @@ TEXTS_UPDATE = {
             "Bu yerda energiya kuzatish mumkin bo'lgan narsa: diqqat, barqarorlik, hayotiylik, o'zingizni sarflamasdan harakat qilish qobiliyati. Energiya ziddiyat, shoshilish, xafagarchilik, ortiqchalik yoki o'ziga e'tiborsizlikka oqib ketsa, butun kun og'irlashadi.\n\n"
             "<b>Yama/Niyama</b> bu oqimlarni xulq, nutq, fikr, intizom va o'zingizga halollik orqali yopishga yordam beradi.\n\n"
             "<b>Meridianlar</b> ishni tanaga olib kiradi: kanallar, nuqtalar, Qi oqimi, yopiq joylar, nafas, teginish va sabrli diqqat.\n\n"
-            "Botning vazifasi oddiy, lekin muhim: kerakli paytda amaliyotga qaytarish va keyingi qadamni tushunarli qilish."
+            "Bot kun ichida amaliyot ipini yo'qotib qo'ymaslikka yordam beradi: kerakli paytda fokusga qaytaradi va keyingi kichik qadamni ko'rsatadi."
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension'da yangilik: meridian amaliyoti</b>\n\n"
@@ -1908,7 +1908,7 @@ TEXTS_UPDATE = {
             "<b>Journey of Ascension</b>\n\n"
             "Тәжірибе бір адал сұрақтан басталады: күн ішінде энергиям қайда кетіп жатыр? Ол шашыраса, зейін шулайды, реакциялар өткірленеді, қарапайым әрекеттің өзі көбірек күш алады. Энергия жиналса, дене тынышырақ, ал санада кеңістік көбейеді.\n\n"
             "<b>Яма мен Нияма</b> — негіз. Бұл құрғақ моральдық ұран емес; олар күшті сөз, әдет, қақтығыс, өзіңізге зиян, асығыстық және бейсаналы реакциялар арқылы шашпауға көмектеседі. <b>Ахимса</b>, мысалы, энергияны зиянға жұмсамаудан басталады — өзіңізге зиян келтіруді де қоса.\n\n"
-            "<b>Меридиандар</b> — Ци-дің денедегі картасы. Тәжірибеде сіз арналарды, нүктелерді және үнсіз немесе сезілуі қиын аймақтарды байқауды үйренесіз. Мұндай жерлерге әдетте сабырлы зейін, жұмсақ жанасу, тыныс және уақыт керек.\n\n"
+            "<b>Меридиандар</b> тәжірибені денеге әкеледі. Сіз Ци арналарын зейін, тыныс және сезім арқылы бақылауды үйренесіз: кей нүктелер тез жауап береді, ал кейбіріне жұмсақ жанасу мен көбірек уақыт керек.\n\n"
             "Нені зерттегіңіз келеді?"
         ),
         "initial_mode_question": "Нені зерттегіңіз келеді?",
@@ -1982,7 +1982,7 @@ TEXTS_UPDATE = {
             "🧭 <b>Менің жолым</b>\n\n"
             "Күн сайын қай тәжірибеге қайта оралғыңыз келетінін таңдаңыз.\n\n"
             "<b>Яма/Нияма</b> — негіз: ішкі шу азаяды, энергия шығыны азаяды, әрекетте адалдық көбейеді.\n\n"
-            "<b>Меридиандар</b> — дене қабаты: нүктелер, арналар, Ци ағымы және бұрын сезілмеген аймақтарды сезу дағдысы.\n\n"
+            "<b>Меридиандар</b> — дене қабаты: нүктелер, арналар, Ци ағымы және бастапқыда көмескі сезілетін жерлерді сабырмен зейінге қосу дағдысы.\n\n"
             "Бір бағыттан бастауға немесе екеуін де белсенді қалдыруға болады."
         ),
         "mode_principles_only": "Яма/Нияма негізі",
@@ -2067,7 +2067,7 @@ TEXTS_UPDATE = {
             "Бұл жерде энергия — байқауға болатын нәрсе: зейін, тұрақтылық, тіршілік күші, өзіңізді сарқымай әрекет ету қабілеті. Энергия қақтығысқа, асығыстыққа, ренішке, артықтыққа немесе өзіңізге көңіл бөлмеуге кетсе, бүкіл күн ауырлайды.\n\n"
             "<b>Яма/Нияма</b> бұл ағуларды мінез-құлық, сөз, ой, тәртіп және өзіңізге адалдық арқылы жабуға көмектеседі.\n\n"
             "<b>Меридиандар</b> жұмысты денеге әкеледі: арналар, нүктелер, Ци ағымы, жабық аймақтар, тыныс, жанасу және сабырлы зейін.\n\n"
-            "Боттың міндеті қарапайым, бірақ маңызды: керек сәтте тәжірибеге қайтарып, келесі қадамды түсінікті ету."
+            "Бот күн ішінде тәжірибе жібін жоғалтпауға көмектеседі: керек сәтте фокусқа қайтарады және келесі шағын қадамды көрсетеді."
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension ішіндегі жаңалық: меридиан тәжірибесі</b>\n\n"
