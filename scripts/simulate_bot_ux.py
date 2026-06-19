@@ -1614,6 +1614,23 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     for phrase in dry_subscription_state_phrases:
         if phrase in handlers_source:
             issues.append(f"visible practice state still uses subscription-bot wording: {phrase!r}")
+    dry_stop_feedback_phrases = (
+        "why you decided to stop using the bot",
+        "No feedback is needed",
+        "I will pass on your feedback",
+        "почему решили остановить бота",
+        "Отзыв не нужен",
+        "я передам обратную связь",
+        "botdan foydalanishni nima uchun to'xtat",
+        "Fikr yozish shart emas",
+        "fikringizni yetkazaman",
+        "ботты не үшін тоқтатқаныңызды",
+        "Пікір жазу міндетті емес",
+        "пікіріңізді жеткіземін",
+    )
+    for phrase in dry_stop_feedback_phrases:
+        if phrase in handlers_source:
+            issues.append(f"stop feedback still sounds like a service exit survey: {phrase!r}")
     setup_markers = (
         "The other principles are not paused",
         "Остальные принципы не выключаются",
