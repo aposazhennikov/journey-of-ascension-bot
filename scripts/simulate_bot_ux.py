@@ -1720,6 +1720,8 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator scenarios do not reset shared state before opening")
     if "function currentMeridianName()" not in html or "if (!state.currentMeridianId) return '-'" not in html:
         issues.append("browser simulator state panel shows a fallback meridian when no current focus is selected")
+    if "state.routeCompleted = true" not in html or "meridian_route_completed" not in html:
+        issues.append("browser simulator does not model the final guided meridian-route completion")
     if "Смягчите живот и таз" not in html or "Soften the belly and pelvis" not in html:
         issues.append("browser simulator point cards do not include body-area practice cues")
     if "label: '◀️ 10'" in html or "label: '10 ▶️'" in html:
@@ -1883,6 +1885,7 @@ def build_html() -> str:
       currentMeridiansPage: 0,
       meridianTimeContext: 'setup',
       completed: [],
+      routeCompleted: false,
     }};
 
     function resetState() {{
@@ -1895,6 +1898,7 @@ def build_html() -> str:
       state.currentMeridiansPage = 0;
       state.meridianTimeContext = 'setup';
       state.completed = [];
+      state.routeCompleted = false;
     }}
 
     for (const lang of payload.languages) {{
@@ -2248,12 +2252,20 @@ def build_html() -> str:
 
     function completeMeridian() {{
       if (!state.completed.includes(state.currentMeridianId)) state.completed.push(state.currentMeridianId);
+      state.routeCompleted = false;
       const ready = payload.recommendedPath
         .map((id) => payload.meridians.find((item) => item.id === id && item.pointsCount > 0))
         .filter(Boolean);
       const index = ready.findIndex((item) => item.id === state.currentMeridianId);
       if (state.learningMode === 'guided' && ready[index + 1]) {{
         state.currentMeridianId = ready[index + 1].id;
+        state.currentPointIndex = -1;
+      }} else if (state.learningMode === 'guided') {{
+        state.currentMeridianId = null;
+        state.currentPointIndex = -1;
+        state.routeCompleted = true;
+      }} else {{
+        state.currentMeridianId = null;
         state.currentPointIndex = -1;
       }}
       setScreen('meridianCompleted');
@@ -2267,7 +2279,7 @@ def build_html() -> str:
         [{{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}],
         [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
       );
-      show('Meridian completed', fmt(t('meridian_completed')), buttons);
+      show('Meridian completed', fmt(t(state.routeCompleted ? 'meridian_route_completed' : 'meridian_completed')), buttons);
     }}
 
     function renderChooseMeridian() {{
