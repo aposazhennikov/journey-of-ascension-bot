@@ -3760,12 +3760,25 @@ class BotHandlers:
         keyboard.append([InlineKeyboardButton(self._get_text("principles_back", language), callback_data="principles_back")])
         return InlineKeyboardMarkup(keyboard)
 
-    def _create_practice_modes_keyboard(self, language: str) -> InlineKeyboardMarkup:
-        """Create practice mode selection keyboard."""
+    def _create_practice_modes_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
+        """Create practice mode selection keyboard with the current mode marked."""
+        current_mode = None
+        if user:
+            if user.principles_enabled and user.meridians_enabled:
+                current_mode = "both"
+            elif user.meridians_enabled:
+                current_mode = "meridians"
+            elif user.principles_enabled:
+                current_mode = "principles"
+
+        def mode_label(key: str, mode: str) -> str:
+            label = self._get_text(key, language)
+            return f"✅ {label}" if current_mode == mode else label
+
         return InlineKeyboardMarkup([
-            [InlineKeyboardButton(self._get_text("mode_principles_only", language), callback_data="mode_principles")],
-            [InlineKeyboardButton(self._get_text("mode_meridians_only", language), callback_data="mode_meridians")],
-            [InlineKeyboardButton(self._get_text("mode_both", language), callback_data="mode_both")],
+            [InlineKeyboardButton(mode_label("mode_principles_only", "principles"), callback_data="mode_principles")],
+            [InlineKeyboardButton(mode_label("mode_meridians_only", "meridians"), callback_data="mode_meridians")],
+            [InlineKeyboardButton(mode_label("mode_both", "both"), callback_data="mode_both")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
@@ -3988,7 +4001,7 @@ class BotHandlers:
 
             elif action == "modes":
                 text = self._get_text("mode_menu", language)
-                keyboard = self._create_practice_modes_keyboard(language)
+                keyboard = self._create_practice_modes_keyboard(language, user)
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
             elif action == "meridians":
@@ -4146,7 +4159,7 @@ class BotHandlers:
 
             elif setting == "modes":
                 text = self._get_text("mode_menu", language)
-                keyboard = self._create_practice_modes_keyboard(language)
+                keyboard = self._create_practice_modes_keyboard(language, user)
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
             elif setting == "meridian_time":
