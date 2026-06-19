@@ -21,6 +21,12 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("en", "ru", "uz", "kz")
+OBSERVATION_LABELS = {
+    "en": "Observe:",
+    "ru": "Наблюдение:",
+    "uz": "Kuzatish:",
+    "kz": "Бақылау:",
+}
 RECOMMENDED_PATH = (
     "conception_vessel",
     "governing_vessel",
@@ -621,6 +627,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: source note or hard medical claim leaked into visible point detail")
                 if "<b>" not in detail:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: no bold formatting")
+                if OBSERVATION_LABELS[language] not in plain:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: missing observation prompt")
+                if len(detail.replace("<br><br>", "\n\n")) > 1024:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: raw point caption exceeds Telegram limit")
                 if len(fit_html_caption(detail)) > 1024:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: fitted point caption exceeds Telegram limit")
                 if language == "ru" and index == 0 and "закрыт" not in plain:
