@@ -328,7 +328,7 @@ def practice_note(point_index: int, points_count: int, language: str) -> str:
         if is_first:
             return "Начните только с этой точки. Найдите её по изображению, касанию, дыханию и спокойному вниманию. Если ощущение слабое, считайте точку пока закрытой для практики: побудьте дольше, мягко помассируйте область и представляйте дыхание через точку, пока вниманию не станет легче удерживаться здесь."
         if is_last:
-            return "Сначала соберите ощущение всех уже пройденных точек. Затем добавьте последнюю точку и почувствуйте, замыкается ли меридиан в одну линию или где-то ещё просит внимания."
+            return "Сначала соберите ощущение всех уже пройденных точек. Затем добавьте последнюю точку и пройдите вниманием весь канал от начала до конца: где линия стала цельной, а где ещё просит внимания?"
         if late:
             return "Вернитесь вниманием к началу меридиана и проведите линию до этой точки. Не спешите: если участок теряется, задержитесь на нём, мягко коснитесь и снова соедините с предыдущими точками."
         return "Сначала вспомните уже изученные точки. Удерживая их фоном, добавьте эту точку и посмотрите, становится ли линия меридиана яснее, теплее или где-то обрывается."
@@ -336,7 +336,7 @@ def practice_note(point_index: int, points_count: int, language: str) -> str:
         if is_first:
             return "Faqat shu nuqtadan boshlang. Uni rasm, teginish, nafas va sokin diqqat orqali toping. Agar sezgi kuchsiz bo'lsa, nuqtani amaliyot uchun hali ochilmagan deb qabul qiling: uzoqroq turing, sohani yengil massaj qiling va diqqat bu yerda osonroq turmaguncha nuqta orqali nafas olayotganingizni tasavvur qiling."
         if is_last:
-            return "Avval o'tilgan barcha nuqtalar sezgisini yig'ing. Keyin oxirgi nuqtani qo'shib, meridian bitta chiziqqa yopiladimi yoki qayerdir yana e'tibor so'raydimi, sezing."
+            return "Avval o'tilgan barcha nuqtalar sezgisini yig'ing. Keyin oxirgi nuqtani qo'shib, butun kanalni boshidan oxirigacha diqqat bilan bosib o'ting: chiziq qayerda yaxlit, qayerda yana e'tibor so'raydi?"
         if late:
             return "Diqqatni meridian boshiga qaytaring va chiziqni shu nuqtagacha olib boring. Shoshilmang: agar biror qism yo'qolsa, unda qoling, yengil teging va oldingi nuqtalar bilan yana ulang."
         return "Avval o'rganilgan nuqtalarni eslang. Ularni fon sifatida ushlab, bu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq bo'ladimi yoki qayerdadir uziladimi, kuzating."
@@ -344,14 +344,14 @@ def practice_note(point_index: int, points_count: int, language: str) -> str:
         if is_first:
             return "Тек осы нүктеден бастаңыз. Оны сурет, жанасу, тыныс және тыныш зейін арқылы табыңыз. Егер сезім әлсіз болса, нүктені тәжірибе үшін әзірге ашылмаған деп қабылдаңыз: ұзағырақ болыңыз, аймақты жеңіл уқалаңыз және зейін бұл жерде жеңілірек орныққанша нүкте арқылы тыныстап жатқаныңызды елестетіңіз."
         if is_last:
-            return "Алдымен өткен барлық нүктелердің сезімін жинаңыз. Содан кейін соңғы нүктені қосып, меридиан бір сызыққа тұтаса ма, әлде бір жері әлі назар сұрай ма, байқаңыз."
+            return "Алдымен өткен барлық нүктелердің сезімін жинаңыз. Содан кейін соңғы нүктені қосып, бүкіл арнаны басынан соңына дейін зейінмен өтіңіз: сызық қай жерде тұтас, қай жерде әлі назар сұрайды?"
         if late:
             return "Зейінді меридианның басына қайтарып, сызықты осы нүктеге дейін алып келіңіз. Асықпаңыз: бір бөлігі жоғалса, сонда кідіріп, жеңіл тиіп, алдыңғы нүктелермен қайта қосыңыз."
         return "Алдымен бұрын зерттелген нүктелерді еске түсіріңіз. Оларды фон ретінде ұстап, осы нүктені қосыңыз және меридиан сызығы анығырақ, жылырақ бола ма, әлде бір жерде үзіле ме, байқаңыз."
     if is_first:
         return "Start with this point only. Find it with the image, touch, breath, and quiet attention. If the sensation is weak, treat the point as not yet open for practice: stay longer, gently massage the area, and imagine breathing through the point until attention can rest here more easily."
     if is_last:
-        return "First gather the feeling of all points you have already passed. Then add the last point and notice whether the meridian closes into one line or still asks for attention somewhere."
+        return "First gather the feeling of all points you have already passed. Then add the last point and pass through the whole channel from beginning to end: where does the line feel whole, and where does it still ask for attention?"
     if late:
         return "Return attention to the beginning of the meridian and trace the line up to this point. Do not hurry: if a segment disappears, stay with it, touch it gently, and reconnect it with the previous points."
     return "Recall the points you have already studied. Keep them in the background, add this point, and notice whether the meridian line becomes clearer, warmer, or breaks somewhere."
@@ -503,17 +503,6 @@ def expected_setup_marker(source_location: str, language: str) -> str:
     return ""
 
 
-def point_stage_practice_hint(point_index: int, points_count: int, language: str) -> str:
-    if points_count <= 0 or point_index < points_count - 1:
-        return ""
-    return {
-        "ru": "После этого пройдите вниманием весь канал от первой точки до последней и отметьте, где линия стала цельной, а где ещё просит внимания.",
-        "en": "After that, pass through the whole channel from the first point to the last and notice where the line feels whole or still asks for attention.",
-        "uz": "Shundan keyin butun kanalni birinchi nuqtadan oxirgisigacha diqqat bilan bosib o'ting va chiziq qayerda yaxlit, qayerda yana e'tibor so'rashini kuzating.",
-        "kz": "Содан кейін бүкіл арнаны бірінші нүктеден соңғысына дейін зейінмен өтіп, сызық қай жерде тұтас, қай жерде әлі назар сұрайтынын байқаңыз.",
-    }[language]
-
-
 def short_point_area(location: str, limit: int = 96) -> str:
     if not location:
         return ""
@@ -600,9 +589,6 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     setup_hint = point_setup_practice_hint(source_location, language)
     if setup_hint:
         practice_parts.append(setup_hint)
-    stage_hint = point_stage_practice_hint(point_index, len(points), language)
-    if stage_hint:
-        practice_parts.append(stage_hint)
     parts.append(f"<b>{labels[2]}:</b> {escape(' '.join(practice_parts))}")
     question = point_observation_prompt(point, point_index, language, point_title, location)
     if question:
@@ -1349,6 +1335,14 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 }
                 if index == len(meridian["points"]) - 1 and final_point_markers[language] not in plain:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: missing final whole-channel review cue")
+                duplicate_final_markers = {
+                    "en": "After that, pass through the whole channel",
+                    "ru": "После этого пройдите вниманием весь канал",
+                    "uz": "Shundan keyin butun kanalni",
+                    "kz": "Содан кейін бүкіл арнаны",
+                }
+                if index == len(meridian["points"]) - 1 and duplicate_final_markers[language] in plain:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: final review cue is duplicated")
 
     for item in meridians:
         if item["pointsCount"] == 0:

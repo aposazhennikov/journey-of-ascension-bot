@@ -534,7 +534,8 @@ def _point_sequence_practice_hint(point_index: int, points_count: int, language:
         if is_last:
             return (
                 "Сначала соберите ощущение всех уже пройденных точек. Затем добавьте последнюю "
-                "точку и почувствуйте, замыкается ли меридиан в одну линию или где-то ещё просит внимания."
+                "точку и пройдите вниманием весь канал от начала до конца: где линия стала цельной, "
+                "а где ещё просит внимания?"
             )
         if late:
             return (
@@ -557,7 +558,8 @@ def _point_sequence_practice_hint(point_index: int, points_count: int, language:
         if is_last:
             return (
                 "Avval o'tilgan barcha nuqtalar sezgisini yig'ing. Keyin oxirgi nuqtani qo'shib, "
-                "meridian bitta chiziqqa yopiladimi yoki qayerdir yana e'tibor so'raydimi, sezing."
+                "butun kanalni boshidan oxirigacha diqqat bilan bosib o'ting: chiziq qayerda yaxlit, "
+                "qayerda yana e'tibor so'raydi?"
             )
         if late:
             return (
@@ -580,7 +582,8 @@ def _point_sequence_practice_hint(point_index: int, points_count: int, language:
         if is_last:
             return (
                 "Алдымен өткен барлық нүктелердің сезімін жинаңыз. Содан кейін соңғы нүктені қосып, "
-                "меридиан бір сызыққа тұтаса ма, әлде бір жері әлі назар сұрай ма, байқаңыз."
+                "бүкіл арнаны басынан соңына дейін зейінмен өтіңіз: сызық қай жерде тұтас, "
+                "қай жерде әлі назар сұрайды?"
             )
         if late:
             return (
@@ -600,8 +603,8 @@ def _point_sequence_practice_hint(point_index: int, points_count: int, language:
         )
     if is_last:
         return (
-            "First gather the feeling of all points you have already passed. Then add the last point and notice "
-            "whether the meridian closes into one line or still asks for attention somewhere."
+            "First gather the feeling of all points you have already passed. Then add the last point and pass "
+            "through the whole channel from beginning to end: where does the line feel whole, and where does it still ask for attention?"
         )
     if late:
         return (
@@ -710,18 +713,6 @@ def _point_setup_practice_hint(source_location: str, language: str) -> str:
     return ""
 
 
-def _point_stage_practice_hint(point_index: int, points_count: int, language: str) -> str:
-    """Return a short cue for the user's place inside the meridian sequence."""
-    if points_count <= 0 or point_index < points_count - 1:
-        return ""
-    return {
-        "ru": "После этого пройдите вниманием весь канал от первой точки до последней и отметьте, где линия стала цельной, а где ещё просит внимания.",
-        "en": "After that, pass through the whole channel from the first point to the last and notice where the line feels whole or still asks for attention.",
-        "uz": "Shundan keyin butun kanalni birinchi nuqtadan oxirgisigacha diqqat bilan bosib o'ting va chiziq qayerda yaxlit, qayerda yana e'tibor so'rashini kuzating.",
-        "kz": "Содан кейін бүкіл арнаны бірінші нүктеден соңғысына дейін зейінмен өтіп, сызық қай жерде тұтас, қай жерде әлі назар сұрайтынын байқаңыз.",
-    }.get(language, "")
-
-
 def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: str = "en") -> str:
     """Format a meridian point for meditation practice."""
     points = meridian.get("points", [])
@@ -744,9 +735,6 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     setup_hint = _point_setup_practice_hint(source_location, language)
     if setup_hint:
         practice_parts.append(setup_hint)
-    stage_hint = _point_stage_practice_hint(point_index, len(points), language)
-    if stage_hint:
-        practice_parts.append(stage_hint)
     practice_note = escape(" ".join(practice_parts))
 
     labels = {
