@@ -658,7 +658,10 @@ def audit() -> list[str]:
                 for label in row:
                     if has_cyrillic(label):
                         issues.append(f"{meridian['id']}/{language}: Cyrillic leaked into point-list button: {label}")
-        for point in meridian.get("points", []):
+        for index, point in enumerate(meridian.get("points", [])):
+            for language, localized_point in point.get("i18n", {}).items():
+                if "meaning" in localized_point:
+                    issues.append(f"{meridian['id']} point {index + 1}/{language}: raw source meaning should not be stored in user-facing meridians.json")
             image_name = point.get("image")
             if not image_name:
                 issues.append(f"missing point image field: {meridian['id']} {point.get('code')}")

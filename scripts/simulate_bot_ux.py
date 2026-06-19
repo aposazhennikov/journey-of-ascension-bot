@@ -610,6 +610,9 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 issues.append(f"{meridian_id} point {index + 1}: non-normalized point code {point['code']!r}")
             if not point.get("image"):
                 issues.append(f"{meridian_id} point {index + 1}: missing simulator image")
+            for language, localized_point in point.get("raw", {}).get("i18n", {}).items():
+                if "meaning" in localized_point:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: raw source meaning should not be stored in user-facing meridians.json")
             for language in LANGUAGES:
                 detail = point["detail"][language]
                 plain = strip_html(detail)
