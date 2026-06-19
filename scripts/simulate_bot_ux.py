@@ -1516,8 +1516,15 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator settings screen is not mode-aware")
     if "function renderSettingsSnapshot()" not in html or "Current practice rhythm" not in html or "Текущий ритм практики" not in html:
         issues.append("browser simulator settings screen does not show the current practice rhythm snapshot")
-    if "new URLSearchParams(window.location.search)" not in html or "openScenario(requestedScenario)" not in html:
+    if (
+        "new URLSearchParams(window.location.search)" not in html
+        or "normalizeScenario(requestedScenario)" not in html
+        or "openScenario(normalizedScenario)" not in html
+    ):
         issues.append("browser simulator does not support direct scenario URLs")
+    for scenario_alias in ("current-point", "all-points", "choose-meridian", "meridian-path", "point-help", "setup-complete"):
+        if f"'{scenario_alias}'" not in html:
+            issues.append(f"browser simulator is missing direct URL alias {scenario_alias}")
     return issues
 
 
@@ -2219,7 +2226,20 @@ def build_html() -> str:
       state.language = languageSelect.value;
       render();
     }});
+    function normalizeScenario(scenario) {{
+      const aliases = {{
+        'current-point': 'currentPoint',
+        'all-points': 'allPoints',
+        'choose-meridian': 'chooseMeridian',
+        'meridian-path': 'meridianPath',
+        'point-help': 'pointHelp',
+        'setup-complete': 'setupComplete',
+      }};
+      return aliases[scenario] || scenario;
+    }}
+
     function openScenario(scenario) {{
+      scenario = normalizeScenario(scenario);
       if (scenario === 'currentPoint') {{
         resetState();
         state.principlesEnabled = true;
@@ -2313,8 +2333,9 @@ def build_html() -> str:
       state.language = requestedLanguage;
     }}
     if (requestedScenario) {{
-      scenarioSelect.value = requestedScenario;
-      openScenario(requestedScenario);
+      const normalizedScenario = normalizeScenario(requestedScenario);
+      scenarioSelect.value = normalizedScenario;
+      openScenario(normalizedScenario);
     }} else {{
       render();
     }}

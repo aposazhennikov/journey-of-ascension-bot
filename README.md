@@ -219,6 +219,9 @@ http://127.0.0.1:8766/tmp/ux_simulator.html
 ```text
 http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&scenario=noviceMeridians
 http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&scenario=noviceFirstPoint
+http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&scenario=current-point
+http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&scenario=all-points
+http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&scenario=choose-meridian
 ```
 
 Важно: запускайте `http.server` из корня проекта. Если отдавать только папку `tmp`, HTML откроется, но изображения из `images/meridians` не загрузятся.
