@@ -1344,11 +1344,9 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 if index == len(meridian["points"]) - 1 and duplicate_final_markers[language] in plain:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: final review cue is duplicated")
 
-    for item in meridians:
-        if item["pointsCount"] == 0:
-            for language in LANGUAGES:
-                if not texts[language].get("coming_soon"):
-                    issues.append(f"{language}: missing coming_soon label for unavailable meridians")
+    empty_meridians = [item["id"] for item in meridians if item["pointsCount"] == 0]
+    if empty_meridians:
+        issues.append(f"all meridians should be available in v1, empty point lists: {empty_meridians}")
 
     for language in LANGUAGES:
         long_buttons = []
@@ -1604,7 +1602,6 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             'callback_data=f"meridian_points_page:{page - 1}"': 'action.startswith("points_page:")',
             'callback_data=f"meridian_points_page:{page + 1}"': 'action.startswith("points_page:")',
             'f"meridian_select:{meridian.get(\'id\')}"': 'action.startswith("select:")',
-            'f"meridian_unavailable:{meridian.get(\'id\')}"': 'action.startswith("unavailable:")',
             'f"meridian_point:{index}"': 'action.startswith("point:")',
         }
         for callback_marker, handler_marker in meridian_callback_contract.items():
