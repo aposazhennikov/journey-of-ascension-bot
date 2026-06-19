@@ -3762,11 +3762,17 @@ class BotHandlers:
             ])
         if total_pages > 1:
             navigation = []
+            labels = {
+                "en": ("◀️ Previous 10", "Page", "Next 10 ▶️"),
+                "ru": ("◀️ Предыдущие 10", "Стр.", "Следующие 10 ▶️"),
+                "uz": ("◀️ Oldingi 10", "Sahifa", "Keyingi 10 ▶️"),
+                "kz": ("◀️ Алдыңғы 10", "Бет", "Келесі 10 ▶️"),
+            }.get(language, ("◀️ Previous 10", "Page", "Next 10 ▶️"))
             if page > 0:
-                navigation.append(InlineKeyboardButton("◀️ 10", callback_data=f"meridian_points_page:{page - 1}"))
-            navigation.append(InlineKeyboardButton(f"{page + 1}/{total_pages}", callback_data="meridian_noop"))
+                navigation.append(InlineKeyboardButton(labels[0], callback_data=f"meridian_points_page:{page - 1}"))
+            navigation.append(InlineKeyboardButton(f"{labels[1]} {page + 1}/{total_pages}", callback_data="meridian_noop"))
             if page < total_pages - 1:
-                navigation.append(InlineKeyboardButton("10 ▶️", callback_data=f"meridian_points_page:{page + 1}"))
+                navigation.append(InlineKeyboardButton(labels[2], callback_data=f"meridian_points_page:{page + 1}"))
             keyboard.append(navigation)
         keyboard.append([InlineKeyboardButton(self._get_text("back_to_current_focus", language), callback_data="meridian_current")])
         return InlineKeyboardMarkup(keyboard)

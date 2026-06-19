@@ -1148,6 +1148,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("meridian point-help screen does not use the safe reference keyboard")
     if "if (state.currentMeridianId) buttons.push" not in simulator_source:
         issues.append("simulator point-help screen always shows current focus even when none is selected")
+    if '"◀️ 10"' in handlers_source or '"10 ▶️"' in handlers_source:
+        issues.append("Telegram point-list pagination uses technical 10-only labels")
     callback_values = sorted(set(re.findall(r"callback_data=(?:f)?[\"']([^\"']+)", handlers_source)))
     callback_patterns = [
         re.compile(ast.literal_eval(match))
@@ -1288,6 +1290,8 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator state panel shows a fallback meridian when no current focus is selected")
     if "Смягчите живот и таз" not in html or "Soften the belly and pelvis" not in html:
         issues.append("browser simulator point cards do not include body-area practice cues")
+    if "label: '◀️ 10'" in html or "label: '10 ▶️'" in html:
+        issues.append("browser simulator point-list pagination uses technical 10-only labels")
     if "const timeRow = []" not in html or "state.principlesEnabled" not in html or "state.meridiansEnabled" not in html:
         issues.append("browser simulator settings screen is not mode-aware")
     return issues
@@ -1779,15 +1783,21 @@ def build_html() -> str:
       const totalPages = Math.max(1, Math.ceil(item.points.length / pageSize));
       state.currentPointsPage = Math.max(0, Math.min(state.currentPointsPage, totalPages - 1));
       const start = state.currentPointsPage * pageSize;
+      const pageLabels = {{
+        en: ['◀️ Previous 10', 'Page', 'Next 10 ▶️'],
+        ru: ['◀️ Предыдущие 10', 'Стр.', 'Следующие 10 ▶️'],
+        uz: ['◀️ Oldingi 10', 'Sahifa', 'Keyingi 10 ▶️'],
+        kz: ['◀️ Алдыңғы 10', 'Бет', 'Келесі 10 ▶️'],
+      }}[state.language] || ['◀️ Previous 10', 'Page', 'Next 10 ▶️'];
       const buttons = item.points.slice(start, start + pageSize).map((point, offset) => {{
         const index = start + offset;
         return [{{ label: `${{index + 1}}. ${{point.code}} ${{point.names[state.language]}}`, action: () => {{ state.currentPointIndex = index; setScreen('currentMeridian'); }} }}];
       }});
       if (totalPages > 1) {{
         const nav = [];
-        if (state.currentPointsPage > 0) nav.push({{ label: '◀️ 10', action: () => {{ state.currentPointsPage -= 1; setScreen('allPoints'); }} }});
-        nav.push({{ label: `${{state.currentPointsPage + 1}}/${{totalPages}}`, action: () => {{}} }});
-        if (state.currentPointsPage < totalPages - 1) nav.push({{ label: '10 ▶️', action: () => {{ state.currentPointsPage += 1; setScreen('allPoints'); }} }});
+        if (state.currentPointsPage > 0) nav.push({{ label: pageLabels[0], action: () => {{ state.currentPointsPage -= 1; setScreen('allPoints'); }} }});
+        nav.push({{ label: `${{pageLabels[1]}} ${{state.currentPointsPage + 1}}/${{totalPages}}`, action: () => {{}} }});
+        if (state.currentPointsPage < totalPages - 1) nav.push({{ label: pageLabels[2], action: () => {{ state.currentPointsPage += 1; setScreen('allPoints'); }} }});
         buttons.push(nav);
       }}
       buttons.push([{{ label: t('back_to_current_focus'), action: () => setScreen('currentMeridian') }}]);
