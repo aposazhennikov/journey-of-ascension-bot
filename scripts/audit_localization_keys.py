@@ -9,6 +9,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("en", "ru", "uz", "kz")
+DEPRECATED_TEXT_KEYS = ("feedback_request", "feedback_received", "skip_days_saved")
 
 
 def _load_texts_and_tree() -> tuple[dict[str, dict[str, str]], ast.AST]:
@@ -26,6 +27,9 @@ def _load_texts_and_tree() -> tuple[dict[str, dict[str, str]], ast.AST]:
     for updates in (values.get("TEXTS_UPDATE", {}), values.get("LIVE_TEXT_OVERRIDES", {})):
         for language, language_updates in updates.items():
             texts.setdefault(language, {}).update(language_updates)
+    for language_texts in texts.values():
+        for key in DEPRECATED_TEXT_KEYS:
+            language_texts.pop(key, None)
     return texts, tree
 
 

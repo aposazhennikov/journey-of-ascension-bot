@@ -19,6 +19,7 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("en", "ru", "uz", "kz")
+DEPRECATED_TEXT_KEYS = ("feedback_request", "feedback_received", "skip_days_saved")
 POINTS_PAGE_SIZE = 7
 EXPECTED_POINT_COUNTS = {
     "lung": 11,
@@ -88,6 +89,9 @@ def load_texts() -> dict[str, dict[str, str]]:
     overrides = values.get("LIVE_TEXT_OVERRIDES", {})
     for language, language_overrides in overrides.items():
         texts.setdefault(language, {}).update(language_overrides)
+    for language_texts in texts.values():
+        for key in DEPRECATED_TEXT_KEYS:
+            language_texts.pop(key, None)
     return texts
 
 

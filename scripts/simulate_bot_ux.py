@@ -21,6 +21,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("en", "ru", "uz", "kz")
+DEPRECATED_TEXT_KEYS = ("feedback_request", "feedback_received", "skip_days_saved")
 OBSERVATION_LABELS = {
     "en": "Observe:",
     "ru": "Наблюдение:",
@@ -139,6 +140,9 @@ def load_texts() -> dict[str, dict[str, str]]:
     overrides = values.get("LIVE_TEXT_OVERRIDES", {})
     for language, language_overrides in overrides.items():
         texts.setdefault(language, {}).update(language_overrides)
+    for language_texts in texts.values():
+        for key in DEPRECATED_TEXT_KEYS:
+            language_texts.pop(key, None)
     return texts
 
 
@@ -946,6 +950,11 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{language}: {key} contains stiff generated phrasing {pattern!r}")
 
         raw_language_texts = text_definitions.get("TEXTS", {}).get(language, {})
+        for deprecated_key in DEPRECATED_TEXT_KEYS:
+            if deprecated_key in raw_language_texts:
+                issues.append(f"{language}: raw TEXTS still contains deprecated key {deprecated_key!r}")
+            if deprecated_key in language_texts:
+                issues.append(f"{language}: final TEXTS still contains deprecated key {deprecated_key!r}")
         for key in visible_keys:
             value = raw_language_texts.get(key, "")
             if "**" in value:

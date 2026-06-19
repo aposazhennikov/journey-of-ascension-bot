@@ -664,7 +664,6 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'Bot kundalik amaliyot eslatmalarini yubormaydigan hafta kunlarini tanlang.\n'
                           '\n'
                           "Har kuni ritm kerak bo'lsa, kunlarni tanlamang.",
-        'skip_days_saved': "✅ O'tkazib yuborish kunlari saqlandi!",
         'setup_complete': '🎉 <b>Amaliyot ritmingiz tayyor.</b>\n'
                           '\n'
                           '📋 <b>Hozir nimalar faol:</b>\n'
@@ -727,15 +726,6 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                       'nafas, teginish va diqqat.\n'
                       '\n'
                       "Kichik takrorlar muhim. Ular g'oyani yashash mumkin bo'lgan odatga aylantiradi.",
-        'feedback_request': '💌 <b>Fikr va takliflaringiz</b>\n'
-                            '\n'
-                            'Botni yaxshilash uchun fikrlaringizni yuboring:\n'
-                            "• Qanday xususiyatlar qo'shilsin?\n"
-                            "• Nimani o'zgartirish kerak?\n"
-                            '• Umumiy taassurotlaringiz\n'
-                            '\n'
-                            'Xabaringizni yozing:',
-        'feedback_received': "✅ Rahmat! Sizning fikringiz qabul qilindi va ko'rib chiqiladi.",
         'feedback_too_long': '❌ Xabar juda uzun. Iltimos, 1000 belgidan oshirmang.',
         'feedback_rate_limit': '⏰ Keyingi fikrni yuborishdan oldin biroz kuting.',
         'feedback_error': "❌ Fikringizni saqlab bo'lmadi. Iltimos, keyinroq urinib ko'ring.",
@@ -976,7 +966,6 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'Бот күнделікті тәжірибе еске салуларын жібермейтін апта күндерін таңдаңыз.\n'
                           '\n'
                           'Күн сайынғы ырғақ керек болса, күндерді таңдамаңыз.',
-        'skip_days_saved': '✅ Өткізіп жіберу күндері сақталды!',
         'setup_complete': '🎉 <b>Тәжірибе ырғағы дайын.</b>\n'
                           '\n'
                           '📋 <b>Қазір не белсенді:</b>\n'
@@ -1040,15 +1029,6 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                       '\n'
                       'Кішкентай қайталаулар маңызды. Олар идеяны өмірде қолдануға болатын дағдыға '
                       'айналдырады.',
-        'feedback_request': '💌 <b>Пікірлер мен ұсыныстарыңыз</b>\n'
-                            '\n'
-                            'Ботты жақсарту үшін пікірлеріңізді жіберіңіз:\n'
-                            '• Қандай мүмкіндіктер қосылсын?\n'
-                            '• Нені өзгерту керек?\n'
-                            '• Жалпы әсерлеріңіз\n'
-                            '\n'
-                            'Хабарыңызды жазыңыз:',
-        'feedback_received': '✅ Рахмет! Сіздің пікіріңіз қабылданды және қаралады.',
         'feedback_too_long': '❌ Хабар тым ұзын. 1000 таңбадан асырмаңыз.',
         'feedback_rate_limit': '⏰ Келесі пікірді жібермес бұрын сәл күтіңіз.',
         'feedback_error': '❌ Пікіріңізді сақтау мүмкін болмады. Кейінірек қайталап көріңіз.',
@@ -2273,6 +2253,11 @@ for _language, _updates in TEXTS_UPDATE.items():
 
 for _language, _updates in LIVE_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
+
+DEPRECATED_TEXT_KEYS = ("feedback_request", "feedback_received", "skip_days_saved")
+for _language_texts in TEXTS.values():
+    for _key in DEPRECATED_TEXT_KEYS:
+        _language_texts.pop(_key, None)
 
 
 class BotHandlers:
