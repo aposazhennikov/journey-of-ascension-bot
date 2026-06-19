@@ -735,8 +735,7 @@ def render(output: Path) -> None:
     function renderMeridians() {{
       show('Meridians', fmt(t('meridians_menu')), [
         [{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}],
-        [{{ label: t('meridian_change_path'), action: () => setScreen('meridianPath') }}],
-        [{{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}],
+        [{{ label: t('meridian_change_path'), action: () => setScreen('meridianPath') }}, {{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
       ]);
     }}
@@ -745,7 +744,7 @@ def render(output: Path) -> None:
       show('Path', fmt(t('meridian_mode_menu')), [
         [{{ label: t('meridian_guided_path'), action: () => {{ state.learningMode = 'guided'; state.currentMeridianId = firstReadyMeridian().id; setScreen('currentMeridian'); }} }}],
         [{{ label: t('meridian_free_choice'), action: () => {{ state.learningMode = 'free'; setScreen('chooseMeridian'); }} }}],
-        [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
+        [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
       ]);
     }}
 

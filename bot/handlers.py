@@ -658,7 +658,7 @@ TEXTS_UPDATE = {
         "meridian_change_path": "🧭 Study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
-        "meridian_measurements": "📏 How to measure cun",
+        "meridian_measurements": "📏 Measure cun",
         "meridian_back": "🔙 Back to meridians",
         "coming_soon": "soon",
         "meridian_measurements_text": (
@@ -677,9 +677,10 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
             "Meridians are a map for learning how attention lives in the body. In Traditional Chinese Medicine they are described as channels through which Qi moves.\n\n"
-            "The practice is simple: choose a path, open the current point, look at its image, and learn to recognize the body's response through touch, breath, and attention.\n\n"
+            "Here you can either follow the recommended path or choose any meridian yourself. Then open the current point, look at its location image, and learn to recognize the body's response through touch, breath, and attention.\n\n"
+            "If a point description uses cun, open the measurement guide first. It explains how to estimate 0.5, 1, 1.5, 3, and 5 cun on the body.\n\n"
             "This does not replace medical diagnosis or treatment. It is a practice of awareness, prevention, and inner discipline.\n\n"
-            "Choose one action below."
+            "Start with the action that is useful right now."
         ),
         "choose_meridian": "☯️ <b>Choose a meridian:</b>",
         "current_meridian": "▶️ Continue practice",
@@ -801,10 +802,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Идти по нашему пути",
         "meridian_free_choice": "👐 Изучать самостоятельно",
-        "meridian_change_path": "🧭 Путь изучения",
+        "meridian_change_path": "🧭 Как изучать",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
-        "meridian_measurements": "📏 Как измерять цуни",
+        "meridian_measurements": "📏 Как мерить цуни",
         "meridian_back": "🔙 К меридианам",
         "coming_soon": "скоро",
         "meridian_measurements_text": (
@@ -823,9 +824,10 @@ TEXTS_UPDATE = {
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
             "Меридианы — это карта, через которую можно учиться чувствовать, как внимание живёт в теле. В традиционной китайской медицине они описываются как каналы, по которым движется Ци.\n\n"
-            "Практика простая: выберите путь, откройте текущую точку, посмотрите её расположение на изображении и учитесь узнавать отклик тела через касание, дыхание и внимание.\n\n"
+            "Здесь можно идти по рекомендованному пути или выбрать любой меридиан самостоятельно. Затем открывайте текущую точку, смотрите её расположение на изображении и учитесь узнавать отклик тела через касание, дыхание и внимание.\n\n"
+            "Если в описании точки встречаются цуни, сначала откройте справку по измерениям. Там объясняется, как отмерять 0,5, 1, 1,5, 3 и 5 цуней на теле.\n\n"
             "Эта практика не заменяет медицинскую диагностику и лечение. Это инструмент осознанности, профилактики и внутренней дисциплины.\n\n"
-            "Выберите одно действие ниже."
+            "Начните с того действия, которое сейчас нужно."
         ),
         "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
         "current_meridian": "▶️ Продолжить практику",
@@ -947,10 +949,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Yo'l bo'yicha",
         "meridian_free_choice": "👐 Mustaqil o'rganish",
-        "meridian_change_path": "🧭 O'rganish yo'li",
+        "meridian_change_path": "🧭 Yo'l tanlash",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
-        "meridian_measurements": "📏 Cunni qanday o'lchash",
+        "meridian_measurements": "📏 Cunni o'lchash",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "coming_soon": "tez orada",
         "meridian_measurements_text": (
@@ -969,9 +971,10 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
             "Meridianlar diqqat tanada qanday yashashini sezishga yordam beradigan xaritadir. An'anaviy xitoy tibbiyotida ular Qi harakatlanadigan kanallar sifatida tasvirlanadi.\n\n"
-            "Amaliyot oddiy: yo'lni tanlang, joriy nuqtani oching, rasmdagi joylashuvini ko'ring va tananing javobini teginish, nafas va diqqat orqali tanishni o'rganing.\n\n"
+            "Bu yerda tavsiya etilgan yo'l bo'yicha yurishingiz yoki istalgan meridianni mustaqil tanlashingiz mumkin. Keyin joriy nuqtani oching, rasmdagi joylashuvini ko'ring va tananing javobini teginish, nafas va diqqat orqali tanishni o'rganing.\n\n"
+            "Agar nuqta tavsifida cun uchrasa, avval o'lchovlar bo'yicha ma'lumotni oching. Unda tanada 0,5, 1, 1,5, 3 va 5 cunni qanday taxmin qilish tushuntirilgan.\n\n"
             "Bu amaliyot tibbiy tashxis va davolanishni almashtirmaydi. U ongli kuzatuv, profilaktika va ichki intizom vositasidir.\n\n"
-            "Quyida bitta amalni tanlang."
+            "Hozir kerak bo'lgan amalni tanlang."
         ),
         "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
         "current_meridian": "▶️ Amaliyotni davom ettirish",
@@ -1107,10 +1110,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Біздің жолмен",
         "meridian_free_choice": "👐 Өз бетімше",
-        "meridian_change_path": "🧭 Зерттеу жолы",
+        "meridian_change_path": "🧭 Жол таңдау",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
-        "meridian_measurements": "📏 Цуньді қалай өлшеу",
+        "meridian_measurements": "📏 Цунь өлшеу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "coming_soon": "жақында",
         "meridian_measurements_text": (
@@ -1129,9 +1132,10 @@ TEXTS_UPDATE = {
             "☯️ <b>Меридиандар</b>\n\n"
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
             "Меридиандар зейіннің денеде қалай өмір сүретінін сезуге көмектесетін карта. Дәстүрлі қытай медицинасында олар Ци қозғалатын арналар ретінде сипатталады.\n\n"
-            "Тәжірибе қарапайым: жолды таңдаңыз, ағымдағы нүктені ашыңыз, суреттегі орналасуын көріңіз және дененің жауабын жанасу, тыныс пен зейін арқылы тануды үйреніңіз.\n\n"
+            "Мұнда ұсынылған жолмен жүруге немесе кез келген меридианды өзіңіз таңдауға болады. Содан кейін ағымдағы нүктені ашып, суреттегі орналасуын көріңіз және дененің жауабын жанасу, тыныс пен зейін арқылы тануды үйреніңіз.\n\n"
+            "Егер нүкте сипаттамасында цунь кездессе, алдымен өлшемдер туралы анықтаманы ашыңыз. Онда денеде 0,5, 1, 1,5, 3 және 5 цуньді қалай шамалауға болатыны түсіндіріледі.\n\n"
             "Бұл тәжірибе медициналық диагностика мен емді алмастырмайды. Ол саналылық, алдын алу және ішкі тәртіп құралы ретінде қолданылады.\n\n"
-            "Төменнен бір әрекетті таңдаңыз."
+            "Қазір қажет әрекетті таңдаңыз."
         ),
         "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
         "current_meridian": "▶️ Тәжірибені жалғастыру",
@@ -2643,8 +2647,10 @@ class BotHandlers:
         """Create compact meridians section keyboard."""
         return InlineKeyboardMarkup([
             [InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")],
-            [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
-            [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
+            [
+                InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path"),
+                InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")
+            ],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
@@ -2689,7 +2695,7 @@ class BotHandlers:
         return InlineKeyboardMarkup([
             [InlineKeyboardButton(self._get_text("meridian_guided_path", language), callback_data="meridian_path:guided")],
             [InlineKeyboardButton(self._get_text("meridian_free_choice", language), callback_data="meridian_path:free")],
-            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+            [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
         ])
 
     def _create_meridian_choice_keyboard(self, language: str) -> InlineKeyboardMarkup:
@@ -2819,12 +2825,8 @@ class BotHandlers:
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
             elif action == "meridians":
-                if not getattr(user, "meridian_learning_mode", None):
-                    text = self._get_text("meridian_mode_menu", language)
-                    keyboard = self._create_meridian_path_keyboard(language)
-                else:
-                    text = self._get_text("meridians_menu", language)
-                    keyboard = self._create_meridians_menu_keyboard(language)
+                text = self._get_text("meridians_menu", language)
+                keyboard = self._create_meridians_menu_keyboard(language)
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                 
             elif action == "test":
@@ -3133,12 +3135,8 @@ class BotHandlers:
                 return
 
             if action == "main":
-                if not getattr(user, "meridian_learning_mode", None):
-                    text = self._get_text("meridian_mode_menu", language)
-                    keyboard = self._create_meridian_path_keyboard(language)
-                else:
-                    text = self._get_text("meridians_menu", language)
-                    keyboard = self._create_meridians_menu_keyboard(language)
+                text = self._get_text("meridians_menu", language)
+                keyboard = self._create_meridians_menu_keyboard(language)
                 await self._edit_message_text_safe(query,
                     text,
                     reply_markup=keyboard,
@@ -3193,6 +3191,15 @@ class BotHandlers:
                     self._create_meridian_practice_keyboard(language, at_intro=True),
                     language,
                     meridian.get("id")
+                )
+                return
+
+            if action == "current" and not getattr(user, "meridian_learning_mode", None):
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("meridian_mode_menu", language),
+                    reply_markup=self._create_meridian_path_keyboard(language),
+                    parse_mode='HTML'
                 )
                 return
 
