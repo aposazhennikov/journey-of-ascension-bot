@@ -1581,6 +1581,17 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     for phrase in dry_setup_phrases:
         if phrase in handlers_source:
             issues.append(f"setup completion still contains dry phrase: {phrase!r}")
+    dry_user_error_phrases = (
+        "Something went wrong. Please try again.",
+        "Что-то пошло не так. Попробуйте ещё раз.",
+        "Nimadir noto'g'ri ketdi. Iltimos, qayta urinib ko'ring.",
+        "Бір нәрсе дұрыс болмады. Қайтадан көріңіз.",
+        "I could not save the settings. Please try again.",
+        "Не удалось сохранить настройки. Попробуйте ещё раз.",
+    )
+    for phrase in dry_user_error_phrases:
+        if phrase in handlers_source:
+            issues.append(f"visible user error still sounds mechanical: {phrase!r}")
     setup_markers = (
         "The other principles are not paused",
         "Остальные принципы не выключаются",

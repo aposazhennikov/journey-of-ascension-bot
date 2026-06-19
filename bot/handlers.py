@@ -79,14 +79,14 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'not_subscribed': 'The bot is not active for this chat yet. Use /start when you want to begin.',
         'current_settings': '⚙️ <b>Current practice rhythm</b>',
         'not_subscribed_test': "You're not subscribed yet. Use /start to begin.",
-        'test_failed': 'I could not send the test message.',
+        'test_failed': 'I could not send the test message right now. Please try again a little later.',
         'invalid_timezone': '❌ I could not recognize this time zone. Try a format like Europe/Moscow, '
                             'Asia/Tashkent, Asia/Almaty, or UTC.',
         'invalid_time': '❌ I could not recognize this time. Use HH:MM, for example 08:00 or 20:30.',
         'invalid_skip_days': '❌ I could not recognize these days. Use numbers from 0 to 6 separated by '
                              'commas.',
-        'setup_error': '❌ I could not save the settings. Please try again.',
-        'error': 'Something went wrong. Please try again.',
+        'setup_error': '❌ I could not save this yet. Please try once more; your practice rhythm is worth setting carefully.',
+        'error': 'Something interrupted the flow. Please try once more, or return to /menu.',
         'choose_language': 'Choose the language you want to use:',
         'english': '🇺🇸 English',
         'russian': '🇷🇺 Русский',
@@ -201,7 +201,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'principles_random': 'Random principle',
         'principles_all': 'All principles',
         'principles_back': '🔙 Back to Yama/Niyama',
-        'principles_empty': 'Principles are not available yet.',
+        'principles_empty': 'The principles did not open right now. Please return to Yama/Niyama or try again from /menu.',
         'change_modes': '🧭 My Path',
         'change_meridian_time': '☯️ Meridian Time',
         'mode_menu': '🧭 <b>My Path</b>\n'
@@ -322,8 +322,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'prev_point': 'Previous point',
         'complete_meridian': 'Complete meridian',
         'select_meridian': 'Choose meridian',
-        'no_points': 'I could not open the points for this meridian right now. Please return to the meridian '
-                     'list or try again later.',
+        'no_points': 'The points did not open right now. Return to the meridian list and try again from there.',
         'meridian_completed': (
             '✅ <b>Meridian completed</b>\n\n'
             'Before moving on, pass through the whole channel once more with attention: from the first point to the last. '
@@ -390,13 +389,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'not_subscribed': 'Бот сейчас не активен для этого чата. Используйте /start, когда захотите начать.',
         'current_settings': '⚙️ <b>Текущий ритм практики</b>',
         'not_subscribed_test': 'Вы пока не подписаны. Используйте /start, чтобы начать.',
-        'test_failed': 'Не удалось отправить тестовое сообщение.',
+        'test_failed': 'Сейчас не получилось отправить тестовое сообщение. Попробуйте немного позже.',
         'invalid_timezone': '❌ Не удалось распознать часовой пояс. Попробуйте формат Europe/Moscow, '
                             'Asia/Tashkent, Asia/Almaty или UTC.',
         'invalid_time': '❌ Не удалось распознать время. Используйте формат ЧЧ:ММ, например 08:00 или 20:30.',
         'invalid_skip_days': '❌ Не удалось распознать дни. Используйте числа от 0 до 6 через запятую.',
-        'setup_error': '❌ Не удалось сохранить настройки. Попробуйте ещё раз.',
-        'error': 'Что-то пошло не так. Попробуйте ещё раз.',
+        'setup_error': '❌ Пока не получилось сохранить настройки. Попробуйте ещё раз: ритм практики лучше настроить спокойно и точно.',
+        'error': 'Поток прервался. Попробуйте ещё раз или вернитесь в /menu.',
         'choose_language': 'Выберите язык, на котором хотите использовать бота:',
         'english': '🇺🇸 English',
         'russian': '🇷🇺 Русский',
@@ -512,7 +511,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'principles_random': 'Случайный принцип',
         'principles_all': 'Все принципы',
         'principles_back': '🔙 К Яме/Нияме',
-        'principles_empty': 'Принципы пока недоступны.',
+        'principles_empty': 'Сейчас принципы не открылись. Вернитесь к Яме/Нияме или попробуйте снова из /menu.',
         'change_modes': '🧭 Мой путь',
         'change_meridian_time': '☯️ Время меридианов',
         'mode_menu': '🧭 <b>Мой путь</b>\n'
@@ -636,8 +635,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'prev_point': 'Предыдущая точка',
         'complete_meridian': 'Завершить меридиан',
         'select_meridian': 'Выбрать меридиан',
-        'no_points': 'Сейчас не удалось открыть точки этого меридиана. Вернитесь к списку меридианов или '
-                     'попробуйте позже.',
+        'no_points': 'Сейчас точки не открылись. Вернитесь к списку меридианов и попробуйте ещё раз оттуда.',
         'meridian_completed': (
             '✅ <b>Меридиан завершён</b>\n\n'
             'Перед тем как идти дальше, пройдите вниманием весь канал ещё раз: от первой точки до последней. '
@@ -705,14 +703,14 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'not_subscribed': "Bot bu chatda hali faol emas. Boshlamoqchi bo'lsangiz, /start dan foydalaning.",
         'current_settings': '⚙️ <b>Joriy amaliyot ritmi</b>',
         'not_subscribed_test': "Siz hali obuna bo'lmagansiz. Boshlash uchun /start dan foydalaning.",
-        'test_failed': "Test xabarini yuborib bo'lmadi.",
+        'test_failed': "Hozir test xabarini yubora olmadim. Birozdan keyin qayta urinib ko'ring.",
         'invalid_timezone': '❌ Bu vaqt mintaqasini taniy olmadim. Asia/Tashkent, Europe/Moscow, Asia/Almaty '
                             "yoki UTC kabi formatni sinab ko'ring.",
         'invalid_time': '❌ Bu vaqtni taniy olmadim. HH:MM formatidan foydalaning, masalan 08:00 yoki 20:30.',
         'invalid_skip_days': "❌ Kunlarni taniy olmadim. 0 dan 6 gacha bo'lgan raqamlarni vergul bilan "
                              'kiriting.',
-        'setup_error': "❌ Sozlamalarni saqlab bo'lmadi. Iltimos, qayta urinib ko'ring.",
-        'error': "Nimadir noto'g'ri ketdi. Iltimos, qayta urinib ko'ring.",
+        'setup_error': "❌ Hozircha sozlamalarni saqlay olmadim. Yana bir marta urinib ko'ring: amaliyot ritmini sokin va aniq sozlagan yaxshi.",
+        'error': "Jarayon uzilib qoldi. Yana bir marta urinib ko'ring yoki /menu ga qayting.",
         'choose_language': 'Botdan qaysi tilda foydalanishni tanlang:',
         'english': '🇺🇸 English',
         'russian': '🇷🇺 Русский',
@@ -816,7 +814,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'principles_random': 'Tasodifiy tamoyil',
         'principles_all': 'Barcha tamoyillar',
         'principles_back': '🔙 Yama/Niyamaga qaytish',
-        'principles_empty': 'Tamoyillar hozircha mavjud emas.',
+        'principles_empty': "Hozir tamoyillar ochilmadi. Yama/Niyamaga qayting yoki /menu dan qayta urinib ko'ring.",
         'change_modes': "🧭 Mening yo'lim",
         'change_meridian_time': '☯️ Meridian vaqti',
         'mode_menu': "🧭 <b>Mening yo'lim</b>\n"
@@ -940,8 +938,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'prev_point': 'Oldingi nuqta',
         'complete_meridian': 'Meridianni yakunlash',
         'select_meridian': 'Meridian tanlash',
-        'no_points': "Hozir bu meridian nuqtalarini ochib bo'lmadi. Meridianlar ro'yxatiga qayting yoki "
-                     "keyinroq urinib ko'ring.",
+        'no_points': "Hozir nuqtalar ochilmadi. Meridianlar ro'yxatiga qayting va u yerdan yana urinib ko'ring.",
         'meridian_completed': (
             "✅ <b>Meridian yakunlandi</b>\n\n"
             "Keyingi kanalga o'tishdan oldin butun kanalni yana bir marta diqqat bilan bosib chiqing: birinchi nuqtadan oxirgisigacha. "
@@ -1020,13 +1017,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'not_subscribed': 'Бұл чатта бот әлі белсенді емес. Бастау үшін /start қолданыңыз.',
         'current_settings': '⚙️ <b>Қазіргі тәжірибе ырғағы</b>',
         'not_subscribed_test': 'Сіз әлі жазылмағансыз. Бастау үшін /start қолданыңыз.',
-        'test_failed': 'Тест хабарын жіберу мүмкін болмады.',
+        'test_failed': 'Қазір тест хабарын жібере алмадым. Сәл кейін қайталап көріңіз.',
         'invalid_timezone': '❌ Бұл уақыт белдеуін тани алмадым. Asia/Almaty, Asia/Tashkent, Europe/Moscow '
                             'немесе UTC сияқты форматты қолданып көріңіз.',
         'invalid_time': '❌ Бұл уақытты тани алмадым. HH:MM форматын қолданыңыз, мысалы 08:00 немесе 20:30.',
         'invalid_skip_days': '❌ Күндерді тани алмадым. 0-ден 6-ға дейінгі сандарды үтірмен енгізіңіз.',
-        'setup_error': '❌ Баптауларды сақтай алмадым. Қайтадан көріңіз.',
-        'error': 'Бір нәрсе дұрыс болмады. Қайтадан көріңіз.',
+        'setup_error': '❌ Әзірге баптауларды сақтай алмадым. Қайтадан көріңіз: тәжірибе ырғағын тыныш әрі нақты қойған жақсы.',
+        'error': 'Жол үзіліп қалды. Қайтадан көріңіз немесе /menu бөліміне оралыңыз.',
         'choose_language': 'Ботты қай тілде қолданғыңыз келетінін таңдаңыз:',
         'english': '🇺🇸 English',
         'russian': '🇷🇺 Русский',
@@ -1131,7 +1128,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'principles_random': 'Кездейсоқ қағида',
         'principles_all': 'Барлық қағидалар',
         'principles_back': '🔙 Яма/Ниямаға қайту',
-        'principles_empty': 'Қағидалар әзірге қолжетімді емес.',
+        'principles_empty': 'Қазір қағидалар ашылмады. Яма/Ниямаға оралыңыз немесе /menu арқылы қайта көріңіз.',
         'change_modes': '🧭 Менің жолым',
         'change_meridian_time': '☯️ Меридиан уақыты',
         'mode_menu': '🧭 <b>Менің жолым</b>\n'
@@ -1252,8 +1249,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'prev_point': 'Алдыңғы нүкте',
         'complete_meridian': 'Меридианды аяқтау',
         'select_meridian': 'Меридиан таңдау',
-        'no_points': 'Қазір бұл меридианның нүктелерін ашу мүмкін болмады. Меридиандар тізіміне оралыңыз '
-                     'немесе кейінірек қайталап көріңіз.',
+        'no_points': 'Қазір нүктелер ашылмады. Меридиандар тізіміне оралып, сол жерден қайта көріңіз.',
         'meridian_completed': (
             "✅ <b>Меридиан аяқталды</b>\n\n"
             "Келесі арнаға өтпес бұрын, бүкіл арнаны зейінмен тағы бір рет өтіңіз: бірінші нүктеден соңғысына дейін. "
@@ -1429,7 +1425,7 @@ TEXTS_UPDATE = {
         "principles_random": "Random principle",
         "principles_all": "All principles",
         "principles_back": "🔙 Back to Yama/Niyama",
-        "principles_empty": "Principles are not available yet.",
+        "principles_empty": "The principles did not open right now. Please return to Yama/Niyama or try again from /menu.",
         "change_modes": "🧭 My Path",
         "change_meridian_time": "☯️ Meridian Time",
         "mode_menu": (
@@ -1508,7 +1504,7 @@ TEXTS_UPDATE = {
         "prev_point": "Previous point",
         "complete_meridian": "Complete meridian",
         "select_meridian": "Choose meridian",
-        "no_points": "I could not open the points for this meridian right now. Please return to the meridian list or try again later.",
+        "no_points": "The points did not open right now. Return to the meridian list and try again from there.",
         "meridian_completed": (
             "✅ <b>Meridian completed</b>\n\n"
             "Before moving on, pass through the whole channel once more with attention: from the first point to the last. "
@@ -1629,7 +1625,7 @@ TEXTS_UPDATE = {
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
         "principles_back": "🔙 К Яме/Нияме",
-        "principles_empty": "Принципы пока недоступны.",
+        "principles_empty": "Сейчас принципы не открылись. Вернитесь к Яме/Нияме или попробуйте снова из /menu.",
         "change_modes": "🧭 Мой путь",
         "change_meridian_time": "☯️ Время меридианов",
         "mode_menu": (
@@ -1708,7 +1704,7 @@ TEXTS_UPDATE = {
         "prev_point": "Предыдущая точка",
         "complete_meridian": "Завершить меридиан",
         "select_meridian": "Выбрать меридиан",
-        "no_points": "Сейчас не удалось открыть точки этого меридиана. Вернитесь к списку меридианов или попробуйте позже.",
+        "no_points": "Сейчас точки не открылись. Вернитесь к списку меридианов и попробуйте ещё раз оттуда.",
         "meridian_completed": (
             "✅ <b>Меридиан завершён</b>\n\n"
             "Перед тем как идти дальше, пройдите вниманием весь канал ещё раз: от первой точки до последней. "
@@ -1829,7 +1825,7 @@ TEXTS_UPDATE = {
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
         "principles_back": "🔙 Yama/Niyamaga qaytish",
-        "principles_empty": "Tamoyillar hozircha mavjud emas.",
+        "principles_empty": "Hozir tamoyillar ochilmadi. Yama/Niyamaga qayting yoki /menu dan qayta urinib ko'ring.",
         "change_modes": "🧭 Mening yo'lim",
         "change_meridian_time": "☯️ Meridian vaqti",
         "mode_menu": (
@@ -1908,7 +1904,7 @@ TEXTS_UPDATE = {
         "prev_point": "Oldingi nuqta",
         "complete_meridian": "Meridianni yakunlash",
         "select_meridian": "Meridian tanlash",
-        "no_points": "Hozir bu meridian nuqtalarini ochib bo'lmadi. Meridianlar ro'yxatiga qayting yoki keyinroq urinib ko'ring.",
+        "no_points": "Hozir nuqtalar ochilmadi. Meridianlar ro'yxatiga qayting va u yerdan yana urinib ko'ring.",
         "meridian_completed": (
             "✅ <b>Meridian yakunlandi</b>\n\n"
             "Keyingi kanalga o'tishdan oldin butun kanalni yana bir marta diqqat bilan bosib chiqing: birinchi nuqtadan oxirgisigacha. "
@@ -2043,7 +2039,7 @@ TEXTS_UPDATE = {
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
         "principles_back": "🔙 Яма/Ниямаға қайту",
-        "principles_empty": "Қағидалар әзірге қолжетімді емес.",
+        "principles_empty": "Қазір қағидалар ашылмады. Яма/Ниямаға оралыңыз немесе /menu арқылы қайта көріңіз.",
         "change_modes": "🧭 Менің жолым",
         "change_meridian_time": "☯️ Меридиан уақыты",
         "mode_menu": (
@@ -2122,7 +2118,7 @@ TEXTS_UPDATE = {
         "prev_point": "Алдыңғы нүкте",
         "complete_meridian": "Меридианды аяқтау",
         "select_meridian": "Меридиан таңдау",
-        "no_points": "Қазір бұл меридианның нүктелерін ашу мүмкін болмады. Меридиандар тізіміне оралыңыз немесе кейінірек қайталап көріңіз.",
+        "no_points": "Қазір нүктелер ашылмады. Меридиандар тізіміне оралып, сол жерден қайта көріңіз.",
         "meridian_completed": (
             "✅ <b>Меридиан аяқталды</b>\n\n"
             "Келесі арнаға өтпес бұрын, бүкіл арнаны зейінмен тағы бір рет өтіңіз: бірінші нүктеден соңғысына дейін. "
@@ -2195,9 +2191,9 @@ LIVE_TEXT_OVERRIDES = {
         "invalid_timezone": "❌ I could not recognize this time zone. Try a format like Europe/Moscow, Asia/Tashkent, Asia/Almaty, or UTC.",
         "invalid_time": "❌ I could not recognize this time. Use HH:MM, for example 08:00 or 20:30.",
         "invalid_skip_days": "❌ I could not recognize these days. Use numbers from 0 to 6 separated by commas.",
-        "setup_error": "❌ I could not save the settings. Please try again.",
-        "error": "Something went wrong. Please try again.",
-        "test_failed": "I could not send the test message.",
+        "setup_error": "❌ I could not save this yet. Please try once more; your practice rhythm is worth setting carefully.",
+        "error": "Something interrupted the flow. Please try once more, or return to /menu.",
+        "test_failed": "I could not send the test message right now. Please try again a little later.",
         "menu_settings": "⚙️ Settings",
         "menu_test": "🧪 Test message",
         "sending_test": "🧪 Sending a test message...",
@@ -2218,7 +2214,7 @@ LIVE_TEXT_OVERRIDES = {
         "feedback_sent": "✅ Thank you. Your feedback has been sent.",
         "feedback_too_long": "❌ The message is too long. Please keep it under 1000 characters.",
         "feedback_rate_limit": "⏰ Please wait a little before sending another feedback message.",
-        "feedback_error": "❌ I could not save your feedback. Please try again later.",
+        "feedback_error": "❌ I could not save your feedback right now. Please try again later.",
     },
     "ru": {
         "language_chosen": "✅ Язык установлен: русский.",
@@ -2233,9 +2229,9 @@ LIVE_TEXT_OVERRIDES = {
         "invalid_timezone": "❌ Не удалось распознать часовой пояс. Попробуйте формат Europe/Moscow, Asia/Tashkent, Asia/Almaty или UTC.",
         "invalid_time": "❌ Не удалось распознать время. Используйте формат ЧЧ:ММ, например 08:00 или 20:30.",
         "invalid_skip_days": "❌ Не удалось распознать дни. Используйте числа от 0 до 6 через запятую.",
-        "setup_error": "❌ Не удалось сохранить настройки. Попробуйте ещё раз.",
-        "error": "Что-то пошло не так. Попробуйте ещё раз.",
-        "test_failed": "Не удалось отправить тестовое сообщение.",
+        "setup_error": "❌ Пока не получилось сохранить настройки. Попробуйте ещё раз: ритм практики лучше настроить спокойно и точно.",
+        "error": "Поток прервался. Попробуйте ещё раз или вернитесь в /menu.",
+        "test_failed": "Сейчас не получилось отправить тестовое сообщение. Попробуйте немного позже.",
         "menu_settings": "⚙️ Настройки",
         "menu_test": "🧪 Тестовое сообщение",
         "sending_test": "🧪 Отправляю тестовое сообщение...",
@@ -2256,7 +2252,7 @@ LIVE_TEXT_OVERRIDES = {
         "feedback_sent": "✅ Спасибо. Ваш отзыв отправлен.",
         "feedback_too_long": "❌ Сообщение слишком длинное. Пожалуйста, уложитесь в 1000 символов.",
         "feedback_rate_limit": "⏰ Пожалуйста, подождите немного перед следующим отзывом.",
-        "feedback_error": "❌ Не удалось сохранить отзыв. Попробуйте позже.",
+        "feedback_error": "❌ Сейчас не получилось сохранить отзыв. Попробуйте позже.",
     },
     "uz": {
         "language_chosen": "✅ Til o'zbekchaga o'rnatildi.",
@@ -2270,9 +2266,9 @@ LIVE_TEXT_OVERRIDES = {
         "invalid_timezone": "❌ Bu vaqt mintaqasini taniy olmadim. Asia/Tashkent, Europe/Moscow, Asia/Almaty yoki UTC kabi formatni sinab ko'ring.",
         "invalid_time": "❌ Bu vaqtni taniy olmadim. HH:MM formatidan foydalaning, masalan 08:00 yoki 20:30.",
         "invalid_skip_days": "❌ Kunlarni taniy olmadim. 0 dan 6 gacha bo'lgan raqamlarni vergul bilan kiriting.",
-        "setup_error": "❌ Sozlamalarni saqlab bo'lmadi. Iltimos, qayta urinib ko'ring.",
-        "error": "Nimadir noto'g'ri ketdi. Iltimos, qayta urinib ko'ring.",
-        "test_failed": "Test xabarini yuborib bo'lmadi.",
+        "setup_error": "❌ Hozircha sozlamalarni saqlay olmadim. Yana bir marta urinib ko'ring: amaliyot ritmini sokin va aniq sozlagan yaxshi.",
+        "error": "Jarayon uzilib qoldi. Yana bir marta urinib ko'ring yoki /menu ga qayting.",
+        "test_failed": "Hozir test xabarini yubora olmadim. Birozdan keyin qayta urinib ko'ring.",
         "menu_settings": "⚙️ Sozlamalar",
         "menu_test": "🧪 Test xabari",
         "sending_test": "🧪 Test xabari yuborilmoqda...",
@@ -2288,7 +2284,7 @@ LIVE_TEXT_OVERRIDES = {
         "feedback_sent": "✅ Rahmat. Fikringiz yuborildi.",
         "feedback_too_long": "❌ Xabar juda uzun. Iltimos, 1000 belgidan oshirmang.",
         "feedback_rate_limit": "⏰ Keyingi fikrni yuborishdan oldin biroz kuting.",
-        "feedback_error": "❌ Fikringizni saqlab bo'lmadi. Iltimos, keyinroq urinib ko'ring.",
+        "feedback_error": "❌ Hozir fikringizni saqlay olmadim. Iltimos, keyinroq urinib ko'ring.",
     },
     "kz": {
         "language_chosen": "✅ Тіл қазақшаға орнатылды.",
@@ -2301,9 +2297,9 @@ LIVE_TEXT_OVERRIDES = {
         "invalid_timezone": "❌ Бұл уақыт белдеуін тани алмадым. Asia/Almaty, Asia/Tashkent, Europe/Moscow немесе UTC сияқты форматты қолданып көріңіз.",
         "invalid_time": "❌ Бұл уақытты тани алмадым. HH:MM форматын қолданыңыз, мысалы 08:00 немесе 20:30.",
         "invalid_skip_days": "❌ Күндерді тани алмадым. 0-ден 6-ға дейінгі сандарды үтірмен енгізіңіз.",
-        "setup_error": "❌ Баптауларды сақтай алмадым. Қайтадан көріңіз.",
-        "error": "Бір нәрсе дұрыс болмады. Қайтадан көріңіз.",
-        "test_failed": "Тест хабарын жіберу мүмкін болмады.",
+        "setup_error": "❌ Әзірге баптауларды сақтай алмадым. Қайтадан көріңіз: тәжірибе ырғағын тыныш әрі нақты қойған жақсы.",
+        "error": "Жол үзіліп қалды. Қайтадан көріңіз немесе /menu бөліміне оралыңыз.",
+        "test_failed": "Қазір тест хабарын жібере алмадым. Сәл кейін қайталап көріңіз.",
         "menu_settings": "⚙️ Баптаулар",
         "menu_test": "🧪 Тест хабар",
         "sending_test": "🧪 Тест хабары жіберіліп жатыр...",
@@ -2319,7 +2315,7 @@ LIVE_TEXT_OVERRIDES = {
         "feedback_sent": "✅ Рақмет. Пікіріңіз жіберілді.",
         "feedback_too_long": "❌ Хабар тым ұзын. 1000 таңбадан асырмаңыз.",
         "feedback_rate_limit": "⏰ Келесі пікірді жібермес бұрын сәл күтіңіз.",
-        "feedback_error": "❌ Пікіріңізді сақтау мүмкін болмады. Кейінірек қайталап көріңіз.",
+        "feedback_error": "❌ Қазір пікіріңізді сақтай алмадым. Кейінірек қайталап көріңіз.",
     },
 }
 
