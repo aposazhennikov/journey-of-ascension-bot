@@ -715,10 +715,10 @@ def _point_stage_practice_hint(point_index: int, points_count: int, language: st
     if points_count <= 0 or point_index < points_count - 1:
         return ""
     return {
-        "ru": "Это последняя точка меридиана: после неё пройдите вниманием весь канал от первой точки до последней и почувствуйте, где линия стала цельной, а где ещё просит внимания.",
-        "en": "This is the last point of the meridian: after sensing it, pass through the whole channel from the first point to the last and notice where the line feels whole or still asks for attention.",
-        "uz": "Bu meridianning oxirgi nuqtasi: uni sezgandan keyin butun kanalni birinchi nuqtadan oxirgisigacha diqqat bilan bosib o'ting va chiziq qayerda yaxlit, qayerda yana e'tibor so'rashini kuzating.",
-        "kz": "Бұл меридианның соңғы нүктесі: оны сезгеннен кейін бүкіл арнаны бірінші нүктеден соңғысына дейін зейінмен өтіп, сызық қай жерде тұтас, қай жерде әлі назар сұрайтынын байқаңыз.",
+        "ru": "После этого пройдите вниманием весь канал от первой точки до последней и отметьте, где линия стала цельной, а где ещё просит внимания.",
+        "en": "After that, pass through the whole channel from the first point to the last and notice where the line feels whole or still asks for attention.",
+        "uz": "Shundan keyin butun kanalni birinchi nuqtadan oxirgisigacha diqqat bilan bosib o'ting va chiziq qayerda yaxlit, qayerda yana e'tibor so'rashini kuzating.",
+        "kz": "Содан кейін бүкіл арнаны бірінші нүктеден соңғысына дейін зейінмен өтіп, сызық қай жерде тұтас, қай жерде әлі назар сұрайтынын байқаңыз.",
     }.get(language, "")
 
 
