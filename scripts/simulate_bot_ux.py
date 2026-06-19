@@ -621,6 +621,15 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("scheduler does not explicitly convert scheduled jobs to UTC")
 
     handlers_source = (ROOT / "bot" / "handlers.py").read_text(encoding="utf-8-sig")
+    callback_values = sorted(set(re.findall(r"callback_data=(?:f)?[\"']([^\"']+)", handlers_source)))
+    callback_patterns = [
+        re.compile(ast.literal_eval(match))
+        for match in re.findall(r"CallbackQueryHandler\([^)]*pattern=([\"'][^\"']+[\"'])", handlers_source)
+    ]
+    for callback_value in callback_values:
+        if not any(pattern.search(callback_value) for pattern in callback_patterns):
+            issues.append(f"callback is not covered by any registered CallbackQueryHandler pattern: {callback_value}")
+
     stop_handler_start = handlers_source.find("async def _handle_stop")
     settings_handler_start = handlers_source.find("async def _handle_settings")
     if stop_handler_start != -1 and settings_handler_start != -1:
