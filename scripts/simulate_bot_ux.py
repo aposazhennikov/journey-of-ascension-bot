@@ -1675,6 +1675,11 @@ def audit_rendered_html() -> list[str]:
         or "openScenario(normalizedScenario)" not in html
     ):
         issues.append("browser simulator does not support direct query/hash scenario URLs")
+    modes_start = html.find("function renderModes()")
+    modes_end = html.find("function renderMeridians()", modes_start)
+    modes_source = html[modes_start:modes_end]
+    if "function savePracticeMode(mode)" not in html or "chooseMode(" in modes_source:
+        issues.append("browser simulator My Path screen still behaves like onboarding mode selection")
     settings_scenario_start = html.find("scenario === 'settings'")
     settings_scenario_end = html.find("} else if (scenario === 'timezone')", settings_scenario_start)
     settings_scenario_source = html[settings_scenario_start:settings_scenario_end]
@@ -1896,10 +1901,23 @@ def build_html() -> str:
         : '<div class="ok">All meridian point locations are ready in the four app languages.</div>';
     }}
 
-    function chooseMode(mode) {{
+    function setPracticeMode(mode) {{
       state.principlesEnabled = mode === 'principles' || mode === 'both';
       state.meridiansEnabled = mode === 'meridians' || mode === 'both';
+    }}
+
+    function chooseMode(mode) {{
+      setPracticeMode(mode);
       setScreen('timezone');
+    }}
+
+    function savePracticeMode(mode) {{
+      setPracticeMode(mode);
+      if (state.meridiansEnabled && !state.learningMode) {{
+        setScreen('meridianPath');
+      }} else {{
+        setScreen('main');
+      }}
     }}
 
     function currentMode() {{
@@ -2091,9 +2109,9 @@ def build_html() -> str:
 
     function renderModes() {{
       show('My Path', fmt(t('mode_menu')), [
-        [{{ label: modeLabel('mode_principles_only', 'principles'), action: () => chooseMode('principles') }}],
-        [{{ label: modeLabel('mode_meridians_only', 'meridians'), action: () => chooseMode('meridians') }}],
-        [{{ label: modeLabel('mode_both', 'both'), action: () => chooseMode('both') }}],
+        [{{ label: modeLabel('mode_principles_only', 'principles'), action: () => savePracticeMode('principles') }}],
+        [{{ label: modeLabel('mode_meridians_only', 'meridians'), action: () => savePracticeMode('meridians') }}],
+        [{{ label: modeLabel('mode_both', 'both'), action: () => savePracticeMode('both') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
       ]);
     }}
