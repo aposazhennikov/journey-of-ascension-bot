@@ -201,7 +201,7 @@ class YogaBot:
             
             if self.settings.notify_admins_on_startup:
                 startup_msg = (
-                    f"🚀 **Journey of Ascension started**\n\n"
+                    f"🚀 <b>Journey of Ascension started</b>\n\n"
                     f"🕐 Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC\n"
                     f"📊 Languages: {list(self.principles_manager._principles.keys())}\n"
                     f"🌐 HTTP server: http://localhost:{self.settings.http_port}"
@@ -209,7 +209,7 @@ class YogaBot:
 
                 for admin_id in self.settings.get_admin_ids():
                     try:
-                        await self.bot.send_message(admin_id, startup_msg, parse_mode='Markdown')
+                        await self.bot.send_message(admin_id, startup_msg, parse_mode='HTML')
                     except Exception as e:
                         self.logger.warning(f"Failed to send startup message to admin {admin_id}: {e}")
             

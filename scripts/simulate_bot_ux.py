@@ -828,6 +828,9 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     for stale_fragment in ("not implemented", "placeholder"):
         if stale_fragment in handlers_source.lower():
             issues.append(f"handlers still expose stale implementation wording: {stale_fragment!r}")
+    bot_sources = "\n".join(path.read_text(encoding="utf-8-sig") for path in (ROOT / "bot").glob("*.py"))
+    if re.search(r"parse_mode=[\"']Markdown[\"']", bot_sources):
+        issues.append("bot still sends messages with Markdown parse mode")
 
     settings_keyboard_start = handlers_source.find("def _create_settings_menu_keyboard")
     principles_keyboard_start = handlers_source.find("def _create_principles_menu_keyboard")

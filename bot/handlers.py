@@ -2363,7 +2363,7 @@ class BotHandlers:
             user = await self.storage.get_user(chat_id)
             if user and user.is_active:
                 text = self._get_text("already_subscribed", user.language)
-                await update.message.reply_text(text, parse_mode='Markdown')
+                await update.message.reply_text(text, parse_mode='HTML')
                 return
 
             # Start with language selection.
@@ -2517,7 +2517,7 @@ class BotHandlers:
                     f"{self._get_text('timezone_step', language)}\n\n"
                     f"{self._get_text('timezone_manual_prompt', language)}"
                 )
-                await self._edit_message_text_safe(query, custom_msg, parse_mode='Markdown')
+                await self._edit_message_text_safe(query, custom_msg, parse_mode='HTML')
             else:
                 # Use selected timezone
                 timezone_str = tz_data
@@ -2540,7 +2540,7 @@ class BotHandlers:
                                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
                                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                             else:
-                                await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='Markdown')
+                                await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='HTML')
                     else:
                         # Handle new registration
                         self.user_states[chat_id]["timezone"] = timezone_str
@@ -2553,7 +2553,7 @@ class BotHandlers:
 
                         await self._edit_message_text_safe(query, combined_msg, parse_mode='HTML')
                 else:
-                    await self._edit_message_text_safe(query, self._get_text("invalid_timezone", language), parse_mode='Markdown')
+                    await self._edit_message_text_safe(query, self._get_text("invalid_timezone", language), parse_mode='HTML')
 
         except Exception as e:
             logger.error(f"Error in timezone callback for user {chat_id}: {e}")
@@ -2661,11 +2661,11 @@ class BotHandlers:
 
                         await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                     else:
-                        await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='Markdown')
+                        await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='HTML')
 
             except Exception as e:
                 logger.error(f"Error updating skip days for user {chat_id}: {e}")
-                await self._edit_message_text_safe(query, self._get_text("error", language), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, self._get_text("error", language), parse_mode='HTML')
 
         else:
             # Handle new registration
@@ -2710,7 +2710,7 @@ class BotHandlers:
                 # Store the final message ID
                 await self.storage.add_bot_message(chat_id, query.message.message_id, "setup_complete")
             else:
-                await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='Markdown')
+                await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='HTML')
 
     async def _handle_stop(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /stop command."""
@@ -3035,10 +3035,10 @@ class BotHandlers:
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_timezone", language),
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
             else:
-                await update.message.reply_text(self._get_text("invalid_timezone", language), parse_mode='Markdown')
+                await update.message.reply_text(self._get_text("invalid_timezone", language), parse_mode='HTML')
             return
 
         # Save timezone and move to next step.
@@ -3072,7 +3072,7 @@ class BotHandlers:
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_time", language),
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
             else:
                 await update.message.reply_text(self._get_text("invalid_time", language))
@@ -3108,10 +3108,10 @@ class BotHandlers:
                         chat_id=chat_id,
                         message_id=message_id,
                         text=self._get_text("setup_error", language),
-                        parse_mode='Markdown'
+                        parse_mode='HTML'
                     )
                 else:
-                    await update.message.reply_text(self._get_text("setup_error", language), parse_mode='Markdown')
+                    await update.message.reply_text(self._get_text("setup_error", language), parse_mode='HTML')
                 return
 
             await self.scheduler.schedule_user_immediately(chat_id)
@@ -3963,7 +3963,7 @@ class BotHandlers:
                 await self._edit_message_text_safe(query,
                     self._get_text("choose_language", language),
                     reply_markup=InlineKeyboardMarkup(keyboard),
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
 
             elif setting == "modes":
@@ -4389,10 +4389,10 @@ class BotHandlers:
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_timezone", language),
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
             else:
-                await update.message.reply_text(self._get_text("invalid_timezone", language), parse_mode='Markdown')
+                await update.message.reply_text(self._get_text("invalid_timezone", language), parse_mode='HTML')
             return
 
         try:
@@ -4417,10 +4417,10 @@ class BotHandlers:
                             message_id=message_id,
                             text=text,
                             reply_markup=keyboard,
-                            parse_mode='Markdown'
+                            parse_mode='HTML'
                         )
                     else:
-                        await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                        await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
                 else:
                     error_text = self._get_text("setup_error", language)
                     if message_id:
@@ -4428,7 +4428,7 @@ class BotHandlers:
                             chat_id=chat_id,
                             message_id=message_id,
                             text=error_text,
-                            parse_mode='Markdown'
+                            parse_mode='HTML'
                         )
                     else:
                         await update.message.reply_text(error_text)
@@ -4439,7 +4439,7 @@ class BotHandlers:
                         chat_id=chat_id,
                         message_id=message_id,
                         text=error_text,
-                        parse_mode='Markdown'
+                        parse_mode='HTML'
                     )
                 else:
                     await update.message.reply_text(error_text)
@@ -4452,7 +4452,7 @@ class BotHandlers:
                     chat_id=chat_id,
                     message_id=message_id,
                     text=error_text,
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
             else:
                 await update.message.reply_text(error_text)
@@ -4469,7 +4469,7 @@ class BotHandlers:
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_time", language),
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
             else:
                 await update.message.reply_text(self._get_text("invalid_time", language))
@@ -4497,10 +4497,10 @@ class BotHandlers:
                             message_id=message_id,
                             text=text,
                             reply_markup=keyboard,
-                            parse_mode='Markdown'
+                            parse_mode='HTML'
                         )
                     else:
-                        await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                        await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
                 else:
                     error_text = self._get_text("setup_error", language)
                     if message_id:
@@ -4508,7 +4508,7 @@ class BotHandlers:
                             chat_id=chat_id,
                             message_id=message_id,
                             text=error_text,
-                            parse_mode='Markdown'
+                            parse_mode='HTML'
                         )
                     else:
                         await update.message.reply_text(error_text)
@@ -4519,7 +4519,7 @@ class BotHandlers:
                         chat_id=chat_id,
                         message_id=message_id,
                         text=error_text,
-                        parse_mode='Markdown'
+                        parse_mode='HTML'
                     )
                 else:
                     await update.message.reply_text(error_text)
@@ -4532,7 +4532,7 @@ class BotHandlers:
                     chat_id=chat_id,
                     message_id=message_id,
                     text=error_text,
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
             else:
                 await update.message.reply_text(error_text)
@@ -4549,7 +4549,7 @@ class BotHandlers:
                     chat_id=chat_id,
                     message_id=message_id,
                     text=self._get_text("invalid_time", language),
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
             else:
                 await update.message.reply_text(self._get_text("invalid_time", language))
@@ -4576,10 +4576,10 @@ class BotHandlers:
                     message_id=message_id,
                     text=text,
                     reply_markup=keyboard,
-                    parse_mode='Markdown'
+                    parse_mode='HTML'
                 )
             else:
-                await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
         except Exception as e:
             logger.error(f"Error changing meridian time for user {chat_id}: {e}")
             await update.message.reply_text(self._get_text("error", language))
