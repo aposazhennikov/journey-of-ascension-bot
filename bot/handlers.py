@@ -636,7 +636,7 @@ TEXTS_UPDATE = {
         ),
         "skip_days_step": (
             "📅 <b>Quiet Days</b>\n\n"
-            "Choose weekdays when the bot should not send Yama/Niyama reminders.\n\n"
+            "Choose weekdays when the bot should not send daily practice reminders.\n\n"
             "Leave everything unselected if you want a daily rhythm."
         ),
         "principles_menu": (
@@ -801,7 +801,7 @@ TEXTS_UPDATE = {
         ),
         "skip_days_step": (
             "📅 <b>Дни тишины</b>\n\n"
-            "Выберите дни недели, когда бот не должен присылать напоминания по Яме/Нияме.\n\n"
+            "Выберите дни недели, когда бот не должен присылать ежедневные напоминания по практике.\n\n"
             "Если хотите ежедневный ритм, оставьте дни невыбранными."
         ),
         "principles_menu": (
@@ -966,7 +966,7 @@ TEXTS_UPDATE = {
         ),
         "skip_days_step": (
             "📅 <b>Sokin kunlar</b>\n\n"
-            "Bot Yama/Niyama eslatmalarini yubormaydigan hafta kunlarini tanlang.\n\n"
+            "Bot kundalik amaliyot eslatmalarini yubormaydigan hafta kunlarini tanlang.\n\n"
             "Har kuni ritm kerak bo'lsa, kunlarni tanlamang."
         ),
         "principles_menu": (
@@ -1145,7 +1145,7 @@ TEXTS_UPDATE = {
         ),
         "skip_days_step": (
             "📅 <b>Тыныш күндер</b>\n\n"
-            "Бот Яма/Нияма еске салуларын жібермейтін апта күндерін таңдаңыз.\n\n"
+            "Бот күнделікті тәжірибе еске салуларын жібермейтін апта күндерін таңдаңыз.\n\n"
             "Күн сайынғы ырғақ керек болса, күндерді таңдамаңыз."
         ),
         "principles_menu": (
@@ -2367,7 +2367,7 @@ class BotHandlers:
                 "principle_time": "🕐 Yama/Niyama time:",
                 "meridian_time": "☯️ Meridian time:",
                 "timezone": "🌍 Time zone:",
-                "skip": "📅 Skip Yama/Niyama on:",
+                "skip": "📅 Quiet days:",
                 "hint": "You can open /menu at any time to adjust your path, reminders, or meridian practice.",
             },
             "ru": {
@@ -2381,7 +2381,7 @@ class BotHandlers:
                 "principle_time": "🕐 Время Ямы/Ниямы:",
                 "meridian_time": "☯️ Время меридианов:",
                 "timezone": "🌍 Часовой пояс:",
-                "skip": "📅 Пропускать Яму/Нияму:",
+                "skip": "📅 Дни тишины:",
                 "hint": "В любой момент можно открыть /menu, изменить путь, напоминания или практику меридианов.",
             },
             "uz": {
@@ -2395,7 +2395,7 @@ class BotHandlers:
                 "principle_time": "🕐 Yama/Niyama vaqti:",
                 "meridian_time": "☯️ Meridian vaqti:",
                 "timezone": "🌍 Vaqt mintaqasi:",
-                "skip": "📅 Yama/Niyamani o'tkazib yuborish:",
+                "skip": "📅 Sokin kunlar:",
                 "hint": "Istalgan vaqtda /menu ni ochib, yo'l, eslatmalar yoki meridian amaliyotini o'zgartirishingiz mumkin.",
             },
             "kz": {
@@ -2409,7 +2409,7 @@ class BotHandlers:
                 "principle_time": "🕐 Яма/Нияма уақыты:",
                 "meridian_time": "☯️ Меридиан уақыты:",
                 "timezone": "🌍 Уақыт белдеуі:",
-                "skip": "📅 Яма/Нияманы өткізіп жіберу:",
+                "skip": "📅 Тыныш күндер:",
                 "hint": "Кез келген уақытта /menu ашып, жолды, еске салуларды немесе меридиан тәжірибесін өзгерте аласыз.",
             },
         }.get(language)
@@ -2441,7 +2441,10 @@ class BotHandlers:
                 f"{labels['skip']} {escape(skip_days_display)}",
             ])
         else:
-            lines.append(f"{labels['time']} <code>{escape(user.meridian_time_for_send)}</code>")
+            lines.extend([
+                f"{labels['meridian_time']} <code>{escape(user.meridian_time_for_send)}</code>",
+                f"{labels['skip']} {escape(skip_days_display)}",
+            ])
 
         lines.extend(["", labels["hint"]])
         return "\n".join(lines)
@@ -2460,7 +2463,6 @@ class BotHandlers:
                 "principle_time": "🧘🏻 Yama/Niyama time:",
                 "meridian_time": "☯️ Meridian time:",
                 "quiet": "📅 Quiet days:",
-                "no_principles_quiet": "not used while Yama/Niyama is off",
             },
             "ru": {
                 "title": "⚙️ <b>Текущий ритм практики</b>",
@@ -2473,7 +2475,6 @@ class BotHandlers:
                 "principle_time": "🧘🏻 Время Ямы/Ниямы:",
                 "meridian_time": "☯️ Время меридианов:",
                 "quiet": "📅 Дни тишины:",
-                "no_principles_quiet": "не используются, пока Яма/Нияма выключена",
             },
             "uz": {
                 "title": "⚙️ <b>Joriy amaliyot ritmi</b>",
@@ -2486,7 +2487,6 @@ class BotHandlers:
                 "principle_time": "🧘🏻 Yama/Niyama vaqti:",
                 "meridian_time": "☯️ Meridian vaqti:",
                 "quiet": "📅 Sokin kunlar:",
-                "no_principles_quiet": "Yama/Niyama o'chirilganida ishlatilmaydi",
             },
             "kz": {
                 "title": "⚙️ <b>Қазіргі тәжірибе ырғағы</b>",
@@ -2499,7 +2499,6 @@ class BotHandlers:
                 "principle_time": "🧘🏻 Яма/Нияма уақыты:",
                 "meridian_time": "☯️ Меридиан уақыты:",
                 "quiet": "📅 Тыныш күндер:",
-                "no_principles_quiet": "Яма/Нияма өшірулі кезде қолданылмайды",
             },
         }.get(language)
 
@@ -2520,11 +2519,9 @@ class BotHandlers:
         ]
         if user.principles_enabled:
             lines.append(f"{labels['principle_time']} <code>{escape(user.time_for_send)}</code>")
-            lines.append(f"{labels['quiet']} {escape(skip_days_display)}")
-        else:
-            lines.append(f"{labels['quiet']} <i>{escape(labels['no_principles_quiet'])}</i>")
         if user.meridians_enabled:
             lines.append(f"{labels['meridian_time']} <code>{escape(user.meridian_time_for_send)}</code>")
+        lines.append(f"{labels['quiet']} {escape(skip_days_display)}")
         return "\n".join(lines)
 
     def _create_timezone_keyboard(self, language: str, add_back_button: bool = False) -> InlineKeyboardMarkup:
