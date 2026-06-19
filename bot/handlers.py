@@ -219,22 +219,22 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               '\n'
                               'Enter time in HH:MM format, for example 20:00.',
         'meridian_time_saved': '✅ Meridian reminder time saved.',
-        'meridian_mode_menu': '☯️ <b>How would you like to study meridians?</b>\n'
+        'meridian_mode_menu': '☯️ <b>Choose your meridian study path</b>\n'
                               '\n'
-                              '<b>Guided path</b> means the bot leads you through the meridians in a '
-                              'recommended order. You complete one channel, then move to the next.\n'
+                              '<b>Bot route</b> is good when you are new: one channel, one point, one calm '
+                              'step at a time. After completing a meridian, the next one opens naturally.\n'
                               '\n'
-                              '<b>Free study</b> means you choose any meridian yourself and explore it in '
-                              'your own order.\n'
+                              '<b>Free choice</b> is good when a specific meridian is calling your attention '
+                              'or you already know what you want to study.\n'
                               '\n'
-                              'Both options keep your progress and daily reminders.',
-        'meridian_guided_path': '🧭 Follow the bot path',
-        'meridian_free_choice': '👐 Choose a meridian myself',
+                              'You can change this later. Your progress and reminders stay saved.',
+        'meridian_guided_path': '🧭 Bot route',
+        'meridian_free_choice': '👐 Free choice',
         'meridian_change_path': '🧭 Study path',
-        'meridian_guided_saved': '✅ <b>Guided path selected.</b>\n'
+        'meridian_guided_saved': '✅ <b>Bot route selected.</b>\n'
                                  '\n'
-                                 'The bot will lead you through the meridians step by step.',
-        'meridian_free_saved': '✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.',
+                                 'We will move gently: one meridian, one point, one stable sensation at a time.',
+        'meridian_free_saved': '✅ <b>Free choice selected.</b>\n\nChoose the meridian you want to explore now.',
         'meridian_measurements': '📏 How to measure in cun',
         'meridian_point_help': '🖐 How to find a point',
         'meridian_back': '🔙 Back to meridians',
@@ -521,24 +521,24 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               '\n'
                               'Введите время в формате ЧЧ:ММ, например 20:00.',
         'meridian_time_saved': '✅ Время напоминаний по меридианам сохранено.',
-        'meridian_mode_menu': '☯️ <b>Как вы хотите изучать меридианы?</b>\n'
+        'meridian_mode_menu': '☯️ <b>Выберите путь изучения меридианов</b>\n'
                               '\n'
-                              '<b>Идти по нашему пути</b> — бот ведёт вас по меридианам в рекомендованном '
-                              'порядке. Вы завершаете один канал и переходите к следующему.\n'
+                              '<b>Маршрут бота</b> подойдёт, если вы только начинаете: один канал, одна '
+                              'точка, один спокойный шаг за раз. Завершили меридиан — открылся следующий.\n'
                               '\n'
-                              '<b>Изучать самостоятельно</b> — вы сами выбираете любой меридиан и двигаетесь '
-                              'в своём порядке.\n'
+                              '<b>Свободный выбор</b> подойдёт, если внимание уже тянется к конкретному '
+                              'меридиану или вы знаете, что хотите изучить.\n'
                               '\n'
-                              'В обоих вариантах сохраняется прогресс и работают ежедневные напоминания.',
-        'meridian_guided_path': '🧭 Идти по пути бота',
-        'meridian_free_choice': '👐 Выбирать меридианы самому',
+                              'Путь можно изменить позже. Прогресс и напоминания сохраняются.',
+        'meridian_guided_path': '🧭 Маршрут бота',
+        'meridian_free_choice': '👐 Свободный выбор',
         'meridian_change_path': '🧭 Путь изучения',
-        'meridian_guided_saved': '✅ <b>Выбран наш путь.</b>\n'
+        'meridian_guided_saved': '✅ <b>Выбран маршрут бота.</b>\n'
                                  '\n'
-                                 'Бот будет вести вас по меридианам шаг за шагом.',
-        'meridian_free_saved': '✅ <b>Выбрано самостоятельное изучение.</b>\n'
+                                 'Будем двигаться мягко: один меридиан, одна точка, одно устойчивое ощущение за раз.',
+        'meridian_free_saved': '✅ <b>Выбран свободный выбор.</b>\n'
                                '\n'
-                               'Выберите любой меридиан, который хотите исследовать.',
+                               'Выберите меридиан, который хотите исследовать сейчас.',
         'meridian_measurements': '📏 Как измерять в цунях',
         'meridian_point_help': '🖐 Как искать точку',
         'meridian_back': '🔙 К меридианам',
@@ -829,24 +829,24 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               '\n'
                               'Vaqtni HH:MM formatida kiriting, masalan 20:00.',
         'meridian_time_saved': '✅ Meridian eslatma vaqti saqlandi.',
-        'meridian_mode_menu': "☯️ <b>Meridianlarni qanday o'rganmoqchisiz?</b>\n"
+        'meridian_mode_menu': "☯️ <b>Meridianlarni o'rganish yo'lini tanlang</b>\n"
                               '\n'
-                              "<b>Yo'l bo'yicha</b> — bot meridianlar bo'ylab tavsiya etilgan tartibda olib "
-                              "boradi. Bir kanalni yakunlab, keyingisiga o'tasiz.\n"
+                              "<b>Bot yo'nalishi</b> yangi boshlaganlar uchun qulay: bir kanal, bir nuqta, "
+                              "bir sokin qadam. Meridian tugagach, keyingisi ochiladi.\n"
                               '\n'
-                              "<b>Mustaqil o'rganish</b> — istalgan meridianni o'zingiz tanlab, o'z "
-                              "tartibingizda o'rganasiz.\n"
+                              "<b>Erkin tanlov</b> ma'lum meridian e'tiboringizni tortsa yoki nimani "
+                              "o'rganmoqchi ekaningizni bilsangiz qulay.\n"
                               '\n'
-                              'Ikkala variantda ham progress va kundalik eslatmalar saqlanadi.',
-        'meridian_guided_path': "🧭 Bot yo'li bo'yicha",
-        'meridian_free_choice': "👐 Meridianlarni o'zim tanlayman",
+                              "Yo'lni keyin o'zgartirish mumkin. Progress va eslatmalar saqlanadi.",
+        'meridian_guided_path': "🧭 Bot yo'nalishi",
+        'meridian_free_choice': '👐 Erkin tanlov',
         'meridian_change_path': "🧭 O'rganish yo'li",
-        'meridian_guided_saved': "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n"
+        'meridian_guided_saved': "✅ <b>Bot yo'nalishi tanlandi.</b>\n"
                                  '\n'
-                                 "Bot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
-        'meridian_free_saved': "✅ <b>Mustaqil o'rganish tanlandi.</b>\n"
+                                 "Yumshoq harakat qilamiz: bir meridian, bir nuqta, bir barqaror sezgi.",
+        'meridian_free_saved': '✅ <b>Erkin tanlov tanlandi.</b>\n'
                                '\n'
-                               "O'rganmoqchi bo'lgan meridianni tanlang.",
+                               "Hozir o'rganmoqchi bo'lgan meridianni tanlang.",
         'meridian_measurements': "📏 Cunda qanday o'lchash",
         'meridian_point_help': '🖐 Nuqtani topish',
         'meridian_back': '🔙 Meridianlarga qaytish',
@@ -1145,24 +1145,24 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               '\n'
                               'Уақытты HH:MM форматында енгізіңіз, мысалы 20:00.',
         'meridian_time_saved': '✅ Меридиан еске салу уақыты сақталды.',
-        'meridian_mode_menu': '☯️ <b>Меридиандарды қалай зерттегіңіз келеді?</b>\n'
+        'meridian_mode_menu': '☯️ <b>Меридиандарды зерттеу жолын таңдаңыз</b>\n'
                               '\n'
-                              '<b>Біздің жолмен</b> — бот меридиандарды ұсынылған ретпен жүргізеді. Бір '
-                              'арнаны аяқтап, келесісіне өтесіз.\n'
+                              '<b>Бот бағыты</b> жаңадан бастаған адамға ыңғайлы: бір арна, бір нүкте, '
+                              'бір тыныш қадам. Меридиан аяқталса, келесісі ашылады.\n'
                               '\n'
-                              '<b>Өз бетіңізше</b> — кез келген меридианды өзіңіз таңдап, өз ретіңізбен '
-                              'зерттейсіз.\n'
+                              '<b>Еркін таңдау</b> белгілі бір меридиан назарыңызды тартса немесе нені '
+                              'зерттегіңіз келетінін білсеңіз ыңғайлы.\n'
                               '\n'
-                              'Екі нұсқада да прогресс сақталады және күнделікті еске салулар жұмыс істейді.',
-        'meridian_guided_path': '🧭 Бот жолымен жүру',
-        'meridian_free_choice': '👐 Меридиандарды өзім таңдаймын',
+                              'Жолды кейін өзгертуге болады. Прогресс пен еске салулар сақталады.',
+        'meridian_guided_path': '🧭 Бот бағыты',
+        'meridian_free_choice': '👐 Еркін таңдау',
         'meridian_change_path': '🧭 Зерттеу жолы',
-        'meridian_guided_saved': '✅ <b>Біздің жол таңдалды.</b>\n'
+        'meridian_guided_saved': '✅ <b>Бот бағыты таңдалды.</b>\n'
                                  '\n'
-                                 'Бот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.',
-        'meridian_free_saved': '✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n'
+                                 'Баяу қозғаламыз: бір меридиан, бір нүкте, бір тұрақты сезім.',
+        'meridian_free_saved': '✅ <b>Еркін таңдау таңдалды.</b>\n'
                                '\n'
-                               'Зерттегіңіз келетін меридианды таңдаңыз.',
+                               'Қазір зерттегіңіз келетін меридианды таңдаңыз.',
         'meridian_measurements': '📏 Цуньмен қалай өлшеу',
         'meridian_point_help': '🖐 Нүктені табу',
         'meridian_back': '🔙 Меридиандарға қайту',
@@ -1428,16 +1428,16 @@ TEXTS_UPDATE = {
         "meridian_time_step": "☯️ <b>Meridian Reminder Time</b>\n\nEnter time in HH:MM format, for example 20:00.",
         "meridian_time_saved": "✅ Meridian reminder time saved.",
         "meridian_mode_menu": (
-            "☯️ <b>How would you like to study meridians?</b>\n\n"
-            "<b>Guided path</b> means the bot leads you through the meridians in a recommended order. You complete one channel, then move to the next.\n\n"
-            "<b>Free study</b> means you choose any meridian yourself and explore it in your own order.\n\n"
-            "Both options keep your progress and daily reminders."
+            "☯️ <b>Choose your meridian study path</b>\n\n"
+            "<b>Bot route</b> is good when you are new: one channel, one point, one calm step at a time. After completing a meridian, the next one opens naturally.\n\n"
+            "<b>Free choice</b> is good when a specific meridian is calling your attention or you already know what you want to study.\n\n"
+            "You can change this later. Your progress and reminders stay saved."
         ),
-        "meridian_guided_path": "🧭 Follow the bot path",
-        "meridian_free_choice": "👐 Choose a meridian myself",
+        "meridian_guided_path": "🧭 Bot route",
+        "meridian_free_choice": "👐 Free choice",
         "meridian_change_path": "🧭 Study path",
-        "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
-        "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
+        "meridian_guided_saved": "✅ <b>Bot route selected.</b>\n\nWe will move gently: one meridian, one point, one stable sensation at a time.",
+        "meridian_free_saved": "✅ <b>Free choice selected.</b>\n\nChoose the meridian you want to explore now.",
         "meridian_measurements": "📏 How to measure in cun",
         "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
@@ -1607,16 +1607,16 @@ TEXTS_UPDATE = {
         "meridian_time_step": "☯️ <b>Время напоминания по меридианам</b>\n\nВведите время в формате ЧЧ:ММ, например 20:00.",
         "meridian_time_saved": "✅ Время напоминаний по меридианам сохранено.",
         "meridian_mode_menu": (
-            "☯️ <b>Как вы хотите изучать меридианы?</b>\n\n"
-            "<b>Идти по нашему пути</b> — бот ведёт вас по меридианам в рекомендованном порядке. Вы завершаете один канал и переходите к следующему.\n\n"
-            "<b>Изучать самостоятельно</b> — вы сами выбираете любой меридиан и двигаетесь в своём порядке.\n\n"
-            "В обоих вариантах сохраняется прогресс и работают ежедневные напоминания."
+            "☯️ <b>Выберите путь изучения меридианов</b>\n\n"
+            "<b>Маршрут бота</b> подойдёт, если вы только начинаете: один канал, одна точка, один спокойный шаг за раз. Завершили меридиан — открылся следующий.\n\n"
+            "<b>Свободный выбор</b> подойдёт, если внимание уже тянется к конкретному меридиану или вы знаете, что хотите изучить.\n\n"
+            "Путь можно изменить позже. Прогресс и напоминания сохраняются."
         ),
-        "meridian_guided_path": "🧭 Идти по пути бота",
-        "meridian_free_choice": "👐 Выбирать меридианы самому",
+        "meridian_guided_path": "🧭 Маршрут бота",
+        "meridian_free_choice": "👐 Свободный выбор",
         "meridian_change_path": "🧭 Путь изучения",
-        "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
-        "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
+        "meridian_guided_saved": "✅ <b>Выбран маршрут бота.</b>\n\nБудем двигаться мягко: один меридиан, одна точка, одно устойчивое ощущение за раз.",
+        "meridian_free_saved": "✅ <b>Выбран свободный выбор.</b>\n\nВыберите меридиан, который хотите исследовать сейчас.",
         "meridian_measurements": "📏 Как измерять в цунях",
         "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
@@ -1786,16 +1786,16 @@ TEXTS_UPDATE = {
         "meridian_time_step": "☯️ <b>Meridian eslatma vaqti</b>\n\nVaqtni HH:MM formatida kiriting, masalan 20:00.",
         "meridian_time_saved": "✅ Meridian eslatma vaqti saqlandi.",
         "meridian_mode_menu": (
-            "☯️ <b>Meridianlarni qanday o'rganmoqchisiz?</b>\n\n"
-            "<b>Yo'l bo'yicha</b> — bot meridianlar bo'ylab tavsiya etilgan tartibda olib boradi. Bir kanalni yakunlab, keyingisiga o'tasiz.\n\n"
-            "<b>Mustaqil o'rganish</b> — istalgan meridianni o'zingiz tanlab, o'z tartibingizda o'rganasiz.\n\n"
-            "Ikkala variantda ham progress va kundalik eslatmalar saqlanadi."
+            "☯️ <b>Meridianlarni o'rganish yo'lini tanlang</b>\n\n"
+            "<b>Bot yo'nalishi</b> yangi boshlaganlar uchun qulay: bir kanal, bir nuqta, bir sokin qadam. Meridian tugagach, keyingisi ochiladi.\n\n"
+            "<b>Erkin tanlov</b> ma'lum meridian e'tiboringizni tortsa yoki nimani o'rganmoqchi ekaningizni bilsangiz qulay.\n\n"
+            "Yo'lni keyin o'zgartirish mumkin. Progress va eslatmalar saqlanadi."
         ),
-        "meridian_guided_path": "🧭 Bot yo'li bo'yicha",
-        "meridian_free_choice": "👐 Meridianlarni o'zim tanlayman",
+        "meridian_guided_path": "🧭 Bot yo'nalishi",
+        "meridian_free_choice": "👐 Erkin tanlov",
         "meridian_change_path": "🧭 O'rganish yo'li",
-        "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
-        "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
+        "meridian_guided_saved": "✅ <b>Bot yo'nalishi tanlandi.</b>\n\nYumshoq harakat qilamiz: bir meridian, bir nuqta, bir barqaror sezgi.",
+        "meridian_free_saved": "✅ <b>Erkin tanlov tanlandi.</b>\n\nHozir o'rganmoqchi bo'lgan meridianni tanlang.",
         "meridian_measurements": "📏 Cunda qanday o'lchash",
         "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
@@ -1979,16 +1979,16 @@ TEXTS_UPDATE = {
         "meridian_time_step": "☯️ <b>Меридиан еске салу уақыты</b>\n\nУақытты HH:MM форматында енгізіңіз, мысалы 20:00.",
         "meridian_time_saved": "✅ Меридиан еске салу уақыты сақталды.",
         "meridian_mode_menu": (
-            "☯️ <b>Меридиандарды қалай зерттегіңіз келеді?</b>\n\n"
-            "<b>Біздің жолмен</b> — бот меридиандарды ұсынылған ретпен жүргізеді. Бір арнаны аяқтап, келесісіне өтесіз.\n\n"
-            "<b>Өз бетіңізше</b> — кез келген меридианды өзіңіз таңдап, өз ретіңізбен зерттейсіз.\n\n"
-            "Екі нұсқада да прогресс сақталады және күнделікті еске салулар жұмыс істейді."
+            "☯️ <b>Меридиандарды зерттеу жолын таңдаңыз</b>\n\n"
+            "<b>Бот бағыты</b> жаңадан бастаған адамға ыңғайлы: бір арна, бір нүкте, бір тыныш қадам. Меридиан аяқталса, келесісі ашылады.\n\n"
+            "<b>Еркін таңдау</b> белгілі бір меридиан назарыңызды тартса немесе нені зерттегіңіз келетінін білсеңіз ыңғайлы.\n\n"
+            "Жолды кейін өзгертуге болады. Прогресс пен еске салулар сақталады."
         ),
-        "meridian_guided_path": "🧭 Бот жолымен жүру",
-        "meridian_free_choice": "👐 Меридиандарды өзім таңдаймын",
+        "meridian_guided_path": "🧭 Бот бағыты",
+        "meridian_free_choice": "👐 Еркін таңдау",
         "meridian_change_path": "🧭 Зерттеу жолы",
-        "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
-        "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
+        "meridian_guided_saved": "✅ <b>Бот бағыты таңдалды.</b>\n\nБаяу қозғаламыз: бір меридиан, бір нүкте, бір тұрақты сезім.",
+        "meridian_free_saved": "✅ <b>Еркін таңдау таңдалды.</b>\n\nҚазір зерттегіңіз келетін меридианды таңдаңыз.",
         "meridian_measurements": "📏 Цуньмен қалай өлшеу",
         "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
