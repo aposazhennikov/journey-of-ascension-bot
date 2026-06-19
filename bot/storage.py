@@ -25,30 +25,108 @@ class User:
     current_point_index: int = -1
     completed_meridians: List[str] = None
     meridian_learning_mode: Optional[str] = None
-    
+
     def __post_init__(self):
         """Initialize default values."""
+        self.chat_id = int(self.chat_id)
+        self.language = self.language if self.language in {"en", "ru", "uz", "kz"} else "en"
+        self.timezone = self._normalize_timezone(self.timezone)
+        self.time_for_send = self._normalize_time(self.time_for_send, "06:00")
+        self.meridian_time_for_send = self._normalize_time(self.meridian_time_for_send, "20:00")
+        self.is_active = self._normalize_bool(self.is_active, True)
+        self.principles_enabled = self._normalize_bool(self.principles_enabled, True)
+        self.meridians_enabled = self._normalize_bool(self.meridians_enabled, False)
+        self.current_point_index = self._normalize_int(self.current_point_index, -1)
+        self.meridian_learning_mode = (
+            self.meridian_learning_mode if self.meridian_learning_mode in {"guided", "free", None} else None
+        )
         if self.skip_day_id is None:
             self.skip_day_id = []
+        self.skip_day_id = self._normalize_days(self.skip_day_id)
         if self.completed_meridians is None:
             self.completed_meridians = []
+        self.completed_meridians = self._normalize_string_list(self.completed_meridians)
         # Ensure last_feedback_time is None if not set
         if not hasattr(self, 'last_feedback_time'):
             self.last_feedback_time = None
-        if not hasattr(self, 'principles_enabled'):
-            self.principles_enabled = True
-        if not hasattr(self, 'meridians_enabled'):
-            self.meridians_enabled = False
-        if not hasattr(self, 'meridian_time_for_send'):
-            self.meridian_time_for_send = "20:00"
-        if not hasattr(self, 'current_meridian_id'):
-            self.current_meridian_id = None
-        if not hasattr(self, 'current_point_index'):
-            self.current_point_index = -1
-        if not hasattr(self, 'completed_meridians') or self.completed_meridians is None:
-            self.completed_meridians = []
-        if not hasattr(self, 'meridian_learning_mode'):
-            self.meridian_learning_mode = None
+        if self.current_meridian_id is not None:
+            self.current_meridian_id = str(self.current_meridian_id)
+
+    @staticmethod
+    def _normalize_bool(value: Any, default: bool) -> bool:
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            normalized = value.strip().lower()
+            if normalized in {"true", "1", "yes", "on"}:
+                return True
+            if normalized in {"false", "0", "no", "off"}:
+                return False
+        if isinstance(value, (int, float)):
+            return bool(value)
+        return default
+
+    @staticmethod
+    def _normalize_int(value: Any, default: int) -> int:
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
+
+    @staticmethod
+    def _normalize_time(value: Any, default: str) -> str:
+        if not isinstance(value, str) or ":" not in value:
+            return default
+        try:
+            hour_text, minute_text = value.strip().split(":", 1)
+            hour = int(hour_text)
+            minute = int(minute_text)
+        except ValueError:
+            return default
+        if hour < 0 or hour > 23 or minute < 0 or minute > 59:
+            return default
+        return f"{hour:02d}:{minute:02d}"
+
+    @staticmethod
+    def _normalize_timezone(value: Any) -> str:
+        if not isinstance(value, str) or not value.strip():
+            return "Europe/Moscow"
+        aliases = {
+            "utc": "UTC",
+            "uct": "UTC",
+            "gmt": "UTC",
+            "moscow": "Europe/Moscow",
+            "msk": "Europe/Moscow",
+        }
+        stripped = value.strip()
+        return aliases.get(stripped.lower(), stripped)
+
+    @staticmethod
+    def _normalize_days(value: Any) -> List[int]:
+        if not isinstance(value, list):
+            return []
+        days = []
+        for item in value:
+            try:
+                day = int(item)
+            except (TypeError, ValueError):
+                continue
+            if 0 <= day <= 6 and day not in days:
+                days.append(day)
+        return days
+
+    @staticmethod
+    def _normalize_string_list(value: Any) -> List[str]:
+        if not isinstance(value, list):
+            return []
+        result = []
+        for item in value:
+            if item is None:
+                continue
+            text = str(item).strip()
+            if text and text not in result:
+                result.append(text)
+        return result
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "User":

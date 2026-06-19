@@ -1319,6 +1319,15 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     storage_source = (ROOT / "bot" / "storage.py").read_text(encoding="utf-8-sig")
     if "def from_dict" not in storage_source or "User(**user_data)" in storage_source:
         issues.append("storage does not safely migrate stored user records with unknown fields")
+    for migration_marker in (
+        "_normalize_timezone",
+        "_normalize_time",
+        "_normalize_days",
+        "_normalize_bool",
+        "_normalize_string_list",
+    ):
+        if migration_marker not in storage_source:
+            issues.append(f"storage user migration is missing {migration_marker}")
     if "astimezone().astimezone(tz=None)" in scheduler_source:
         issues.append("scheduler converts user send times through the machine local timezone")
     if "astimezone(timezone.utc).replace(tzinfo=None)" not in scheduler_source:
