@@ -1357,6 +1357,8 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator settings screen is not mode-aware")
     if "function renderSettingsSnapshot()" not in html or "Current practice rhythm" not in html or "Текущий ритм практики" not in html:
         issues.append("browser simulator settings screen does not show the current practice rhythm snapshot")
+    if "new URLSearchParams(window.location.search)" not in html or "openScenario(requestedScenario)" not in html:
+        issues.append("browser simulator does not support direct scenario URLs")
     return issues
 
 
@@ -2038,8 +2040,7 @@ def build_html() -> str:
       state.language = languageSelect.value;
       render();
     }});
-    document.getElementById('reset').addEventListener('click', () => {{
-      const scenario = scenarioSelect.value;
+    function openScenario(scenario) {{
       if (scenario === 'currentPoint') {{
         resetState();
         state.principlesEnabled = true;
@@ -2120,8 +2121,23 @@ def build_html() -> str:
         state.screen = 'onboarding';
       }}
       render();
-    }});
-    render();
+    }}
+
+    document.getElementById('reset').addEventListener('click', () => openScenario(scenarioSelect.value));
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedLanguage = params.get('lang');
+    const requestedScenario = params.get('scenario');
+    if (requestedLanguage && payload.texts[requestedLanguage]) {{
+      languageSelect.value = requestedLanguage;
+      state.language = requestedLanguage;
+    }}
+    if (requestedScenario) {{
+      scenarioSelect.value = requestedScenario;
+      openScenario(requestedScenario);
+    }} else {{
+      render();
+    }}
   </script>
 </body>
 </html>

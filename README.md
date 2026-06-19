@@ -188,6 +188,13 @@ py -m http.server 8766
 http://127.0.0.1:8766/tmp/ux_simulator.html
 ```
 
+Можно открывать конкретный экран сразу:
+
+```text
+http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&scenario=noviceMeridians
+http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&scenario=noviceFirstPoint
+```
+
 Важно: запускайте `http.server` из корня проекта. Если отдавать только папку `tmp`, HTML откроется, но изображения из `images/meridians` не загрузятся.
 
 Для ручного UX-прогона новичка используйте быстрые сценарии:
