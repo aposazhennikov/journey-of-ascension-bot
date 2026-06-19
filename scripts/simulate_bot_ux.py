@@ -9,8 +9,11 @@ from __future__ import annotations
 
 import argparse
 import ast
+import importlib.util
 import json
 import re
+import sys
+import types
 from html import escape, unescape
 from pathlib import Path
 from typing import Any
@@ -404,6 +407,23 @@ def fit_html_caption(text: str, max_length: int = 1024) -> str:
     return plain_fallback(text)
 
 
+def load_real_bot_utils():
+    """Import bot.utils for audit-only checks without requiring optional local deps."""
+    if "pytz" not in sys.modules:
+        pytz_stub = types.ModuleType("pytz")
+        pytz_stub.exceptions = types.SimpleNamespace(UnknownTimeZoneError=Exception)
+        pytz_stub.timezone = lambda _name: None
+        sys.modules["pytz"] = pytz_stub
+    if "aiofiles" not in sys.modules:
+        sys.modules["aiofiles"] = types.ModuleType("aiofiles")
+
+    spec = importlib.util.spec_from_file_location("audit_bot_utils", ROOT / "bot" / "utils.py")
+    module = importlib.util.module_from_spec(spec)
+    assert spec and spec.loader
+    spec.loader.exec_module(module)
+    return module
+
+
 def audit_payload(payload: dict[str, Any]) -> list[str]:
     """Check core UX-flow invariants modeled by the simulator."""
     issues: list[str] = []
@@ -419,6 +439,16 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("cyrillic detector treats plain English as Cyrillic")
     if not has_cyrillic("меридиан"):
         issues.append("cyrillic detector misses Cyrillic text")
+
+    bot_utils = load_real_bot_utils()
+    principles = load_json("bot/principles.json")
+    for language in LANGUAGES:
+        for principle in principles.get(language, []):
+            caption = bot_utils.format_principle_message(principle, language, max_length=1024)
+            if len(caption) > 1024:
+                issues.append(f"{language} principle {principle.get('id')}: caption exceeds Telegram photo limit")
+            if principle.get("practice_tip") and ("💡" not in caption or "<i>" not in caption):
+                issues.append(f"{language} principle {principle.get('id')}: practice block disappeared from caption")
 
     translation_coverage = payload.get("translationCoverage", {})
     translation_tasks = payload.get("translationTasks", {})
