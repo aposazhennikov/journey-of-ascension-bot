@@ -1445,6 +1445,31 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     bot_sources = "\n".join(path.read_text(encoding="utf-8-sig") for path in (ROOT / "bot").glob("*.py"))
     if re.search(r"parse_mode=[\"']Markdown[\"']", bot_sources):
         issues.append("bot still sends messages with Markdown parse mode")
+    main_source = (ROOT / "bot" / "main.py").read_text(encoding="utf-8-sig")
+    if "set_my_commands" not in main_source:
+        issues.append("Telegram public command menu is not published on startup")
+    for language_code in ('"ru"', '"uz"', '"kk"'):
+        if f"language_code={language_code}" not in main_source and f"{language_code}:" not in main_source:
+            issues.append(f"Telegram command menu is missing language {language_code}")
+    public_command_markers = (
+        'BotCommand("start"',
+        'BotCommand("menu"',
+        'BotCommand("settings"',
+        'BotCommand("stop"',
+    )
+    for marker in public_command_markers:
+        if marker not in main_source:
+            issues.append(f"Telegram public command menu is missing {marker}")
+    command_menu_start = main_source.find("localized_commands = {")
+    command_menu_end = main_source.find("for language_code, commands", command_menu_start)
+    if command_menu_start != -1 and command_menu_end != -1:
+        command_menu_source = main_source[command_menu_start:command_menu_end]
+        for admin_command in ('BotCommand("test"', 'BotCommand("broadcast"', 'BotCommand("stats"'):
+            if admin_command in command_menu_source:
+                issues.append(f"admin command leaked into public Telegram command menu: {admin_command}")
+        for stale_phrase in ("Yoga Bot", "yoga principles"):
+            if stale_phrase in command_menu_source:
+                issues.append(f"Telegram command menu contains stale wording: {stale_phrase!r}")
     utils_source = (ROOT / "bot" / "utils.py").read_text(encoding="utf-8-sig")
     principle_formatter_start = utils_source.find("def format_principle_message")
     principle_formatter_end = utils_source.find("def get_day_of_week")

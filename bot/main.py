@@ -1,4 +1,4 @@
-"""Main entry point for yoga bot."""
+"""Main entry point for Journey of Ascension."""
 
 import asyncio
 import logging
@@ -10,7 +10,7 @@ from typing import List
 from aiohttp import web
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
-from telegram import Bot
+from telegram import Bot, BotCommand
 from telegram.request import HTTPXRequest
 from telegram.ext import Application, ContextTypes
 from pydantic_settings import BaseSettings
@@ -109,7 +109,7 @@ def setup_sentry(dsn: str) -> None:
 
 
 class YogaBot:
-    """Main yoga bot application."""
+    """Main Journey of Ascension application."""
     
     def __init__(self, settings: Settings):
         self.settings = settings
@@ -173,7 +173,7 @@ class YogaBot:
     
     async def start(self) -> None:
         """Start the bot."""
-        self.logger.info("Starting yoga bot...")
+        self.logger.info("Starting Journey of Ascension...")
         
         try:
             # Load principles.
@@ -184,6 +184,7 @@ class YogaBot:
             
             # Initialize bot application.
             await self.application.initialize()
+            await self.setup_bot_commands()
             
             # Start scheduler.
             await self.scheduler.start()
@@ -218,6 +219,46 @@ class YogaBot:
         except Exception as e:
             self.logger.error(f"Failed to start bot: {e}")
             raise
+
+    async def setup_bot_commands(self) -> None:
+        """Publish the public command menu shown by Telegram clients."""
+        localized_commands = {
+            None: [
+                BotCommand("start", "Start or restart setup"),
+                BotCommand("menu", "Open the main practice menu"),
+                BotCommand("settings", "View reminder settings"),
+                BotCommand("stop", "Stop the bot"),
+            ],
+            "en": [
+                BotCommand("start", "Start or restart setup"),
+                BotCommand("menu", "Open the main practice menu"),
+                BotCommand("settings", "View reminder settings"),
+                BotCommand("stop", "Stop the bot"),
+            ],
+            "ru": [
+                BotCommand("start", "Запустить настройку заново"),
+                BotCommand("menu", "Открыть главное меню"),
+                BotCommand("settings", "Посмотреть настройки напоминаний"),
+                BotCommand("stop", "Остановить работу бота"),
+            ],
+            "uz": [
+                BotCommand("start", "Sozlashni qayta boshlash"),
+                BotCommand("menu", "Asosiy amaliyot menyusini ochish"),
+                BotCommand("settings", "Eslatma sozlamalarini ko'rish"),
+                BotCommand("stop", "Bot ishini to'xtatish"),
+            ],
+            "kk": [
+                BotCommand("start", "Баптауды қайта бастау"),
+                BotCommand("menu", "Негізгі тәжірибе мәзірін ашу"),
+                BotCommand("settings", "Еске салу баптауларын көру"),
+                BotCommand("stop", "Бот жұмысын тоқтату"),
+            ],
+        }
+
+        for language_code, commands in localized_commands.items():
+            await self.bot.set_my_commands(commands, language_code=language_code)
+
+        self.logger.info("Published public Telegram command menu.")
     
     async def stop(self) -> None:
         """Stop the bot."""
