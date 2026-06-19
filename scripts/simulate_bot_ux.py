@@ -2318,6 +2318,7 @@ def build_html() -> str:
       const item = payload.principles[state.language][index] || payload.principles[state.language][0];
       show('Principle', item.detail, [
         [{{ label: t('principles_random'), action: () => renderPrincipleDetail((index + 3) % payload.principles[state.language].length) }}, {{ label: t('principles_all'), action: () => setScreen('allPrinciples') }}],
+        [{{ label: t('principles_back'), action: () => setScreen('principles') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
       ], principleImageUrl(item));
     }}

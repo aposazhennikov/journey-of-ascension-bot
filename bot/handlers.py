@@ -3791,6 +3791,17 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
+    def _create_principle_detail_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create keyboard for a selected Yama/Niyama principle card."""
+        return InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(self._get_text("principles_random", language), callback_data="principles_random"),
+                InlineKeyboardButton(self._get_text("principles_all", language), callback_data="principles_all")
+            ],
+            [InlineKeyboardButton(self._get_text("principles_back", language), callback_data="principles_back")],
+            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+        ])
+
     def _create_principles_list_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create a clickable list of all Yama/Niyama principles."""
         principles = self.principles_manager.get_all_principles(language)
@@ -5163,7 +5174,7 @@ class BotHandlers:
         """Show a selected Yama/Niyama principle in the current menu message."""
         principle_id = int(principle.get("id", 0))
         chat_id = query.message.chat.id
-        keyboard = self._create_principles_menu_keyboard(language)
+        keyboard = self._create_principle_detail_keyboard(language)
         text = self._format_principle_detail(principle, language)
         image_path = get_principle_image_path(principle_id)
 
