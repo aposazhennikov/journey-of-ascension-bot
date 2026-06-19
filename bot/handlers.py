@@ -1754,9 +1754,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Amaliyot halol savoldan boshlanadi: kun davomida energiyam qayerga ketmoqda? U tarqoq bo'lsa, diqqat shovqinli bo'ladi, reaksiya keskinlashadi, oddiy ishlar ham ko'proq kuch oladi. Energiya yig'ilsa, tana sokinroq, ong esa kengroq bo'ladi.\n\n"
-            "<b>Yama va Niyama</b> poydevor. Bular quruq axloqiy shiorlar emas; ular kuchni nutq, odat, ziddiyat, o'zingizga zarar, shoshilish va ongsiz reaksiyalar orqali yo'qotmaslikka yordam beradi. <b>Ahimsa</b>, masalan, energiyani zarar yetkazishga, jumladan o'zingizga zarar yetkazishga sarflamaslikdan boshlanadi.\n\n"
-            "<b>Meridianlar</b> amaliyotni tanaga olib kiradi. Siz Qi kanallarini diqqat, nafas va sezgi orqali kuzatishni o'rganasiz: ba'zi nuqtalar tez javob beradi, ba'zilariga yumshoq teginish va ko'proq vaqt kerak bo'ladi.\n\n"
+            "Amaliyot oddiy kuzatishdan boshlanadi: kun davomida kuchim qayerga ketmoqda? Bu yerda energiya mavhum so'z emas. Bu diqqat, hayotiylik, barqarorlik va o'zingizni bo'shatib yubormasdan harakat qilish qobiliyatidir.\n\n"
+            "<b>Yama va Niyama</b> poydevor. Ular energiya oqib ketadigan joylarni yopishga yordam beradi: keskin so'z, ziddiyat, shoshilish, ortiqchalik, o'zingizga zarar, xafagarchilik va avtomatik reaksiyalar. <b>Ahimsa</b>, masalan, faqat boshqalarga zarar yetkazmaslik emas; u o'zingizni yemirmaslik va keyin tiklanishga yana kuch sarflamaslikdan ham boshlanadi.\n\n"
+            "<b>Meridianlar</b> shu ishni tanaga olib kiradi. Siz Qi kanallarini diqqat, nafas, teginish, iliqlik, bosim va sokin joylar orqali sezishni o'rganasiz. Agar nuqta deyarli sezilmasa, bu xato emas; bu ko'proq sabrli amaliyot so'rayotgan joy.\n\n"
             "Nimani o'rganmoqchisiz?"
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
@@ -1814,10 +1814,10 @@ TEXTS_UPDATE = {
         ),
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
-            "Bular klassik yoganing birinchi ikki pog'onasi va amaliyotning axloqiy poydevoridir.\n\n"
-            "<b>Yama</b> dunyo bilan munosabatda energiyani asraydi: zarar yetkazmaslik, rostgo'ylik, o'g'irlamaslik, mo'tadillik va ortiqcha egalik qilmaslik.\n\n"
-            "<b>Niyama</b> energiyani ichkarida yig'adi: poklik, qanoat, intizom, o'zini o'rganish va amaliyot mevasini oliy maqsadga bag'ishlash.\n\n"
-            "Kun tamoyili qolgan tamoyillar o'rniga kelmaydi; u kuzatish uchun urg'u beradi. Biz ularning barchasini hayotga asta-sekin kiritamiz, har kuni bittasi aniqroq ko'rinadi.\n\n"
+            "Bular klassik yoganing birinchi ikki pog'onasi. Bu chiroyli fikrlar ro'yxati emas, balki energiyani so'z, odat, reaksiya, istak va ichki tartibsizlik orqali behuda sarflamaslik mashqidir.\n\n"
+            "<b>Yama</b> dunyo bilan munosabatda ishlaydi: zarar yetkazmaslik, rostgo'ylik, o'g'irlamaslik, mo'tadillik va ortiqcha egalik qilmaslik. U kuchni ziddiyat, bosim, taqqoslash va ortiqcha narsaga yopishishda yo'qotmaslikni o'rgatadi.\n\n"
+            "<b>Niyama</b> ichki tayanch bilan ishlaydi: poklik, qanoat, intizom, o'zini o'rganish va amaliyot mevasini oliy maqsadga bag'ishlash. U diqqatni tozaroq ritmga yig'adi.\n\n"
+            "Kun tamoyili faqat urg'u. Bu bugun Ahimsani mashq qilib, ertaga uni unutamiz degani emas. Biz barcha tamoyillarni hayotda birga ushlab turamiz; har kuni bittasi yuzaga yaqinroq chiqadi.\n\n"
             "Bugungi tamoyilni oching yoki to'liq ro'yxatni ko'ring."
         ),
         "principles_random": "Tasodifiy tamoyil",
@@ -1885,11 +1885,12 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
-            "Xitoy an'anasida meridianlar Qi harakat qiladigan yo'llar sifatida tasvirlanadi. Amaliyotda bu juda aniq bo'ladi: qaysi joy tana diqqatga javob berishini, qayerda taranglik borligini va qayerda sezgi hali kuchsizligini kuzatasiz.\n\n"
-            "<b>Bu qanday yordam beradi:</b> diqqat, nafas va yumshoq teginish nuqtaga sezgirlikni asta-sekin qaytaradi. Soha iliqroq, ravshanroq va kanalning umumiy chizig'iga osonroq qo'shiladigan bo'ladi.\n\n"
-            "<b>Qanday o'rganish:</b> sokin ketma-ketlik kerak bo'lsa bot yo'nalishini tanlang, qaysi meridianni o'rganmoqchi ekaningizni bilsangiz erkin tanlovni tanlang.\n\n"
-            "<b>Nuqtalardan oldin:</b> <b>cun</b> bo'yicha qo'llanmani oching. U tanangizdagi kerakli joyga yaqinlashishga yordam beradi; nuqtani esa barmoq, nafas va diqqat bilan aniqlaysiz.\n\n"
-            "Bu o'zini kuzatish amaliyoti. U shifokor, tashxis yoki davolanish o'rnini bosmaydi."
+            "Xitoy an'anasida meridianlar Qi harakat qiladigan kanallar deb tasvirlanadi. Amaliyot uchun bu ko'r-ko'rona ishoniladigan nazariya emas. Bu tanani kuzatish usuli: qayerda sezgi ravshan, qayerda chiziq uziladi, qaysi nuqta iliq, tarang, bo'sh yoki jim.\n\n"
+            "<b>Nimani mashq qilamiz:</b> diqqat, nafas va yumshoq teginish. Agar nuqta boshida javob bermasa, uni hozircha amaliyot uchun yopiq deb qabul qiling: uzoqroq turing, yengil massaj qiling, shu joy orqali diqqat bilan nafas oling va sezgi barqarorroq bo'lishini kuting.\n\n"
+            "<b>Qanday harakat qilamiz:</b> har bir yangi nuqta oldingilariga qo'shiladi. Avval birinchi nuqtani sezing. Keyin uni fon sifatida ushlab, ikkinchisini qo'shing. Vaqt o'tishi bilan meridian alohida nuqtalar emas, bitta tirik chiziq bo'lib sezila boshlaydi.\n\n"
+            "<b>Yo'lni tanlang:</b> boshidan sokin ketma-ketlik kerak bo'lsa bot yo'nalishini tanlang. Ma'lum meridian e'tiboringizni tortsa, erkin tanlovni tanlang.\n\n"
+            "<b>Nuqtalardan oldin:</b> <b>cun</b> bo'yicha qo'llanmani oching. U kerakli sohani topishga yordam beradi; aniq joy esa barmoq, nafas va diqqat bilan aniqlanadi.\n\n"
+            "Bu o'zini kuzatish va ichki intizom amaliyoti. U tibbiy tashxis yoki davolanish o'rnini bosmaydi."
         ),
         "choose_meridian": (
             "☯️ <b>Meridianni tanlang</b>\n\n"
@@ -1916,11 +1917,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Bu bot amaliyot kun ichiga kirishini istaganlar uchun: u faqat kechqurun, hammasi bo'lib o'tgandan keyin esga tushib qolmasin.\n\n"
-            "Bu yerda energiya kuzatish mumkin bo'lgan narsa: diqqat, barqarorlik, hayotiylik, o'zingizni sarflamasdan harakat qilish qobiliyati. Energiya ziddiyat, shoshilish, xafagarchilik, ortiqchalik yoki o'ziga e'tiborsizlikka oqib ketsa, butun kun og'irlashadi.\n\n"
-            "<b>Yama/Niyama</b> bu oqimlarni xulq, nutq, fikr, intizom va o'zingizga halollik orqali yopishga yordam beradi.\n\n"
-            "<b>Meridianlar</b> ishni tanaga olib kiradi: kanallar, nuqtalar, Qi oqimi, yopiq joylar, nafas, teginish va sabrli diqqat.\n\n"
-            "Bot kun ichida amaliyot ipini yo'qotib qo'ymaslikka yordam beradi: kerakli paytda fokusga qaytaradi va keyingi kichik qadamni ko'rsatadi."
+            "Bu bot ruhiy amaliyot real hayotga kirishini istaganlar uchun: u faqat o'qiladigan matn bo'lib qolmasin va kun sizni odatiy reaksiyalarga olib ketgandan keyin kechqurun esga tushmasin.\n\n"
+            "Bu yerda energiya kuzatiladigan narsa: diqqat, hayotiylik, barqarorlik, tanadagi iliqlik va o'zingizni bo'shatmasdan harakat qilish qobiliyati. Energiya ziddiyat, shoshilish, xafagarchilik, ortiqchalik, o'zingizga zarar yoki o'zingizga e'tiborsizlikka ketsa, bu ongda ham, tanada ham seziladi.\n\n"
+            "<b>Yama/Niyama</b> poydevor beradi: kundalik tamoyillar xulq, so'z, fikr, intizom va o'zingizga halollik orqali shu oqimlarni yopishga yordam beradi.\n\n"
+            "<b>Meridianlar</b> tana qatlamini beradi: kanallar, nuqtalar, Qi oqimi, sezgir va yopiq joylar, nafas, teginish va diqqatni sabr bilan bir joyga qaytarish odati.\n\n"
+            "Botning vazifasi oddiy: amaliyot ipi kun shovqinida yo'qolib ketmasin va keyingi kichik qadam ko'rinib tursin."
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension'da yangilik: meridian amaliyoti</b>\n\n"
