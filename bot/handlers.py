@@ -1268,10 +1268,11 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
 ADMIN_TEXTS = {
     "next_principle": "📋 Random principle for user {user_id}:\n\n{principle}\n\n💡 Principles are chosen randomly for each user",
     "no_principles": "No available principles for user {user_id}.",
-    "add_usage": "Usage: /add <principle text>",
-    "add_empty": "Principle text cannot be empty.",
-    "add_success": "✅ Principle '{name}' successfully added!",
-    "add_error": "❌ Error adding principle.",
+    "add_disabled": (
+        "Content editing is disabled in chat.\n\n"
+        "Principles must stay synchronized across all four languages, with image, group, description, and practice text. "
+        "Update bot/principles.json in the repository and run the UX audits before release."
+    ),
     "stats": (
         "📊 Bot Statistics:\n\n"
         "👥 Total users: {total_users}\n"
@@ -1317,9 +1318,8 @@ ADMIN_TEXTS = {
         "• feedback_list [limit] - View recent feedback\n\n"
         "📨 Messages:\n"
         "• next - Show random principle for user\n"
-        "• broadcast <message> - Send message to all users\n\n"
-        "🛠️ Management:\n"
-        "• add <text> - Add new principle (not implemented)\n\n"
+        "• broadcast <message> - Send message to all users\n"
+        "• broadcast meridians_announcement - Send localized meridians announcement\n\n"
         "All commands are admin-only and require proper permissions."
     )
 }
@@ -2851,42 +2851,9 @@ class BotHandlers:
             return
 
         try:
-            if not context.args:
-                await update.message.reply_text(self._get_admin_text("add_usage"))
-                return
-
-            principle_text = " ".join(context.args)
-            if not principle_text:
-                await update.message.reply_text(self._get_admin_text("add_empty"))
-                return
-
-            # Simple parsing for new principle.
-            lines = principle_text.split('\n')
-            name = lines[0] if lines else "New Principle"
-            description = '\n'.join(lines[1:]) if len(lines) > 1 else principle_text
-
-            new_principle = {
-                "name": name,
-                "emoji": "🧘",
-                "short_description": name,
-                "description": description,
-                "practice_tip": ""
-            }
-
-            success = await self.principles_manager.add_principle(new_principle)
-            if success:
-                text = self._get_admin_text("add_success", name=name)
-            else:
-                text = self._get_admin_text("add_error")
-
-            await update.message.reply_text(text)
-
+            await update.message.reply_text(self._get_admin_text("add_disabled"))
         except Exception as e:
             logger.error(f"Error in add principle handler: {e}")
-            try:
-                await update.message.reply_text(self._get_admin_text("add_error"))
-            except:
-                logger.error(f"Could not send error message to {chat_id}")
 
     async def _handle_stats(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /stats command (admin only)."""

@@ -825,6 +825,9 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     for marker in setup_markers:
         if marker not in handlers_source:
             issues.append(f"setup completion is missing living-practice marker: {marker!r}")
+    for stale_fragment in ("not implemented", "placeholder"):
+        if stale_fragment in handlers_source.lower():
+            issues.append(f"handlers still expose stale implementation wording: {stale_fragment!r}")
 
     settings_keyboard_start = handlers_source.find("def _create_settings_menu_keyboard")
     principles_keyboard_start = handlers_source.find("def _create_principles_menu_keyboard")
