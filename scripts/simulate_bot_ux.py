@@ -790,6 +790,13 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if "parse_mode='Markdown'" in stop_feedback_handler_source:
             issues.append("stop feedback handler still uses Markdown parse mode")
 
+    meridian_handler_start = handlers_source.find("async def _handle_meridian_callback")
+    broadcast_handler_start = handlers_source.find("async def _handle_broadcast_callback")
+    if meridian_handler_start != -1 and broadcast_handler_start != -1:
+        meridian_handler_source = handlers_source[meridian_handler_start:broadcast_handler_start]
+        if "meridian_completed" in meridian_handler_source and "format_meridian_intro(next_meridian" in meridian_handler_source:
+            issues.append("meridian completion still concatenates the next meridian intro into one caption")
+
     detail_formatter_start = handlers_source.find("def _format_principle_detail")
     start_handler_start = handlers_source.find("async def _handle_start")
     if detail_formatter_start != -1 and start_handler_start != -1:
@@ -1181,7 +1188,18 @@ def build_html() -> str:
         state.currentMeridianId = ready[index + 1].id;
         state.currentPointIndex = -1;
       }}
-      setScreen('meridians');
+      setScreen('meridianCompleted');
+    }}
+
+    function renderMeridianCompleted() {{
+      const buttons = [];
+      if (state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);
+      buttons.push(
+        [{{ label: t('meridian_change_path'), action: () => setScreen('meridianPath') }}],
+        [{{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}],
+        [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
+      );
+      show('Meridian completed', fmt(t('meridian_completed')), buttons);
     }}
 
     function renderChooseMeridian() {{
@@ -1264,6 +1282,7 @@ def build_html() -> str:
         modes: renderModes,
         meridians: renderMeridians,
         meridianPath: renderMeridianPath,
+        meridianCompleted: renderMeridianCompleted,
         currentMeridian: renderCurrentMeridian,
         chooseMeridian: renderChooseMeridian,
         allPoints: renderAllPoints,

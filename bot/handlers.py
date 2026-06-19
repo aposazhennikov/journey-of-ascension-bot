@@ -230,12 +230,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'Both options keep your progress and daily reminders.',
         'meridian_guided_path': '🧭 Follow the bot path',
         'meridian_free_choice': '👐 Choose a meridian myself',
-        'meridian_change_path': '🧭 Choose study path',
+        'meridian_change_path': '🧭 Study path',
         'meridian_guided_saved': '✅ <b>Guided path selected.</b>\n'
                                  '\n'
                                  'The bot will lead you through the meridians step by step.',
         'meridian_free_saved': '✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.',
-        'meridian_measurements': '📏 Cun: TCM measuring system',
+        'meridian_measurements': '📏 How to measure in cun',
         'meridian_point_help': '🖐 How to find a point',
         'meridian_back': '🔙 Back to meridians',
         'coming_soon': 'soon',
@@ -532,14 +532,14 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'В обоих вариантах сохраняется прогресс и работают ежедневные напоминания.',
         'meridian_guided_path': '🧭 Идти по пути бота',
         'meridian_free_choice': '👐 Выбирать меридианы самому',
-        'meridian_change_path': '🧭 Выбрать путь изучения',
+        'meridian_change_path': '🧭 Путь изучения',
         'meridian_guided_saved': '✅ <b>Выбран наш путь.</b>\n'
                                  '\n'
                                  'Бот будет вести вас по меридианам шаг за шагом.',
         'meridian_free_saved': '✅ <b>Выбрано самостоятельное изучение.</b>\n'
                                '\n'
                                'Выберите любой меридиан, который хотите исследовать.',
-        'meridian_measurements': '📏 Цуни: система измерений ТКМ',
+        'meridian_measurements': '📏 Как измерять в цунях',
         'meridian_point_help': '🖐 Как искать точку',
         'meridian_back': '🔙 К меридианам',
         'coming_soon': 'скоро',
@@ -840,14 +840,14 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'Ikkala variantda ham progress va kundalik eslatmalar saqlanadi.',
         'meridian_guided_path': "🧭 Bot yo'li bo'yicha",
         'meridian_free_choice': "👐 Meridianlarni o'zim tanlayman",
-        'meridian_change_path': "🧭 O'rganish yo'lini tanlash",
+        'meridian_change_path': "🧭 O'rganish yo'li",
         'meridian_guided_saved': "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n"
                                  '\n'
                                  "Bot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         'meridian_free_saved': "✅ <b>Mustaqil o'rganish tanlandi.</b>\n"
                                '\n'
                                "O'rganmoqchi bo'lgan meridianni tanlang.",
-        'meridian_measurements': "📏 Cun: TKM o'lchov tizimi",
+        'meridian_measurements': "📏 Cunda qanday o'lchash",
         'meridian_point_help': '🖐 Nuqtani topish',
         'meridian_back': '🔙 Meridianlarga qaytish',
         'coming_soon': 'tez orada',
@@ -1156,14 +1156,14 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'Екі нұсқада да прогресс сақталады және күнделікті еске салулар жұмыс істейді.',
         'meridian_guided_path': '🧭 Бот жолымен жүру',
         'meridian_free_choice': '👐 Меридиандарды өзім таңдаймын',
-        'meridian_change_path': '🧭 Зерттеу жолын таңдау',
+        'meridian_change_path': '🧭 Зерттеу жолы',
         'meridian_guided_saved': '✅ <b>Біздің жол таңдалды.</b>\n'
                                  '\n'
                                  'Бот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.',
         'meridian_free_saved': '✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n'
                                '\n'
                                'Зерттегіңіз келетін меридианды таңдаңыз.',
-        'meridian_measurements': '📏 Цунь: ҚКМ өлшем жүйесі',
+        'meridian_measurements': '📏 Цуньмен қалай өлшеу',
         'meridian_point_help': '🖐 Нүктені табу',
         'meridian_back': '🔙 Меридиандарға қайту',
         'coming_soon': 'жақында',
@@ -1435,10 +1435,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Follow the bot path",
         "meridian_free_choice": "👐 Choose a meridian myself",
-        "meridian_change_path": "🧭 Choose study path",
+        "meridian_change_path": "🧭 Study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
-        "meridian_measurements": "📏 Cun: TCM measuring system",
+        "meridian_measurements": "📏 How to measure in cun",
         "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
         "coming_soon": "soon",
@@ -1614,10 +1614,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Идти по пути бота",
         "meridian_free_choice": "👐 Выбирать меридианы самому",
-        "meridian_change_path": "🧭 Выбрать путь изучения",
+        "meridian_change_path": "🧭 Путь изучения",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
-        "meridian_measurements": "📏 Цуни: система измерений ТКМ",
+        "meridian_measurements": "📏 Как измерять в цунях",
         "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
         "coming_soon": "скоро",
@@ -1793,10 +1793,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Bot yo'li bo'yicha",
         "meridian_free_choice": "👐 Meridianlarni o'zim tanlayman",
-        "meridian_change_path": "🧭 O'rganish yo'lini tanlash",
+        "meridian_change_path": "🧭 O'rganish yo'li",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
-        "meridian_measurements": "📏 Cun: TKM o'lchov tizimi",
+        "meridian_measurements": "📏 Cunda qanday o'lchash",
         "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "coming_soon": "tez orada",
@@ -1986,10 +1986,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Бот жолымен жүру",
         "meridian_free_choice": "👐 Меридиандарды өзім таңдаймын",
-        "meridian_change_path": "🧭 Зерттеу жолын таңдау",
+        "meridian_change_path": "🧭 Зерттеу жолы",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
-        "meridian_measurements": "📏 Цунь: ҚКМ өлшем жүйесі",
+        "meridian_measurements": "📏 Цуньмен қалай өлшеу",
         "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "coming_soon": "жақында",
@@ -4367,17 +4367,13 @@ class BotHandlers:
                 await self.storage.save_user(user)
                 text = self._get_text("meridian_completed", language)
                 if user.current_meridian_id:
-                    next_meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id)
-                    if next_meridian:
-                        text = f"{text}\n\n{format_meridian_intro(next_meridian, language)}"
-                        await self._show_meridian_card(
-                            query,
-                            text,
-                            self._create_meridian_practice_keyboard(language, at_intro=True),
-                            language,
-                            next_meridian.get("id")
-                        )
-                        return
+                    await self._edit_message_text_safe(
+                        query,
+                        text,
+                        reply_markup=self._create_meridians_menu_keyboard(language, user),
+                        parse_mode='HTML'
+                    )
+                    return
 
                 await self._edit_message_text_safe(
                     query,
