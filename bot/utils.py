@@ -415,6 +415,34 @@ def _compact_point_location(location: str, limit: int = 260) -> str:
     return location[:limit].rsplit(" ", 1)[0].rstrip(",") + "..."
 
 
+def _clean_point_location(location: str) -> str:
+    """Remove source-editorial tails from point locations before showing them."""
+    if not location:
+        return ""
+    stop_markers = (
+        ". В книге",
+        ". Для нахождения",
+        ". При использовании",
+        ". Находят",
+        ". Используют",
+        ". Находят и используют",
+        ". Точка расположена",
+        ". Цзин-цюй",
+        ". Нүкте",
+        ". Nuqta",
+        ". The point",
+        ". To find",
+        ". In the book",
+    )
+    cleaned = location.strip()
+    for marker in stop_markers:
+        index = cleaned.find(marker)
+        if index > 0:
+            cleaned = cleaned[:index].rstrip()
+            break
+    return cleaned.rstrip(":;,.") + ("." if cleaned and not cleaned.endswith(".") else "")
+
+
 def _point_observation_prompt(
     point: Dict[str, Any],
     point_index: int,
@@ -476,7 +504,7 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     point = points[point_index]
     meridian_name = escape(_localized_value(meridian, language, "name", meridian.get("id", "Meridian")))
     point_name = escape(localized_point_name(point, language))
-    raw_location = _localized_location(point, language)
+    raw_location = _clean_point_location(_localized_location(point, language))
     location = escape(_compact_point_location(raw_location))
 
     practice_notes = {

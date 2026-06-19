@@ -213,6 +213,33 @@ def compact_point_location(location: str, limit: int = 260) -> str:
     return location[:limit].rsplit(" ", 1)[0].rstrip(",") + "..."
 
 
+def clean_point_location(location: str) -> str:
+    if not location:
+        return ""
+    stop_markers = (
+        ". В книге",
+        ". Для нахождения",
+        ". При использовании",
+        ". Находят",
+        ". Используют",
+        ". Находят и используют",
+        ". Точка расположена",
+        ". Цзин-цюй",
+        ". Нүкте",
+        ". Nuqta",
+        ". The point",
+        ". To find",
+        ". In the book",
+    )
+    cleaned = location.strip()
+    for marker in stop_markers:
+        index = cleaned.find(marker)
+        if index > 0:
+            cleaned = cleaned[:index].rstrip()
+            break
+    return cleaned.rstrip(":;,.") + ("." if cleaned and not cleaned.endswith(".") else "")
+
+
 def point_observation_prompt(point: dict[str, Any], point_index: int, language: str, point_title: str, location: str) -> str:
     area = short_point_area(location)
     title = point_title or point.get("code", "")
@@ -243,7 +270,7 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     points = meridian.get("points", [])
     point = points[point_index]
     point_title = " ".join(part for part in (point.get("code", ""), localized_point_name(point, language)) if part)
-    location = localized_location(point, language)
+    location = clean_point_location(localized_location(point, language))
     parts = [
         f"<b>{escape(localized(meridian, language, 'name'))}</b>",
         f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",

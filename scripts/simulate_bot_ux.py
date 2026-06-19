@@ -80,6 +80,14 @@ HARD_MEDICAL_PHRASES = (
     "болезн",
     "диагноз",
 )
+SOURCE_EDITORIAL_TAILS = (
+    "В книге",
+    "Для нахождения точки",
+    "пациент",
+    "Секретные рецепты",
+    "In the book",
+    "To find the point",
+)
 
 
 def load_text_definitions() -> dict[str, Any]:
@@ -281,6 +289,33 @@ def compact_point_location(location: str, limit: int = 260) -> str:
     return location[:limit].rsplit(" ", 1)[0].rstrip(",") + "..."
 
 
+def clean_point_location(location: str) -> str:
+    if not location:
+        return ""
+    stop_markers = (
+        ". В книге",
+        ". Для нахождения",
+        ". При использовании",
+        ". Находят",
+        ". Используют",
+        ". Находят и используют",
+        ". Точка расположена",
+        ". Цзин-цюй",
+        ". Нүкте",
+        ". Nuqta",
+        ". The point",
+        ". To find",
+        ". In the book",
+    )
+    cleaned = location.strip()
+    for marker in stop_markers:
+        index = cleaned.find(marker)
+        if index > 0:
+            cleaned = cleaned[:index].rstrip()
+            break
+    return cleaned.rstrip(":;,.") + ("." if cleaned and not cleaned.endswith(".") else "")
+
+
 def point_observation_prompt(point: dict[str, Any], point_index: int, language: str, point_title: str, location: str) -> str:
     area = short_point_area(location)
     title = point_title or point.get("code", "")
@@ -311,7 +346,7 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     points = meridian.get("points", [])
     point = points[point_index]
     point_title = " ".join(part for part in (point.get("code", ""), localized_point_name(point, language)) if part)
-    location = localized_location(point, language)
+    location = clean_point_location(localized_location(point, language))
     parts = [
         f"<b>{escape(localized(meridian, language, 'name'))}</b>",
         f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",
@@ -625,6 +660,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: Cyrillic leaked into visible point detail")
                 if has_source_or_medical_leak(plain):
                     issues.append(f"{meridian_id} point {index + 1}/{language}: source note or hard medical claim leaked into visible point detail")
+                if any(marker in plain for marker in SOURCE_EDITORIAL_TAILS):
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: source-editorial location tail leaked")
                 if "<b>" not in detail:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: no bold formatting")
                 if OBSERVATION_LABELS[language] not in plain:
