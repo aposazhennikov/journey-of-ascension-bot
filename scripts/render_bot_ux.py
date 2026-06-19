@@ -498,6 +498,8 @@ def audit() -> list[str]:
 
     image_dir = ROOT / "images" / "meridians"
     for meridian in meridians:
+        if not any((image_dir / f"{meridian['id']}{extension}").exists() for extension in (".jpg", ".png", ".gif")):
+            issues.append(f"missing meridian overview image: {meridian['id']}")
         for point in meridian.get("points", []):
             image_name = point.get("image")
             if not image_name:

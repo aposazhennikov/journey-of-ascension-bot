@@ -303,9 +303,16 @@ def build_payload() -> dict[str, Any]:
         ]
 
     for meridian in meridians:
+        overview_image = None
+        for extension in (".jpg", ".png", ".gif"):
+            candidate = ROOT / "images" / "meridians" / f"{meridian['id']}{extension}"
+            if candidate.exists():
+                overview_image = candidate.name
+                break
         payload["meridians"].append(
             {
                 "id": meridian["id"],
+                "overviewImage": overview_image,
                 "names": {language: localized(meridian, language, "name", meridian["id"]) for language in LANGUAGES},
                 "pointsCount": len(meridian.get("points", [])),
                 "intro": {language: format_meridian_intro(meridian, language) for language in LANGUAGES},
@@ -440,6 +447,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
 
     for meridian_id in ready_ids:
         meridian = meridians_by_id[meridian_id]
+        if not meridian.get("overviewImage"):
+            issues.append(f"{meridian_id}: missing overview image")
         if not meridian["points"]:
             issues.append(f"{meridian_id}: marked ready but has no point payload")
         for language in LANGUAGES:
@@ -618,6 +627,7 @@ def render(output: Path) -> None:
     function t(key) {{ return payload.texts[state.language][key] || payload.texts.en[key] || key; }}
     function fmt(value) {{ return (value || '').replaceAll('\\n', '<br>').replace(/\\*\\*(.*?)\\*\\*/g, '<b>$1</b>'); }}
     function meridian() {{ return payload.meridians.find((item) => item.id === state.currentMeridianId) || payload.meridians[0]; }}
+    function meridianImageUrl(item) {{ return item && item.overviewImage ? `../images/meridians/${{encodeURIComponent(item.overviewImage)}}` : null; }}
     function pointImageUrl(point) {{ return point && point.image ? `../images/meridians/${{encodeURIComponent(point.image)}}` : null; }}
     function firstReadyMeridian() {{
       for (const id of payload.recommendedPath) {{
@@ -818,7 +828,7 @@ def render(output: Path) -> None:
           [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('complete_meridian'), action: completeMeridian }}],
           [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
         ];
-      show('Current focus', html, buttons, pointImageUrl(point));
+      show('Current focus', html, buttons, point ? pointImageUrl(point) : meridianImageUrl(item));
     }}
 
     function nextPoint() {{
