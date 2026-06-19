@@ -1431,6 +1431,7 @@ TEXTS_UPDATE = {
         "meridian_measurements": "📏 How to measure in cun",
         "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
+        "back_to_current_focus": "🔙 Back to current focus",
         "coming_soon": "soon",
         "meridian_measurements_text": (
             "📏 <b>Measurement System in TCM</b>\n\n"
@@ -1613,6 +1614,7 @@ TEXTS_UPDATE = {
         "meridian_measurements": "📏 Как измерять в цунях",
         "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
+        "back_to_current_focus": "🔙 К текущему фокусу",
         "coming_soon": "скоро",
         "meridian_measurements_text": (
             "📏 <b>Система измерений в ТКМ</b>\n\n"
@@ -1795,6 +1797,7 @@ TEXTS_UPDATE = {
         "meridian_measurements": "📏 Cunda qanday o'lchash",
         "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
+        "back_to_current_focus": "🔙 Joriy fokusga qaytish",
         "coming_soon": "tez orada",
         "meridian_measurements_text": (
             "📏 <b>TKMdagi o'lchov tizimi</b>\n\n"
@@ -1991,6 +1994,7 @@ TEXTS_UPDATE = {
         "meridian_measurements": "📏 Цуньмен қалай өлшеу",
         "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
+        "back_to_current_focus": "🔙 Ағымдағы фокусқа қайту",
         "coming_soon": "жақында",
         "meridian_measurements_text": (
             "📏 <b>ҚКМ-дегі өлшем жүйесі</b>\n\n"
@@ -3755,7 +3759,7 @@ class BotHandlers:
             if page < total_pages - 1:
                 navigation.append(InlineKeyboardButton("10 ▶️", callback_data=f"meridian_points_page:{page + 1}"))
             keyboard.append(navigation)
-        keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_current")])
+        keyboard.append([InlineKeyboardButton(self._get_text("back_to_current_focus", language), callback_data="meridian_current")])
         return InlineKeyboardMarkup(keyboard)
 
     def _format_meridian_points_page_text(self, language: str, page: int, total_pages: int) -> str:

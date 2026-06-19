@@ -736,6 +736,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             texts[language].get("meridian_measurements", ""),
             texts[language].get("meridian_point_help", ""),
             texts[language].get("meridian_change_path", ""),
+            texts[language].get("back_to_current_focus", ""),
         ]
         button_sources.extend(item["names"][language] for item in meridians)
         for label in button_sources:
@@ -785,6 +786,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     simulator_source = Path(__file__).read_text(encoding="utf-8-sig")
     if "state.meridiansEnabled && state.currentMeridianId" not in simulator_source:
         issues.append("simulator can show continue practice while meridian mode is disabled")
+    if 't("back_to_current_focus")' not in simulator_source:
+        issues.append("all-points screen does not label return-to-current-focus honestly")
     callback_values = sorted(set(re.findall(r"callback_data=(?:f)?[\"']([^\"']+)", handlers_source)))
     callback_patterns = [
         re.compile(ast.literal_eval(match))
@@ -1400,7 +1403,7 @@ def build_html() -> str:
         if (state.currentPointsPage < totalPages - 1) nav.push({{ label: '10 ▶️', action: () => {{ state.currentPointsPage += 1; setScreen('allPoints'); }} }});
         buttons.push(nav);
       }}
-      buttons.push([{{ label: t('meridian_back'), action: () => setScreen('currentMeridian') }}]);
+      buttons.push([{{ label: t('back_to_current_focus'), action: () => setScreen('currentMeridian') }}]);
       const helper = {{
         en: 'Choose a point to open its location image and practice. The opened point becomes your current focus; the bot will not move further until you press the next button.',
         ru: 'Выберите точку, чтобы открыть изображение расположения и практику. Открытая точка станет текущим фокусом; бот не пойдёт дальше, пока вы сами не нажмёте следующую кнопку.',
