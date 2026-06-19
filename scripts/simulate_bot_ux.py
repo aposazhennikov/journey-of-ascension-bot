@@ -1471,6 +1471,34 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if "principles_enabled" not in settings_keyboard_source or "meridians_enabled" not in settings_keyboard_source:
             issues.append("settings keyboard does not adapt time buttons to active practice modes")
 
+    meridian_handler_start = handlers_source.find("async def _handle_meridian_callback")
+    meridian_handler_end = handlers_source.find("async def _show_meridian_card")
+    if meridian_handler_start != -1 and meridian_handler_end != -1:
+        meridian_handler_source = handlers_source[meridian_handler_start:meridian_handler_end]
+        meridian_callback_contract = {
+            'callback_data="meridian_noop"': 'if action == "noop"',
+            'callback_data="meridian_current"': 'if action == "current"',
+            'callback_data="meridian_main"': 'if action == "main"',
+            'callback_data="meridian_choose"': 'if action == "choose"',
+            'callback_data="meridian_all"': 'if action == "all"',
+            'callback_data="meridian_next"': 'action in ["next", "prev"]',
+            'callback_data="meridian_prev"': 'action in ["next", "prev"]',
+            'callback_data="meridian_complete"': 'if action == "complete"',
+            'callback_data="meridian_measurements"': 'if action == "measurements"',
+            'callback_data="meridian_point_help"': 'if action == "point_help"',
+            'callback_data="meridian_path"': 'if action == "path"',
+            'callback_data=f"meridian_choice_page:{page - 1}"': 'action.startswith("choice_page:")',
+            'callback_data=f"meridian_choice_page:{page + 1}"': 'action.startswith("choice_page:")',
+            'callback_data=f"meridian_points_page:{page - 1}"': 'action.startswith("points_page:")',
+            'callback_data=f"meridian_points_page:{page + 1}"': 'action.startswith("points_page:")',
+            'f"meridian_select:{meridian.get(\'id\')}"': 'action.startswith("select:")',
+            'f"meridian_unavailable:{meridian.get(\'id\')}"': 'action.startswith("unavailable:")',
+            'f"meridian_point:{index}"': 'action.startswith("point:")',
+        }
+        for callback_marker, handler_marker in meridian_callback_contract.items():
+            if callback_marker in handlers_source and handler_marker not in meridian_handler_source:
+                issues.append(f"meridian callback {callback_marker!r} has no handler marker {handler_marker!r}")
+
     points_page_start = handlers_source.find("def _format_meridian_points_page_text")
     menu_handler_start = handlers_source.find("async def _handle_menu")
     if points_page_start != -1 and menu_handler_start != -1:
