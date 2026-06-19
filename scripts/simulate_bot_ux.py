@@ -176,39 +176,6 @@ def location_translation_status(meridians: list[dict[str, Any]]) -> dict[str, di
     return status
 
 
-def location_translation_tasks(
-    meridians: list[dict[str, Any]],
-    limit_per_language: int = 8,
-) -> dict[str, list[dict[str, str]]]:
-    """Return concrete point-location translation tasks for the QA sidebar."""
-    tasks = {language: [] for language in LANGUAGES if language != "ru"}
-    path_order = {meridian_id: index for index, meridian_id in enumerate(RECOMMENDED_PATH)}
-    ordered_meridians = sorted(
-        meridians,
-        key=lambda meridian: path_order.get(meridian.get("id", ""), len(path_order)),
-    )
-    for meridian in ordered_meridians:
-        meridian_id = meridian.get("id", "")
-        for point in meridian.get("points", []):
-            code = point.get("code", "")
-            for language in tasks:
-                if len(tasks[language]) >= limit_per_language:
-                    continue
-                location = localized(point, language, "location")
-                if not location.startswith(SOURCE_LOCATION_PREFIXES):
-                    continue
-                tasks[language].append(
-                    {
-                        "meridianId": meridian_id,
-                        "meridian": localized(meridian, language, "name", meridian_id),
-                        "code": code,
-                        "point": localized(point, language, "name", code),
-                        "status": "pending" if "pending source refinement" in location.lower() else "source",
-                    }
-                )
-    return tasks
-
-
 def principle_group(principle_id: int, language: str) -> str:
     values = {
         "en": ("Yama", "Niyama"),
@@ -322,7 +289,6 @@ def build_payload() -> dict[str, Any]:
         "languages": LANGUAGES,
         "recommendedPath": RECOMMENDED_PATH,
         "translationCoverage": location_translation_status(meridians),
-        "translationTasks": location_translation_tasks(meridians),
         "meridians": [],
         "principles": {},
     }
@@ -727,7 +693,32 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     return issues
 
 
-def render(output: Path) -> None:
+def audit_rendered_html() -> list[str]:
+    """Catch mojibake in the actual browser simulator output."""
+    html = build_html()
+    issues: list[str] = []
+    visible_mojibake = (
+        "рџ",
+        "Рџ",
+        "Рњ",
+        "Р”",
+        "Рљ",
+        "СЃ",
+        "С€",
+        "ТЇ",
+        "Т›",
+        "У™",
+        "В·",
+    )
+    for fragment in visible_mojibake:
+        if fragment in html:
+            issues.append(f"rendered simulator HTML contains mojibake fragment: {fragment!r}")
+    if "???" in html:
+        issues.append("rendered simulator HTML contains question-mark damaged text")
+    return issues
+
+
+def build_html() -> str:
     payload = build_payload()
     payload_json = json.dumps(payload, ensure_ascii=False)
     html = f"""<!doctype html>
@@ -811,8 +802,8 @@ def render(output: Path) -> None:
         <div id="translationCoverage" class="coverage"></div>
       </div>
       <div class="state">
-        <b>Next location tasks</b>
-        <div id="translationTasks" class="coverage"></div>
+        <b>Localization status</b>
+        <div id="localizationStatus" class="coverage"></div>
       </div>
     </aside>
   </main>
@@ -827,7 +818,7 @@ def render(output: Path) -> None:
     const stateBox = document.getElementById('state');
     const coverageBox = document.getElementById('coverage');
     const translationCoverageBox = document.getElementById('translationCoverage');
-    const translationTasksBox = document.getElementById('translationTasks');
+    const localizationStatusBox = document.getElementById('localizationStatus');
 
     const state = {{
       language: 'ru',
@@ -908,18 +899,17 @@ def render(output: Path) -> None:
           <div class="bar muted"><span>source RU / pending</span><b>${{item.source}} / ${{item.pending}}</b></div>
         `;
       }}).join('');
-      translationTasksBox.innerHTML = payload.languages
-        .filter((language) => language !== 'ru')
-        .map((language) => {{
-          const tasks = (payload.translationTasks[language] || []).slice(0, 4);
-          const items = tasks.map((task) => `
+      const openLocationTasks = payload.languages
+        .map((language) => [language, payload.translationCoverage[language]])
+        .filter(([, item]) => item.source || item.pending);
+      localizationStatusBox.innerHTML = openLocationTasks.length
+        ? openLocationTasks.map(([language, item]) => `
             <div class="task">
-              <b>${{language.toUpperCase()}} · ${{task.code}}</b> · ${{task.meridian}}
-              <small>${{task.point}}${{task.status === 'pending' ? ' · pending source' : ' · source RU'}}</small>
+              <b>${{language.toUpperCase()}}</b>
+              <small>${{item.source}} source-backed locations, ${{item.pending}} pending locations</small>
             </div>
-          `).join('');
-          return `<div class="muted">${{language.toUpperCase()}}</div>${{items || '<div class="muted">No open tasks</div>'}}`;
-        }}).join('');
+          `).join('')
+        : '<div class="ok">All point locations are localized for the four app languages.</div>';
     }}
 
     function chooseMode(mode) {{
@@ -941,8 +931,8 @@ def render(output: Path) -> None:
         ? 'timezone_step_both'
         : state.meridiansEnabled ? 'timezone_step_meridians' : 'timezone_step_principles';
       show('Timezone', fmt(t(key)), [
-        [{{ label: '🇷🇺 Москва +3', action: () => setScreen('time') }}, {{ label: '🇺🇿 Ташкент +5', action: () => setScreen('time') }}],
-        [{{ label: '🇰🇿 Алматы +5', action: () => setScreen('time') }}, {{ label: '🌍 UTC +0', action: () => setScreen('time') }}],
+        [{{ label: '\\u{{1F1F7}}\\u{{1F1FA}} \\u041C\\u043E\\u0441\\u043A\\u0432\\u0430 +3', action: () => setScreen('time') }}, {{ label: '\\u{{1F1FA}}\\u{{1F1FF}} \\u0422\\u0430\\u0448\\u043A\\u0435\\u043D\\u0442 +5', action: () => setScreen('time') }}],
+        [{{ label: '\\u{{1F1F0}}\\u{{1F1FF}} \\u0410\\u043B\\u043C\\u0430\\u0442\\u044B +5', action: () => setScreen('time') }}, {{ label: '\\u{{1F30D}} UTC +0', action: () => setScreen('time') }}],
       ]);
     }}
 
@@ -959,15 +949,15 @@ def render(output: Path) -> None:
       const note = state.language === 'en'
         ? 'No days selected - messages will be sent daily'
         : state.language === 'ru'
-          ? 'Дни не выбраны - сообщения будут отправляться ежедневно'
+          ? '\\u0414\\u043D\\u0438 \\u043D\\u0435 \\u0432\\u044B\\u0431\\u0440\\u0430\\u043D\\u044B - \\u0441\\u043E\\u043E\\u0431\\u0449\\u0435\\u043D\\u0438\\u044F \\u0431\\u0443\\u0434\\u0443\\u0442 \\u043E\\u0442\\u043F\\u0440\\u0430\\u0432\\u043B\\u044F\\u0442\\u044C\\u0441\\u044F \\u0435\\u0436\\u0435\\u0434\\u043D\\u0435\\u0432\\u043D\\u043E'
           : state.language === 'uz'
             ? 'Kunlar tanlanmagan - xabarlar har kuni yuboriladi'
-            : 'Күндер таңдалмаған - хабарлар күн сайын жіберіледі';
+            : '\\u041A\\u04AF\\u043D\\u0434\\u0435\\u0440 \\u0442\\u0430\\u04A3\\u0434\\u0430\\u043B\\u043C\\u0430\\u0493\\u0430\\u043D - \\u0445\\u0430\\u0431\\u0430\\u0440\\u043B\\u0430\\u0440 \\u043A\\u04AF\\u043D \\u0441\\u0430\\u0439\\u044B\\u043D \\u0436\\u0456\\u0431\\u0435\\u0440\\u0456\\u043B\\u0435\\u0434\\u0456';
       const dayNames = {{
         en: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        ru: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+        ru: ['\\u041F\\u043E\\u043D\\u0435\\u0434\\u0435\\u043B\\u044C\\u043D\\u0438\\u043A', '\\u0412\\u0442\\u043E\\u0440\\u043D\\u0438\\u043A', '\\u0421\\u0440\\u0435\\u0434\\u0430', '\\u0427\\u0435\\u0442\\u0432\\u0435\\u0440\\u0433', '\\u041F\\u044F\\u0442\\u043D\\u0438\\u0446\\u0430', '\\u0421\\u0443\\u0431\\u0431\\u043E\\u0442\\u0430', '\\u0412\\u043E\\u0441\\u043A\\u0440\\u0435\\u0441\\u0435\\u043D\\u044C\\u0435'],
         uz: ['Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba', 'Yakshanba'],
-        kz: ['Дүйсенбі', 'Сейсенбі', 'Сәрсенбі', 'Бейсенбі', 'Жұма', 'Сенбі', 'Жексенбі'],
+        kz: ['\\u0414\\u04AF\\u0439\\u0441\\u0435\\u043D\\u0431\\u0456', '\\u0421\\u0435\\u0439\\u0441\\u0435\\u043D\\u0431\\u0456', '\\u0421\\u04D9\\u0440\\u0441\\u0435\\u043D\\u0431\\u0456', '\\u0411\\u0435\\u0439\\u0441\\u0435\\u043D\\u0431\\u0456', '\\u0416\\u04B1\\u043C\\u0430', '\\u0421\\u0435\\u043D\\u0431\\u0456', '\\u0416\\u0435\\u043A\\u0441\\u0435\\u043D\\u0431\\u0456'],
       }}[state.language] || [];
       const shortDay = (name) => name.length > 8 ? `${{name.slice(0, 7)}}.` : name;
       const buttons = [];
@@ -976,25 +966,19 @@ def render(output: Path) -> None:
       }}
       const noSkip = {{
         en: '🎯 No Skip Days',
-        ru: '🎯 Не пропускать',
-        uz: "🎯 Kunlarni o'tkazmaslik",
-        kz: '🎯 Күндерді өткізбеу',
+        ru: '\\u{{1F3AF}} \\u041D\\u0435 \\u043F\\u0440\\u043E\\u043F\\u0443\\u0441\\u043A\\u0430\\u0442\\u044C',
+        uz: "\\u{{1F3AF}} Kunlarni o'tkazmaslik",
+        kz: '\\u{{1F3AF}} \\u041A\\u04AF\\u043D\\u0434\\u0435\\u0440\\u0434\\u0456 \\u04E9\\u0442\\u043A\\u0456\\u0437\\u0431\\u0435\\u0443',
       }}[state.language] || '🎯 No Skip Days';
       const weekends = {{
         en: '📅 Weekends Only',
-        ru: '📅 Только выходные',
-        uz: '📅 Faqat dam olish kunlari',
-        kz: '📅 Тек демалыс күндері',
+        ru: '\\u{{1F4C5}} \\u0422\\u043E\\u043B\\u044C\\u043A\\u043E \\u0432\\u044B\\u0445\\u043E\\u0434\\u043D\\u044B\\u0435',
+        uz: '\\u{{1F4C5}} Faqat dam olish kunlari',
+        kz: '\\u{{1F4C5}} \\u0422\\u0435\\u043A \\u0434\\u0435\\u043C\\u0430\\u043B\\u044B\\u0441 \\u043A\\u04AF\\u043D\\u0434\\u0435\\u0440\\u0456',
       }}[state.language] || '📅 Weekends Only';
-      const finish = {{
-        en: '✅ Continue',
-        ru: '✅ Продолжить',
-        uz: '✅ Davom etish',
-        kz: '✅ Жалғастыру',
-      }}[state.language] || '✅ Continue';
       buttons.push([{{ label: noSkip, action: () => setScreen('main') }}]);
       buttons.push([{{ label: weekends, action: () => setScreen('main') }}]);
-      buttons.push([{{ label: finish, action: () => setScreen('main') }}]);
+      buttons.push([{{ label: t('continue_setup'), action: () => setScreen('main') }}]);
       show('Skip days', `${{fmt(t('skip_days_step'))}}<br><br><b>${{note}}</b>`, buttons);
     }}
 
@@ -1231,6 +1215,11 @@ def render(output: Path) -> None:
 </body>
 </html>
 """
+    return html
+
+
+def render(output: Path) -> None:
+    html = build_html()
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(html, encoding="utf-8")
     print(f"Rendered flow simulator: {output}")
@@ -1243,6 +1232,7 @@ def main() -> int:
     args = parser.parse_args()
     payload = build_payload()
     issues = audit_payload(payload)
+    issues.extend(audit_rendered_html())
     if not args.audit_only:
         render(ROOT / args.output)
 
