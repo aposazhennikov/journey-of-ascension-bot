@@ -1643,10 +1643,26 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if phrase in handlers_source:
             issues.append(f"stop feedback still sounds like a service exit survey: {phrase!r}")
     setup_markers = (
-        "The other principles are not paused",
-        "Остальные принципы не выключаются",
-        "Boshqa tamoyillar to'xtamaydi",
-        "Қалған қағидалар тоқтамайды",
+        "The first step is set",
+        "Your rhythm",
+        "next small step",
+        "Nothing moves forward automatically",
+        "two layers",
+        "Первый шаг настроен",
+        "Ваш ритм",
+        "следующий небольшой шаг",
+        "Ничего не двигается вперёд автоматически",
+        "два слоя",
+        "Birinchi qadam sozlandi",
+        "Ritmingiz",
+        "keyingi kichik qadam",
+        "Hech narsa avtomatik oldinga siljimaydi",
+        "ikki qatlam",
+        "Алғашқы қадам бапталды",
+        "Ырғағыңыз",
+        "келесі шағын қадам",
+        "Ештеңе автоматты түрде алға жылжымайды",
+        "екі қабат",
     )
     for marker in setup_markers:
         if marker not in handlers_source:
