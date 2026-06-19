@@ -70,6 +70,9 @@ SOURCE_NOTE_PHRASES = (
     "Классическая заметка:",
     "Классическое пояснение:",
     "Классикалық түсіндірме:",
+    "Original source location",
+    "Manbadagi asl joylashuv",
+    "Дереккөздегі бастапқы орналасуы",
 )
 HARD_MEDICAL_PHRASES = (
     "treatment",
@@ -152,7 +155,7 @@ def localized_point_name(point: dict[str, Any], language: str) -> str:
 
 def localized_location(point: dict[str, Any], language: str) -> str:
     value = localized(point, language, "location")
-    if language == "ru" or not value:
+    if language in {"ru", "kz"} or not value:
         return value
     for prefix in SOURCE_LOCATION_PREFIXES:
         if value.startswith(prefix):

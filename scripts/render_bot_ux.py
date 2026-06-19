@@ -42,6 +42,9 @@ SOURCE_NOTE_PHRASES = (
     "Классическая заметка:",
     "Классическое пояснение:",
     "Классикалық түсіндірме:",
+    "Original source location",
+    "Manbadagi asl joylashuv",
+    "Дереккөздегі бастапқы орналасуы",
 )
 HARD_MEDICAL_PHRASES = (
     "treatment",
@@ -128,7 +131,7 @@ def localized_point_name(point: dict[str, Any], language: str) -> str:
 
 def localized_location(point: dict[str, Any], language: str) -> str:
     value = localized(point, language, "location")
-    if language == "ru" or not value:
+    if language in {"ru", "kz"} or not value:
         return value
     for prefix in ("Source location:", "Manbadagi joylashuv:", "Дереккөздегі орналасуы:"):
         if value.startswith(prefix):
@@ -483,6 +486,7 @@ def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, lis
             [texts["complete_meridian"]],
             [texts["meridian_back"]],
         ],
+        "meridian_completed": [[texts["select_meridian"]], [texts["meridian_back"]]],
         "principles": [[texts["principles_random"], texts["principles_all"]], [texts["back_to_menu"]]],
     }
 
@@ -581,6 +585,7 @@ def render_html(output: Path) -> None:
         sections.append(meridian_message("Conception Vessel intro", conception, language, kb["meridian_intro"]))
         sections.append(meridian_message("Conception Vessel point 1", conception, language, kb["meridian_first_point"], 0))
         sections.append(meridian_message("Conception Vessel point 3", conception, language, kb["meridian_practice"], 2))
+        sections.append(message("Meridian completed", allow_basic_html(t["meridian_completed"]), kb["meridian_completed"]))
         sections.append(meridian_message("Governing Vessel intro", governing, language, kb["meridian_intro"]))
         sections.append(message("Principles home", allow_basic_html(t["principles_menu"]), kb["principles"]))
         sections.append(message("Principle detail", format_principle(principle, language), kb["principles"], principle_image_src(principle)))
@@ -657,6 +662,7 @@ def audit() -> list[str]:
             "meridians_menu",
             "meridian_measurements_text",
             "meridian_point_help_text",
+            "meridian_completed",
             "feature_announcement",
             "skip_days_step",
             "setup_complete",
@@ -667,6 +673,16 @@ def audit() -> list[str]:
                 issues.append(f"{language}: {key} leaves Markdown bold in HTML text")
             if key in {"menu", "settings_menu"} and "<b>" not in value:
                 issues.append(f"{language}: {key} has no bold title after HTML normalization")
+        completion_markers = {
+            "en": ("whole channel", "goes silent"),
+            "ru": ("весь канал", "молчит"),
+            "uz": ("butun kanal", "jim"),
+            "kz": ("бүкіл арнаны", "үнсіз"),
+        }[language]
+        completion_text = texts.get(language, {}).get("meridian_completed", "")
+        for marker in completion_markers:
+            if marker not in completion_text:
+                issues.append(f"{language}: static preview completion text does not guide channel review")
 
     for relative_path in ("bot/handlers.py", "bot/utils.py", "bot/scheduler.py"):
         source = (ROOT / relative_path).read_text(encoding="utf-8-sig")

@@ -336,7 +336,7 @@ def localized_point_name(point: Dict[str, Any], language: str) -> str:
 def _localized_location(point: Dict[str, Any], language: str) -> str:
     """Return point location, making unfinished translations explicit."""
     location = _localized_value(point, language, "location")
-    if language == "ru" or not location:
+    if language in {"ru", "kz"} or not location:
         return location
 
     prefixes = (
