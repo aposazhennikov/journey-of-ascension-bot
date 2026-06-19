@@ -304,6 +304,19 @@ def image_src(meridian: dict[str, Any], point_code: str | None = None) -> str | 
     return None
 
 
+def principle_image_src(principle: dict[str, Any]) -> str | None:
+    principle_id = principle.get("id")
+    if principle_id is None:
+        return None
+
+    image_dir = ROOT / "images"
+    for extension in (".jpg", ".png", ".gif"):
+        name = f"{principle_id}{extension}"
+        if (image_dir / name).exists():
+            return f"../images/{quote(name)}"
+    return None
+
+
 def message(title: str, body: str, buttons: list[list[str]] | None = None, image: str | None = None) -> str:
     media = f"<img class='media' src='{escape(image)}' alt=''>" if image else ""
     return (
@@ -479,7 +492,7 @@ def render_html(output: Path) -> None:
         sections.append(meridian_message("Conception Vessel point 3", conception, language, kb["meridian_practice"], 2))
         sections.append(meridian_message("Governing Vessel intro", governing, language, kb["meridian_intro"]))
         sections.append(message("Principles home", allow_basic_html(t["principles_menu"]), kb["principles"]))
-        sections.append(message("Principle detail", format_principle(principle, language), kb["principles"]))
+        sections.append(message("Principle detail", format_principle(principle, language), kb["principles"], principle_image_src(principle)))
         sections.append("</div>")
 
     html = f"""<!doctype html>
@@ -605,6 +618,15 @@ def audit() -> list[str]:
                 issues.append(f"missing point image field: {meridian['id']} {point.get('code')}")
             elif not (image_dir / image_name).exists():
                 issues.append(f"missing point image: {meridian['id']} {point.get('code')} -> {image_name}")
+
+    principle_image_dir = ROOT / "images"
+    principles = load_json("bot/principles.json")
+    for principle in principles.get("en", []):
+        principle_id = principle.get("id")
+        if principle_id is None:
+            issues.append("principle without id")
+        elif not any((principle_image_dir / f"{principle_id}{extension}").exists() for extension in (".jpg", ".png", ".gif")):
+            issues.append(f"missing principle image: {principle_id}")
 
     button_rows = []
     for language in LANGUAGES:
