@@ -1474,6 +1474,14 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if "_as_html" not in stop_handler_source:
             issues.append("/stop handler does not normalize stop text for HTML parse mode")
 
+    test_handler_start = handlers_source.find("async def _handle_test")
+    if settings_handler_start != -1 and test_handler_start != -1:
+        settings_handler_source = handlers_source[settings_handler_start:test_handler_start]
+        if 'not_subscribed_test", language="en"' in settings_handler_source:
+            issues.append("/settings inactive-user fallback ignores the stored user language")
+        if "language = user.language if user else" not in settings_handler_source:
+            issues.append("/settings inactive-user fallback does not derive language from stored user")
+
     feedback_handler_start = handlers_source.find("async def _handle_feedback_input")
     stop_feedback_handler_start = handlers_source.find("async def _handle_stop_feedback_input")
     principle_detail_start = handlers_source.find("async def _show_principle_detail")

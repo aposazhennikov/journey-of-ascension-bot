@@ -2836,7 +2836,8 @@ class BotHandlers:
         try:
             user = await self.storage.get_user(chat_id)
             if not user or not user.is_active:
-                await update.message.reply_text(self._get_text("not_subscribed_test", language="en"))
+                language = user.language if user else "en"
+                await update.message.reply_text(self._get_text("not_subscribed_test", language=language))
                 return
 
             skip_days_display = self._format_skip_days(user.skip_day_id, user.language)
