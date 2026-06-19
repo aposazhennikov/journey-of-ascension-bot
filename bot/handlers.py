@@ -4702,7 +4702,7 @@ class BotHandlers:
             if len(feedback_text) > 1000:
                 text = self._get_text("feedback_too_long", language)
                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-                await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await update.message.reply_text(text, reply_markup=keyboard)
                 del self.user_states[chat_id]
                 return
 
@@ -4711,7 +4711,7 @@ class BotHandlers:
             if not can_send:
                 text = self._get_text("feedback_rate_limit", language)
                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-                await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+                await update.message.reply_text(text, reply_markup=keyboard)
                 del self.user_states[chat_id]
                 return
 
@@ -4743,7 +4743,7 @@ class BotHandlers:
                 text = f"{self._get_text('feedback_sent', language)}\n\n{self._get_text('menu', language)}"
 
                 # Notify admins about new feedback
-                admin_text = f"💌 **New Feedback Received**\n\n" \
+                admin_text = f"💌 New feedback received\n\n" \
                            f"👤 User: {chat_id} (@{username})\n" \
                            f"🌐 Language: {language}\n" \
                            f"📏 Length: {len(feedback_text)} chars\n" \
@@ -4751,14 +4751,14 @@ class BotHandlers:
 
                 for admin_id in self.admin_ids:
                     try:
-                        await self.application.bot.send_message(admin_id, admin_text, parse_mode='Markdown')
+                        await self.application.bot.send_message(admin_id, admin_text)
                     except Exception:
                         pass  # Ignore errors for admin notifications
             else:
                 text = f"{self._get_text('feedback_error', language)}\n\n{self._get_text('menu', language)}"
 
             keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-            message = await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+            message = await update.message.reply_text(self._as_html(text), reply_markup=keyboard, parse_mode='HTML')
 
             # Delete the previous bot message (feedback prompt) for clean dialog
             if update.message.reply_to_message:
@@ -4766,10 +4766,11 @@ class BotHandlers:
 
         except Exception as e:
             logger.error(f"Error handling feedback from user {chat_id}: {e}")
-            del self.user_states[chat_id]
+            if chat_id in self.user_states:
+                del self.user_states[chat_id]
             text = f"{self._get_text('error', language)}\n\n{self._get_text('menu', language)}"
             keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
-            await update.message.reply_text(text, reply_markup=keyboard, parse_mode='Markdown')
+            await update.message.reply_text(self._as_html(text), reply_markup=keyboard, parse_mode='HTML')
 
     async def _handle_stop_feedback_input(self, update: Update, feedback_text: str, language: str) -> None:
         """Handle optional feedback after the user stops the bot."""
@@ -4801,7 +4802,7 @@ class BotHandlers:
                 del self.user_states[chat_id]
 
             if success:
-                await update.message.reply_text(self._get_text("stop_feedback_thanks", language), parse_mode='Markdown')
+                await update.message.reply_text(self._as_html(self._get_text("stop_feedback_thanks", language)), parse_mode='HTML')
 
                 admin_text = (
                     "🛑 Stop feedback received\n\n"

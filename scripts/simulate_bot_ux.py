@@ -735,6 +735,22 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if "_as_html" not in stop_handler_source:
             issues.append("/stop handler does not normalize stop text for HTML parse mode")
 
+    feedback_handler_start = handlers_source.find("async def _handle_feedback_input")
+    stop_feedback_handler_start = handlers_source.find("async def _handle_stop_feedback_input")
+    principle_detail_start = handlers_source.find("async def _show_principle_detail")
+    if feedback_handler_start != -1 and stop_feedback_handler_start != -1:
+        feedback_handler_source = handlers_source[feedback_handler_start:stop_feedback_handler_start]
+        if "admin_text" in feedback_handler_source and "parse_mode='Markdown'" in feedback_handler_source:
+            issues.append("feedback handler sends user-authored admin text through Markdown parse mode")
+        if "reply_text(text, reply_markup=keyboard, parse_mode='Markdown')" in feedback_handler_source:
+            issues.append("feedback handler replies with menu text through Markdown parse mode")
+        if "self._as_html(text)" not in feedback_handler_source:
+            issues.append("feedback handler does not normalize menu text for HTML parse mode")
+    if stop_feedback_handler_start != -1 and principle_detail_start != -1:
+        stop_feedback_handler_source = handlers_source[stop_feedback_handler_start:principle_detail_start]
+        if "parse_mode='Markdown'" in stop_feedback_handler_source:
+            issues.append("stop feedback handler still uses Markdown parse mode")
+
     detail_formatter_start = handlers_source.find("def _format_principle_detail")
     start_handler_start = handlers_source.find("async def _handle_start")
     if detail_formatter_start != -1 and start_handler_start != -1:
