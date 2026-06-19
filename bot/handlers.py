@@ -1442,7 +1442,7 @@ TEXTS_UPDATE = {
         "coming_soon": "soon",
         "meridian_measurements_text": (
             "📏 <b>Measurement System in TCM</b>\n\n"
-            "<b>Why this matters:</b> point descriptions often say “1 cun”, “1.5 cun”, “3 cun”, and so on. This guide helps you translate those instructions into your own body.\n\n"
+            "<b>Why this matters:</b> point descriptions often say “1 cun”, “1.5 cun”, “3 cun”, and so on. Without a body-based measure, these numbers stay abstract; with cun, you can at least get into the right area.\n\n"
             "Acupuncture point locations are often described in <b>cun</b>. A cun is not a fixed centimeter value: it is a body-relative unit measured on the person being studied.\n\n"
             "<b>0.5 cun:</b> half of your personal 1 cun. Use it for very small distances and refine by touch.\n\n"
             "<b>1 cun:</b> the width of the thumb at the interphalangeal joint.\n\n"
@@ -1451,7 +1451,7 @@ TEXTS_UPDATE = {
             "<b>3 cun:</b> the width of four fingers together, from index to little finger.\n\n"
             "<b>5 cun:</b> measure 3 cun and add about 2 cun, or divide the anatomical segment into equal parts if the source gives a proportional distance.\n\n"
             "<b>Important:</b> cun is always measured on the body of the person you are working with. For example, 1 cun on your body and 1 cun on another person's body can be different in centimeters.\n\n"
-            "Use cun as an orientation tool, then refine the point by touch: local sensitivity, a small hollow, warmth, pressure, or a clear response to attention."
+            "First get close by cun. Then slow down and let the body clarify the exact place: local sensitivity, a small hollow, warmth, pressure, or a clearer response to attention."
         ),
         "meridian_point_help_text": (
             "🖐 <b>How to find a point</b>\n\n"
@@ -1490,11 +1490,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "The idea is simple: give you one clear practice focus every day, so inner work does not stay somewhere in theory but starts showing up in ordinary decisions, words, and sensations.\n\n"
-            "Here energy means what you can actually observe: attention, steadiness, vitality, and the ability to act without wasting yourself. When it leaks into conflict, hurry, resentment, excess, or self-neglect, the whole day becomes heavier.\n\n"
+            "This bot is for people who want practice to become part of the day, not something remembered only after everything is already over.\n\n"
+            "Here energy means what you can notice directly: attention, steadiness, vitality, and the ability to act without wasting yourself. When it leaks into conflict, hurry, resentment, excess, or self-neglect, the whole day becomes heavier.\n\n"
             "<b>Yama/Niyama</b> helps close these leaks through behaviour, speech, thoughts, discipline, and honesty with yourself.\n\n"
             "<b>Meridians</b> bring the work into the body: channels, points, Qi flow, closed areas, breath, touch, and patient attention.\n\n"
-            "The bot does not do the practice for you. It just keeps bringing you back to the next honest step."
+            "The task of the bot is modest but important: return you to practice at the right moment and make the next step clear."
         ),
         "feature_announcement": (
             "☯️ <b>New in Journey of Ascension: meridian practice</b>\n\n"
@@ -1635,7 +1635,7 @@ TEXTS_UPDATE = {
         "coming_soon": "скоро",
         "meridian_measurements_text": (
             "📏 <b>Система измерений в ТКМ</b>\n\n"
-            "<b>Зачем это нужно:</b> в описаниях точек часто встречается «1 цунь», «1,5 цуня», «3 цуня» и так далее. Эта справка помогает перевести такие указания на своё тело.\n\n"
+            "<b>Зачем это нужно:</b> в описаниях точек часто встречается «1 цунь», «1,5 цуня», «3 цуня» и так далее. Без телесной меры это остаётся абстракцией; с цунями вы хотя бы попадаете в нужную область.\n\n"
             "Расположение акупунктурных точек часто описывается в <b>цунях</b>. Цунь — это не фиксированное число сантиметров, а относительная мера тела конкретного человека.\n\n"
             "<b>0,5 цуня:</b> половина вашего личного 1 цуня. Используйте для очень малых расстояний и затем уточняйте точку через ощущения.\n\n"
             "<b>1 цунь:</b> ширина большого пальца в области межфалангового сустава.\n\n"
@@ -1644,7 +1644,7 @@ TEXTS_UPDATE = {
             "<b>3 цуня:</b> ширина четырёх сомкнутых пальцев — от указательного до мизинца.\n\n"
             "<b>5 цуней:</b> можно отмерить 3 цуня и добавить около 2 цуней, либо разделить нужный анатомический участок на равные части, если источник даёт пропорциональное расстояние.\n\n"
             "<b>Важно:</b> цунь всегда измеряется по телу того человека, с которым вы работаете. Поэтому 1 цунь на вашем теле и 1 цунь на теле другого человека могут отличаться в сантиметрах.\n\n"
-            "Используйте цуни как ориентир, а затем уточняйте точку через тело: локальная чувствительность, небольшое углубление, тепло, давление или ясный отклик на внимание."
+            "Сначала приблизьтесь по цуням. Потом замедлитесь и уточняйте точку через тело: локальную чувствительность, небольшое углубление, тепло, давление или более ясный отклик на внимание."
         ),
         "meridian_point_help_text": (
             "🖐 <b>Как искать точку</b>\n\n"
@@ -1683,11 +1683,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Идея простая: каждый день давать один ясный фокус практики, чтобы внутренняя работа не оставалась где-то в теории, а начинала проявляться в обычных решениях, словах и ощущениях.\n\n"
+            "Этот бот для тех, кто хочет, чтобы практика входила в день, а не вспоминалась только вечером, когда всё уже произошло.\n\n"
             "Энергия здесь — это то, что можно наблюдать: внимание, устойчивость, жизненность, способность действовать не растрачивая себя. Когда она утекает в конфликт, спешку, обиду, избыток или невнимание к себе, весь день становится тяжелее.\n\n"
             "<b>Яма/Нияма</b> помогает закрывать эти утечки через поведение, речь, мысли, дисциплину и честность перед собой.\n\n"
             "<b>Меридианы</b> переносят работу в тело: каналы, точки, течение Ци, закрытые зоны, дыхание, касание и терпеливое внимание.\n\n"
-            "Бот не делает практику за вас. Он просто снова и снова возвращает к следующему честному шагу."
+            "Задача бота скромная, но важная: вовремя вернуть вас к практике и сделать следующий шаг понятным."
         ),
         "feature_announcement": (
             "☯️ <b>Новое в Journey of Ascension: практика меридианов</b>\n\n"
@@ -1828,7 +1828,7 @@ TEXTS_UPDATE = {
         "coming_soon": "tez orada",
         "meridian_measurements_text": (
             "📏 <b>TKMdagi o'lchov tizimi</b>\n\n"
-            "<b>Bu nima uchun kerak:</b> nuqta tavsiflarida ko'pincha “1 cun”, “1,5 cun”, “3 cun” kabi o'lchovlar uchraydi. Bu ma'lumot ularni o'z tanangizda topishga yordam beradi.\n\n"
+            "<b>Bu nima uchun kerak:</b> nuqta tavsiflarida ko'pincha “1 cun”, “1,5 cun”, “3 cun” kabi o'lchovlar uchraydi. Tana o'lchovi bo'lmasa, bu raqamlar mavhum qoladi; cun esa kerakli joyga yaqinlashishga yordam beradi.\n\n"
             "Akupunktura nuqtalari ko'pincha <b>cun</b> orqali tasvirlanadi. Cun aniq santimetr emas: u o'rganilayotgan odam tanasiga nisbatan olinadigan o'lchovdir.\n\n"
             "<b>0,5 cun:</b> shaxsiy 1 cun o'lchovingizning yarmi. Juda kichik masofalar uchun ishlating va keyin nuqtani sezgi orqali aniqlang.\n\n"
             "<b>1 cun:</b> bosh barmoqning bo'g'im sohasidagi kengligi.\n\n"
@@ -1837,7 +1837,7 @@ TEXTS_UPDATE = {
             "<b>3 cun:</b> to'rt barmoq kengligi: ko'rsatkichdan kichik barmoqqacha.\n\n"
             "<b>5 cun:</b> 3 cun o'lchab, taxminan 2 cun qo'shing yoki manbada proporsional masofa berilgan bo'lsa, anatomik qismni teng bo'laklarga ajrating.\n\n"
             "<b>Muhim:</b> cun doimo ishlayotgan odamning tanasiga qarab o'lchanadi. Shuning uchun sizdagi 1 cun va boshqa odamdagi 1 cun santimetrda farq qilishi mumkin.\n\n"
-            "Cunni yo'nalish sifatida ishlating, keyin nuqtani tana orqali aniqlang: mahalliy sezgirlik, kichik chuqurcha, iliqlik, bosim yoki diqqatga aniq javob."
+            "Avval cun orqali yaqinlashing. Keyin sekinlashib, nuqtani tana orqali aniqlang: mahalliy sezgirlik, kichik chuqurcha, iliqlik, bosim yoki diqqatga ravshanroq javob."
         ),
         "meridian_point_help_text": (
             "🖐 <b>Nuqtani qanday topish kerak</b>\n\n"
@@ -1876,11 +1876,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "G'oya oddiy: har kuni bitta aniq amaliy fokus berish, shunda ichki ish nazariya bo'lib qolmay, kundalik qarorlar, so'zlar va sezgilarda ko'rina boshlaydi.\n\n"
+            "Bu bot amaliyot kun ichiga kirishini istaganlar uchun: u faqat kechqurun, hammasi bo'lib o'tgandan keyin esga tushib qolmasin.\n\n"
             "Bu yerda energiya kuzatish mumkin bo'lgan narsa: diqqat, barqarorlik, hayotiylik, o'zingizni sarflamasdan harakat qilish qobiliyati. Energiya ziddiyat, shoshilish, xafagarchilik, ortiqchalik yoki o'ziga e'tiborsizlikka oqib ketsa, butun kun og'irlashadi.\n\n"
             "<b>Yama/Niyama</b> bu oqimlarni xulq, nutq, fikr, intizom va o'zingizga halollik orqali yopishga yordam beradi.\n\n"
             "<b>Meridianlar</b> ishni tanaga olib kiradi: kanallar, nuqtalar, Qi oqimi, yopiq joylar, nafas, teginish va sabrli diqqat.\n\n"
-            "Bot amaliyotni sizning o'rningizga bajarmaydi. U sizni keyingi halol qadamga qaytarib turadi."
+            "Botning vazifasi oddiy, lekin muhim: kerakli paytda amaliyotga qaytarish va keyingi qadamni tushunarli qilish."
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension'da yangilik: meridian amaliyoti</b>\n\n"
@@ -2035,7 +2035,7 @@ TEXTS_UPDATE = {
         "coming_soon": "жақында",
         "meridian_measurements_text": (
             "📏 <b>ҚКМ-дегі өлшем жүйесі</b>\n\n"
-            "<b>Бұл не үшін керек:</b> нүкте сипаттамаларында “1 цунь”, “1,5 цунь”, “3 цунь” сияқты өлшемдер жиі кездеседі. Бұл анықтама оларды өз денеңізден табуға көмектеседі.\n\n"
+            "<b>Бұл не үшін керек:</b> нүкте сипаттамаларында “1 цунь”, “1,5 цунь”, “3 цунь” сияқты өлшемдер жиі кездеседі. Денеге қатысты өлшем болмаса, бұл сандар түсініксіз болып қалады; цунь керек аймаққа жақындауға көмектеседі.\n\n"
             "Акупунктура нүктелерінің орналасуы жиі <b>цунь</b> арқылы сипатталады. Цунь — нақты сантиметр емес, зерттеліп отырған адамның денесіне қатысты өлшем.\n\n"
             "<b>0,5 цунь:</b> жеке 1 цунь өлшеміңіздің жартысы. Өте кіші қашықтықтарға қолданыңыз, кейін нүктені сезім арқылы нақтылаңыз.\n\n"
             "<b>1 цунь:</b> бас бармақтың буын тұсындағы ені.\n\n"
@@ -2044,7 +2044,7 @@ TEXTS_UPDATE = {
             "<b>3 цунь:</b> төрт саусақтың ені: сұқ саусақтан шынашаққа дейін.\n\n"
             "<b>5 цунь:</b> 3 цунь өлшеп, шамамен 2 цунь қосыңыз немесе дереккөз пропорциялық қашықтық берсе, анатомиялық бөлікті тең бөліктерге бөліңіз.\n\n"
             "<b>Маңызды:</b> цунь әрқашан жұмыс істеп отырған адамның денесіне қарай өлшенеді. Сондықтан сіздің денеңіздегі 1 цунь мен басқа адамның денесіндегі 1 цунь сантиметрмен әртүрлі болуы мүмкін.\n\n"
-            "Цуньді бағдар ретінде қолданыңыз, кейін нүктені дене арқылы нақтылаңыз: жергілікті сезімталдық, шағын ойыс, жылу, қысым немесе зейінге айқын жауап."
+            "Алдымен цунь арқылы жақындаңыз. Содан кейін баяулап, нүктені дене арқылы нақтылаңыз: жергілікті сезімталдық, шағын ойыс, жылу, қысым немесе зейінге анығырақ жауап."
         ),
         "meridian_point_help_text": (
             "🖐 <b>Нүктені қалай табу керек</b>\n\n"
@@ -2083,11 +2083,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Ойы қарапайым: күн сайын бір анық тәжірибе фокусын беру, сонда ішкі жұмыс теория болып қалмай, күнделікті шешімдерде, сөздерде және сезімдерде көріне бастайды.\n\n"
+            "Бұл бот тәжірибені күннің ішіне енгізгісі келетін адамға арналған: ол бәрі өтіп кеткен соң кешке ғана еске түспесін.\n\n"
             "Бұл жерде энергия — байқауға болатын нәрсе: зейін, тұрақтылық, тіршілік күші, өзіңізді сарқымай әрекет ету қабілеті. Энергия қақтығысқа, асығыстыққа, ренішке, артықтыққа немесе өзіңізге көңіл бөлмеуге кетсе, бүкіл күн ауырлайды.\n\n"
             "<b>Яма/Нияма</b> бұл ағуларды мінез-құлық, сөз, ой, тәртіп және өзіңізге адалдық арқылы жабуға көмектеседі.\n\n"
             "<b>Меридиандар</b> жұмысты денеге әкеледі: арналар, нүктелер, Ци ағымы, жабық аймақтар, тыныс, жанасу және сабырлы зейін.\n\n"
-            "Бот тәжірибені сіздің орныңызға жасамайды. Ол сізді келесі адал қадамға қайта әкеліп тұрады."
+            "Боттың міндеті қарапайым, бірақ маңызды: керек сәтте тәжірибеге қайтарып, келесі қадамды түсінікті ету."
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension ішіндегі жаңалық: меридиан тәжірибесі</b>\n\n"
