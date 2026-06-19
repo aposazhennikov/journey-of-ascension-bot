@@ -110,10 +110,10 @@ STALE_POINT_INSTRUCTION_PATTERNS = (
     "нәтижені күштемей",
 )
 POINT_PRACTICE_MARKERS = {
-    "en": ("Start with this point only", "First recall the points you have already studied"),
-    "ru": ("Начните только с этой точки", "Сначала вспомните уже изученные точки"),
-    "uz": ("Faqat shu nuqtadan boshlang", "Avval o'rgangan nuqtalarni eslang"),
-    "kz": ("Тек осы нүктеден бастаңыз", "Алдымен бұрын өткен нүктелерді еске түсіріңіз"),
+    "en": ("Start with this point only", "Recall the points you have already studied", "Return attention to the beginning"),
+    "ru": ("Начните только с этой точки", "Сначала вспомните уже изученные точки", "Вернитесь вниманием к началу"),
+    "uz": ("Faqat shu nuqtadan boshlang", "Avval o'rganilgan nuqtalarni eslang", "Diqqatni meridian boshiga qaytaring"),
+    "kz": ("Тек осы нүктеден бастаңыз", "Алдымен бұрын зерттелген нүктелерді еске түсіріңіз", "Зейінді меридианның басына қайтарып"),
 }
 
 
@@ -315,35 +315,51 @@ def format_meridian_intro(meridian: dict[str, Any], language: str) -> str:
     return "<br><br>".join(part for part in parts if part)
 
 
-def practice_note(point_index: int, language: str) -> str:
-    notes = {
-        "en": (
-            "Begin with the first point: find it through body sensation, breath, and attention. If it feels weak, treat it as not yet open for practice, not as a health conclusion: stay longer, gently massage it, and breathe through it with attention.",
-            "Recall the points you have already studied. Keep them in the background, add the current point, and connect them as one line of attention. If it is hard to feel, treat it as not yet open for practice: gently massage it, breathe through it, and stay until the sensation steadies.",
-        ),
-        "ru": (
-            "Начните с первой точки: найдите её через ощущение тела, дыхание и внимание. Если ощущение слабое, считайте точку пока закрытой для практики, а не выводом о здоровье: побудьте дольше, мягко помассируйте её и дышите через неё вниманием.",
-            "Вспомните ощущение уже пройденных точек. Удерживая их фоном, добавьте текущую и соедините всё в одну линию внимания. Если точка не ощущается, считайте её пока закрытой для практики: мягко помассируйте, подышите через неё вниманием и оставайтесь, пока ощущение не станет устойчивее.",
-        ),
-        "uz": (
-            "Birinchi nuqtadan boshlang: uni tana sezgisi, nafas va diqqat orqali toping. Agar sezgi kuchsiz bo'lsa, nuqtani amaliyot uchun hali ochilmagan deb qabul qiling, sog'liq xulosasi sifatida emas: uzoqroq turing, yengil massaj qiling va diqqat bilan nafas oling.",
-            "Oldin o'rganilgan nuqtalarni eslang. Ularni fon sifatida ushlab, hozirgi nuqtani qo'shing va bitta diqqat chizig'iga ulang. Agar nuqta sezilmasa, uni amaliyot uchun hali ochilmagan deb qabul qiling: yengil massaj qiling, diqqat bilan nafas oling va sezgi barqarorlashguncha turing.",
-        ),
-        "kz": (
-            "Бірінші нүктеден бастаңыз: оны дене сезімі, тыныс және зейін арқылы табыңыз. Егер сезім әлсіз болса, нүктені тәжірибе үшін әзірге ашылмаған деп қабылдаңыз, денсаулық қорытындысы ретінде емес: ұзағырақ болыңыз, жеңіл уқалаңыз және зейінмен тыныстаңыз.",
-            "Бұрын өткен нүктелерді еске түсіріңіз. Оларды фон ретінде ұстап, қазіргі нүктені қосыңыз да, бәрін бір зейін сызығына біріктіріңіз. Егер нүкте сезілмесе, оны тәжірибе үшін әзірге ашылмаған деп қабылдаңыз: жеңіл уқалап, зейінмен тыныстап, сезім тұрақтанғанша болыңыз.",
-        ),
-    }
-    return notes[language][0 if point_index == 0 else 1]
+def practice_note(point_index: int, points_count: int, language: str) -> str:
+    is_first = point_index <= 0
+    is_last = points_count > 0 and point_index >= points_count - 1
+    late = points_count > 0 and point_index >= max(1, int(points_count * 0.7))
+
+    if language == "ru":
+        if is_first:
+            return "Начните только с этой точки. Найдите её по изображению, касанию, дыханию и спокойному вниманию. Если ощущение слабое, считайте точку пока закрытой для практики: побудьте дольше, мягко помассируйте область и представляйте дыхание через точку, пока вниманию не станет легче удерживаться здесь."
+        if is_last:
+            return "Сначала соберите ощущение всех уже пройденных точек. Затем добавьте последнюю точку и почувствуйте, замыкается ли меридиан в одну линию или где-то ещё просит внимания."
+        if late:
+            return "Вернитесь вниманием к началу меридиана и проведите линию до этой точки. Не спешите: если участок теряется, задержитесь на нём, мягко коснитесь и снова соедините с предыдущими точками."
+        return "Сначала вспомните уже изученные точки. Удерживая их фоном, добавьте эту точку и посмотрите, становится ли линия меридиана яснее, теплее или где-то обрывается."
+    if language == "uz":
+        if is_first:
+            return "Faqat shu nuqtadan boshlang. Uni rasm, teginish, nafas va sokin diqqat orqali toping. Agar sezgi kuchsiz bo'lsa, nuqtani amaliyot uchun hali ochilmagan deb qabul qiling: uzoqroq turing, sohani yengil massaj qiling va diqqat bu yerda osonroq turmaguncha nuqta orqali nafas olayotganingizni tasavvur qiling."
+        if is_last:
+            return "Avval o'tilgan barcha nuqtalar sezgisini yig'ing. Keyin oxirgi nuqtani qo'shib, meridian bitta chiziqqa yopiladimi yoki qayerdir yana e'tibor so'raydimi, sezing."
+        if late:
+            return "Diqqatni meridian boshiga qaytaring va chiziqni shu nuqtagacha olib boring. Shoshilmang: agar biror qism yo'qolsa, unda qoling, yengil teging va oldingi nuqtalar bilan yana ulang."
+        return "Avval o'rganilgan nuqtalarni eslang. Ularni fon sifatida ushlab, bu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq bo'ladimi yoki qayerdadir uziladimi, kuzating."
+    if language == "kz":
+        if is_first:
+            return "Тек осы нүктеден бастаңыз. Оны сурет, жанасу, тыныс және тыныш зейін арқылы табыңыз. Егер сезім әлсіз болса, нүктені тәжірибе үшін әзірге ашылмаған деп қабылдаңыз: ұзағырақ болыңыз, аймақты жеңіл уқалаңыз және зейін бұл жерде жеңілірек орныққанша нүкте арқылы тыныстап жатқаныңызды елестетіңіз."
+        if is_last:
+            return "Алдымен өткен барлық нүктелердің сезімін жинаңыз. Содан кейін соңғы нүктені қосып, меридиан бір сызыққа тұтаса ма, әлде бір жері әлі назар сұрай ма, байқаңыз."
+        if late:
+            return "Зейінді меридианның басына қайтарып, сызықты осы нүктеге дейін алып келіңіз. Асықпаңыз: бір бөлігі жоғалса, сонда кідіріп, жеңіл тиіп, алдыңғы нүктелермен қайта қосыңыз."
+        return "Алдымен бұрын зерттелген нүктелерді еске түсіріңіз. Оларды фон ретінде ұстап, осы нүктені қосыңыз және меридиан сызығы анығырақ, жылырақ бола ма, әлде бір жерде үзіле ме, байқаңыз."
+    if is_first:
+        return "Start with this point only. Find it with the image, touch, breath, and quiet attention. If the sensation is weak, treat the point as not yet open for practice: stay longer, gently massage the area, and imagine breathing through the point until attention can rest here more easily."
+    if is_last:
+        return "First gather the feeling of all points you have already passed. Then add the last point and notice whether the meridian closes into one line or still asks for attention somewhere."
+    if late:
+        return "Return attention to the beginning of the meridian and trace the line up to this point. Do not hurry: if a segment disappears, stay with it, touch it gently, and reconnect it with the previous points."
+    return "Recall the points you have already studied. Keep them in the background, add this point, and notice whether the meridian line becomes clearer, warmer, or breaks somewhere."
 
 
 def point_area_practice_hint(location: str, language: str) -> str:
     normalized = (location or "").lower()
     cues = {
         "ru": (
-            (("пуп", "живот", "лобков", "промеж", "анус", "половых", "мошон"), "Смягчите живот и таз; пусть дыхание не толкает ощущение, а будто освобождает для него место."),
+            (("пуп", "живот", "лобков", "промежност", "анус", "половых", "мошон"), "Смягчите живот и таз; пусть дыхание не толкает ощущение, а будто освобождает для него место."),
             (("позвон", "крестц", "копчик", "спин", "затыл"), "Выпрямитесь без напряжения и почувствуйте, как точка включается в заднюю срединную линию."),
-            (("груд", "ребр", "ключиц"), "Дайте грудной клетке чуть больше пространства; наблюдайте, меняется ли глубина дыхания."),
+            (("груд", "ребр", "ребер", "межреб", "ключиц", "соск"), "Дайте грудной клетке чуть больше пространства; наблюдайте, меняется ли глубина дыхания."),
             (("горл", "ше", "подбород", "губ", "нос", "лиц", "лоб", "тем", "голов"), "Расслабьте лицо, язык и горло; иногда точка откликается только после этого."),
             (("рук", "кист", "пал", "локт", "плеч"), "Отпустите плечо и кисть, чтобы внимание не застревало только в поверхности кожи."),
             (("стоп", "пят", "лодыж", "голен", "колен", "бедр"), "Почувствуйте опору и вес тела; так точка легче соединяется с общей линией меридиана."),
@@ -572,11 +588,9 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
         f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",
         f"<b>{labels[1]}:</b> {escape(compact_point_location(location))}",
     ]
-    base_instruction = localized(point, language, "meditation_instruction")
-    if not base_instruction:
-        base_instruction = practice_note(point_index, language)
+    base_instruction = practice_note(point_index, len(points), language)
     practice_parts = [base_instruction]
-    area_hint = point_area_practice_hint(location, language)
+    area_hint = point_area_practice_hint(compact_point_location(location), language)
     if area_hint:
         practice_parts.append(area_hint)
     setup_hint = point_setup_practice_hint(source_location, language)
@@ -1026,10 +1040,23 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 for pattern in STALE_POINT_INSTRUCTION_PATTERNS:
                     if pattern.lower() in lowered_instruction:
                         issues.append(f"{meridian_id}/{point.get('code')}/{language}: stale generic point instruction {pattern!r}")
-                first_marker, next_marker = POINT_PRACTICE_MARKERS[language]
-                expected_marker = first_marker if point_index == 0 else next_marker
-                if expected_marker not in instruction:
-                    issues.append(f"{meridian_id}/{point.get('code')}/{language}: point instruction lost staged practice marker")
+                first_marker, next_marker, late_marker = POINT_PRACTICE_MARKERS[language]
+                rendered_point = unescape(format_meridian_point(raw_meridian, point_index, language))
+                if point_index == 0:
+                    expected_marker = first_marker
+                elif point_index >= len(raw_meridian.get("points", [])) - 1:
+                    expected_marker = {
+                        "en": "First gather the feeling",
+                        "ru": "Сначала соберите ощущение",
+                        "uz": "Avval o'tilgan barcha nuqtalar",
+                        "kz": "Алдымен өткен барлық нүктелер",
+                    }[language]
+                elif point_index >= max(1, int(len(raw_meridian.get("points", [])) * 0.7)):
+                    expected_marker = late_marker
+                else:
+                    expected_marker = next_marker
+                if expected_marker not in rendered_point:
+                    issues.append(f"{meridian_id}/{point.get('code')}/{language}: rendered point lost staged practice marker")
 
     central_vessel_markers = {
         "conception_vessel": {
@@ -1052,6 +1079,14 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             for marker in markers:
                 if marker not in description:
                     issues.append(f"{meridian_id}/{language}: central vessel intro is missing marker {marker!r}")
+
+    conception = raw_meridians_by_id.get("conception_vessel", {})
+    if len(conception.get("points", [])) >= 17:
+        vc17_plain = re.sub(r"<[^>]+>", "", unescape(format_meridian_point(conception, 16, "ru")))
+        if "живот и таз" in vc17_plain:
+            issues.append("conception_vessel/VC17/ru: chest point received pelvis practice cue")
+        if "грудной клетке" not in vc17_plain:
+            issues.append("conception_vessel/VC17/ru: chest point is missing chest practice cue")
 
     paired_channel_markers = {
         "lung": {
@@ -1235,7 +1270,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: observation prompt is lost after Telegram caption fitting")
                 if language == "ru" and index == 0 and "\u0437\u0430\u043a\u0440\u044b\u0442" not in readable_plain:
                     issues.append(f"{meridian_id} point 1/ru: missing closed-point guidance")
-                if language == "ru" and index > 0 and "\u0443\u0436\u0435 \u0438\u0437\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0447\u043a\u0438" not in readable_plain:
+                if language == "ru" and index > 0 and not any(marker in readable_plain for marker in ("\u0443\u0436\u0435 \u0438\u0437\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0447\u043a\u0438", "\u043f\u0440\u043e\u0439\u0434\u0435\u043d\u043d\u044b\u0445 \u0442\u043e\u0447\u0435\u043a", "\u043d\u0430\u0447\u0430\u043b\u0443 \u043c\u0435\u0440\u0438\u0434\u0438\u0430\u043d\u0430")):
                     issues.append(f"{meridian_id} point {index + 1}/ru: missing cumulative-point guidance")
                 first_point_markers = {
                     'en': ('Start with this point only', 'not yet open for practice'),
@@ -1244,10 +1279,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     'kz': ('\u0422\u0435\u043a \u043e\u0441\u044b \u043d\u04af\u043a\u0442\u0435\u0434\u0435\u043d \u0431\u0430\u0441\u0442\u0430\u04a3\u044b\u0437', '\u04d9\u0437\u0456\u0440\u0433\u0435 \u0430\u0448\u044b\u043b\u043c\u0430\u0493\u0430\u043d'),
                 }[language]
                 next_point_markers = {
-                    'en': ('points you have already studied', 'return to the whole line'),
-                    'ru': ('\u0443\u0436\u0435 \u0438\u0437\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0447\u043a\u0438', '\u0432\u0435\u0440\u043d\u0438\u0442\u0435\u0441\u044c \u043a\u043e \u0432\u0441\u0435\u0439 \u043b\u0438\u043d\u0438\u0438'),
-                    'uz': ("o'rgangan nuqtalarni", 'butun chiziqqa qayting'),
-                    'kz': ('\u0431\u04b1\u0440\u044b\u043d \u04e9\u0442\u043a\u0435\u043d \u043d\u04af\u043a\u0442\u0435\u043b\u0435\u0440\u0434\u0456', '\u0431\u04af\u043a\u0456\u043b \u0441\u044b\u0437\u044b\u049b\u049b\u0430 \u043e\u0440\u0430\u043b\u044b\u04a3\u044b\u0437'),
+                    'en': ('points you have already studied', 'meridian line'),
+                    'ru': ('\u0443\u0436\u0435 \u0438\u0437\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0447\u043a\u0438', '\u043b\u0438\u043d\u0438\u044f \u043c\u0435\u0440\u0438\u0434\u0438\u0430\u043d\u0430'),
+                    'uz': ("o'rganilgan nuqtalarni", 'meridian chizig'),
+                    'kz': ('\u0431\u04b1\u0440\u044b\u043d \u0437\u0435\u0440\u0442\u0442\u0435\u043b\u0433\u0435\u043d \u043d\u04af\u043a\u0442\u0435\u043b\u0435\u0440\u0434\u0456', '\u043c\u0435\u0440\u0438\u0434\u0438\u0430\u043d \u0441\u044b\u0437\u044b\u0493\u044b'),
                 }[language]
                 if index == 0:
                     for marker in first_point_markers:
