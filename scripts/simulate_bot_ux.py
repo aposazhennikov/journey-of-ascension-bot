@@ -806,6 +806,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             "about_text",
             "principles_menu",
             "mode_menu",
+            "settings_menu",
             "meridians_menu",
             "setup_complete",
             "already_subscribed",
@@ -832,6 +833,18 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 issues.append(f"{language}: {key} has no bold formatting")
             if "???" in value:
                 issues.append(f"{language}: {key} contains ???")
+
+        settings_menu = language_texts.get("settings_menu", "")
+        settings_menu_lower = settings_menu.lower()
+        settings_markers = {
+            "en": ("separate reminder times", "quiet days", "rhythm"),
+            "ru": ("отдельные времена", "дни тишины", "ритм"),
+            "uz": ("alohida", "sokin kun", "ritm"),
+            "kz": ("бөлек", "тыныш күн", "ырғ"),
+        }[language]
+        for marker in settings_markers:
+            if marker.lower() not in settings_menu_lower:
+                issues.append(f"{language}: settings menu is missing rhythm marker {marker!r}")
 
         meridians_home = language_texts.get("meridians_menu", "")
         meridians_home_markers = {
@@ -1342,6 +1355,8 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator point-list pagination uses technical 10-only labels")
     if "const timeRow = []" not in html or "state.principlesEnabled" not in html or "state.meridiansEnabled" not in html:
         issues.append("browser simulator settings screen is not mode-aware")
+    if "function renderSettingsSnapshot()" not in html or "Current practice rhythm" not in html or "Текущий ритм практики" not in html:
+        issues.append("browser simulator settings screen does not show the current practice rhythm snapshot")
     return issues
 
 
@@ -1891,6 +1906,79 @@ def build_html() -> str:
       show(title, fmt(t(key) || key), [[{{ label: t('back_to_menu'), action: () => setScreen('main') }}]]);
     }}
 
+    function renderSettingsSnapshot() {{
+      const labels = {{
+        en: {{
+          title: '⚙️ <b>Current practice rhythm</b>',
+          language: '🌐 Language:',
+          mode: '🧭 Active path:',
+          principles: 'Yama/Niyama',
+          meridians: 'Meridians',
+          both: 'Yama/Niyama + Meridians',
+          timezone: '🌍 Time zone:',
+          principleTime: '🕊️ Yama/Niyama time:',
+          meridianTime: '☯️ Meridian time:',
+          quiet: '📅 Quiet days:',
+          languageName: 'English',
+        }},
+        ru: {{
+          title: '⚙️ <b>Текущий ритм практики</b>',
+          language: '🌐 Язык:',
+          mode: '🧭 Активный путь:',
+          principles: 'Яма/Нияма',
+          meridians: 'Меридианы',
+          both: 'Яма/Нияма + Меридианы',
+          timezone: '🌍 Часовой пояс:',
+          principleTime: '🕊️ Время Ямы/Ниямы:',
+          meridianTime: '☯️ Время меридианов:',
+          quiet: '📅 Дни тишины:',
+          languageName: 'Русский',
+        }},
+        uz: {{
+          title: '⚙️ <b>Joriy amaliyot ritmi</b>',
+          language: '🌐 Til:',
+          mode: '🧭 Faol yo\\'l:',
+          principles: 'Yama/Niyama',
+          meridians: 'Meridianlar',
+          both: 'Yama/Niyama + Meridianlar',
+          timezone: '🌍 Vaqt mintaqasi:',
+          principleTime: '🕊️ Yama/Niyama vaqti:',
+          meridianTime: '☯️ Meridian vaqti:',
+          quiet: '📅 Sokin kunlar:',
+          languageName: "O'zbek",
+        }},
+        kz: {{
+          title: '⚙️ <b>Қазіргі тәжірибе ырғағы</b>',
+          language: '🌐 Тіл:',
+          mode: '🧭 Белсенді жол:',
+          principles: 'Яма/Нияма',
+          meridians: 'Меридиандар',
+          both: 'Яма/Нияма + Меридиандар',
+          timezone: '🌍 Уақыт белдеуі:',
+          principleTime: '🕊️ Яма/Нияма уақыты:',
+          meridianTime: '☯️ Меридиан уақыты:',
+          quiet: '📅 Тыныш күндер:',
+          languageName: 'Қазақша',
+        }},
+      }}[state.language] || {{}};
+      const mode = state.principlesEnabled && state.meridiansEnabled
+        ? labels.both
+        : state.meridiansEnabled
+          ? labels.meridians
+          : labels.principles;
+      const rows = [
+        labels.title,
+        '',
+        `${{labels.language}} ${{labels.languageName}}`,
+        `${{labels.mode}} ${{mode}}`,
+        `${{labels.timezone}} <code>Asia/Tashkent</code>`,
+      ];
+      if (state.principlesEnabled) rows.push(`${{labels.principleTime}} <code>08:00</code>`);
+      if (state.meridiansEnabled) rows.push(`${{labels.meridianTime}} <code>20:00</code>`);
+      rows.push(`${{labels.quiet}} -`);
+      return rows.join('<br>');
+    }}
+
     function renderSettings() {{
       const rows = [[{{ label: t('change_modes'), action: () => setScreen('modes') }}]];
       const timeRow = [];
@@ -1908,7 +1996,7 @@ def build_html() -> str:
         [{{ label: t('change_skip_days'), action: () => setScreen('skipDays') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
       );
-      show('Settings', fmt(t('settings_menu')), rows);
+      show('Settings', `${{renderSettingsSnapshot()}}<br><br>${{fmt(t('settings_menu'))}}`, rows);
     }}
 
     function render() {{

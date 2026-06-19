@@ -1375,14 +1375,15 @@ TEXTS_UPDATE = {
         "menu_stop": "⏹ Stop bot",
         "settings_menu": (
             "⚙️ <b>Settings</b>\n\n"
-            "Here you can tune the rhythm of practice: what the bot reminds you about, when messages arrive, and which days stay quiet."
+            "This is where you keep the practice comfortable: choose the active path, set separate reminder times, and leave quiet days when you need more space.\n\n"
+            "Change only what genuinely helps your rhythm stay steady."
         ),
         "change_language": "🌐 Language",
-        "change_time": "🧘🏻 Yama/Niyama Time",
+        "change_time": "🕊️ Yama/Niyama Time",
         "change_timezone": "🌍 Time Zone",
         "change_skip_days": "📅 Quiet Days",
         "time_step": (
-            "🧘🏻 <b>Yama/Niyama Reminder Time</b>\n\n"
+            "🕊️ <b>Yama/Niyama Reminder Time</b>\n\n"
             "Choose when the bot should send the daily principle. A steady time helps the practice become part of ordinary life.\n\n"
             "Format: HH:MM, for example 08:00 or 20:30."
         ),
@@ -1565,14 +1566,15 @@ TEXTS_UPDATE = {
         "menu_stop": "⏹ Остановить бота",
         "settings_menu": (
             "⚙️ <b>Настройки</b>\n\n"
-            "Здесь можно настроить ритм практики: что бот напоминает, когда приходят сообщения и в какие дни лучше оставить тишину."
+            "Здесь вы держите практику удобной: выбираете активный путь, настраиваете отдельные времена напоминаний и оставляете дни тишины, когда нужно больше пространства.\n\n"
+            "Меняйте только то, что действительно помогает ритму оставаться живым и устойчивым."
         ),
         "change_language": "🌐 Язык",
-        "change_time": "🧘🏻 Время Ямы/Ниямы",
+        "change_time": "🕊️ Время Ямы/Ниямы",
         "change_timezone": "🌍 Часовой пояс",
         "change_skip_days": "📅 Дни тишины",
         "time_step": (
-            "🧘🏻 <b>Время напоминания по Яме/Нияме</b>\n\n"
+            "🕊️ <b>Время напоминания по Яме/Нияме</b>\n\n"
             "Выберите, когда бот будет присылать ежедневный принцип. Постоянное время помогает практике войти в обычную жизнь.\n\n"
             "Формат: ЧЧ:ММ, например 08:00 или 20:30."
         ),
@@ -1755,14 +1757,15 @@ TEXTS_UPDATE = {
         "menu_stop": "⏹ Botni to'xtatish",
         "settings_menu": (
             "⚙️ <b>Sozlamalar</b>\n\n"
-            "Bu yerda amaliyot ritmini sozlaysiz: bot nimani eslatadi, xabarlar qachon keladi va qaysi kunlar sokin qoladi."
+            "Bu yerda amaliyotni qulay ushlab turasiz: faol yo'lni tanlaysiz, eslatmalar vaqtini alohida sozlaysiz va kerak bo'lsa sokin kunlarni qoldirasiz.\n\n"
+            "Faqat ritmingiz barqaror va tirik qolishiga yordam beradigan narsani o'zgartiring."
         ),
         "change_language": "🌐 Til",
-        "change_time": "🧘🏻 Yama/Niyama vaqti",
+        "change_time": "🕊️ Yama/Niyama vaqti",
         "change_timezone": "🌍 Vaqt mintaqasi",
         "change_skip_days": "📅 Sokin kunlar",
         "time_step": (
-            "🧘🏻 <b>Yama/Niyama eslatma vaqti</b>\n\n"
+            "🕊️ <b>Yama/Niyama eslatma vaqti</b>\n\n"
             "Bot kundalik tamoyilni qachon yuborishini tanlang. Barqaror vaqt amaliyotni kundalik hayotga kiritishga yordam beradi.\n\n"
             "Format: HH:MM, masalan 08:00 yoki 20:30."
         ),
@@ -1959,14 +1962,15 @@ TEXTS_UPDATE = {
         "menu_stop": "⏹ Ботты тоқтату",
         "settings_menu": (
             "⚙️ <b>Баптаулар</b>\n\n"
-            "Мұнда тәжірибе ырғағын реттейсіз: бот нені еске салады, хабарлар қашан келеді және қай күндер тыныш қалады."
+            "Мұнда тәжірибені өзіңізге ыңғайлы ұстайсыз: белсенді жолды таңдайсыз, еске салу уақыттарын бөлек қоясыз және қажет болса тыныш күндер қалдырасыз.\n\n"
+            "Ырғақ тірі әрі тұрақты болуына көмектесетін нәрсені ғана өзгертіңіз."
         ),
         "change_language": "🌐 Тіл",
-        "change_time": "🧘🏻 Яма/Нияма уақыты",
+        "change_time": "🕊️ Яма/Нияма уақыты",
         "change_timezone": "🌍 Уақыт белдеуі",
         "change_skip_days": "📅 Тыныш күндер",
         "time_step": (
-            "🧘🏻 <b>Яма/Нияма еске салу уақыты</b>\n\n"
+            "🕊️ <b>Яма/Нияма еске салу уақыты</b>\n\n"
             "Бот күнделікті қағиданы қашан жіберетінін таңдаңыз. Тұрақты уақыт тәжірибені күнделікті өмірге енгізуге көмектеседі.\n\n"
             "Формат: HH:MM, мысалы 08:00 немесе 20:30."
         ),
@@ -3417,7 +3421,7 @@ class BotHandlers:
                 "meridians": "Meridians",
                 "both": "Yama/Niyama + Meridians",
                 "timezone": "🌍 Time zone:",
-                "principle_time": "🧘🏻 Yama/Niyama time:",
+                "principle_time": "🕊️ Yama/Niyama time:",
                 "meridian_time": "☯️ Meridian time:",
                 "quiet": "📅 Quiet days:",
             },
@@ -3429,7 +3433,7 @@ class BotHandlers:
                 "meridians": "Меридианы",
                 "both": "Яма/Нияма + Меридианы",
                 "timezone": "🌍 Часовой пояс:",
-                "principle_time": "🧘🏻 Время Ямы/Ниямы:",
+                "principle_time": "🕊️ Время Ямы/Ниямы:",
                 "meridian_time": "☯️ Время меридианов:",
                 "quiet": "📅 Дни тишины:",
             },
@@ -3441,7 +3445,7 @@ class BotHandlers:
                 "meridians": "Meridianlar",
                 "both": "Yama/Niyama + Meridianlar",
                 "timezone": "🌍 Vaqt mintaqasi:",
-                "principle_time": "🧘🏻 Yama/Niyama vaqti:",
+                "principle_time": "🕊️ Yama/Niyama vaqti:",
                 "meridian_time": "☯️ Meridian vaqti:",
                 "quiet": "📅 Sokin kunlar:",
             },
@@ -3453,7 +3457,7 @@ class BotHandlers:
                 "meridians": "Меридиандар",
                 "both": "Яма/Нияма + Меридиандар",
                 "timezone": "🌍 Уақыт белдеуі:",
-                "principle_time": "🧘🏻 Яма/Нияма уақыты:",
+                "principle_time": "🕊️ Яма/Нияма уақыты:",
                 "meridian_time": "☯️ Меридиан уақыты:",
                 "quiet": "📅 Тыныш күндер:",
             },
