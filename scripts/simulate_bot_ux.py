@@ -217,14 +217,16 @@ def format_principle(principle: dict[str, Any], language: str) -> str:
         "kz": ("Бөлігі", "Бүгінгі фокус", "Тәжірибе"),
     }[language]
     reminders = {
-        "en": "This is today's emphasis; the other principles stay in practice too.",
-        "ru": "Это акцент дня; остальные принципы тоже остаются в практике.",
-        "uz": "Bu bugungi urg'u; boshqa tamoyillar ham amaliyotda qoladi.",
-        "kz": "Бұл бүгінгі екпін; қалған қағидалар да тәжірибеде қалады.",
+        "en": "Keep this principle especially visible today. The rest are not paused; we are simply giving one of them more attention.",
+        "ru": "Сегодня держите этот принцип особенно близко. Остальные не выключаются; мы просто даём одному из них больше внимания.",
+        "uz": "Bugun shu tamoyilni ayniqsa yaqin tuting. Qolganlari to'xtamaydi; biz faqat bittasiga ko'proq e'tibor beramiz.",
+        "kz": "Бүгін осы қағиданы ерекше жақын ұстаңыз. Қалғандары тоқтамайды; біз тек біреуіне көбірек назар береміз.",
     }[language]
     description = principle.get("description", "")
     if len(description) > 220:
-        description = description[:217].rstrip() + "..."
+        candidate = description[:217].rstrip()
+        sentence_end = max(candidate.rfind("."), candidate.rfind("!"), candidate.rfind("?"))
+        description = candidate[:sentence_end + 1] if sentence_end >= 99 else candidate.rstrip(",;:") + "..."
     parts = [
         f"<b>{escape(principle.get('name', ''))}</b> {escape(principle.get('emoji', ''))}",
         f"<b>{labels[0]}:</b> {escape(principle_group(int(principle.get('id', 0)), language))}",

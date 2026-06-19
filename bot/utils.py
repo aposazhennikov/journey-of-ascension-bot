@@ -184,10 +184,10 @@ def format_principle_message(principle: Dict[str, Any], language: str = "en", ma
         "kz": ("Яма", "Нияма"),
     }.get(language, ("Yama", "Niyama"))
     reminders = {
-        "en": "This is today's emphasis; the other principles stay in practice too.",
-        "ru": "Это акцент дня; остальные принципы тоже остаются в практике.",
-        "uz": "Bu bugungi urg'u; boshqa tamoyillar ham amaliyotda qoladi.",
-        "kz": "Бұл бүгінгі екпін; қалған қағидалар да тәжірибеде қалады.",
+        "en": "Keep this principle especially visible today. The rest are not paused; we are simply giving one of them more attention.",
+        "ru": "Сегодня держите этот принцип особенно близко. Остальные не выключаются; мы просто даём одному из них больше внимания.",
+        "uz": "Bugun shu tamoyilni ayniqsa yaqin tuting. Qolganlari to'xtamaydi; biz faqat bittasiga ko'proq e'tibor beramiz.",
+        "kz": "Бүгін осы қағиданы ерекше жақын ұстаңыз. Қалғандары тоқтамайды; біз тек біреуіне көбірек назар береміз.",
     }.get(language)
 
     principle_id = int(principle.get("id", 0) or 0)
@@ -205,7 +205,12 @@ def format_principle_message(principle: Dict[str, Any], language: str = "en", ma
             return value
         if limit <= 3:
             return value[:limit]
-        return value[:limit - 3].rstrip() + "..."
+        candidate = value[:limit - 3].rstrip()
+        sentence_end = max(candidate.rfind("."), candidate.rfind("!"), candidate.rfind("?"))
+        if sentence_end >= max(40, int(limit * 0.45)):
+            candidate = candidate[:sentence_end + 1]
+            return candidate
+        return candidate.rstrip(",;:") + "..."
 
     def build(desc: str, practice: str) -> str:
         parts = [
