@@ -203,17 +203,24 @@ def principle_group(principle_id: int, language: str) -> str:
 
 def format_principle(principle: dict[str, Any], language: str) -> str:
     labels = {
-        "en": ("Part", "Practice"),
-        "ru": ("Часть", "Практика"),
-        "uz": ("Qismi", "Amaliyot"),
-        "kz": ("Бөлігі", "Тәжірибе"),
+        "en": ("Part", "Today's focus", "Practice"),
+        "ru": ("Часть", "Фокус дня", "Практика"),
+        "uz": ("Qismi", "Bugungi fokus", "Amaliyot"),
+        "kz": ("Бөлігі", "Бүгінгі фокус", "Тәжірибе"),
+    }[language]
+    reminders = {
+        "en": "Keep the other principles alive too. Today this one helps you notice where attention, speech, and action leak energy, and where they can become cleaner.",
+        "ru": "Остальные принципы тоже остаются живыми. Сегодня этот принцип помогает заметить, где через мысли, речь и поступки утекает энергия, а где действие может стать чище.",
+        "uz": "Boshqa tamoyillar ham tirik qoladi. Bugun shu tamoyil fikr, so'z va harakatlarda energiya qayerda oqib ketayotganini va qayerda harakat tozaroq bo'lishini ko'rishga yordam beradi.",
+        "kz": "Қалған қағидалар да тірі қалады. Бүгін осы қағида ой, сөз және әрекет арқылы энергия қайда шашылатынын және әрекет қай жерде тазара алатынын байқауға көмектеседі.",
     }[language]
     parts = [
         f"<b>{escape(principle.get('name', ''))}</b> {escape(principle.get('emoji', ''))}",
         f"<b>{labels[0]}:</b> {escape(principle_group(int(principle.get('id', 0)), language))}",
         escape(principle.get("short_description", "")),
+        f"<b>{labels[1]}:</b> {escape(reminders)}",
         escape(principle.get("description", "")),
-        f"💡 <b>{labels[1]}:</b> <i>{escape(principle.get('practice_tip', ''))}</i>",
+        f"💡 <b>{labels[2]}:</b> <i>{escape(principle.get('practice_tip', ''))}</i>",
     ]
     return "\n\n".join(part for part in parts if part)
 

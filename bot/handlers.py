@@ -648,6 +648,7 @@ TEXTS_UPDATE = {
         ),
         "principles_random": "Random principle",
         "principles_all": "All principles",
+        "principles_back": "🔙 Back to Yama/Niyama",
         "principles_empty": "Principles are not available yet.",
         "change_modes": "🧭 My Path",
         "change_meridian_time": "☯️ Meridian Time",
@@ -811,6 +812,7 @@ TEXTS_UPDATE = {
         ),
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
+        "principles_back": "🔙 К Яме/Нияме",
         "principles_empty": "Принципы пока недоступны.",
         "change_modes": "🧭 Мой путь",
         "change_meridian_time": "☯️ Время меридианов",
@@ -974,6 +976,7 @@ TEXTS_UPDATE = {
         ),
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
+        "principles_back": "🔙 Yama/Niyamaga qaytish",
         "principles_empty": "Tamoyillar hozircha mavjud emas.",
         "change_modes": "🧭 Mening yo'lim",
         "change_meridian_time": "☯️ Meridian vaqti",
@@ -1151,6 +1154,7 @@ TEXTS_UPDATE = {
         ),
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
+        "principles_back": "🔙 Яма/Ниямаға қайту",
         "principles_empty": "Қағидалар әзірге қолжетімді емес.",
         "change_modes": "🧭 Менің жолым",
         "change_meridian_time": "☯️ Меридиан уақыты",
@@ -2687,7 +2691,7 @@ class BotHandlers:
                     callback_data=f"principles_show:{principle_id}"
                 )
             ])
-        keyboard.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="principles_back")])
+        keyboard.append([InlineKeyboardButton(self._get_text("principles_back", language), callback_data="principles_back")])
         return InlineKeyboardMarkup(keyboard)
 
     def _create_practice_modes_keyboard(self, language: str) -> InlineKeyboardMarkup:

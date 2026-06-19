@@ -183,10 +183,10 @@ def format_principle_message(principle: Dict[str, Any], language: str = "en", ma
         "kz": ("Яма", "Нияма"),
     }.get(language, ("Yama", "Niyama"))
     reminders = {
-        "en": "We do not leave the other principles behind. Today this one becomes the main lens through which you watch thoughts, words, and actions.",
-        "ru": "Остальные принципы не откладываются в сторону. Сегодня этот принцип просто становится главным фокусом, через который вы наблюдаете мысли, речь и поступки.",
-        "uz": "Boshqa tamoyillar chetga surilmaydi. Bugun shu tamoyil fikr, so'z va harakatlarni kuzatish uchun asosiy fokus bo'ladi.",
-        "kz": "Қалған қағидалар шетте қалмайды. Бүгін осы қағида ойды, сөзді және әрекетті бақылауға арналған негізгі фокус болады.",
+        "en": "Keep the other principles alive too. Today this one helps you notice where attention, speech, and action leak energy, and where they can become cleaner.",
+        "ru": "Остальные принципы тоже остаются живыми. Сегодня этот принцип помогает заметить, где через мысли, речь и поступки утекает энергия, а где действие может стать чище.",
+        "uz": "Boshqa tamoyillar ham tirik qoladi. Bugun shu tamoyil fikr, so'z va harakatlarda energiya qayerda oqib ketayotganini va qayerda harakat tozaroq bo'lishini ko'rishga yordam beradi.",
+        "kz": "Қалған қағидалар да тірі қалады. Бүгін осы қағида ой, сөз және әрекет арқылы энергия қайда шашылатынын және әрекет қай жерде тазара алатынын байқауға көмектеседі.",
     }.get(language)
 
     principle_id = int(principle.get("id", 0) or 0)
