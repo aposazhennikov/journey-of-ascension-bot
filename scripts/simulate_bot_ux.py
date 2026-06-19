@@ -851,6 +851,8 @@ def audit_rendered_html() -> list[str]:
             issues.append(f"rendered simulator HTML contains mojibake fragment: {fragment!r}")
     if "???" in html:
         issues.append("rendered simulator HTML contains question-mark damaged text")
+    if 'value="setupComplete"' not in html or "renderSetupComplete" not in html:
+        issues.append("browser simulator is missing setup-complete scenario")
     return issues
 
 
@@ -914,6 +916,7 @@ def build_html() -> str:
           <option value="timezone">Time zone step</option>
           <option value="time">Reminder time step</option>
           <option value="skipDays">Quiet days step</option>
+          <option value="setupComplete">Setup complete</option>
           <option value="main">Main menu</option>
           <option value="meridians">Meridians section</option>
           <option value="measurements">TCM measurements</option>
@@ -1066,7 +1069,7 @@ def build_html() -> str:
         ? 'time_step_both'
         : state.meridiansEnabled ? 'time_step_meridians' : 'time_step_principles';
       show('Time', fmt(t(key)), [
-        [{{ label: '08:00', action: () => setScreen(state.principlesEnabled ? 'skipDays' : 'main') }}, {{ label: '20:00', action: () => setScreen(state.principlesEnabled ? 'skipDays' : 'main') }}],
+        [{{ label: '08:00', action: () => setScreen(state.principlesEnabled ? 'skipDays' : 'setupComplete') }}, {{ label: '20:00', action: () => setScreen(state.principlesEnabled ? 'skipDays' : 'setupComplete') }}],
       ]);
     }}
 
@@ -1087,7 +1090,7 @@ def build_html() -> str:
       const shortDay = (name) => name.length > 8 ? `${{name.slice(0, 7)}}.` : name;
       const buttons = [];
       for (let i = 0; i < dayNames.length; i += 2) {{
-        buttons.push(dayNames.slice(i, i + 2).map((name) => ({{ label: `📅 ${{shortDay(name)}}`, action: () => setScreen('main') }})));
+        buttons.push(dayNames.slice(i, i + 2).map((name) => ({{ label: `📅 ${{shortDay(name)}}`, action: () => setScreen('setupComplete') }})));
       }}
       const noSkip = {{
         en: '🎯 No Skip Days',
@@ -1101,10 +1104,105 @@ def build_html() -> str:
         uz: '\\u{{1F4C5}} Faqat dam olish kunlari',
         kz: '\\u{{1F4C5}} \\u0422\\u0435\\u043A \\u0434\\u0435\\u043C\\u0430\\u043B\\u044B\\u0441 \\u043A\\u04AF\\u043D\\u0434\\u0435\\u0440\\u0456',
       }}[state.language] || '📅 Weekends Only';
-      buttons.push([{{ label: noSkip, action: () => setScreen('main') }}]);
-      buttons.push([{{ label: weekends, action: () => setScreen('main') }}]);
-      buttons.push([{{ label: t('continue_setup'), action: () => setScreen('main') }}]);
+      buttons.push([{{ label: noSkip, action: () => setScreen('setupComplete') }}]);
+      buttons.push([{{ label: weekends, action: () => setScreen('setupComplete') }}]);
+      buttons.push([{{ label: t('continue_setup'), action: () => setScreen('setupComplete') }}]);
       show('Skip days', `${{fmt(t('skip_days_step'))}}<br><br><b>${{note}}</b>`, buttons);
+    }}
+
+    function renderSetupComplete() {{
+      const labels = {{
+        en: {{
+          done: '🎉 <b>Your practice rhythm is ready.</b>',
+          settings: '📋 <b>What is active now:</b>',
+          mode: '🧭 Practice:',
+          principles: 'Yama/Niyama',
+          meridians: 'Meridians',
+          both: 'Yama/Niyama + Meridians',
+          timezone: '🌍 Time zone:',
+          time: '🕐 Time:',
+          principleTime: '🕐 Yama/Niyama time:',
+          meridianTime: '☯️ Meridian time:',
+          skip: '📅 Quiet days:',
+          nextPrinciples: "The bot will bring you back to one principle each day. The other principles are not paused; this is simply the day's point of attention.",
+          nextMeridians: 'The bot will return you to the current meridian focus. You move through points only when you press the buttons, so the pace stays yours.',
+          nextBoth: 'The bot will support both layers: daily ethical focus and meridian observation. Keep the practice gentle, regular, and honest.',
+          hint: 'Open /menu whenever you want to explore the lists, change the rhythm, or continue meridian practice.',
+        }},
+        ru: {{
+          done: '🎉 <b>Ритм практики настроен.</b>',
+          settings: '📋 <b>Что сейчас активно:</b>',
+          mode: '🧭 Практика:',
+          principles: 'Яма/Нияма',
+          meridians: 'Меридианы',
+          both: 'Яма/Нияма + Меридианы',
+          timezone: '🌍 Часовой пояс:',
+          time: '🕐 Время:',
+          principleTime: '🕐 Время Ямы/Ниямы:',
+          meridianTime: '☯️ Время меридианов:',
+          skip: '📅 Дни тишины:',
+          nextPrinciples: 'Бот будет каждый день возвращать вас к одному принципу. Остальные принципы не выключаются: это просто акцент дня для внимания.',
+          nextMeridians: 'Бот будет возвращать вас к текущему фокусу меридиана. По точкам вы двигаетесь только кнопками, поэтому темп остаётся вашим.',
+          nextBoth: 'Бот будет поддерживать оба слоя: ежедневный нравственный фокус и наблюдение меридианов. Держите практику мягкой, регулярной и честной.',
+          hint: 'Открывайте /menu, когда захотите посмотреть списки, изменить ритм или продолжить практику меридианов.',
+        }},
+        uz: {{
+          done: '🎉 <b>Amaliyot ritmingiz tayyor.</b>',
+          settings: '📋 <b>Hozir nimalar faol:</b>',
+          mode: '🧭 Amaliyot:',
+          principles: 'Yama/Niyama',
+          meridians: 'Meridianlar',
+          both: 'Yama/Niyama + Meridianlar',
+          timezone: '🌍 Vaqt mintaqasi:',
+          time: '🕐 Vaqt:',
+          principleTime: '🕐 Yama/Niyama vaqti:',
+          meridianTime: '☯️ Meridian vaqti:',
+          skip: '📅 Sokin kunlar:',
+          nextPrinciples: "Bot har kuni sizni bitta tamoyilga qaytaradi. Boshqa tamoyillar to'xtamaydi; bu faqat kunning diqqat nuqtasi.",
+          nextMeridians: "Bot sizni joriy meridian fokusiga qaytaradi. Nuqtalar bo'ylab faqat tugmalar orqali o'tasiz, shuning uchun sur'at sizniki bo'lib qoladi.",
+          nextBoth: "Bot ikkala qatlamni qo'llab-quvvatlaydi: kundalik axloqiy fokus va meridianlarni kuzatish. Amaliyot yumshoq, muntazam va halol bo'lsin.",
+          hint: "/menu ni ochib, ro'yxatlarni ko'rishingiz, ritmni o'zgartirishingiz yoki meridian amaliyotini davom ettirishingiz mumkin.",
+        }},
+        kz: {{
+          done: '🎉 <b>Тәжірибе ырғағы дайын.</b>',
+          settings: '📋 <b>Қазір не белсенді:</b>',
+          mode: '🧭 Тәжірибе:',
+          principles: 'Яма/Нияма',
+          meridians: 'Меридиандар',
+          both: 'Яма/Нияма + Меридиандар',
+          timezone: '🌍 Уақыт белдеуі:',
+          time: '🕐 Уақыт:',
+          principleTime: '🕐 Яма/Нияма уақыты:',
+          meridianTime: '☯️ Меридиан уақыты:',
+          skip: '📅 Тыныш күндер:',
+          nextPrinciples: 'Бот күн сайын сізді бір қағидаға қайтарады. Қалған қағидалар тоқтамайды; бұл тек күннің зейін нүктесі.',
+          nextMeridians: 'Бот сізді ағымдағы меридиан фокусына қайтарады. Нүктелер бойынша тек батырмалармен өтесіз, сондықтан қарқын өзіңізде қалады.',
+          nextBoth: 'Бот екі қабатты да қолдайды: күнделікті этикалық фокус және меридиандарды бақылау. Тәжірибе жұмсақ, тұрақты және шынайы болсын.',
+          hint: '/menu ашып, тізімдерді көре аласыз, ырғақты өзгерте аласыз немесе меридиан тәжірибесін жалғастыра аласыз.',
+        }},
+      }}[state.language];
+      const mode = state.principlesEnabled && state.meridiansEnabled
+        ? labels.both
+        : state.meridiansEnabled ? labels.meridians : labels.principles;
+      const next = state.principlesEnabled && state.meridiansEnabled
+        ? labels.nextBoth
+        : state.meridiansEnabled ? labels.nextMeridians : labels.nextPrinciples;
+      const rows = [
+        labels.done,
+        '',
+        labels.settings,
+        `${{labels.mode}} ${{mode}}`,
+        `${{labels.timezone}} <code>Europe/Moscow</code>`,
+      ];
+      if (state.principlesEnabled && state.meridiansEnabled) {{
+        rows.push(`${{labels.principleTime}} <code>08:00</code>`, `${{labels.meridianTime}} <code>08:00</code>`, `${{labels.skip}} -`);
+      }} else if (state.principlesEnabled) {{
+        rows.push(`${{labels.time}} <code>08:00</code>`, `${{labels.skip}} -`);
+      }} else {{
+        rows.push(`${{labels.meridianTime}} <code>08:00</code>`, `${{labels.skip}} -`);
+      }}
+      rows.push('', next, '', labels.hint);
+      show('Setup complete', rows.join('<br>'), [[{{ label: t('back_to_menu'), action: () => setScreen('main') }}]]);
     }}
 
     function renderMain() {{
@@ -1281,6 +1379,7 @@ def build_html() -> str:
         onboarding: renderOnboarding,
         timezone: renderTimezone,
         time: renderTime,
+        setupComplete: renderSetupComplete,
         main: renderMain,
         modes: renderModes,
         meridians: renderMeridians,
@@ -1340,6 +1439,10 @@ def build_html() -> str:
         state.screen = 'time';
       }} else if (scenario === 'skipDays') {{
         state.screen = 'skipDays';
+      }} else if (scenario === 'setupComplete') {{
+        state.principlesEnabled = true;
+        state.meridiansEnabled = true;
+        state.screen = 'setupComplete';
       }} else if (scenario === 'main') {{
         state.screen = 'main';
       }} else {{
