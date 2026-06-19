@@ -1450,8 +1450,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("meridian measurements screen does not lead to point-search help")
     if "_create_meridian_help_keyboard(language, user)" not in handlers_source:
         issues.append("meridian point-help screen does not use the safe reference keyboard")
-    if "if (state.currentMeridianId) buttons.push" not in simulator_source:
-        issues.append("simulator point-help screen always shows current focus even when none is selected")
+    if "if (state.meridiansEnabled && state.currentMeridianId) buttons.push" not in simulator_source:
+        issues.append("simulator point-help screen can show current focus while meridian mode is disabled")
     if '"◀️ 10"' in handlers_source or '"10 ▶️"' in handlers_source:
         issues.append("Telegram point-list pagination uses technical 10-only labels")
     if 'step"] = "meridian_time"' not in handlers_source or "user_state.get(\"meridian_time\", user_state[\"time\"])" not in handlers_source:
@@ -2399,7 +2399,7 @@ def build_html() -> str:
         measurements: () => show('Measurements', fmt(t('meridian_measurements_text')), [[{{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}], [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]], '../images/meridians/cun_measurement.png'),
         pointHelp: () => {{
           const buttons = [];
-          if (state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);
+          if (state.meridiansEnabled && state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);
           buttons.push([{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]);
           show('Point help', fmt(t('meridian_point_help_text')), buttons);
         }},

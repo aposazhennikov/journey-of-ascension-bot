@@ -3865,7 +3865,7 @@ class BotHandlers:
     def _create_meridian_help_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
         """Create keyboard for meridian reference screens without surprising auto-starts."""
         keyboard = []
-        if user and user.current_meridian_id:
+        if user and user.meridians_enabled and user.current_meridian_id:
             keyboard.append([InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")])
         keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
         return InlineKeyboardMarkup(keyboard)
