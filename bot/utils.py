@@ -709,25 +709,26 @@ def get_principle_image_path(principle_id: int) -> Optional[str]:
     # Get the directory where this file is located
     current_dir = Path(__file__).parent.parent
     
-    # Try different possible locations for images
-    possible_paths = [
-        current_dir / "images" / f"{principle_id}.jpg",  # From project root
-        Path("images") / f"{principle_id}.jpg",  # Relative to current dir
-        Path("../images") / f"{principle_id}.jpg",  # One level up
-        Path(f"./images/{principle_id}.jpg"),  # Current directory
-        Path(f"/app/images/{principle_id}.jpg"),  # Docker absolute path
+    base_paths = [
+        current_dir / "images",
+        Path("images"),
+        Path("../images"),
+        Path("/app/images"),
     ]
-    
-    for image_path in possible_paths:
-        logger.debug(f"Checking image path: {image_path}")
-        if image_path.exists():
-            logger.info(f"Found image for principle {principle_id}: {image_path}")
-            return str(image_path)
-    
-    logger.warning(f"No image found for principle {principle_id}. Checked paths: {[str(p) for p in possible_paths]}")
+    checked_paths = []
+    for base_path in base_paths:
+        for extension in (".jpg", ".png", ".gif"):
+            image_path = base_path / f"{principle_id}{extension}"
+            checked_paths.append(str(image_path))
+            logger.debug(f"Checking image path: {image_path}")
+            if image_path.exists():
+                logger.info(f"Found image for principle {principle_id}: {image_path}")
+                return str(image_path)
+
+    logger.warning(f"No image found for principle {principle_id}. Checked paths: {checked_paths}")
     return None
 
 
 def has_principle_image(principle_id: int) -> bool:
     """Check if principle has an associated image."""
-    return get_principle_image_path(principle_id) is not None 
+    return get_principle_image_path(principle_id) is not None
