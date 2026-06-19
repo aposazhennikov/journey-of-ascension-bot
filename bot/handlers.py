@@ -238,6 +238,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'meridian_measurements': '📏 Measure cun',
         'meridian_point_help': '🖐 How to find a point',
         'meridian_back': '🔙 Back to meridians',
+        'page_indicator_hint': 'This is the page number. Use Previous or Next to move.',
         'meridian_measurements_text': '📏 <b>Measurement System in TCM</b>\n'
                                       '\n'
                                       '<b>Why this matters:</b> point descriptions often say “1 cun”, “1.5 '
@@ -538,6 +539,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'meridian_measurements': '📏 Как измерять цуни',
         'meridian_point_help': '🖐 Как искать точку',
         'meridian_back': '🔙 К меридианам',
+        'page_indicator_hint': 'Это номер страницы. Для перехода используйте «Назад» или «Далее».',
         'meridian_measurements_text': '📏 <b>Система измерений в ТКМ</b>\n'
                                       '\n'
                                       '<b>Зачем это нужно:</b> в описаниях точек часто встречается «1 цунь», '
@@ -837,6 +839,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'meridian_measurements': "📏 Cunni o'lchash",
         'meridian_point_help': '🖐 Nuqtani topish',
         'meridian_back': '🔙 Meridianlarga qaytish',
+        'page_indicator_hint': "Bu sahifa raqami. O'tish uchun Oldingi yoki Keyingi tugmasidan foydalaning.",
         'meridian_measurements_text': "📏 <b>TKMdagi o'lchov tizimi</b>\n"
                                       '\n'
                                       "<b>Bu nima uchun kerak:</b> nuqta tavsiflarida ko'pincha “1 cun”, "
@@ -1138,6 +1141,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'meridian_measurements': '📏 Цуньді өлшеу',
         'meridian_point_help': '🖐 Нүктені табу',
         'meridian_back': '🔙 Меридиандарға қайту',
+        'page_indicator_hint': 'Бұл бет нөмірі. Өту үшін Артқа немесе Келесі түймесін қолданыңыз.',
         'meridian_measurements_text': '📏 <b>ҚКМ-дегі өлшем жүйесі</b>\n'
                                       '\n'
                                       '<b>Бұл не үшін керек:</b> нүкте сипаттамаларында “1 цунь”, “1,5 '
@@ -1421,6 +1425,7 @@ TEXTS_UPDATE = {
         "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
         "back_to_current_focus": "🔙 Back to current focus",
+        "page_indicator_hint": "This is the page number. Use Previous or Next to move.",
         "meridian_measurements_text": (
             "📏 <b>Measurement System in TCM</b>\n\n"
             "<b>Why this matters:</b> point descriptions often say “1 cun”, “1.5 cun”, “3 cun”, and so on. Without a body-based measure, these numbers stay abstract; with cun, you can at least get into the right area.\n\n"
@@ -1613,6 +1618,7 @@ TEXTS_UPDATE = {
         "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
         "back_to_current_focus": "🔙 К текущему фокусу",
+        "page_indicator_hint": "Это номер страницы. Для перехода используйте «Назад» или «Далее».",
         "meridian_measurements_text": (
             "📏 <b>Система измерений в ТКМ</b>\n\n"
             "<b>Зачем это нужно:</b> в описаниях точек часто встречается «1 цунь», «1,5 цуня», «3 цуня» и так далее. Без телесной меры это остаётся абстракцией; с цунями вы хотя бы попадаете в нужную область.\n\n"
@@ -1805,6 +1811,7 @@ TEXTS_UPDATE = {
         "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "back_to_current_focus": "🔙 Joriy fokusga qaytish",
+        "page_indicator_hint": "Bu sahifa raqami. O'tish uchun Oldingi yoki Keyingi tugmasidan foydalaning.",
         "meridian_measurements_text": (
             "📏 <b>TKMdagi o'lchov tizimi</b>\n\n"
             "<b>Bu nima uchun kerak:</b> nuqta tavsiflarida ko'pincha “1 cun”, “1,5 cun”, “3 cun” kabi o'lchovlar uchraydi. Tana o'lchovi bo'lmasa, bu raqamlar mavhum qoladi; cun esa kerakli joyga yaqinlashishga yordam beradi.\n\n"
@@ -2011,6 +2018,7 @@ TEXTS_UPDATE = {
         "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "back_to_current_focus": "🔙 Ағымдағы фокусқа қайту",
+        "page_indicator_hint": "Бұл бет нөмірі. Өту үшін Артқа немесе Келесі түймесін қолданыңыз.",
         "meridian_measurements_text": (
             "📏 <b>ҚКМ-дегі өлшем жүйесі</b>\n\n"
             "<b>Бұл не үшін керек:</b> нүкте сипаттамаларында “1 цунь”, “1,5 цунь”, “3 цунь” сияқты өлшемдер жиі кездеседі. Денеге қатысты өлшем болмаса, бұл сандар түсініксіз болып қалады; цунь керек аймаққа жақындауға көмектеседі.\n\n"
@@ -4182,9 +4190,13 @@ class BotHandlers:
         action = query.data.split("_", 1)[1]
 
         try:
-            await query.answer()
             user = await self.storage.get_user(chat_id)
             language = user.language if user else "en"
+            if action == "noop":
+                await query.answer(self._get_text("page_indicator_hint", language), show_alert=False)
+                return
+
+            await query.answer()
             if not user:
                 await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
                 return
@@ -4363,9 +4375,6 @@ class BotHandlers:
             if user.current_point_index < -1 or user.current_point_index >= len(points):
                 user.current_point_index = -1
                 await self.storage.save_user(user)
-
-            if action == "noop":
-                return
 
             if action == "current":
                 text = format_meridian_point(meridian, user.current_point_index, language) if user.current_point_index >= 0 else format_meridian_intro(meridian, language)
