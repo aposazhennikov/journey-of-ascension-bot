@@ -719,6 +719,28 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 if marker not in description:
                     issues.append(f"{meridian_id}/{language}: central vessel intro is missing marker {marker!r}")
 
+    paired_channel_markers = {
+        "lung": {
+            "en": ("Yin system", "Liver Meridian", "Large Intestine Meridian", "breath"),
+            "ru": ("системе инь", "Меридиана печени", "Меридиану толстой кишки", "дыхание"),
+            "uz": ("Yin tizimiga", "Jigar meridianidan", "Yo'g'on ichak meridianiga", "nafas"),
+            "kz": ("Инь жүйесіне", "Бауыр меридианынан", "Тоқ ішек меридианына", "тыныс"),
+        },
+        "large_intestine": {
+            "en": ("Yang system", "Lung Meridian", "Stomach Meridian", "releasing"),
+            "ru": ("системе ян", "Меридиана лёгких", "Меридиану желудка", "отпускать"),
+            "uz": ("Yang tizimiga", "O'pka meridianidan", "Oshqozon meridianiga", "qo'yib yuborish"),
+            "kz": ("Ян жүйесіне", "Өкпе меридианынан", "Асқазан меридианына", "босату"),
+        },
+    }
+    for meridian_id, language_markers in paired_channel_markers.items():
+        raw_meridian = raw_meridians_by_id.get(meridian_id, {})
+        for language, markers in language_markers.items():
+            description = raw_meridian.get("i18n", {}).get(language, {}).get("description", "")
+            for marker in markers:
+                if marker not in description:
+                    issues.append(f"{meridian_id}/{language}: paired-channel intro is missing marker {marker!r}")
+
     for meridian_id in ready_ids:
         meridian = meridians_by_id[meridian_id]
         if not meridian.get("overviewImage"):
