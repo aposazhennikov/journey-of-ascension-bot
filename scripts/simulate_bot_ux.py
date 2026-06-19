@@ -826,6 +826,13 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if marker not in handlers_source:
             issues.append(f"setup completion is missing living-practice marker: {marker!r}")
 
+    settings_keyboard_start = handlers_source.find("def _create_settings_menu_keyboard")
+    principles_keyboard_start = handlers_source.find("def _create_principles_menu_keyboard")
+    if settings_keyboard_start != -1 and principles_keyboard_start != -1:
+        settings_keyboard_source = handlers_source[settings_keyboard_start:principles_keyboard_start]
+        if "principles_enabled" not in settings_keyboard_source or "meridians_enabled" not in settings_keyboard_source:
+            issues.append("settings keyboard does not adapt time buttons to active practice modes")
+
     return issues
 
 
@@ -853,6 +860,8 @@ def audit_rendered_html() -> list[str]:
         issues.append("rendered simulator HTML contains question-mark damaged text")
     if 'value="setupComplete"' not in html or "renderSetupComplete" not in html:
         issues.append("browser simulator is missing setup-complete scenario")
+    if "const timeRow = []" not in html or "state.principlesEnabled" not in html or "state.meridiansEnabled" not in html:
+        issues.append("browser simulator settings screen is not mode-aware")
     return issues
 
 
@@ -1365,12 +1374,23 @@ def build_html() -> str:
     }}
 
     function renderSettings() {{
-      show('Settings', fmt(t('settings_menu')), [
-        [{{ label: t('change_modes'), action: () => setScreen('modes') }}, {{ label: t('change_meridian_time'), action: () => setScreen('time') }}],
-        [{{ label: t('change_language'), action: () => setScreen('onboarding') }}, {{ label: t('change_time'), action: () => setScreen('time') }}],
-        [{{ label: t('change_timezone'), action: () => setScreen('timezone') }}, {{ label: t('change_skip_days'), action: () => setScreen('skipDays') }}],
+      const rows = [[{{ label: t('change_modes'), action: () => setScreen('modes') }}]];
+      const timeRow = [];
+      if (state.principlesEnabled) {{
+        timeRow.push({{ label: t('change_time'), action: () => setScreen('time') }});
+      }}
+      if (state.meridiansEnabled) {{
+        timeRow.push({{ label: t('change_meridian_time'), action: () => setScreen('time') }});
+      }}
+      if (timeRow.length) {{
+        rows.push(timeRow);
+      }}
+      rows.push(
+        [{{ label: t('change_language'), action: () => setScreen('onboarding') }}, {{ label: t('change_timezone'), action: () => setScreen('timezone') }}],
+        [{{ label: t('change_skip_days'), action: () => setScreen('skipDays') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
-      ]);
+      );
+      show('Settings', fmt(t('settings_menu')), rows);
     }}
 
     function render() {{

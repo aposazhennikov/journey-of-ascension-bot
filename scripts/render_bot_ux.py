@@ -546,9 +546,10 @@ def render_html(output: Path) -> None:
             "Settings",
             allow_basic_html(normalize_bot_html(t["settings_menu"])),
             [
-                [t["change_modes"], t["change_meridian_time"]],
-                [t["change_language"], t["change_time"]],
-                [t["change_timezone"], t["change_skip_days"]],
+                [t["change_modes"]],
+                [t["change_time"], t["change_meridian_time"]],
+                [t["change_language"], t["change_timezone"]],
+                [t["change_skip_days"]],
                 [t["back_to_menu"]],
             ],
         ))

@@ -2760,7 +2760,7 @@ class BotHandlers:
             skip_days_display = self._format_skip_days(user.skip_day_id, user.language)
 
             text = f"{self._format_current_settings(user, user.language, skip_days_display)}\n\n{self._get_text('settings_menu', language=user.language)}"
-            keyboard = self._create_settings_menu_keyboard(user.language)
+            keyboard = self._create_settings_menu_keyboard(user.language, user)
 
             await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
 
@@ -3597,25 +3597,31 @@ class BotHandlers:
         """Create main menu keyboard with admin-only actions when applicable."""
         return self._create_main_menu_keyboard(language, is_admin=chat_id in self.admin_ids)
 
-    def _create_settings_menu_keyboard(self, language: str) -> InlineKeyboardMarkup:
-        """Create settings menu keyboard."""
+    def _create_settings_menu_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
+        """Create settings keyboard that reflects the user's active practice modes."""
+        principles_enabled = bool(getattr(user, "principles_enabled", True))
+        meridians_enabled = bool(getattr(user, "meridians_enabled", False))
+
         keyboard = [
-            [
-                InlineKeyboardButton(self._get_text("change_modes", language), callback_data="change_modes"),
-                InlineKeyboardButton(self._get_text("change_meridian_time", language), callback_data="change_meridian_time")
-            ],
+            [InlineKeyboardButton(self._get_text("change_modes", language), callback_data="change_modes")]
+        ]
+
+        time_row = []
+        if principles_enabled:
+            time_row.append(InlineKeyboardButton(self._get_text("change_time", language), callback_data="change_time"))
+        if meridians_enabled:
+            time_row.append(InlineKeyboardButton(self._get_text("change_meridian_time", language), callback_data="change_meridian_time"))
+        if time_row:
+            keyboard.append(time_row)
+
+        keyboard.extend([
             [
                 InlineKeyboardButton(self._get_text("change_language", language), callback_data="change_language"),
-                InlineKeyboardButton(self._get_text("change_time", language), callback_data="change_time")
+                InlineKeyboardButton(self._get_text("change_timezone", language), callback_data="change_timezone")
             ],
-            [
-                InlineKeyboardButton(self._get_text("change_timezone", language), callback_data="change_timezone"),
-                InlineKeyboardButton(self._get_text("change_skip_days", language), callback_data="change_skip_days")
-            ],
-            [
-                InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")
-            ]
-        ]
+            [InlineKeyboardButton(self._get_text("change_skip_days", language), callback_data="change_skip_days")],
+            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+        ])
         return InlineKeyboardMarkup(keyboard)
 
     def _create_principles_menu_keyboard(self, language: str) -> InlineKeyboardMarkup:
@@ -3832,7 +3838,7 @@ class BotHandlers:
 
             if action == "settings":
                 text = self._as_html(self._get_text("settings_menu", language))
-                keyboard = self._create_settings_menu_keyboard(language)
+                keyboard = self._create_settings_menu_keyboard(language, user)
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
             elif action == "principles":
@@ -3954,7 +3960,7 @@ class BotHandlers:
             language = user.language if user else "en"
 
             text = self._as_html(self._get_text("settings_menu", language))
-            keyboard = self._create_settings_menu_keyboard(language)
+            keyboard = self._create_settings_menu_keyboard(language, user)
             await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:
