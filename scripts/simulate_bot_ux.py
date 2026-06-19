@@ -630,6 +630,13 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if "_as_html" not in stop_handler_source:
             issues.append("/stop handler does not normalize stop text for HTML parse mode")
 
+    detail_formatter_start = handlers_source.find("def _format_principle_detail")
+    start_handler_start = handlers_source.find("async def _handle_start")
+    if detail_formatter_start != -1 and start_handler_start != -1:
+        detail_formatter_source = handlers_source[detail_formatter_start:start_handler_start]
+        if "format_principle_message" not in detail_formatter_source:
+            issues.append("menu principle cards use a formatter that can drift from daily principle cards")
+
     dry_setup_phrases = (
         "Setup complete!",
         "Настройка завершена!",

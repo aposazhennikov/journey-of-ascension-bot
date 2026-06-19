@@ -1577,82 +1577,8 @@ class BotHandlers:
         return yama if principle_id <= 5 else niyama
 
     def _format_principle_detail(self, principle: Dict[str, Any], language: str, max_length: Optional[int] = None) -> str:
-        """Format a selected principle with its Yama/Niyama group."""
-        group = self._get_principle_group_name(int(principle.get("id", 0)), language)
-        part_label = {
-            "en": "Part",
-            "ru": "Часть",
-            "uz": "Qismi",
-            "kz": "Бөлігі",
-        }.get(language, "Part")
-        practice_label = {
-            "en": "Practice",
-            "ru": "Практика",
-            "uz": "Amaliyot",
-            "kz": "Тәжірибе",
-        }.get(language, "Practice")
-
-        emoji = principle.get("emoji", "")
-        name = principle.get("name", "")
-        short_description = principle.get("short_description", "")
-        description = principle.get("description", "")
-        practice_tip = principle.get("practice_tip", "")
-
-        def shorten(value: str, limit: int) -> str:
-            if limit <= 0:
-                return ""
-            if len(value) <= limit:
-                return value
-            if limit <= 3:
-                return value[:limit]
-            return value[:limit - 3].rstrip() + "..."
-
-        def build(desc: str, practice: str) -> str:
-            lines = [
-                f"<b>{escape(name)}</b> {escape(emoji)}".strip(),
-                f"<b>{escape(part_label)}:</b> {escape(group)}",
-            ]
-            if short_description:
-                lines.extend(["", escape(short_description)])
-            if desc:
-                lines.extend(["", escape(desc)])
-            if practice:
-                lines.extend(["", f"💡 <b>{escape(practice_label)}:</b> <i>{escape(practice)}</i>"])
-            return "\n".join(lines)
-
-        text = build(description, practice_tip)
-        if not max_length or len(text) <= max_length:
-            return text
-
-        # Telegram photo captions are limited, so keep the practical exercise visible
-        # and shorten the explanatory description first.
-        desc = description
-        practice = practice_tip
-
-        while len(build(desc, practice)) > max_length and len(desc) > 20:
-            overflow = len(build(desc, practice)) - max_length
-            desc = shorten(desc, max(20, len(desc) - overflow - 8))
-
-        text = build(desc, practice)
-        if len(text) <= max_length:
-            return text
-
-        desc = ""
-        text = build(desc, practice)
-        while len(text) > max_length and len(practice) > 20:
-            overflow = len(text) - max_length
-            practice = shorten(practice, max(20, len(practice) - overflow - 8))
-            text = build(desc, practice)
-
-        if len(text) <= max_length:
-            return text
-
-        text = build("", "")
-        if len(text) <= max_length:
-            return text
-
-        plain = f"{name} {emoji}\n{part_label}: {group}"
-        return escape(shorten(plain, max_length))
+        """Format a selected principle exactly like the daily principle card."""
+        return format_principle_message(principle, language, max_length or 4096)
     
     async def _handle_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
