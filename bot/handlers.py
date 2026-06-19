@@ -228,12 +228,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'You can change this later. Your progress and reminders stay saved.',
         'meridian_guided_path': '🧭 Bot route',
         'meridian_free_choice': '👐 Free choice',
-        'meridian_change_path': '🧭 Study path',
+        'meridian_change_path': '🧭 Start or choose path',
         'meridian_guided_saved': '✅ <b>Bot route selected.</b>\n'
                                  '\n'
                                  'We will move gently: one meridian, one point, one stable sensation at a time.',
         'meridian_free_saved': '✅ <b>Free choice selected.</b>\n\nChoose the meridian you want to explore now.',
-        'meridian_measurements': '📏 How to measure in cun',
+        'meridian_measurements': '📏 Cun guide',
         'meridian_point_help': '🖐 How to find a point',
         'meridian_back': '🔙 Back to meridians',
         'coming_soon': 'soon',
@@ -297,7 +297,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           "<b>How to start:</b> the bot can lead you through a recommended order, or you can "
                           'freely choose any meridian yourself.\n'
                           '\n'
-                          'Set the study path first. If you already started, return to the current focus. '
+                          "Start by choosing how you want to study: follow the bot's route or pick a meridian yourself. If you already started, return to the current focus. "
                           'Before working with points, open the <b>cun</b> guide: it helps you measure '
                           'distances on your own body.',
         'choose_meridian': '☯️ <b>Choose a meridian:</b>',
@@ -528,14 +528,14 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'Путь можно изменить позже. Прогресс и напоминания сохраняются.',
         'meridian_guided_path': '🧭 Маршрут бота',
         'meridian_free_choice': '👐 Свободный выбор',
-        'meridian_change_path': '🧭 Путь изучения',
+        'meridian_change_path': '🧭 Начать или выбрать путь',
         'meridian_guided_saved': '✅ <b>Выбран маршрут бота.</b>\n'
                                  '\n'
                                  'Будем двигаться мягко: один меридиан, одна точка, одно устойчивое ощущение за раз.',
         'meridian_free_saved': '✅ <b>Выбран свободный выбор.</b>\n'
                                '\n'
                                'Выберите меридиан, который хотите исследовать сейчас.',
-        'meridian_measurements': '📏 Как измерять в цунях',
+        'meridian_measurements': '📏 Цуни и измерения',
         'meridian_point_help': '🖐 Как искать точку',
         'meridian_back': '🔙 К меридианам',
         'coming_soon': 'скоро',
@@ -602,7 +602,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           '<b>Как начать:</b> бот может вести вас по рекомендованному маршруту, а можно '
                           'самостоятельно выбрать любой меридиан.\n'
                           '\n'
-                          'Сначала настройте путь изучения. Если уже начали, возвращайтесь к текущему '
+                          'Начните с выбора: идти по маршруту бота или самостоятельно выбрать меридиан. Если уже начали, возвращайтесь к текущему '
                           'фокусу. Перед работой с точками откройте справку по <b>цуням</b>: она поможет '
                           'отмерять расстояния на своём теле.',
         'choose_meridian': '☯️ <b>Выберите меридиан:</b>',
@@ -833,14 +833,14 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               "Yo'lni keyin o'zgartirish mumkin. Progress va eslatmalar saqlanadi.",
         'meridian_guided_path': "🧭 Bot yo'nalishi",
         'meridian_free_choice': '👐 Erkin tanlov',
-        'meridian_change_path': "🧭 O'rganish yo'li",
+        'meridian_change_path': "🧭 Boshlash yoki yo'l tanlash",
         'meridian_guided_saved': "✅ <b>Bot yo'nalishi tanlandi.</b>\n"
                                  '\n'
                                  "Yumshoq harakat qilamiz: bir meridian, bir nuqta, bir barqaror sezgi.",
         'meridian_free_saved': '✅ <b>Erkin tanlov tanlandi.</b>\n'
                                '\n'
                                "Hozir o'rganmoqchi bo'lgan meridianni tanlang.",
-        'meridian_measurements': "📏 Cunda qanday o'lchash",
+        'meridian_measurements': "📏 Cun qo'llanmasi",
         'meridian_point_help': '🖐 Nuqtani topish',
         'meridian_back': '🔙 Meridianlarga qaytish',
         'coming_soon': 'tez orada',
@@ -904,7 +904,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           "<b>Qanday boshlash:</b> bot tavsiya qilgan tartib bo'yicha olib borishi mumkin, "
                           "yoki istalgan meridianni o'zingiz tanlaysiz.\n"
                           '\n'
-                          "Avval o'rganish yo'lini sozlang. Agar boshlagan bo'lsangiz, joriy fokusga "
+                          "Avval qanday o'rganishni tanlang: bot yo'nalishi bo'yicha yurish yoki meridianni o'zingiz tanlash. Agar boshlagan bo'lsangiz, joriy fokusga "
                           "qayting. Nuqtalar bilan ishlashdan oldin <b>cun</b> bo'yicha qo'llanmani "
                           "oching: u masofani o'z tanangizda o'lchashga yordam beradi.",
         'choose_meridian': '☯️ <b>Meridianni tanlang:</b>',
@@ -1146,14 +1146,14 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'Жолды кейін өзгертуге болады. Прогресс пен еске салулар сақталады.',
         'meridian_guided_path': '🧭 Бот бағыты',
         'meridian_free_choice': '👐 Еркін таңдау',
-        'meridian_change_path': '🧭 Зерттеу жолы',
+        'meridian_change_path': '🧭 Бастау немесе жол таңдау',
         'meridian_guided_saved': '✅ <b>Бот бағыты таңдалды.</b>\n'
                                  '\n'
                                  'Баяу қозғаламыз: бір меридиан, бір нүкте, бір тұрақты сезім.',
         'meridian_free_saved': '✅ <b>Еркін таңдау таңдалды.</b>\n'
                                '\n'
                                'Қазір зерттегіңіз келетін меридианды таңдаңыз.',
-        'meridian_measurements': '📏 Цуньмен қалай өлшеу',
+        'meridian_measurements': '📏 Цунь нұсқаулығы',
         'meridian_point_help': '🖐 Нүктені табу',
         'meridian_back': '🔙 Меридиандарға қайту',
         'coming_soon': 'жақында',
@@ -1215,7 +1215,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           '<b>Қалай бастау:</b> бот ұсынған ретпен жүргізе алады немесе кез келген '
                           'меридианды өзіңіз таңдай аласыз.\n'
                           '\n'
-                          'Алдымен зерттеу жолын баптаңыз. Егер бастап қойған болсаңыз, ағымдағы фокусқа '
+                          'Алдымен қалай зерттейтініңізді таңдаңыз: бот маршрутымен жүру немесе меридианды өзіңіз таңдау. Егер бастап қойған болсаңыз, ағымдағы фокусқа '
                           'оралыңыз. Нүктелермен жұмысқа кіріспес бұрын <b>цунь</b> нұсқаулығын ашыңыз: '
                           'ол қашықтықты өз денеңізде өлшеуге көмектеседі.',
         'choose_meridian': '☯️ <b>Меридианды таңдаңыз:</b>',
@@ -1425,10 +1425,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Bot route",
         "meridian_free_choice": "👐 Free choice",
-        "meridian_change_path": "🧭 Study path",
+        "meridian_change_path": "🧭 Start or choose path",
         "meridian_guided_saved": "✅ <b>Bot route selected.</b>\n\nWe will move gently: one meridian, one point, one stable sensation at a time.",
         "meridian_free_saved": "✅ <b>Free choice selected.</b>\n\nChoose the meridian you want to explore now.",
-        "meridian_measurements": "📏 How to measure in cun",
+        "meridian_measurements": "📏 Cun guide",
         "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
         "back_to_current_focus": "🔙 Back to current focus",
@@ -1459,7 +1459,7 @@ TEXTS_UPDATE = {
             "<b>Why study meridians?</b>\n\n"
             "Meridians are a body map of Qi movement. They help you notice where attention flows freely and where an area feels silent, tense, or closed.\n\n"
             "<b>How to start:</b> the bot can lead you through a recommended order, or you can freely choose any meridian yourself.\n\n"
-            "Set the study path first. If you already started, return to the current focus. Before working with points, open the <b>cun</b> guide: it helps you measure distances on your own body."
+            "Start by choosing how you want to study: follow the bot's route or pick a meridian yourself. If you already started, return to the current focus. Before working with points, open the <b>cun</b> guide: it helps you measure distances on your own body."
         ),
         "choose_meridian": (
             "☯️ <b>Choose a meridian</b>\n\n"
@@ -1608,10 +1608,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Маршрут бота",
         "meridian_free_choice": "👐 Свободный выбор",
-        "meridian_change_path": "🧭 Путь изучения",
+        "meridian_change_path": "🧭 Начать или выбрать путь",
         "meridian_guided_saved": "✅ <b>Выбран маршрут бота.</b>\n\nБудем двигаться мягко: один меридиан, одна точка, одно устойчивое ощущение за раз.",
         "meridian_free_saved": "✅ <b>Выбран свободный выбор.</b>\n\nВыберите меридиан, который хотите исследовать сейчас.",
-        "meridian_measurements": "📏 Как измерять в цунях",
+        "meridian_measurements": "📏 Цуни и измерения",
         "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
         "back_to_current_focus": "🔙 К текущему фокусу",
@@ -1642,7 +1642,7 @@ TEXTS_UPDATE = {
             "<b>Зачем изучать меридианы?</b>\n\n"
             "Меридианы — карта движения Ци в теле. Они помогают замечать, где внимание течёт свободно, а где зона молчит, напряжена или закрыта.\n\n"
             "<b>Как начать:</b> бот может вести вас по рекомендованному маршруту, а можно самостоятельно выбрать любой меридиан.\n\n"
-            "Сначала настройте путь изучения. Если уже начали, возвращайтесь к текущему фокусу. Перед работой с точками откройте справку по <b>цуням</b>: она поможет отмерять расстояния на своём теле."
+            "Начните с выбора: идти по маршруту бота или самостоятельно выбрать меридиан. Если уже начали, возвращайтесь к текущему фокусу. Перед работой с точками откройте справку по <b>цуням</b>: она поможет отмерять расстояния на своём теле."
         ),
         "choose_meridian": (
             "☯️ <b>Выберите меридиан</b>\n\n"
@@ -1791,10 +1791,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Bot yo'nalishi",
         "meridian_free_choice": "👐 Erkin tanlov",
-        "meridian_change_path": "🧭 O'rganish yo'li",
+        "meridian_change_path": "🧭 Boshlash yoki yo'l tanlash",
         "meridian_guided_saved": "✅ <b>Bot yo'nalishi tanlandi.</b>\n\nYumshoq harakat qilamiz: bir meridian, bir nuqta, bir barqaror sezgi.",
         "meridian_free_saved": "✅ <b>Erkin tanlov tanlandi.</b>\n\nHozir o'rganmoqchi bo'lgan meridianni tanlang.",
-        "meridian_measurements": "📏 Cunda qanday o'lchash",
+        "meridian_measurements": "📏 Cun qo'llanmasi",
         "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "back_to_current_focus": "🔙 Joriy fokusga qaytish",
@@ -1825,7 +1825,7 @@ TEXTS_UPDATE = {
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
             "Meridianlar — tanadagi Qi harakati xaritasi. Ular diqqat erkin oqadigan va jim, tarang yoki yopiq joylarni sezishga yordam beradi.\n\n"
             "<b>Qanday boshlash:</b> bot tavsiya qilgan tartib bo'yicha olib borishi mumkin, yoki istalgan meridianni o'zingiz tanlaysiz.\n\n"
-            "Avval o'rganish yo'lini sozlang. Agar boshlagan bo'lsangiz, joriy fokusga qayting. Nuqtalar bilan ishlashdan oldin <b>cun</b> bo'yicha qo'llanmani oching: u masofani o'z tanangizda o'lchashga yordam beradi."
+            "Avval qanday o'rganishni tanlang: bot yo'nalishi bo'yicha yurish yoki meridianni o'zingiz tanlash. Agar boshlagan bo'lsangiz, joriy fokusga qayting. Nuqtalar bilan ishlashdan oldin <b>cun</b> bo'yicha qo'llanmani oching: u masofani o'z tanangizda o'lchashga yordam beradi."
         ),
         "choose_meridian": (
             "☯️ <b>Meridianni tanlang</b>\n\n"
@@ -1988,10 +1988,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Бот бағыты",
         "meridian_free_choice": "👐 Еркін таңдау",
-        "meridian_change_path": "🧭 Зерттеу жолы",
+        "meridian_change_path": "🧭 Бастау немесе жол таңдау",
         "meridian_guided_saved": "✅ <b>Бот бағыты таңдалды.</b>\n\nБаяу қозғаламыз: бір меридиан, бір нүкте, бір тұрақты сезім.",
         "meridian_free_saved": "✅ <b>Еркін таңдау таңдалды.</b>\n\nҚазір зерттегіңіз келетін меридианды таңдаңыз.",
-        "meridian_measurements": "📏 Цуньмен қалай өлшеу",
+        "meridian_measurements": "📏 Цунь нұсқаулығы",
         "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "back_to_current_focus": "🔙 Ағымдағы фокусқа қайту",
@@ -2022,7 +2022,7 @@ TEXTS_UPDATE = {
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
             "Меридиандар — Ци қозғалысының дене картасы. Олар зейін еркін ағатын және үнсіз не жабық аймақтарды байқауға көмектеседі.\n\n"
             "<b>Қалай бастау:</b> бот ұсынған ретпен жүргізе алады немесе кез келген меридианды өзіңіз таңдай аласыз.\n\n"
-            "Алдымен зерттеу жолын баптаңыз. Егер бастап қойған болсаңыз, ағымдағы фокусқа оралыңыз. Нүктелермен жұмысқа кіріспес бұрын <b>цунь</b> нұсқаулығын ашыңыз: ол қашықтықты өз денеңізде өлшеуге көмектеседі."
+            "Алдымен қалай зерттейтініңізді таңдаңыз: бот маршрутымен жүру немесе меридианды өзіңіз таңдау. Егер бастап қойған болсаңыз, ағымдағы фокусқа оралыңыз. Нүктелермен жұмысқа кіріспес бұрын <b>цунь</b> нұсқаулығын ашыңыз: ол қашықтықты өз денеңізде өлшеуге көмектеседі."
         ),
         "choose_meridian": (
             "☯️ <b>Меридианды таңдаңыз</b>\n\n"

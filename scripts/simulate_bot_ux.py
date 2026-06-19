@@ -760,6 +760,15 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             issues.append(f"{language}: meridian measurements button does not clearly mention cun")
         if len(meridian_home_buttons) > 4:
             issues.append(f"{language}: meridians home has too many top-level buttons")
+        path_label = texts[language].get("meridian_change_path", "").lower()
+        path_action_markers = {
+            "en": ("start", "choose"),
+            "ru": ("начать", "выбрать"),
+            "uz": ("boshlash", "tanlash"),
+            "kz": ("бастау", "таңдау"),
+        }[language]
+        if not any(marker in path_label for marker in path_action_markers):
+            issues.append(f"{language}: meridian path button should sound like starting or choosing, got {path_label!r}")
 
         choose_meridian_text = strip_html(texts[language].get("choose_meridian", ""))
         if len(choose_meridian_text) < 80:
