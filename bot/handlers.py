@@ -2763,6 +2763,7 @@ class BotHandlers:
                 is_active=True
             )
             if user.meridians_enabled and not user.current_meridian_id:
+                user.meridian_learning_mode = "guided"
                 first_meridian = self.meridians_manager.get_first_meridian()
                 if first_meridian:
                     user.current_meridian_id = first_meridian["id"]
@@ -3196,6 +3197,7 @@ class BotHandlers:
                 is_active=True
             )
             if user.meridians_enabled and not user.current_meridian_id:
+                user.meridian_learning_mode = "guided"
                 first_meridian = self.meridians_manager.get_first_meridian()
                 if first_meridian:
                     user.current_meridian_id = first_meridian["id"]
