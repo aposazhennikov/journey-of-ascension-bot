@@ -70,15 +70,15 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           '\n'
                           'Open /menu whenever you want to explore the lists, change the rhythm, or continue '
                           'meridian practice.',
-        'already_subscribed': '🕊️ You are already subscribed to Journey of Ascension.\n'
+        'already_subscribed': '🕊️ Journey of Ascension is already open here.\n'
                               '\n'
                               'Use /menu to choose practices or /settings to tune your practice rhythm.',
-        'unsubscribed': 'The bot has been stopped. Reminders will no longer be sent.\n'
+        'unsubscribed': 'The practice rhythm is paused. Daily reminders will stay silent for now.\n'
                         '\n'
                         'Use /start if you want to return.',
-        'not_subscribed': 'The bot is not active for this chat yet. Use /start when you want to begin.',
+        'not_subscribed': 'The practice is not started in this chat yet. Use /start when you are ready to begin.',
         'current_settings': '⚙️ <b>Current practice rhythm</b>',
-        'not_subscribed_test': "You're not subscribed yet. Use /start to begin.",
+        'not_subscribed_test': "The practice rhythm is not set yet. Use /start to begin.",
         'test_failed': 'I could not send the reminder check right now. Please try again a little later.',
         'invalid_timezone': '❌ I could not recognize this time zone. Try a format like Europe/Moscow, '
                             'Asia/Tashkent, Asia/Almaty, or UTC.',
@@ -380,15 +380,15 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           '\n'
                           'Открывайте /menu, когда захотите посмотреть списки, изменить ритм или продолжить '
                           'практику меридианов.',
-        'already_subscribed': '🕊️ Вы уже подписаны на Journey of Ascension.\n'
+        'already_subscribed': '🕊️ Journey of Ascension уже открыт здесь.\n'
                               '\n'
                               'Используйте /menu для выбора практик или /settings для настройки ритма практики.',
-        'unsubscribed': 'Бот остановлен. Напоминания больше не будут приходить.\n'
+        'unsubscribed': 'Ритм практики остановлен. Ежедневные напоминания пока будут молчать.\n'
                         '\n'
                         'Если захотите вернуться, используйте /start.',
-        'not_subscribed': 'Бот сейчас не активен для этого чата. Используйте /start, когда захотите начать.',
+        'not_subscribed': 'Практика в этом чате ещё не запущена. Используйте /start, когда будете готовы начать.',
         'current_settings': '⚙️ <b>Текущий ритм практики</b>',
-        'not_subscribed_test': 'Вы пока не подписаны. Используйте /start, чтобы начать.',
+        'not_subscribed_test': 'Ритм практики ещё не настроен. Используйте /start, чтобы начать.',
         'test_failed': 'Сейчас не получилось проверить напоминание. Попробуйте немного позже.',
         'invalid_timezone': '❌ Не удалось распознать часовой пояс. Попробуйте формат Europe/Moscow, '
                             'Asia/Tashkent, Asia/Almaty или UTC.',
@@ -693,16 +693,16 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           '\n'
                           "/menu ni ochib, ro'yxatlarni ko'rishingiz, ritmni o'zgartirishingiz yoki meridian "
                           'amaliyotini davom ettirishingiz mumkin.',
-        'already_subscribed': "🕊️ Siz Journey of Ascension'ga allaqachon obuna bo'lgansiz.\n"
+        'already_subscribed': "🕊️ Journey of Ascension bu yerda allaqachon ochilgan.\n"
                               '\n'
                               "Amaliyotlarni tanlash uchun /menu yoki amaliyot ritmini sozlash uchun /settings "
                               "dan foydalaning.",
-        'unsubscribed': "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n"
+        'unsubscribed': "Amaliyot ritmi pauzaga qo'yildi. Kundalik eslatmalar hozircha kelmaydi.\n"
                         '\n'
                         "Qaytmoqchi bo'lsangiz, /start dan foydalaning.",
-        'not_subscribed': "Bot bu chatda hali faol emas. Boshlamoqchi bo'lsangiz, /start dan foydalaning.",
+        'not_subscribed': "Bu chatda amaliyot hali boshlanmagan. Boshlashga tayyor bo'lsangiz, /start dan foydalaning.",
         'current_settings': '⚙️ <b>Joriy amaliyot ritmi</b>',
-        'not_subscribed_test': "Siz hali obuna bo'lmagansiz. Boshlash uchun /start dan foydalaning.",
+        'not_subscribed_test': "Amaliyot ritmi hali sozlanmagan. Boshlash uchun /start dan foydalaning.",
         'test_failed': "Hozir eslatmani tekshirish xabarini yubora olmadim. Birozdan keyin qayta urinib ko'ring.",
         'invalid_timezone': '❌ Bu vaqt mintaqasini taniy olmadim. Asia/Tashkent, Europe/Moscow, Asia/Almaty '
                             "yoki UTC kabi formatni sinab ko'ring.",
@@ -1007,16 +1007,16 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           '\n'
                           '/menu ашып, тізімдерді көре аласыз, ырғақты өзгерте аласыз немесе меридиан '
                           'тәжірибесін жалғастыра аласыз.',
-        'already_subscribed': '🕊️ Сіз Journey of Ascension-ға бұрыннан жазылғансыз.\n'
+        'already_subscribed': '🕊️ Journey of Ascension бұл жерде бұрыннан ашық.\n'
                               '\n'
                               'Тәжірибелерді таңдау үшін /menu немесе тәжірибе ырғағын реттеу үшін /settings '
                               'қолданыңыз.',
-        'unsubscribed': 'Бот тоқтатылды. Еске салулар енді жіберілмейді.\n'
+        'unsubscribed': 'Тәжірибе ырғағы тоқтатылды. Күнделікті еске салулар әзірге келмейді.\n'
                         '\n'
                         'Қайта оралғыңыз келсе, /start қолданыңыз.',
-        'not_subscribed': 'Бұл чатта бот әлі белсенді емес. Бастау үшін /start қолданыңыз.',
+        'not_subscribed': 'Бұл чатта тәжірибе әлі басталмаған. Бастауға дайын болсаңыз, /start қолданыңыз.',
         'current_settings': '⚙️ <b>Қазіргі тәжірибе ырғағы</b>',
-        'not_subscribed_test': 'Сіз әлі жазылмағансыз. Бастау үшін /start қолданыңыз.',
+        'not_subscribed_test': 'Тәжірибе ырғағы әлі бапталмаған. Бастау үшін /start қолданыңыз.',
         'test_failed': 'Қазір еске салуды тексеру хабарын жібере алмадым. Сәл кейін қайталап көріңіз.',
         'invalid_timezone': '❌ Бұл уақыт белдеуін тани алмадым. Asia/Almaty, Asia/Tashkent, Europe/Moscow '
                             'немесе UTC сияқты форматты қолданып көріңіз.',
@@ -1530,14 +1530,14 @@ TEXTS_UPDATE = {
             "The daily reminder does not rush you forward. It simply brings you back to the current focus so attention can become steadier.\n\n"
             "Open /menu and choose <b>Meridians</b>."
         ),
-        "already_subscribed": "🕊️ You are already subscribed to Journey of Ascension.\n\nUse /menu to choose practices or /settings to tune your practice rhythm.",
-        "not_subscribed": "The bot is not active for this chat yet. Use /start when you want to begin.",
-        "unsubscribed": "The bot has been stopped. Reminders will no longer be sent.\n\nUse /start if you want to return.",
+        "already_subscribed": "🕊️ Journey of Ascension is already open here.\n\nUse /menu to choose practices or /settings to tune your practice rhythm.",
+        "not_subscribed": "The practice is not started in this chat yet. Use /start when you are ready to begin.",
+        "unsubscribed": "The practice rhythm is paused. Daily reminders will stay silent for now.\n\nUse /start if you want to return.",
         "stop_feedback_prompt": "If you want, you can send one message and tell why you decided to stop using the bot. This is optional.",
         "stop_feedback_skip": "Skip",
         "stop_feedback_skipped": "Done. No feedback is needed.\n\nUse /start if you want to return.",
         "stop_feedback_thanks": "Thank you, I will pass on your feedback.\n\nUse /start if you want to return.",
-        "not_subscribed_test": "You're not subscribed yet. Use /start to begin.",
+        "not_subscribed_test": "The practice rhythm is not set yet. Use /start to begin.",
         "setup_complete": (
             "🎉 <b>Your practice rhythm is ready.</b>\n\n"
             "📋 <b>What is active now:</b>\n"
@@ -1730,14 +1730,14 @@ TEXTS_UPDATE = {
             "Ежедневное напоминание не торопит вас дальше. Оно просто возвращает к текущему фокусу, чтобы внимание становилось устойчивее.\n\n"
             "Откройте /menu и выберите <b>Меридианы</b>."
         ),
-        "already_subscribed": "🕊️ Вы уже подписаны на Journey of Ascension.\n\nИспользуйте /menu для выбора практик или /settings для настройки ритма практики.",
-        "not_subscribed": "Бот сейчас не активен для этого чата. Используйте /start, когда захотите начать.",
-        "unsubscribed": "Бот остановлен. Напоминания больше не будут приходить.\n\nЕсли захотите вернуться, используйте /start.",
+        "already_subscribed": "🕊️ Journey of Ascension уже открыт здесь.\n\nИспользуйте /menu для выбора практик или /settings для настройки ритма практики.",
+        "not_subscribed": "Практика в этом чате ещё не запущена. Используйте /start, когда будете готовы начать.",
+        "unsubscribed": "Ритм практики остановлен. Ежедневные напоминания пока будут молчать.\n\nЕсли захотите вернуться, используйте /start.",
         "stop_feedback_prompt": "Если хотите, можете одним сообщением написать, почему решили остановить бота. Это необязательно.",
         "stop_feedback_skip": "Пропустить",
         "stop_feedback_skipped": "Готово. Отзыв не нужен.\n\nЕсли захотите вернуться, используйте /start.",
         "stop_feedback_thanks": "Спасибо, я передам обратную связь.\n\nЕсли захотите вернуться, используйте /start.",
-        "not_subscribed_test": "Вы пока не подписаны. Используйте /start, чтобы начать.",
+        "not_subscribed_test": "Ритм практики ещё не настроен. Используйте /start, чтобы начать.",
         "setup_complete": (
             "🎉 <b>Ритм практики настроен.</b>\n\n"
             "📋 <b>Что сейчас активно:</b>\n"
@@ -1930,14 +1930,14 @@ TEXTS_UPDATE = {
             "Kundalik eslatma sizni shoshiltirmaydi. U faqat joriy fokusga qaytaradi, shunda diqqat asta-sekin barqarorroq bo'ladi.\n\n"
             "/menu ni oching va <b>Meridianlar</b> bo'limini tanlang."
         ),
-        "already_subscribed": "🕊️ Siz Journey of Ascension'ga allaqachon obuna bo'lgansiz.\n\nAmaliyotlarni tanlash uchun /menu yoki amaliyot ritmini sozlash uchun /settings dan foydalaning.",
-        "not_subscribed": "Bot bu chatda hali faol emas. Boshlamoqchi bo'lsangiz, /start dan foydalaning.",
-        "unsubscribed": "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
+        "already_subscribed": "🕊️ Journey of Ascension bu yerda allaqachon ochilgan.\n\nAmaliyotlarni tanlash uchun /menu yoki amaliyot ritmini sozlash uchun /settings dan foydalaning.",
+        "not_subscribed": "Bu chatda amaliyot hali boshlanmagan. Boshlashga tayyor bo'lsangiz, /start dan foydalaning.",
+        "unsubscribed": "Amaliyot ritmi pauzaga qo'yildi. Kundalik eslatmalar hozircha kelmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "stop_feedback_prompt": "Xohlasangiz, botdan foydalanishni nima uchun to'xtatganingizni bitta xabarda yozishingiz mumkin. Bu majburiy emas.",
         "stop_feedback_skip": "O'tkazib yuborish",
         "stop_feedback_skipped": "Tayyor. Fikr yozish shart emas.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "stop_feedback_thanks": "Rahmat, fikringizni yetkazaman.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
-        "not_subscribed_test": "Siz hali obuna bo'lmagansiz. Boshlash uchun /start dan foydalaning.",
+        "not_subscribed_test": "Amaliyot ritmi hali sozlanmagan. Boshlash uchun /start dan foydalaning.",
         "skip_days_improved": (
             "📅 <b>O'tkazib yuboriladigan kunlar (ixtiyoriy)</b>\n\n"
             "Xohlasangiz, bot xabar yubormaydigan hafta kunlarini tanlashingiz mumkin.\n\n"
@@ -2144,14 +2144,14 @@ TEXTS_UPDATE = {
             "Күнделікті еске салу сізді асықтырмайды. Ол тек ағымдағы фокусқа қайтарады, сонда зейін біртіндеп тұрақтанады.\n\n"
             "/menu ашып, <b>Меридиандар</b> бөлімін таңдаңыз."
         ),
-        "already_subscribed": "🕊️ Сіз Journey of Ascension-ға бұрыннан жазылғансыз.\n\nТәжірибелерді таңдау үшін /menu немесе тәжірибе ырғағын реттеу үшін /settings қолданыңыз.",
-        "not_subscribed": "Бұл чатта бот әлі белсенді емес. Бастау үшін /start қолданыңыз.",
-        "unsubscribed": "Бот тоқтатылды. Еске салулар енді жіберілмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
+        "already_subscribed": "🕊️ Journey of Ascension бұл жерде бұрыннан ашық.\n\nТәжірибелерді таңдау үшін /menu немесе тәжірибе ырғағын реттеу үшін /settings қолданыңыз.",
+        "not_subscribed": "Бұл чатта тәжірибе әлі басталмаған. Бастауға дайын болсаңыз, /start қолданыңыз.",
+        "unsubscribed": "Тәжірибе ырғағы тоқтатылды. Күнделікті еске салулар әзірге келмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "stop_feedback_prompt": "Қаласаңыз, ботты не үшін тоқтатқаныңызды бір хабарламамен жаза аласыз. Бұл міндетті емес.",
         "stop_feedback_skip": "Өткізіп жіберу",
         "stop_feedback_skipped": "Дайын. Пікір жазу міндетті емес.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "stop_feedback_thanks": "Рақмет, пікіріңізді жеткіземін.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
-        "not_subscribed_test": "Сіз әлі жазылмағансыз. Бастау үшін /start қолданыңыз.",
+        "not_subscribed_test": "Тәжірибе ырғағы әлі бапталмаған. Бастау үшін /start қолданыңыз.",
         "skip_days_improved": (
             "📅 <b>Өткізіп жіберілетін күндер (міндетті емес)</b>\n\n"
             "Қаласаңыз, бот хабар жібермейтін апта күндерін таңдай аласыз.\n\n"
