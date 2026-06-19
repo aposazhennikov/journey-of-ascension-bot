@@ -2553,7 +2553,7 @@ def build_html() -> str:
         about: () => renderSimple('about_text', 'About'),
         settings: renderSettings,
         feedback: () => renderSimple('feedback_prompt', 'Feedback'),
-        stop: () => renderSimple('stop_feedback_prompt', 'Stop'),
+        stop: () => renderSimple('stop_feedback_prompt', 'Practice paused'),
       }};
       (routes[state.screen] || renderMain)();
     }}
