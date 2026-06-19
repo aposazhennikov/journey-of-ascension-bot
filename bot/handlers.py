@@ -1492,6 +1492,8 @@ TEXTS_UPDATE = {
         "not_subscribed": "The bot is not active for this chat yet. Use /start when you want to begin.",
         "unsubscribed": "The bot has been stopped. Reminders will no longer be sent.\n\nUse /start if you want to return.",
         "stop_feedback_prompt": "If you want, you can send one message and tell why you decided to stop using the bot. This is optional.",
+        "stop_feedback_skip": "Skip",
+        "stop_feedback_skipped": "Done. No feedback is needed.\n\nUse /start if you want to return.",
         "stop_feedback_thanks": "Thank you, I will pass on your feedback.\n\nUse /start if you want to return.",
         "not_subscribed_test": "You're not subscribed yet. Use /start to begin.",
         "setup_complete": (
@@ -1685,6 +1687,8 @@ TEXTS_UPDATE = {
         "not_subscribed": "Бот сейчас не активен для этого чата. Используйте /start, когда захотите начать.",
         "unsubscribed": "Бот остановлен. Напоминания больше не будут приходить.\n\nЕсли захотите вернуться, используйте /start.",
         "stop_feedback_prompt": "Если хотите, можете одним сообщением написать, почему решили остановить бота. Это необязательно.",
+        "stop_feedback_skip": "Пропустить",
+        "stop_feedback_skipped": "Готово. Отзыв не нужен.\n\nЕсли захотите вернуться, используйте /start.",
         "stop_feedback_thanks": "Спасибо, я передам обратную связь.\n\nЕсли захотите вернуться, используйте /start.",
         "not_subscribed_test": "Вы пока не подписаны. Используйте /start, чтобы начать.",
         "setup_complete": (
@@ -1878,6 +1882,8 @@ TEXTS_UPDATE = {
         "not_subscribed": "Bot bu chatda hali faol emas. Boshlamoqchi bo'lsangiz, /start dan foydalaning.",
         "unsubscribed": "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "stop_feedback_prompt": "Xohlasangiz, botdan foydalanishni nima uchun to'xtatganingizni bitta xabarda yozishingiz mumkin. Bu majburiy emas.",
+        "stop_feedback_skip": "O'tkazib yuborish",
+        "stop_feedback_skipped": "Tayyor. Fikr yozish shart emas.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "stop_feedback_thanks": "Rahmat, fikringizni yetkazaman.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "not_subscribed_test": "Siz hali obuna bo'lmagansiz. Boshlash uchun /start dan foydalaning.",
         "skip_days_improved": (
@@ -2085,6 +2091,8 @@ TEXTS_UPDATE = {
         "not_subscribed": "Бұл чатта бот әлі белсенді емес. Бастау үшін /start қолданыңыз.",
         "unsubscribed": "Бот тоқтатылды. Еске салулар енді жіберілмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "stop_feedback_prompt": "Қаласаңыз, ботты не үшін тоқтатқаныңызды бір хабарламамен жаза аласыз. Бұл міндетті емес.",
+        "stop_feedback_skip": "Өткізіп жіберу",
+        "stop_feedback_skipped": "Дайын. Пікір жазу міндетті емес.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "stop_feedback_thanks": "Рақмет, пікіріңізді жеткіземін.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "not_subscribed_test": "Сіз әлі жазылмағансыз. Бастау үшін /start қолданыңыз.",
         "skip_days_improved": (
@@ -2318,6 +2326,7 @@ class BotHandlers:
         self.application.add_handler(CallbackQueryHandler(self._handle_settings_callback, pattern="^settings_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_change_callback, pattern="^change_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_mode_callback, pattern="^mode_"))
+        self.application.add_handler(CallbackQueryHandler(self._handle_stop_feedback_skip_callback, pattern="^stop_feedback_skip$"))
         self.application.add_handler(CallbackQueryHandler(self._handle_meridian_callback, pattern="^meridian_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_broadcast_callback, pattern="^broadcast_"))
 
@@ -2787,7 +2796,8 @@ class BotHandlers:
                 text = self._get_text("not_subscribed", language)
 
             # Send final message directly through bot API
-            await self.application.bot.send_message(chat_id=chat_id, text=text, parse_mode='HTML')
+            reply_markup = self._create_stop_feedback_keyboard(language) if success else None
+            await self.application.bot.send_message(chat_id=chat_id, text=text, reply_markup=reply_markup, parse_mode='HTML')
 
         except Exception as e:
             logger.error(f"Error in stop handler for user {chat_id}: {e}")
@@ -3737,6 +3747,12 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
+    def _create_stop_feedback_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create optional feedback skip keyboard after stopping the bot."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("stop_feedback_skip", language), callback_data="stop_feedback_skip")]
+        ])
+
     def _create_registration_modes_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create initial practice mode keyboard for new-user onboarding."""
         return InlineKeyboardMarkup([
@@ -3979,7 +3995,12 @@ class BotHandlers:
                     await self.scheduler.remove_user_jobs(chat_id)
                     self.user_states[chat_id] = {"step": "stop_feedback", "language": language}
                     text = self._as_html(f"{self._get_text('unsubscribed', language)}\n\n{self._get_text('stop_feedback_prompt', language)}")
-                    await self._edit_message_text_safe(query, text, parse_mode='HTML')
+                    await self._edit_message_text_safe(
+                        query,
+                        text,
+                        reply_markup=self._create_stop_feedback_keyboard(language),
+                        parse_mode='HTML'
+                    )
                 else:
                     await self._edit_message_text_safe(query, self._get_text("not_subscribed", language))
 
@@ -4190,6 +4211,29 @@ class BotHandlers:
         except Exception as e:
             logger.error(f"Error in mode callback for user {chat_id}: {e}")
             await self._edit_message_text_safe(query, self._get_text("error", "en"))
+
+    async def _handle_stop_feedback_skip_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle optional stop-feedback skip."""
+        query = update.callback_query
+        chat_id = query.message.chat.id
+
+        try:
+            user_state = self.user_states.get(chat_id, {})
+            language = user_state.get("language", "en")
+            user = await self.storage.get_user(chat_id)
+            if user:
+                language = user.language
+
+            await query.answer()
+            self.user_states.pop(chat_id, None)
+            await self._edit_message_text_safe(
+                query,
+                self._as_html(self._get_text("stop_feedback_skipped", language)),
+                parse_mode='HTML'
+            )
+
+        except Exception as e:
+            logger.error(f"Error in stop feedback skip callback for user {chat_id}: {e}")
 
     async def _handle_meridian_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle meridian study navigation."""
