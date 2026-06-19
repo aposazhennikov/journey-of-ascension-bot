@@ -332,6 +332,17 @@ def point_area_practice_hint(location: str, language: str) -> str:
     return ""
 
 
+def point_stage_practice_hint(point_index: int, points_count: int, language: str) -> str:
+    if points_count <= 0 or point_index < points_count - 1:
+        return ""
+    return {
+        "ru": "Это последняя точка меридиана: после неё пройдите вниманием весь канал от первой точки до последней и почувствуйте, где линия стала цельной, а где ещё просит внимания.",
+        "en": "This is the last point of the meridian: after sensing it, pass through the whole channel from the first point to the last and notice where the line feels whole or still asks for attention.",
+        "uz": "Bu meridianning oxirgi nuqtasi: uni sezgandan keyin butun kanalni birinchi nuqtadan oxirgisigacha diqqat bilan bosib o'ting va chiziq qayerda yaxlit, qayerda yana e'tibor so'rashini kuzating.",
+        "kz": "Бұл меридианның соңғы нүктесі: оны сезгеннен кейін бүкіл арнаны бірінші нүктеден соңғысына дейін зейінмен өтіп, сызық қай жерде тұтас, қай жерде әлі назар сұрайтынын байқаңыз.",
+    }[language]
+
+
 def short_point_area(location: str, limit: int = 96) -> str:
     if not location:
         return ""
@@ -415,6 +426,9 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     area_hint = point_area_practice_hint(location, language)
     if area_hint:
         practice_parts.append(area_hint)
+    stage_hint = point_stage_practice_hint(point_index, len(points), language)
+    if stage_hint:
+        practice_parts.append(stage_hint)
     parts.append(f"<b>{labels[2]}:</b> {escape(' '.join(practice_parts))}")
     question = point_observation_prompt(point, point_index, language, point_title, location)
     if question:
@@ -879,6 +893,14 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{meridian_id} point 1/ru: missing closed-point guidance")
                 if language == "ru" and index > 0 and "уже пройденных точек" not in plain:
                     issues.append(f"{meridian_id} point {index + 1}/ru: missing cumulative-point guidance")
+                final_point_markers = {
+                    "en": "whole channel",
+                    "ru": "весь канал",
+                    "uz": "butun kanal",
+                    "kz": "бүкіл арнаны",
+                }
+                if index == len(meridian["points"]) - 1 and final_point_markers[language] not in plain:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: missing final whole-channel review cue")
 
     for item in meridians:
         if item["pointsCount"] == 0:
