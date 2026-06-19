@@ -1710,6 +1710,12 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         for stale_phrase in ("Yoga Bot", "yoga principles"):
             if stale_phrase in command_menu_source:
                 issues.append(f"Telegram command menu contains stale wording: {stale_phrase!r}")
+        for stale_stop_phrase in ("Stop the bot", "Остановить работу бота", "Bot ishini to'xtatish", "Бот жұмысын тоқтату"):
+            if stale_stop_phrase in command_menu_source:
+                issues.append(f"Telegram command menu stop command still sounds like a service switch: {stale_stop_phrase!r}")
+        for pause_phrase in ("Pause practice", "Поставить практику на паузу", "Amaliyotni pauza qilish", "Тәжірибені паузаға қою"):
+            if pause_phrase not in command_menu_source:
+                issues.append(f"Telegram command menu is missing practice-pause wording: {pause_phrase!r}")
     utils_source = (ROOT / "bot" / "utils.py").read_text(encoding="utf-8-sig")
     principle_formatter_start = utils_source.find("def format_principle_message")
     principle_formatter_end = utils_source.find("def get_day_of_week")
