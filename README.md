@@ -5,7 +5,7 @@
 - Ветка меридианов доведена до рабочего MVP: 14 меридианов, 361 точка, изображения меридианов и точек, справка по цуням, два пути изучения и навигация по текущей практике.
 - Основные UX-замечания закрыты: меню упрощено, Яма/Нияма и Меридианы вынесены на первый ряд, режимы названы как "Мой путь", кнопка остановки бота не звучит как резкая отписка, после остановки можно оставить обратную связь.
 - Тексты видимых экранов переведены на HTML-разметку `<b>...</b>`, очищены от старого брендинга и наиболее механических формулировок; автоаудит ловит возврат Markdown `**...**`, `???`, старых названий и сухих шаблонов.
-- Проверки финального прохода: `scripts/simulate_bot_ux.py --audit-only`, `scripts/render_bot_ux.py --audit-only`, `scripts/audit_meridian_content.py`, `scripts/audit_runtime_formatters.py`, `scripts/audit_user_migration.py`, `compileall` и `git diff --check`.
+- Проверки финального прохода: `scripts/simulate_bot_ux.py --audit-only`, `scripts/render_bot_ux.py --audit-only`, `scripts/audit_meridian_content.py`, `scripts/audit_runtime_formatters.py`, `scripts/audit_user_migration.py`, `scripts/audit_localization_keys.py`, `compileall` и `git diff --check`.
 - Что остаётся после этого MVP: ручной прогон в тестовом Telegram-боте на реальном устройстве и редакторская вычитка `uz`/`kz` носителем или сильным переводчиком. Это уже не блокирует сборку, но нужно перед спокойным продакшен-релизом.
 
 Telegram-бот для постепенной внутренней практики на 4 языках: `ru`, `en`, `uz`, `kz`.
@@ -239,6 +239,7 @@ py -X utf8 scripts\render_bot_ux.py --audit-only
 py -X utf8 scripts\audit_meridian_content.py
 py -X utf8 scripts\audit_runtime_formatters.py
 py -X utf8 scripts\audit_user_migration.py
+py -X utf8 scripts\audit_localization_keys.py
 py -m compileall .\bot .\scripts
 git diff --check
 ```

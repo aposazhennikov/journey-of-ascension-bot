@@ -2130,6 +2130,8 @@ LIVE_TEXT_OVERRIDES = {
     "en": {
         "language_chosen": "✅ Language set to English.",
         "choose_language": "Choose the language you want to use:",
+        "uzbek": "🇺🇿 O'zbek",
+        "kazakh": "🇰🇿 Қазақша",
         "timezone_step": "📍 Time zone\n\nChoose your time zone so reminders arrive at the right local time.",
         "timezone_custom": "⌨️ Enter manually",
         "timezone_manual_prompt": "Enter your time zone in IANA format.\n\nExamples: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC",
@@ -2166,6 +2168,8 @@ LIVE_TEXT_OVERRIDES = {
     "ru": {
         "language_chosen": "✅ Язык установлен: русский.",
         "choose_language": "Выберите язык, на котором хотите использовать бота:",
+        "uzbek": "🇺🇿 O'zbek",
+        "kazakh": "🇰🇿 Қазақша",
         "timezone_step": "📍 Часовой пояс\n\nВыберите ваш часовой пояс, чтобы напоминания приходили в правильное местное время.",
         "timezone_custom": "⌨️ Ввести вручную",
         "timezone_manual_prompt": "Введите часовой пояс в формате IANA.\n\nПримеры: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC",
@@ -2202,6 +2206,7 @@ LIVE_TEXT_OVERRIDES = {
     "uz": {
         "language_chosen": "✅ Til o'zbekchaga o'rnatildi.",
         "choose_language": "Botdan qaysi tilda foydalanishni tanlang:",
+        "kazakh": "🇰🇿 Қазақша",
         "timezone_step": "📍 Vaqt mintaqasi\n\nEslatmalar to'g'ri mahalliy vaqtda kelishi uchun vaqt mintaqangizni tanlang.",
         "timezone_custom": "⌨️ Qo'lda kiritish",
         "timezone_manual_prompt": "Vaqt mintaqasini IANA formatida kiriting.\n\nMisollar: Asia/Tashkent, Europe/Moscow, Asia/Almaty, UTC",
