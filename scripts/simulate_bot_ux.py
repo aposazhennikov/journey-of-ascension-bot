@@ -826,6 +826,17 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             if "???" in value:
                 issues.append(f"{language}: {key} contains ???")
 
+        meridians_home = language_texts.get("meridians_menu", "")
+        meridians_home_markers = {
+            "en": ("neighboring channels", "not a replacement for medical diagnosis"),
+            "ru": ("соседними", "не замена медицинской диагностике"),
+            "uz": ("qo'shni kanallar", "tibbiy tashxis"),
+            "kz": ("көрші арналардың", "медициналық диагнозды"),
+        }[language]
+        for marker in meridians_home_markers:
+            if marker not in meridians_home:
+                issues.append(f"{language}: meridians home is missing beginner-safety marker {marker!r}")
+
         completion = language_texts.get("meridian_completed", "")
         completion_markers = {
             "en": ("whole channel", "goes silent"),

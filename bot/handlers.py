@@ -1457,9 +1457,11 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
-            "Meridians are a body map of Qi movement. They help you notice where attention flows freely and where an area feels silent, tense, or closed.\n\n"
-            "<b>How to study:</b> choose the bot route if you want a guided sequence, or free choice if you want to open a specific meridian yourself.\n\n"
-            "<b>Before points:</b> open the <b>cun</b> guide so distances like 1, 1.5, 3, and 5 cun become understandable on your own body."
+            "In Chinese tradition, meridians describe the channels through which Qi moves. For practice, treat them as a living map of attention: where the body responds easily, where it feels tense, and where an area seems silent.\n\n"
+            "<b>How this helps:</b> when attention, breath, and gentle touch return to a point, the area often becomes warmer, clearer, and more connected with the rest of the channel. One meridian also affects the feeling of neighboring channels, because the system works as a whole.\n\n"
+            "<b>How to study:</b> choose the bot route for a calm sequence, or free choice if you want to open a specific meridian yourself.\n\n"
+            "<b>Before points:</b> open the <b>cun</b> guide so distances like 1, 1.5, 3, and 5 cun become understandable on your own body.\n\n"
+            "This is a practice of awareness and self-observation, not a replacement for medical diagnosis or treatment."
         ),
         "choose_meridian": (
             "☯️ <b>Choose a meridian</b>\n\n"
@@ -1640,9 +1642,11 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
-            "Меридианы — карта движения Ци в теле. Они помогают замечать, где внимание течёт свободно, а где зона молчит, напряжена или закрыта.\n\n"
-            "<b>Как изучать:</b> выберите маршрут бота, если хотите идти по предложенной последовательности, или свободный выбор, если хотите открыть конкретный меридиан самостоятельно.\n\n"
-            "<b>Перед точками:</b> откройте справку по <b>цуням</b>, чтобы расстояния 1, 1,5, 3 и 5 цуней стали понятными на вашем теле."
+            "В китайской традиции меридианы описывают каналы, по которым движется Ци. В практике относитесь к ним как к живой карте внимания: где тело откликается легко, где есть напряжение, а где зона словно молчит.\n\n"
+            "<b>Как это помогает:</b> когда внимание, дыхание и мягкое касание возвращаются в точку, область часто становится теплее, яснее и лучше включается в общий ход канала. Один меридиан связан с соседними: система работает целиком, а не отдельными кусками.\n\n"
+            "<b>Как изучать:</b> выберите маршрут бота, если хотите спокойную последовательность, или свободный выбор, если хотите открыть конкретный меридиан самостоятельно.\n\n"
+            "<b>Перед точками:</b> откройте справку по <b>цуням</b>, чтобы расстояния 1, 1,5, 3 и 5 цуней стали понятными на вашем теле.\n\n"
+            "Это практика осознанности и самонаблюдения, а не замена медицинской диагностике и лечению."
         ),
         "choose_meridian": (
             "☯️ <b>Выберите меридиан</b>\n\n"
@@ -1823,9 +1827,11 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
-            "Meridianlar — tanadagi Qi harakati xaritasi. Ular diqqat erkin oqadigan va jim, tarang yoki yopiq joylarni sezishga yordam beradi.\n\n"
-            "<b>Qanday o'rganish:</b> ketma-ket yo'l kerak bo'lsa bot yo'nalishini tanlang, aniq meridian bilan ishlamoqchi bo'lsangiz erkin tanlovni tanlang.\n\n"
-            "<b>Nuqtalardan oldin:</b> <b>cun</b> bo'yicha qo'llanmani oching, shunda 1, 1,5, 3 va 5 cun kabi masofalarni o'z tanangizda tushunish osonlashadi."
+            "Xitoy an'anasida meridianlar Qi harakat qiladigan kanallar sifatida tasvirlanadi. Amaliyotda ularni diqqatning tirik xaritasi deb oling: tana qayerda oson javob beradi, qayerda taranglik bor, qayer jimdek tuyuladi.\n\n"
+            "<b>Bu qanday yordam beradi:</b> diqqat, nafas va yumshoq teginish nuqtaga qaytganda, soha ko'pincha iliqroq, aniqroq va kanalning qolgan qismi bilan bog'langanroq seziladi. Bir meridian qo'shni kanallar sezgisiga ham ta'sir qiladi, chunki tizim yaxlit ishlaydi.\n\n"
+            "<b>Qanday o'rganish:</b> sokin ketma-ketlik kerak bo'lsa bot yo'nalishini tanlang, aniq meridian bilan ishlamoqchi bo'lsangiz erkin tanlovni tanlang.\n\n"
+            "<b>Nuqtalardan oldin:</b> <b>cun</b> bo'yicha qo'llanmani oching, shunda 1, 1,5, 3 va 5 cun kabi masofalarni o'z tanangizda tushunish osonlashadi.\n\n"
+            "Bu ongli kuzatish va o'zini sezish amaliyoti; u tibbiy tashxis yoki davolanish o'rnini bosmaydi."
         ),
         "choose_meridian": (
             "☯️ <b>Meridianni tanlang</b>\n\n"
@@ -2020,9 +2026,11 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридиандар</b>\n\n"
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
-            "Меридиандар — Ци қозғалысының дене картасы. Олар зейін еркін ағатын және үнсіз не жабық аймақтарды байқауға көмектеседі.\n\n"
-            "<b>Қалай зерттеу:</b> ұсынылған реттілік керек болса бот бағытын таңдаңыз, нақты меридианмен жұмыс істегіңіз келсе еркін таңдауды таңдаңыз.\n\n"
-            "<b>Нүктелерден бұрын:</b> <b>цунь</b> нұсқаулығын ашыңыз, сонда 1, 1,5, 3 және 5 цунь сияқты қашықтықтарды өз денеңізде түсіну оңай болады."
+            "Қытай дәстүрінде меридиандар Ци қозғалатын арналар ретінде сипатталады. Тәжірибеде оларды зейіннің тірі картасы деп қабылдаңыз: дене қай жерде оңай жауап береді, қай жерде кернеу бар, қай аймақ үнсіз сияқты.\n\n"
+            "<b>Бұл қалай көмектеседі:</b> зейін, тыныс және жұмсақ жанасу нүктеге қайта оралғанда, аймақ көбіне жылырақ, анық әрі арнаның қалған бөлігімен байланысқандай сезіледі. Бір меридиан көрші арналардың сезілуіне де әсер етеді, өйткені жүйе тұтас жұмыс істейді.\n\n"
+            "<b>Қалай зерттеу:</b> тыныш реттілік керек болса бот бағытын таңдаңыз, нақты меридианмен жұмыс істегіңіз келсе еркін таңдауды таңдаңыз.\n\n"
+            "<b>Нүктелерден бұрын:</b> <b>цунь</b> нұсқаулығын ашыңыз, сонда 1, 1,5, 3 және 5 цунь сияқты қашықтықтарды өз денеңізде түсіну оңай болады.\n\n"
+            "Бұл саналы бақылау және өзін сезіну тәжірибесі; ол медициналық диагнозды немесе емді алмастырмайды."
         ),
         "choose_meridian": (
             "☯️ <b>Меридианды таңдаңыз</b>\n\n"
