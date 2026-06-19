@@ -305,6 +305,7 @@ def build_payload() -> dict[str, Any]:
                 "points": [
                     {
                         "code": point.get("code", ""),
+                        "image": point.get("image"),
                         "names": {
                             language: point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {})).get("name", "")
                             for language in LANGUAGES
@@ -440,6 +441,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         for index, point in enumerate(meridian["points"]):
             if not re.match(r"^[A-Z]+[0-9]+$", point["code"]):
                 issues.append(f"{meridian_id} point {index + 1}: non-normalized point code {point['code']!r}")
+            if not point.get("image"):
+                issues.append(f"{meridian_id} point {index + 1}: missing simulator image")
             for language in LANGUAGES:
                 detail = point["detail"][language]
                 plain = strip_html(detail)
@@ -503,6 +506,7 @@ def render(output: Path) -> None:
     .bubble {{ background: var(--paper); border-radius: 18px; padding: 18px 20px; box-shadow: 0 1px 2px rgba(0,0,0,.16); max-height: 450px; overflow: auto; }}
     .bubble b {{ font-weight: 760; }}
     .bubble i {{ color: #3b5a38; }}
+    .media {{ width: calc(100% + 40px); margin: -18px -20px 16px; display: block; max-height: 360px; object-fit: cover; border-radius: 18px 18px 4px 4px; background: #edf1ea; }}
     .keyboard {{ display: grid; gap: 6px; margin-top: 8px; }}
     .row {{ display: grid; gap: 6px; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); }}
     button {{ border: 0; min-height: 46px; border-radius: 10px; padding: 8px 12px; background: rgba(73,121,61,.76); color: white; font: 700 16px/1.18 inherit; cursor: pointer; }}
@@ -599,6 +603,7 @@ def render(output: Path) -> None:
     function t(key) {{ return payload.texts[state.language][key] || payload.texts.en[key] || key; }}
     function fmt(value) {{ return (value || '').replaceAll('\\n', '<br>').replace(/\\*\\*(.*?)\\*\\*/g, '<b>$1</b>'); }}
     function meridian() {{ return payload.meridians.find((item) => item.id === state.currentMeridianId) || payload.meridians[0]; }}
+    function pointImageUrl(point) {{ return point && point.image ? `../images/meridians/${{encodeURIComponent(point.image)}}` : null; }}
     function firstReadyMeridian() {{
       for (const id of payload.recommendedPath) {{
         const item = payload.meridians.find((candidate) => candidate.id === id && candidate.pointsCount > 0);
@@ -623,9 +628,9 @@ def render(output: Path) -> None:
         keyboard.append(element);
       }}
     }}
-    function show(title, html, buttons) {{
+    function show(title, html, buttons, mediaUrl = null) {{
       screenName.textContent = title;
-      bubble.innerHTML = html;
+      bubble.innerHTML = `${{mediaUrl ? `<img class="media" src="${{mediaUrl}}" alt="">` : ''}}${{html}}`;
       rows(buttons);
       renderState();
     }}
@@ -750,6 +755,7 @@ def render(output: Path) -> None:
 
     function renderCurrentMeridian() {{
       const item = meridian();
+      const point = state.currentPointIndex >= 0 ? item.points[state.currentPointIndex] : null;
       const html = state.currentPointIndex >= 0 && item.points[state.currentPointIndex]
         ? item.points[state.currentPointIndex].detail[state.language]
         : item.intro[state.language];
@@ -767,7 +773,7 @@ def render(output: Path) -> None:
           [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('complete_meridian'), action: completeMeridian }}],
           [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
         ];
-      show('Current focus', html, buttons);
+      show('Current focus', html, buttons, pointImageUrl(point));
     }}
 
     function nextPoint() {{
@@ -888,10 +894,15 @@ def render(output: Path) -> None:
     document.getElementById('reset').addEventListener('click', () => {{
       const scenario = scenarioSelect.value;
       if (scenario === 'currentPoint') {{
+        state.principlesEnabled = true;
+        state.meridiansEnabled = true;
+        state.learningMode = 'guided';
         state.currentMeridianId = firstReadyMeridian().id;
         state.currentPointIndex = 0;
         state.screen = 'currentMeridian';
       }} else if (scenario === 'meridians') {{
+        state.learningMode = null;
+        state.currentPointIndex = -1;
         state.screen = 'meridians';
       }} else if (scenario === 'principles') {{
         state.screen = 'principles';
