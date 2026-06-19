@@ -572,7 +572,14 @@ def render_html(output: Path) -> None:
         sections.append(meridian_message("Small Intestine Meridian point 1", small_intestine, language, kb["meridian_first_point"], 0))
         sections.append(meridian_message("Bladder Meridian intro", bladder, language, kb["meridian_intro"]))
         sections.append(meridian_message("Bladder Meridian point 1", bladder, language, kb["meridian_first_point"], 0))
-        sections.append(message("Bladder points page 1", f"<b>{escape(t['all_points'])}</b><br><br>Page 1/7", point_page_keyboard(bladder, language, t)))
+        point_helper = {
+            "en": "Choose a point to open its location image and practice. The opened point becomes your current focus; the bot will not move further until you press the next button.",
+            "ru": "Выберите точку, чтобы открыть изображение расположения и практику. Открытая точка станет текущим фокусом; бот не пойдёт дальше, пока вы сами не нажмёте следующую кнопку.",
+            "uz": "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang. Ochilgan nuqta joriy fokusga aylanadi; keyingi tugmani bosmaguningizcha bot oldinga o'tmaydi.",
+            "kz": "Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз. Ашылған нүкте ағымдағы фокусқа айналады; келесі батырманы өзіңіз басқанша бот әрі қарай өтпейді.",
+        }[language]
+        page_label = {"en": "Page", "ru": "Страница", "uz": "Sahifa", "kz": "Бет"}[language]
+        sections.append(message("Bladder points page 1", f"<b>{escape(t['all_points'])}</b><br><br>{escape(point_helper)}<br><br>{page_label} 1/7", point_page_keyboard(bladder, language, t)))
         sections.append(meridian_message("Kidney Meridian intro", kidney, language, kb["meridian_intro"]))
         sections.append(meridian_message("Kidney Meridian point 1", kidney, language, kb["meridian_first_point"], 0))
         sections.append(meridian_message("Pericardium Meridian intro", pericardium, language, kb["meridian_intro"]))

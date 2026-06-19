@@ -1460,7 +1460,10 @@ TEXTS_UPDATE = {
             "<b>How to start:</b> the bot can lead you through a recommended order, or you can freely choose any meridian yourself.\n\n"
             "Set the study path first. If you already started, return to the current focus. Before working with points, open the <b>cun</b> guide: it helps you measure distances on your own body."
         ),
-        "choose_meridian": "☯️ <b>Choose a meridian:</b>",
+        "choose_meridian": (
+            "☯️ <b>Choose a meridian</b>\n\n"
+            "This is free choice mode. Pick the channel you want to study now; it will become your current practice focus."
+        ),
         "current_meridian": "▶️ Continue practice",
         "meridian_start_points": "Start with point 1",
         "all_points": "All points",
@@ -1639,7 +1642,10 @@ TEXTS_UPDATE = {
             "<b>Как начать:</b> бот может вести вас по рекомендованному маршруту, а можно самостоятельно выбрать любой меридиан.\n\n"
             "Сначала настройте путь изучения. Если уже начали, возвращайтесь к текущему фокусу. Перед работой с точками откройте справку по <b>цуням</b>: она поможет отмерять расстояния на своём теле."
         ),
-        "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
+        "choose_meridian": (
+            "☯️ <b>Выберите меридиан</b>\n\n"
+            "Это режим свободного выбора. Нажмите на канал, который хотите изучать сейчас; он станет текущим фокусом практики."
+        ),
         "current_meridian": "▶️ Продолжить практику",
         "meridian_start_points": "Начать с первой точки",
         "all_points": "Все точки",
@@ -1818,7 +1824,10 @@ TEXTS_UPDATE = {
             "<b>Qanday boshlash:</b> bot tavsiya qilgan tartib bo'yicha olib borishi mumkin, yoki istalgan meridianni o'zingiz tanlaysiz.\n\n"
             "Avval o'rganish yo'lini sozlang. Agar boshlagan bo'lsangiz, joriy fokusga qayting. Nuqtalar bilan ishlashdan oldin <b>cun</b> bo'yicha qo'llanmani oching: u masofani o'z tanangizda o'lchashga yordam beradi."
         ),
-        "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
+        "choose_meridian": (
+            "☯️ <b>Meridianni tanlang</b>\n\n"
+            "Bu erkin tanlov rejimi. Hozir o'rganmoqchi bo'lgan kanalni tanlang; u joriy amaliyot fokusiga aylanadi."
+        ),
         "current_meridian": "▶️ Amaliyotni davom ettirish",
         "meridian_start_points": "1-nuqtadan boshlash",
         "all_points": "Barcha nuqtalar",
@@ -2011,7 +2020,10 @@ TEXTS_UPDATE = {
             "<b>Қалай бастау:</b> бот ұсынған ретпен жүргізе алады немесе кез келген меридианды өзіңіз таңдай аласыз.\n\n"
             "Алдымен зерттеу жолын баптаңыз. Егер бастап қойған болсаңыз, ағымдағы фокусқа оралыңыз. Нүктелермен жұмысқа кіріспес бұрын <b>цунь</b> нұсқаулығын ашыңыз: ол қашықтықты өз денеңізде өлшеуге көмектеседі."
         ),
-        "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
+        "choose_meridian": (
+            "☯️ <b>Меридианды таңдаңыз</b>\n\n"
+            "Бұл еркін таңдау режимі. Қазір зерттегіңіз келетін арнаны таңдаңыз; ол ағымдағы тәжірибе фокусына айналады."
+        ),
         "current_meridian": "▶️ Тәжірибені жалғастыру",
         "meridian_start_points": "1-нүктеден бастау",
         "all_points": "Барлық нүктелер",
@@ -3749,11 +3761,11 @@ class BotHandlers:
     def _format_meridian_points_page_text(self, language: str, page: int, total_pages: int) -> str:
         """Build text for the paginated point chooser."""
         choose_point = {
-            "en": "Choose a point to open its location image and practice.",
-            "ru": "Выберите точку, чтобы открыть изображение расположения и практику.",
-            "uz": "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang.",
-            "kz": "Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз.",
-        }.get(language, "Choose a point to open its location image and practice.")
+            "en": "Choose a point to open its location image and practice. The opened point becomes your current focus; the bot will not move further until you press the next button.",
+            "ru": "Выберите точку, чтобы открыть изображение расположения и практику. Открытая точка станет текущим фокусом; бот не пойдёт дальше, пока вы сами не нажмёте следующую кнопку.",
+            "uz": "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang. Ochilgan nuqta joriy fokusga aylanadi; keyingi tugmani bosmaguningizcha bot oldinga o'tmaydi.",
+            "kz": "Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз. Ашылған нүкте ағымдағы фокусқа айналады; келесі батырманы өзіңіз басқанша бот әрі қарай өтпейді.",
+        }.get(language, "Choose a point to open its location image and practice. The opened point becomes your current focus.")
         if total_pages <= 1:
             return f"<b>{self._get_text('all_points', language)}</b>\n\n{choose_point}"
         page_note = {

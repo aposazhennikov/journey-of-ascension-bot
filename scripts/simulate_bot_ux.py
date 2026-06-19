@@ -752,6 +752,14 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if len(meridian_home_buttons) > 4:
             issues.append(f"{language}: meridians home has too many top-level buttons")
 
+        choose_meridian_text = strip_html(texts[language].get("choose_meridian", ""))
+        if len(choose_meridian_text) < 80:
+            issues.append(f"{language}: choose_meridian text is too terse for free-choice mode")
+        if language == "ru" and "текущим фокусом" not in choose_meridian_text:
+            issues.append("ru: choose_meridian does not explain the selected meridian becomes current focus")
+        if language == "en" and "current practice focus" not in choose_meridian_text:
+            issues.append("en: choose_meridian does not explain the selected meridian becomes current focus")
+
     scheduler_source = (ROOT / "bot" / "scheduler.py").read_text(encoding="utf-8-sig")
     if "astimezone().astimezone(tz=None)" in scheduler_source:
         issues.append("scheduler converts user send times through the machine local timezone")
@@ -838,6 +846,14 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         settings_keyboard_source = handlers_source[settings_keyboard_start:principles_keyboard_start]
         if "principles_enabled" not in settings_keyboard_source or "meridians_enabled" not in settings_keyboard_source:
             issues.append("settings keyboard does not adapt time buttons to active practice modes")
+
+    points_page_start = handlers_source.find("def _format_meridian_points_page_text")
+    menu_handler_start = handlers_source.find("async def _handle_menu")
+    if points_page_start != -1 and menu_handler_start != -1:
+        points_page_source = handlers_source[points_page_start:menu_handler_start]
+        for marker in ("current focus", "текущим фокусом"):
+            if marker not in points_page_source:
+                issues.append(f"meridian points page text is missing manual-focus marker: {marker!r}")
 
     return issues
 
@@ -1357,8 +1373,14 @@ def build_html() -> str:
         buttons.push(nav);
       }}
       buttons.push([{{ label: t('meridian_back'), action: () => setScreen('currentMeridian') }}]);
-      const pageNote = totalPages > 1 ? `<br><br>Page ${{state.currentPointsPage + 1}}/${{totalPages}}` : '';
-      show('All points', `<b>${{t('all_points')}}</b>${{pageNote}}`, buttons);
+      const helper = {{
+        en: 'Choose a point to open its location image and practice. The opened point becomes your current focus; the bot will not move further until you press the next button.',
+        ru: 'Выберите точку, чтобы открыть изображение расположения и практику. Открытая точка станет текущим фокусом; бот не пойдёт дальше, пока вы сами не нажмёте следующую кнопку.',
+        uz: "Joylashuv rasmi va amaliyotni ochish uchun nuqtani tanlang. Ochilgan nuqta joriy fokusga aylanadi; keyingi tugmani bosmaguningizcha bot oldinga o'tmaydi.",
+        kz: 'Орналасу суреті мен тәжірибені ашу үшін нүктені таңдаңыз. Ашылған нүкте ағымдағы фокусқа айналады; келесі батырманы өзіңіз басқанша бот әрі қарай өтпейді.',
+      }}[state.language] || '';
+      const pageNote = totalPages > 1 ? `<br><br>${{state.language === 'ru' ? 'Страница' : state.language === 'uz' ? 'Sahifa' : state.language === 'kz' ? 'Бет' : 'Page'}} ${{state.currentPointsPage + 1}}/${{totalPages}}` : '';
+      show('All points', `<b>${{t('all_points')}}</b><br><br>${{helper}}${{pageNote}}`, buttons);
     }}
 
     function renderPrinciples() {{
