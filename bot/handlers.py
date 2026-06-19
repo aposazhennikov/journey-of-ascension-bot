@@ -85,14 +85,14 @@ TEXTS = {
             "Use /test to get a test message."
         ),
         "already_subscribed": (
-            "🧘 You're already subscribed to daily yoga principles!\n\n"
+            "🕊️ You're already using Journey of Ascension.\n\n"
             "Use /settings to change settings or /stop to stop the bot."
         ),
         "unsubscribed": (
             "The bot has been stopped. Reminders will no longer be sent.\n\n"
             "Use /start if you want to return."
         ),
-        "not_subscribed": "You were not subscribed to the newsletter.",
+        "not_subscribed": "The bot is not active for this chat yet.",
         "current_settings": (
             "⚙️ **Your Current Settings:**\n\n"
             "🌐 Language: {user_language}\n"
@@ -101,7 +101,7 @@ TEXTS = {
             "📅 Skip Days: {skip_days}\n\n"
             "To change settings, use /start for new setup."
         ),
-        "not_subscribed_test": "You're not subscribed to the newsletter. Use /start to subscribe.",
+        "not_subscribed_test": "You're not connected yet. Use /start to begin.",
         "test_failed": "Failed to send test message.",
         "invalid_timezone": "❌ Invalid time zone format. Please try again.\n\nExamples: Europe/Moscow, Asia/Tashkent, UTC",
         "invalid_time": "❌ Invalid time format. Use HH:MM format (e.g., 08:00)",
@@ -134,7 +134,7 @@ TEXTS = {
         ),
         "no_skip_days": "✅ No days will be skipped",
         "about_text": (
-            "🕊️ **Yama/Niyama Training Bot**\n\n"
+            "🕊️ **Journey of Ascension**\n\n"
             "This bot helps you practice yoga principles (Yama and Niyama) daily. "
             "Each day you receive one principle that becomes your focus of attention for the entire day.\n\n"
             "🌟 **Features:**\n"
@@ -166,7 +166,7 @@ TEXTS = {
     },
     "ru": {
         "welcome": (
-            "🕊️ **Добро пожаловать в бот принципов йоги!**\n\n"
+            "🕊️ **Добро пожаловать в Journey of Ascension!**\n\n"
             "🎯 **Что я делаю:**\n"
             "Каждый день отправляю вам один из 10 основных принципов йоги (ямы и ниямы) "
             "в удобное для вас время.\n\n"
@@ -221,7 +221,7 @@ TEXTS = {
             "Бот остановлен. Напоминания больше не будут приходить.\n\n"
             "Если захотите вернуться, используйте /start."
         ),
-        "not_subscribed": "Вы не были подписаны на рассылку.",
+        "not_subscribed": "Бот сейчас не активен для этого чата.",
         "current_settings": (
             "⚙️ **Ваши текущие настройки:**\n\n"
             "🌐 Язык: {user_language}\n"
@@ -230,7 +230,7 @@ TEXTS = {
             "📅 Пропускать дни: {skip_days}\n\n"
             "Чтобы изменить настройки, используйте /start для новой настройки."
         ),
-        "not_subscribed_test": "Вы не подписаны на рассылку. Используйте /start для подписки.",
+        "not_subscribed_test": "Вы пока не подключены. Используйте /start, чтобы начать.",
         "test_failed": "Не удалось отправить тестовое сообщение.",
         "invalid_timezone": "❌ Неверный формат часового пояса. Попробуйте еще раз.\n\nПримеры: Europe/Moscow, Asia/Tashkent, UTC",
         "invalid_time": "❌ Неверный формат времени. Используйте формат ЧЧ:ММ (например: 08:00)",
@@ -345,7 +345,7 @@ TEXTS = {
         ),
         "already_subscribed": "Siz allaqachon obuna bo'lgansiz. Sozlamalarni o'zgartirish uchun /settings dan foydalaning.",
         "unsubscribed": "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
-        "not_subscribed": "Siz yangiliklar ro'yxatiga obuna bo'lmagan edingiz.",
+        "not_subscribed": "Bot bu chatda hali faol emas.",
         "current_settings": (
             "⚙️ **Sizning joriy sozlamalaringiz:**\n\n"
             "🌐 Til: {user_language}\n"
@@ -354,7 +354,7 @@ TEXTS = {
             "📅 O'tkazib yuborish kunlari: {skip_days}\n\n"
             "Sozlamalarni o'zgartirish uchun yangi sozlash uchun /start dan foydalaning."
         ),
-        "not_subscribed_test": "Siz yangiliklar ro'yxatiga obuna bo'lmagansiz. Obuna bo'lish uchun /start dan foydalaning.",
+        "not_subscribed_test": "Siz hali ulanmagansiz. Boshlash uchun /start dan foydalaning.",
         "test_failed": "Test xabarini yuborishda xatolik yuz berdi.",
         "invalid_timezone": "❌ Noto'g'ri vaqt mintaqasi formati. Iltimos, qayta urinib ko'ring.\n\nMisollar: Asia/Tashkent, Europe/Moscow, UTC",
         "invalid_time": "❌ Noto'g'ri vaqt formati. SS:DD formatidan foydalaning (masalan, 08:00)",
@@ -453,7 +453,7 @@ TEXTS = {
         ),
         "already_subscribed": "Сіз қазірдің өзінде жазылғансыз. Баптауларды өзгерту үшін /settings пайдаланыңыз.",
         "unsubscribed": "Бот тоқтатылды. Еске салулар енді жіберілмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
-        "not_subscribed": "Сіз жаңалықтар тізіміне жазылмағансыз.",
+        "not_subscribed": "Бұл чатта бот әлі белсенді емес.",
         "current_settings": (
             "⚙️ **Сіздің ағымдағы баптауларыңыз:**\n\n"
             "🌐 Тіл: {user_language}\n"
@@ -462,7 +462,7 @@ TEXTS = {
             "📅 Өткізіп жіберу күндері: {skip_days}\n\n"
             "Баптауларды өзгерту үшін жаңа баптау үшін /start пайдаланыңыз."
         ),
-        "not_subscribed_test": "Сіз жаңалықтар тізіміне жазылмағансыз. Жазылу үшін /start пайдаланыңыз.",
+        "not_subscribed_test": "Сіз әлі қосылмағансыз. Бастау үшін /start қолданыңыз.",
         "test_failed": "Тест хабарын жіберуде қате орын алды.",
         "invalid_timezone": "❌ Дұрыс емес уақыт белдеуі форматы. Қайтадан көріңіз.\n\nМысалдар: Asia/Almaty, Europe/Moscow, UTC",
         "invalid_time": "❌ Дұрыс емес уақыт форматы. СС:ДД форматын пайдаланыңыз (мысалы, 08:00)",
@@ -724,6 +724,7 @@ TEXTS_UPDATE = {
             "Open /menu and choose <b>Meridians</b>."
         ),
         "already_subscribed": "🕊️ You are already subscribed to Journey of Ascension.\n\nUse /menu to choose practices or /settings to change reminders.",
+        "not_subscribed": "The bot is not active for this chat yet. Use /start when you want to begin.",
         "unsubscribed": "The bot has been stopped. Reminders will no longer be sent.\n\nUse /start if you want to return.",
         "stop_feedback_prompt": "If you want, you can send one message and tell why you decided to stop using the bot. This is optional.",
         "stop_feedback_thanks": "Thank you, I will pass on your feedback.\n\nUse /start if you want to return.",
@@ -888,6 +889,7 @@ TEXTS_UPDATE = {
             "Откройте /menu и выберите <b>Меридианы</b>."
         ),
         "already_subscribed": "🕊️ Вы уже подписаны на Journey of Ascension.\n\nИспользуйте /menu для выбора практик или /settings для настройки напоминаний.",
+        "not_subscribed": "Бот сейчас не активен для этого чата. Используйте /start, когда захотите начать.",
         "unsubscribed": "Бот остановлен. Напоминания больше не будут приходить.\n\nЕсли захотите вернуться, используйте /start.",
         "stop_feedback_prompt": "Если хотите, можете одним сообщением написать, почему решили остановить бота. Это необязательно.",
         "stop_feedback_thanks": "Спасибо, я передам обратную связь.\n\nЕсли захотите вернуться, используйте /start.",
@@ -1052,6 +1054,7 @@ TEXTS_UPDATE = {
             "/menu ni oching va <b>Meridianlar</b> bo'limini tanlang."
         ),
         "already_subscribed": "🕊️ Siz Journey of Ascension'ga allaqachon obuna bo'lgansiz.\n\nAmaliyotlarni tanlash uchun /menu yoki eslatmalarni sozlash uchun /settings dan foydalaning.",
+        "not_subscribed": "Bot bu chatda hali faol emas. Boshlamoqchi bo'lsangiz, /start dan foydalaning.",
         "unsubscribed": "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "stop_feedback_prompt": "Xohlasangiz, botdan foydalanishni nima uchun to'xtatganingizni bitta xabarda yozishingiz mumkin. Bu majburiy emas.",
         "stop_feedback_thanks": "Rahmat, fikringizni yetkazaman.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
@@ -1230,6 +1233,7 @@ TEXTS_UPDATE = {
             "/menu ашып, <b>Меридиандар</b> бөлімін таңдаңыз."
         ),
         "already_subscribed": "🕊️ Сіз Journey of Ascension-ға бұрыннан жазылғансыз.\n\nТәжірибелерді таңдау үшін /menu немесе еске салуларды өзгерту үшін /settings қолданыңыз.",
+        "not_subscribed": "Бұл чатта бот әлі белсенді емес. Бастау үшін /start қолданыңыз.",
         "unsubscribed": "Бот тоқтатылды. Еске салулар енді жіберілмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "stop_feedback_prompt": "Қаласаңыз, ботты не үшін тоқтатқаныңызды бір хабарламамен жаза аласыз. Бұл міндетті емес.",
         "stop_feedback_thanks": "Рақмет, пікіріңізді жеткіземін.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
@@ -1880,27 +1884,9 @@ class BotHandlers:
                 await update.message.reply_text(self._get_text("not_subscribed_test", language="en"))
                 return
             
-            language_display = {"en": "English", "ru": "Русский", "uz": "O'zbek", "kz": "Қазақша"}.get(user.language, "English")
             skip_days_display = self._format_skip_days(user.skip_day_id, user.language)
-            
-            text = self._get_text(
-                "current_settings", 
-                language=user.language,
-                user_language=language_display,
-                time=user.time_for_send,
-                timezone=user.timezone,
-                skip_days=skip_days_display
-            )
-            mode_text = {
-                "en": f"\n🧭 Practice modes: Yama/Niyama={'on' if user.principles_enabled else 'off'}, Meridians={'on' if user.meridians_enabled else 'off'}\n🌿 Meridian time: {user.meridian_time_for_send}",
-                "ru": f"\n🧭 Режимы: Яма/Нияма={'вкл' if user.principles_enabled else 'выкл'}, Меридианы={'вкл' if user.meridians_enabled else 'выкл'}\n🌿 Время меридианов: {user.meridian_time_for_send}",
-                "uz": f"\n🧭 Rejimlar: Yama/Niyama={'yoqilgan' if user.principles_enabled else 'o‘chirilgan'}, Meridianlar={'yoqilgan' if user.meridians_enabled else 'o‘chirilgan'}\n🌿 Meridian vaqti: {user.meridian_time_for_send}",
-                "kz": f"\n🧭 Режимдер: Яма/Нияма={'қосулы' if user.principles_enabled else 'өшірулі'}, Меридиандар={'қосулы' if user.meridians_enabled else 'өшірулі'}\n🌿 Меридиан уақыты: {user.meridian_time_for_send}"
-            }.get(user.language, "")
-            text += mode_text
 
-            # Show settings menu instead of just text
-            text = self._as_html(f"{text}\n\n{self._get_text('settings_menu', language=user.language)}")
+            text = f"{self._format_current_settings(user, user.language, skip_days_display)}\n\n{self._get_text('settings_menu', language=user.language)}"
             keyboard = self._create_settings_menu_keyboard(user.language)
 
             await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
@@ -2459,7 +2445,88 @@ class BotHandlers:
 
         lines.extend(["", labels["hint"]])
         return "\n".join(lines)
-    
+
+    def _format_current_settings(self, user, language: str, skip_days_display: str) -> str:
+        """Format a concise current settings snapshot for /settings."""
+        labels = {
+            "en": {
+                "title": "⚙️ <b>Current practice rhythm</b>",
+                "language": "🌐 Language:",
+                "mode": "🧭 Active path:",
+                "principles": "Yama/Niyama",
+                "meridians": "Meridians",
+                "both": "Yama/Niyama + Meridians",
+                "timezone": "🌍 Time zone:",
+                "principle_time": "🧘🏻 Yama/Niyama time:",
+                "meridian_time": "☯️ Meridian time:",
+                "quiet": "📅 Quiet days:",
+                "no_principles_quiet": "not used while Yama/Niyama is off",
+            },
+            "ru": {
+                "title": "⚙️ <b>Текущий ритм практики</b>",
+                "language": "🌐 Язык:",
+                "mode": "🧭 Активный путь:",
+                "principles": "Яма/Нияма",
+                "meridians": "Меридианы",
+                "both": "Яма/Нияма + Меридианы",
+                "timezone": "🌍 Часовой пояс:",
+                "principle_time": "🧘🏻 Время Ямы/Ниямы:",
+                "meridian_time": "☯️ Время меридианов:",
+                "quiet": "📅 Дни тишины:",
+                "no_principles_quiet": "не используются, пока Яма/Нияма выключена",
+            },
+            "uz": {
+                "title": "⚙️ <b>Joriy amaliyot ritmi</b>",
+                "language": "🌐 Til:",
+                "mode": "🧭 Faol yo'l:",
+                "principles": "Yama/Niyama",
+                "meridians": "Meridianlar",
+                "both": "Yama/Niyama + Meridianlar",
+                "timezone": "🌍 Vaqt mintaqasi:",
+                "principle_time": "🧘🏻 Yama/Niyama vaqti:",
+                "meridian_time": "☯️ Meridian vaqti:",
+                "quiet": "📅 Sokin kunlar:",
+                "no_principles_quiet": "Yama/Niyama o'chirilganida ishlatilmaydi",
+            },
+            "kz": {
+                "title": "⚙️ <b>Қазіргі тәжірибе ырғағы</b>",
+                "language": "🌐 Тіл:",
+                "mode": "🧭 Белсенді жол:",
+                "principles": "Яма/Нияма",
+                "meridians": "Меридиандар",
+                "both": "Яма/Нияма + Меридиандар",
+                "timezone": "🌍 Уақыт белдеуі:",
+                "principle_time": "🧘🏻 Яма/Нияма уақыты:",
+                "meridian_time": "☯️ Меридиан уақыты:",
+                "quiet": "📅 Тыныш күндер:",
+                "no_principles_quiet": "Яма/Нияма өшірулі кезде қолданылмайды",
+            },
+        }.get(language)
+
+        language_display = {"en": "English", "ru": "Русский", "uz": "O'zbek", "kz": "Қазақша"}.get(language, "English")
+        if user.principles_enabled and user.meridians_enabled:
+            mode = labels["both"]
+        elif user.meridians_enabled:
+            mode = labels["meridians"]
+        else:
+            mode = labels["principles"]
+
+        lines = [
+            labels["title"],
+            "",
+            f"{labels['language']} {escape(language_display)}",
+            f"{labels['mode']} {escape(mode)}",
+            f"{labels['timezone']} <code>{escape(user.timezone)}</code>",
+        ]
+        if user.principles_enabled:
+            lines.append(f"{labels['principle_time']} <code>{escape(user.time_for_send)}</code>")
+            lines.append(f"{labels['quiet']} {escape(skip_days_display)}")
+        else:
+            lines.append(f"{labels['quiet']} <i>{escape(labels['no_principles_quiet'])}</i>")
+        if user.meridians_enabled:
+            lines.append(f"{labels['meridian_time']} <code>{escape(user.meridian_time_for_send)}</code>")
+        return "\n".join(lines)
+
     def _create_timezone_keyboard(self, language: str, add_back_button: bool = False) -> InlineKeyboardMarkup:
         """Create timezone selection keyboard."""
         timezones = {
