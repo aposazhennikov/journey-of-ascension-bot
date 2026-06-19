@@ -12,7 +12,7 @@ import aiofiles
 
 
 class PrinciplesManager:
-    """Manager for yoga principles."""
+    """Manager for Yama/Niyama principle content."""
     
     def __init__(self, principles_file: str = "bot/principles.json"):
         self.principles_file = principles_file

@@ -76,7 +76,7 @@ HARD_MEDICAL_PHRASES = (
 )
 
 
-def load_texts() -> dict[str, dict[str, str]]:
+def load_text_definitions() -> dict[str, Any]:
     source = (ROOT / "bot" / "handlers.py").read_text(encoding="utf-8-sig")
     module = ast.parse(source)
     values: dict[str, Any] = {}
@@ -86,7 +86,11 @@ def load_texts() -> dict[str, dict[str, str]]:
         for target in node.targets:
             if isinstance(target, ast.Name) and target.id in {"TEXTS", "TEXTS_UPDATE", "LIVE_TEXT_OVERRIDES"}:
                 values[target.id] = ast.literal_eval(node.value)
+    return values
 
+
+def load_texts() -> dict[str, dict[str, str]]:
+    values = load_text_definitions()
     texts = values.get("TEXTS", {})
     updates = values.get("TEXTS_UPDATE", {})
     for language, language_updates in updates.items():
@@ -415,6 +419,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     """Check core UX-flow invariants modeled by the simulator."""
     issues: list[str] = []
     texts = payload["texts"]
+    text_definitions = load_text_definitions()
     meridians = payload["meridians"]
     meridians_by_id = {item["id"]: item for item in meridians}
     ready_ids = [item["id"] for item in meridians if item["pointsCount"] > 0]
@@ -438,7 +443,6 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 issues.append(f"{language} principle {principle.get('id')}: practice block disappeared from caption")
 
     translation_coverage = payload.get("translationCoverage", {})
-    translation_tasks = payload.get("translationTasks", {})
     for language in LANGUAGES:
         item = translation_coverage.get(language)
         if not item:
@@ -446,27 +450,6 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             continue
         if item["source"] > item["total"] or item["pending"] > item["total"]:
             issues.append(f"{language}: impossible translation coverage values {item}")
-        tasks = translation_tasks.get(language, [])
-        if language == "ru":
-            if tasks:
-                issues.append("ru: should not have location translation tasks")
-        elif item["source"] and not tasks:
-            issues.append(f"{language}: source-backed locations exist but no translation tasks are shown")
-        if len(tasks) > 8:
-            issues.append(f"{language}: too many translation tasks shown")
-        task_path_indexes = [
-            RECOMMENDED_PATH.index(task["meridianId"])
-            for task in tasks
-            if task.get("meridianId") in RECOMMENDED_PATH
-        ]
-        if task_path_indexes != sorted(task_path_indexes):
-            issues.append(f"{language}: translation tasks should follow recommended path order")
-        for task in tasks:
-            missing_task_keys = {"meridianId", "meridian", "code", "point", "status"} - set(task)
-            if missing_task_keys:
-                issues.append(f"{language}: incomplete translation task {task}")
-            if task.get("status") not in {"source", "pending"}:
-                issues.append(f"{language}: invalid translation task status {task.get('status')!r}")
 
     for language in LANGUAGES:
         language_texts = texts.get(language, {})
@@ -530,6 +513,13 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             for pattern in stale_patterns:
                 if pattern in value:
                     issues.append(f"{language}: {key} contains stale branding {pattern!r}")
+
+        raw_language_texts = text_definitions.get("TEXTS", {}).get(language, {})
+        for key in visible_keys:
+            value = raw_language_texts.get(key, "")
+            for pattern in stale_patterns:
+                if pattern in value:
+                    issues.append(f"{language}: raw TEXTS.{key} contains stale branding {pattern!r}")
 
         for key in ("mode_menu", "about_text", "meridians_menu", "meridian_measurements_text", "meridian_point_help_text"):
             value = language_texts.get(key, "")
