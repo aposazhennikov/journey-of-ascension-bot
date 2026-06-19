@@ -1450,8 +1450,20 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("meridian measurements screen does not lead to point-search help")
     if "_create_meridian_help_keyboard(language, user)" not in handlers_source:
         issues.append("meridian point-help screen does not use the safe reference keyboard")
+    help_keyboard_start = handlers_source.find("def _create_meridian_help_keyboard")
+    choice_keyboard_start = handlers_source.find("def _create_meridian_choice_keyboard", help_keyboard_start)
+    if help_keyboard_start != -1 and choice_keyboard_start != -1:
+        help_keyboard_source = handlers_source[help_keyboard_start:choice_keyboard_start]
+        if 'callback_data="meridian_measurements"' not in help_keyboard_source:
+            issues.append("meridian point-search help does not lead back to cun measurements")
     if "if (state.meridiansEnabled && state.currentMeridianId) buttons.push" not in simulator_source:
         issues.append("simulator point-help screen can show current focus while meridian mode is disabled")
+    point_help_start = simulator_source.find("pointHelp: () =>")
+    principles_route_start = simulator_source.find("principles: renderPrinciples", point_help_start)
+    if point_help_start != -1 and principles_route_start != -1:
+        point_help_source = simulator_source[point_help_start:principles_route_start]
+        if "setScreen('measurements')" not in point_help_source:
+            issues.append("simulator point-search help does not lead back to cun measurements")
     if '"◀️ 10"' in handlers_source or '"10 ▶️"' in handlers_source:
         issues.append("Telegram point-list pagination uses technical 10-only labels")
     if 'step"] = "meridian_time"' not in handlers_source or "user_state.get(\"meridian_time\", user_state[\"time\"])" not in handlers_source:
@@ -2469,6 +2481,7 @@ def build_html() -> str:
         pointHelp: () => {{
           const buttons = [];
           if (state.meridiansEnabled && state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);
+          buttons.push([{{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}]);
           buttons.push([{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]);
           show('Point help', fmt(t('meridian_point_help_text')), buttons);
         }},
