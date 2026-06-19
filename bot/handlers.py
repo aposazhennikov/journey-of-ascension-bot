@@ -3807,7 +3807,7 @@ class BotHandlers:
 
     def _create_meridian_choice_keyboard(self, language: str, page: int = 0) -> InlineKeyboardMarkup:
         """Create a calm paginated meridian selection keyboard."""
-        meridians = self.meridians_manager.get_all_meridians()
+        meridians = self.meridians_manager.get_recommended_path_meridians()
         total_pages = max(1, (len(meridians) + MERIDIAN_SELECTION_PAGE_SIZE - 1) // MERIDIAN_SELECTION_PAGE_SIZE)
         page = max(0, min(page, total_pages - 1))
         start = page * MERIDIAN_SELECTION_PAGE_SIZE

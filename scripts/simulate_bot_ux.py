@@ -613,7 +613,17 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
 def build_payload() -> dict[str, Any]:
     texts = load_texts()
     principles = load_json("bot/principles.json")
-    meridians = load_json("bot/meridians.json")["meridians"]
+    raw_meridians = load_json("bot/meridians.json")["meridians"]
+    by_id = {meridian.get("id"): meridian for meridian in raw_meridians}
+    meridians = [
+        by_id[meridian_id]
+        for meridian_id in RECOMMENDED_PATH
+        if by_id.get(meridian_id)
+    ] + [
+        meridian
+        for meridian in raw_meridians
+        if meridian.get("id") not in RECOMMENDED_PATH
+    ]
     payload: dict[str, Any] = {
         "texts": texts,
         "languages": LANGUAGES,
@@ -751,6 +761,12 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     meridians_by_id = {item["id"]: item for item in meridians}
     raw_meridians_by_id = {item["id"]: item for item in load_json("bot/meridians.json")["meridians"]}
     ready_ids = [item["id"] for item in meridians if item["pointsCount"] > 0]
+    expected_start = list(RECOMMENDED_PATH[:2])
+    if ready_ids[:2] != expected_start:
+        issues.append(
+            "meridian free-choice order should start with central vessels: "
+            f"expected {expected_start}, got {ready_ids[:2]}"
+        )
 
     if not (ROOT / "images" / "meridians" / "cun_measurement.png").exists():
         issues.append("missing cun measurement visual asset")
