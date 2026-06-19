@@ -581,7 +581,8 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
         f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",
         f"<b>{labels[1]}:</b> {escape(compact_point_location(location))}",
     ]
-    base_instruction = practice_note(point_index, len(points), language)
+    point_texts = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
+    base_instruction = point_texts.get("meditation_instruction") or practice_note(point_index, len(points), language)
     practice_parts = [base_instruction]
     area_hint = point_area_practice_hint(compact_point_location(location), language)
     if area_hint:
