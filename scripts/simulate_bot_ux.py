@@ -419,6 +419,15 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if energy_markers[language] not in onboarding.lower():
             issues.append(f"{language}: onboarding does not explain energy")
 
+        ahimsa_markers = {
+            "en": "Ahimsa",
+            "ru": "Ахимса",
+            "uz": "Ahimsa",
+            "kz": "Ахимса",
+        }
+        if ahimsa_markers[language] not in onboarding:
+            issues.append(f"{language}: onboarding does not give Ahimsa as an energy example")
+
         for key in ("mode_menu", "about_text", "meridians_menu", "meridian_measurements_text", "meridian_point_help_text"):
             value = language_texts.get(key, "")
             if "<b>" not in value:

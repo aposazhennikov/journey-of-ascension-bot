@@ -582,9 +582,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Practice begins with noticing where your energy goes. Scattered energy feels like noisy attention and tired reactions; gathered energy gives more wholeness and cleaner action.\n\n"
-            "<b>Yama and Niyama</b> are the ethical foundation: less harm, inner conflict, excess, and dishonesty. The daily principle is the main lens of the day while all principles slowly enter life.\n\n"
-            "<b>Meridians</b> are the body map of Qi. You learn to feel channels, points, and silent areas, then return attention, breath, touch, and circulation there.\n\n"
+            "Practice begins with noticing where energy is spent. When it is scattered, attention becomes noisy, reactions get tired, and the body feels less whole. When it is gathered, action becomes quieter and cleaner.\n\n"
+            "<b>Yama and Niyama</b> are the foundation because they reduce the places where energy leaks. <b>Ahimsa</b>, for example, means not spending force on hurting others or damaging yourself and then repairing the consequences.\n\n"
+            "<b>Meridians</b> are the body map of Qi. You learn to feel channels, points, and silent areas. A point that is hard to sense is a place for patient attention: touch, breath, warmth, and gradual circulation.\n\n"
             "What would you like to study?"
         ),
         "initial_mode_question": "What would you like to study?",
@@ -756,9 +756,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Практика начинается с наблюдения: куда уходит энергия. Рассеянная энергия ощущается как шумное внимание и усталые реакции; собранная даёт цельность и более чистое действие.\n\n"
-            "<b>Яма и Нияма</b> — нравственный фундамент: меньше вреда, внутреннего конфликта, избыточности и нечестности. Ежедневный принцип — главный фокус дня, пока все принципы постепенно входят в жизнь.\n\n"
-            "<b>Меридианы</b> — телесная карта Ци. Вы учитесь чувствовать каналы, точки и молчащие зоны, возвращая туда внимание, дыхание, касание и циркуляцию.\n\n"
+            "Практика начинается с наблюдения: куда расходуется энергия. Когда она рассеяна, внимание шумит, реакции устают, а тело ощущается менее цельным. Когда энергия собирается, действие становится тише и чище.\n\n"
+            "<b>Яма и Нияма</b> — фундамент, потому что они уменьшают утечки энергии. Например, Ахимса — это не тратить силу на вред другим и не вредить себе, чтобы потом не отдавать энергию на восстановление последствий.\n\n"
+            "<b>Меридианы</b> — телесная карта Ци. Вы учитесь чувствовать каналы, точки и молчащие зоны. Если точка почти не ощущается, это место для терпеливого внимания: касания, дыхания, тепла и постепенной циркуляции.\n\n"
             "Что вы хотели бы изучать?"
         ),
         "initial_mode_question": "Что вы хотели бы изучать?",
@@ -930,9 +930,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Amaliyot energiya qayerga ketayotganini kuzatishdan boshlanadi. Tarqoq energiya shovqinli diqqat va charchagan reaksiyalar sifatida seziladi; yig'ilgan energiya yaxlitlik va aniqlik beradi.\n\n"
-            "<b>Yama va Niyama</b> axloqiy poydevor: zarar, ichki mojaro, ortiqchalik va nohalollik kamroq bo'ladi. Kundalik tamoyil kunning asosiy fokusi, barcha tamoyillar esa asta-sekin hayotga kiradi.\n\n"
-            "<b>Meridianlar</b> Qi ning tana xaritasidir. Siz kanallar, nuqtalar va jim joylarni sezib, u yerga diqqat, nafas, teginish hamda aylanishni qaytarishni o'rganasiz.\n\n"
+            "Amaliyot energiya qayerga sarflanayotganini kuzatishdan boshlanadi. U tarqoq bo'lsa, diqqat shovqinli, reaksiyalar charchagan, tana esa kamroq yaxlit seziladi. Energiya yig'ilsa, harakat sokinroq va tiniqroq bo'ladi.\n\n"
+            "<b>Yama va Niyama</b> poydevor, chunki ular energiya oqib ketadigan joylarni kamaytiradi. Masalan, Ahimsa — boshqalarga zarar yetkazishga kuch sarflamaslik va o'zingizga ham zarar bermaslik, keyin oqibatlarni tiklashga energiya ketmasligi uchun.\n\n"
+            "<b>Meridianlar</b> Qi ning tana xaritasidir. Siz kanallar, nuqtalar va jim joylarni sezishni o'rganasiz. Nuqta sezilmasa, bu sabrli diqqat joyi: teginish, nafas, iliqlik va asta-sekin aylanish.\n\n"
             "Nimani o'rganmoqchisiz?"
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
@@ -1118,9 +1118,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Тәжірибе энергия қайда кетіп жатқанын байқаудан басталады. Шашыраған энергия зейіннің шуылы мен шаршаған реакциялар сияқты сезіледі; жиналған энергия тұтастық пен айқындық береді.\n\n"
-            "<b>Яма мен Нияма</b> — адамгершілік негіз: зиян, ішкі қақтығыс, артықтық және адалсыздық азаяды. Күнделікті қағида — күннің негізгі фокусы, ал барлық қағидалар біртіндеп өмірге енеді.\n\n"
-            "<b>Меридиандар</b> — Ци-дің денедегі картасы. Сіз арналар, нүктелер және үнсіз аймақтарды сезіп, сол жерге зейін, тыныс, жанасу мен айналымды қайтаруды үйренесіз.\n\n"
+            "Тәжірибе энергияның қайда жұмсалып жатқанын байқаудан басталады. Ол шашыраса, зейін шулайды, реакциялар шаршайды, дене тұтастығын аз сезеді. Энергия жиналса, әрекет тынышырақ әрі айқынырақ болады.\n\n"
+            "<b>Яма мен Нияма</b> — негіз, өйткені олар энергия ағып кететін жерлерді азайтады. Мысалы, Ахимса — басқаларға зиян жасауға күш жұмсамау және өзіңізге де зиян келтірмеу, кейін салдарын қалпына келтіруге энергия кетпеуі үшін.\n\n"
+            "<b>Меридиандар</b> — Ци-дің денедегі картасы. Сіз арналар, нүктелер және үнсіз аймақтарды сезуді үйренесіз. Нүкте сезілмесе, бұл сабырлы зейін орны: жанасу, тыныс, жылу және біртіндеп айналым.\n\n"
             "Нені зерттегіңіз келеді?"
         ),
         "initial_mode_question": "Нені зерттегіңіз келеді?",
