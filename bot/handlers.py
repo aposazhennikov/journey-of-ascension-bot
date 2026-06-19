@@ -193,6 +193,10 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                            '<b>Niyama</b> gathers energy inside: purity, contentment, discipline, '
                            'self-study, and surrender of the fruits of action.\n'
                            '\n'
+                           'The daily principle is an accent for observation, not a replacement for the '
+                           'others. We keep integrating all principles into life; each day one becomes '
+                           'especially visible.\n'
+                           '\n'
                            'Open one principle for today or view the full list.',
         'principles_random': 'Random principle',
         'principles_all': 'All principles',
@@ -500,6 +504,10 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                            '<b>Нияма</b> собирает энергию внутри: чистота, удовлетворённость, дисциплина, '
                            'самоизучение и посвящение плодов практики высшему.\n'
                            '\n'
+                           'Принцип дня — это акцент для наблюдения, а не замена остальных принципов. Мы '
+                           'постепенно внедряем их все в жизнь; каждый день один становится особенно '
+                           'заметным.\n'
+                           '\n'
                            'Откройте принцип дня или посмотрите весь список.',
         'principles_random': 'Случайный принцип',
         'principles_all': 'Все принципы',
@@ -799,6 +807,10 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                            '\n'
                            "<b>Niyama</b> energiyani ichkarida yig'adi: poklik, qanoat, intizom, o'zini "
                            "o'rganish va amaliyot mevasini oliy maqsadga bag'ishlash.\n"
+                           '\n'
+                           "Kun tamoyili qolgan tamoyillar o'rniga kelmaydi; u kuzatish uchun urg'u "
+                           "beradi. Biz ularning barchasini hayotga asta-sekin kiritamiz, har kuni bittasi "
+                           "aniqroq ko'rinadi.\n"
                            '\n'
                            "Bugungi tamoyilni oching yoki to'liq ro'yxatni ko'ring.",
         'principles_random': 'Tasodifiy tamoyil',
@@ -1110,6 +1122,10 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                            '\n'
                            '<b>Нияма</b> энергияны іште жинайды: тазалық, қанағат, тәртіп, өзін-өзі зерттеу '
                            'және тәжірибе жемісін жоғары мақсатқа арнау.\n'
+                           '\n'
+                           'Күн қағидасы қалған қағидалардың орнына келмейді; ол бақылауға арналған екпін '
+                           'ғана. Біз олардың бәрін өмірге біртіндеп енгіземіз, ал әр күні біреуі анығырақ '
+                           'көрінеді.\n'
                            '\n'
                            'Бүгінгі қағиданы ашыңыз немесе толық тізімді көріңіз.',
         'principles_random': 'Кездейсоқ қағида',
@@ -2432,10 +2448,10 @@ class BotHandlers:
 
         title = self._get_text("principles_all", language)
         intro = {
-            "en": "Choose a principle to open the detailed description and image.",
-            "ru": "Выберите принцип, чтобы открыть подробное описание и изображение.",
-            "uz": "Batafsil tavsif va rasmni ochish uchun tamoyilni tanlang.",
-            "kz": "Толық сипаттама мен суретті ашу үшін қағиданы таңдаңыз.",
+            "en": "Choose any principle to open its image and practice card. These are not separate lessons to collect; they are ten doors back to the same everyday attention.",
+            "ru": "Выберите любой принцип, чтобы открыть картинку и карточку практики. Это не отдельные уроки для коллекции, а десять дверей к одному и тому же вниманию в обычной жизни.",
+            "uz": "Rasm va amaliyot kartasini ochish uchun istalgan tamoyilni tanlang. Bu yig'ib boriladigan alohida darslar emas; ular kundalik diqqatga qaytaradigan o'nta eshik.",
+            "kz": "Сурет пен тәжірибе картасын ашу үшін кез келген қағиданы таңдаңыз. Бұлар жинайтын бөлек сабақтар емес; күнделікті зейінге қайтаратын он есік.",
         }.get(language, "Choose a principle to open the detailed description and image.")
         return f"🕊️ <b>{title}</b>\n\n{intro}"
 
