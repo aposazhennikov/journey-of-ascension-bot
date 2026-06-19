@@ -610,6 +610,16 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     if "astimezone(timezone.utc).replace(tzinfo=None)" not in scheduler_source:
         issues.append("scheduler does not explicitly convert scheduled jobs to UTC")
 
+    handlers_source = (ROOT / "bot" / "handlers.py").read_text(encoding="utf-8-sig")
+    stop_handler_start = handlers_source.find("async def _handle_stop")
+    settings_handler_start = handlers_source.find("async def _handle_settings")
+    if stop_handler_start != -1 and settings_handler_start != -1:
+        stop_handler_source = handlers_source[stop_handler_start:settings_handler_start]
+        if "parse_mode='Markdown'" in stop_handler_source:
+            issues.append("/stop handler still sends the stop UX with Markdown parse mode")
+        if "_as_html" not in stop_handler_source:
+            issues.append("/stop handler does not normalize stop text for HTML parse mode")
+
     return issues
 
 

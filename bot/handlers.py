@@ -2031,7 +2031,7 @@ class BotHandlers:
             
             success = await self.storage.deactivate_user(chat_id)
             if success:
-                text = f"{self._get_text('unsubscribed', language)}\n\n{self._get_text('stop_feedback_prompt', language)}"
+                text = self._as_html(f"{self._get_text('unsubscribed', language)}\n\n{self._get_text('stop_feedback_prompt', language)}")
                 self.user_states[chat_id] = {"step": "stop_feedback", "language": language}
                 # Remove user from scheduler
                 await self.scheduler.remove_user_jobs(chat_id)
@@ -2039,7 +2039,7 @@ class BotHandlers:
                 text = self._get_text("not_subscribed", language)
             
             # Send final message directly through bot API
-            await self.application.bot.send_message(chat_id=chat_id, text=text, parse_mode='Markdown')
+            await self.application.bot.send_message(chat_id=chat_id, text=text, parse_mode='HTML')
                 
         except Exception as e:
             logger.error(f"Error in stop handler for user {chat_id}: {e}")
