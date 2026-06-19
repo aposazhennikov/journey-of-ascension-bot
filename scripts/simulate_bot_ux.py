@@ -1593,6 +1593,27 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     for phrase in dry_user_error_phrases:
         if phrase in handlers_source:
             issues.append(f"visible user error still sounds mechanical: {phrase!r}")
+    dry_subscription_state_phrases = (
+        "The bot has been stopped. Reminders will no longer be sent.",
+        "The bot is not active for this chat yet.",
+        "You're not subscribed yet.",
+        "You are already subscribed to Journey of Ascension.",
+        "Бот остановлен. Напоминания больше не будут приходить.",
+        "Бот сейчас не активен для этого чата.",
+        "Вы пока не подписаны.",
+        "Вы уже подписаны на Journey of Ascension.",
+        "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.",
+        "Bot bu chatda hali faol emas.",
+        "Siz hali obuna bo'lmagansiz.",
+        "Journey of Ascension'ga allaqachon obuna",
+        "Бот тоқтатылды. Еске салулар енді жіберілмейді.",
+        "Бұл чатта бот әлі белсенді емес.",
+        "Сіз әлі жазылмағансыз.",
+        "Journey of Ascension-ға бұрыннан жазылғансыз.",
+    )
+    for phrase in dry_subscription_state_phrases:
+        if phrase in handlers_source:
+            issues.append(f"visible practice state still uses subscription-bot wording: {phrase!r}")
     setup_markers = (
         "The other principles are not paused",
         "Остальные принципы не выключаются",
