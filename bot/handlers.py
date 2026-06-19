@@ -228,7 +228,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'You can change this later. Your progress and reminders stay saved.',
         'meridian_guided_path': '🧭 Bot route',
         'meridian_free_choice': '👐 Free choice',
-        'meridian_change_path': '🧭 Choose study path',
+        'meridian_change_path': '🧭 Start / choose path',
         'meridian_guided_saved': '✅ <b>Bot route selected.</b>\n'
                                  '\n'
                                  'We will move gently: one meridian, one point, one stable sensation at a time.',
@@ -528,7 +528,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'Путь можно изменить позже. Прогресс и напоминания сохраняются.',
         'meridian_guided_path': '🧭 Маршрут бота',
         'meridian_free_choice': '👐 Свободный выбор',
-        'meridian_change_path': '🧭 Выбрать путь изучения',
+        'meridian_change_path': '🧭 Начать или выбрать путь',
         'meridian_guided_saved': '✅ <b>Выбран маршрут бота.</b>\n'
                                  '\n'
                                  'Будем двигаться мягко: один меридиан, одна точка, одно устойчивое ощущение за раз.',
@@ -833,7 +833,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               "Yo'lni keyin o'zgartirish mumkin. Progress va eslatmalar saqlanadi.",
         'meridian_guided_path': "🧭 Bot yo'nalishi",
         'meridian_free_choice': '👐 Erkin tanlov',
-        'meridian_change_path': "🧭 O'rganish yo'lini tanlash",
+        'meridian_change_path': "🧭 Boshlash yoki yo'l tanlash",
         'meridian_guided_saved': "✅ <b>Bot yo'nalishi tanlandi.</b>\n"
                                  '\n'
                                  "Yumshoq harakat qilamiz: bir meridian, bir nuqta, bir barqaror sezgi.",
@@ -1146,7 +1146,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                               'Жолды кейін өзгертуге болады. Прогресс пен еске салулар сақталады.',
         'meridian_guided_path': '🧭 Бот бағыты',
         'meridian_free_choice': '👐 Еркін таңдау',
-        'meridian_change_path': '🧭 Зерттеу жолын таңдау',
+        'meridian_change_path': '🧭 Бастау немесе жол таңдау',
         'meridian_guided_saved': '✅ <b>Бот бағыты таңдалды.</b>\n'
                                  '\n'
                                  'Баяу қозғаламыз: бір меридиан, бір нүкте, бір тұрақты сезім.',
@@ -1431,7 +1431,7 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Bot route",
         "meridian_free_choice": "👐 Free choice",
-        "meridian_change_path": "🧭 Choose study path",
+        "meridian_change_path": "🧭 Start / choose path",
         "meridian_guided_saved": "✅ <b>Bot route selected.</b>\n\nWe will move gently: one meridian, one point, one stable sensation at a time.",
         "meridian_free_saved": "✅ <b>Free choice selected.</b>\n\nChoose the meridian you want to explore now.",
         "meridian_measurements": "📏 Measure cun",
@@ -1622,7 +1622,7 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Маршрут бота",
         "meridian_free_choice": "👐 Свободный выбор",
-        "meridian_change_path": "🧭 Выбрать путь изучения",
+        "meridian_change_path": "🧭 Начать или выбрать путь",
         "meridian_guided_saved": "✅ <b>Выбран маршрут бота.</b>\n\nБудем двигаться мягко: один меридиан, одна точка, одно устойчивое ощущение за раз.",
         "meridian_free_saved": "✅ <b>Выбран свободный выбор.</b>\n\nВыберите меридиан, который хотите исследовать сейчас.",
         "meridian_measurements": "📏 Как измерять цуни",
@@ -1813,7 +1813,7 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Bot yo'nalishi",
         "meridian_free_choice": "👐 Erkin tanlov",
-        "meridian_change_path": "🧭 O'rganish yo'lini tanlash",
+        "meridian_change_path": "🧭 Boshlash yoki yo'l tanlash",
         "meridian_guided_saved": "✅ <b>Bot yo'nalishi tanlandi.</b>\n\nYumshoq harakat qilamiz: bir meridian, bir nuqta, bir barqaror sezgi.",
         "meridian_free_saved": "✅ <b>Erkin tanlov tanlandi.</b>\n\nHozir o'rganmoqchi bo'lgan meridianni tanlang.",
         "meridian_measurements": "📏 Cunni o'lchash",
@@ -2018,7 +2018,7 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Бот бағыты",
         "meridian_free_choice": "👐 Еркін таңдау",
-        "meridian_change_path": "🧭 Зерттеу жолын таңдау",
+        "meridian_change_path": "🧭 Бастау немесе жол таңдау",
         "meridian_guided_saved": "✅ <b>Бот бағыты таңдалды.</b>\n\nБаяу қозғаламыз: бір меридиан, бір нүкте, бір тұрақты сезім.",
         "meridian_free_saved": "✅ <b>Еркін таңдау таңдалды.</b>\n\nҚазір зерттегіңіз келетін меридианды таңдаңыз.",
         "meridian_measurements": "📏 Цуньді өлшеу",
