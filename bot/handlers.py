@@ -3839,6 +3839,14 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
         ])
 
+    def _create_meridian_route_completed_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create keyboard shown after the guided meridian route is complete."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("meridian_guided_path", language), callback_data="meridian_path:guided")],
+            [InlineKeyboardButton(self._get_text("meridian_free_choice", language), callback_data="meridian_path:free")],
+            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+        ])
+
     def _create_meridian_help_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
         """Create keyboard for meridian reference screens without surprising auto-starts."""
         keyboard = []
@@ -4323,6 +4331,9 @@ class BotHandlers:
                 if path_mode == "guided":
                     if not user.current_meridian_id:
                         next_meridian = self.meridians_manager.get_next_meridian(None, user.completed_meridians)
+                        if not next_meridian and user.completed_meridians:
+                            user.completed_meridians = []
+                            next_meridian = self.meridians_manager.get_next_meridian(None, user.completed_meridians)
                         if next_meridian:
                             user.current_meridian_id = next_meridian["id"]
                             user.current_point_index = -1
@@ -4348,7 +4359,11 @@ class BotHandlers:
                 await self._edit_message_text_safe(
                     query,
                     text,
-                    reply_markup=self._create_meridian_choice_keyboard(language),
+                    reply_markup=(
+                        self._create_meridian_route_completed_keyboard(language)
+                        if route_completed
+                        else self._create_meridian_choice_keyboard(language)
+                    ),
                     parse_mode='HTML'
                 )
                 return
