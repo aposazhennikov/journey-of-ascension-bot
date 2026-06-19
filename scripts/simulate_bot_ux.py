@@ -734,7 +734,7 @@ def render(output: Path) -> None:
 
     function renderMeridians() {{
       show('Meridians', fmt(t('meridians_menu')), [
-        [{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}],
+        [{{ label: t('current_meridian'), action: () => state.learningMode ? setScreen('currentMeridian') : setScreen('meridianPath') }}],
         [{{ label: t('meridian_change_path'), action: () => setScreen('meridianPath') }}, {{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
       ]);
