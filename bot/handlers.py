@@ -3990,6 +3990,10 @@ class BotHandlers:
             user = await self.storage.get_user(chat_id)
             language = user.language if user else "en"
 
+            if action != "stop" and (not user or not user.is_active):
+                await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
+                return
+
             if action == "settings":
                 text = self._as_html(self._get_text("settings_menu", language))
                 keyboard = self._create_settings_menu_keyboard(language, user)

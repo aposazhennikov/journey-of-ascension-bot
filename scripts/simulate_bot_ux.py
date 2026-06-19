@@ -1482,6 +1482,13 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if "language = user.language if user else" not in settings_handler_source:
             issues.append("/settings inactive-user fallback does not derive language from stored user")
 
+    menu_callback_start = handlers_source.find("async def _handle_menu_callback")
+    principles_callback_start = handlers_source.find("async def _handle_principles_callback")
+    if menu_callback_start != -1 and principles_callback_start != -1:
+        menu_callback_source = handlers_source[menu_callback_start:principles_callback_start]
+        if 'action != "stop" and (not user or not user.is_active)' not in menu_callback_source:
+            issues.append("stale main-menu callbacks can open sections after the bot is stopped")
+
     feedback_handler_start = handlers_source.find("async def _handle_feedback_input")
     stop_feedback_handler_start = handlers_source.find("async def _handle_stop_feedback_input")
     principle_detail_start = handlers_source.find("async def _show_principle_detail")
