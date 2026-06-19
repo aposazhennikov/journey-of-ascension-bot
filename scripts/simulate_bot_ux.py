@@ -745,6 +745,14 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if missing:
             issues.append(f"{language}: missing text keys: {', '.join(missing[:12])}")
 
+        if "2/4" in language_texts.get("time_step_principles", ""):
+            issues.append(f"{language}: principles-only reminder time step uses the both-modes 2/4 counter")
+        if "2/4" in language_texts.get("time_step_meridians", ""):
+            issues.append(f"{language}: meridians-only reminder time step uses the both-modes 2/4 counter")
+        both_time_step = language_texts.get("time_step_both", "")
+        if "2/4" not in both_time_step or "2/3" in both_time_step:
+            issues.append(f"{language}: both-modes reminder time step does not expose the separate meridian-time step")
+
         onboarding = language_texts.get("onboarding_intro", "")
         for marker in ("<b>", "Yama", "Meridian"):
             if marker == "Yama" and language in {"ru", "kz"}:
@@ -1154,6 +1162,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("simulator point-help screen always shows current focus even when none is selected")
     if '"◀️ 10"' in handlers_source or '"10 ▶️"' in handlers_source:
         issues.append("Telegram point-list pagination uses technical 10-only labels")
+    if 'step"] = "meridian_time"' not in handlers_source or "user_state.get(\"meridian_time\", user_state[\"time\"])" not in handlers_source:
+        issues.append("onboarding does not collect a separate meridian time when both practice modes are selected")
     callback_values = sorted(set(re.findall(r"callback_data=(?:f)?[\"']([^\"']+)", handlers_source)))
     callback_patterns = [
         re.compile(ast.literal_eval(match))
@@ -1283,7 +1293,7 @@ def audit_rendered_html() -> list[str]:
         issues.append("rendered simulator HTML contains question-mark damaged text")
     if 'value="setupComplete"' not in html or "renderSetupComplete" not in html:
         issues.append("browser simulator is missing setup-complete scenario")
-    for scenario_value in ("chooseMeridian", "allPoints", "noviceMeridians", "noviceFirstPoint"):
+    for scenario_value in ("chooseMeridian", "allPoints", "noviceMeridians", "noviceFirstPoint", "meridianTime"):
         if f'value="{scenario_value}"' not in html:
             issues.append(f"browser simulator is missing {scenario_value} scenario")
         if f"scenario === '{scenario_value}'" not in html:
@@ -1360,6 +1370,7 @@ def build_html() -> str:
           <option value="onboarding">New user onboarding</option>
           <option value="timezone">Time zone step</option>
           <option value="time">Reminder time step</option>
+          <option value="meridianTime">Meridian time step</option>
           <option value="skipDays">Quiet days step</option>
           <option value="setupComplete">Setup complete</option>
           <option value="noviceMeridians">Novice: before meridian start</option>
@@ -1533,7 +1544,13 @@ def build_html() -> str:
         ? 'time_step_both'
         : state.meridiansEnabled ? 'time_step_meridians' : 'time_step_principles';
       show('Time', fmt(t(key)), [
-        [{{ label: '08:00', action: () => setScreen(state.principlesEnabled ? 'skipDays' : 'setupComplete') }}, {{ label: '20:00', action: () => setScreen(state.principlesEnabled ? 'skipDays' : 'setupComplete') }}],
+        [{{ label: '08:00', action: () => setScreen(state.principlesEnabled && state.meridiansEnabled ? 'meridianTime' : state.principlesEnabled ? 'skipDays' : 'setupComplete') }}, {{ label: '20:00', action: () => setScreen(state.principlesEnabled && state.meridiansEnabled ? 'meridianTime' : state.principlesEnabled ? 'skipDays' : 'setupComplete') }}],
+      ]);
+    }}
+
+    function renderMeridianTime() {{
+      show('Meridian time', fmt(t('meridian_time_step')), [
+        [{{ label: '20:00', action: () => setScreen('skipDays') }}, {{ label: '21:30', action: () => setScreen('skipDays') }}],
       ]);
     }}
 
@@ -1866,6 +1883,7 @@ def build_html() -> str:
         onboarding: renderOnboarding,
         timezone: renderTimezone,
         time: renderTime,
+        meridianTime: renderMeridianTime,
         setupComplete: renderSetupComplete,
         main: renderMain,
         modes: renderModes,
@@ -1960,6 +1978,11 @@ def build_html() -> str:
         state.screen = 'timezone';
       }} else if (scenario === 'time') {{
         state.screen = 'time';
+      }} else if (scenario === 'meridianTime') {{
+        resetState();
+        state.principlesEnabled = true;
+        state.meridiansEnabled = true;
+        state.screen = 'meridianTime';
       }} else if (scenario === 'skipDays') {{
         state.screen = 'skipDays';
       }} else if (scenario === 'setupComplete') {{

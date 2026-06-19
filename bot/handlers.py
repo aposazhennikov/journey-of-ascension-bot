@@ -1363,8 +1363,8 @@ TEXTS_UPDATE = {
             "Format: HH:MM, for example 08:00 or 20:30."
         ),
         "time_step_both": (
-            "⏰ <b>Step 2/3: Reminder Time</b>\n\n"
-            "Choose the time when the bot should send your daily <b>Yama/Niyama</b> principle and <b>meridian</b> focus.\n\n"
+            "⏰ <b>Step 2/4: Reminder Time</b>\n\n"
+            "First choose the time for your daily <b>Yama/Niyama</b> principle. The meridian reminder time comes next.\n\n"
             "Format: HH:MM, for example 08:00 or 20:30."
         ),
         "continue_setup": "Continue",
@@ -1546,8 +1546,8 @@ TEXTS_UPDATE = {
             "Формат: ЧЧ:ММ, например 08:00 или 20:30."
         ),
         "time_step_both": (
-            "⏰ <b>Шаг 2/3: Время отправки</b>\n\n"
-            "Укажите время, когда бот будет присылать ежедневный принцип <b>Ямы/Ниямы</b> и фокус по <b>меридианам</b>.\n\n"
+            "⏰ <b>Шаг 2/4: Время отправки</b>\n\n"
+            "Сначала укажите время для ежедневного принципа <b>Ямы/Ниямы</b>. Время меридианов выберем следующим шагом.\n\n"
             "Формат: ЧЧ:ММ, например 08:00 или 20:30."
         ),
         "continue_setup": "Продолжить",
@@ -1729,8 +1729,8 @@ TEXTS_UPDATE = {
             "Format: HH:MM, masalan 08:00 yoki 20:30."
         ),
         "time_step_both": (
-            "⏰ <b>2/3-qadam: Yuborish vaqti</b>\n\n"
-            "Bot kundalik <b>Yama/Niyama</b> tamoyili va <b>meridian</b> fokusini qachon yuborishini tanlang.\n\n"
+            "⏰ <b>2/4-qadam: Yuborish vaqti</b>\n\n"
+            "Avval kundalik <b>Yama/Niyama</b> tamoyili vaqtini tanlang. Meridian eslatmasi vaqtini keyingi qadamda tanlaymiz.\n\n"
             "Format: HH:MM, masalan 08:00 yoki 20:30."
         ),
         "continue_setup": "Davom etish",
@@ -1926,8 +1926,8 @@ TEXTS_UPDATE = {
             "Формат: HH:MM, мысалы 08:00 немесе 20:30."
         ),
         "time_step_both": (
-            "⏰ <b>2/3-қадам: Жіберу уақыты</b>\n\n"
-            "Бот күнделікті <b>Яма/Нияма</b> қағидасын және <b>меридиан</b> фокусын қашан жіберетінін таңдаңыз.\n\n"
+            "⏰ <b>2/4-қадам: Жіберу уақыты</b>\n\n"
+            "Алдымен күнделікті <b>Яма/Нияма</b> қағидасының уақытын таңдаңыз. Меридиан еске салуының уақытын келесі қадамда таңдаймыз.\n\n"
             "Формат: HH:MM, мысалы 08:00 немесе 20:30."
         ),
         "continue_setup": "Жалғастыру",
@@ -2692,7 +2692,7 @@ class BotHandlers:
                 language=language,
                 timezone=user_state["timezone"],
                 time_for_send=user_state["time"],
-                meridian_time_for_send=user_state["time"],
+                meridian_time_for_send=user_state.get("meridian_time", user_state["time"]),
                 skip_day_id=selected_days,
                 principles_enabled=user_state.get("principles_enabled", True),
                 meridians_enabled=user_state.get("meridians_enabled", False),
@@ -3023,6 +3023,8 @@ class BotHandlers:
                 await self._handle_timezone_input(update, message_text, language)
             elif step == "time":
                 await self._handle_time_input(update, message_text, language)
+            elif step == "meridian_time":
+                await self._handle_setup_meridian_time_input(update, message_text, language)
             elif step == "change_timezone" or step == "change_timezone_manual":
                 await self._handle_change_timezone_input(update, message_text, language)
             elif step == "change_time":
@@ -3096,6 +3098,23 @@ class BotHandlers:
 
         # Save time and move to next step.
         self.user_states[chat_id]["time"] = time_str
+
+        if user_state.get("principles_enabled", True) and user_state.get("meridians_enabled", False):
+            self.user_states[chat_id]["step"] = "meridian_time"
+            confirmation = self._get_text("time_saved", language)
+            meridian_time_msg = self._get_text("meridian_time_step", language)
+            combined_msg = f"{escape(confirmation)}\n\n{meridian_time_msg}"
+
+            if message_id:
+                await self._edit_bot_message_text_safe(
+                    chat_id=chat_id,
+                    message_id=message_id,
+                    text=combined_msg,
+                    parse_mode='HTML'
+                )
+            else:
+                await update.message.reply_text(combined_msg, parse_mode='HTML')
+            return
 
         if not user_state.get("principles_enabled", True):
             from bot.storage import User
@@ -3171,6 +3190,45 @@ class BotHandlers:
             )
         else:
             await update.message.reply_text(combined_msg, parse_mode='HTML')
+
+
+    async def _handle_setup_meridian_time_input(self, update: Update, time_str: str, language: str) -> None:
+        """Handle separate meridian reminder time during registration."""
+        chat_id = update.effective_chat.id
+        user_state = self.user_states[chat_id]
+        message_id = user_state.get("registration_message_id")
+
+        if not is_valid_time_format(time_str):
+            if message_id:
+                await self._edit_bot_message_text_safe(
+                    chat_id=chat_id,
+                    message_id=message_id,
+                    text=self._get_text("invalid_time", language),
+                    parse_mode='HTML'
+                )
+            else:
+                await update.message.reply_text(self._get_text("invalid_time", language), parse_mode='HTML')
+            return
+
+        self.user_states[chat_id]["meridian_time"] = time_str
+        self.user_states[chat_id]["step"] = "skip_days"
+        self.user_states[chat_id]["selected_skip_days"] = []
+
+        confirmation = self._get_text("meridian_time_saved", language)
+        skip_days_msg = self._text_html("skip_days_step", language)
+        combined_msg = f"{escape(confirmation)}\n\n{skip_days_msg}\n\n{self._format_skip_days_note([], language)}"
+        keyboard = self._create_skip_days_keyboard(language, [])
+
+        if message_id:
+            await self._edit_bot_message_text_safe(
+                chat_id=chat_id,
+                message_id=message_id,
+                text=combined_msg,
+                reply_markup=keyboard,
+                parse_mode='HTML'
+            )
+        else:
+            await update.message.reply_text(combined_msg, reply_markup=keyboard, parse_mode='HTML')
 
 
 
