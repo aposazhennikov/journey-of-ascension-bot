@@ -256,10 +256,6 @@ def format_principle(principle: dict[str, Any], language: str) -> str:
         "kz": "Бүгін осы қағиданы ерекше жақын ұстаңыз. Қалғандары тоқтамайды; біз тек біреуіне көбірек назар береміз.",
     }[language]
     description = principle.get("description", "")
-    if len(description) > 220:
-        candidate = description[:217].rstrip()
-        sentence_end = max(candidate.rfind("."), candidate.rfind("!"), candidate.rfind("?"))
-        description = candidate[:sentence_end + 1] if sentence_end >= 99 else candidate.rstrip(",;:") + "..."
     parts = [
         f"<b>{escape(principle.get('name', ''))}</b> {escape(principle.get('emoji', ''))}",
         f"<b>{labels[0]}:</b> {escape(principle_group(int(principle.get('id', 0)), language))}",
@@ -269,6 +265,14 @@ def format_principle(principle: dict[str, Any], language: str) -> str:
         f"💡 <b>{labels[2]}:</b> <i>{escape(principle.get('practice_tip', ''))}</i>",
     ]
     return "<br><br>".join(part for part in parts if part)
+
+
+def principle_image_name(principle_id: int) -> str | None:
+    for extension in (".jpg", ".png", ".gif"):
+        candidate = ROOT / "images" / f"{principle_id}{extension}"
+        if candidate.exists():
+            return candidate.name
+    return None
 
 
 def format_meridian_intro(meridian: dict[str, Any], language: str) -> str:
@@ -590,6 +594,7 @@ def build_payload() -> dict[str, Any]:
                 "id": item.get("id"),
                 "button": f"{item.get('emoji', '')} {item.get('name', '')}".strip(),
                 "detail": format_principle(item, language),
+                "image": principle_image_name(int(item.get("id", 0))),
             }
             for item in principles[language]
         ]
@@ -732,6 +737,9 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 issues.append(f"{language} principle {principle.get('id')}: caption exceeds Telegram photo limit")
             if principle.get("practice_tip") and ("💡" not in caption or "<i>" not in caption):
                 issues.append(f"{language} principle {principle.get('id')}: practice block disappeared from caption")
+            image_name = principle_image_name(int(principle.get("id", 0)))
+            if not image_name:
+                issues.append(f"{language} principle {principle.get('id')}: missing simulator image")
 
     translation_coverage = payload.get("translationCoverage", {})
     for language in LANGUAGES:
@@ -842,6 +850,20 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             "жёсткую мишень",
             "qat'iy nishon",
             "қатаң нысана",
+            "concept with several meanings",
+            "понятие, имеющее несколько значений",
+            "bir necha ma'noga",
+            "бірнеше мағынаға ие ұғым",
+            "spiritual austerity",
+            "духовная аскеза",
+            "ruhiy zohidlik",
+            "рухани аскетизм",
+            "principle denoting",
+            "принцип, обозначающий",
+            "ifodalovchi tamoyil",
+            "білдіретін принцип",
+            "active striving for truth",
+            "активное стремление к правде",
         )
         visible_keys = (
             "welcome",
@@ -1067,6 +1089,11 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     for pattern in ai_voice_patterns:
         if pattern in import_source:
             issues.append(f"import_meridians.py contains stiff generated phrasing {pattern!r}")
+
+    principles_source = (ROOT / "bot" / "principles.json").read_text(encoding="utf-8")
+    for pattern in ai_voice_patterns:
+        if pattern in principles_source:
+            issues.append(f"principles.json contains stiff generated phrasing {pattern!r}")
 
     for meridian_id in ready_ids:
         meridian = meridians_by_id[meridian_id]
@@ -1568,6 +1595,7 @@ def build_html() -> str:
     }}
     function meridianImageUrl(item) {{ return item && item.overviewImage ? `../images/meridians/${{encodeURIComponent(item.overviewImage)}}` : null; }}
     function pointImageUrl(point) {{ return point && point.image ? `../images/meridians/${{encodeURIComponent(point.image)}}` : null; }}
+    function principleImageUrl(item) {{ return item && item.image ? `../images/${{encodeURIComponent(item.image)}}` : null; }}
     function firstReadyMeridian() {{
       for (const id of payload.recommendedPath) {{
         const item = payload.meridians.find((candidate) => candidate.id === id && candidate.pointsCount > 0);
@@ -1956,7 +1984,7 @@ def build_html() -> str:
       show('Principle', item.detail, [
         [{{ label: t('principles_random'), action: () => renderPrincipleDetail((index + 3) % payload.principles[state.language].length) }}, {{ label: t('principles_all'), action: () => setScreen('allPrinciples') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
-      ]);
+      ], principleImageUrl(item));
     }}
 
     function renderAllPrinciples() {{

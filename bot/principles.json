@@ -5,7 +5,7 @@
       "name": "Ахимса",
       "emoji": "🕊️",
       "short_description": "Принцип ненасилия на уровне силы, речи или ума",
-      "description": "Ахимса — принцип ненасилия на уровне силы, речи или ума. Непричинение вреда распространяется на всё, что вас окружает: людей, животных, природу. Стоит придерживаться этого принципа, когда вы практикуете асаны на коврике. Наверняка вы уже слышали от преподавателей фразу: «Не идите в позу через боль».",
+      "description": "Ахимса — это отказ тратить силу на вред. Вред бывает грубым, через действие, а бывает тонким: резкое слово, холодное молчание, внутреннее осуждение, давление на себя. Каждый такой импульс забирает энергию, а потом требует сил на восстановление. Ахимса учит беречь живое вокруг и внутри себя: действовать твёрдо, но без разрушения.",
       "practice_tip": "Сегодня замечайте места, где сила уходит в борьбу: резкое слово, внутреннее осуждение, давление на себя. Сделайте паузу, смягчите тон и выберите действие, после которого в теле остаётся больше спокойствия."
     },
     {
@@ -13,7 +13,7 @@
       "name": "Сатья",
       "emoji": "💎",
       "short_description": "Правдивость в мыслях, словах и поступках",
-      "description": "Сатья — правдивость. Это значит думать, говорить и поступать одинаково. Сатья — это не просто отсутствие лжи, а активное стремление к правде во всех проявлениях. Следование сатье помогает освободиться от иллюзий и искажений в восприятии реальности, позволяет видеть вещи такими, какие они есть на самом деле.",
+      "description": "Сатья — это честность, которая собирает человека в одно целое. Когда мы думаем одно, говорим другое, а делаем третье, энергия уходит на маски, страх разоблачения и постоянное напряжение. Сатья не требует грубости. Она просит говорить и действовать так, чтобы внутри оставалось ощущение чистоты, ясности и опоры.",
       "practice_tip": "Сегодня сверяйте слова с внутренней правдой. Не нужно быть жёстким: достаточно не украшать, не прятаться и не обещать лишнего. Честность собирает энергию, которую обычно забирают оправдания."
     },
     {
@@ -29,7 +29,7 @@
       "name": "Брахмачарья",
       "emoji": "🔥",
       "short_description": "Самодисциплина и контроль над желаниями",
-      "description": "Брахмачарья — это понятие, имеющее несколько значений, но в основном подразумевающее самодисциплину, контроль над желаниями и целенаправленность в духовной практике, а не только половое воздержание. В более широком смысле, это следование пути Брахмана, высшего сознания, и устремление к нему во всех действиях.",
+      "description": "Брахмачарья — это бережное обращение с жизненной силой. Речь не только о сексуальности, а обо всём, что разбрасывает внимание: бесконечные импульсы, фантазии, лишние разговоры, реакции ради реакции. Этот принцип помогает направлять энергию туда, где она становится ясностью, творчеством, служением и устойчивой практикой.",
       "practice_tip": "Сегодня берегите творческую силу. Замечайте, куда она уходит через импульсы, фантазии, лишние реакции или рассеянность. Выберите одно простое дело и выполните его как служение, спокойно и цельно."
     },
     {
@@ -52,8 +52,8 @@
       "id": 7,
       "name": "Тапас",
       "emoji": "🔥",
-      "short_description": "Внутренний огонь и духовная аскеза",
-      "description": "Тапас — означает внутренний огонь, самодисциплину и духовную аскезу. Это стремление к самосовершенствованию через практику, усилия и преодоление трудностей. Подразумевает дисциплину, которая помогает развивать силу воли и настойчивость в духовной практике. Это не просто физическое усилие, а скорее внутреннее состояние, которое побуждает к действию и помогает преодолевать лень.",
+      "short_description": "Внутренний огонь и дисциплина без насилия над собой",
+      "description": "Тапас — это внутренний огонь, который появляется от честной регулярности. Не нужно ломать себя и доказывать силу через жёсткость. Достаточно держать выбранное направление: сделать практику, выполнить обещание, не сбежать в лень или хаос. Тапас превращает энергию из желания «когда-нибудь» в действие сегодня.",
       "practice_tip": "Сегодня разожгите внутренний огонь через одно выполненное обещание себе. Не героизм, а устойчивость: сделать практику, лечь вовремя, закончить начатое, пройти через лень без войны с собой."
     },
     {
@@ -61,7 +61,7 @@
       "name": "Сантоша",
       "emoji": "😊",
       "short_description": "Удовлетворённость и принятие",
-      "description": "Сантоша — принцип, обозначающий удовлетворённость и принятие, а также благодарность за то, что есть в настоящем моменте. Это не означает пассивность или отказ от стремлений, а скорее внутреннее спокойствие и признание текущего положения вещей.",
+      "description": "Сантоша — это умение перестать воевать с настоящим моментом. Это не пассивность и не отказ от роста. Просто человек перестаёт сливать энергию в бесконечное «мало», «не так», «у других лучше». Из состояния принятия легче видеть следующий шаг: без суеты, зависти и внутреннего голода.",
       "practice_tip": "Сегодня ищите не идеальную жизнь, а точку согласия с тем, что уже есть. Поблагодарите за один урок, одного человека и одно качество в себе. Благодарность возвращает энергию из претензий."
     },
     {
@@ -77,7 +77,7 @@
       "name": "Ишвара Пранидхана",
       "emoji": "🙏",
       "short_description": "Предание себя Высшему",
-      "description": "Ишвара Пранидхана — в йоге означает предание себя Высшему, посвящение себя Богу или духовной силе. Отказ от желания достигать конкретных целей или сравнивать себя с другими в практике, сосредоточившись на процессе и глубинной цели.",
+      "description": "Ишвара Пранидхана — это умение делать своё дело и отпускать судорожный контроль над результатом. Можно назвать это доверием Богу, Высшему, Жизни или глубинному порядку. Практика становится чище, когда мы перестаём всё время сравнивать себя, требовать быстрых доказательств и превращать духовный путь в гонку.",
       "practice_tip": "Сегодня сделайте практику не ради оценки и результата, а как посвящение Высшему. Отпустите сравнение, сделайте один шаг с доверием и спросите: через меня сейчас может проявиться больше ясности?"
     }
   ],
@@ -87,7 +87,7 @@
       "name": "Ahimsa",
       "emoji": "🕊️",
       "short_description": "Principle of non-violence in force, speech, or mind",
-      "description": "Ahimsa is the principle of non-violence on the level of force, speech, or mind. Non-harming extends to everything around you: people, animals, nature. You should adhere to this principle when practicing asanas on your mat. You've probably heard teachers say: 'Don't go into a pose through pain.'",
+      "description": "Ahimsa means refusing to spend your strength on harm. Harm can be obvious, through action, or subtle: a sharp word, cold silence, inner judgment, pressure against yourself. Each impulse drains energy and later asks for energy to repair the damage. Ahimsa teaches care for life around you and inside you: act firmly, but without destruction.",
       "practice_tip": "Today notice where force leaks into struggle: a sharp word, inner judgment, pressure on yourself. Pause, soften the tone, and choose the action that leaves more quiet strength in the body."
     },
     {
@@ -95,7 +95,7 @@
       "name": "Satya",
       "emoji": "💎",
       "short_description": "Truthfulness in thoughts, words, and actions",
-      "description": "Satya is truthfulness. It means to think, speak, and act consistently. Satya is not just the absence of lies, but an active striving for truth in all manifestations. Following satya helps to free oneself from illusions and distortions in perception of reality, allows one to see things as they really are.",
+      "description": "Satya is honesty that gathers you into one piece. When you think one thing, say another, and do a third, energy goes into masks, fear of being exposed, and constant tension. Satya does not ask you to be harsh. It asks you to speak and act in a way that leaves clarity, cleanliness, and inner support.",
       "practice_tip": "Today compare your words with your inner truth. You do not need to be harsh: simply do not decorate, hide, or promise too much. Honesty gathers the energy usually spent on excuses."
     },
     {
@@ -111,7 +111,7 @@
       "name": "Brahmacharya",
       "emoji": "🔥",
       "short_description": "Self-discipline and control over desires",
-      "description": "Brahmacharya is a concept with several meanings, but mainly implying self-discipline, control over desires and purposefulness in spiritual practice, not just sexual abstinence. In a broader sense, it is following the path of Brahman, the highest consciousness, and striving for it in all actions.",
+      "description": "Brahmacharya is careful handling of life force. It is not only about sexuality, but about everything that scatters attention: endless impulses, fantasies, unnecessary talk, reactions for the sake of reacting. This principle helps direct energy where it can become clarity, creativity, service, and steady practice.",
       "practice_tip": "Today protect your creative force. Notice where it leaves through impulses, fantasies, extra reactions, or scattered attention. Choose one simple action and do it as service, calmly and completely."
     },
     {
@@ -134,8 +134,8 @@
       "id": 7,
       "name": "Tapas",
       "emoji": "🔥",
-      "short_description": "Inner fire and spiritual austerity",
-      "description": "Tapas means inner fire, self-discipline and spiritual austerity. It is striving for self-improvement through practice, effort and overcoming difficulties. It implies discipline that helps develop willpower and persistence in spiritual practice. It's not just physical effort, but rather an inner state that motivates action and helps overcome laziness.",
+      "short_description": "Inner fire and discipline without violence toward yourself",
+      "description": "Tapas is the inner fire that comes from honest regularity. You do not need to break yourself or prove strength through harshness. Keep the chosen direction: do the practice, keep a promise, do not escape into laziness or chaos. Tapas turns the energy of “someday” into action today.",
       "practice_tip": "Today kindle inner fire through one promise kept to yourself. Not heroics, but steadiness: practice, sleep on time, finish what began, or pass through laziness without fighting yourself."
     },
     {
@@ -143,7 +143,7 @@
       "name": "Santosha",
       "emoji": "😊",
       "short_description": "Contentment and acceptance",
-      "description": "Santosha is a principle denoting contentment and acceptance, as well as gratitude for what exists in the present moment. This doesn't mean passivity or abandoning aspirations, but rather inner peace and recognition of the current state of things.",
+      "description": "Santosha is the ability to stop fighting the present moment. It is not passivity and not giving up growth. It means you stop leaking energy into endless “not enough”, “not right”, “others have more”. From acceptance, the next step becomes easier to see: without hurry, envy, or inner hunger.",
       "practice_tip": "Today look not for a perfect life, but for one point of agreement with what already is. Thank one lesson, one person, and one quality in yourself. Gratitude returns energy from complaint."
     },
     {
@@ -159,7 +159,7 @@
       "name": "Ishvara Pranidhana",
       "emoji": "🙏",
       "short_description": "Surrender to the Higher",
-      "description": "Ishvara Pranidhana in yoga means surrendering to the Higher, dedicating oneself to God or spiritual force. Abandoning the desire to achieve specific goals or compare oneself with others in practice, focusing on the process and deep purpose.",
+      "description": "Ishvara Pranidhana is the ability to do your part and release the nervous grip on the result. You may call it trust in God, the Higher, Life, or a deeper order. Practice becomes cleaner when you stop comparing yourself, demanding quick proof, and turning the spiritual path into a race.",
       "practice_tip": "Today practice not for approval or result, but as an offering to the Higher. Release comparison, take one step with trust, and ask: can more clarity move through me now?"
     }
   ],
@@ -169,7 +169,7 @@
       "name": "Ahimsa",
       "emoji": "🕊️",
       "short_description": "Kuch, nutq yoki ong darajasida zo'ravonlik qilmaslik tamoyili",
-      "description": "Ahimsa - kuch, nutq yoki ong darajasida zo'ravonlik qilmaslik tamoyilidir. Zarar yetkazmaslik atrofingizdagi hamma narsaga tegishli: odamlar, hayvonlar, tabiat. Bu tamoyilga yoga amaliyotida amal qilish kerak. Ustalardan \"Og'riq orqali asanaga kirma\" degan so'zlarni eshitgan bo'lsangiz kerak.",
+      "description": "Ahimsa kuchni zarar yetkazishga sarflamaslikdir. Zarar ochiq bo'lishi mumkin: harakat orqali. Yoki nozik bo'lishi mumkin: keskin so'z, sovuq sukut, ichki hukm, o'zingizga bosim. Har bir bunday impuls energiyani oladi va keyin tiklanish uchun yana kuch talab qiladi. Ahimsa atrofdagi va ichingizdagi hayotni asrashni o'rgatadi: qat'iy bo'lish, lekin buzmaslik.",
       "practice_tip": "Bugun kuch kurashga oqib ketadigan joylarni kuzating: keskin so'z, ichki hukm, o'zingizga bosim. To'xtang, ohangni yumshating va tanada ko'proq sokin kuch qoldiradigan harakatni tanlang."
     },
     {
@@ -177,7 +177,7 @@
       "name": "Satya",
       "emoji": "💎",
       "short_description": "Fikrlar, so'zlar va harakatlarda rostgo'ylik",
-      "description": "Satya - rostgo'ylik. Bu bir xil tarzda o'ylash, gapirish va harakat qilishni anglatadi. Satya - shunchaki yolg'onning yo'qligi emas, balki barcha ko'rinishlarda haqiqatga faol intilishdir. Satyaga rioya qilish illyuziyalar va haqiqatni idrok qilishdagi buzilishlardan ozod bo'lishga yordam beradi, narsalarni qanday bo'lsa, shunday ko'rishga imkon beradi.",
+      "description": "Satya insonni ichkaridan bir butun qiladigan halollikdir. Bir narsani o'ylab, boshqasini gapirib, uchinchi narsani qilsak, energiya niqoblarga, fosh bo'lish qo'rquviga va doimiy zo'riqishga ketadi. Satya qo'pol bo'lishni talab qilmaydi. U ichingizda tozalik, ravshanlik va tayanch qoladigan tarzda gapirish va harakat qilishni so'raydi.",
       "practice_tip": "Bugun so'zlaringizni ichki haqiqat bilan solishtiring. Qattiq bo'lish shart emas: bezamang, yashirinmang, ortiqcha va'da bermang. Halollik odatda bahonalarga ketadigan energiyani yig'adi."
     },
     {
@@ -193,7 +193,7 @@
       "name": "Brahmacharya",
       "emoji": "🔥",
       "short_description": "O'z-o'zini tartibga solish va istaklarga nazorat",
-      "description": "Brahmacharya - bu bir necha ma'noga ega tushuncha, lekin asosan o'z-o'zini tartibga solish, istaklarga nazorat va ruhiy amaliyotda maqsadli yo'nalishni anglatadi, nafaqat jinsiy tiyish. Kengroq ma'noda, bu Brahman yo'lidan - oliy ongdan borish va barcha harakatlarda unga intilishdir.",
+      "description": "Brahmacharya hayotiy kuchga ehtiyotkor munosabatdir. Gap faqat jinsiylik haqida emas, balki diqqatni sochib yuboradigan hamma narsa haqida: tuganmas impulslar, xayollar, ortiqcha gaplar, reaksiya uchun reaksiya. Bu tamoyil energiyani ravshanlik, ijod, xizmat va barqaror amaliyotga aylanishi mumkin bo'lgan joyga yo'naltirishga yordam beradi.",
       "practice_tip": "Bugun ijodiy kuchingizni asrang. U impulslar, xayollar, ortiqcha reaksiya yoki tarqoq e'tibor orqali qayerga ketayotganini sezing. Bitta oddiy ishni xizmat sifatida, xotirjam va butun holda bajaring."
     },
     {
@@ -216,8 +216,8 @@
       "id": 7,
       "name": "Tapas",
       "emoji": "🔥",
-      "short_description": "Ichki olov va ruhiy zohidlik",
-      "description": "Tapas - ichki olov, o'z-o'zini tartibga solish va ruhiy zohidlikni anglatadi. Bu amaliyot, harakat va qiyinchiliklarni yengish orqali o'zini takomillashtirish intilishidir. Bu ruhiy amaliyotda iroda kuchi va qat'iyatni rivojlantirishga yordam beradigan intizomni anglatadi. Bu shunchaki jismoniy kuch emas, balki harakatga undaydigan va dangasalikni yengishga yordam beradigan ichki holat.",
+      "short_description": "O'zingizga zo'ravonlik qilmasdan ichki olov va intizom",
+      "description": "Tapas halol muntazamlikdan paydo bo'ladigan ichki olovdir. O'zingizni sindirish yoki qattiqqo'llik bilan kuchni isbotlash shart emas. Tanlangan yo'nalishni ushlang: amaliyotni qiling, va'dani bajaring, dangasalik yoki tartibsizlikka qochmang. Tapas “bir kuni” degan energiyani bugungi harakatga aylantiradi.",
       "practice_tip": "Bugun ichki olovni o'zingizga berilgan bitta va'dani bajarish orqali yoqing. Qahramonlik emas, barqarorlik: amaliyot qilish, vaqtida uxlash, boshlangan ishni tugatish yoki dangasalikdan urushsiz o'tish."
     },
     {
@@ -225,7 +225,7 @@
       "name": "Santosha",
       "emoji": "😊",
       "short_description": "Qanoatlanish va qabul qilish",
-      "description": "Santosha - qanoatlanish va qabul qilishni, shuningdek hozirgi lahzada mavjud bo'lgan narsaga minnatdorchilikni ifodalovchi tamoyil. Bu passivlik yoki intilishlardan voz kechishni anglatmaydi, balki ichki tinchlik va mavjud vaziyatni tan olishdir.",
+      "description": "Santosha hozirgi lahza bilan urushishni to'xtata olishdir. Bu passivlik ham, o'sishdan voz kechish ham emas. Inson energiyani doimiy “kam”, “noto'g'ri”, “boshqalarda yaxshiroq” degan ichki shovqinga sarflashni to'xtatadi. Qabul qilishdan keyingi qadam aniqroq ko'rinadi: shoshilishsiz, hasadsiz va ichki ochliksiz.",
       "practice_tip": "Bugun mukammal hayotni emas, bor narsalar bilan kelishish nuqtasini izlang. Bitta darsga, bitta insonga va o'zingizdagi bitta sifatga rahmat ayting. Minnatdorchilik energiyani shikoyatdan qaytaradi."
     },
     {
@@ -241,7 +241,7 @@
       "name": "Ishvara Pranidhana",
       "emoji": "🙏",
       "short_description": "O'zini Oliyga topshirish",
-      "description": "Ishvara Pranidhana - yogada o'zini Oliyga topshirish, o'zini Xudo yoki ruhiy kuchga bag'ishlashni anglatadi. Aniq maqsadlarga erishish istagidan voz kechish yoki amaliyotda boshqalar bilan o'zini solishtirishni tashlab, jarayon va chuqur maqsadga e'tibor qaratish.",
+      "description": "Ishvara Pranidhana o'z ishingizni qilib, natijani asabiy nazorat qilishni bo'shatishdir. Buni Xudoga, Oliyga, Hayotga yoki chuqur tartibga ishonch deb atashingiz mumkin. O'zingizni solishtirishni, tez isbot talab qilishni va ruhiy yo'lni poygaga aylantirishni qo'yganingizda amaliyot tozaroq bo'ladi.",
       "practice_tip": "Bugun amaliyotni baho yoki natija uchun emas, Oliyga bag'ishlash sifatida qiling. Solishtirishni qo'yib yuboring, ishonch bilan bitta qadam tashlang va so'rang: hozir men orqali ko'proq ravshanlik o'ta oladimi?"
     }
   ],
@@ -251,7 +251,7 @@
       "name": "Ахимса",
       "emoji": "🕊️",
       "short_description": "Күш, сөз немесе ақыл деңгейінде зорлық-зомбылық жасамау принципі",
-      "description": "Ахимса - күш, сөз немесе ақыл деңгейінде зорлық-зомбылық жасамау принципі. Зиян келтірмеу сізді қоршаған барлық нәрсеге қатысты: адамдар, жануарлар, табиғат. Йога жаттығуында осы принципті ұстану керек. Мұғалімдерден «Ауырсыну арқылы асанаға кірме» деген сөздерді естіген боларсыз.",
+      "description": "Ахимса — күшті зиян келтіруге жұмсамау. Зиян ашық болуы мүмкін: әрекет арқылы. Немесе нәзік болуы мүмкін: қатты сөз, суық үнсіздік, ішкі айыптау, өзіңізге қысым. Мұндай әр импульс энергияны алады, кейін қалпына келуге тағы күш керек болады. Ахимса сырттағы және ішіңіздегі тіршілікті сақтауға үйретеді: берік әрекет ету, бірақ бұзбай.",
       "practice_tip": "Бүгін күш күреске кететін жерлерді байқаңыз: қатты сөз, ішкі айыптау, өзіңізге қысым. Тоқтаңыз, үнді жұмсартыңыз және денеде көбірек тыныш күш қалдыратын әрекетті таңдаңыз."
     },
     {
@@ -259,7 +259,7 @@
       "name": "Сатья",
       "emoji": "💎",
       "short_description": "Ойлар, сөздер және іс-әрекеттердегі шынайылық",
-      "description": "Сатья - шынайылық. Бұл бірдей тәсілде ойлау, сөйлеу және әрекет ету дегенді білдіреді. Сатья - бұл тек өтіріктің жоқтығы емес, барлық көріністерде шындыққа белсенді ұмтылу. Сатьяны ұстану иллюзиялар мен шындықты қабылдаудағы бұрмалаулардан босатуға көмектеседі, заттарды олар шын мәнінде қандай болса, сондай көруге мүмкіндік береді.",
+      "description": "Сатья — адамды ішінен біртұтас ететін адалдық. Бір нәрсені ойлап, басқа нәрсені айтып, үшінші нәрсені істесек, энергия бетпердеге, әшкереленуден қорқуға және тұрақты кернеуге кетеді. Сатья дөрекі болуды сұрамайды. Ол іште тазалық, айқындық және тірек қалатындай сөйлеуді және әрекет етуді сұрайды.",
       "practice_tip": "Бүгін сөздеріңізді ішкі шындықпен салыстырыңыз. Қатал болу қажет емес: безендірмеңіз, жасырынбаңыз, артық уәде бермеңіз. Адалдық әдетте ақталуға кететін энергияны жинайды."
     },
     {
@@ -275,7 +275,7 @@
       "name": "Брахмачарья",
       "emoji": "🔥",
       "short_description": "Өзін-өзі тәрбиелеу және тілектерге бақылау",
-      "description": "Брахмачарья - бұл бірнеше мағынаға ие ұғым, бірақ негізінен өзін-өзі тәрбиелеу, тілектерге бақылау және рухани практикада мақсатты бағыттылықты білдіреді, тек жыныстық ұстамшылық емес. Кең мағынада, бұл Брахман жолымен - жоғары санамен жүру және барлық іс-әрекеттерде оған ұмтылу.",
+      "description": "Брахмачарья — өмірлік күшке ұқыпты қарау. Бұл тек жыныстық тақырып емес, зейінді шашатын барлық нәрсе туралы: бітпейтін импульстар, қиялдар, артық әңгіме, реакция үшін реакция. Бұл қағида энергияны айқындыққа, шығармашылыққа, қызметке және тұрақты практикаға айналатын жерге бағыттауға көмектеседі.",
       "practice_tip": "Бүгін шығармашылық күшіңізді сақтаңыз. Ол импульс, қиял, артық реакция немесе шашыраңқы назар арқылы қайда кететінін байқаңыз. Бір қарапайым істі қызмет ретінде, тыныш әрі тұтас орындаңыз."
     },
     {
@@ -298,8 +298,8 @@
       "id": 7,
       "name": "Тапас",
       "emoji": "🔥",
-      "short_description": "Ішкі от және рухани аскетизм",
-      "description": "Тапас - ішкі от, өзін-өзі тәрбиелеу және рухани аскетизмді білдіреді. Бұл практика, күш-жігер және қиындықтарды жеңу арқылы өзін-өзі жетілдіруге ұмтылу. Бұл рухани практикада ерік күші мен табандылықты дамытуға көмектесетін тәртіпті білдіреді. Бұл тек физикалық күш емес, іс-әрекетке түрткі болатын және жалқаулықты жеңуге көмектесетін ішкі жағдай.",
+      "short_description": "Өзіңізге зорлық жасамайтын ішкі от пен тәртіп",
+      "description": "Тапас — адал тұрақтылықтан пайда болатын ішкі от. Өзіңізді сындыру немесе қаталдықпен күш дәлелдеу қажет емес. Таңдалған бағытты ұстаңыз: практиканы жасаңыз, уәдені орындаңыз, жалқаулыққа немесе ретсіздікке қашпаңыз. Тапас “бір күні” деген энергияны бүгінгі әрекетке айналдырады.",
       "practice_tip": "Бүгін ішкі отты өзіңізге берген бір уәдені орындау арқылы жағыңыз. Батырлық емес, тұрақтылық: практика жасау, уақытында ұйықтау, бастаған істі аяқтау немесе жалқаулықтан өзіңізбен соғыспай өту."
     },
     {
@@ -307,7 +307,7 @@
       "name": "Сантоша",
       "emoji": "😊",
       "short_description": "Қанағаттану және қабылдау",
-      "description": "Сантоша - қанағаттану мен қабылдауды, сондай-ақ қазіргі сәтте бар болған нәрсеге алғыс айтуды білдіретін принцип. Бұл пассивтілік немесе ұмтылыстардан бас тартуды білдірмейді, керісінше ішкі тыныштық пен қазіргі жағдайды мойындау.",
+      "description": "Сантоша — қазіргі сәтпен соғысуды тоқтата алу. Бұл пассивтілік те, өсуден бас тарту да емес. Адам энергияны үздіксіз “аз”, “дұрыс емес”, “басқаларда жақсырақ” деген ішкі шуға шашуды тоқтатады. Қабылдаудан кейінгі қадам анық көрінеді: асықпай, қызғанышсыз және ішкі аштықсыз.",
       "practice_tip": "Бүгін мінсіз өмірді емес, бар нәрсемен келісетін бір нүктені іздеңіз. Бір сабаққа, бір адамға және өзіңіздегі бір қасиетке алғыс айтыңыз. Алғыс энергияны шағымнан қайтарады."
     },
     {
@@ -323,7 +323,7 @@
       "name": "Ишвара Пранидхана",
       "emoji": "🙏",
       "short_description": "Өзін Жоғарғыға тапсыру",
-      "description": "Ишвара Пранидхана - йогада өзін Жоғарғыға тапсыру, өзін Құдайға немесе рухани күшке арнауды білдіреді. Нақты мақсаттарға жету тілегінен бас тарту немесе практикада басқалармен өзін салыстыруды тастап, процесс пен терең мақсатқа назар аудару.",
+      "description": "Ишвара Пранидхана — өз ісіңізді жасап, нәтижені жүйкелі бақылауды босату. Мұны Құдайға, Жоғарғыға, Өмірге немесе терең тәртіпке сенім деп атауға болады. Өзіңізді салыстыруды, тез дәлел талап етуді және рухани жолды жарысқа айналдыруды қойған кезде практика тазарады.",
       "practice_tip": "Бүгін практиканы баға немесе нәтиже үшін емес, Жоғарыға арнау ретінде жасаңыз. Салыстыруды босатыңыз, сеніммен бір қадам жасаңыз және сұраңыз: қазір мен арқылы көбірек айқындық өте ала ма?"
     }
   ]
