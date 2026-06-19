@@ -296,15 +296,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           'Meridians are a body map of Qi movement. They help you notice where attention '
                           'flows freely and where an area feels silent, tense, or closed.\n'
                           '\n'
-                          "<b>How to start:</b> choose your study path. You can follow the bot's recommended "
-                          'order or freely choose any meridian yourself.\n'
+                          "<b>How to start:</b> the bot can lead you through a recommended order, or you can "
+                          'freely choose any meridian yourself.\n'
                           '\n'
-                          'On this screen you only need three things: choose the study path, understand '
-                          '<b>cun</b> measurements, and then return to the current focus.\n'
-                          '\n'
-                          'Cun is the body-relative measurement system used in Traditional Chinese '
-                          'Medicine. It helps you find points more accurately. This is awareness practice, '
-                          'not medical diagnosis.',
+                          'Set the study path first. If you already started, return to the current focus. '
+                          'Before working with points, open the <b>cun</b> guide: it helps you measure '
+                          'distances on your own body.',
         'choose_meridian': '☯️ <b>Choose a meridian:</b>',
         'current_meridian': '▶️ Continue practice',
         'meridian_start_points': 'Start with point 1',
@@ -606,15 +603,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           'Меридианы — карта движения Ци в теле. Они помогают замечать, где внимание течёт '
                           'свободно, а где зона молчит, напряжена или закрыта.\n'
                           '\n'
-                          '<b>Как начать:</b> выберите путь изучения. Можно идти по рекомендованному '
-                          'маршруту бота или самостоятельно выбрать любой меридиан.\n'
+                          '<b>Как начать:</b> бот может вести вас по рекомендованному маршруту, а можно '
+                          'самостоятельно выбрать любой меридиан.\n'
                           '\n'
-                          'На этом экране нужны только три действия: выбрать путь изучения, разобраться с '
-                          '<b>цунями</b> и затем вернуться к текущему фокусу.\n'
-                          '\n'
-                          'Цуни — это телесная система измерений в традиционной китайской медицине. Она '
-                          'помогает точнее находить точки. Это практика осознанности, не медицинская '
-                          'диагностика.',
+                          'Сначала настройте путь изучения. Если уже начали, возвращайтесь к текущему '
+                          'фокусу. Перед работой с точками откройте справку по <b>цуням</b>: она поможет '
+                          'отмерять расстояния на своём теле.',
         'choose_meridian': '☯️ <b>Выберите меридиан:</b>',
         'current_meridian': '▶️ Продолжить практику',
         'meridian_start_points': 'Начать с первой точки',
@@ -914,15 +908,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           'Meridianlar — tanadagi Qi harakati xaritasi. Ular diqqat erkin oqadigan va jim, '
                           'tarang yoki yopiq joylarni sezishga yordam beradi.\n'
                           '\n'
-                          "<b>Qanday boshlash:</b> o'rganish yo'lini tanlang. Bot tavsiya qilgan tartib "
-                          "bo'yicha borishingiz yoki istalgan meridianni o'zingiz tanlashingiz mumkin.\n"
+                          "<b>Qanday boshlash:</b> bot tavsiya qilgan tartib bo'yicha olib borishi mumkin, "
+                          "yoki istalgan meridianni o'zingiz tanlaysiz.\n"
                           '\n'
-                          "Bu ekranda uch narsa yetarli: o'rganish yo'lini tanlash, <b>cun</b> "
-                          "o'lchovini tushunish va keyin joriy fokusga qaytish.\n"
-                          '\n'
-                          "Cun — an'anaviy Xitoy tibbiyotida ishlatiladigan tanaga nisbiy o'lchov tizimi. "
-                          "U nuqtalarni aniqroq topishga yordam beradi. Bu ongli kuzatish amaliyoti, "
-                          'tibbiy tashxis emas.',
+                          "Avval o'rganish yo'lini sozlang. Agar boshlagan bo'lsangiz, joriy fokusga "
+                          "qayting. Nuqtalar bilan ishlashdan oldin <b>cun</b> bo'yicha qo'llanmani "
+                          "oching: u masofani o'z tanangizda o'lchashga yordam beradi.",
         'choose_meridian': '☯️ <b>Meridianni tanlang:</b>',
         'current_meridian': '▶️ Amaliyotni davom ettirish',
         'meridian_start_points': '1-nuqtadan boshlash',
@@ -1231,15 +1222,12 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           'Меридиандар — Ци қозғалысының дене картасы. Олар зейін еркін ағатын және үнсіз не '
                           'жабық аймақтарды байқауға көмектеседі.\n'
                           '\n'
-                          '<b>Қалай бастау:</b> зерттеу жолын таңдаңыз. Бот ұсынған ретпен жүре аласыз '
-                          'немесе кез келген меридианды өзіңіз таңдай аласыз.\n'
+                          '<b>Қалай бастау:</b> бот ұсынған ретпен жүргізе алады немесе кез келген '
+                          'меридианды өзіңіз таңдай аласыз.\n'
                           '\n'
-                          'Бұл экранда үш әрекет жеткілікті: зерттеу жолын таңдау, <b>цунь</b> өлшемін '
-                          'түсіну және кейін ағымдағы фокусқа оралу.\n'
-                          '\n'
-                          'Цунь — дәстүрлі қытай медицинасында қолданылатын денеге қатысты өлшем жүйесі. '
-                          'Ол нүктелерді дәлірек табуға көмектеседі. Бұл саналы бақылау тәжірибесі, '
-                          'медициналық диагностика емес.',
+                          'Алдымен зерттеу жолын баптаңыз. Егер бастап қойған болсаңыз, ағымдағы фокусқа '
+                          'оралыңыз. Нүктелермен жұмысқа кіріспес бұрын <b>цунь</b> нұсқаулығын ашыңыз: '
+                          'ол қашықтықты өз денеңізде өлшеуге көмектеседі.',
         'choose_meridian': '☯️ <b>Меридианды таңдаңыз:</b>',
         'current_meridian': '▶️ Тәжірибені жалғастыру',
         'meridian_start_points': '1-нүктеден бастау',
@@ -1479,9 +1467,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
             "Meridians are a body map of Qi movement. They help you notice where attention flows freely and where an area feels silent, tense, or closed.\n\n"
-            "<b>How to start:</b> choose your study path. You can follow the bot's recommended order or freely choose any meridian yourself.\n\n"
-            "On this screen you only need three things: choose the study path, understand <b>cun</b> measurements, and then return to the current focus.\n\n"
-            "Cun is the body-relative measurement system used in Traditional Chinese Medicine. It helps you find points more accurately. This is awareness practice, not medical diagnosis."
+            "<b>How to start:</b> the bot can lead you through a recommended order, or you can freely choose any meridian yourself.\n\n"
+            "Set the study path first. If you already started, return to the current focus. Before working with points, open the <b>cun</b> guide: it helps you measure distances on your own body."
         ),
         "choose_meridian": "☯️ <b>Choose a meridian:</b>",
         "current_meridian": "▶️ Continue practice",
@@ -1659,9 +1646,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
             "Меридианы — карта движения Ци в теле. Они помогают замечать, где внимание течёт свободно, а где зона молчит, напряжена или закрыта.\n\n"
-            "<b>Как начать:</b> выберите путь изучения. Можно идти по рекомендованному маршруту бота или самостоятельно выбрать любой меридиан.\n\n"
-            "На этом экране нужны только три действия: выбрать путь изучения, разобраться с <b>цунями</b> и затем вернуться к текущему фокусу.\n\n"
-            "Цуни — это телесная система измерений в традиционной китайской медицине. Она помогает точнее находить точки. Это практика осознанности, не медицинская диагностика."
+            "<b>Как начать:</b> бот может вести вас по рекомендованному маршруту, а можно самостоятельно выбрать любой меридиан.\n\n"
+            "Сначала настройте путь изучения. Если уже начали, возвращайтесь к текущему фокусу. Перед работой с точками откройте справку по <b>цуням</b>: она поможет отмерять расстояния на своём теле."
         ),
         "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
         "current_meridian": "▶️ Продолжить практику",
@@ -1839,9 +1825,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
             "Meridianlar — tanadagi Qi harakati xaritasi. Ular diqqat erkin oqadigan va jim, tarang yoki yopiq joylarni sezishga yordam beradi.\n\n"
-            "<b>Qanday boshlash:</b> o'rganish yo'lini tanlang. Bot tavsiya qilgan tartib bo'yicha borishingiz yoki istalgan meridianni o'zingiz tanlashingiz mumkin.\n\n"
-            "Bu ekranda uch narsa yetarli: o'rganish yo'lini tanlash, <b>cun</b> o'lchovini tushunish va keyin joriy fokusga qaytish.\n\n"
-            "Cun — an'anaviy Xitoy tibbiyotida ishlatiladigan tanaga nisbiy o'lchov tizimi. U nuqtalarni aniqroq topishga yordam beradi. Bu ongli kuzatish amaliyoti, tibbiy tashxis emas."
+            "<b>Qanday boshlash:</b> bot tavsiya qilgan tartib bo'yicha olib borishi mumkin, yoki istalgan meridianni o'zingiz tanlaysiz.\n\n"
+            "Avval o'rganish yo'lini sozlang. Agar boshlagan bo'lsangiz, joriy fokusga qayting. Nuqtalar bilan ishlashdan oldin <b>cun</b> bo'yicha qo'llanmani oching: u masofani o'z tanangizda o'lchashga yordam beradi."
         ),
         "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
         "current_meridian": "▶️ Amaliyotni davom ettirish",
@@ -2033,9 +2018,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Меридиандар</b>\n\n"
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
             "Меридиандар — Ци қозғалысының дене картасы. Олар зейін еркін ағатын және үнсіз не жабық аймақтарды байқауға көмектеседі.\n\n"
-            "<b>Қалай бастау:</b> зерттеу жолын таңдаңыз. Бот ұсынған ретпен жүре аласыз немесе кез келген меридианды өзіңіз таңдай аласыз.\n\n"
-            "Бұл экранда үш әрекет жеткілікті: зерттеу жолын таңдау, <b>цунь</b> өлшемін түсіну және кейін ағымдағы фокусқа оралу.\n\n"
-            "Цунь — дәстүрлі қытай медицинасында қолданылатын денеге қатысты өлшем жүйесі. Ол нүктелерді дәлірек табуға көмектеседі. Бұл саналы бақылау тәжірибесі, медициналық диагностика емес."
+            "<b>Қалай бастау:</b> бот ұсынған ретпен жүргізе алады немесе кез келген меридианды өзіңіз таңдай аласыз.\n\n"
+            "Алдымен зерттеу жолын баптаңыз. Егер бастап қойған болсаңыз, ағымдағы фокусқа оралыңыз. Нүктелермен жұмысқа кіріспес бұрын <b>цунь</b> нұсқаулығын ашыңыз: ол қашықтықты өз денеңізде өлшеуге көмектеседі."
         ),
         "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
         "current_meridian": "▶️ Тәжірибені жалғастыру",
