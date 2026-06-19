@@ -1349,7 +1349,7 @@ TEXTS_UPDATE = {
             "Choose your time zone so the bot can send <b>meridian</b> study reminders at the correct local time for you."
         ),
         "timezone_step_both": (
-            "📍 <b>Step 1/3: Time Zone</b>\n\n"
+            "📍 <b>Step 1/4: Time Zone</b>\n\n"
             "Choose your time zone so the bot can send <b>Yama/Niyama</b> and <b>meridian</b> reminders at the correct local time for you."
         ),
         "time_step_principles": (
@@ -1416,6 +1416,11 @@ TEXTS_UPDATE = {
         "mode_both": "Both directions",
         "mode_saved": "✅ <b>Your path has been updated.</b>",
         "meridian_time_step": "☯️ <b>Meridian Reminder Time</b>\n\nEnter time in HH:MM format, for example 20:00.",
+        "meridian_time_setup_step": (
+            "☯️ <b>Step 3/4: Meridian Reminder Time</b>\n\n"
+            "Now choose when the bot should return you to the current meridian or point. This can be a different time from the Yama/Niyama principle.\n\n"
+            "Format: HH:MM, for example 20:00."
+        ),
         "meridian_time_saved": "✅ Meridian reminder time saved.",
         "meridian_mode_menu": (
             "☯️ <b>Choose your meridian study path</b>\n\n"
@@ -1534,7 +1539,7 @@ TEXTS_UPDATE = {
             "Выберите ваш часовой пояс, чтобы бот присылал материалы и напоминания по <b>меридианам</b> в правильное для вас местное время."
         ),
         "timezone_step_both": (
-            "📍 <b>Шаг 1/3: Часовой пояс</b>\n\n"
+            "📍 <b>Шаг 1/4: Часовой пояс</b>\n\n"
             "Выберите ваш часовой пояс, чтобы бот присылал напоминания по <b>Яме/Нияме</b> и материалы по <b>меридианам</b> в правильное для вас местное время."
         ),
         "time_step_principles": (
@@ -1601,6 +1606,11 @@ TEXTS_UPDATE = {
         "mode_both": "Оба направления",
         "mode_saved": "✅ <b>Ваш путь обновлён.</b>",
         "meridian_time_step": "☯️ <b>Время напоминания по меридианам</b>\n\nВведите время в формате ЧЧ:ММ, например 20:00.",
+        "meridian_time_setup_step": (
+            "☯️ <b>Шаг 3/4: Время меридианов</b>\n\n"
+            "Теперь выберите, когда бот будет возвращать вас к текущему меридиану или точке. Это время может отличаться от времени принципа Ямы/Ниямы.\n\n"
+            "Формат: ЧЧ:ММ, например 20:00."
+        ),
         "meridian_time_saved": "✅ Время напоминаний по меридианам сохранено.",
         "meridian_mode_menu": (
             "☯️ <b>Выберите путь изучения меридианов</b>\n\n"
@@ -1719,7 +1729,7 @@ TEXTS_UPDATE = {
             "Bot <b>meridianlar</b> bo'yicha material va eslatmalarni sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
         ),
         "timezone_step_both": (
-            "📍 <b>1/3-qadam: Vaqt mintaqasi</b>\n\n"
+            "📍 <b>1/4-qadam: Vaqt mintaqasi</b>\n\n"
             "Bot <b>Yama/Niyama</b> va <b>meridianlar</b> bo'yicha eslatmalarni sizning mahalliy vaqtingiz bo'yicha yuborishi uchun vaqt mintaqangizni tanlang."
         ),
         "time_step_principles": (
@@ -1786,6 +1796,11 @@ TEXTS_UPDATE = {
         "mode_both": "Ikkala yo'nalish",
         "mode_saved": "✅ <b>Yo'lingiz yangilandi.</b>",
         "meridian_time_step": "☯️ <b>Meridian eslatma vaqti</b>\n\nVaqtni HH:MM formatida kiriting, masalan 20:00.",
+        "meridian_time_setup_step": (
+            "☯️ <b>3/4-qadam: Meridian eslatma vaqti</b>\n\n"
+            "Endi bot sizni joriy meridian yoki nuqtaga qachon qaytarishini tanlang. Bu vaqt Yama/Niyama tamoyili vaqtidan farq qilishi mumkin.\n\n"
+            "Format: HH:MM, masalan 20:00."
+        ),
         "meridian_time_saved": "✅ Meridian eslatma vaqti saqlandi.",
         "meridian_mode_menu": (
             "☯️ <b>Meridianlarni o'rganish yo'lini tanlang</b>\n\n"
@@ -1918,7 +1933,7 @@ TEXTS_UPDATE = {
             "Бот <b>меридиандар</b> туралы материалдар мен еске салуларды сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
         ),
         "timezone_step_both": (
-            "📍 <b>1/3-қадам: Уақыт белдеуі</b>\n\n"
+            "📍 <b>1/4-қадам: Уақыт белдеуі</b>\n\n"
             "Бот <b>Яма/Нияма</b> және <b>меридиандар</b> бойынша еске салуларды сіздің жергілікті уақытыңызбен жіберуі үшін уақыт белдеуіңізді таңдаңыз."
         ),
         "time_step_principles": (
@@ -1985,6 +2000,11 @@ TEXTS_UPDATE = {
         "mode_both": "Екі бағыт та",
         "mode_saved": "✅ <b>Жолыңыз жаңартылды.</b>",
         "meridian_time_step": "☯️ <b>Меридиан еске салу уақыты</b>\n\nУақытты HH:MM форматында енгізіңіз, мысалы 20:00.",
+        "meridian_time_setup_step": (
+            "☯️ <b>3/4-қадам: Меридиан еске салу уақыты</b>\n\n"
+            "Енді бот сізді ағымдағы меридианға немесе нүктеге қашан қайтаратынын таңдаңыз. Бұл уақыт Яма/Нияма қағидасының уақытынан бөлек болуы мүмкін.\n\n"
+            "Формат: HH:MM, мысалы 20:00."
+        ),
         "meridian_time_saved": "✅ Меридиан еске салу уақыты сақталды.",
         "meridian_mode_menu": (
             "☯️ <b>Меридиандарды зерттеу жолын таңдаңыз</b>\n\n"
@@ -3110,7 +3130,7 @@ class BotHandlers:
         if user_state.get("principles_enabled", True) and user_state.get("meridians_enabled", False):
             self.user_states[chat_id]["step"] = "meridian_time"
             confirmation = self._get_text("time_saved", language)
-            meridian_time_msg = self._get_text("meridian_time_step", language)
+            meridian_time_msg = self._get_text("meridian_time_setup_step", language)
             combined_msg = f"{escape(confirmation)}\n\n{meridian_time_msg}"
 
             if message_id:

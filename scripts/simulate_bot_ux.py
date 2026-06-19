@@ -749,9 +749,16 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             issues.append(f"{language}: principles-only reminder time step uses the both-modes 2/4 counter")
         if "2/4" in language_texts.get("time_step_meridians", ""):
             issues.append(f"{language}: meridians-only reminder time step uses the both-modes 2/4 counter")
+        if "1/4" not in language_texts.get("timezone_step_both", "") or "1/3" in language_texts.get("timezone_step_both", ""):
+            issues.append(f"{language}: both-modes timezone step does not use the 1/4 counter")
         both_time_step = language_texts.get("time_step_both", "")
         if "2/4" not in both_time_step or "2/3" in both_time_step:
             issues.append(f"{language}: both-modes reminder time step does not expose the separate meridian-time step")
+        meridian_setup_step = language_texts.get("meridian_time_setup_step", "")
+        if "3/4" not in meridian_setup_step or "Yama" not in meridian_setup_step and language in {"en", "uz"}:
+            issues.append(f"{language}: meridian setup time step does not explain the separate 3/4 reminder")
+        if language in {"ru", "kz"} and "Ям" not in meridian_setup_step:
+            issues.append(f"{language}: meridian setup time step does not mention the separate Yama/Niyama rhythm")
 
         onboarding = language_texts.get("onboarding_intro", "")
         for marker in ("<b>", "Yama", "Meridian"):
@@ -1576,7 +1583,7 @@ def build_html() -> str:
     }}
 
     function renderMeridianTime() {{
-      show('Meridian time', fmt(t('meridian_time_step')), [
+      show('Meridian time', fmt(t('meridian_time_setup_step')), [
         [{{ label: '20:00', action: () => setScreen('skipDays') }}, {{ label: '21:30', action: () => setScreen('skipDays') }}],
       ]);
     }}
