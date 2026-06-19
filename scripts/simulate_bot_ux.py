@@ -58,6 +58,22 @@ SOURCE_LOCATION_PREFIXES = (
     "Manbadagi joylashuv:",
     "Дереккөздегі орналасуы:",
 )
+SOURCE_NOTE_PHRASES = (
+    "Classical note:",
+    "Klassik izoh:",
+    "Классическая заметка:",
+    "Классическое пояснение:",
+    "Классикалық түсіндірме:",
+)
+HARD_MEDICAL_PHRASES = (
+    "treatment",
+    "disease",
+    "diagnosis",
+    "cure",
+    "лечени",
+    "болезн",
+    "диагноз",
+)
 
 
 def load_texts() -> dict[str, dict[str, str]]:
@@ -100,6 +116,11 @@ def localized(item: dict[str, Any], language: str, key: str, default: str = "") 
 
 def has_cyrillic(value: str) -> bool:
     return bool(re.search(r"[\u0400-\u04FF]", value or ""))
+
+
+def has_source_or_medical_leak(value: str) -> bool:
+    lowered = value.lower()
+    return any(phrase in value for phrase in SOURCE_NOTE_PHRASES) or any(phrase in lowered for phrase in HARD_MEDICAL_PHRASES)
 
 
 def localized_point_name(point: dict[str, Any], language: str) -> str:
@@ -577,9 +598,12 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if not meridian["points"]:
             issues.append(f"{meridian_id}: marked ready but has no point payload")
         for language in LANGUAGES:
-            if "<b>" not in meridian["intro"][language]:
+            intro = meridian["intro"][language]
+            if "<b>" not in intro:
                 issues.append(f"{meridian_id}/{language}: intro has no bold title")
-            if len(fit_html_caption(meridian["intro"][language])) > 1024:
+            if has_source_or_medical_leak(strip_html(intro)):
+                issues.append(f"{meridian_id}/{language}: source note or hard medical claim leaked into visible intro")
+            if len(fit_html_caption(intro)) > 1024:
                 issues.append(f"{meridian_id}/{language}: fitted intro caption exceeds Telegram limit")
         for index, point in enumerate(meridian["points"]):
             if not re.match(r"^[A-Z]+[0-9]+$", point["code"]):
@@ -600,6 +624,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: raw source location prefix leaked")
                 if language in {"en", "uz"} and has_cyrillic(plain):
                     issues.append(f"{meridian_id} point {index + 1}/{language}: Cyrillic leaked into visible point detail")
+                if has_source_or_medical_leak(plain):
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: source note or hard medical claim leaked into visible point detail")
                 if "<b>" not in detail:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: no bold formatting")
                 if len(fit_html_caption(detail)) > 1024:

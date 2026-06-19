@@ -36,6 +36,22 @@ EXPECTED_POINT_COUNTS = {
     "governing_vessel": 28,
     "conception_vessel": 24,
 }
+SOURCE_NOTE_PHRASES = (
+    "Classical note:",
+    "Klassik izoh:",
+    "Классическая заметка:",
+    "Классическое пояснение:",
+    "Классикалық түсіндірме:",
+)
+HARD_MEDICAL_PHRASES = (
+    "treatment",
+    "disease",
+    "diagnosis",
+    "cure",
+    "лечени",
+    "болезн",
+    "диагноз",
+)
 MOJIBAKE_RE = re.compile(
     r"(?:"
     r"Р[ђѓЃєµЅ¶°±Ііґё№»јњќћїЎўЈ¤Ґ¦§Ё©«¬®Ї]"
@@ -96,6 +112,11 @@ def localized(item: dict[str, Any], language: str, key: str, default: str = "") 
 
 def has_cyrillic(value: str) -> bool:
     return any("А" <= char <= "я" or char in "ЁёІіЇїЄєҚқҒғҰұҮүӘәӨөҺһҢң" for char in value)
+
+
+def has_source_or_medical_leak(value: str) -> bool:
+    lowered = value.lower()
+    return any(phrase in value for phrase in SOURCE_NOTE_PHRASES) or any(phrase in lowered for phrase in HARD_MEDICAL_PHRASES)
 
 
 def localized_point_name(point: dict[str, Any], language: str) -> str:
@@ -620,12 +641,19 @@ def audit() -> list[str]:
     for meridian in meridians:
         if not any((image_dir / f"{meridian['id']}{extension}").exists() for extension in (".jpg", ".png", ".gif")):
             issues.append(f"missing meridian overview image: {meridian['id']}")
-        for language in ("en", "uz"):
+        for language in LANGUAGES:
+            intro_plain = re.sub(r"<[^>]+>", " ", format_meridian_intro(meridian, language))
+            if has_source_or_medical_leak(intro_plain):
+                issues.append(f"{meridian['id']}/{language}: source note or hard medical claim leaked into visible intro")
+        for language in LANGUAGES:
             for index, point in enumerate(meridian.get("points", [])):
                 detail = format_meridian_point(meridian, index, language)
                 plain = re.sub(r"<[^>]+>", " ", detail)
-                if has_cyrillic(plain):
+                if language in {"en", "uz"} and has_cyrillic(plain):
                     issues.append(f"{meridian['id']} point {index + 1}/{language}: Cyrillic leaked into visible point detail")
+                if has_source_or_medical_leak(plain):
+                    issues.append(f"{meridian['id']} point {index + 1}/{language}: source note or hard medical claim leaked into visible point detail")
+        for language in ("en", "uz"):
             for row in point_page_keyboard(meridian, language, {"meridian_back": "Back"}):
                 for label in row:
                     if has_cyrillic(label):
