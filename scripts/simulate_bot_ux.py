@@ -544,8 +544,13 @@ def render(output: Path) -> None:
           <option value="onboarding">New user onboarding</option>
           <option value="main">Main menu</option>
           <option value="meridians">Meridians section</option>
+          <option value="measurements">TCM measurements</option>
+          <option value="meridianPath">Meridian study path</option>
           <option value="currentPoint">Current meridian point</option>
           <option value="principles">Yama/Niyama section</option>
+          <option value="modes">My Path</option>
+          <option value="about">About bot</option>
+          <option value="settings">Settings</option>
         </select>
       </div>
       <button id="reset">Open scenario</button>
@@ -739,8 +744,9 @@ def render(output: Path) -> None:
 
     function renderMeridians() {{
       show('Meridians', fmt(t('meridians_menu')), [
-        [{{ label: t('current_meridian'), action: () => state.learningMode ? setScreen('currentMeridian') : setScreen('meridianPath') }}],
-        [{{ label: t('meridian_change_path'), action: () => setScreen('meridianPath') }}, {{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}],
+        [{{ label: t('meridian_guided_path'), action: () => {{ state.learningMode = 'guided'; state.currentMeridianId = firstReadyMeridian().id; setScreen('currentMeridian'); }} }}],
+        [{{ label: t('meridian_free_choice'), action: () => {{ state.learningMode = 'free'; setScreen('chooseMeridian'); }} }}],
+        [{{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
       ]);
     }}
@@ -904,8 +910,18 @@ def render(output: Path) -> None:
         state.learningMode = null;
         state.currentPointIndex = -1;
         state.screen = 'meridians';
+      }} else if (scenario === 'measurements') {{
+        state.screen = 'measurements';
+      }} else if (scenario === 'meridianPath') {{
+        state.screen = 'meridianPath';
       }} else if (scenario === 'principles') {{
         state.screen = 'principles';
+      }} else if (scenario === 'modes') {{
+        state.screen = 'modes';
+      }} else if (scenario === 'about') {{
+        state.screen = 'about';
+      }} else if (scenario === 'settings') {{
+        state.screen = 'settings';
       }} else if (scenario === 'main') {{
         state.screen = 'main';
       }} else {{

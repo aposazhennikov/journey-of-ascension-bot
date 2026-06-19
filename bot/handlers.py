@@ -653,15 +653,16 @@ TEXTS_UPDATE = {
             "Both options keep your progress and daily reminders."
         ),
         "meridian_guided_path": "🧭 Guided path",
-        "meridian_free_choice": "👐 Free study",
+        "meridian_free_choice": "👐 Choose a meridian yourself",
         "meridian_change_path": "🧭 Study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
-        "meridian_measurements": "📏 Measure cun",
+        "meridian_measurements": "📏 How to measure cun",
         "meridian_back": "🔙 Back to meridians",
         "coming_soon": "soon",
         "meridian_measurements_text": (
             "📏 <b>Measurement System in TCM</b>\n\n"
+            "<b>Why this matters:</b> point descriptions often say “1 cun”, “1.5 cun”, “3 cun”, and so on. This guide helps you translate those instructions into your own body.\n\n"
             "Acupuncture point locations are often described in <b>cun</b>. A cun is not a fixed centimeter value: it is a body-relative unit measured on the person being studied.\n\n"
             "<b>0.5 cun:</b> half of your personal 1 cun. Use it for very small distances and refine by touch.\n\n"
             "<b>1 cun:</b> the width of the thumb at the interphalangeal joint.\n\n"
@@ -676,8 +677,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
             "Meridians are a body map of Qi movement. They help you notice where attention flows freely and where an area feels silent, tense, or closed.\n\n"
-            "Choose a guided path or study any meridian yourself. Open a point, look at the image, then listen through touch, breath, and attention.\n\n"
-            "Use the cun guide when measurements appear. This is not medical diagnosis; it is a practice of awareness, prevention, and inner discipline."
+            "<b>How to start:</b> follow the guided path or choose a meridian yourself. At each point, use image, touch, breath, and attention.\n\n"
+            "For distances, open the cun guide. This is awareness practice, not medical diagnosis."
         ),
         "choose_meridian": "☯️ <b>Choose a meridian:</b>",
         "current_meridian": "▶️ Continue practice",
@@ -797,7 +798,7 @@ TEXTS_UPDATE = {
             "В обоих вариантах сохраняется прогресс и работают ежедневные напоминания."
         ),
         "meridian_guided_path": "🧭 Идти по нашему пути",
-        "meridian_free_choice": "👐 Изучать самостоятельно",
+        "meridian_free_choice": "👐 Выбрать меридиан самому",
         "meridian_change_path": "🧭 Как изучать",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
@@ -806,6 +807,7 @@ TEXTS_UPDATE = {
         "coming_soon": "скоро",
         "meridian_measurements_text": (
             "📏 <b>Система измерений в ТКМ</b>\n\n"
+            "<b>Зачем это нужно:</b> в описаниях точек часто встречается «1 цунь», «1,5 цуня», «3 цуня» и так далее. Эта справка помогает перевести такие указания на своё тело.\n\n"
             "Расположение акупунктурных точек часто описывается в <b>цунях</b>. Цунь — это не фиксированное число сантиметров, а относительная мера тела конкретного человека.\n\n"
             "<b>0,5 цуня:</b> половина вашего личного 1 цуня. Используйте для очень малых расстояний и затем уточняйте точку через ощущения.\n\n"
             "<b>1 цунь:</b> ширина большого пальца в области межфалангового сустава.\n\n"
@@ -819,9 +821,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
-            "Меридианы — телесная карта движения Ци. Они помогают замечать, где внимание течёт свободно, а где зона ощущается молчащей, напряжённой или закрытой.\n\n"
-            "Идите по нашему пути или выберите любой меридиан сами. Откройте точку, посмотрите изображение и слушайте тело через касание, дыхание и внимание.\n\n"
-            "Если встречаются цуни, откройте справку по измерениям. Это не медицинская диагностика, а практика осознанности, профилактики и внутренней дисциплины."
+            "Меридианы — карта движения Ци в теле. Они помогают замечать, где внимание течёт свободно, а где зона молчит, напряжена или закрыта.\n\n"
+            "<b>Как начать:</b> идите по нашему пути или выберите меридиан сами. В точке используйте изображение, касание, дыхание и внимание.\n\n"
+            "Цуни смотрите в отдельной справке. Это практика осознанности, не медицинская диагностика."
         ),
         "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
         "current_meridian": "▶️ Продолжить практику",
@@ -941,7 +943,7 @@ TEXTS_UPDATE = {
             "Ikkala variantda ham progress va kundalik eslatmalar saqlanadi."
         ),
         "meridian_guided_path": "🧭 Yo'l bo'yicha",
-        "meridian_free_choice": "👐 Mustaqil o'rganish",
+        "meridian_free_choice": "👐 Meridianni o'zim tanlayman",
         "meridian_change_path": "🧭 Yo'l tanlash",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
@@ -950,6 +952,7 @@ TEXTS_UPDATE = {
         "coming_soon": "tez orada",
         "meridian_measurements_text": (
             "📏 <b>TKMdagi o'lchov tizimi</b>\n\n"
+            "<b>Bu nima uchun kerak:</b> nuqta tavsiflarida ko'pincha “1 cun”, “1,5 cun”, “3 cun” kabi o'lchovlar uchraydi. Bu ma'lumot ularni o'z tanangizda topishga yordam beradi.\n\n"
             "Akupunktura nuqtalari ko'pincha <b>cun</b> orqali tasvirlanadi. Cun aniq santimetr emas: u o'rganilayotgan odam tanasiga nisbatan olinadigan o'lchovdir.\n\n"
             "<b>0,5 cun:</b> shaxsiy 1 cun o'lchovingizning yarmi. Juda kichik masofalar uchun ishlating va keyin nuqtani sezgi orqali aniqlang.\n\n"
             "<b>1 cun:</b> bosh barmoqning bo'g'im sohasidagi kengligi.\n\n"
@@ -963,9 +966,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
-            "Meridianlar Qi harakatining tana xaritasidir. Ular diqqat qayerda erkin oqishini, qayer esa jim, tarang yoki yopiq sezilishini payqashga yordam beradi.\n\n"
-            "Tavsiya etilgan yo'ldan boring yoki istalgan meridianni tanlang. Nuqtani oching, rasmga qarang va tanani teginish, nafas hamda diqqat orqali tinglang.\n\n"
-            "Cun o'lchovlari uchrasa, o'lchovlar bo'yicha ma'lumotni oching. Bu tibbiy tashxis emas, balki ongli kuzatuv va ichki intizom amaliyoti."
+            "Meridianlar — tanadagi Qi harakati xaritasi. Ular diqqat erkin oqadigan va jim, tarang yoki yopiq joylarni sezishga yordam beradi.\n\n"
+            "<b>Qanday boshlash:</b> yo'l bo'yicha boring yoki meridianni o'zingiz tanlang. Nuqtada rasm, teginish, nafas va diqqatdan foydalaning.\n\n"
+            "Masofalar uchun cun qo'llanmasi bor. Bu tibbiy tashxis emas."
         ),
         "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
         "current_meridian": "▶️ Amaliyotni davom ettirish",
@@ -1099,7 +1102,7 @@ TEXTS_UPDATE = {
             "Екі нұсқада да прогресс сақталады және күнделікті еске салулар жұмыс істейді."
         ),
         "meridian_guided_path": "🧭 Біздің жолмен",
-        "meridian_free_choice": "👐 Өз бетімше",
+        "meridian_free_choice": "👐 Меридианды өзім таңдаймын",
         "meridian_change_path": "🧭 Жол таңдау",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
@@ -1108,6 +1111,7 @@ TEXTS_UPDATE = {
         "coming_soon": "жақында",
         "meridian_measurements_text": (
             "📏 <b>ҚКМ-дегі өлшем жүйесі</b>\n\n"
+            "<b>Бұл не үшін керек:</b> нүкте сипаттамаларында “1 цунь”, “1,5 цунь”, “3 цунь” сияқты өлшемдер жиі кездеседі. Бұл анықтама оларды өз денеңізден табуға көмектеседі.\n\n"
             "Акупунктура нүктелерінің орналасуы жиі <b>цунь</b> арқылы сипатталады. Цунь — нақты сантиметр емес, зерттеліп отырған адамның денесіне қатысты өлшем.\n\n"
             "<b>0,5 цунь:</b> жеке 1 цунь өлшеміңіздің жартысы. Өте кіші қашықтықтарға қолданыңыз, кейін нүктені сезім арқылы нақтылаңыз.\n\n"
             "<b>1 цунь:</b> бас бармақтың буын тұсындағы ені.\n\n"
@@ -1121,9 +1125,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридиандар</b>\n\n"
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
-            "Меридиандар — Ци қозғалысының денедегі картасы. Олар зейін қай жерде еркін ағатынын, ал қай аймақ үнсіз, кернеулі немесе жабық сезілетінін байқауға көмектеседі.\n\n"
-            "Ұсынылған жолмен жүріңіз немесе кез келген меридианды таңдаңыз. Нүктені ашып, суретке қараңыз да, денені жанасу, тыныс және зейін арқылы тыңдаңыз.\n\n"
-            "Цунь өлшемдері кездессе, өлшем анықтамасын ашыңыз. Бұл медициналық диагностика емес, саналылық пен ішкі тәртіп тәжірибесі."
+            "Меридиандар — Ци қозғалысының дене картасы. Олар зейін еркін ағатын және үнсіз не жабық аймақтарды байқауға көмектеседі.\n\n"
+            "<b>Қалай бастау:</b> біздің жолмен жүріңіз немесе меридианды өзіңіз таңдаңыз. Нүктеде сурет, жанасу, тыныс, зейін қолданыңыз.\n\n"
+            "Цунь анықтамасы бар. Бұл медициналық диагностика емес."
         ),
         "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
         "current_meridian": "▶️ Тәжірибені жалғастыру",
@@ -2634,11 +2638,9 @@ class BotHandlers:
     def _create_meridians_menu_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create compact meridians section keyboard."""
         return InlineKeyboardMarkup([
-            [InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")],
-            [
-                InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path"),
-                InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")
-            ],
+            [InlineKeyboardButton(self._get_text("meridian_guided_path", language), callback_data="meridian_path:guided")],
+            [InlineKeyboardButton(self._get_text("meridian_free_choice", language), callback_data="meridian_choose")],
+            [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
