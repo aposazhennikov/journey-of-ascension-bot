@@ -95,7 +95,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'sending_test': '🧪 Sending a reminder check...',
         'menu_about': 'ℹ️ About the bot',
         'menu_feedback': '💌 Feedback and ideas',
-        'menu_stop': '⏹ Stop bot',
+        'menu_stop': '⏸ Pause practice',
         'settings_menu': '⚙️ <b>Practice rhythm</b>\n'
                          '\n'
                          'Here you can tune the rhythm of practice: what the bot reminds you about, when '
@@ -402,7 +402,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'sending_test': '🧪 Проверяю отправку напоминания...',
         'menu_about': 'ℹ️ О боте',
         'menu_feedback': '💌 Отзывы и идеи',
-        'menu_stop': '⏹ Остановить бота',
+        'menu_stop': '⏸ Пауза практики',
         'settings_menu': '⚙️ <b>Ритм практики</b>\n'
                          '\n'
                          'Здесь можно настроить ритм практики: что бот напоминает, когда приходят сообщения '
@@ -716,7 +716,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'sending_test': '🧪 Eslatma tekshiruvi yuborilmoqda...',
         'menu_about': 'ℹ️ Bot haqida',
         'menu_feedback': '💌 Fikr va takliflar',
-        'menu_stop': "⏹ Botni to'xtatish",
+        'menu_stop': "⏸ Amaliyotni pauza qilish",
         'settings_menu': '⚙️ <b>Amaliyot ritmi</b>\n'
                          '\n'
                          'Bu yerda amaliyot ritmini sozlaysiz: bot nimani eslatadi, xabarlar qachon keladi '
@@ -1028,7 +1028,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'sending_test': '🧪 Еске салу тексеруі жіберіліп жатыр...',
         'menu_about': 'ℹ️ Бот туралы',
         'menu_feedback': '💌 Пікірлер мен ұсыныстар',
-        'menu_stop': '⏹ Ботты тоқтату',
+        'menu_stop': '⏸ Тәжірибені паузаға қою',
         'settings_menu': '⚙️ <b>Тәжірибе ырғағы</b>\n'
                          '\n'
                          'Мұнда тәжірибе ырғағын реттейсіз: бот нені еске салады, хабарлар қашан келеді және '
@@ -1386,7 +1386,7 @@ TEXTS_UPDATE = {
         "menu_principles": "🧘🏻✨ Yama/Niyama",
         "menu_meridians": "☯️ Meridians",
         "menu_modes": "🧭 My Path",
-        "menu_stop": "⏹ Stop bot",
+        "menu_stop": "⏸ Pause practice",
         "settings_menu": (
             "⚙️ <b>Practice rhythm</b>\n\n"
             "This is where you keep the practice comfortable: choose the active path, set separate reminder times, and leave quiet days when you need more space.\n\n"
@@ -1587,7 +1587,7 @@ TEXTS_UPDATE = {
         "menu_principles": "🧘🏻✨ Яма/Нияма",
         "menu_meridians": "☯️ Меридианы",
         "menu_modes": "🧭 Мой путь",
-        "menu_stop": "⏹ Остановить бота",
+        "menu_stop": "⏸ Пауза практики",
         "settings_menu": (
             "⚙️ <b>Ритм практики</b>\n\n"
             "Здесь вы держите практику удобной: выбираете активный путь, настраиваете отдельные времена напоминаний и оставляете дни тишины, когда нужно больше пространства.\n\n"
@@ -1788,7 +1788,7 @@ TEXTS_UPDATE = {
         "menu_principles": "🧘🏻✨ Yama/Niyama",
         "menu_meridians": "☯️ Meridianlar",
         "menu_modes": "🧭 Mening yo'lim",
-        "menu_stop": "⏹ Botni to'xtatish",
+        "menu_stop": "⏸ Amaliyotni pauza qilish",
         "settings_menu": (
             "⚙️ <b>Amaliyot ritmi</b>\n\n"
             "Bu yerda amaliyotni qulay ushlab turasiz: faol yo'lni tanlaysiz, eslatmalar vaqtini alohida sozlaysiz va kerak bo'lsa sokin kunlarni qoldirasiz.\n\n"
@@ -2003,7 +2003,7 @@ TEXTS_UPDATE = {
         "menu_principles": "🧘🏻✨ Яма/Нияма",
         "menu_meridians": "☯️ Меридиандар",
         "menu_modes": "🧭 Менің жолым",
-        "menu_stop": "⏹ Ботты тоқтату",
+        "menu_stop": "⏸ Тәжірибені паузаға қою",
         "settings_menu": (
             "⚙️ <b>Тәжірибе ырғағы</b>\n\n"
             "Мұнда тәжірибені өзіңізге ыңғайлы ұстайсыз: белсенді жолды таңдайсыз, еске салу уақыттарын бөлек қоясыз және қажет болса тыныш күндер қалдырасыз.\n\n"

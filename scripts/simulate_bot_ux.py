@@ -1613,6 +1613,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if phrase in handlers_source:
             issues.append(f"visible user error still sounds mechanical: {phrase!r}")
     dry_subscription_state_phrases = (
+        "Stop bot",
+        "Остановить бота",
+        "Botni to'xtatish",
+        "Ботты тоқтату",
         "The bot has been stopped. Reminders will no longer be sent.",
         "The bot is not active for this chat yet.",
         "You're not subscribed yet.",
