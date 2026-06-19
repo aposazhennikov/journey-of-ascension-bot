@@ -815,6 +815,16 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             for key in ("name", "description", "direction", "intro_practice"):
                 if not raw_i18n.get(key):
                     issues.append(f"{meridian_id}/{language}: missing meridian i18n field {key}")
+            stale_description_patterns = {
+                "en": ("is used here",),
+                "ru": ("здесь используется",),
+                "uz": ("bu yerda", "xaritasi sifatida ishlatiladi"),
+                "kz": ("бұл жерде", "картасы ретінде қолданылады"),
+            }[language]
+            description = raw_i18n.get("description", "")
+            for pattern in stale_description_patterns:
+                if pattern in description:
+                    issues.append(f"{meridian_id}/{language}: meridian intro still uses stale template phrase {pattern!r}")
         for language in LANGUAGES:
             intro = meridian["intro"][language]
             if "<b>" not in intro:
