@@ -3,7 +3,7 @@
 import json
 import random
 import os
-from html import escape
+from html import escape, unescape
 from datetime import datetime, timezone, timedelta
 from typing import List, Dict, Any, Optional
 from pathlib import Path
@@ -245,6 +245,63 @@ def format_principle_message(principle: Dict[str, Any], language: str = "en", ma
     if len(text) <= max_length:
         return text
     return build("", "")
+
+
+def fit_html_caption(text: str, max_length: int = 1024) -> str:
+    """Fit simple Telegram HTML text into a media caption without cutting tags."""
+    if len(text) <= max_length:
+        return text
+
+    def plain_text(source: str) -> str:
+        return unescape(
+            source.replace("<br>", "\n")
+            .replace("<b>", "")
+            .replace("</b>", "")
+            .replace("<i>", "")
+            .replace("</i>", "")
+        )
+
+    def fit_plain(source: str, budget: int) -> str:
+        if budget <= 3:
+            return "..."[:max(0, budget)]
+        plain = plain_text(source)
+        low, high = 0, len(plain)
+        best = ""
+        while low <= high:
+            middle = (low + high) // 2
+            candidate = escape(plain[:middle].rstrip()) + "..."
+            if len(candidate) <= budget:
+                best = candidate
+                low = middle + 1
+            else:
+                high = middle - 1
+        return best or "..."
+
+    def plain_fallback(source: str) -> str:
+        return fit_plain(source, max_length)
+
+    normalized = text.replace("<br><br>", "\n\n")
+    parts = normalized.split("\n\n")
+    kept = []
+    for part in parts:
+        candidate = "\n\n".join([*kept, part]) if kept else part
+        if len(candidate) <= max_length - 3:
+            kept.append(part)
+        else:
+            if kept:
+                prefix = "\n\n".join(kept)
+                separator = "\n\n"
+                budget = max_length - len(prefix) - len(separator)
+                if budget > 3:
+                    return prefix + separator + fit_plain(part, budget)
+            break
+
+    if kept:
+        fitted = "\n\n".join(kept) + "..."
+        if len(fitted) <= max_length:
+            return fitted
+
+    return plain_fallback(text)
 
 
 def _localized_value(item: Dict[str, Any], language: str, key: str, default: str = "") -> str:

@@ -11,7 +11,7 @@ import argparse
 import ast
 import json
 import re
-from html import escape
+from html import escape, unescape
 from pathlib import Path
 from typing import Any
 
@@ -346,6 +346,53 @@ def strip_html(value: str) -> str:
     )
 
 
+def fit_html_caption(text: str, max_length: int = 1024) -> str:
+    if len(text) <= max_length:
+        return text
+
+    def fit_plain(source: str, budget: int) -> str:
+        if budget <= 3:
+            return "..."[:max(0, budget)]
+        plain = unescape(strip_html(source))
+        low, high = 0, len(plain)
+        best = ""
+        while low <= high:
+            middle = (low + high) // 2
+            candidate = escape(plain[:middle].rstrip()) + "..."
+            if len(candidate) <= budget:
+                best = candidate
+                low = middle + 1
+            else:
+                high = middle - 1
+        return best or "..."
+
+    def plain_fallback(source: str) -> str:
+        return fit_plain(source, max_length)
+
+    normalized = text.replace("<br><br>", "\n\n")
+    parts = normalized.split("\n\n")
+    kept = []
+    for part in parts:
+        candidate = "\n\n".join([*kept, part]) if kept else part
+        if len(candidate) <= max_length - 3:
+            kept.append(part)
+        else:
+            if kept:
+                prefix = "\n\n".join(kept)
+                separator = "\n\n"
+                budget = max_length - len(prefix) - len(separator)
+                if budget > 3:
+                    return prefix + separator + fit_plain(part, budget)
+            break
+
+    if kept:
+        fitted = "\n\n".join(kept) + "..."
+        if len(fitted) <= max_length:
+            return fitted
+
+    return plain_fallback(text)
+
+
 def audit_payload(payload: dict[str, Any]) -> list[str]:
     """Check core UX-flow invariants modeled by the simulator."""
     issues: list[str] = []
@@ -463,6 +510,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         for language in LANGUAGES:
             if "<b>" not in meridian["intro"][language]:
                 issues.append(f"{meridian_id}/{language}: intro has no bold title")
+            if len(fit_html_caption(meridian["intro"][language])) > 1024:
+                issues.append(f"{meridian_id}/{language}: fitted intro caption exceeds Telegram limit")
         for index, point in enumerate(meridian["points"]):
             if not re.match(r"^[A-Z]+[0-9]+$", point["code"]):
                 issues.append(f"{meridian_id} point {index + 1}: non-normalized point code {point['code']!r}")
@@ -482,6 +531,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: raw source location prefix leaked")
                 if "<b>" not in detail:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: no bold formatting")
+                if len(fit_html_caption(detail)) > 1024:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: fitted point caption exceeds Telegram limit")
                 if language == "ru" and index == 0 and "закрыт" not in plain:
                     issues.append(f"{meridian_id} point 1/ru: missing closed-point guidance")
                 if language == "ru" and index > 0 and "уже пройденных точек" not in plain:

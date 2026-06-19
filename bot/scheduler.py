@@ -17,6 +17,7 @@ from .utils import (
     format_principle_message,
     format_meridian_intro,
     format_meridian_point,
+    fit_html_caption,
     get_next_send_time,
     get_principle_image_path,
     get_meridian_image_path,
@@ -230,20 +231,21 @@ class YogaScheduler:
             try:
                 sent_message = None
                 if image_path:
+                    caption = fit_html_caption(message)
                     try:
                         with open(image_path, 'rb') as media_file:
                             if image_path.lower().endswith(".gif"):
                                 sent_message = await self.bot.send_animation(
                                     chat_id=chat_id,
                                     animation=media_file,
-                                    caption=message,
+                                    caption=caption,
                                     parse_mode='HTML'
                                 )
                             else:
                                 sent_message = await self.bot.send_photo(
                                     chat_id=chat_id,
                                     photo=media_file,
-                                    caption=message,
+                                    caption=caption,
                                     parse_mode='HTML'
                                 )
                     except Exception as img_error:

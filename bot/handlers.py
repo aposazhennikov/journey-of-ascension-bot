@@ -23,6 +23,7 @@ from .utils import (
     format_principle_message,
     format_meridian_intro,
     format_meridian_point,
+    fit_html_caption,
     get_principle_image_path,
     get_meridian_image_path
 )
@@ -4060,23 +4061,7 @@ class BotHandlers:
 
     def _fit_html_caption(self, text: str, max_length: int = 1024) -> str:
         """Fit simple HTML text into Telegram caption limit without cutting tags."""
-        if len(text) <= max_length:
-            return text
-
-        parts = text.split("\n\n")
-        kept = []
-        for part in parts:
-            candidate = "\n\n".join([*kept, part]) if kept else part
-            if len(candidate) <= max_length - 3:
-                kept.append(part)
-            else:
-                break
-
-        if kept:
-            return "\n\n".join(kept) + "..."
-
-        plain = text.replace("<b>", "").replace("</b>", "").replace("<i>", "").replace("</i>", "")
-        return escape(plain[:max_length - 3].rstrip()) + "..."
+        return fit_html_caption(text, max_length)
 
     async def _show_meridian_card(
         self,
