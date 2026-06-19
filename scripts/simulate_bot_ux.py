@@ -1429,6 +1429,12 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("scheduler converts user send times through the machine local timezone")
     if "astimezone(timezone.utc).replace(tzinfo=None)" not in scheduler_source:
         issues.append("scheduler does not explicitly convert scheduled jobs to UTC")
+    for stale_test_title in ("Test message", "Тестовое сообщение", "Test xabari", "Тест хабары"):
+        if stale_test_title in scheduler_source:
+            issues.append(f"reminder check still uses test-message wording: {stale_test_title!r}")
+    for reminder_check_title in ("Reminder check", "Проверка напоминания", "Eslatmani tekshirish", "Еске салуды тексеру"):
+        if reminder_check_title not in scheduler_source:
+            issues.append(f"reminder check title is missing: {reminder_check_title!r}")
     if "user.current_point_index < -1 or user.current_point_index >= len(points)" not in scheduler_source:
         issues.append("scheduler does not normalize stale meridian point indexes")
     if "not user.principles_enabled" not in scheduler_source:

@@ -396,12 +396,12 @@ class YogaScheduler:
             if not principle:
                 return False
             
-            # Test message in user's language
+            # Reminder check in user's language.
             test_prefixes = {
-                "en": "🧪 <b>Test message</b>\n\n",
-                "ru": "🧪 <b>Тестовое сообщение</b>\n\n",
-                "uz": "🧪 <b>Test xabari</b>\n\n",
-                "kz": "🧪 <b>Тест хабары</b>\n\n"
+                "en": "🧪 <b>Reminder check</b>\n\n",
+                "ru": "🧪 <b>Проверка напоминания</b>\n\n",
+                "uz": "🧪 <b>Eslatmani tekshirish</b>\n\n",
+                "kz": "🧪 <b>Еске салуды тексеру</b>\n\n"
             }
             test_prefix = test_prefixes.get(language, test_prefixes["en"])
 
