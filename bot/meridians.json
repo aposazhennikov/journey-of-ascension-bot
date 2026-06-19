@@ -10314,6 +10314,7 @@
       "passive_time": "-",
       "source_url": "https://shiyanbin.ru/zadnesredinnyj-meridian-vg/",
       "points_source_url": "https://www.eledia.ru/publ/29",
+      "image": "governing_vessel.png",
       "i18n": {
         "en": {
           "name": "Governing Vessel",
@@ -11245,6 +11246,7 @@
       "passive_time": "-",
       "source_url": "https://shiyanbin.ru/perednesredinnyj-meridian-vs/",
       "points_source_url": "https://www.eledia.ru/publ/30",
+      "image": "conception_vessel.png",
       "i18n": {
         "en": {
           "name": "Conception Vessel",

@@ -856,6 +856,22 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     if first_ready != "conception_vessel":
         issues.append(f"recommended path should start with conception_vessel, got {first_ready}")
 
+    image_dir = ROOT / "images" / "meridians"
+    for meridian_id in ("conception_vessel", "governing_vessel"):
+        raw_meridian = raw_meridians_by_id.get(meridian_id, {})
+        overview_image = raw_meridian.get("image")
+        if not overview_image:
+            issues.append(f"{meridian_id}: ready meridian has no overview image")
+        elif not (image_dir / overview_image).exists():
+            issues.append(f"{meridian_id}: overview image is missing on disk: {overview_image}")
+
+    for raw_meridian in raw_meridians_by_id.values():
+        meridian_id = raw_meridian.get("id", "")
+        for point in raw_meridian.get("points", []):
+            point_image = point.get("image")
+            if point_image and not (image_dir / point_image).exists():
+                issues.append(f"{meridian_id}/{point.get('code')}: point image is missing on disk: {point_image}")
+
     central_vessel_markers = {
         "conception_vessel": {
             "en": ("Yin system", "does not have a fixed hourly activity period", "sea of all Yin meridians"),
