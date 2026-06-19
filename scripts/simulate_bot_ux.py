@@ -578,6 +578,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     for language in LANGUAGES:
         long_buttons = []
         button_sources = [
+            texts[language].get("current_meridian", ""),
             texts[language].get("mode_principles_only", ""),
             texts[language].get("mode_meridians_only", ""),
             texts[language].get("mode_both", ""),
@@ -591,6 +592,17 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 long_buttons.append(label)
         if long_buttons:
             issues.append(f"{language}: long button labels: {long_buttons[:5]}")
+
+        meridian_home_buttons = [
+            texts[language].get("current_meridian", ""),
+            texts[language].get("meridian_change_path", ""),
+            texts[language].get("meridian_measurements", ""),
+            texts[language].get("back_to_menu", ""),
+        ]
+        if any(texts[language].get(key, "") in meridian_home_buttons for key in ("prev_point", "next_point", "all_points", "complete_meridian")):
+            issues.append(f"{language}: meridians home contains point-navigation controls")
+        if not texts[language].get("meridian_measurements") or not texts[language].get("meridian_change_path"):
+            issues.append(f"{language}: meridians home is missing path or cun guide entry")
 
     return issues
 
@@ -885,11 +897,15 @@ def render(output: Path) -> None:
     }}
 
     function renderMeridians() {{
-      show('Meridians', fmt(t('meridians_menu')), [
-        [{{ label: t('meridian_guided_path'), action: () => {{ state.learningMode = 'guided'; state.currentMeridianId = firstReadyMeridian().id; setScreen('currentMeridian'); }} }}],
-        [{{ label: t('meridian_free_choice'), action: () => {{ state.learningMode = 'free'; setScreen('chooseMeridian'); }} }}],
+      const buttons = [];
+      if (state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);
+      buttons.push(
+        [{{ label: t('meridian_change_path'), action: () => setScreen('meridianPath') }}],
         [{{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
+      );
+      show('Meridians', fmt(t('meridians_menu')), [
+        ...buttons
       ]);
     }}
 

@@ -672,12 +672,12 @@ TEXTS_UPDATE = {
             "<b>Free study</b> means you choose any meridian yourself and explore it in your own order.\n\n"
             "Both options keep your progress and daily reminders."
         ),
-        "meridian_guided_path": "🧭 Guided path",
-        "meridian_free_choice": "👐 Choose a meridian yourself",
-        "meridian_change_path": "🧭 Study path",
+        "meridian_guided_path": "🧭 Follow the bot path",
+        "meridian_free_choice": "👐 Choose a meridian myself",
+        "meridian_change_path": "🧭 Choose study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
-        "meridian_measurements": "📏 How to measure cun",
+        "meridian_measurements": "📏 Cun and TCM measurements",
         "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
         "coming_soon": "soon",
@@ -706,8 +706,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
             "Meridians are a body map of Qi movement. They help you notice where attention flows freely and where an area feels silent, tense, or closed.\n\n"
-            "<b>How to start:</b> follow the guided path or choose a meridian yourself. At each point, use image, touch, breath, and attention.\n\n"
-            "For distances, open the cun guide. This is awareness practice, not medical diagnosis."
+            "<b>How to start:</b> choose a study path. You can follow the bot's recommended order or freely choose any meridian yourself.\n\n"
+            "If point descriptions mention 1, 1.5, 3, or 5 cun, open the measurement guide. This is awareness practice, not medical diagnosis."
         ),
         "choose_meridian": "☯️ <b>Choose a meridian:</b>",
         "current_meridian": "▶️ Continue practice",
@@ -846,12 +846,12 @@ TEXTS_UPDATE = {
             "<b>Изучать самостоятельно</b> — вы сами выбираете любой меридиан и двигаетесь в своём порядке.\n\n"
             "В обоих вариантах сохраняется прогресс и работают ежедневные напоминания."
         ),
-        "meridian_guided_path": "🧭 Идти по нашему пути",
-        "meridian_free_choice": "👐 Выбрать меридиан самому",
-        "meridian_change_path": "🧭 Как изучать",
+        "meridian_guided_path": "🧭 Идти по пути бота",
+        "meridian_free_choice": "👐 Выбирать меридианы самому",
+        "meridian_change_path": "🧭 Выбрать путь изучения",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
-        "meridian_measurements": "📏 Как мерить цуни",
+        "meridian_measurements": "📏 Цуни и измерения в ТКМ",
         "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
         "coming_soon": "скоро",
@@ -880,8 +880,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
             "Меридианы — карта движения Ци в теле. Они помогают замечать, где внимание течёт свободно, а где зона молчит, напряжена или закрыта.\n\n"
-            "<b>Как начать:</b> идите по нашему пути или выберите меридиан сами. В точке используйте изображение, касание, дыхание и внимание.\n\n"
-            "Цуни смотрите в отдельной справке. Это практика осознанности, не медицинская диагностика."
+            "<b>Как начать:</b> выберите путь изучения. Можно идти по рекомендованному маршруту бота или самостоятельно выбрать любой меридиан.\n\n"
+            "Если в описании точки встречается 1, 1,5, 3 или 5 цуней, откройте справку по измерениям. Это практика осознанности, не медицинская диагностика."
         ),
         "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
         "current_meridian": "▶️ Продолжить практику",
@@ -1020,12 +1020,12 @@ TEXTS_UPDATE = {
             "<b>Mustaqil o'rganish</b> — istalgan meridianni o'zingiz tanlab, o'z tartibingizda o'rganasiz.\n\n"
             "Ikkala variantda ham progress va kundalik eslatmalar saqlanadi."
         ),
-        "meridian_guided_path": "🧭 Yo'l bo'yicha",
-        "meridian_free_choice": "👐 Meridianni o'zim tanlayman",
-        "meridian_change_path": "🧭 Yo'l tanlash",
+        "meridian_guided_path": "🧭 Bot yo'li bo'yicha",
+        "meridian_free_choice": "👐 Meridianlarni o'zim tanlayman",
+        "meridian_change_path": "🧭 O'rganish yo'lini tanlash",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
-        "meridian_measurements": "📏 Cunni o'lchash",
+        "meridian_measurements": "📏 Cun va TKM o'lchovlari",
         "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "coming_soon": "tez orada",
@@ -1054,8 +1054,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
             "Meridianlar — tanadagi Qi harakati xaritasi. Ular diqqat erkin oqadigan va jim, tarang yoki yopiq joylarni sezishga yordam beradi.\n\n"
-            "<b>Qanday boshlash:</b> yo'l bo'yicha boring yoki meridianni o'zingiz tanlang. Nuqtada rasm, teginish, nafas va diqqatdan foydalaning.\n\n"
-            "Masofalar uchun cun qo'llanmasi bor. Bu tibbiy tashxis emas."
+            "<b>Qanday boshlash:</b> o'rganish yo'lini tanlang. Bot tavsiya qilgan tartib bo'yicha borishingiz yoki istalgan meridianni o'zingiz tanlashingiz mumkin.\n\n"
+            "Agar nuqta tavsifida 1, 1,5, 3 yoki 5 cun uchrasa, o'lchovlar bo'yicha qo'llanmani oching. Bu ongli kuzatish amaliyoti, tibbiy tashxis emas."
         ),
         "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
         "current_meridian": "▶️ Amaliyotni davom ettirish",
@@ -1208,12 +1208,12 @@ TEXTS_UPDATE = {
             "<b>Өз бетіңізше</b> — кез келген меридианды өзіңіз таңдап, өз ретіңізбен зерттейсіз.\n\n"
             "Екі нұсқада да прогресс сақталады және күнделікті еске салулар жұмыс істейді."
         ),
-        "meridian_guided_path": "🧭 Біздің жолмен",
-        "meridian_free_choice": "👐 Меридианды өзім таңдаймын",
-        "meridian_change_path": "🧭 Жол таңдау",
+        "meridian_guided_path": "🧭 Бот жолымен жүру",
+        "meridian_free_choice": "👐 Меридиандарды өзім таңдаймын",
+        "meridian_change_path": "🧭 Зерттеу жолын таңдау",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
-        "meridian_measurements": "📏 Цунь өлшеу",
+        "meridian_measurements": "📏 Цунь және ТКМ өлшемдері",
         "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "coming_soon": "жақында",
@@ -1242,8 +1242,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Меридиандар</b>\n\n"
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
             "Меридиандар — Ци қозғалысының дене картасы. Олар зейін еркін ағатын және үнсіз не жабық аймақтарды байқауға көмектеседі.\n\n"
-            "<b>Қалай бастау:</b> біздің жолмен жүріңіз немесе меридианды өзіңіз таңдаңыз. Нүктеде сурет, жанасу, тыныс, зейін қолданыңыз.\n\n"
-            "Цунь анықтамасы бар. Бұл медициналық диагностика емес."
+            "<b>Қалай бастау:</b> зерттеу жолын таңдаңыз. Бот ұсынған ретпен жүре аласыз немесе кез келген меридианды өзіңіз таңдай аласыз.\n\n"
+            "Егер нүкте сипаттамасында 1, 1,5, 3 немесе 5 цунь кездессе, өлшемдер анықтамасын ашыңыз. Бұл саналы бақылау тәжірибесі, медициналық диагностика емес."
         ),
         "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
         "current_meridian": "▶️ Тәжірибені жалғастыру",
@@ -2951,14 +2951,17 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("mode_both", language), callback_data="intro_mode_both")],
         ])
 
-    def _create_meridians_menu_keyboard(self, language: str) -> InlineKeyboardMarkup:
+    def _create_meridians_menu_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
         """Create compact meridians section keyboard."""
-        return InlineKeyboardMarkup([
-            [InlineKeyboardButton(self._get_text("meridian_guided_path", language), callback_data="meridian_path:guided")],
-            [InlineKeyboardButton(self._get_text("meridian_free_choice", language), callback_data="meridian_choose")],
+        keyboard = []
+        if user and user.current_meridian_id:
+            keyboard.append([InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")])
+        keyboard.extend([
+            [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
             [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
+        return InlineKeyboardMarkup(keyboard)
 
     def _create_meridian_practice_keyboard(
         self,
@@ -3133,7 +3136,7 @@ class BotHandlers:
 
             elif action == "meridians":
                 text = self._get_text("meridians_menu", language)
-                keyboard = self._create_meridians_menu_keyboard(language)
+                keyboard = self._create_meridians_menu_keyboard(language, user)
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                 
             elif action == "test":
@@ -3455,7 +3458,7 @@ class BotHandlers:
 
             if action == "main":
                 text = self._get_text("meridians_menu", language)
-                keyboard = self._create_meridians_menu_keyboard(language)
+                keyboard = self._create_meridians_menu_keyboard(language, user)
                 await self._edit_message_text_safe(query,
                     text,
                     reply_markup=keyboard,
@@ -3566,7 +3569,7 @@ class BotHandlers:
             if action == "all":
                 if not points:
                     text = self._get_text("no_points", language)
-                    keyboard = self._create_meridians_menu_keyboard(language)
+                    keyboard = self._create_meridians_menu_keyboard(language, user)
                 else:
                     total_pages = max(1, (len(points) + MERIDIAN_POINTS_PAGE_SIZE - 1) // MERIDIAN_POINTS_PAGE_SIZE)
                     text = self._format_meridian_points_page_text(language, 0, total_pages)
@@ -3576,7 +3579,7 @@ class BotHandlers:
 
             if action.startswith("points_page:"):
                 if not points:
-                    await self._edit_message_text_safe(query, self._get_text("no_points", language), reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='HTML')
+                    await self._edit_message_text_safe(query, self._get_text("no_points", language), reply_markup=self._create_meridians_menu_keyboard(language, user), parse_mode='HTML')
                     return
                 page = int(action.split(":", 1)[1])
                 total_pages = max(1, (len(points) + MERIDIAN_POINTS_PAGE_SIZE - 1) // MERIDIAN_POINTS_PAGE_SIZE)
@@ -3607,7 +3610,7 @@ class BotHandlers:
 
             if action in ["next", "prev"]:
                 if not points:
-                    await self._edit_message_text_safe(query, self._get_text("no_points", language), reply_markup=self._create_meridians_menu_keyboard(language), parse_mode='HTML')
+                    await self._edit_message_text_safe(query, self._get_text("no_points", language), reply_markup=self._create_meridians_menu_keyboard(language, user), parse_mode='HTML')
                     return
                 if action == "next":
                     user.current_point_index = min(user.current_point_index + 1, len(points) - 1)
