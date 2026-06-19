@@ -2814,6 +2814,7 @@ class BotHandlers:
                 # Remove user from scheduler
                 await self.scheduler.remove_user_jobs(chat_id)
             else:
+                self.user_states.pop(chat_id, None)
                 text = self._get_text("not_subscribed", language)
 
             # Send final message directly through bot API
@@ -3085,6 +3086,12 @@ class BotHandlers:
             user_state = self.user_states[chat_id]
             step = user_state["step"]
             language = user_state["language"]
+
+            user = await self.storage.get_user(chat_id)
+            if user and not user.is_active and step != "stop_feedback":
+                self.user_states.pop(chat_id, None)
+                await update.message.reply_text(self._get_text("not_subscribed_test", language), parse_mode='HTML')
+                return
 
             if step == "timezone" or step == "timezone_manual":
                 await self._handle_timezone_input(update, message_text, language)
@@ -4050,6 +4057,7 @@ class BotHandlers:
                         parse_mode='HTML'
                     )
                 else:
+                    self.user_states.pop(chat_id, None)
                     await self._edit_message_text_safe(query, self._get_text("not_subscribed", language))
 
             elif action == "main":

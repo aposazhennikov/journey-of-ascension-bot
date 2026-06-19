@@ -1504,6 +1504,13 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             if "not user or not user.is_active" not in callback_source:
                 issues.append(f"stale {label} callbacks can still act after the bot is stopped")
 
+    message_handler_start = handlers_source.find("async def _handle_message")
+    timezone_handler_start = handlers_source.find("async def _handle_timezone_input")
+    if message_handler_start != -1 and timezone_handler_start != -1:
+        message_handler_source = handlers_source[message_handler_start:timezone_handler_start]
+        if "not user.is_active" not in message_handler_source or 'step != "stop_feedback"' not in message_handler_source:
+            issues.append("stale text states can still continue settings after the bot is stopped")
+
     feedback_handler_start = handlers_source.find("async def _handle_feedback_input")
     stop_feedback_handler_start = handlers_source.find("async def _handle_stop_feedback_input")
     principle_detail_start = handlers_source.find("async def _show_principle_detail")
