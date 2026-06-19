@@ -38,6 +38,23 @@ class YogaScheduler:
         self.meridians_manager = meridians_manager
         self.scheduler = AsyncIOScheduler(timezone='UTC')
         self.jobs_created = 0
+
+    def _is_guided_meridian_route_completed(self, user: User) -> bool:
+        """Return True when the guided meridian route is finished and waiting for an explicit restart."""
+        if (
+            not self.meridians_manager
+            or user.meridian_learning_mode != "guided"
+            or user.current_meridian_id
+        ):
+            return False
+
+        meridians = self.meridians_manager.get_recommended_path_meridians()
+        meridian_ids = [item.get("id") for item in meridians if item.get("id")]
+        if not meridian_ids:
+            return False
+
+        completed_ids = set(user.completed_meridians or [])
+        return all(meridian_id in completed_ids for meridian_id in meridian_ids)
         
     async def start(self) -> None:
         """Start the scheduler."""
@@ -125,6 +142,9 @@ class YogaScheduler:
 
             if not user.meridians_enabled or not user.meridian_learning_mode:
                 return
+            if self._is_guided_meridian_route_completed(user):
+                logger.info(f"Guided meridian route is completed for user {user.chat_id}; reminder is not scheduled.")
+                return
 
             next_send_time = get_next_send_time(
                 user.timezone,
@@ -196,6 +216,9 @@ class YogaScheduler:
                 return
             if not self.meridians_manager:
                 logger.warning("Meridians manager is not configured.")
+                return
+            if self._is_guided_meridian_route_completed(user):
+                logger.info(f"Guided meridian route is completed for user {chat_id}; reminder is skipped.")
                 return
 
             meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id) if user.current_meridian_id else None
