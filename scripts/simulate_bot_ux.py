@@ -302,20 +302,20 @@ def format_meridian_intro(meridian: dict[str, Any], language: str) -> str:
 def practice_note(point_index: int, language: str) -> str:
     notes = {
         "en": (
-            "Begin with the first point: find it through body sensation, breath, and attention. If it feels weak, treat it as not yet open: stay longer, massage it gently, and breathe through it with attention.",
-            "Recall the points you have already studied. Keep them in the background, add the current point, and connect them as one line of attention. If it is hard to feel, massage it gently and stay until the sensation becomes steadier.",
+            "Begin with the first point: find it through body sensation, breath, and attention. If it feels weak, treat it as not yet open for practice, not as a health conclusion: stay longer, gently massage it, and breathe through it with attention.",
+            "Recall the points you have already studied. Keep them in the background, add the current point, and connect them as one line of attention. If it is hard to feel, treat it as not yet open for practice: gently massage it, breathe through it, and stay until the sensation steadies.",
         ),
         "ru": (
-            "Начните с первой точки: найдите её через ощущение тела, дыхание и внимание. Если ощущение слабое, считайте точку пока закрытой: побудьте дольше, мягко помассируйте её и дышите через неё вниманием.",
-            "Вспомните ощущение уже пройденных точек. Удерживая их фоном, добавьте текущую и соедините всё в одну линию внимания. Если точка не ощущается, мягко помассируйте её и оставайтесь дольше, пока ощущение не станет устойчивее.",
+            "Начните с первой точки: найдите её через ощущение тела, дыхание и внимание. Если ощущение слабое, считайте точку пока закрытой для практики, а не выводом о здоровье: побудьте дольше, мягко помассируйте её и дышите через неё вниманием.",
+            "Вспомните ощущение уже пройденных точек. Удерживая их фоном, добавьте текущую и соедините всё в одну линию внимания. Если точка не ощущается, считайте её пока закрытой для практики: мягко помассируйте, подышите через неё вниманием и оставайтесь, пока ощущение не станет устойчивее.",
         ),
         "uz": (
-            "Birinchi nuqtadan boshlang: uni tana sezgisi, nafas va diqqat orqali toping. Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: uzoqroq turing, yengil massaj qiling va diqqat bilan shu nuqta orqali nafas oling.",
-            "Oldin o'rganilgan nuqtalarni eslang. Ularni fon sifatida ushlab, hozirgi nuqtani qo'shing va bitta diqqat chizig'iga ulang. Agar nuqta sezilmasa, yengil massaj qiling va sezgi barqarorroq bo'lguncha turing.",
+            "Birinchi nuqtadan boshlang: uni tana sezgisi, nafas va diqqat orqali toping. Agar sezgi kuchsiz bo'lsa, nuqtani amaliyot uchun hali ochilmagan deb qabul qiling, sog'liq xulosasi sifatida emas: uzoqroq turing, yengil massaj qiling va diqqat bilan nafas oling.",
+            "Oldin o'rganilgan nuqtalarni eslang. Ularni fon sifatida ushlab, hozirgi nuqtani qo'shing va bitta diqqat chizig'iga ulang. Agar nuqta sezilmasa, uni amaliyot uchun hali ochilmagan deb qabul qiling: yengil massaj qiling, diqqat bilan nafas oling va sezgi barqarorlashguncha turing.",
         ),
         "kz": (
-            "Бірінші нүктеден бастаңыз: оны дене сезімі, тыныс және зейін арқылы табыңыз. Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: ұзағырақ болыңыз, жеңіл уқалаңыз және зейінмен сол нүкте арқылы тыныстаңыз.",
-            "Бұрын өткен нүктелерді еске түсіріңіз. Оларды фон ретінде ұстап, қазіргі нүктені қосыңыз да, бәрін бір зейін сызығына біріктіріңіз. Егер нүкте сезілмесе, жеңіл уқалап, сезім тұрақтырақ болғанша ұзағырақ болыңыз.",
+            "Бірінші нүктеден бастаңыз: оны дене сезімі, тыныс және зейін арқылы табыңыз. Егер сезім әлсіз болса, нүктені тәжірибе үшін әзірге ашылмаған деп қабылдаңыз, денсаулық қорытындысы ретінде емес: ұзағырақ болыңыз, жеңіл уқалаңыз және зейінмен тыныстаңыз.",
+            "Бұрын өткен нүктелерді еске түсіріңіз. Оларды фон ретінде ұстап, қазіргі нүктені қосыңыз да, бәрін бір зейін сызығына біріктіріңіз. Егер нүкте сезілмесе, оны тәжірибе үшін әзірге ашылмаған деп қабылдаңыз: жеңіл уқалап, зейінмен тыныстап, сезім тұрақтанғанша болыңыз.",
         ),
     }
     return notes[language][0 if point_index == 0 else 1]
@@ -1184,14 +1184,24 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: no bold formatting")
                 if OBSERVATION_LABELS[language] not in plain:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: missing observation prompt")
-                if len(detail.replace("<br><br>", "\n\n")) > 1024:
-                    issues.append(f"{meridian_id} point {index + 1}/{language}: raw point caption exceeds Telegram limit")
                 if len(fit_html_caption(detail)) > 1024:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: fitted point caption exceeds Telegram limit")
                 if language == "ru" and index == 0 and "закрыт" not in plain:
                     issues.append(f"{meridian_id} point 1/ru: missing closed-point guidance")
                 if language == "ru" and index > 0 and "уже пройденных точек" not in plain:
                     issues.append(f"{meridian_id} point {index + 1}/ru: missing cumulative-point guidance")
+                practice_safety_markers = {
+                    "en": ("not yet open for practice", "not as a health conclusion"),
+                    "ru": ("закрыт", "для практики", "не выводом о здоровье"),
+                    "uz": ("amaliyot uchun", "sog'liq xulosasi"),
+                    "kz": ("тәжірибе үшін", "денсаулық қорытындысы"),
+                }[language]
+                if index == 0:
+                    for marker in practice_safety_markers:
+                        if marker not in readable_plain:
+                            issues.append(f"{meridian_id} point 1/{language}: first-point practice is missing safety marker {marker!r}")
+                elif index == 1 and practice_safety_markers[0] not in readable_plain:
+                    issues.append(f"{meridian_id} point 2/{language}: follow-up point practice is missing practical closed-point marker")
                 final_point_markers = {
                     "en": "whole channel",
                     "ru": "весь канал",

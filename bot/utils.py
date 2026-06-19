@@ -656,27 +656,27 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     practice_notes = {
         "en": (
             "Begin with the first point: find it through body sensation, breath, and attention. "
-            "If it feels weak, treat it as not yet open: stay longer, massage it gently, and breathe through it with attention.",
+            "If it feels weak, treat it as not yet open for practice, not as a health conclusion: stay longer, gently massage it, and breathe through it with attention.",
             "Recall the points you have already studied. Keep them in the background, add the current point, and connect them as one line of attention. "
-            "If it is hard to feel, massage it gently and stay until the sensation becomes steadier."
+            "If it is hard to feel, treat it as not yet open for practice: gently massage it, breathe through it, and stay until the sensation steadies."
         ),
         "ru": (
             "Начните с первой точки: найдите её через ощущение тела, дыхание и внимание. "
-            "Если ощущение слабое, считайте точку пока закрытой: побудьте дольше, мягко помассируйте её и дышите через неё вниманием.",
+            "Если ощущение слабое, считайте точку пока закрытой для практики, а не выводом о здоровье: побудьте дольше, мягко помассируйте её и дышите через неё вниманием.",
             "Вспомните ощущение уже пройденных точек. Удерживая их фоном, добавьте текущую и соедините всё в одну линию внимания. "
-            "Если точка не ощущается, мягко помассируйте её и оставайтесь дольше, пока ощущение не станет устойчивее."
+            "Если точка не ощущается, считайте её пока закрытой для практики: мягко помассируйте, подышите через неё вниманием и оставайтесь, пока ощущение не станет устойчивее."
         ),
         "uz": (
             "Birinchi nuqtadan boshlang: uni tana sezgisi, nafas va diqqat orqali toping. "
-            "Agar sezgi kuchsiz bo'lsa, nuqtani hali ochilmagan deb qabul qiling: uzoqroq turing, yengil massaj qiling va diqqat bilan shu nuqta orqali nafas oling.",
+            "Agar sezgi kuchsiz bo'lsa, nuqtani amaliyot uchun hali ochilmagan deb qabul qiling, sog'liq xulosasi sifatida emas: uzoqroq turing, yengil massaj qiling va diqqat bilan nafas oling.",
             "Oldin o'rganilgan nuqtalarni eslang. Ularni fon sifatida ushlab, hozirgi nuqtani qo'shing va bitta diqqat chizig'iga ulang. "
-            "Agar nuqta sezilmasa, yengil massaj qiling va sezgi barqarorroq bo'lguncha turing."
+            "Agar nuqta sezilmasa, uni amaliyot uchun hali ochilmagan deb qabul qiling: yengil massaj qiling, diqqat bilan nafas oling va sezgi barqarorlashguncha turing."
         ),
         "kz": (
             "Бірінші нүктеден бастаңыз: оны дене сезімі, тыныс және зейін арқылы табыңыз. "
-            "Егер сезім әлсіз болса, нүктені әзірге ашылмаған деп қабылдаңыз: ұзағырақ болыңыз, жеңіл уқалаңыз және зейінмен сол нүкте арқылы тыныстаңыз.",
+            "Егер сезім әлсіз болса, нүктені тәжірибе үшін әзірге ашылмаған деп қабылдаңыз, денсаулық қорытындысы ретінде емес: ұзағырақ болыңыз, жеңіл уқалаңыз және зейінмен тыныстаңыз.",
             "Бұрын өткен нүктелерді еске түсіріңіз. Оларды фон ретінде ұстап, қазіргі нүктені қосыңыз да, бәрін бір зейін сызығына біріктіріңіз. "
-            "Егер нүкте сезілмесе, жеңіл уқалап, сезім тұрақтырақ болғанша ұзағырақ болыңыз."
+            "Егер нүкте сезілмесе, оны тәжірибе үшін әзірге ашылмаған деп қабылдаңыз: жеңіл уқалап, зейінмен тыныстап, сезім тұрақтанғанша болыңыз."
         ),
     }
     first_note, next_note = practice_notes.get(language, practice_notes["en"])

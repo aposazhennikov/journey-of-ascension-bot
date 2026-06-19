@@ -1434,7 +1434,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Bot route selected.</b>\n\nWe will move gently: one meridian, one point, one stable sensation at a time.",
         "meridian_free_saved": "✅ <b>Free choice selected.</b>\n\nChoose the meridian you want to explore now.",
         "meridian_measurements": "📏 Measure cun",
-        "meridian_measurements_image_caption": "📏 <b>Cun at a glance</b>\nA quick visual guide before you read the full explanation.",
+        "meridian_measurements_image_caption": "📏 <b>Cun at a glance</b>\nLook at this first: it shows how to estimate 1, 1.5, 2, 3, and 5 cun on the hand.",
         "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
         "back_to_current_focus": "🔙 Back to current focus",
@@ -1454,11 +1454,11 @@ TEXTS_UPDATE = {
         ),
         "meridian_point_help_text": (
             "🖐 <b>How to find a point</b>\n\n"
-            "Start with the picture and cun measurements to find the general area. Then slow down and let the body clarify the exact point.\n\n"
-            "<b>1.</b> Touch the area softly and look for a small hollow, sensitivity, warmth, pressure, or a place where attention catches more easily.\n\n"
-            "<b>2.</b> If the point feels silent, treat it as not yet open: stay longer, gently massage it, and breathe through it with attention.\n\n"
+            "Use the picture and cun measurements to get into the right area. The exact point is found more slowly: by touch, breath, and attention.\n\n"
+            "<b>1.</b> Touch the area gently. Look for a small hollow, sensitivity, warmth, pressure, or a place where attention holds more easily.\n\n"
+            "<b>2.</b> If the point is hard to feel, treat it as not yet open for practice. Stay longer, gently massage it, and imagine breathing in and out through this place.\n\n"
             "<b>3.</b> Do not force a result. A quiet, steady sensation is enough.\n\n"
-            "When moving onward, keep the previous points in awareness and add the new one to the same line."
+            "When you move to the next point, keep the previous ones in the background and add the new point to the same line of attention."
         ),
         "meridians_menu": (
             "☯️ <b>Meridians</b>\n\n"
@@ -1627,7 +1627,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Выбран маршрут бота.</b>\n\nБудем двигаться мягко: один меридиан, одна точка, одно устойчивое ощущение за раз.",
         "meridian_free_saved": "✅ <b>Выбран свободный выбор.</b>\n\nВыберите меридиан, который хотите исследовать сейчас.",
         "meridian_measurements": "📏 Как измерять цуни",
-        "meridian_measurements_image_caption": "📏 <b>Цуни наглядно</b>\nКороткая схема перед подробным объяснением.",
+        "meridian_measurements_image_caption": "📏 <b>Цуни наглядно</b>\nСначала посмотрите на эту схему: она показывает, как примерно отмерять 1, 1,5, 2, 3 и 5 цуней по руке.",
         "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
         "back_to_current_focus": "🔙 К текущему фокусу",
@@ -1647,9 +1647,9 @@ TEXTS_UPDATE = {
         ),
         "meridian_point_help_text": (
             "🖐 <b>Как искать точку</b>\n\n"
-            "Сначала найдите примерную область по изображению и цуням. Потом замедлитесь и уточняйте точку уже через ощущения тела.\n\n"
-            "<b>1.</b> Мягко касайтесь зоны и ищите небольшое углубление, чувствительность, тепло, давление или место, за которое внимание цепляется легче.\n\n"
-            "<b>2.</b> Если точка молчит, считайте её пока закрытой: побудьте с ней дольше, мягко помассируйте и представляйте вдох и выдох через неё.\n\n"
+            "По изображению и цуням найдите нужную область. Саму точку ищите медленнее: пальцами, дыханием и вниманием.\n\n"
+            "<b>1.</b> Мягко касайтесь зоны. Ищите небольшое углубление, чувствительность, тепло, давление или место, где внимание удерживается легче.\n\n"
+            "<b>2.</b> Если точка почти не ощущается, считайте её пока закрытой для практики. Побудьте с ней дольше, мягко помассируйте и представляйте вдох и выдох через это место.\n\n"
             "<b>3.</b> Не выжимайте результат. Достаточно тихого устойчивого ощущения.\n\n"
             "Когда переходите к следующей точке, не бросайте предыдущие: удерживайте их фоном и добавляйте новую в ту же линию внимания."
         ),
@@ -1820,7 +1820,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Bot yo'nalishi tanlandi.</b>\n\nYumshoq harakat qilamiz: bir meridian, bir nuqta, bir barqaror sezgi.",
         "meridian_free_saved": "✅ <b>Erkin tanlov tanlandi.</b>\n\nHozir o'rganmoqchi bo'lgan meridianni tanlang.",
         "meridian_measurements": "📏 Cunni o'lchash",
-        "meridian_measurements_image_caption": "📏 <b>Cun ko'rinishda</b>\nBatafsil tushuntirishdan oldin qisqa sxema.",
+        "meridian_measurements_image_caption": "📏 <b>Cun ko'rinishda</b>\nAvval shu sxemaga qarang: u qo'lda 1, 1,5, 2, 3 va 5 cunni taxminan qanday o'lchashni ko'rsatadi.",
         "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "back_to_current_focus": "🔙 Joriy fokusga qaytish",
@@ -1840,9 +1840,9 @@ TEXTS_UPDATE = {
         ),
         "meridian_point_help_text": (
             "🖐 <b>Nuqtani qanday topish kerak</b>\n\n"
-            "Avval rasm va cun o'lchovlari orqali taxminiy joyni toping. Keyin sekinlashing va aniq nuqtani tana sezgilari orqali toping.\n\n"
-            "<b>1.</b> Joyga yumshoq teging va kichik chuqurcha, sezgirlik, issiqlik, bosim yoki diqqat osonroq ushlanadigan nuqtani qidiring.\n\n"
-            "<b>2.</b> Agar nuqta jim bo'lsa, uni hali ochilmagan deb qabul qiling: uzoqroq turing, yengil massaj qiling va shu nuqta orqali nafas olayotganingizni tasavvur qiling.\n\n"
+            "Rasm va cun o'lchovlari orqali kerakli joyga yaqinlashing. Aniq nuqtani esa sekinroq toping: barmoq, nafas va diqqat bilan.\n\n"
+            "<b>1.</b> Joyga yumshoq teging. Kichik chuqurcha, sezgirlik, issiqlik, bosim yoki diqqat osonroq ushlanadigan nuqtani qidiring.\n\n"
+            "<b>2.</b> Agar nuqta deyarli sezilmasa, uni amaliyot uchun hali ochilmagan deb qabul qiling. Uzoqroq turing, yengil massaj qiling va shu joy orqali nafas olayotganingizni tasavvur qiling.\n\n"
             "<b>3.</b> Natijani majburlamang. Sokin va barqaror sezgi yetarli.\n\n"
             "Keyingi nuqtaga o'tganda oldingilarni fon sifatida sezib, yangi nuqtani shu diqqat chizig'iga qo'shing."
         ),
@@ -2027,7 +2027,7 @@ TEXTS_UPDATE = {
         "meridian_guided_saved": "✅ <b>Бот бағыты таңдалды.</b>\n\nБаяу қозғаламыз: бір меридиан, бір нүкте, бір тұрақты сезім.",
         "meridian_free_saved": "✅ <b>Еркін таңдау таңдалды.</b>\n\nҚазір зерттегіңіз келетін меридианды таңдаңыз.",
         "meridian_measurements": "📏 Цуньді өлшеу",
-        "meridian_measurements_image_caption": "📏 <b>Цунь көрнекі түрде</b>\nТолық түсіндірмеден бұрын қысқа сызба.",
+        "meridian_measurements_image_caption": "📏 <b>Цунь көрнекі түрде</b>\nАлдымен осы сызбаға қараңыз: ол қол арқылы 1, 1,5, 2, 3 және 5 цуньді шамамен қалай өлшеуді көрсетеді.",
         "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "back_to_current_focus": "🔙 Ағымдағы фокусқа қайту",
@@ -2047,9 +2047,9 @@ TEXTS_UPDATE = {
         ),
         "meridian_point_help_text": (
             "🖐 <b>Нүктені қалай табу керек</b>\n\n"
-            "Алдымен сурет пен цунь өлшемдері арқылы шамамен орынды табыңыз. Содан кейін баяулап, нақты нүктені дене сезімі арқылы анықтаңыз.\n\n"
-            "<b>1.</b> Аймаққа жұмсақ тиіп, кішкентай ойыс, сезімталдық, жылу, қысым немесе зейін оңай ілінетін орынды іздеңіз.\n\n"
-            "<b>2.</b> Егер нүкте үнсіз болса, оны әзірге ашылмаған деп қабылдаңыз: ұзағырақ болыңыз, жеңіл уқалаңыз және сол нүкте арқылы тыныс алуды елестетіңіз.\n\n"
+            "Сурет пен цунь өлшемдері арқылы керек аймаққа жақындаңыз. Нақты нүктені баяуырақ табыңыз: саусақпен, тыныспен және зейінмен.\n\n"
+            "<b>1.</b> Аймаққа жұмсақ тиіңіз. Кішкентай ойыс, сезімталдық, жылу, қысым немесе зейін оңай ілінетін орынды іздеңіз.\n\n"
+            "<b>2.</b> Егер нүкте әрең сезілсе, оны тәжірибе үшін әзірге ашылмаған деп қабылдаңыз. Ұзағырақ болыңыз, жеңіл уқалаңыз және сол жер арқылы тыныс алуды елестетіңіз.\n\n"
             "<b>3.</b> Нәтижені күштемеңіз. Тыныш әрі тұрақты сезім жеткілікті.\n\n"
             "Келесі нүктеге өткенде алдыңғыларды фонда сезіп, жаңа нүктені сол зейін сызығына қосыңыз."
         ),
