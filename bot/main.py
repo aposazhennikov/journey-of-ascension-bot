@@ -201,7 +201,7 @@ class YogaBot:
             
             if self.settings.notify_admins_on_startup:
                 startup_msg = (
-                    f"🚀 **Yoga Bot Started**\n\n"
+                    f"🚀 **Journey of Ascension started**\n\n"
                     f"🕐 Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC\n"
                     f"📊 Languages: {list(self.principles_manager._principles.keys())}\n"
                     f"🌐 HTTP server: http://localhost:{self.settings.http_port}"
@@ -213,7 +213,7 @@ class YogaBot:
                     except Exception as e:
                         self.logger.warning(f"Failed to send startup message to admin {admin_id}: {e}")
             
-            self.logger.info("Yoga bot started successfully!")
+            self.logger.info("Journey of Ascension started successfully!")
             
         except Exception as e:
             self.logger.error(f"Failed to start bot: {e}")
@@ -362,7 +362,7 @@ async def main() -> None:
         # Setup Sentry.
         setup_sentry(settings.sentry_dsn)
         
-        logger.info("Starting Yoga Bot application...")
+        logger.info("Starting Journey of Ascension application...")
         
         # Create bot instance.
         bot = YogaBot(settings)

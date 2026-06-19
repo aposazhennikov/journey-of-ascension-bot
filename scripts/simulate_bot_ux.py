@@ -475,6 +475,34 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if ahimsa_markers[language] not in onboarding:
             issues.append(f"{language}: onboarding does not give Ahimsa as an energy example")
 
+        stale_patterns = (
+            "Yoga Principles Bot",
+            "Yoga Bot",
+            "daily yoga principles",
+            "Two languages",
+            "Два языка",
+            "Бот для тренировки Ямы/Ниямы",
+            "Yoga tamoyillari boti",
+            "Йога принциптері боты",
+        )
+        visible_keys = (
+            "welcome",
+            "onboarding_intro",
+            "menu",
+            "about_text",
+            "principles_menu",
+            "mode_menu",
+            "meridians_menu",
+            "setup_complete",
+            "already_subscribed",
+            "feature_announcement",
+        )
+        for key in visible_keys:
+            value = language_texts.get(key, "")
+            for pattern in stale_patterns:
+                if pattern in value:
+                    issues.append(f"{language}: {key} contains stale branding {pattern!r}")
+
         for key in ("mode_menu", "about_text", "meridians_menu", "meridian_measurements_text", "meridian_point_help_text"):
             value = language_texts.get(key, "")
             if "<b>" not in value:
