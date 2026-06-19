@@ -815,6 +815,12 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("meridian completion can appear or fire before the last point")
     if "state.currentPointIndex >= item.pointsCount - 1" not in simulator_source:
         issues.append("simulator shows meridian completion before the last point")
+    if "meridian_measurements_text" in handlers_source and "callback_data=\"meridian_point_help\"" not in handlers_source:
+        issues.append("meridian measurements screen does not lead to point-search help")
+    if "_create_meridian_help_keyboard(language, user)" not in handlers_source:
+        issues.append("meridian point-help screen does not use the safe reference keyboard")
+    if "if (state.currentMeridianId) buttons.push" not in simulator_source:
+        issues.append("simulator point-help screen always shows current focus even when none is selected")
     callback_values = sorted(set(re.findall(r"callback_data=(?:f)?[\"']([^\"']+)", handlers_source)))
     callback_patterns = [
         re.compile(ast.literal_eval(match))
@@ -1502,8 +1508,13 @@ def build_html() -> str:
         chooseMeridian: renderChooseMeridian,
         allPoints: renderAllPoints,
         skipDays: renderSkipDays,
-        measurements: () => show('Measurements', fmt(t('meridian_measurements_text')), [[{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]]),
-        pointHelp: () => show('Point help', fmt(t('meridian_point_help_text')), [[{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}], [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]]),
+        measurements: () => show('Measurements', fmt(t('meridian_measurements_text')), [[{{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}], [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]]),
+        pointHelp: () => {{
+          const buttons = [];
+          if (state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);
+          buttons.push([{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]);
+          show('Point help', fmt(t('meridian_point_help_text')), buttons);
+        }},
         principles: renderPrinciples,
         principleDetail: () => renderPrincipleDetail(0),
         allPrinciples: renderAllPrinciples,

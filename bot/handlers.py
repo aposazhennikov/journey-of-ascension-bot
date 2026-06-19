@@ -3710,6 +3710,14 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
         ])
 
+    def _create_meridian_help_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
+        """Create keyboard for meridian reference screens without surprising auto-starts."""
+        keyboard = []
+        if user and user.current_meridian_id:
+            keyboard.append([InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")])
+        keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
+        return InlineKeyboardMarkup(keyboard)
+
     def _create_meridian_choice_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create meridian selection keyboard."""
         meridians = self.meridians_manager.get_all_meridians()
@@ -4102,6 +4110,7 @@ class BotHandlers:
                     query,
                     self._get_text("meridian_measurements_text", language),
                     reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")],
                         [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
                     ]),
                     parse_mode='HTML'
@@ -4112,10 +4121,7 @@ class BotHandlers:
                 await self._edit_message_text_safe(
                     query,
                     self._get_text("meridian_point_help_text", language),
-                    reply_markup=InlineKeyboardMarkup([
-                        [InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")],
-                        [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
-                    ]),
+                    reply_markup=self._create_meridian_help_keyboard(language, user),
                     parse_mode='HTML'
                 )
                 return
