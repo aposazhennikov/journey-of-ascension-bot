@@ -4219,25 +4219,25 @@
       "i18n": {
         "en": {
           "name": "Bladder Meridian",
-          "description": "The Bladder Meridian is used here as a map for observing the whole back line: eyes, head, spine, sacrum, back of the legs, and the body's relationship with effort, fear, rest, and release.",
+          "description": "The Bladder Meridian helps observe the whole back line: eyes, head, spine, sacrum, back of the legs, and the body's relationship with effort, fear, rest, and release. <b>The Bladder Meridian is paired and belongs to the Yang system</b>; its energy moves from the inner corner of the eye over the head and down the back toward the little toe. In the classical sequence it receives energy from the Small Intestine Meridian and passes it to the Kidney Meridian. In practice, we do not make medical conclusions: we notice where the back line guards, tightens, cools, or begins to open.",
           "direction": "From the inner corner of the eye over the head, down the back and posterior legs toward the little toe.",
           "intro_practice": "Let the back of the body soften from the eyes and head down through the spine, sacrum, calves, and feet. Notice where the line feels guarded, tired, cold, tense, or suddenly spacious."
         },
         "ru": {
           "name": "Меридиан мочевого пузыря",
-          "description": "Меридиан мочевого пузыря здесь используется как карта наблюдения всей задней линии тела: глаза, голова, позвоночник, крестец, задняя поверхность ног и то, как тело связано с усилием, страхом, отдыхом и отпусканием. В этой практике мы не делаем медицинских выводов: мы учимся замечать, где задняя линия тела напряжена, холодна, устала, защищается или начинает становиться мягче и свободнее.",
+          "description": "Меридиан мочевого пузыря помогает наблюдать всю заднюю линию тела: глаза, голову, позвоночник, крестец, заднюю поверхность ног и связь тела с усилием, страхом, отдыхом и отпусканием. <b>Меридиан мочевого пузыря парный, относится к системе ян</b>; энергия движется от внутреннего угла глаза через голову и спину к мизинцу стопы. В классической последовательности он принимает энергию от Меридиана тонкой кишки и передаёт её Меридиану почек. В практике мы не делаем медицинских выводов: замечаем, где задняя линия защищается, сжимается, холодеет или начинает открываться.",
           "direction": "От внутреннего угла глаза через голову, спину и заднюю поверхность ног к мизинцу стопы.",
           "intro_practice": "Позвольте задней линии тела смягчиться от глаз и головы вниз через позвоночник, крестец, икры и стопы. Замечайте, где линия ощущается защищённой, уставшей, холодной, напряжённой или неожиданно просторной."
         },
         "uz": {
           "name": "Siydik pufagi meridiani",
-          "description": "Siydik pufagi meridiani bu yerda tananing butun orqa chizig'ini kuzatish xaritasi sifatida ishlatiladi: ko'zlar, bosh, umurtqa, dumg'aza, oyoqlarning orqa tomoni hamda tananing kuch, qo'rquv, dam olish va qo'yib yuborish bilan aloqasi.",
+          "description": "Siydik pufagi meridiani tananing butun orqa chizig'ini kuzatishga yordam beradi: ko'zlar, bosh, umurtqa, dumg'aza, oyoqlarning orqa tomoni hamda tananing kuch, qo'rquv, dam olish va qo'yib yuborish bilan aloqasi. <b>Siydik pufagi meridiani juft bo'lib, Yang tizimiga kiradi</b>; energiya ko'zning ichki burchagidan bosh va orqa orqali oyoq jimjilog'iga yo'naladi. Klassik ketma-ketlikda u energiyani Ingichka ichak meridianidan qabul qilib, Buyrak meridianiga uzatadi. Amaliyotda tibbiy xulosa qilmaymiz: orqa chiziq qayerda himoyalanadi, siqiladi, soviydi yoki ochila boshlaydi, shuni kuzatamiz.",
           "direction": "Ko'zning ichki burchagidan bosh, orqa va oyoqlarning orqa tomoni bo'ylab oyoq jimjilog'iga.",
           "intro_practice": "Tananing orqa chizig'i ko'z va boshdan umurtqa, dumg'aza, boldir va panjalargacha yumshashiga ruxsat bering. Chiziq qayerda himoyalangan, charchagan, sovuq, tarang yoki kutilmaganda keng sezilishini kuzating."
         },
         "kz": {
           "name": "Қуық меридианы",
-          "description": "Қуық меридианы бұл жерде дененің бүкіл артқы сызығын бақылау картасы ретінде қолданылады: көздер, бас, омыртқа, сегізкөз, аяқтың артқы беті және дененің күш салумен, қорқынышпен, демалыспен әрі босатумен байланысы.",
+          "description": "Қуық меридианы дененің бүкіл артқы сызығын бақылауға көмектеседі: көздер, бас, омыртқа, сегізкөз, аяқтың артқы беті және дененің күш салумен, қорқынышпен, демалыспен әрі босатумен байланысы. <b>Қуық меридианы жұпты, Ян жүйесіне жатады</b>; энергия көздің ішкі бұрышынан бас пен арқа арқылы аяқтың шынашағына бағытталады. Классикалық ретте ол энергияны Ащы ішек меридианынан қабылдап, Бүйрек меридианына береді. Тәжірибеде медициналық қорытынды жасамаймыз: артқы сызық қай жерде қорғанады, қысылады, суиды немесе ашыла бастайды, соны байқаймыз.",
           "direction": "Көздің ішкі бұрышынан бас, арқа және аяқтың артқы бетімен аяқтың шынашағына қарай.",
           "intro_practice": "Дененің артқы сызығы көз бен бастан омыртқа, сегізкөз, балтыр және табанға дейін жұмсарсын. Сызықтың қай жерде қорғанған, шаршаған, суық, керілген немесе күтпегендей кең сезілетінін байқаңыз."
         }
@@ -6398,25 +6398,25 @@
       "i18n": {
         "en": {
           "name": "Kidney Meridian",
-          "description": "The Kidney Meridian is used here as a map for observing deep resource: feet, inner legs, pelvis, lower back, breath depth, fear, will, and the quiet strength that is not loud but steady.",
+          "description": "The Kidney Meridian helps observe deep resource: feet, inner legs, pelvis, lower back, breath depth, fear, will, and the quiet strength that is not loud but steady. <b>The Kidney Meridian is paired and belongs to the Yin system</b>; its energy moves inward and upward from the sole through the inner leg, abdomen, chest, and throat. In the classical sequence it receives energy from the Bladder Meridian and passes it to the Pericardium Meridian. In practice, look for the difference between emptiness and depth: depth is quiet, grounded, and alive.",
           "direction": "From the sole of the foot up the inner leg through the abdomen and chest toward the root of the tongue.",
           "intro_practice": "Begin at the soles and let attention rise slowly along the inner legs toward the pelvis, abdomen, and chest. Notice where the body feels empty, cold, deep, grounded, or quietly alive."
         },
         "ru": {
           "name": "Меридиан почек",
-          "description": "Меридиан почек здесь используется как карта наблюдения глубинного ресурса: стопы, внутренняя линия ног, таз, поясница, глубина дыхания, страх, воля и тихая сила, которая не шумит, но держит. Меридиан Почек парный, относится к системе инь; движение энергии центростремительное; принимает энергию от Меридиана Мочевого пузыря и передает ее Меридиану Перикарда. Период максимальной активности Меридиана Почек с 17 до 19 часов. На меридиане почек 27 точек",
+          "description": "Меридиан почек помогает наблюдать глубинный ресурс: стопы, внутреннюю линию ног, таз, поясницу, глубину дыхания, страх, волю и тихую силу, которая не шумит, но держит. <b>Меридиан почек парный, относится к системе инь</b>; энергия движется центростремительно и вверх, от подошвы через внутреннюю линию ноги, живот, грудь и горло. В классической последовательности он принимает энергию от Меридиана мочевого пузыря и передаёт её Меридиану перикарда. В практике ищите разницу между пустотой и глубиной: глубина тихая, заземлённая и живая.",
           "direction": "От подошвы стопы вверх по внутренней стороне ноги через живот и грудь к корню языка.",
           "intro_practice": "Начните с подошв и медленно ведите внимание по внутренней стороне ног к тазу, животу и груди. Замечайте, где тело ощущается пустым, холодным, глубоким, заземлённым или тихо живым."
         },
         "uz": {
           "name": "Buyrak meridiani",
-          "description": "Buyrak meridiani bu yerda chuqur resursni kuzatish xaritasi sifatida ishlatiladi: panjalar, oyoqlarning ichki chizig'i, chanoq, bel, nafas chuqurligi, qo'rquv, iroda va baland ovoz qilmaydigan, ammo ushlab turadigan sokin kuch.",
+          "description": "Buyrak meridiani chuqur resursni kuzatishga yordam beradi: panjalar, oyoqlarning ichki chizig'i, chanoq, bel, nafas chuqurligi, qo'rquv, iroda va baland ovoz qilmaydigan, ammo ushlab turadigan sokin kuch. <b>Buyrak meridiani juft bo'lib, Yin tizimiga kiradi</b>; energiya kaftdan ichki oyoq chizig'i, qorin, ko'krak va tomoq orqali ichkariga hamda yuqoriga yo'naladi. Klassik ketma-ketlikda u energiyani Siydik pufagi meridianidan qabul qilib, Perikard meridianiga uzatadi. Amaliyotda bo'shlik va chuqurlik farqini qidiring: chuqurlik sokin, tayanchli va tirik bo'ladi.",
           "direction": "Oyoq kaftidan oyoqning ichki tomoni bo'ylab qorin va ko'krak orqali til ildiziga.",
           "intro_practice": "Panjalardan boshlang va diqqatni oyoqlarning ichki tomoni bo'ylab chanoq, qorin va ko'krakka sekin olib boring. Tana qayerda bo'sh, sovuq, chuqur, tayanchli yoki sokin tirik sezilishini kuzating."
         },
         "kz": {
           "name": "Бүйрек меридианы",
-          "description": "Бүйрек меридианы бұл жерде терең ресурсты бақылау картасы ретінде қолданылады: табандар, аяқтың ішкі сызығы, жамбас, бел, тыныстың тереңдігі, қорқыныш, ерік және айқайламайтын, бірақ ұстап тұратын тыныш күш.",
+          "description": "Бүйрек меридианы терең ресурсты бақылауға көмектеседі: табандар, аяқтың ішкі сызығы, жамбас, бел, тыныстың тереңдігі, қорқыныш, ерік және айқайламайтын, бірақ ұстап тұратын тыныш күш. <b>Бүйрек меридианы жұпты, Инь жүйесіне жатады</b>; энергия табаннан аяқтың ішкі сызығы, іш, кеуде және тамақ арқылы ішке әрі жоғары бағытталады. Классикалық ретте ол энергияны Қуық меридианынан қабылдап, Перикард меридианына береді. Тәжірибеде бос кеңістік пен тереңдіктің айырмасын іздеңіз: тереңдік тыныш, орнықты және тірі болады.",
           "direction": "Табаннан аяқтың ішкі жағымен іш пен кеуде арқылы тіл түбіне қарай.",
           "intro_practice": "Табаннан бастап, зейінді аяқтың ішкі жағымен жамбасқа, ішке және кеудеге қарай баяу жүргізіңіз. Дененің қай жерде бос, суық, терең, орнықты немесе тыныш тірі сезілетінін байқаңыз."
         }
