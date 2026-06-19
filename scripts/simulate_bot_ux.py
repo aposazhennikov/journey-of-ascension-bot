@@ -1453,6 +1453,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             issues.append("daily meridian reminder does not reset invalid point index to the meridian intro")
 
     handlers_source = (ROOT / "bot" / "handlers.py").read_text(encoding="utf-8-sig")
+    if "send_reminder_check_message" not in handlers_source:
+        issues.append("handlers still call the old test-message scheduler path")
     if "user and user.meridians_enabled and user.current_meridian_id" not in handlers_source:
         issues.append("meridians home can show continue practice while meridian mode is disabled")
     simulator_source = Path(__file__).read_text(encoding="utf-8-sig")

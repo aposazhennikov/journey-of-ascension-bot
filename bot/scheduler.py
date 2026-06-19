@@ -382,8 +382,8 @@ class YogaScheduler:
         if user:
             await self._schedule_user_jobs(user)
     
-    async def send_test_message(self, chat_id: int, language: str = None) -> bool:
-        """Send test message to user."""
+    async def send_reminder_check_message(self, chat_id: int, language: str = None) -> bool:
+        """Send a reminder check message to user."""
         try:
             # Get user to determine language if not provided.
             user = await self.storage.get_user(chat_id)
@@ -410,8 +410,12 @@ class YogaScheduler:
             return await self._send_message_with_retry(chat_id, message_text, principle_id=principle["id"])
             
         except Exception as e:
-            logger.error(f"Error sending test message to user {chat_id}: {e}")
+            logger.error(f"Error sending reminder check message to user {chat_id}: {e}")
             return False
+
+    async def send_test_message(self, chat_id: int, language: str = None) -> bool:
+        """Backward-compatible alias for older handler code."""
+        return await self.send_reminder_check_message(chat_id, language)
     
     def get_scheduler_stats(self) -> Dict[str, Any]:
         """Get scheduler statistics."""
