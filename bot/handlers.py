@@ -202,7 +202,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'change_meridian_time': '☯️ Meridian Time',
         'mode_menu': '🧭 <b>My Path</b>\n'
                      '\n'
-                     'Choose what the bot should help you return to every day.\n'
+                     'Choose which practice you want to return to each day.\n'
                      '\n'
                      '<b>Yama/Niyama</b> is the foundation: less inner noise, fewer energy leaks, more '
                      'honesty in action.\n'
@@ -501,7 +501,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'change_meridian_time': '☯️ Время меридианов',
         'mode_menu': '🧭 <b>Мой путь</b>\n'
                      '\n'
-                     'Выберите, к чему бот будет помогать возвращаться каждый день.\n'
+                     'Выберите, к какой практике вы хотите возвращаться каждый день.\n'
                      '\n'
                      '<b>Яма/Нияма</b> — фундамент: меньше внутреннего шума, меньше утечек энергии, больше '
                      'честности в поступках.\n'
@@ -805,7 +805,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'change_meridian_time': '☯️ Meridian vaqti',
         'mode_menu': "🧭 <b>Mening yo'lim</b>\n"
                      '\n'
-                     'Bot har kuni nimaga qaytishingizga yordam berishini tanlang.\n'
+                     'Har kuni qaysi amaliyotga qaytishni xohlayotganingizni tanlang.\n'
                      '\n'
                      "<b>Yama/Niyama</b> poydevor: ichki shovqin kamroq, energiya yo'qotish kamroq, "
                      "harakatlarda ko'proq halollik.\n"
@@ -1117,7 +1117,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'change_meridian_time': '☯️ Меридиан уақыты',
         'mode_menu': '🧭 <b>Менің жолым</b>\n'
                      '\n'
-                     'Бот күн сайын неге қайта оралуға көмектесетінін таңдаңыз.\n'
+                     'Күн сайын қай тәжірибеге қайта оралғыңыз келетінін таңдаңыз.\n'
                      '\n'
                      '<b>Яма/Нияма</b> — негіз: ішкі шу азаяды, энергия шығыны азаяды, әрекетте адалдық '
                      'көбейеді.\n'
@@ -1407,7 +1407,7 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Meridian Time",
         "mode_menu": (
             "🧭 <b>My Path</b>\n\n"
-            "Choose what the bot should help you return to every day.\n\n"
+            "Choose which practice you want to return to each day.\n\n"
             "<b>Yama/Niyama</b> is the foundation: less inner noise, fewer energy leaks, more honesty in action.\n\n"
             "<b>Meridians</b> are the body layer: points, channels, Qi flow, and the skill of feeling areas that were previously silent.\n\n"
             "You can begin with one direction or keep both active together."
@@ -1600,7 +1600,7 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Время меридианов",
         "mode_menu": (
             "🧭 <b>Мой путь</b>\n\n"
-            "Выберите, к чему бот будет помогать возвращаться каждый день.\n\n"
+            "Выберите, к какой практике вы хотите возвращаться каждый день.\n\n"
             "<b>Яма/Нияма</b> — фундамент: меньше внутреннего шума, меньше утечек энергии, больше честности в поступках.\n\n"
             "<b>Меридианы</b> — телесный слой: точки, каналы, течение Ци и навык чувствовать зоны, которые раньше были как будто выключены.\n\n"
             "Можно начать с одного направления или оставить активными оба."
@@ -1793,7 +1793,7 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Meridian vaqti",
         "mode_menu": (
             "🧭 <b>Mening yo'lim</b>\n\n"
-            "Bot har kuni nimaga qaytishingizga yordam berishini tanlang.\n\n"
+            "Har kuni qaysi amaliyotga qaytishni xohlayotganingizni tanlang.\n\n"
             "<b>Yama/Niyama</b> poydevor: ichki shovqin kamroq, energiya yo'qotish kamroq, harakatlarda ko'proq halollik.\n\n"
             "<b>Meridianlar</b> tana qatlami: nuqtalar, kanallar, Qi oqimi va avval sezilmagan joylarni his qilish ko'nikmasi.\n\n"
             "Bitta yo'nalishdan boshlashingiz yoki ikkalasini ham faol qoldirishingiz mumkin."
@@ -2000,7 +2000,7 @@ TEXTS_UPDATE = {
         "change_meridian_time": "☯️ Меридиан уақыты",
         "mode_menu": (
             "🧭 <b>Менің жолым</b>\n\n"
-            "Бот күн сайын неге қайта оралуға көмектесетінін таңдаңыз.\n\n"
+            "Күн сайын қай тәжірибеге қайта оралғыңыз келетінін таңдаңыз.\n\n"
             "<b>Яма/Нияма</b> — негіз: ішкі шу азаяды, энергия шығыны азаяды, әрекетте адалдық көбейеді.\n\n"
             "<b>Меридиандар</b> — дене қабаты: нүктелер, арналар, Ци ағымы және бұрын сезілмеген аймақтарды сезу дағдысы.\n\n"
             "Бір бағыттан бастауға немесе екеуін де белсенді қалдыруға болады."
@@ -3321,9 +3321,9 @@ class BotHandlers:
                 "meridian_time": "☯️ Meridian time:",
                 "timezone": "🌍 Time zone:",
                 "skip": "📅 Quiet days:",
-                "next_principles": "The bot will bring you back to one principle each day. The other principles are not paused; this is simply the day's point of attention.",
-                "next_meridians": "The bot will return you to the current meridian focus. You move through points only when you press the buttons, so the pace stays yours.",
-                "next_both": "The bot will support both layers: daily ethical focus and meridian observation. Keep the practice gentle, regular, and honest.",
+                "next_principles": "Each day you receive one principle as the point of attention. The other principles are not paused; we simply choose one doorway for observing thought, speech, and action today.",
+                "next_meridians": "At the chosen time you return to the current meridian or point. You move through points only when you press the buttons, so the pace stays yours.",
+                "next_both": "The rhythm now has two layers: an ethical focus for the day and meridian observation. The other principles are not paused; the daily card is simply the doorway for today's attention. Keep it gentle, regular, and honest.",
                 "hint": "Open /menu whenever you want to explore the lists, change the rhythm, or continue meridian practice.",
             },
             "ru": {
@@ -3338,9 +3338,9 @@ class BotHandlers:
                 "meridian_time": "☯️ Время меридианов:",
                 "timezone": "🌍 Часовой пояс:",
                 "skip": "📅 Дни тишины:",
-                "next_principles": "Бот будет каждый день возвращать вас к одному принципу. Остальные принципы не выключаются: это просто акцент дня для внимания.",
-                "next_meridians": "Бот будет возвращать вас к текущему фокусу меридиана. По точкам вы двигаетесь только кнопками, поэтому темп остаётся вашим.",
-                "next_both": "Бот будет поддерживать оба слоя: ежедневный нравственный фокус и наблюдение меридианов. Держите практику мягкой, регулярной и честной.",
+                "next_principles": "Каждый день вы получаете один принцип как точку внимания. Остальные принципы не выключаются: мы просто выбираем, через что сегодня наблюдать мысли, речь и поступки.",
+                "next_meridians": "В выбранное время вы возвращаетесь к текущему меридиану или точке. Дальше по точкам вы идёте только кнопками, поэтому темп остаётся вашим.",
+                "next_both": "Ритм собран в два слоя: нравственный фокус дня и наблюдение меридианов. Остальные принципы не выключаются; карточка дня просто задаёт вход для сегодняшнего внимания. Держите практику мягкой, регулярной и честной.",
                 "hint": "Открывайте /menu, когда захотите посмотреть списки, изменить ритм или продолжить практику меридианов.",
             },
             "uz": {
@@ -3355,9 +3355,9 @@ class BotHandlers:
                 "meridian_time": "☯️ Meridian vaqti:",
                 "timezone": "🌍 Vaqt mintaqasi:",
                 "skip": "📅 Sokin kunlar:",
-                "next_principles": "Bot har kuni sizni bitta tamoyilga qaytaradi. Boshqa tamoyillar to'xtamaydi; bu faqat kunning diqqat nuqtasi.",
-                "next_meridians": "Bot sizni joriy meridian fokusiga qaytaradi. Nuqtalar bo'ylab faqat tugmalar orqali o'tasiz, shuning uchun sur'at sizniki bo'lib qoladi.",
-                "next_both": "Bot ikkala qatlamni qo'llab-quvvatlaydi: kundalik axloqiy fokus va meridianlarni kuzatish. Amaliyot yumshoq, muntazam va halol bo'lsin.",
+                "next_principles": "Har kuni bitta tamoyil diqqat markazida bo'ladi. Boshqa tamoyillar to'xtamaydi; bugun fikr, so'z va harakatni shu eshik orqali kuzatamiz.",
+                "next_meridians": "Tanlangan vaqtda joriy meridian yoki nuqtaga qaytasiz. Nuqtalar bo'ylab faqat tugmalar orqali o'tasiz, shuning uchun sur'at sizniki bo'lib qoladi.",
+                "next_both": "Endi ritm ikki qatlamdan iborat: kunning axloqiy fokusi va meridianlarni kuzatish. Boshqa tamoyillar to'xtamaydi; kun kartasi bugungi diqqat uchun eshik bo'ladi. Amaliyot yumshoq, muntazam va halol bo'lsin.",
                 "hint": "/menu ni ochib, ro'yxatlarni ko'rishingiz, ritmni o'zgartirishingiz yoki meridian amaliyotini davom ettirishingiz mumkin.",
             },
             "kz": {
@@ -3372,9 +3372,9 @@ class BotHandlers:
                 "meridian_time": "☯️ Меридиан уақыты:",
                 "timezone": "🌍 Уақыт белдеуі:",
                 "skip": "📅 Тыныш күндер:",
-                "next_principles": "Бот күн сайын сізді бір қағидаға қайтарады. Қалған қағидалар тоқтамайды; бұл тек күннің зейін нүктесі.",
-                "next_meridians": "Бот сізді ағымдағы меридиан фокусына қайтарады. Нүктелер бойынша тек батырмалармен өтесіз, сондықтан қарқын өзіңізде қалады.",
-                "next_both": "Бот екі қабатты да қолдайды: күнделікті этикалық фокус және меридиандарды бақылау. Тәжірибе жұмсақ, тұрақты және шынайы болсын.",
+                "next_principles": "Күн сайын бір қағида зейіннің ортасында болады. Қалған қағидалар тоқтамайды; бүгін ой, сөз және әрекетті осы есік арқылы бақылаймыз.",
+                "next_meridians": "Таңдалған уақытта ағымдағы меридианға немесе нүктеге қайта ораласыз. Нүктелер бойынша тек батырмалармен өтесіз, сондықтан қарқын өзіңізде қалады.",
+                "next_both": "Ырғақ енді екі қабаттан тұрады: күннің этикалық фокусы және меридиандарды бақылау. Қалған қағидалар тоқтамайды; күн картасы бүгінгі зейінге кіретін есік болады. Тәжірибе жұмсақ, тұрақты және шынайы болсын.",
                 "hint": "/menu ашып, тізімдерді көре аласыз, ырғақты өзгерте аласыз немесе меридиан тәжірибесін жалғастыра аласыз.",
             },
         }.get(language)
@@ -3895,11 +3895,11 @@ class BotHandlers:
     def _format_meridian_points_page_text(self, language: str, page: int, total_pages: int) -> str:
         """Build text for the paginated point chooser."""
         choose_point = {
-            "en": "Choose a point: its image and practice will open, and it will become your current focus. The bot will not move forward by itself.",
+            "en": "Choose a point: its image and practice will open, and it will become your current focus. Nothing moves forward by itself.",
             "ru": "Выберите точку: откроется изображение и практика, а точка станет текущим фокусом. Бот не перейдёт дальше сам.",
             "uz": "Nuqtani tanlang: rasm va amaliyot ochiladi, nuqta esa joriy fokusga aylanadi. Bot o'zi oldinga o'tmaydi.",
             "kz": "Нүктені таңдаңыз: сурет пен тәжірибе ашылады, нүкте ағымдағы фокусқа айналады. Бот өзі әрі қарай өтпейді.",
-        }.get(language, "Choose a point to open its image and practice. The bot will not move forward by itself.")
+        }.get(language, "Choose a point to open its image and practice. Nothing moves forward by itself.")
         return f"<b>{self._get_text('all_points', language)}</b>\n\n{choose_point}"
 
     async def _handle_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

@@ -414,7 +414,7 @@ def format_setup_complete_preview(language: str) -> str:
             "🕐 Yama/Niyama time: <code>08:00</code>",
             "☯️ Meridian time: <code>20:00</code>",
             "📅 Quiet days: None",
-            "The bot will support both layers: daily ethical focus and meridian observation. Keep the practice gentle, regular, and honest.",
+            "The rhythm now has two layers: an ethical focus for the day and meridian observation. The other principles are not paused; the daily card is simply the doorway for today's attention. Keep it gentle, regular, and honest.",
             "Open /menu whenever you want to explore the lists, change the rhythm, or continue meridian practice.",
         ),
         "ru": (
@@ -425,7 +425,7 @@ def format_setup_complete_preview(language: str) -> str:
             "🕐 Время Ямы/Ниямы: <code>08:00</code>",
             "☯️ Время меридианов: <code>20:00</code>",
             "📅 Дни тишины: Нет",
-            "Бот будет поддерживать оба слоя: ежедневный нравственный фокус и наблюдение меридианов. Держите практику мягкой, регулярной и честной.",
+            "Ритм собран в два слоя: нравственный фокус дня и наблюдение меридианов. Остальные принципы не выключаются; карточка дня просто задаёт вход для сегодняшнего внимания. Держите практику мягкой, регулярной и честной.",
             "Открывайте /menu, когда захотите посмотреть списки, изменить ритм или продолжить практику меридианов.",
         ),
         "uz": (
@@ -436,7 +436,7 @@ def format_setup_complete_preview(language: str) -> str:
             "🕐 Yama/Niyama vaqti: <code>08:00</code>",
             "☯️ Meridian vaqti: <code>20:00</code>",
             "📅 Sokin kunlar: Yo'q",
-            "Bot ikkala qatlamni qo'llab-quvvatlaydi: kundalik axloqiy fokus va meridianlarni kuzatish. Amaliyot yumshoq, muntazam va halol bo'lsin.",
+            "Endi ritm ikki qatlamdan iborat: kunning axloqiy fokusi va meridianlarni kuzatish. Boshqa tamoyillar to'xtamaydi; kun kartasi bugungi diqqat uchun eshik bo'ladi. Amaliyot yumshoq, muntazam va halol bo'lsin.",
             "/menu ni ochib, ro'yxatlarni ko'rishingiz, ritmni o'zgartirishingiz yoki meridian amaliyotini davom ettirishingiz mumkin.",
         ),
         "kz": (
@@ -447,7 +447,7 @@ def format_setup_complete_preview(language: str) -> str:
             "🕐 Яма/Нияма уақыты: <code>08:00</code>",
             "☯️ Меридиан уақыты: <code>20:00</code>",
             "📅 Тыныш күндер: Жоқ",
-            "Бот екі қабатты да қолдайды: күнделікті этикалық фокус және меридиандарды бақылау. Тәжірибе жұмсақ, тұрақты және шынайы болсын.",
+            "Ырғақ енді екі қабаттан тұрады: күннің этикалық фокусы және меридиандарды бақылау. Қалған қағидалар тоқтамайды; күн картасы бүгінгі зейінге кіретін есік болады. Тәжірибе жұмсақ, тұрақты және шынайы болсын.",
             "/menu ашып, тізімдерді көре аласыз, ырғақты өзгерте аласыз немесе меридиан тәжірибесін жалғастыра аласыз.",
         ),
     }[language]
@@ -659,7 +659,7 @@ def render_html(output: Path) -> None:
         sections.append(meridian_message("Bladder Meridian intro", bladder, language, kb["meridian_intro"]))
         sections.append(meridian_message("Bladder Meridian point 1", bladder, language, kb["meridian_first_point"], 0))
         point_helper = {
-            "en": "Choose a point: its image and practice will open, and it will become your current focus. The bot will not move forward by itself.",
+            "en": "Choose a point: its image and practice will open, and it will become your current focus. Nothing moves forward by itself.",
             "ru": "Выберите точку: откроется изображение и практика, а точка станет текущим фокусом. Бот не перейдёт дальше сам.",
             "uz": "Nuqtani tanlang: rasm va amaliyot ochiladi, nuqta esa joriy fokusga aylanadi. Bot o'zi oldinga o'tmaydi.",
             "kz": "Нүктені таңдаңыз: сурет пен тәжірибе ашылады, нүкте ағымдағы фокусқа айналады. Бот өзі әрі қарай өтпейді.",
