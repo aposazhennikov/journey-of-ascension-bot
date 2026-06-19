@@ -709,6 +709,11 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             issues.append(f"{language}: meridians home contains point-navigation controls")
         if not texts[language].get("meridian_measurements") or not texts[language].get("meridian_change_path"):
             issues.append(f"{language}: meridians home is missing path or cun guide entry")
+        measurements_label = texts[language].get("meridian_measurements", "").lower()
+        if "cun" not in measurements_label and "цун" not in measurements_label:
+            issues.append(f"{language}: meridian measurements button does not clearly mention cun")
+        if len(meridian_home_buttons) > 4:
+            issues.append(f"{language}: meridians home has too many top-level buttons")
 
     scheduler_source = (ROOT / "bot" / "scheduler.py").read_text(encoding="utf-8-sig")
     if "astimezone().astimezone(tz=None)" in scheduler_source:
