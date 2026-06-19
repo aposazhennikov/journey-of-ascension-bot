@@ -166,7 +166,7 @@ class MeridiansManager:
             candidate = meridians[(current_index + offset) % len(meridians)]
             if candidate.get("id") not in completed_ids:
                 return candidate
-        return meridians[(current_index + 1) % len(meridians)] if current_index >= 0 else meridians[0]
+        return None
 
 
 def format_principle_message(principle: Dict[str, Any], language: str = "en", max_length: int = 1024) -> str:

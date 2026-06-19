@@ -1474,6 +1474,11 @@ TEXTS_UPDATE = {
             "Notice where the line feels warm and clear, and where it still breaks or goes silent.\n\n"
             "When the sensation becomes calmer, choose the next channel."
         ),
+        "meridian_route_completed": (
+            "✅ <b>The meridian route is complete</b>\n\n"
+            "You have passed through all meridians in the bot route. Do not rush to start again. Spend a few days returning to the channels that felt least clear: they usually show where attention is still learning to stay.\n\n"
+            "When you are ready, choose any meridian freely or start the route again."
+        ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "This bot is for people who want practice to become part of the day, not something remembered only after everything is already over.\n\n"
@@ -1669,6 +1674,11 @@ TEXTS_UPDATE = {
             "Заметьте, где линия тёплая и ясная, а где она пока обрывается или молчит.\n\n"
             "Когда ощущение станет спокойнее, выбирайте следующий канал."
         ),
+        "meridian_route_completed": (
+            "✅ <b>Маршрут меридианов завершён</b>\n\n"
+            "Вы прошли все меридианы в маршруте бота. Не спешите сразу начинать заново. Несколько дней возвращайтесь к каналам, которые ощущались менее ясно: обычно именно они показывают, где вниманию ещё нужно научиться держаться.\n\n"
+            "Когда будете готовы, выберите любой меридиан свободно или начните маршрут заново."
+        ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
             "Этот бот для тех, кто хочет, чтобы практика входила в день, а не вспоминалась только вечером, когда всё уже произошло.\n\n"
@@ -1863,6 +1873,11 @@ TEXTS_UPDATE = {
             "Keyingi kanalga o'tishdan oldin butun kanalni yana bir marta diqqat bilan bosib chiqing: birinchi nuqtadan oxirgisigacha. "
             "Chiziq qayerda iliq va ravshan, qayerda esa uzilib yoki jim qolayotganini sezing.\n\n"
             "Sezgi sokinlashganda keyingi kanalni tanlang."
+        ),
+        "meridian_route_completed": (
+            "✅ <b>Meridian yo'nalishi yakunlandi</b>\n\n"
+            "Bot yo'nalishidagi barcha meridianlardan o'tdingiz. Darhol qayta boshlashga shoshilmang. Bir necha kun kamroq ravshan sezilgan kanallarga qayting: odatda ular diqqat qayerda hali turishni o'rganayotganini ko'rsatadi.\n\n"
+            "Tayyor bo'lganda istalgan meridianni erkin tanlang yoki yo'nalishni boshidan boshlang."
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
@@ -2072,6 +2087,11 @@ TEXTS_UPDATE = {
             "Келесі арнаға өтпес бұрын, бүкіл арнаны зейінмен тағы бір рет өтіңіз: бірінші нүктеден соңғысына дейін. "
             "Сызық қай жерде жылы әрі анық, қай жерде әзірге үзіліп немесе үнсіз қалатынын байқаңыз.\n\n"
             "Сезім тынышталған кезде келесі арнаны таңдаңыз."
+        ),
+        "meridian_route_completed": (
+            "✅ <b>Меридиан бағыты аяқталды</b>\n\n"
+            "Бот бағыты бойынша барлық меридиандардан өттіңіз. Бірден қайта бастауға асықпаңыз. Бірнеше күн анығырақ сезілмеген арналарға оралыңыз: көбіне олар зейін әлі қай жерде тұрақтауды үйреніп жатқанын көрсетеді.\n\n"
+            "Дайын болғанда кез келген меридианды еркін таңдаңыз немесе бағытты басынан бастаңыз."
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
@@ -4528,17 +4548,26 @@ class BotHandlers:
                 if user.current_meridian_id and user.current_meridian_id not in user.completed_meridians:
                     user.completed_meridians.append(user.current_meridian_id)
 
+                route_completed = False
                 if getattr(user, "meridian_learning_mode", None) == "guided":
                     next_meridian = self.meridians_manager.get_next_meridian(user.current_meridian_id, user.completed_meridians)
                     if next_meridian:
                         user.current_meridian_id = next_meridian["id"]
+                        user.current_point_index = -1
+                    else:
+                        route_completed = True
+                        user.current_meridian_id = None
                         user.current_point_index = -1
                 else:
                     user.current_meridian_id = None
                     user.current_point_index = -1
 
                 await self.storage.save_user(user)
-                text = self._get_text("meridian_completed", language)
+                text = (
+                    self._get_text("meridian_route_completed", language)
+                    if route_completed
+                    else self._get_text("meridian_completed", language)
+                )
                 if user.current_meridian_id:
                     await self._edit_message_text_safe(
                         query,
