@@ -3696,9 +3696,10 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
                 InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
             ],
-            [InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")],
-            [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
         ])
+        if point_index is not None and points_count is not None and point_index >= points_count - 1:
+            keyboard.append([InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")])
+        keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
         return InlineKeyboardMarkup(keyboard)
 
     def _create_meridian_path_keyboard(self, language: str) -> InlineKeyboardMarkup:
@@ -4334,6 +4335,21 @@ class BotHandlers:
                 return
 
             if action == "complete":
+                if points and user.current_point_index < len(points) - 1:
+                    user.current_point_index = max(0, user.current_point_index)
+                    await self.storage.save_user(user)
+                    text = format_meridian_point(meridian, user.current_point_index, language)
+                    point_code = points[user.current_point_index].get("code")
+                    await self._show_meridian_card(
+                        query,
+                        text,
+                        self._create_meridian_practice_keyboard(language, point_index=user.current_point_index, points_count=len(points)),
+                        language,
+                        meridian.get("id"),
+                        point_code
+                    )
+                    return
+
                 if user.current_meridian_id and user.current_meridian_id not in user.completed_meridians:
                     user.completed_meridians.append(user.current_meridian_id)
 

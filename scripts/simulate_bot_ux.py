@@ -788,6 +788,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("simulator can show continue practice while meridian mode is disabled")
     if 't("back_to_current_focus")' not in simulator_source:
         issues.append("all-points screen does not label return-to-current-focus honestly")
+    if "point_index >= points_count - 1" not in handlers_source or "user.current_point_index < len(points) - 1" not in handlers_source:
+        issues.append("meridian completion can appear or fire before the last point")
+    if "state.currentPointIndex >= item.pointsCount - 1" not in simulator_source:
+        issues.append("simulator shows meridian completion before the last point")
     callback_values = sorted(set(re.findall(r"callback_data=(?:f)?[\"']([^\"']+)", handlers_source)))
     callback_patterns = [
         re.compile(ast.literal_eval(match))
@@ -1331,7 +1335,7 @@ def build_html() -> str:
             ...(state.currentPointIndex < item.pointsCount - 1 ? [{{ label: t('next_point'), action: nextPoint, disabled: item.pointsCount === 0 }}] : []),
           ],
           [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}],
-          [{{ label: t('complete_meridian'), action: completeMeridian }}],
+          ...(state.currentPointIndex >= item.pointsCount - 1 ? [[{{ label: t('complete_meridian'), action: completeMeridian }}]] : []),
           [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
         ];
       show('Current focus', html, buttons, point ? pointImageUrl(point) : meridianImageUrl(item));
