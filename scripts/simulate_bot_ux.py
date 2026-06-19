@@ -1551,6 +1551,14 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         detail_formatter_source = handlers_source[detail_formatter_start:start_handler_start]
         if "format_principle_message" not in detail_formatter_source:
             issues.append("menu principle cards use a formatter that can drift from daily principle cards")
+    principle_detail_keyboard_start = handlers_source.find("def _create_principle_detail_keyboard")
+    principles_list_keyboard_start = handlers_source.find("def _create_principles_list_keyboard")
+    if principle_detail_keyboard_start != -1 and principles_list_keyboard_start != -1:
+        principle_detail_keyboard_source = handlers_source[principle_detail_keyboard_start:principles_list_keyboard_start]
+        if 'callback_data="principles_back"' not in principle_detail_keyboard_source:
+            issues.append("principle detail cards cannot return directly to the Yama/Niyama section")
+    else:
+        issues.append("principle detail cards reuse a generic keyboard instead of a dedicated navigation keyboard")
 
     dry_setup_phrases = (
         "Setup complete!",
@@ -1714,6 +1722,14 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator settings screen does not show the current practice rhythm snapshot")
     if "function currentMode()" not in html or "function modeLabel" not in html or "'✅ '" not in html:
         issues.append("browser simulator practice-mode screen does not mark the active mode")
+    principle_detail_start = html.find("function renderPrincipleDetail")
+    principle_detail_end = html.find("function renderAllPrinciples", principle_detail_start)
+    if principle_detail_start != -1 and principle_detail_end != -1:
+        principle_detail_source = html[principle_detail_start:principle_detail_end]
+        if "setScreen('principles')" not in principle_detail_source or "principles_back" not in principle_detail_source:
+            issues.append("browser simulator principle detail is missing a return to Yama/Niyama")
+    else:
+        issues.append("browser simulator is missing the principle detail screen")
     if (
         "new URLSearchParams(window.location.search)" not in html
         or "new URLSearchParams(window.location.hash.replace(/^#/, ''))" not in html
