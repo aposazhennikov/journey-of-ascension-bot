@@ -14,6 +14,7 @@ import re
 from html import escape
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -236,13 +237,51 @@ def keyboard(rows: list[list[str]]) -> str:
     return f"<div class='keyboard'>{''.join(rendered_rows)}</div>"
 
 
-def message(title: str, body: str, buttons: list[list[str]] | None = None) -> str:
+def image_src(meridian: dict[str, Any], point_code: str | None = None) -> str | None:
+    image_dir = ROOT / "images" / "meridians"
+    names = []
+    if point_code:
+        names.extend([
+            f"{meridian['id']}_{point_code}.jpg",
+            f"{meridian['id']}_{point_code}.png",
+            f"{meridian['id']}_{point_code}.gif",
+        ])
+    else:
+        names.extend([f"{meridian['id']}.jpg", f"{meridian['id']}.png", f"{meridian['id']}.gif"])
+    for name in names:
+        if (image_dir / name).exists():
+            return f"../images/meridians/{quote(name)}"
+    return None
+
+
+def message(title: str, body: str, buttons: list[list[str]] | None = None, image: str | None = None) -> str:
+    media = f"<img class='media' src='{escape(image)}' alt=''>" if image else ""
     return (
         "<section class='screen'>"
         f"<h2>{escape(title)}</h2>"
+        f"{media}"
         f"<div class='bubble'>{body.replace(chr(10), '<br>')}</div>"
         f"{keyboard(buttons or [])}"
         "</section>"
+    )
+
+
+def meridian_message(
+    title: str,
+    meridian: dict[str, Any],
+    language: str,
+    buttons: list[list[str]],
+    point_index: int | None = None,
+) -> str:
+    if point_index is None:
+        return message(title, format_meridian_intro(meridian, language), buttons, image_src(meridian))
+
+    point = meridian["points"][point_index]
+    return message(
+        title,
+        format_meridian_point(meridian, point_index, language),
+        buttons,
+        image_src(meridian, point.get("code")),
     )
 
 
@@ -359,35 +398,35 @@ def render_html(output: Path) -> None:
         sections.append(message("Meridians home", allow_basic_html(t["meridians_menu"]), kb["meridians_home"]))
         sections.append(message("TCM measurements", allow_basic_html(t["meridian_measurements_text"]), [[t["meridian_back"]]]))
         sections.append(message("Point search help", allow_basic_html(t["meridian_point_help_text"]), [[t["current_meridian"]], [t["meridian_back"]]]))
-        sections.append(message("Lung Meridian intro", format_meridian_intro(lung, language), kb["meridian_intro"]))
-        sections.append(message("Lung Meridian point 1", format_meridian_point(lung, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Large Intestine intro", format_meridian_intro(large_intestine, language), kb["meridian_intro"]))
-        sections.append(message("Large Intestine point 1", format_meridian_point(large_intestine, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Stomach Meridian intro", format_meridian_intro(stomach, language), kb["meridian_intro"]))
-        sections.append(message("Stomach Meridian point 1", format_meridian_point(stomach, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Spleen Meridian intro", format_meridian_intro(spleen, language), kb["meridian_intro"]))
-        sections.append(message("Spleen Meridian point 1", format_meridian_point(spleen, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Heart Meridian intro", format_meridian_intro(heart, language), kb["meridian_intro"]))
-        sections.append(message("Heart Meridian point 1", format_meridian_point(heart, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Small Intestine Meridian intro", format_meridian_intro(small_intestine, language), kb["meridian_intro"]))
-        sections.append(message("Small Intestine Meridian point 1", format_meridian_point(small_intestine, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Bladder Meridian intro", format_meridian_intro(bladder, language), kb["meridian_intro"]))
-        sections.append(message("Bladder Meridian point 1", format_meridian_point(bladder, 0, language), kb["meridian_first_point"]))
+        sections.append(meridian_message("Lung Meridian intro", lung, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Lung Meridian point 1", lung, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Large Intestine intro", large_intestine, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Large Intestine point 1", large_intestine, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Stomach Meridian intro", stomach, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Stomach Meridian point 1", stomach, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Spleen Meridian intro", spleen, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Spleen Meridian point 1", spleen, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Heart Meridian intro", heart, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Heart Meridian point 1", heart, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Small Intestine Meridian intro", small_intestine, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Small Intestine Meridian point 1", small_intestine, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Bladder Meridian intro", bladder, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Bladder Meridian point 1", bladder, language, kb["meridian_first_point"], 0))
         sections.append(message("Bladder points page 1", f"<b>{escape(t['all_points'])}</b><br><br>Page 1/7", point_page_keyboard(bladder, language, t)))
-        sections.append(message("Kidney Meridian intro", format_meridian_intro(kidney, language), kb["meridian_intro"]))
-        sections.append(message("Kidney Meridian point 1", format_meridian_point(kidney, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Pericardium Meridian intro", format_meridian_intro(pericardium, language), kb["meridian_intro"]))
-        sections.append(message("Pericardium Meridian point 1", format_meridian_point(pericardium, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Triple Burner Meridian intro", format_meridian_intro(triple_burner, language), kb["meridian_intro"]))
-        sections.append(message("Triple Burner Meridian point 1", format_meridian_point(triple_burner, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Gallbladder Meridian intro", format_meridian_intro(gallbladder, language), kb["meridian_intro"]))
-        sections.append(message("Gallbladder Meridian point 1", format_meridian_point(gallbladder, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Liver Meridian intro", format_meridian_intro(liver, language), kb["meridian_intro"]))
-        sections.append(message("Liver Meridian point 1", format_meridian_point(liver, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Conception Vessel intro", format_meridian_intro(conception, language), kb["meridian_intro"]))
-        sections.append(message("Conception Vessel point 1", format_meridian_point(conception, 0, language), kb["meridian_first_point"]))
-        sections.append(message("Conception Vessel point 3", format_meridian_point(conception, 2, language), kb["meridian_practice"]))
-        sections.append(message("Governing Vessel intro", format_meridian_intro(governing, language), kb["meridian_intro"]))
+        sections.append(meridian_message("Kidney Meridian intro", kidney, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Kidney Meridian point 1", kidney, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Pericardium Meridian intro", pericardium, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Pericardium Meridian point 1", pericardium, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Triple Burner Meridian intro", triple_burner, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Triple Burner Meridian point 1", triple_burner, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Gallbladder Meridian intro", gallbladder, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Gallbladder Meridian point 1", gallbladder, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Liver Meridian intro", liver, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Liver Meridian point 1", liver, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Conception Vessel intro", conception, language, kb["meridian_intro"]))
+        sections.append(meridian_message("Conception Vessel point 1", conception, language, kb["meridian_first_point"], 0))
+        sections.append(meridian_message("Conception Vessel point 3", conception, language, kb["meridian_practice"], 2))
+        sections.append(meridian_message("Governing Vessel intro", governing, language, kb["meridian_intro"]))
         sections.append(message("Principles home", allow_basic_html(t["principles_menu"]), kb["principles"]))
         sections.append(message("Principle detail", format_principle(principle, language), kb["principles"]))
         sections.append("</div>")
@@ -405,7 +444,9 @@ def render_html(output: Path) -> None:
     .locale h1 {{ margin: 32px 0 16px; }}
     .screen {{ display: inline-block; vertical-align: top; width: min(420px, 100%); margin: 0 16px 20px 0; }}
     .screen h2 {{ margin: 0 0 8px; font-size: 15px; color: #42513f; }}
+    .media {{ display: block; width: 100%; max-height: 360px; object-fit: contain; background: #f8f8f5; border-radius: 14px 14px 0 0; box-shadow: 0 1px 2px rgba(0,0,0,.12); }}
     .bubble {{ background: #fff; border-radius: 14px; padding: 18px 20px; box-shadow: 0 1px 2px rgba(0,0,0,.12); white-space: normal; }}
+    .media + .bubble {{ border-radius: 0 0 14px 14px; }}
     .keyboard {{ margin-top: 6px; }}
     .keyboard-row {{ display: flex; gap: 4px; margin-bottom: 4px; }}
     button {{ flex: 1; min-height: 42px; border: 0; border-radius: 8px; color: white; background: rgba(69,125,58,.72); font: 600 15px/1.2 inherit; padding: 8px 10px; }}
