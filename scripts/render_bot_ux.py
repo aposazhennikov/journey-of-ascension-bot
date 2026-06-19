@@ -282,7 +282,7 @@ def point_setup_practice_hint(source_location: str, language: str) -> str:
 def short_point_area(location: str, limit: int = 96) -> str:
     if not location:
         return ""
-    area = location.strip().split(".")[0].split(";")[0]
+    area = re.split(r"(?<!\d)\.(?!\d)|;", location.strip(), maxsplit=1)[0]
     if len(area) <= limit:
         return area
     return area[:limit].rsplit(" ", 1)[0].rstrip(",") + "..."

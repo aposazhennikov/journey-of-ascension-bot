@@ -477,7 +477,7 @@ def point_stage_practice_hint(point_index: int, points_count: int, language: str
 def short_point_area(location: str, limit: int = 96) -> str:
     if not location:
         return ""
-    area = location.strip().split(".")[0].split(";")[0]
+    area = re.split(r"(?<!\d)\.(?!\d)|;", location.strip(), maxsplit=1)[0]
     if len(area) <= limit:
         return area
     return area[:limit].rsplit(" ", 1)[0].rstrip(",") + "..."
@@ -1011,6 +1011,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                 readable_plain = unescape(plain)
                 if "???" in plain:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: contains ???")
+                if re.search(r"(Check the area|Soha|Аймақ): 0\.(?:\s|$)", readable_plain):
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: decimal point location was truncated in observation prompt")
                 if "pending source refinement" in plain.lower():
                     issues.append(f"{meridian_id} point {index + 1}/{language}: pending source refinement leaked")
                 if language != "ru" and any(
