@@ -4166,7 +4166,11 @@ class BotHandlers:
             user.principles_enabled = mode in ["principles", "both"]
             user.meridians_enabled = mode in ["meridians", "both"]
 
-            if user.meridians_enabled and not user.current_meridian_id:
+            if (
+                user.meridians_enabled
+                and getattr(user, "meridian_learning_mode", None)
+                and not user.current_meridian_id
+            ):
                 first_meridian = self.meridians_manager.get_first_meridian()
                 if first_meridian:
                     user.current_meridian_id = first_meridian["id"]
@@ -4175,8 +4179,12 @@ class BotHandlers:
             await self.storage.save_user(user)
             await self.scheduler.schedule_user_immediately(chat_id)
 
-            text = f"{self._get_text('mode_saved', language)}\n\n{self._get_text('menu', language)}"
-            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+            if user.meridians_enabled and not getattr(user, "meridian_learning_mode", None):
+                text = f"{self._get_text('mode_saved', language)}\n\n{self._get_text('meridian_mode_menu', language)}"
+                keyboard = self._create_meridian_path_keyboard(language)
+            else:
+                text = f"{self._get_text('mode_saved', language)}\n\n{self._get_text('menu', language)}"
+                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
             await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:
