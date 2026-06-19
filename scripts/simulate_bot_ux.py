@@ -866,6 +866,11 @@ def audit_rendered_html() -> list[str]:
         issues.append("rendered simulator HTML contains question-mark damaged text")
     if 'value="setupComplete"' not in html or "renderSetupComplete" not in html:
         issues.append("browser simulator is missing setup-complete scenario")
+    for scenario_value in ("chooseMeridian", "allPoints"):
+        if f'value="{scenario_value}"' not in html:
+            issues.append(f"browser simulator is missing {scenario_value} scenario")
+        if f"scenario === '{scenario_value}'" not in html:
+            issues.append(f"browser simulator scenario {scenario_value} has no quick-open handler")
     if "const timeRow = []" not in html or "state.principlesEnabled" not in html or "state.meridiansEnabled" not in html:
         issues.append("browser simulator settings screen is not mode-aware")
     return issues
@@ -937,7 +942,9 @@ def build_html() -> str:
           <option value="measurements">TCM measurements</option>
           <option value="pointHelp">Point search help</option>
           <option value="meridianPath">Meridian study path</option>
+          <option value="chooseMeridian">Choose meridian</option>
           <option value="currentPoint">Current meridian point</option>
+          <option value="allPoints">All meridian points</option>
           <option value="principles">Yama/Niyama section</option>
           <option value="modes">My Path</option>
           <option value="about">About bot</option>
@@ -1449,8 +1456,19 @@ def build_html() -> str:
         state.screen = 'measurements';
       }} else if (scenario === 'meridianPath') {{
         state.screen = 'meridianPath';
+      }} else if (scenario === 'chooseMeridian') {{
+        state.learningMode = 'free';
+        state.currentMeridianId = null;
+        state.currentPointIndex = -1;
+        state.screen = 'chooseMeridian';
       }} else if (scenario === 'pointHelp') {{
         state.screen = 'pointHelp';
+      }} else if (scenario === 'allPoints') {{
+        state.learningMode = 'guided';
+        state.currentMeridianId = 'bladder';
+        state.currentPointIndex = 0;
+        state.currentPointsPage = 0;
+        state.screen = 'allPoints';
       }} else if (scenario === 'principles') {{
         state.screen = 'principles';
       }} else if (scenario === 'modes') {{
