@@ -1071,25 +1071,25 @@
       "i18n": {
         "en": {
           "name": "Stomach Meridian",
-          "description": "The Stomach Meridian is used here as a map for observing nourishment, grounding, the front of the body, the legs, and the ability to receive life without inner haste.",
+          "description": "The Stomach Meridian helps observe how the body receives nourishment, contact with the earth, and the downward movement through the front line of the body. <b>The Stomach Meridian is paired and belongs to the Yang system</b>; its energy moves outward and downward from the face toward the foot. In the classical sequence it receives energy from the Large Intestine Meridian and passes it to the Spleen Meridian. In practice, notice whether the front of the body can soften enough to receive, digest, and stand steadily.",
           "direction": "From the face downward through the neck, chest, abdomen, front of the leg, and foot.",
           "intro_practice": "Soften the face, jaw, abdomen, and thighs. Let attention descend from the face through the front of the body and legs, noticing where the channel feels full, tense, empty, or silent."
         },
         "ru": {
           "name": "Меридиан желудка",
-          "description": "Меридиан желудка здесь используется как карта наблюдения питания, опоры, передней линии тела, ног и способности принимать жизнь без внутренней спешки. Меридиан Желудка парный, относится к системе ян. Движение энергии центробежное; принимает энергию от Меридиана Толстой кишки и передает Меридиану Селезенки (поджелудочной железы). Период максимальной активности меридиана с 7 до 9 часов",
+          "description": "Меридиан желудка помогает наблюдать, как тело принимает питание, опирается на землю и проводит движение вниз по передней линии тела. <b>Меридиан желудка парный, относится к системе ян</b>; энергия движется центробежно и вниз, от лица к стопе. В классической последовательности он принимает энергию от Меридиана толстой кишки и передаёт её Меридиану селезёнки. В практике замечайте, может ли передняя сторона тела смягчиться настолько, чтобы принимать, переваривать опыт и стоять устойчиво.",
           "direction": "От лица вниз через шею, грудь, живот, переднюю поверхность ноги и стопу.",
           "intro_practice": "Смягчите лицо, челюсть, живот и бёдра. Ведите внимание от лица вниз по передней стороне тела и ног, замечая, где канал ощущается наполненным, напряжённым, пустым или молчащим."
         },
         "uz": {
           "name": "Oshqozon meridiani",
-          "description": "Oshqozon meridiani bu yerda oziqlanish, tayanch, tananing old chizig'i, oyoqlar va hayotni ichki shoshilmasdan qabul qilish qobiliyatini kuzatish xaritasi sifatida ishlatiladi.",
+          "description": "Oshqozon meridiani tana oziqlanishni qanday qabul qilishi, yer bilan tayanch va tananing old chizig'i bo'ylab pastga tushuvchi harakatni kuzatishga yordam beradi. <b>Oshqozon meridiani juft bo'lib, Yang tizimiga kiradi</b>; energiya yuzdan panjaga qarab tashqariga va pastga yo'naladi. Klassik ketma-ketlikda u energiyani Yo'g'on ichak meridianidan qabul qilib, Taloq meridianiga uzatadi. Amaliyotda tananing old tomoni qabul qilish, o'zlashtirish va barqaror turish uchun yetarlicha yumshay oladimi, kuzating.",
           "direction": "Yuzdan pastga bo'yin, ko'krak, qorin, oyoqning old yuzasi va panja orqali.",
           "intro_practice": "Yuz, jag', qorin va sonlarni yumshating. Diqqatni yuzdan tananing old tomoni va oyoqlar bo'ylab pastga olib boring, kanal qayerda to'la, tarang, bo'sh yoki jimdek sezilishini kuzating."
         },
         "kz": {
           "name": "Асқазан меридианы",
-          "description": "Асқазан меридианы бұл жерде қоректенуді, тіректі, дененің алдыңғы сызығын, аяқтарды және өмірді ішкі асығыстықсыз қабылдау қабілетін бақылау картасы ретінде қолданылады.",
+          "description": "Асқазан меридианы дененің қоректі қалай қабылдайтынын, жермен тіректі және дененің алдыңғы сызығы бойымен төмен түсетін қозғалысты бақылауға көмектеседі. <b>Асқазан меридианы жұпты, Ян жүйесіне жатады</b>; энергия беттен табанға қарай сыртқа және төмен бағытталады. Классикалық ретте ол энергияны Тоқ ішек меридианынан қабылдап, Көкбауыр меридианына береді. Тәжірибеде дененің алдыңғы жағы қабылдау, сіңіру және орнықты тұру үшін жеткілікті жұмсара ала ма, соны байқаңыз.",
           "direction": "Беттен төмен қарай мойын, кеуде, іш, аяқтың алдыңғы беті және табан арқылы.",
           "intro_practice": "Бетті, жақты, ішті және санды жұмсартыңыз. Зейінді беттен дененің алдыңғы жағы мен аяқтар бойымен төмен жүргізіп, арна қай жерде толық, қысылған, бос немесе үнсіз сияқты екенін байқаңыз."
         }
@@ -2546,25 +2546,25 @@
       "i18n": {
         "en": {
           "name": "Spleen Meridian",
-          "description": "The Spleen Meridian is used here as a map for observing assimilation, inner steadiness, the medial line of the leg, and how the body distributes strength after receiving nourishment.",
+          "description": "The Spleen Meridian helps observe assimilation: how the body gathers strength after receiving nourishment and turns it into steadiness. <b>The Spleen Meridian is paired and belongs to the Yin system</b>; its energy movement is inward and upward from the big toe through the inner leg toward the abdomen and chest. In the classical sequence it receives energy from the Stomach Meridian and passes it to the Heart Meridian. In practice, feel whether the inner leg and abdomen can become quiet, warm, and collected instead of heavy or scattered.",
           "direction": "From the big toe along the inner side of the foot and leg, then upward through the abdomen and chest.",
           "intro_practice": "Relax the feet, knees, abdomen, and chest. Let attention rise from the big toe along the inner leg toward the abdomen and chest, noticing where the channel feels stable, heavy, warm, or unclear."
         },
         "ru": {
           "name": "Меридиан селезёнки",
-          "description": "Меридиан селезёнки здесь используется как карта наблюдения усвоения, внутренней устойчивости, медиальной линии ноги и того, как тело распределяет силы после получения питания. Меридиан селезенки (поджелудочной железы) – парный, относится к системе инь. Движение энергии центростремительное; принимает энергию от Меридиана Желудка и передает Меридиану Сердца. Период максимальной активности меридиана с 9 до 11 часов. На Меридиане Селезенки (поджелудочной железы) 21 точка",
+          "description": "Меридиан селезёнки помогает наблюдать усвоение: как тело собирает силу после получения питания и превращает её в устойчивость. <b>Меридиан селезёнки парный, относится к системе инь</b>; энергия движется центростремительно и вверх, от большого пальца стопы по внутренней линии ноги к животу и груди. В классической последовательности он принимает энергию от Меридиана желудка и передаёт её Меридиану сердца. В практике чувствуйте, может ли внутренняя линия ноги и живот стать тихими, тёплыми и собранными, а не тяжёлыми или рассеянными.",
           "direction": "От большого пальца стопы по внутренней стороне стопы и ноги, затем вверх через живот и грудь.",
           "intro_practice": "Расслабьте стопы, колени, живот и грудь. Ведите внимание от большого пальца стопы по внутренней стороне ноги к животу и груди, замечая, где канал ощущается устойчивым, тяжёлым, тёплым или неясным."
         },
         "uz": {
           "name": "Taloq meridiani",
-          "description": "Taloq meridiani bu yerda o'zlashtirish, ichki barqarorlik, oyoqning ichki chizig'i va tana oziqlanishdan keyin kuchni qanday taqsimlashini kuzatish xaritasi sifatida ishlatiladi.",
+          "description": "Taloq meridiani o'zlashtirishni kuzatishga yordam beradi: tana oziqlanishdan keyin kuchni qanday yig'adi va uni barqarorlikka aylantiradi. <b>Taloq meridiani juft bo'lib, Yin tizimiga kiradi</b>; energiya harakati ichkariga va yuqoriga, oyoq bosh barmog'idan ichki oyoq chizig'i orqali qorin va ko'krakka yo'naladi. Klassik ketma-ketlikda u energiyani Oshqozon meridianidan qabul qilib, Yurak meridianiga uzatadi. Amaliyotda ichki oyoq chizig'i va qorin og'ir yoki tarqoq emas, sokin, iliq va jamlangan bo'la oladimi, sezing.",
           "direction": "Oyoq bosh barmog'idan panja va oyoqning ichki tomoni bo'ylab, keyin qorin va ko'krak orqali yuqoriga.",
           "intro_practice": "Panja, tizza, qorin va ko'krakni bo'shating. Diqqatni oyoq bosh barmog'idan oyoqning ichki tomoni bo'ylab qorin va ko'krakka olib boring, kanal qayerda barqaror, og'ir, iliq yoki noaniq sezilishini kuzating."
         },
         "kz": {
           "name": "Көкбауыр меридианы",
-          "description": "Көкбауыр меридианы бұл жерде сіңіруді, ішкі тұрақтылықты, аяқтың ішкі сызығын және дене қоректенуден кейін күшті қалай бөлетінін бақылау картасы ретінде қолданылады.",
+          "description": "Көкбауыр меридианы сіңіруді бақылауға көмектеседі: дене қоректенуден кейін күшті қалай жинап, оны тұрақтылыққа айналдырады. <b>Көкбауыр меридианы жұпты, Инь жүйесіне жатады</b>; энергия қозғалысы ішке және жоғары, аяқтың бас бармағынан ішкі аяқ сызығы арқылы іш пен кеудеге бағытталады. Классикалық ретте ол энергияны Асқазан меридианынан қабылдап, Жүрек меридианына береді. Тәжірибеде ішкі аяқ сызығы мен іш ауыр не шашыраңқы емес, тыныш, жылы және жинақы бола ала ма, соны сезіңіз.",
           "direction": "Аяқтың бас бармағынан табан мен аяқтың ішкі жағымен, содан кейін іш пен кеуде арқылы жоғары.",
           "intro_practice": "Табанды, тізені, ішті және кеудені босатыңыз. Зейінді аяқтың бас бармағынан аяқтың ішкі жағымен іш пен кеудеге қарай жүргізіп, арна қай жерде тұрақты, ауыр, жылы немесе анық емес екенін байқаңыз."
         }
