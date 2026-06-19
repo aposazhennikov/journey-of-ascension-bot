@@ -1334,9 +1334,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Practice begins with noticing where energy goes. When it is scattered, attention gets noisy; when it is gathered, action becomes quieter and cleaner.\n\n"
-            "<b>Yama and Niyama</b> are the foundation: they reduce the places where energy leaks through speech, thoughts, habits, and reactions. <b>Ahimsa</b> begins with not spending force on harm.\n\n"
-            "<b>Meridians</b> are the body map of Qi. You learn to feel channels, points, and quiet areas that ask for touch, breath, and patient attention.\n\n"
+            "Practice starts with one honest question: where does my energy go during the day? When it is scattered, attention becomes noisy, reactions get sharper, and even simple actions take more force. When it is gathered, the body is quieter and the mind has more room.\n\n"
+            "<b>Yama and Niyama</b> are the foundation. They are not moral slogans; they are a way to stop leaking strength through speech, habits, conflict, self-harm, haste, and unconscious reactions. <b>Ahimsa</b>, for example, begins with not spending energy on harm, including harm toward yourself.\n\n"
+            "<b>Meridians</b> are the body map of Qi. In practice you learn to notice channels, points, and areas that feel silent or hard to sense. Such places usually ask for patient attention, gentle touch, breath, and time.\n\n"
             "What would you like to study?"
         ),
         "initial_mode_question": "What would you like to study?",
@@ -1397,6 +1397,7 @@ TEXTS_UPDATE = {
             "These are the first two limbs of classical yoga and the ethical foundation of practice.\n\n"
             "<b>Yama</b> protects energy in relation to the world: non-harm, truthfulness, non-stealing, moderation, and non-possessiveness.\n\n"
             "<b>Niyama</b> gathers energy inside: purity, contentment, discipline, self-study, and surrender of the fruits of action.\n\n"
+            "The daily principle is an accent for observation, not a replacement for the others. We keep integrating all principles into life, and each day one of them becomes especially visible.\n\n"
             "Open one principle for today or view the full list."
         ),
         "principles_random": "Random principle",
@@ -1489,11 +1490,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "This bot is meant to be a quiet support for real practice, not a collection of inspiring phrases.\n\n"
-            "Every day it helps you return to one concrete focus: a Yama/Niyama principle or a meridian point. The aim is simple: notice where energy is spent unconsciously, stop wasting it, and learn to direct attention with more care.\n\n"
-            "<b>Yama/Niyama</b> works with behaviour, speech, thoughts, discipline, and honesty with yourself.\n\n"
-            "<b>Meridians</b> work with the body: channels, points, Qi flow, closed areas, breath, touch, and attention.\n\n"
-            "Small repetitions matter. They turn an idea into something you can actually live."
+            "This bot is a practical companion for the inner path. Its job is simple: return you to one clear focus often enough that practice stops being an idea and starts entering ordinary life.\n\n"
+            "We work with energy in the most observable sense: attention, steadiness, vitality, the ability to act without wasting yourself. When energy leaks through conflict, hurry, resentment, excess, or self-neglect, the whole day becomes heavier.\n\n"
+            "<b>Yama/Niyama</b> helps close these leaks through behaviour, speech, thoughts, discipline, and honesty with yourself.\n\n"
+            "<b>Meridians</b> brings the work into the body: channels, points, Qi flow, closed areas, breath, touch, and patient attention.\n\n"
+            "Small repetitions matter. They build the path under your feet."
         ),
         "feature_announcement": (
             "☯️ <b>New in Journey of Ascension: meridian practice</b>\n\n"
@@ -1525,9 +1526,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Практика начинается с наблюдения: куда уходит энергия. Когда она рассеяна, внимание шумит; когда собирается, действие становится тише и чище.\n\n"
-            "<b>Яма и Нияма</b> — фундамент: они уменьшают утечки энергии через речь, мысли, привычки и реакции. <b>Ахимса</b> начинается с того, чтобы не тратить силу на вред.\n\n"
-            "<b>Меридианы</b> — телесная карта Ци. Вы учитесь чувствовать каналы, точки и тихие зоны, которым нужны касание, дыхание и терпеливое внимание.\n\n"
+            "Практика начинается с честного вопроса: куда в течение дня уходит моя энергия? Когда она рассеяна, внимание шумит, реакции становятся резче, а даже простые действия требуют больше сил. Когда энергия собирается, тело тише, а в уме появляется больше пространства.\n\n"
+            "<b>Яма и Нияма</b> — фундамент. Это не моральные лозунги, а способ перестать сливать силу через речь, привычки, конфликты, вред себе, спешку и бессознательные реакции. <b>Ахимса</b>, например, начинается с того, чтобы не тратить энергию на вред — в том числе на вред самому себе.\n\n"
+            "<b>Меридианы</b> — телесная карта Ци. В практике вы учитесь замечать каналы, точки и зоны, которые словно молчат или плохо ощущаются. Обычно таким местам нужны терпеливое внимание, мягкое касание, дыхание и время.\n\n"
             "Что вы хотели бы изучать?"
         ),
         "initial_mode_question": "Что вы хотели бы изучать?",
@@ -1588,6 +1589,7 @@ TEXTS_UPDATE = {
             "Это первые две ступени классической йоги и нравственный фундамент практики.\n\n"
             "<b>Яма</b> бережёт энергию в отношениях с миром: ненасилие, правдивость, неворовство, умеренность и нестяжательство.\n\n"
             "<b>Нияма</b> собирает энергию внутри: чистота, удовлетворённость, дисциплина, самоизучение и посвящение плодов практики высшему.\n\n"
+            "Принцип дня — это акцент для наблюдения, а не замена остальных принципов. Мы постепенно внедряем их все в жизнь, просто каждый день один из них становится особенно заметным.\n\n"
             "Откройте принцип дня или посмотрите весь список."
         ),
         "principles_random": "Случайный принцип",
@@ -1680,11 +1682,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Этот бот задуман как спокойная опора для реальной практики, а не как набор вдохновляющих фраз.\n\n"
-            "Каждый день он возвращает к одному конкретному фокусу: принципу Ямы/Ниямы или точке меридиана. Задача простая: замечать, где энергия уходит бессознательно, переставать её растрачивать и учиться направлять внимание бережнее.\n\n"
-            "<b>Яма/Нияма</b> работает с поведением, речью, мыслями, дисциплиной и честностью перед собой.\n\n"
-            "<b>Меридианы</b> работают через тело: каналы, точки, течение Ци, закрытые зоны, дыхание, касание и внимание.\n\n"
-            "Маленькие повторения важны. Они превращают идею в то, чем действительно можно жить."
+            "Этот бот — практичный спутник на внутреннем пути. Его задача проста: возвращать вас к ясному фокусу достаточно часто, чтобы практика перестала быть идеей и начала входить в обычную жизнь.\n\n"
+            "С энергией мы работаем в самом наблюдаемом смысле: внимание, устойчивость, жизненность, способность действовать не растрачивая себя. Когда энергия утекает в конфликт, спешку, обиду, избыток или невнимание к себе, весь день становится тяжелее.\n\n"
+            "<b>Яма/Нияма</b> помогает закрывать эти утечки через поведение, речь, мысли, дисциплину и честность перед собой.\n\n"
+            "<b>Меридианы</b> переносят работу в тело: каналы, точки, течение Ци, закрытые зоны, дыхание, касание и терпеливое внимание.\n\n"
+            "Маленькие повторения важны. Они прокладывают путь под ногами."
         ),
         "feature_announcement": (
             "☯️ <b>Новое в Journey of Ascension: практика меридианов</b>\n\n"
@@ -1716,9 +1718,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Amaliyot energiya qayerga ketayotganini kuzatishdan boshlanadi. U tarqoq bo'lsa, diqqat shovqinli; yig'ilsa, harakat sokinroq va tiniqroq bo'ladi.\n\n"
-            "<b>Yama va Niyama</b> poydevor: ular energiyaning nutq, fikr, odat va reaksiyalar orqali oqib ketishini kamaytiradi. <b>Ahimsa</b> kuchni zarar yetkazishga sarflamaslikdan boshlanadi.\n\n"
-            "<b>Meridianlar</b> Qi ning tana xaritasidir. Siz kanallar, nuqtalar va teginish, nafas hamda sabrli diqqat so'raydigan sokin joylarni sezasiz.\n\n"
+            "Amaliyot halol savoldan boshlanadi: kun davomida energiyam qayerga ketmoqda? U tarqoq bo'lsa, diqqat shovqinli bo'ladi, reaksiya keskinlashadi, oddiy ishlar ham ko'proq kuch oladi. Energiya yig'ilsa, tana sokinroq, ong esa kengroq bo'ladi.\n\n"
+            "<b>Yama va Niyama</b> poydevor. Bular quruq axloqiy shiorlar emas; ular kuchni nutq, odat, ziddiyat, o'zingizga zarar, shoshilish va ongsiz reaksiyalar orqali yo'qotmaslikka yordam beradi. <b>Ahimsa</b>, masalan, energiyani zarar yetkazishga, jumladan o'zingizga zarar yetkazishga sarflamaslikdan boshlanadi.\n\n"
+            "<b>Meridianlar</b> Qi ning tana xaritasidir. Amaliyotda siz kanallar, nuqtalar va go'yo jim yoki sezilishi qiyin bo'lgan joylarni payqashni o'rganasiz. Bunday joylarga odatda sabrli diqqat, yumshoq teginish, nafas va vaqt kerak.\n\n"
             "Nimani o'rganmoqchisiz?"
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
@@ -1779,6 +1781,7 @@ TEXTS_UPDATE = {
             "Bular klassik yoganing birinchi ikki pog'onasi va amaliyotning axloqiy poydevoridir.\n\n"
             "<b>Yama</b> dunyo bilan munosabatda energiyani asraydi: zarar yetkazmaslik, rostgo'ylik, o'g'irlamaslik, mo'tadillik va ortiqcha egalik qilmaslik.\n\n"
             "<b>Niyama</b> energiyani ichkarida yig'adi: poklik, qanoat, intizom, o'zini o'rganish va amaliyot mevasini oliy maqsadga bag'ishlash.\n\n"
+            "Kun tamoyili qolgan tamoyillar o'rniga kelmaydi; u kuzatish uchun urg'u beradi. Biz ularning barchasini hayotga asta-sekin kiritamiz, har kuni bittasi aniqroq ko'rinadi.\n\n"
             "Bugungi tamoyilni oching yoki to'liq ro'yxatni ko'ring."
         ),
         "principles_random": "Tasodifiy tamoyil",
@@ -1871,11 +1874,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Bu bot ilhomli iboralar to'plami emas, balki haqiqiy amaliyot uchun sokin tayanch bo'lishi uchun yaratilgan.\n\n"
-            "Har kuni u sizni bitta aniq fokusga qaytaradi: Yama/Niyama tamoyiliga yoki meridian nuqtasiga. Maqsad oddiy: energiya qayerda ongsiz sarflanayotganini ko'rish, uni behuda ketkazmaslik va diqqatni ehtiyotkorroq yo'naltirishni o'rganish.\n\n"
-            "<b>Yama/Niyama</b> xulq, nutq, fikr, intizom va o'zingizga nisbatan halollik bilan ishlaydi.\n\n"
-            "<b>Meridianlar</b> tana orqali ishlaydi: kanallar, nuqtalar, Qi oqimi, yopiq joylar, nafas, teginish va diqqat.\n\n"
-            "Kichik takrorlar muhim. Ular g'oyani yashash mumkin bo'lgan odatga aylantiradi."
+            "Bu bot ichki yo'lda amaliy hamroh bo'lishi uchun yaratilgan. Uning vazifasi oddiy: sizni aniq fokusga yetarlicha tez-tez qaytarish, shunda amaliyot g'oya bo'lib qolmay, kundalik hayotga kira boshlaydi.\n\n"
+            "Energiya bilan eng kuzatiladigan ma'noda ishlaymiz: diqqat, barqarorlik, hayotiylik, o'zingizni sarflamasdan harakat qilish qobiliyati. Energiya ziddiyat, shoshilish, xafagarchilik, ortiqchalik yoki o'ziga e'tiborsizlikka oqib ketsa, butun kun og'irlashadi.\n\n"
+            "<b>Yama/Niyama</b> bu oqimlarni xulq, nutq, fikr, intizom va o'zingizga halollik orqali yopishga yordam beradi.\n\n"
+            "<b>Meridianlar</b> ishni tanaga olib kiradi: kanallar, nuqtalar, Qi oqimi, yopiq joylar, nafas, teginish va sabrli diqqat.\n\n"
+            "Kichik takrorlar muhim. Ular yo'lni oyog'ingiz ostida paydo qiladi."
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension'da yangilik: meridian amaliyoti</b>\n\n"
@@ -1921,9 +1924,9 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Тәжірибе энергияның қайда кетіп жатқанын байқаудан басталады. Ол шашыраса, зейін шулайды; жиналса, әрекет тынышырақ әрі айқынырақ болады.\n\n"
-            "<b>Яма мен Нияма</b> — негіз: олар энергияның сөз, ой, әдет және реакция арқылы шашылуын азайтады. <b>Ахимса</b> күшті зиянға жұмсамаудан басталады.\n\n"
-            "<b>Меридиандар</b> — Ци-дің денедегі картасы. Сіз арналар, нүктелер және жанасу, тыныс пен сабырлы зейін сұрайтын тыныш аймақтарды сезесіз.\n\n"
+            "Тәжірибе бір адал сұрақтан басталады: күн ішінде энергиям қайда кетіп жатыр? Ол шашыраса, зейін шулайды, реакциялар өткірленеді, қарапайым әрекеттің өзі көбірек күш алады. Энергия жиналса, дене тынышырақ, ал санада кеңістік көбейеді.\n\n"
+            "<b>Яма мен Нияма</b> — негіз. Бұл құрғақ моральдық ұран емес; олар күшті сөз, әдет, қақтығыс, өзіңізге зиян, асығыстық және бейсаналы реакциялар арқылы шашпауға көмектеседі. <b>Ахимса</b>, мысалы, энергияны зиянға жұмсамаудан басталады — өзіңізге зиян келтіруді де қоса.\n\n"
+            "<b>Меридиандар</b> — Ци-дің денедегі картасы. Тәжірибеде сіз арналарды, нүктелерді және үнсіз немесе сезілуі қиын аймақтарды байқауды үйренесіз. Мұндай жерлерге әдетте сабырлы зейін, жұмсақ жанасу, тыныс және уақыт керек.\n\n"
             "Нені зерттегіңіз келеді?"
         ),
         "initial_mode_question": "Нені зерттегіңіз келеді?",
@@ -1984,6 +1987,7 @@ TEXTS_UPDATE = {
             "Бұл классикалық йоганың алғашқы екі сатысы және тәжірибенің адамгершілік негізі.\n\n"
             "<b>Яма</b> әлеммен қарым-қатынаста энергияны сақтайды: зиян келтірмеу, шыншылдық, ұрламау, ұстамдылық және дүниеқоңыздықтан арылу.\n\n"
             "<b>Нияма</b> энергияны іште жинайды: тазалық, қанағат, тәртіп, өзін-өзі зерттеу және тәжірибе жемісін жоғары мақсатқа арнау.\n\n"
+            "Күн қағидасы қалған қағидалардың орнына келмейді; ол бақылауға арналған екпін ғана. Біз олардың бәрін өмірге біртіндеп енгіземіз, ал әр күні біреуі анығырақ көрінеді.\n\n"
             "Бүгінгі қағиданы ашыңыз немесе толық тізімді көріңіз."
         ),
         "principles_random": "Кездейсоқ қағида",
@@ -2076,11 +2080,11 @@ TEXTS_UPDATE = {
         ),
         "about_text": (
             "🕊️ <b>Journey of Ascension</b>\n\n"
-            "Бұл бот шабыт беретін сөздер жинағы емес, нақты тәжірибе үшін тыныш тірек болу үшін жасалған.\n\n"
-            "Күн сайын ол сізді бір нақты фокусқа қайтарады: Яма/Нияма қағидасына немесе меридиан нүктесіне. Мақсат қарапайым: энергияның қайда бейсаналы жұмсалып жатқанын көру, оны босқа шашпау және зейінді ұқыптырақ бағыттауды үйрену.\n\n"
-            "<b>Яма/Нияма</b> мінез-құлықпен, сөзбен, оймен, тәртіппен және өзіңізге адал болумен жұмыс істейді.\n\n"
-            "<b>Меридиандар</b> дене арқылы жұмыс істейді: арналар, нүктелер, Ци ағымы, жабық аймақтар, тыныс, жанасу және зейін.\n\n"
-            "Кішкентай қайталаулар маңызды. Олар идеяны өмірде қолдануға болатын дағдыға айналдырады."
+            "Бұл бот ішкі жолдағы практикалық серік болу үшін жасалған. Оның міндеті қарапайым: сізді анық фокусқа жиі қайтарып отыру, сонда тәжірибе идея болып қалмай, күнделікті өмірге кіре бастайды.\n\n"
+            "Энергиямен ең байқалатын мағынада жұмыс істейміз: зейін, тұрақтылық, тіршілік күші, өзіңізді сарқымай әрекет ету қабілеті. Энергия қақтығысқа, асығыстыққа, ренішке, артықтыққа немесе өзіңізге көңіл бөлмеуге кетсе, бүкіл күн ауырлайды.\n\n"
+            "<b>Яма/Нияма</b> бұл ағуларды мінез-құлық, сөз, ой, тәртіп және өзіңізге адалдық арқылы жабуға көмектеседі.\n\n"
+            "<b>Меридиандар</b> жұмысты денеге әкеледі: арналар, нүктелер, Ци ағымы, жабық аймақтар, тыныс, жанасу және сабырлы зейін.\n\n"
+            "Кішкентай қайталаулар маңызды. Олар жолды аяғыңыздың астында қалыптастырады."
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension ішіндегі жаңалық: меридиан тәжірибесі</b>\n\n"

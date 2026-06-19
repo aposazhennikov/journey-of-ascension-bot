@@ -789,6 +789,27 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if ahimsa_markers[language] not in onboarding:
             issues.append(f"{language}: onboarding does not give Ahimsa as an energy example")
 
+        onboarding_depth_markers = {
+            "en": ("self", "leak", "silent"),
+            "ru": ("самому себе", "сливать", "молчат"),
+            "uz": ("o'zingizga", "yo'qotmaslik", "jim"),
+            "kz": ("өзіңізге", "шашпау", "үнсіз"),
+        }[language]
+        for marker in onboarding_depth_markers:
+            if marker.lower() not in onboarding.lower():
+                issues.append(f"{language}: onboarding is missing beginner energy marker {marker!r}")
+
+        principles_menu = language_texts.get("principles_menu", "")
+        daily_accent_markers = {
+            "en": ("daily principle", "accent", "not a replacement"),
+            "ru": ("Принцип дня", "акцент", "не замена"),
+            "uz": ("Kun tamoyili", "urg'u", "o'rniga kelmaydi"),
+            "kz": ("Күн қағидасы", "екпін", "орнына келмейді"),
+        }[language]
+        for marker in daily_accent_markers:
+            if marker.lower() not in principles_menu.lower():
+                issues.append(f"{language}: principles menu is missing daily-accent marker {marker!r}")
+
         stale_patterns = (
             "Yoga Principles Bot",
             "Yoga Bot",
