@@ -839,10 +839,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             issues.append(f"{language}: onboarding does not give Ahimsa as an energy example")
 
         onboarding_depth_markers = {
-            "en": ("self", "leak", "more time"),
-            "ru": ("самому себе", "сливать", "больше времени"),
-            "uz": ("o'zingizga", "yo'qotmaslik", "ko'proq vaqt"),
-            "kz": ("өзіңізге", "шашпау", "көбірек уақыт"),
+            "en": ("self", "leak", "patient practice"),
+            "ru": ("разрушение себя", "утечки", "терпеливой практики"),
+            "uz": ("o'zingizni", "oqib ketadigan", "sabrli amaliyot"),
+            "kz": ("өзіңізді", "ағып кететін", "сабырлы тәжірибе"),
         }[language]
         for marker in onboarding_depth_markers:
             if marker.lower() not in onboarding.lower():
@@ -850,10 +850,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
 
         principles_menu = language_texts.get("principles_menu", "")
         daily_accent_markers = {
-            "en": ("daily principle", "accent", "not a replacement"),
-            "ru": ("Принцип дня", "акцент", "не замена"),
-            "uz": ("Kun tamoyili", "urg'u", "o'rniga kelmaydi"),
-            "kz": ("Күн қағидасы", "екпін", "орнына келмейді"),
+            "en": ("daily principle", "accent", "forget it tomorrow"),
+            "ru": ("Принцип дня", "акцент", "завтра забываем"),
+            "uz": ("Kun tamoyili", "urg'u", "ertaga uni unutamiz"),
+            "kz": ("Күн қағидасы", "екпін", "ертең оны ұмытамыз"),
         }[language]
         for marker in daily_accent_markers:
             if marker.lower() not in principles_menu.lower():
@@ -1009,10 +1009,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         meridians_home = language_texts.get("meridians_menu", "")
         meridians_home_lower = meridians_home.lower()
         meridians_home_markers = {
-            "en": ("neighboring channels", "not a replacement for medical diagnosis"),
-            "ru": ("соседние меридианы", "не замена медицинской диагностике"),
-            "uz": ("qo'shni kanallar", "tibbiy tashxis"),
-            "kz": ("көрші арналар", "медициналық диагнозды"),
+            "en": ("one living line", "does not replace medical diagnosis"),
+            "ru": ("одной живой линией", "не заменяет медицинскую диагностику"),
+            "uz": ("bitta tirik chiziq", "tibbiy tashxis"),
+            "kz": ("бір тірі сызық", "медициналық диагнозды"),
         }[language]
         for marker in meridians_home_markers:
             if marker.lower() not in meridians_home_lower:
