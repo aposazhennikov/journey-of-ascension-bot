@@ -72,7 +72,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'meridian practice.',
         'already_subscribed': '🕊️ You are already subscribed to Journey of Ascension.\n'
                               '\n'
-                              'Use /menu to choose practices or /settings to change reminders.',
+                              'Use /menu to choose practices or /settings to tune your practice rhythm.',
         'unsubscribed': 'The bot has been stopped. Reminders will no longer be sent.\n'
                         '\n'
                         'Use /start if you want to return.',
@@ -382,7 +382,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'практику меридианов.',
         'already_subscribed': '🕊️ Вы уже подписаны на Journey of Ascension.\n'
                               '\n'
-                              'Используйте /menu для выбора практик или /settings для настройки напоминаний.',
+                              'Используйте /menu для выбора практик или /settings для настройки ритма практики.',
         'unsubscribed': 'Бот остановлен. Напоминания больше не будут приходить.\n'
                         '\n'
                         'Если захотите вернуться, используйте /start.',
@@ -695,8 +695,8 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'amaliyotini davom ettirishingiz mumkin.',
         'already_subscribed': "🕊️ Siz Journey of Ascension'ga allaqachon obuna bo'lgansiz.\n"
                               '\n'
-                              'Amaliyotlarni tanlash uchun /menu yoki eslatmalarni sozlash uchun /settings '
-                              'dan foydalaning.',
+                              "Amaliyotlarni tanlash uchun /menu yoki amaliyot ritmini sozlash uchun /settings "
+                              "dan foydalaning.",
         'unsubscribed': "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n"
                         '\n'
                         "Qaytmoqchi bo'lsangiz, /start dan foydalaning.",
@@ -1009,7 +1009,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           'тәжірибесін жалғастыра аласыз.',
         'already_subscribed': '🕊️ Сіз Journey of Ascension-ға бұрыннан жазылғансыз.\n'
                               '\n'
-                              'Тәжірибелерді таңдау үшін /menu немесе еске салуларды өзгерту үшін /settings '
+                              'Тәжірибелерді таңдау үшін /menu немесе тәжірибе ырғағын реттеу үшін /settings '
                               'қолданыңыз.',
         'unsubscribed': 'Бот тоқтатылды. Еске салулар енді жіберілмейді.\n'
                         '\n'
@@ -1530,7 +1530,7 @@ TEXTS_UPDATE = {
             "The daily reminder does not rush you forward. It simply brings you back to the current focus so attention can become steadier.\n\n"
             "Open /menu and choose <b>Meridians</b>."
         ),
-        "already_subscribed": "🕊️ You are already subscribed to Journey of Ascension.\n\nUse /menu to choose practices or /settings to change reminders.",
+        "already_subscribed": "🕊️ You are already subscribed to Journey of Ascension.\n\nUse /menu to choose practices or /settings to tune your practice rhythm.",
         "not_subscribed": "The bot is not active for this chat yet. Use /start when you want to begin.",
         "unsubscribed": "The bot has been stopped. Reminders will no longer be sent.\n\nUse /start if you want to return.",
         "stop_feedback_prompt": "If you want, you can send one message and tell why you decided to stop using the bot. This is optional.",
@@ -1730,7 +1730,7 @@ TEXTS_UPDATE = {
             "Ежедневное напоминание не торопит вас дальше. Оно просто возвращает к текущему фокусу, чтобы внимание становилось устойчивее.\n\n"
             "Откройте /menu и выберите <b>Меридианы</b>."
         ),
-        "already_subscribed": "🕊️ Вы уже подписаны на Journey of Ascension.\n\nИспользуйте /menu для выбора практик или /settings для настройки напоминаний.",
+        "already_subscribed": "🕊️ Вы уже подписаны на Journey of Ascension.\n\nИспользуйте /menu для выбора практик или /settings для настройки ритма практики.",
         "not_subscribed": "Бот сейчас не активен для этого чата. Используйте /start, когда захотите начать.",
         "unsubscribed": "Бот остановлен. Напоминания больше не будут приходить.\n\nЕсли захотите вернуться, используйте /start.",
         "stop_feedback_prompt": "Если хотите, можете одним сообщением написать, почему решили остановить бота. Это необязательно.",
@@ -1930,7 +1930,7 @@ TEXTS_UPDATE = {
             "Kundalik eslatma sizni shoshiltirmaydi. U faqat joriy fokusga qaytaradi, shunda diqqat asta-sekin barqarorroq bo'ladi.\n\n"
             "/menu ni oching va <b>Meridianlar</b> bo'limini tanlang."
         ),
-        "already_subscribed": "🕊️ Siz Journey of Ascension'ga allaqachon obuna bo'lgansiz.\n\nAmaliyotlarni tanlash uchun /menu yoki eslatmalarni sozlash uchun /settings dan foydalaning.",
+        "already_subscribed": "🕊️ Siz Journey of Ascension'ga allaqachon obuna bo'lgansiz.\n\nAmaliyotlarni tanlash uchun /menu yoki amaliyot ritmini sozlash uchun /settings dan foydalaning.",
         "not_subscribed": "Bot bu chatda hali faol emas. Boshlamoqchi bo'lsangiz, /start dan foydalaning.",
         "unsubscribed": "Bot to'xtatildi. Eslatmalar endi yuborilmaydi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "stop_feedback_prompt": "Xohlasangiz, botdan foydalanishni nima uchun to'xtatganingizni bitta xabarda yozishingiz mumkin. Bu majburiy emas.",
@@ -2144,7 +2144,7 @@ TEXTS_UPDATE = {
             "Күнделікті еске салу сізді асықтырмайды. Ол тек ағымдағы фокусқа қайтарады, сонда зейін біртіндеп тұрақтанады.\n\n"
             "/menu ашып, <b>Меридиандар</b> бөлімін таңдаңыз."
         ),
-        "already_subscribed": "🕊️ Сіз Journey of Ascension-ға бұрыннан жазылғансыз.\n\nТәжірибелерді таңдау үшін /menu немесе еске салуларды өзгерту үшін /settings қолданыңыз.",
+        "already_subscribed": "🕊️ Сіз Journey of Ascension-ға бұрыннан жазылғансыз.\n\nТәжірибелерді таңдау үшін /menu немесе тәжірибе ырғағын реттеу үшін /settings қолданыңыз.",
         "not_subscribed": "Бұл чатта бот әлі белсенді емес. Бастау үшін /start қолданыңыз.",
         "unsubscribed": "Бот тоқтатылды. Еске салулар енді жіберілмейді.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "stop_feedback_prompt": "Қаласаңыз, ботты не үшін тоқтатқаныңызды бір хабарламамен жаза аласыз. Бұл міндетті емес.",

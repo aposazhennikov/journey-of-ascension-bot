@@ -226,31 +226,31 @@ class YogaBot:
             None: [
                 BotCommand("start", "Start or restart setup"),
                 BotCommand("menu", "Open the main practice menu"),
-                BotCommand("settings", "View reminder settings"),
+                BotCommand("settings", "Adjust practice rhythm"),
                 BotCommand("stop", "Stop the bot"),
             ],
             "en": [
                 BotCommand("start", "Start or restart setup"),
                 BotCommand("menu", "Open the main practice menu"),
-                BotCommand("settings", "View reminder settings"),
+                BotCommand("settings", "Adjust practice rhythm"),
                 BotCommand("stop", "Stop the bot"),
             ],
             "ru": [
                 BotCommand("start", "Запустить настройку заново"),
                 BotCommand("menu", "Открыть главное меню"),
-                BotCommand("settings", "Посмотреть настройки напоминаний"),
+                BotCommand("settings", "Настроить ритм практики"),
                 BotCommand("stop", "Остановить работу бота"),
             ],
             "uz": [
                 BotCommand("start", "Sozlashni qayta boshlash"),
                 BotCommand("menu", "Asosiy amaliyot menyusini ochish"),
-                BotCommand("settings", "Eslatma sozlamalarini ko'rish"),
+                BotCommand("settings", "Amaliyot ritmini sozlash"),
                 BotCommand("stop", "Bot ishini to'xtatish"),
             ],
             "kk": [
                 BotCommand("start", "Баптауды қайта бастау"),
                 BotCommand("menu", "Негізгі тәжірибе мәзірін ашу"),
-                BotCommand("settings", "Еске салу баптауларын көру"),
+                BotCommand("settings", "Тәжірибе ырғағын реттеу"),
                 BotCommand("stop", "Бот жұмысын тоқтату"),
             ],
         }
