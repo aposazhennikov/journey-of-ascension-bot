@@ -227,9 +227,6 @@ def format_principle_message(principle: Dict[str, Any], language: str = "en", ma
             parts.append(f"💡 <b>{escape(labels[2])}:</b> <i>{escape(practice)}</i>")
         return "\n\n".join(part for part in parts if part)
 
-    if description and len(description) > 220:
-        description = shorten(description, 220)
-
     text = build(description, practice_tip)
     if len(text) <= max_length:
         return text

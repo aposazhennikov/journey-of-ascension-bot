@@ -864,6 +864,13 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             "білдіретін принцип",
             "active striving for truth",
             "активное стремление к правде",
+            "Non-appropriation of others' property",
+            "Self-education and self-knowledge",
+            "Самообразование и самопознание",
+            "Mol-mulk to'plamaslik",
+            "O'z-o'zini tarbiyalash",
+            "Мүлік жинамау",
+            "Өзін-өзі тәрбиелеу және өзін-өзі тану",
         )
         visible_keys = (
             "welcome",
@@ -1374,6 +1381,12 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     if re.search(r"parse_mode=[\"']Markdown[\"']", bot_sources):
         issues.append("bot still sends messages with Markdown parse mode")
     utils_source = (ROOT / "bot" / "utils.py").read_text(encoding="utf-8-sig")
+    principle_formatter_start = utils_source.find("def format_principle_message")
+    principle_formatter_end = utils_source.find("def get_day_of_week")
+    if principle_formatter_start != -1 and principle_formatter_end != -1:
+        principle_formatter_source = utils_source[principle_formatter_start:principle_formatter_end]
+        if "len(description) > 220" in principle_formatter_source:
+            issues.append("principle formatter still applies the old fixed 220-character description cut")
     if "_point_area_practice_hint" not in utils_source:
         issues.append("meridian point formatter does not add body-area practice cues")
     if "Смягчите живот и таз" not in utils_source or "Lengthen the spine" not in utils_source:

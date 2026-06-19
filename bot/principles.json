@@ -20,7 +20,7 @@
       "id": 3,
       "name": "Астея",
       "emoji": "✨",
-      "short_description": "Неприсвоение себе чужого",
+      "short_description": "Не брать то, что не было свободно дано",
       "description": "Астея — неприсвоение чужого. Это касается не только вещей: сюда входят чужое время, внимание, идеи, труд и доверие. Когда мы берём без разрешения или используем человека как ресурс, энергия уходит на напряжение, оправдания и скрытый долг. Астея возвращает отношениям ясность: брать честно, отдавать честно, не питаться чужим.",
       "practice_tip": "Сегодня не присваивайте чужое: вещи, идеи, время, внимание. Перед тем как взять, попросите; перед тем как отвлечь человека, проверьте необходимость. Возвращайте энергию себе через честный обмен."
     },
@@ -28,7 +28,7 @@
       "id": 4,
       "name": "Брахмачарья",
       "emoji": "🔥",
-      "short_description": "Самодисциплина и контроль над желаниями",
+      "short_description": "Бережное обращение с жизненной силой",
       "description": "Брахмачарья — это бережное обращение с жизненной силой. Речь не только о сексуальности, а обо всём, что разбрасывает внимание: бесконечные импульсы, фантазии, лишние разговоры, реакции ради реакции. Этот принцип помогает направлять энергию туда, где она становится ясностью, творчеством, служением и устойчивой практикой.",
       "practice_tip": "Сегодня берегите творческую силу. Замечайте, куда она уходит через импульсы, фантазии, лишние реакции или рассеянность. Выберите одно простое дело и выполните его как служение, спокойно и цельно."
     },
@@ -36,7 +36,7 @@
       "id": 5,
       "name": "Апариграха",
       "emoji": "🍃",
-      "short_description": "Не-стяжательство и непривязанность",
+      "short_description": "Достаточность и свобода от лишнего удержания",
       "description": "Апариграха — не-стяжательство и свобода от лишнего удержания. Это не запрет иметь вещи, а способность видеть, где обладание начинает владеть вами. Лишние покупки, обещания, связи, планы и ожидания требуют обслуживания и тянут внимание. Апариграха возвращает энергию из накопления в присутствие: достаточно того, что действительно служит жизни.",
       "practice_tip": "Сегодня выбирайте достаточность. Не берите лишнего в еде, вещах, словах, мыслях и напряжении. Каждый раз, когда можно не хвататься, отпустите: так энергия перестаёт застревать в удержании."
     },
@@ -68,7 +68,7 @@
       "id": 9,
       "name": "Свадхьяя",
       "emoji": "📚",
-      "short_description": "Самообразование и самопознание",
+      "short_description": "Честное самоизучение без самообвинения",
       "description": "Свадхьяя — самоизучение. Это чтение, размышление и честное наблюдение за собой: какие мысли повторяются, где тело сжимается, какие реакции управляют поведением. Важно не обвинять себя, а видеть точнее. Когда реакция становится понятной, она перестаёт незаметно управлять энергией и появляется возможность выбрать другой шаг.",
       "practice_tip": "Сегодня станьте исследователем себя. Заметьте одну повторяющуюся реакцию: где она начинается в теле, какую мысль приносит, чего хочет защитить? Дополните наблюдение чтением или размышлением."
     },
@@ -102,7 +102,7 @@
       "id": 3,
       "name": "Asteya",
       "emoji": "✨",
-      "short_description": "Non-appropriation of others' property",
+      "short_description": "Not taking what was not freely given",
       "description": "Asteya is not taking what is not freely given. It includes not only things, but also another person's time, attention, ideas, work, and trust. When we take without permission or use someone as a resource, energy goes into tension, excuses, and hidden debt. Asteya restores clarity: receive honestly, give honestly, and do not feed on what belongs to another.",
       "practice_tip": "Today do not take what is not yours: things, ideas, time, attention. Before taking, ask; before distracting someone, check if it is needed. Let energy return through honest exchange."
     },
@@ -110,7 +110,7 @@
       "id": 4,
       "name": "Brahmacharya",
       "emoji": "🔥",
-      "short_description": "Self-discipline and control over desires",
+      "short_description": "Careful handling of life force",
       "description": "Brahmacharya is careful handling of life force. It is not only about sexuality, but about everything that scatters attention: endless impulses, fantasies, unnecessary talk, reactions for the sake of reacting. This principle helps direct energy where it can become clarity, creativity, service, and steady practice.",
       "practice_tip": "Today protect your creative force. Notice where it leaves through impulses, fantasies, extra reactions, or scattered attention. Choose one simple action and do it as service, calmly and completely."
     },
@@ -118,7 +118,7 @@
       "id": 5,
       "name": "Aparigraha",
       "emoji": "🍃",
-      "short_description": "Non-possessiveness and non-attachment",
+      "short_description": "Enoughness and freedom from unnecessary holding",
       "description": "Aparigraha is non-possessiveness and freedom from unnecessary holding. It does not forbid having things; it asks where possession begins to possess you. Extra purchases, promises, relationships, plans, and expectations all need maintenance and pull attention. Aparigraha returns energy from accumulation into presence: enough is what truly serves life.",
       "practice_tip": "Today choose enough. Do not take extra food, things, words, thoughts, or tension. Whenever you can stop grasping, release it: energy stops getting trapped in holding."
     },
@@ -150,7 +150,7 @@
       "id": 9,
       "name": "Svadhyaya",
       "emoji": "📚",
-      "short_description": "Self-education and self-knowledge",
+      "short_description": "Honest self-study without self-blame",
       "description": "Svadhyaya is self-study. It includes reading, reflection, and honest observation of yourself: which thoughts repeat, where the body tightens, which reactions shape behavior. The point is not to blame yourself, but to see more clearly. When a reaction becomes visible, it stops quietly directing your energy and another step becomes possible.",
       "practice_tip": "Today become a researcher of yourself. Notice one repeating reaction: where it starts in the body, what thought it brings, what it tries to protect. Add reading or reflection if there is space."
     },
@@ -184,7 +184,7 @@
       "id": 3,
       "name": "Asteya",
       "emoji": "✨",
-      "short_description": "Begonani o'zlashtirib olmaslik",
+      "short_description": "Erkin berilmagan narsani olmaslik",
       "description": "Asteya - berilmagan narsani olmaslik. Bu faqat buyumlarga emas, balki boshqa odamning vaqti, e'tibori, g'oyasi, mehnati va ishonchiga ham tegishli. Ruxsatsiz olsak yoki odamdan resurs sifatida foydalansak, energiya zo'riqish, bahona va yashirin qarzga ketadi. Asteya munosabatlarga ravshanlik qaytaradi: halol olish, halol berish, boshqaning hisobidan oziqlanmaslik.",
       "practice_tip": "Bugun o'zingizniki bo'lmagan narsani olmang: buyum, g'oya, vaqt, e'tibor. Olishdan oldin so'rang; birovni chalg'itishdan oldin zarurligini tekshiring. Energiya halol almashinuv orqali qaytadi."
     },
@@ -192,7 +192,7 @@
       "id": 4,
       "name": "Brahmacharya",
       "emoji": "🔥",
-      "short_description": "O'z-o'zini tartibga solish va istaklarga nazorat",
+      "short_description": "Hayotiy kuchga ehtiyotkor munosabat",
       "description": "Brahmacharya hayotiy kuchga ehtiyotkor munosabatdir. Gap faqat jinsiylik haqida emas, balki diqqatni sochib yuboradigan hamma narsa haqida: tuganmas impulslar, xayollar, ortiqcha gaplar, reaksiya uchun reaksiya. Bu tamoyil energiyani ravshanlik, ijod, xizmat va barqaror amaliyotga aylanishi mumkin bo'lgan joyga yo'naltirishga yordam beradi.",
       "practice_tip": "Bugun ijodiy kuchingizni asrang. U impulslar, xayollar, ortiqcha reaksiya yoki tarqoq e'tibor orqali qayerga ketayotganini sezing. Bitta oddiy ishni xizmat sifatida, xotirjam va butun holda bajaring."
     },
@@ -200,7 +200,7 @@
       "id": 5,
       "name": "Aparigraha",
       "emoji": "🍃",
-      "short_description": "Mol-mulk to'plamaslik va bog'lanmaslik",
+      "short_description": "Yetarlilik va ortiqcha ushlab turishdan erkinlik",
       "description": "Aparigraha - ortiqcha egalik va ushlab turishdan erkinlik. Bu narsaga ega bo'lishni taqiqlamaydi; faqat qayerda narsa sizni egallay boshlaganini ko'rishga chaqiradi. Ortiqcha xarid, va'da, aloqa, reja va kutishlarning barchasi parvarish talab qiladi va e'tiborni tortadi. Aparigraha energiyani jamg'arishdan hozirlikka qaytaradi: hayotga xizmat qiladigan narsa yetarli.",
       "practice_tip": "Bugun yetarlilikni tanlang. Ortiqcha ovqat, buyum, so'z, fikr yoki zo'riqishni olmang. Qayerda yopishmaslik mumkin bo'lsa, qo'yib yuboring: energiya ushlab turishda qamalib qolmaydi."
     },
@@ -232,7 +232,7 @@
       "id": 9,
       "name": "Svadhyaya",
       "emoji": "📚",
-      "short_description": "O'z-o'zini tarbiyalash va o'z-o'zini anglash",
+      "short_description": "O'zini ayblamasdan halol o'rganish",
       "description": "Svadhyaya - o'zini o'rganish. U o'qish, mulohaza va o'zingizni halol kuzatishni o'z ichiga oladi: qaysi fikrlar takrorlanadi, tana qayerda siqiladi, qaysi reaksiyalar xatti-harakatni boshqaradi. Maqsad o'zingizni ayblash emas, aniqroq ko'rishdir. Reaksiya ko'ringanida, u energiyangizni yashirin boshqarishni to'xtatadi va boshqa qadam tanlash mumkin bo'ladi.",
       "practice_tip": "Bugun o'zingizni tadqiq qiling. Takrorlanadigan bitta reaksiyani kuzating: u tanada qayerdan boshlanadi, qanday fikr olib keladi, nimani himoya qilmoqchi? Imkon bo'lsa, buni o'qish yoki mulohaza bilan chuqurlashtiring."
     },
@@ -266,7 +266,7 @@
       "id": 3,
       "name": "Астея",
       "emoji": "✨",
-      "short_description": "Басқаның заттарын меншіктемеу",
+      "short_description": "Еркін берілмеген нәрсені алмау",
       "description": "Астея - еркін берілмеген нәрсені алмау. Бұл тек затқа емес, басқа адамның уақытына, назарына, идеясына, еңбегіне және сеніміне де қатысты. Рұқсатсыз алсақ немесе адамды ресурс ретінде қолдансақ, энергия кернеуге, ақталуға және жасырын қарызға кетеді. Астея қарым-қатынасқа айқындық қайтарады: адал алу, адал беру, өзгенің есебінен қоректенбеу.",
       "practice_tip": "Бүгін өзіңіздікі емес нәрсені алмаңыз: зат, идея, уақыт, назар. Алмас бұрын сұраңыз; біреуді бөлмес бұрын оның қажет екенін тексеріңіз. Энергия адал алмасу арқылы қайтады."
     },
@@ -274,7 +274,7 @@
       "id": 4,
       "name": "Брахмачарья",
       "emoji": "🔥",
-      "short_description": "Өзін-өзі тәрбиелеу және тілектерге бақылау",
+      "short_description": "Өмірлік күшке ұқыпты қарау",
       "description": "Брахмачарья — өмірлік күшке ұқыпты қарау. Бұл тек жыныстық тақырып емес, зейінді шашатын барлық нәрсе туралы: бітпейтін импульстар, қиялдар, артық әңгіме, реакция үшін реакция. Бұл қағида энергияны айқындыққа, шығармашылыққа, қызметке және тұрақты практикаға айналатын жерге бағыттауға көмектеседі.",
       "practice_tip": "Бүгін шығармашылық күшіңізді сақтаңыз. Ол импульс, қиял, артық реакция немесе шашыраңқы назар арқылы қайда кететінін байқаңыз. Бір қарапайым істі қызмет ретінде, тыныш әрі тұтас орындаңыз."
     },
@@ -282,7 +282,7 @@
       "id": 5,
       "name": "Апариграха",
       "emoji": "🍃",
-      "short_description": "Мүлік жинамау және байланыспау",
+      "short_description": "Жеткіліктілік және артық ұстаудан еркіндік",
       "description": "Апариграха - артық иелену мен ұстап қалудан еркіндік. Бұл затқа ие болуға тыйым салмайды; тек қай жерде иелік сізді иелене бастағанын көруге шақырады. Артық сатып алу, уәде, байланыс, жоспар және күту күтімді қажет етеді әрі зейінді тартады. Апариграха энергияны жинақтаудан қазіргі сәтке қайтарады: өмірге шын қызмет ететін нәрсе жеткілікті.",
       "practice_tip": "Бүгін жеткіліктілікті таңдаңыз. Артық тамақ, зат, сөз, ой немесе кернеу алмаңыз. Қай жерде жабыспауға болады, сол жерде босатыңыз: энергия ұстауда қамалып қалмайды."
     },
@@ -314,7 +314,7 @@
       "id": 9,
       "name": "Свадхьяя",
       "emoji": "📚",
-      "short_description": "Өзін-өзі тәрбиелеу және өзін-өзі тану",
+      "short_description": "Өзін айыптамай адал зерттеу",
       "description": "Свадхьяя - өзін зерттеу. Оған оқу, ойлану және өзіңізді адал бақылау кіреді: қандай ойлар қайталанады, дене қай жерде қысылады, қандай реакциялар мінез-құлықты басқарады. Мақсат - өзіңізді кінәлау емес, анығырақ көру. Реакция көрінгенде, ол энергияңызды жасырын басқаруды тоқтатады және басқа қадам таңдауға мүмкіндік туады.",
       "practice_tip": "Бүгін өзіңізді зерттеуші болыңыз. Қайталанатын бір реакцияны байқаңыз: ол денеде қайдан басталады, қандай ой әкеледі, нені қорғағысы келеді? Мүмкін болса, мұны оқу немесе ойланумен тереңдетіңіз."
     },
