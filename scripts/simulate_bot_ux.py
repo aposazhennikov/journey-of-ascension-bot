@@ -743,6 +743,8 @@ def build_html() -> str:
     .bar {{ display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }}
     .task {{ padding: 6px 0; border-top: 1px solid rgba(36,48,34,.14); line-height: 1.25; }}
     .task small {{ display: block; color: rgba(36,48,34,.68); margin-top: 2px; }}
+    .ok {{ color: #246b37; font-weight: 650; }}
+    .warn {{ color: #8a5a00; font-weight: 650; }}
     @media (max-width: 820px) {{ .app {{ grid-template-columns: 1fr; }} .phone {{ max-width: none; }} }}
   </style>
 </head>
@@ -788,11 +790,7 @@ def build_html() -> str:
         <div id="coverage" class="coverage"></div>
       </div>
       <div class="state">
-        <b>Location translation</b>
-        <div id="translationCoverage" class="coverage"></div>
-      </div>
-      <div class="state">
-        <b>Localization status</b>
+        <b>Quality status</b>
         <div id="localizationStatus" class="coverage"></div>
       </div>
     </aside>
@@ -807,7 +805,6 @@ def build_html() -> str:
     const screenName = document.getElementById('screenName');
     const stateBox = document.getElementById('state');
     const coverageBox = document.getElementById('coverage');
-    const translationCoverageBox = document.getElementById('translationCoverage');
     const localizationStatusBox = document.getElementById('localizationStatus');
 
     const state = {{
@@ -881,25 +878,17 @@ def build_html() -> str:
       coverageBox.innerHTML = payload.meridians.map((item) => `
         <div class="bar"><span>${{item.names[state.language]}}</span><b>${{item.pointsCount}}</b></div>
       `).join('');
-      translationCoverageBox.innerHTML = payload.languages.map((language) => {{
-        const item = payload.translationCoverage[language];
-        const ready = Math.max(0, item.total - item.source);
-        return `
-          <div class="bar"><span>${{language.toUpperCase()}} ready locations</span><b>${{ready}}/${{item.total}}</b></div>
-          <div class="bar muted"><span>source RU / pending</span><b>${{item.source}} / ${{item.pending}}</b></div>
-        `;
-      }}).join('');
       const openLocationTasks = payload.languages
         .map((language) => [language, payload.translationCoverage[language]])
         .filter(([, item]) => item.source || item.pending);
       localizationStatusBox.innerHTML = openLocationTasks.length
         ? openLocationTasks.map(([language, item]) => `
             <div class="task">
-              <b>${{language.toUpperCase()}}</b>
-              <small>${{item.source}} source-backed locations, ${{item.pending}} pending locations</small>
+              <span class="warn">${{language.toUpperCase()}} needs location review</span>
+              <small>${{item.source + item.pending}} point descriptions still need editorial cleanup before release.</small>
             </div>
           `).join('')
-        : '<div class="ok">All point locations are localized for the four app languages.</div>';
+        : '<div class="ok">All meridian point locations are ready in the four app languages.</div>';
     }}
 
     function chooseMode(mode) {{
