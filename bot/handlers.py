@@ -623,11 +623,10 @@ TEXTS_UPDATE = {
         "menu_stop": "⏹ Stop bot",
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
-            "Yama and Niyama are the basic moral and ethical disciplines of yoga. They form the foundation for self-discipline, spiritual growth, and harmonious relations with the world.\n\n"
-            "They are the first two limbs of classical eight-limbed yoga.\n\n"
-            "<b>Yama</b> is how we relate to the outer world: non-violence, truthfulness, non-stealing, moderation, and non-possessiveness.\n\n"
-            "<b>Niyama</b> is how we work with ourselves: purity, contentment, discipline, self-study, and surrender of the fruits of action.\n\n"
-            "Open a random principle for contemplation or view the full list."
+            "These are the first two limbs of classical yoga and the ethical foundation of practice.\n\n"
+            "<b>Yama</b> protects energy in relation to the world: non-harm, truthfulness, non-stealing, moderation, and non-possessiveness.\n\n"
+            "<b>Niyama</b> gathers energy inside: purity, contentment, discipline, self-study, and surrender of the fruits of action.\n\n"
+            "Open one principle for today or view the full list."
         ),
         "principles_random": "Random principle",
         "principles_all": "All principles",
@@ -676,11 +675,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
-            "Meridians are a map for learning how attention lives in the body. In Traditional Chinese Medicine they are described as channels through which Qi moves.\n\n"
-            "Here you can either follow the recommended path or choose any meridian yourself. Then open the current point, look at its location image, and learn to recognize the body's response through touch, breath, and attention.\n\n"
-            "If a point description uses cun, open the measurement guide first. It explains how to estimate 0.5, 1, 1.5, 3, and 5 cun on the body.\n\n"
-            "This does not replace medical diagnosis or treatment. It is a practice of awareness, prevention, and inner discipline.\n\n"
-            "Start with the action that is useful right now."
+            "Meridians are a body map of Qi movement. They help you notice where attention flows freely and where an area feels silent, tense, or closed.\n\n"
+            "Choose a guided path or study any meridian yourself. Open a point, look at the image, then listen through touch, breath, and attention.\n\n"
+            "Use the cun guide when measurements appear. This is not medical diagnosis; it is a practice of awareness, prevention, and inner discipline."
         ),
         "choose_meridian": "☯️ <b>Choose a meridian:</b>",
         "current_meridian": "▶️ Continue practice",
@@ -770,11 +767,10 @@ TEXTS_UPDATE = {
         "menu_stop": "⏹ Остановить бота",
         "principles_menu": (
             "🕊️ <b>Яма/Нияма</b>\n\n"
-            "Яма и Нияма — это базовые морально-этические правила и ступени в йоге. Они формируют фундамент для самодисциплины, духовного развития и гармоничных отношений с миром.\n\n"
-            "Они образуют первые две ступени классической восьмиступенчатой йоги.\n\n"
-            "<b>Яма</b> — принципы взаимодействия с окружающим миром: ненасилие, правдивость, неворовство, умеренность и нестяжательство.\n\n"
-            "<b>Нияма</b> — принципы работы над собой: чистота, удовлетворённость, дисциплина, самоизучение и посвящение плодов практики высшему.\n\n"
-            "Можно открыть случайный принцип для размышления или посмотреть весь список."
+            "Это первые две ступени классической йоги и нравственный фундамент практики.\n\n"
+            "<b>Яма</b> бережёт энергию в отношениях с миром: ненасилие, правдивость, неворовство, умеренность и нестяжательство.\n\n"
+            "<b>Нияма</b> собирает энергию внутри: чистота, удовлетворённость, дисциплина, самоизучение и посвящение плодов практики высшему.\n\n"
+            "Откройте принцип дня или посмотрите весь список."
         ),
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
@@ -823,11 +819,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
-            "Меридианы — это карта, через которую можно учиться чувствовать, как внимание живёт в теле. В традиционной китайской медицине они описываются как каналы, по которым движется Ци.\n\n"
-            "Здесь можно идти по рекомендованному пути или выбрать любой меридиан самостоятельно. Затем открывайте текущую точку, смотрите её расположение на изображении и учитесь узнавать отклик тела через касание, дыхание и внимание.\n\n"
-            "Если в описании точки встречаются цуни, сначала откройте справку по измерениям. Там объясняется, как отмерять 0,5, 1, 1,5, 3 и 5 цуней на теле.\n\n"
-            "Эта практика не заменяет медицинскую диагностику и лечение. Это инструмент осознанности, профилактики и внутренней дисциплины.\n\n"
-            "Начните с того действия, которое сейчас нужно."
+            "Меридианы — телесная карта движения Ци. Они помогают замечать, где внимание течёт свободно, а где зона ощущается молчащей, напряжённой или закрытой.\n\n"
+            "Идите по нашему пути или выберите любой меридиан сами. Откройте точку, посмотрите изображение и слушайте тело через касание, дыхание и внимание.\n\n"
+            "Если встречаются цуни, откройте справку по измерениям. Это не медицинская диагностика, а практика осознанности, профилактики и внутренней дисциплины."
         ),
         "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
         "current_meridian": "▶️ Продолжить практику",
@@ -917,11 +911,10 @@ TEXTS_UPDATE = {
         "menu_stop": "⏹ Botni to'xtatish",
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
-            "Yama va Niyama yogadagi asosiy axloqiy qoidalar va bosqichlardir. Ular o'zini tarbiyalash, ruhiy rivojlanish va dunyo bilan uyg'un munosabatlar uchun poydevor yaratadi.\n\n"
-            "Ular klassik sakkiz bosqichli yoganing birinchi ikki pog'onasidir.\n\n"
-            "<b>Yama</b> tashqi dunyo bilan munosabat tamoyillari: zarar yetkazmaslik, rostgo'ylik, o'g'irlamaslik, mo'tadillik va ortiqcha egalik qilmaslik.\n\n"
-            "<b>Niyama</b> o'z ustida ishlash tamoyillari: poklik, qanoat, intizom, o'zini o'rganish va amaliyot mevasini oliy maqsadga bag'ishlash.\n\n"
-            "Tafakkur uchun tasodifiy tamoyilni ochish yoki to'liq ro'yxatni ko'rish mumkin."
+            "Bular klassik yoganing birinchi ikki pog'onasi va amaliyotning axloqiy poydevoridir.\n\n"
+            "<b>Yama</b> dunyo bilan munosabatda energiyani asraydi: zarar yetkazmaslik, rostgo'ylik, o'g'irlamaslik, mo'tadillik va ortiqcha egalik qilmaslik.\n\n"
+            "<b>Niyama</b> energiyani ichkarida yig'adi: poklik, qanoat, intizom, o'zini o'rganish va amaliyot mevasini oliy maqsadga bag'ishlash.\n\n"
+            "Bugungi tamoyilni oching yoki to'liq ro'yxatni ko'ring."
         ),
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
@@ -970,11 +963,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
-            "Meridianlar diqqat tanada qanday yashashini sezishga yordam beradigan xaritadir. An'anaviy xitoy tibbiyotida ular Qi harakatlanadigan kanallar sifatida tasvirlanadi.\n\n"
-            "Bu yerda tavsiya etilgan yo'l bo'yicha yurishingiz yoki istalgan meridianni mustaqil tanlashingiz mumkin. Keyin joriy nuqtani oching, rasmdagi joylashuvini ko'ring va tananing javobini teginish, nafas va diqqat orqali tanishni o'rganing.\n\n"
-            "Agar nuqta tavsifida cun uchrasa, avval o'lchovlar bo'yicha ma'lumotni oching. Unda tanada 0,5, 1, 1,5, 3 va 5 cunni qanday taxmin qilish tushuntirilgan.\n\n"
-            "Bu amaliyot tibbiy tashxis va davolanishni almashtirmaydi. U ongli kuzatuv, profilaktika va ichki intizom vositasidir.\n\n"
-            "Hozir kerak bo'lgan amalni tanlang."
+            "Meridianlar Qi harakatining tana xaritasidir. Ular diqqat qayerda erkin oqishini, qayer esa jim, tarang yoki yopiq sezilishini payqashga yordam beradi.\n\n"
+            "Tavsiya etilgan yo'ldan boring yoki istalgan meridianni tanlang. Nuqtani oching, rasmga qarang va tanani teginish, nafas hamda diqqat orqali tinglang.\n\n"
+            "Cun o'lchovlari uchrasa, o'lchovlar bo'yicha ma'lumotni oching. Bu tibbiy tashxis emas, balki ongli kuzatuv va ichki intizom amaliyoti."
         ),
         "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
         "current_meridian": "▶️ Amaliyotni davom ettirish",
@@ -1078,11 +1069,10 @@ TEXTS_UPDATE = {
         "menu_stop": "⏹ Ботты тоқтату",
         "principles_menu": (
             "🕊️ <b>Яма/Нияма</b>\n\n"
-            "Яма мен Нияма — йогадағы негізгі моральдық-этикалық қағидалар мен сатылар. Олар өзін-өзі тәрбиелеуге, рухани дамуға және әлеммен үйлесімді қарым-қатынасқа негіз болады.\n\n"
-            "Олар классикалық сегіз сатылы йоганың алғашқы екі сатысын құрайды.\n\n"
-            "<b>Яма</b> сыртқы әлеммен қарым-қатынас қағидалары: зиян келтірмеу, шыншылдық, ұрламау, ұстамдылық және дүниеқоңыздықтан арылу.\n\n"
-            "<b>Нияма</b> өзімен жұмыс істеу қағидалары: тазалық, қанағат, тәртіп, өзін-өзі зерттеу және тәжірибе жемісін жоғары мақсатқа арнау.\n\n"
-            "Ойлану үшін кездейсоқ қағиданы ашуға немесе толық тізімді көруге болады."
+            "Бұл классикалық йоганың алғашқы екі сатысы және тәжірибенің адамгершілік негізі.\n\n"
+            "<b>Яма</b> әлеммен қарым-қатынаста энергияны сақтайды: зиян келтірмеу, шыншылдық, ұрламау, ұстамдылық және дүниеқоңыздықтан арылу.\n\n"
+            "<b>Нияма</b> энергияны іште жинайды: тазалық, қанағат, тәртіп, өзін-өзі зерттеу және тәжірибе жемісін жоғары мақсатқа арнау.\n\n"
+            "Бүгінгі қағиданы ашыңыз немесе толық тізімді көріңіз."
         ),
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
@@ -1131,11 +1121,9 @@ TEXTS_UPDATE = {
         "meridians_menu": (
             "☯️ <b>Меридиандар</b>\n\n"
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
-            "Меридиандар зейіннің денеде қалай өмір сүретінін сезуге көмектесетін карта. Дәстүрлі қытай медицинасында олар Ци қозғалатын арналар ретінде сипатталады.\n\n"
-            "Мұнда ұсынылған жолмен жүруге немесе кез келген меридианды өзіңіз таңдауға болады. Содан кейін ағымдағы нүктені ашып, суреттегі орналасуын көріңіз және дененің жауабын жанасу, тыныс пен зейін арқылы тануды үйреніңіз.\n\n"
-            "Егер нүкте сипаттамасында цунь кездессе, алдымен өлшемдер туралы анықтаманы ашыңыз. Онда денеде 0,5, 1, 1,5, 3 және 5 цуньді қалай шамалауға болатыны түсіндіріледі.\n\n"
-            "Бұл тәжірибе медициналық диагностика мен емді алмастырмайды. Ол саналылық, алдын алу және ішкі тәртіп құралы ретінде қолданылады.\n\n"
-            "Қазір қажет әрекетті таңдаңыз."
+            "Меридиандар — Ци қозғалысының денедегі картасы. Олар зейін қай жерде еркін ағатынын, ал қай аймақ үнсіз, кернеулі немесе жабық сезілетінін байқауға көмектеседі.\n\n"
+            "Ұсынылған жолмен жүріңіз немесе кез келген меридианды таңдаңыз. Нүктені ашып, суретке қараңыз да, денені жанасу, тыныс және зейін арқылы тыңдаңыз.\n\n"
+            "Цунь өлшемдері кездессе, өлшем анықтамасын ашыңыз. Бұл медициналық диагностика емес, саналылық пен ішкі тәртіп тәжірибесі."
         ),
         "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
         "current_meridian": "▶️ Тәжірибені жалғастыру",
