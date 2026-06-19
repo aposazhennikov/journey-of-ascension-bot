@@ -3651,7 +3651,7 @@ class BotHandlers:
     def _create_meridians_menu_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
         """Create compact meridians section keyboard."""
         keyboard = []
-        if user and user.current_meridian_id:
+        if user and user.meridians_enabled and user.current_meridian_id:
             keyboard.append([InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")])
         keyboard.extend([
             [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],

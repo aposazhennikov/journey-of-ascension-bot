@@ -772,6 +772,11 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("scheduler does not normalize stale meridian point indexes")
 
     handlers_source = (ROOT / "bot" / "handlers.py").read_text(encoding="utf-8-sig")
+    if "user and user.meridians_enabled and user.current_meridian_id" not in handlers_source:
+        issues.append("meridians home can show continue practice while meridian mode is disabled")
+    simulator_source = Path(__file__).read_text(encoding="utf-8-sig")
+    if "state.meridiansEnabled && state.currentMeridianId" not in simulator_source:
+        issues.append("simulator can show continue practice while meridian mode is disabled")
     callback_values = sorted(set(re.findall(r"callback_data=(?:f)?[\"']([^\"']+)", handlers_source)))
     callback_patterns = [
         re.compile(ast.literal_eval(match))
@@ -1278,7 +1283,7 @@ def build_html() -> str:
 
     function renderMeridians() {{
       const buttons = [];
-      if (state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);
+      if (state.meridiansEnabled && state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);
       buttons.push(
         [{{ label: t('meridian_change_path'), action: () => setScreen('meridianPath') }}],
         [{{ label: t('meridian_measurements'), action: () => setScreen('measurements') }}],
@@ -1291,8 +1296,8 @@ def build_html() -> str:
 
     function renderMeridianPath() {{
       show('Path', fmt(t('meridian_mode_menu')), [
-        [{{ label: t('meridian_guided_path'), action: () => {{ state.learningMode = 'guided'; state.currentMeridianId = firstReadyMeridian().id; setScreen('currentMeridian'); }} }}],
-        [{{ label: t('meridian_free_choice'), action: () => {{ state.learningMode = 'free'; setScreen('chooseMeridian'); }} }}],
+        [{{ label: t('meridian_guided_path'), action: () => {{ state.meridiansEnabled = true; state.learningMode = 'guided'; state.currentMeridianId = firstReadyMeridian().id; setScreen('currentMeridian'); }} }}],
+        [{{ label: t('meridian_free_choice'), action: () => {{ state.meridiansEnabled = true; state.learningMode = 'free'; setScreen('chooseMeridian'); }} }}],
         [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
       ]);
     }}
