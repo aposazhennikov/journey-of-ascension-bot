@@ -994,6 +994,17 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             if "???" in value:
                 issues.append(f"{language}: {key} contains ???")
 
+        mode_menu = language_texts.get("mode_menu", "")
+        mode_menu_markers = {
+            "en": ("honest", "not lose the thread", "support each other"),
+            "ru": ("честно подходит", "не терять нить", "поддерживали друг друга"),
+            "uz": ("halol mos", "ipini yo'qotmaslik", "bir-birini qo'llab-quvvatlash"),
+            "kz": ("шын сәйкес", "жібін жоғалтпау", "бірін-бірі қолдасын"),
+        }[language]
+        for marker in mode_menu_markers:
+            if marker.lower() not in mode_menu.lower():
+                issues.append(f"{language}: mode menu is missing human rhythm marker {marker!r}")
+
         settings_menu = language_texts.get("settings_menu", "")
         settings_menu_lower = settings_menu.lower()
         settings_markers = {
