@@ -1662,10 +1662,11 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator settings screen does not show the current practice rhythm snapshot")
     if (
         "new URLSearchParams(window.location.search)" not in html
+        or "new URLSearchParams(window.location.hash.replace(/^#/, ''))" not in html
         or "normalizeScenario(requestedScenario)" not in html
         or "openScenario(normalizedScenario)" not in html
     ):
-        issues.append("browser simulator does not support direct scenario URLs")
+        issues.append("browser simulator does not support direct query/hash scenario URLs")
     settings_scenario_start = html.find("scenario === 'settings'")
     settings_scenario_end = html.find("} else if (scenario === 'timezone')", settings_scenario_start)
     settings_scenario_source = html[settings_scenario_start:settings_scenario_end]
@@ -2485,8 +2486,9 @@ def build_html() -> str:
     document.getElementById('reset').addEventListener('click', () => openScenario(scenarioSelect.value));
 
     const params = new URLSearchParams(window.location.search);
-    const requestedLanguage = params.get('lang');
-    const requestedScenario = params.get('scenario') || params.get('screen');
+    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    const requestedLanguage = params.get('lang') || hashParams.get('lang');
+    const requestedScenario = params.get('scenario') || params.get('screen') || hashParams.get('scenario') || hashParams.get('screen');
     if (requestedLanguage && payload.texts[requestedLanguage]) {{
       languageSelect.value = requestedLanguage;
       state.language = requestedLanguage;
