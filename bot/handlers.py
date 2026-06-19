@@ -4359,11 +4359,7 @@ class BotHandlers:
                 await self._edit_message_text_safe(
                     query,
                     text,
-                    reply_markup=(
-                        self._create_meridian_route_completed_keyboard(language)
-                        if route_completed
-                        else self._create_meridian_choice_keyboard(language)
-                    ),
+                    reply_markup=self._create_meridian_choice_keyboard(language),
                     parse_mode='HTML'
                 )
                 return
