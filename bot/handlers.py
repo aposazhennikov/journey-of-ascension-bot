@@ -25,7 +25,8 @@ from .utils import (
     format_meridian_point,
     fit_html_caption,
     get_principle_image_path,
-    get_meridian_image_path
+    get_meridian_image_path,
+    localized_point_name
 )
 
 
@@ -3053,9 +3054,8 @@ class BotHandlers:
         end = min(start + MERIDIAN_POINTS_PAGE_SIZE, len(points))
 
         for index, point in enumerate(points[start:end], start=start):
-            localized = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
             code = point.get("code", "")
-            name = localized.get("name", "")
+            name = localized_point_name(point, language)
             keyboard.append([
                 InlineKeyboardButton(
                     f"{index + 1}. {code} {name}".strip(),

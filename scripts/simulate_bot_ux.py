@@ -99,6 +99,13 @@ def has_cyrillic(value: str) -> bool:
     return bool(re.search(r"[\u0400-\u04FF]", value or ""))
 
 
+def localized_point_name(point: dict[str, Any], language: str) -> str:
+    name = localized(point, language, "name")
+    if language in {"en", "uz"} and has_cyrillic(name):
+        return ""
+    return name
+
+
 def localized_location(point: dict[str, Any], language: str) -> str:
     value = localized(point, language, "location")
     if language == "ru" or not value:
@@ -268,9 +275,10 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     points = meridian.get("points", [])
     point = points[point_index]
     point_i18n = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
+    point_title = " ".join(part for part in (point.get("code", ""), localized_point_name(point, language)) if part)
     parts = [
         f"<b>{escape(localized(meridian, language, 'name'))}</b>",
-        f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point.get('code', ''))} {escape(point_i18n.get('name', ''))}",
+        f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",
         f"<b>{labels[1]}:</b> {escape(localized_location(point, language))}",
         f"<b>{labels[2]}:</b> {escape(point_i18n.get('meditation_instruction', ''))}",
         escape(practice_note(point_index, language)),
@@ -560,6 +568,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     for prefix in ("Source location:", "Manbadagi joylashuv:", "Дереккөздегі орналасуы:")
                 ):
                     issues.append(f"{meridian_id} point {index + 1}/{language}: raw source location prefix leaked")
+                if language in {"en", "uz"} and has_cyrillic(plain):
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: Cyrillic leaked into visible point detail")
                 if "<b>" not in detail:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: no bold formatting")
                 if len(fit_html_caption(detail)) > 1024:

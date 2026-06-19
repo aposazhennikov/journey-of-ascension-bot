@@ -98,6 +98,13 @@ def has_cyrillic(value: str) -> bool:
     return any("А" <= char <= "я" or char in "ЁёІіЇїЄєҚқҒғҰұҮүӘәӨөҺһҢң" for char in value)
 
 
+def localized_point_name(point: dict[str, Any], language: str) -> str:
+    name = localized(point, language, "name")
+    if language in {"en", "uz"} and has_cyrillic(name):
+        return ""
+    return name
+
+
 def localized_location(point: dict[str, Any], language: str) -> str:
     value = localized(point, language, "location")
     if language == "ru" or not value:
@@ -180,9 +187,10 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     points = meridian.get("points", [])
     point = points[point_index]
     point_i18n = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
+    point_title = " ".join(part for part in (point.get("code", ""), localized_point_name(point, language)) if part)
     parts = [
         f"<b>{escape(localized(meridian, language, 'name'))}</b>",
-        f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point.get('code', ''))} {escape(point_i18n.get('name', ''))}",
+        f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",
         f"<b>{labels[1]}:</b> {escape(localized_location(point, language))}",
         f"<b>{labels[2]}:</b> {escape(point_i18n.get('meditation_instruction', ''))}",
         escape(practice_note(point_index, language)),
@@ -403,8 +411,8 @@ def point_page_keyboard(meridian: dict[str, Any], language: str, texts: dict[str
     start = page * POINTS_PAGE_SIZE
     buttons = []
     for index, point in enumerate(points[start:start + POINTS_PAGE_SIZE], start=start):
-        point_i18n = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
-        buttons.append([f"{index + 1}. {point.get('code', '')} {point_i18n.get('name', '')}".strip()])
+        point_title = " ".join(part for part in (point.get("code", ""), localized_point_name(point, language)) if part)
+        buttons.append([f"{index + 1}. {point_title}".strip()])
     if total_pages > 1:
         row = []
         if page > 0:
@@ -612,6 +620,16 @@ def audit() -> list[str]:
     for meridian in meridians:
         if not any((image_dir / f"{meridian['id']}{extension}").exists() for extension in (".jpg", ".png", ".gif")):
             issues.append(f"missing meridian overview image: {meridian['id']}")
+        for language in ("en", "uz"):
+            for index, point in enumerate(meridian.get("points", [])):
+                detail = format_meridian_point(meridian, index, language)
+                plain = re.sub(r"<[^>]+>", " ", detail)
+                if has_cyrillic(plain):
+                    issues.append(f"{meridian['id']} point {index + 1}/{language}: Cyrillic leaked into visible point detail")
+            for row in point_page_keyboard(meridian, language, {"meridian_back": "Back"}):
+                for label in row:
+                    if has_cyrillic(label):
+                        issues.append(f"{meridian['id']}/{language}: Cyrillic leaked into point-list button: {label}")
         for point in meridian.get("points", []):
             image_name = point.get("image")
             if not image_name:

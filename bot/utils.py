@@ -324,6 +324,14 @@ def _has_cyrillic(value: str) -> bool:
     return any("А" <= char <= "я" or char in "ЁёІіЇїЄєҚқҒғҰұҮүӘәӨөҺһҢң" for char in value)
 
 
+def localized_point_name(point: Dict[str, Any], language: str) -> str:
+    """Return a point name only when it fits the visible interface language."""
+    name = _localized_value(point, language, "name", "")
+    if language in {"en", "uz"} and _has_cyrillic(name):
+        return ""
+    return name
+
+
 def _localized_location(point: Dict[str, Any], language: str) -> str:
     """Return point location, making unfinished translations explicit."""
     location = _localized_value(point, language, "location")
@@ -398,7 +406,7 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
 
     point = points[point_index]
     meridian_name = escape(_localized_value(meridian, language, "name", meridian.get("id", "Meridian")))
-    point_name = escape(_localized_value(point, language, "name", point.get("code", "Point")))
+    point_name = escape(localized_point_name(point, language))
     location = escape(_localized_location(point, language))
     instruction = escape(_localized_value(point, language, "meditation_instruction"))
     question = escape(_localized_value(point, language, "observation_question"))
@@ -443,8 +451,9 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
         "kz": ("Нүкте", "Орналасуы", "Зейін", "Бақылау"),
     }.get(language, ("Point", "Location", "Focus", "Observe"))
 
+    point_title = " ".join(part for part in (escape(str(point.get("code", ""))), point_name) if part)
     message = f"<b>{meridian_name}</b>\n"
-    message += f"<b>{escape(labels[0])} {point_index + 1}/{len(points)}:</b> {escape(str(point.get('code', '')))} {point_name}\n\n"
+    message += f"<b>{escape(labels[0])} {point_index + 1}/{len(points)}:</b> {point_title}\n\n"
     if location:
         message += f"<b>{escape(labels[1])}:</b> {location}\n\n"
     if instruction:
