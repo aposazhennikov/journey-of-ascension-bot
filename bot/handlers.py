@@ -671,10 +671,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Follow the bot path",
         "meridian_free_choice": "👐 Choose a meridian myself",
-        "meridian_change_path": "🧭 Choose study path",
+        "meridian_change_path": "🧭 Study path",
         "meridian_guided_saved": "✅ <b>Guided path selected.</b>\n\nThe bot will lead you through the meridians step by step.",
         "meridian_free_saved": "✅ <b>Free study selected.</b>\n\nChoose any meridian you want to explore.",
-        "meridian_measurements": "📏 Cun and TCM measurements",
+        "meridian_measurements": "📏 How to measure cun",
         "meridian_point_help": "🖐 How to find a point",
         "meridian_back": "🔙 Back to meridians",
         "coming_soon": "soon",
@@ -703,8 +703,8 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
             "Meridians are a body map of Qi movement. They help you notice where attention flows freely and where an area feels silent, tense, or closed.\n\n"
-            "<b>How to start:</b> choose a study path. You can follow the bot's recommended order or freely choose any meridian yourself.\n\n"
-            "If point descriptions mention 1, 1.5, 3, or 5 cun, open the measurement guide. This is awareness practice, not medical diagnosis."
+            "<b>How to start:</b> choose your study path. You can follow the bot's recommended order or freely choose any meridian yourself.\n\n"
+            "Before working with points, it is useful to understand <b>cun</b>, the body-relative measurement system used in Traditional Chinese Medicine. This is awareness practice, not medical diagnosis."
         ),
         "choose_meridian": "☯️ <b>Choose a meridian:</b>",
         "current_meridian": "▶️ Continue practice",
@@ -845,10 +845,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Идти по пути бота",
         "meridian_free_choice": "👐 Выбирать меридианы самому",
-        "meridian_change_path": "🧭 Выбрать путь изучения",
+        "meridian_change_path": "🧭 Путь изучения",
         "meridian_guided_saved": "✅ <b>Выбран наш путь.</b>\n\nБот будет вести вас по меридианам шаг за шагом.",
         "meridian_free_saved": "✅ <b>Выбрано самостоятельное изучение.</b>\n\nВыберите любой меридиан, который хотите исследовать.",
-        "meridian_measurements": "📏 Цуни и измерения в ТКМ",
+        "meridian_measurements": "📏 Как измерять цуни",
         "meridian_point_help": "🖐 Как искать точку",
         "meridian_back": "🔙 К меридианам",
         "coming_soon": "скоро",
@@ -878,7 +878,7 @@ TEXTS_UPDATE = {
             "<b>Зачем изучать меридианы?</b>\n\n"
             "Меридианы — карта движения Ци в теле. Они помогают замечать, где внимание течёт свободно, а где зона молчит, напряжена или закрыта.\n\n"
             "<b>Как начать:</b> выберите путь изучения. Можно идти по рекомендованному маршруту бота или самостоятельно выбрать любой меридиан.\n\n"
-            "Если в описании точки встречается 1, 1,5, 3 или 5 цуней, откройте справку по измерениям. Это практика осознанности, не медицинская диагностика."
+            "Перед работой с точками полезно разобраться с <b>цунями</b> — телесной системой измерений в традиционной китайской медицине. Это практика осознанности, не медицинская диагностика."
         ),
         "choose_meridian": "☯️ <b>Выберите меридиан:</b>",
         "current_meridian": "▶️ Продолжить практику",
@@ -1019,10 +1019,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Bot yo'li bo'yicha",
         "meridian_free_choice": "👐 Meridianlarni o'zim tanlayman",
-        "meridian_change_path": "🧭 O'rganish yo'lini tanlash",
+        "meridian_change_path": "🧭 O'rganish yo'li",
         "meridian_guided_saved": "✅ <b>Yo'l bo'yicha o'rganish tanlandi.</b>\n\nBot sizni meridianlar bo'ylab bosqichma-bosqich olib boradi.",
         "meridian_free_saved": "✅ <b>Mustaqil o'rganish tanlandi.</b>\n\nO'rganmoqchi bo'lgan meridianni tanlang.",
-        "meridian_measurements": "📏 Cun va TKM o'lchovlari",
+        "meridian_measurements": "📏 Cunni o'lchash",
         "meridian_point_help": "🖐 Nuqtani topish",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "coming_soon": "tez orada",
@@ -1052,7 +1052,7 @@ TEXTS_UPDATE = {
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
             "Meridianlar — tanadagi Qi harakati xaritasi. Ular diqqat erkin oqadigan va jim, tarang yoki yopiq joylarni sezishga yordam beradi.\n\n"
             "<b>Qanday boshlash:</b> o'rganish yo'lini tanlang. Bot tavsiya qilgan tartib bo'yicha borishingiz yoki istalgan meridianni o'zingiz tanlashingiz mumkin.\n\n"
-            "Agar nuqta tavsifida 1, 1,5, 3 yoki 5 cun uchrasa, o'lchovlar bo'yicha qo'llanmani oching. Bu ongli kuzatish amaliyoti, tibbiy tashxis emas."
+            "Nuqtalar bilan ishlashdan oldin <b>cun</b>ni tushunish foydali: bu an'anaviy Xitoy tibbiyotida ishlatiladigan tanaga nisbiy o'lchov tizimi. Bu ongli kuzatish amaliyoti, tibbiy tashxis emas."
         ),
         "choose_meridian": "☯️ <b>Meridianni tanlang:</b>",
         "current_meridian": "▶️ Amaliyotni davom ettirish",
@@ -1207,10 +1207,10 @@ TEXTS_UPDATE = {
         ),
         "meridian_guided_path": "🧭 Бот жолымен жүру",
         "meridian_free_choice": "👐 Меридиандарды өзім таңдаймын",
-        "meridian_change_path": "🧭 Зерттеу жолын таңдау",
+        "meridian_change_path": "🧭 Зерттеу жолы",
         "meridian_guided_saved": "✅ <b>Біздің жол таңдалды.</b>\n\nБот сізді меридиандар арқылы кезең-кезеңімен жүргізеді.",
         "meridian_free_saved": "✅ <b>Өз бетіңізше зерттеу таңдалды.</b>\n\nЗерттегіңіз келетін меридианды таңдаңыз.",
-        "meridian_measurements": "📏 Цунь және ТКМ өлшемдері",
+        "meridian_measurements": "📏 Цуньді өлшеу",
         "meridian_point_help": "🖐 Нүктені табу",
         "meridian_back": "🔙 Меридиандарға қайту",
         "coming_soon": "жақында",
@@ -1240,7 +1240,7 @@ TEXTS_UPDATE = {
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
             "Меридиандар — Ци қозғалысының дене картасы. Олар зейін еркін ағатын және үнсіз не жабық аймақтарды байқауға көмектеседі.\n\n"
             "<b>Қалай бастау:</b> зерттеу жолын таңдаңыз. Бот ұсынған ретпен жүре аласыз немесе кез келген меридианды өзіңіз таңдай аласыз.\n\n"
-            "Егер нүкте сипаттамасында 1, 1,5, 3 немесе 5 цунь кездессе, өлшемдер анықтамасын ашыңыз. Бұл саналы бақылау тәжірибесі, медициналық диагностика емес."
+            "Нүктелермен жұмысқа кіріспес бұрын <b>цунь</b> өлшемін түсіну пайдалы: бұл дәстүрлі қытай медицинасында қолданылатын денеге қатысты өлшем жүйесі. Бұл саналы бақылау тәжірибесі, медициналық диагностика емес."
         ),
         "choose_meridian": "☯️ <b>Меридианды таңдаңыз:</b>",
         "current_meridian": "▶️ Тәжірибені жалғастыру",
