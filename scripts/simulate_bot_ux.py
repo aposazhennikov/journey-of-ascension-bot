@@ -697,6 +697,28 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
     if first_ready != "conception_vessel":
         issues.append(f"recommended path should start with conception_vessel, got {first_ready}")
 
+    central_vessel_markers = {
+        "conception_vessel": {
+            "en": ("Yin system", "does not have a fixed hourly activity period", "sea of all Yin meridians"),
+            "ru": ("системе инь", "не имеет поэтому определенной почасовой активности", "морем всех иньских меридианов"),
+            "uz": ("Yin tizimiga", "aniq soatlik faollik davriga ega emas", "barcha Yin meridianlari dengizi"),
+            "kz": ("Инь жүйесіне", "нақты сағаттық белсенділік кезеңі жоқ", "барлық Инь меридиандарының теңізі"),
+        },
+        "governing_vessel": {
+            "en": ("Yang system", "does not have a fixed hourly activity period", "inner verticality"),
+            "ru": ("системе ян", "не имеет поэтому определенной почасовой активности", "внутренней вертикали"),
+            "uz": ("Yang tizimiga", "aniq soatlik faollik davriga ega emas", "ichki tiklik"),
+            "kz": ("Ян жүйесіне", "нақты сағаттық белсенділік кезеңі жоқ", "ішкі тік ось"),
+        },
+    }
+    for meridian_id, language_markers in central_vessel_markers.items():
+        raw_meridian = raw_meridians_by_id.get(meridian_id, {})
+        for language, markers in language_markers.items():
+            description = raw_meridian.get("i18n", {}).get(language, {}).get("description", "")
+            for marker in markers:
+                if marker not in description:
+                    issues.append(f"{meridian_id}/{language}: central vessel intro is missing marker {marker!r}")
+
     for meridian_id in ready_ids:
         meridian = meridians_by_id[meridian_id]
         if not meridian.get("overviewImage"):
