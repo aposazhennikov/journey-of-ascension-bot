@@ -538,6 +538,12 @@ def language_selection_text() -> str:
 
 
 def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, list[list[str]]]:
+    modes = [
+        [texts["mode_principles_only"]],
+        [texts["mode_meridians_only"]],
+        [f"✅ {texts['mode_both']}"],
+        [texts["back_to_menu"]],
+    ]
     main = [
         [texts["menu_principles"], texts["menu_meridians"]],
         [texts["menu_modes"], texts["menu_settings"]],
@@ -573,6 +579,7 @@ def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, lis
         ],
         "meridian_completed": [[texts["select_meridian"]], [texts["meridian_back"]]],
         "principles": [[texts["principles_random"], texts["principles_all"]], [texts["back_to_menu"]]],
+        "modes": modes,
     }
 
 
@@ -626,7 +633,7 @@ def render_html(output: Path) -> None:
         sections.append(message("Onboarding intro", allow_basic_html(t["onboarding_intro"]), [[t["mode_meridians_only"]], [t["mode_principles_only"]], [t["mode_both"]]]))
         sections.append(message("Setup complete", format_setup_complete_preview(language), kb["main"]))
         sections.append(message("Main menu", allow_basic_html(normalize_bot_html(t["menu"])), kb["main"]))
-        sections.append(message("My Path", allow_basic_html(t["mode_menu"]), [[t["mode_principles_only"]], [t["mode_meridians_only"]], [t["mode_both"]], [t["back_to_menu"]]]))
+        sections.append(message("My Path", allow_basic_html(t["mode_menu"]), kb["modes"]))
         sections.append(message(
             "Settings",
             allow_basic_html(normalize_bot_html(t["settings_menu"])),

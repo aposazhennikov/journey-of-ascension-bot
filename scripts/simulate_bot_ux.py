@@ -1666,6 +1666,8 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator meridian-time screen is not contextual for settings vs onboarding")
     if "function renderSettingsSnapshot()" not in html or "Current practice rhythm" not in html or "Текущий ритм практики" not in html:
         issues.append("browser simulator settings screen does not show the current practice rhythm snapshot")
+    if "function currentMode()" not in html or "function modeLabel" not in html or "'✅ '" not in html:
+        issues.append("browser simulator practice-mode screen does not mark the active mode")
     if (
         "new URLSearchParams(window.location.search)" not in html
         or "new URLSearchParams(window.location.hash.replace(/^#/, ''))" not in html
@@ -1900,6 +1902,18 @@ def build_html() -> str:
       setScreen('timezone');
     }}
 
+    function currentMode() {{
+      if (state.principlesEnabled && state.meridiansEnabled) return 'both';
+      if (state.meridiansEnabled) return 'meridians';
+      if (state.principlesEnabled) return 'principles';
+      return null;
+    }}
+
+    function modeLabel(key, mode) {{
+      const label = t(key);
+      return currentMode() === mode ? `✅ ${{label}}` : label;
+    }}
+
     function renderOnboarding() {{
       show('Onboarding', fmt(t('onboarding_intro')), [
         [{{ label: t('mode_meridians_only'), action: () => chooseMode('meridians') }}],
@@ -2077,9 +2091,9 @@ def build_html() -> str:
 
     function renderModes() {{
       show('My Path', fmt(t('mode_menu')), [
-        [{{ label: t('mode_principles_only'), action: () => chooseMode('principles') }}],
-        [{{ label: t('mode_meridians_only'), action: () => chooseMode('meridians') }}],
-        [{{ label: t('mode_both'), action: () => chooseMode('both') }}],
+        [{{ label: modeLabel('mode_principles_only', 'principles'), action: () => chooseMode('principles') }}],
+        [{{ label: modeLabel('mode_meridians_only', 'meridians'), action: () => chooseMode('meridians') }}],
+        [{{ label: modeLabel('mode_both', 'both'), action: () => chooseMode('both') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
       ]);
     }}
