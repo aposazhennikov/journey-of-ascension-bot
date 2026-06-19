@@ -227,6 +227,13 @@ http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&scenario=all-points
 http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&scenario=choose-meridian
 ```
 
+Для прямого открытия сервисного экрана можно использовать и параметр `screen`, например:
+
+```text
+http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&screen=about
+http://127.0.0.1:8766/tmp/ux_simulator.html?lang=ru&screen=settings
+```
+
 Важно: запускайте `http.server` из корня проекта. Если отдавать только папку `tmp`, HTML откроется, но изображения из `images/meridians` не загрузятся.
 
 Для ручного UX-прогона новичка используйте быстрые сценарии:

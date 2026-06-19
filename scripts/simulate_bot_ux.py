@@ -2398,7 +2398,7 @@ def build_html() -> str:
 
     const params = new URLSearchParams(window.location.search);
     const requestedLanguage = params.get('lang');
-    const requestedScenario = params.get('scenario');
+    const requestedScenario = params.get('scenario') || params.get('screen');
     if (requestedLanguage && payload.texts[requestedLanguage]) {{
       languageSelect.value = requestedLanguage;
       state.language = requestedLanguage;
