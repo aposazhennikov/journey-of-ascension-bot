@@ -359,6 +359,110 @@ def point_area_practice_hint(location: str, language: str) -> str:
     return ""
 
 
+def point_setup_practice_hint(source_location: str, language: str) -> str:
+    normalized = (source_location or "").lower()
+    rules = (
+        (("mouth open", "og'iz ochiq", "открытым ртом", "ауыз ашық"), {
+            "ru": "Для уточнения точки мягко приоткройте рот и ищите углубление без напряжения челюсти.",
+            "en": "To refine the point, softly open the mouth and look for the hollow without tensing the jaw.",
+            "uz": "Nuqtani aniqlash uchun og'izni yumshoq oching va jag'ni zo'riqtirmasdan chuqurchani qidiring.",
+            "kz": "Нүктені нақтылау үшін ауызды жұмсақ ашып, жақты қыспай ойықты іздеңіз.",
+        }),
+        (("arm raised", "qo'l yuqoriga", "рука подня", "поднятой рукой", "қол жоғары"), {
+            "ru": "Если точка находится на боковой линии груди, мягко поднимите руку, чтобы зона раскрылась.",
+            "en": "If the point is on the side of the chest, raise the arm gently so the area opens.",
+            "uz": "Nuqta ko'krak yon chizig'ida bo'lsa, qo'lni yumshoq ko'taring, shunda soha ochiladi.",
+            "kz": "Нүкте кеуденің бүйір сызығында болса, аймақ ашылуы үшін қолды жұмсақ көтеріңіз.",
+        }),
+        (("palm facing upward", "kaft yuqoriga", "ладонь вверх", "ладонью вверх", "алақан жоғары"), {
+            "ru": "Поверните ладонь вверх и отпустите локоть; так внутренняя линия руки читается яснее.",
+            "en": "Turn the palm upward and release the elbow; the inner arm line becomes easier to read.",
+            "uz": "Kaftni yuqoriga qarating va tirsakni bo'shating; qo'lning ichki chizig'i aniqroq seziladi.",
+            "kz": "Алақанды жоғары қаратып, шынтақты босатыңыз; қолдың ішкі сызығы анық сезіледі.",
+        }),
+        (("knee bent", "knee slightly bent", "tizza bukilgan", "колено согну", "согнутым колен", "тізе бүг"), {
+            "ru": "Слегка согните колено, если так точка находится яснее; не удерживайте ногу силой.",
+            "en": "Bend the knee slightly if the point becomes clearer; do not hold the leg with force.",
+            "uz": "Nuqta aniqroq topilsa, tizzani biroz buking; oyoqni kuch bilan ushlab turmang.",
+            "kz": "Нүкте анығырақ табылса, тізені сәл бүгіңіз; аяқты күшпен ұстамаңыз.",
+        }),
+        (("lies on the abdomen", "qorni bilan yot", "на животе", "етпетінен"), {
+            "ru": "Для задней линии можно лечь на живот и дать спине спокойно опуститься в опору.",
+            "en": "For the back line, you may lie face down and let the back settle into support.",
+            "uz": "Orqa chiziq uchun qorin bilan yotib, bel va orqani tayanchga qo'yib yuborish mumkin.",
+            "kz": "Артқы сызық үшін етпетінен жатып, арқаны тірекке жайлап босатуға болады.",
+        }),
+        (("lies on the side", "yonboshlab", "на боку", "бүйір"), {
+            "ru": "Если точка на тазобедренной или боковой линии, найдите её лёжа на боку, без сжатия таза.",
+            "en": "If the point is on the hip or side line, find it lying on the side without gripping the pelvis.",
+            "uz": "Nuqta son yoki yon chiziqda bo'lsa, uni yonboshlab yotib, tosni siqmasdan toping.",
+            "kz": "Нүкте жамбас не бүйір сызығында болса, оны бүйірлеп жатып, жамбасты қыспай табыңыз.",
+        }),
+        (("palm on the chest", "kaftni ko'krakka", "ладонь к груди", "алақанды кеудеге"), {
+            "ru": "Если помогает, положите ладонь к груди: так край кости и углубление становятся заметнее.",
+            "en": "If helpful, place the palm toward the chest; the bony edge and hollow become easier to notice.",
+            "uz": "Agar yordam bersa, kaftni ko'krakka qo'ying; suyak cheti va chuqurcha sezilarliroq bo'ladi.",
+            "kz": "Көмектессе, алақанды кеудеге қойыңыз; сүйек жиегі мен ойық айқынырақ сезіледі.",
+        }),
+    )
+    for markers, translations in rules:
+        if any(marker in normalized for marker in markers):
+            return translations[language]
+    return ""
+
+
+def expected_setup_marker(source_location: str, language: str) -> str:
+    normalized = (source_location or "").lower()
+    rules = (
+        (("mouth open", "og'iz ochiq", "открытым ртом", "ауыз ашық"), {
+            "ru": "приоткройте рот",
+            "en": "softly open the mouth",
+            "uz": "og'izni yumshoq oching",
+            "kz": "ауызды жұмсақ ашып",
+        }),
+        (("arm raised", "qo'l yuqoriga", "рука подня", "поднятой рукой", "қол жоғары"), {
+            "ru": "поднимите руку",
+            "en": "raise the arm gently",
+            "uz": "qo'lni yumshoq ko'taring",
+            "kz": "қолды жұмсақ көтеріңіз",
+        }),
+        (("palm facing upward", "kaft yuqoriga", "ладонь вверх", "ладонью вверх", "алақан жоғары"), {
+            "ru": "ладонь вверх",
+            "en": "palm upward",
+            "uz": "Kaftni yuqoriga",
+            "kz": "Алақанды жоғары",
+        }),
+        (("knee bent", "knee slightly bent", "tizza bukilgan", "колено согну", "согнутым колен", "тізе бүг"), {
+            "ru": "Слегка согните колено",
+            "en": "Bend the knee slightly",
+            "uz": "tizzani biroz buking",
+            "kz": "тізені сәл бүгіңіз",
+        }),
+        (("lies on the abdomen", "qorni bilan yot", "на животе", "етпетінен"), {
+            "ru": "лечь на живот",
+            "en": "lie face down",
+            "uz": "qorin bilan yotib",
+            "kz": "етпетінен жатып",
+        }),
+        (("lies on the side", "yonboshlab", "на боку", "бүйір"), {
+            "ru": "лёжа на боку",
+            "en": "lying on the side",
+            "uz": "yonboshlab yotib",
+            "kz": "бүйірлеп жатып",
+        }),
+        (("palm on the chest", "kaftni ko'krakka", "ладонь к груди", "алақанды кеудеге"), {
+            "ru": "ладонь к груди",
+            "en": "palm toward the chest",
+            "uz": "kaftni ko'krakka",
+            "kz": "алақанды кеудеге",
+        }),
+    )
+    for markers, translations in rules:
+        if any(marker in normalized for marker in markers):
+            return translations[language]
+    return ""
+
+
 def point_stage_practice_hint(point_index: int, points_count: int, language: str) -> str:
     if points_count <= 0 or point_index < points_count - 1:
         return ""
@@ -443,7 +547,8 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     points = meridian.get("points", [])
     point = points[point_index]
     point_title = " ".join(part for part in (point.get("code", ""), localized_point_name(point, language)) if part)
-    location = clean_point_location(localized_location(point, language))
+    source_location = localized_location(point, language)
+    location = clean_point_location(source_location)
     parts = [
         f"<b>{escape(localized(meridian, language, 'name'))}</b>",
         f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",
@@ -453,6 +558,9 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     area_hint = point_area_practice_hint(location, language)
     if area_hint:
         practice_parts.append(area_hint)
+    setup_hint = point_setup_practice_hint(source_location, language)
+    if setup_hint:
+        practice_parts.append(setup_hint)
     stage_hint = point_stage_practice_hint(point_index, len(points), language)
     if stage_hint:
         practice_parts.append(stage_hint)
@@ -898,6 +1006,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             for language in LANGUAGES:
                 detail = point["detail"][language]
                 plain = strip_html(detail)
+                readable_plain = unescape(plain)
                 if "???" in plain:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: contains ???")
                 if "pending source refinement" in plain.lower():
@@ -913,6 +1022,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: source note or hard medical claim leaked into visible point detail")
                 if any(marker in plain for marker in SOURCE_EDITORIAL_TAILS):
                     issues.append(f"{meridian_id} point {index + 1}/{language}: source-editorial location tail leaked")
+                raw_i18n = raw_point.get("i18n", {}).get(language, {})
+                setup_marker = expected_setup_marker(raw_i18n.get("location", ""), language)
+                if setup_marker and setup_marker not in readable_plain:
+                    issues.append(f"{meridian_id} point {index + 1}/{language}: setup cue {setup_marker!r} was lost from practice block")
                 if "<b>" not in detail:
                     issues.append(f"{meridian_id} point {index + 1}/{language}: no bold formatting")
                 if OBSERVATION_LABELS[language] not in plain:
