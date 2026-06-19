@@ -946,11 +946,15 @@ def audit_rendered_html() -> list[str]:
         issues.append("rendered simulator HTML contains question-mark damaged text")
     if 'value="setupComplete"' not in html or "renderSetupComplete" not in html:
         issues.append("browser simulator is missing setup-complete scenario")
-    for scenario_value in ("chooseMeridian", "allPoints"):
+    for scenario_value in ("chooseMeridian", "allPoints", "noviceMeridians", "noviceFirstPoint"):
         if f'value="{scenario_value}"' not in html:
             issues.append(f"browser simulator is missing {scenario_value} scenario")
         if f"scenario === '{scenario_value}'" not in html:
             issues.append(f"browser simulator scenario {scenario_value} has no quick-open handler")
+    if "function resetState()" not in html:
+        issues.append("browser simulator scenarios do not reset shared state before opening")
+    if "function currentMeridianName()" not in html or "if (!state.currentMeridianId) return '-'" not in html:
+        issues.append("browser simulator state panel shows a fallback meridian when no current focus is selected")
     if "const timeRow = []" not in html or "state.principlesEnabled" not in html or "state.meridiansEnabled" not in html:
         issues.append("browser simulator settings screen is not mode-aware")
     return issues
@@ -1017,6 +1021,8 @@ def build_html() -> str:
           <option value="time">Reminder time step</option>
           <option value="skipDays">Quiet days step</option>
           <option value="setupComplete">Setup complete</option>
+          <option value="noviceMeridians">Novice: before meridian start</option>
+          <option value="noviceFirstPoint">Novice: first meridian point</option>
           <option value="main">Main menu</option>
           <option value="meridians">Meridians section</option>
           <option value="measurements">TCM measurements</option>
@@ -1070,6 +1076,16 @@ def build_html() -> str:
       completed: [],
     }};
 
+    function resetState() {{
+      state.principlesEnabled = true;
+      state.meridiansEnabled = false;
+      state.learningMode = null;
+      state.currentMeridianId = 'conception_vessel';
+      state.currentPointIndex = -1;
+      state.currentPointsPage = 0;
+      state.completed = [];
+    }}
+
     for (const lang of payload.languages) {{
       const option = document.createElement('option');
       option.value = lang;
@@ -1081,6 +1097,11 @@ def build_html() -> str:
     function t(key) {{ return payload.texts[state.language][key] || payload.texts.en[key] || key; }}
     function fmt(value) {{ return (value || '').replaceAll('\\n', '<br>').replace(/\\*\\*(.*?)\\*\\*/g, '<b>$1</b>'); }}
     function meridian() {{ return payload.meridians.find((item) => item.id === state.currentMeridianId) || payload.meridians[0]; }}
+    function currentMeridianName() {{
+      if (!state.currentMeridianId) return '-';
+      const item = payload.meridians.find((candidate) => candidate.id === state.currentMeridianId);
+      return item ? item.names[state.language] : '-';
+    }}
     function meridianImageUrl(item) {{ return item && item.overviewImage ? `../images/meridians/${{encodeURIComponent(item.overviewImage)}}` : null; }}
     function pointImageUrl(point) {{ return point && point.image ? `../images/meridians/${{encodeURIComponent(point.image)}}` : null; }}
     function firstReadyMeridian() {{
@@ -1120,7 +1141,7 @@ def build_html() -> str:
         <div>principles: <b>${{state.principlesEnabled ? 'on' : 'off'}}</b></div>
         <div>meridians: <b>${{state.meridiansEnabled ? 'on' : 'off'}}</b></div>
         <div>path: <b>${{state.learningMode || '-'}}</b></div>
-        <div>meridian: <b>${{meridian().names[state.language]}}</b></div>
+        <div>meridian: <b>${{currentMeridianName()}}</b></div>
         <div>point: <b>${{state.currentPointIndex + 1 || 'intro'}}</b></div>
       `;
     }}
@@ -1533,6 +1554,23 @@ def build_html() -> str:
     document.getElementById('reset').addEventListener('click', () => {{
       const scenario = scenarioSelect.value;
       if (scenario === 'currentPoint') {{
+        resetState();
+        state.principlesEnabled = true;
+        state.meridiansEnabled = true;
+        state.learningMode = 'guided';
+        state.currentMeridianId = firstReadyMeridian().id;
+        state.currentPointIndex = 0;
+        state.screen = 'currentMeridian';
+      }} else if (scenario === 'noviceMeridians') {{
+        resetState();
+        state.principlesEnabled = true;
+        state.meridiansEnabled = false;
+        state.learningMode = null;
+        state.currentMeridianId = null;
+        state.currentPointIndex = -1;
+        state.screen = 'meridians';
+      }} else if (scenario === 'noviceFirstPoint') {{
+        resetState();
         state.principlesEnabled = true;
         state.meridiansEnabled = true;
         state.learningMode = 'guided';
@@ -1540,6 +1578,7 @@ def build_html() -> str:
         state.currentPointIndex = 0;
         state.screen = 'currentMeridian';
       }} else if (scenario === 'meridians') {{
+        resetState();
         state.learningMode = null;
         state.currentPointIndex = -1;
         state.screen = 'meridians';
@@ -1548,6 +1587,7 @@ def build_html() -> str:
       }} else if (scenario === 'meridianPath') {{
         state.screen = 'meridianPath';
       }} else if (scenario === 'chooseMeridian') {{
+        resetState();
         state.learningMode = 'free';
         state.currentMeridianId = null;
         state.currentPointIndex = -1;
@@ -1555,6 +1595,7 @@ def build_html() -> str:
       }} else if (scenario === 'pointHelp') {{
         state.screen = 'pointHelp';
       }} else if (scenario === 'allPoints') {{
+        resetState();
         state.learningMode = 'guided';
         state.currentMeridianId = 'bladder';
         state.currentPointIndex = 0;
@@ -1575,12 +1616,15 @@ def build_html() -> str:
       }} else if (scenario === 'skipDays') {{
         state.screen = 'skipDays';
       }} else if (scenario === 'setupComplete') {{
+        resetState();
         state.principlesEnabled = true;
         state.meridiansEnabled = true;
         state.screen = 'setupComplete';
       }} else if (scenario === 'main') {{
+        resetState();
         state.screen = 'main';
       }} else {{
+        resetState();
         state.screen = 'onboarding';
       }}
       render();
