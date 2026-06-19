@@ -39,7 +39,7 @@ CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" /
 
 
 # Multilingual texts
-TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
+TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                    '\n'
                    'Yama and Niyama are the ethical foundation of inner practice. Meridians are the next '
                    'step: learning to feel attention, body, and energy through direct observation.\n'
@@ -61,9 +61,9 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           'Choose weekdays when the bot should not send daily practice reminders.\n'
                           '\n'
                           'Leave everything unselected if you want a daily rhythm.',
-        'setup_complete': '🎉 **Your practice rhythm is ready.**\n'
+        'setup_complete': '🎉 <b>Your practice rhythm is ready.</b>\n'
                           '\n'
-                          '📋 **What is active now:**\n'
+                          '📋 <b>What is active now:</b>\n'
                           '🕐 Time: {time}\n'
                           '🌍 Time Zone: {timezone}\n'
                           '📅 Quiet Days: {skip_days}\n'
@@ -90,7 +90,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'choose_language': 'Choose the language you want to use:',
         'english': '🇺🇸 English',
         'russian': '🇷🇺 Русский',
-        'menu': '📋 **Journey of Ascension**',
+        'menu': '📋 <b>Journey of Ascension</b>',
         'menu_settings': '⚙️ Settings',
         'menu_test': '🧪 Test message',
         'sending_test': '🧪 Sending a test message...',
@@ -335,7 +335,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'timezone_manual_prompt': 'Enter your time zone in IANA format.\n'
                                   '\n'
                                   'Examples: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC'},
- 'ru': {'welcome': '🕊️ **Добро пожаловать в Journey of Ascension!**\n'
+ 'ru': {'welcome': '🕊️ <b>Добро пожаловать в Journey of Ascension!</b>\n'
                    '\n'
                    'Яма и Нияма остаются нравственным фундаментом внутренней практики. Меридианы — следующая '
                    'ступень: учиться чувствовать внимание, тело и энергию через прямое наблюдение.\n'
@@ -360,9 +360,9 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           'практике.\n'
                           '\n'
                           'Если хотите ежедневный ритм, оставьте дни невыбранными.',
-        'setup_complete': '🎉 **Ритм практики настроен.**\n'
+        'setup_complete': '🎉 <b>Ритм практики настроен.</b>\n'
                           '\n'
-                          '📋 **Что сейчас активно:**\n'
+                          '📋 <b>Что сейчас активно:</b>\n'
                           '🕐 Время: {time}\n'
                           '🌍 Часовой пояс: {timezone}\n'
                           '📅 Дни тишины: {skip_days}\n'
@@ -388,7 +388,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'choose_language': 'Выберите язык, на котором хотите использовать бота:',
         'english': '🇺🇸 English',
         'russian': '🇷🇺 Русский',
-        'menu': '📋 **Journey of Ascension**',
+        'menu': '📋 <b>Journey of Ascension</b>',
         'menu_settings': '⚙️ Настройки',
         'menu_test': '🧪 Тестовое сообщение',
         'sending_test': '🧪 Отправляю тестовое сообщение...',
@@ -640,7 +640,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'timezone_manual_prompt': 'Введите часовой пояс в формате IANA.\n'
                                   '\n'
                                   'Примеры: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC'},
- 'uz': {'welcome': '🕊️ **Journey of Ascension botiga xush kelibsiz!**\n'
+ 'uz': {'welcome': '🕊️ <b>Journey of Ascension botiga xush kelibsiz!</b>\n'
                    '\n'
                    "Yama va Niyama ichki amaliyotning axloqiy poydevori bo'lib qoladi. Meridianlar keyingi "
                    "bosqich: diqqat, tana va energiyani bevosita kuzatish orqali sezishni o'rganish.\n"
@@ -665,9 +665,9 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           '\n'
                           "Har kuni ritm kerak bo'lsa, kunlarni tanlamang.",
         'skip_days_saved': "✅ O'tkazib yuborish kunlari saqlandi!",
-        'setup_complete': '🎉 **Amaliyot ritmingiz tayyor.**\n'
+        'setup_complete': '🎉 <b>Amaliyot ritmingiz tayyor.</b>\n'
                           '\n'
-                          '📋 **Hozir nimalar faol:**\n'
+                          '📋 <b>Hozir nimalar faol:</b>\n'
                           '🕐 Vaqt: {time}\n'
                           '🌍 Vaqt mintaqasi: {timezone}\n'
                           '📅 Sokin kunlar: {skip_days}\n'
@@ -696,7 +696,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'english': '🇺🇸 English',
         'russian': '🇷🇺 Русский',
         'uzbek': "🇺🇿 O'zbek",
-        'menu': '📋 **Journey of Ascension**',
+        'menu': '📋 <b>Journey of Ascension</b>',
         'menu_settings': '⚙️ Sozlamalar',
         'menu_test': '🧪 Test xabari',
         'sending_test': '🧪 Test xabari yuborilmoqda...',
@@ -727,7 +727,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                       'nafas, teginish va diqqat.\n'
                       '\n'
                       "Kichik takrorlar muhim. Ular g'oyani yashash mumkin bo'lgan odatga aylantiradi.",
-        'feedback_request': '💌 **Fikr va takliflaringiz**\n'
+        'feedback_request': '💌 <b>Fikr va takliflaringiz</b>\n'
                             '\n'
                             'Botni yaxshilash uchun fikrlaringizni yuboring:\n'
                             "• Qanday xususiyatlar qo'shilsin?\n"
@@ -952,7 +952,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'timezone_manual_prompt': 'Vaqt mintaqasini IANA formatida kiriting.\n'
                                   '\n'
                                   'Misollar: Asia/Tashkent, Europe/Moscow, Asia/Almaty, UTC'},
- 'kz': {'welcome': '🕊️ **Journey of Ascension ботына қош келдіңіз!**\n'
+ 'kz': {'welcome': '🕊️ <b>Journey of Ascension ботына қош келдіңіз!</b>\n'
                    '\n'
                    'Яма мен Нияма ішкі тәжірибенің адамгершілік негізі болып қалады. Меридиандар — келесі '
                    'саты: зейін, дене және энергияны тікелей бақылау арқылы сезуді үйрену.\n'
@@ -977,9 +977,9 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                           '\n'
                           'Күн сайынғы ырғақ керек болса, күндерді таңдамаңыз.',
         'skip_days_saved': '✅ Өткізіп жіберу күндері сақталды!',
-        'setup_complete': '🎉 **Тәжірибе ырғағы дайын.**\n'
+        'setup_complete': '🎉 <b>Тәжірибе ырғағы дайын.</b>\n'
                           '\n'
-                          '📋 **Қазір не белсенді:**\n'
+                          '📋 <b>Қазір не белсенді:</b>\n'
                           '🕐 Уақыт: {time}\n'
                           '🌍 Уақыт белдеуі: {timezone}\n'
                           '📅 Тыныш күндер: {skip_days}\n'
@@ -1008,7 +1008,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
         'russian': '🇷🇺 Русский',
         'uzbek': "🇺🇿 O'zbek",
         'kazakh': '🇰🇿 Қазақша',
-        'menu': '📋 **Journey of Ascension**',
+        'menu': '📋 <b>Journey of Ascension</b>',
         'menu_settings': '⚙️ Баптаулар',
         'menu_test': '🧪 Тест хабар',
         'sending_test': '🧪 Тест хабары жіберіліп жатыр...',
@@ -1040,7 +1040,7 @@ TEXTS = {'en': {'welcome': '🕊️ **Welcome to Journey of Ascension!**\n'
                       '\n'
                       'Кішкентай қайталаулар маңызды. Олар идеяны өмірде қолдануға болатын дағдыға '
                       'айналдырады.',
-        'feedback_request': '💌 **Пікірлер мен ұсыныстарыңыз**\n'
+        'feedback_request': '💌 <b>Пікірлер мен ұсыныстарыңыз</b>\n'
                             '\n'
                             'Ботты жақсарту үшін пікірлеріңізді жіберіңіз:\n'
                             '• Қандай мүмкіндіктер қосылсын?\n'

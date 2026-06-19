@@ -948,6 +948,8 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         raw_language_texts = text_definitions.get("TEXTS", {}).get(language, {})
         for key in visible_keys:
             value = raw_language_texts.get(key, "")
+            if "**" in value:
+                issues.append(f"{language}: raw TEXTS.{key} still uses Markdown bold")
             for pattern in stale_patterns:
                 if pattern in value:
                     issues.append(f"{language}: raw TEXTS.{key} contains stale branding {pattern!r}")
