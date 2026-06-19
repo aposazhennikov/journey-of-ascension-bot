@@ -488,47 +488,32 @@ def _point_observation_prompt(
     location: str,
 ) -> str:
     """Build a point-specific observation prompt so cards do not feel generic."""
-    area = _short_point_area(location)
-    code = str(point.get("code", "")).strip()
-    title = point_title or code
     if language == "ru":
         if point_index == 0:
-            return (
-                f"Что первым откликается в точке {title}: тепло, давление, пульсация, "
-                f"пустота или сопротивление внимания?{f' Проверьте область: {area}.' if area else ''}"
-            )
+            return "Что первым откликается здесь: тепло, давление, пульсация, пустота или сопротивление внимания?"
         return (
-            f"Удерживая предыдущие точки, что меняется, когда вы добавляете {title}: "
-            f"линия становится яснее, теплее, плотнее или где-то обрывается?{f' Проверьте область: {area}.' if area else ''}"
+            "Удерживая предыдущие точки, что меняется здесь: линия становится яснее, "
+            "теплее, плотнее или где-то обрывается?"
         )
     if language == "uz":
         if point_index == 0:
-            return (
-                f"{title} nuqtasida birinchi nima javob beradi: iliqlik, bosim, pulsatsiya, "
-                f"bo'shliq yoki diqqatga qarshilik?{f' Soha: {area}.' if area else ''}"
-            )
+            return "Bu yerda birinchi nima javob beradi: iliqlik, bosim, pulsatsiya, bo'shliq yoki diqqatga qarshilik?"
         return (
-            f"Oldingi nuqtalarni ushlab turib, {title} qo'shilganda nima o'zgaradi: "
-            f"chiziq aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi?{f' Soha: {area}.' if area else ''}"
+            "Oldingi nuqtalarni ushlab turib, bu yerda nima o'zgaradi: chiziq "
+            "aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi?"
         )
     if language == "kz":
         if point_index == 0:
-            return (
-                f"{title} нүктесінде алдымен не жауап береді: жылу, қысым, соғу, "
-                f"бос кеңістік немесе зейінге қарсылық па?{f' Аймақ: {area}.' if area else ''}"
-            )
+            return "Бұл жерде алдымен не жауап береді: жылу, қысым, соғу, бос кеңістік немесе зейінге қарсылық па?"
         return (
-            f"Алдыңғы нүктелерді ұстап тұрып, {title} қосылғанда не өзгереді: "
-            f"сызық анығырақ, жылырақ, тығызырақ бола ма, әлде бір жерде үзіле ме?{f' Аймақ: {area}.' if area else ''}"
+            "Алдыңғы нүктелерді ұстап тұрып, бұл жерде не өзгереді: сызық "
+            "анығырақ, жылырақ, тығызырақ бола ма, әлде бір жерде үзіле ме?"
         )
     if point_index == 0:
-        return (
-            f"What responds first at {title}: warmth, pressure, pulsation, emptiness, "
-            f"or resistance to attention?{f' Check the area: {area}.' if area else ''}"
-        )
+        return "What responds first here: warmth, pressure, pulsation, emptiness, or resistance to attention?"
     return (
-        f"While holding the previous points, what changes when {title} is added: "
-        f"does the line become clearer, warmer, denser, or does it break somewhere?{f' Check the area: {area}.' if area else ''}"
+        "While holding the previous points, what changes here: does the line become "
+        "clearer, warmer, denser, or does it break somewhere?"
     )
 
 
