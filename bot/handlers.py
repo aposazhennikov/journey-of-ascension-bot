@@ -4071,6 +4071,9 @@ class BotHandlers:
             await query.answer()
             user = await self.storage.get_user(chat_id)
             language = user.language if user else "en"
+            if not user or not user.is_active:
+                await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
+                return
 
             if action == "random":
                 principle = self.principles_manager.get_random_principle(language)
@@ -4121,6 +4124,9 @@ class BotHandlers:
 
             user = await self.storage.get_user(chat_id)
             language = user.language if user else "en"
+            if not user or not user.is_active:
+                await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
+                return
 
             text = self._as_html(self._get_text("settings_menu", language))
             keyboard = self._create_settings_menu_keyboard(language, user)
@@ -4141,6 +4147,9 @@ class BotHandlers:
 
             user = await self.storage.get_user(chat_id)
             language = user.language if user else "en"
+            if not user or not user.is_active:
+                await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
+                return
 
             if setting == "language":
                 keyboard = [
@@ -4229,7 +4238,7 @@ class BotHandlers:
             await query.answer()
             user = await self.storage.get_user(chat_id)
             language = user.language if user else "en"
-            if not user:
+            if not user or not user.is_active:
                 await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
                 return
 
@@ -4301,7 +4310,7 @@ class BotHandlers:
                 return
 
             await query.answer()
-            if not user:
+            if not user or not user.is_active:
                 await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
                 return
 

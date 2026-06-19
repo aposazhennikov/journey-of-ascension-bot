@@ -1489,6 +1489,21 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if 'action != "stop" and (not user or not user.is_active)' not in menu_callback_source:
             issues.append("stale main-menu callbacks can open sections after the bot is stopped")
 
+    stale_callback_ranges = (
+        ("principles", "async def _handle_principles_callback", "async def _handle_settings_callback"),
+        ("settings", "async def _handle_settings_callback", "async def _handle_change_callback"),
+        ("change settings", "async def _handle_change_callback", "async def _handle_mode_callback"),
+        ("practice mode", "async def _handle_mode_callback", "async def _handle_stop_feedback_skip_callback"),
+        ("meridian", "async def _handle_meridian_callback", "async def _handle_broadcast_callback"),
+    )
+    for label, start_marker, end_marker in stale_callback_ranges:
+        start = handlers_source.find(start_marker)
+        end = handlers_source.find(end_marker, start)
+        if start != -1 and end != -1:
+            callback_source = handlers_source[start:end]
+            if "not user or not user.is_active" not in callback_source:
+                issues.append(f"stale {label} callbacks can still act after the bot is stopped")
+
     feedback_handler_start = handlers_source.find("async def _handle_feedback_input")
     stop_feedback_handler_start = handlers_source.find("async def _handle_stop_feedback_input")
     principle_detail_start = handlers_source.find("async def _show_principle_detail")
