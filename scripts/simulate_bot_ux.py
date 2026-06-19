@@ -1654,6 +1654,10 @@ def audit_rendered_html() -> list[str]:
         issues.append("browser simulator point-list pagination uses technical 10-only labels")
     if "const timeRow = []" not in html or "state.principlesEnabled" not in html or "state.meridiansEnabled" not in html:
         issues.append("browser simulator settings screen is not mode-aware")
+    if "state.meridianTimeContext = 'settings'; setScreen('meridianTime')" not in html:
+        issues.append("browser simulator meridian-time settings button does not open meridian time screen")
+    if "state.meridianTimeContext === 'settings' ? 'meridian_time_step' : 'meridian_time_setup_step'" not in html:
+        issues.append("browser simulator meridian-time screen is not contextual for settings vs onboarding")
     if "function renderSettingsSnapshot()" not in html or "Current practice rhythm" not in html or "Текущий ритм практики" not in html:
         issues.append("browser simulator settings screen does not show the current practice rhythm snapshot")
     if (
@@ -1662,6 +1666,12 @@ def audit_rendered_html() -> list[str]:
         or "openScenario(normalizedScenario)" not in html
     ):
         issues.append("browser simulator does not support direct scenario URLs")
+    settings_scenario_start = html.find("scenario === 'settings'")
+    settings_scenario_end = html.find("} else if (scenario === 'timezone')", settings_scenario_start)
+    settings_scenario_source = html[settings_scenario_start:settings_scenario_end]
+    for marker in ("state.principlesEnabled = true", "state.meridiansEnabled = true", "state.currentMeridianId = firstReadyMeridian().id"):
+        if marker not in settings_scenario_source:
+            issues.append(f"browser simulator settings scenario is missing active-mode marker {marker!r}")
     for scenario_alias in ("current-point", "all-points", "choose-meridian", "meridian-path", "point-help", "setup-complete"):
         if f"'{scenario_alias}'" not in html:
             issues.append(f"browser simulator is missing direct URL alias {scenario_alias}")
@@ -1783,6 +1793,7 @@ def build_html() -> str:
       currentPointIndex: -1,
       currentPointsPage: 0,
       currentMeridiansPage: 0,
+      meridianTimeContext: 'setup',
       completed: [],
     }};
 
@@ -1794,6 +1805,7 @@ def build_html() -> str:
       state.currentPointIndex = -1;
       state.currentPointsPage = 0;
       state.currentMeridiansPage = 0;
+      state.meridianTimeContext = 'setup';
       state.completed = [];
     }}
 
@@ -1904,12 +1916,13 @@ def build_html() -> str:
         ? 'time_step_both'
         : state.meridiansEnabled ? 'time_step_meridians' : 'time_step_principles';
       show('Time', fmt(t(key)), [
-        [{{ label: '08:00', action: () => setScreen(state.principlesEnabled && state.meridiansEnabled ? 'meridianTime' : state.principlesEnabled ? 'skipDays' : 'setupComplete') }}, {{ label: '20:00', action: () => setScreen(state.principlesEnabled && state.meridiansEnabled ? 'meridianTime' : state.principlesEnabled ? 'skipDays' : 'setupComplete') }}],
+        [{{ label: '08:00', action: () => {{ state.meridianTimeContext = 'setup'; setScreen(state.principlesEnabled && state.meridiansEnabled ? 'meridianTime' : state.principlesEnabled ? 'skipDays' : 'setupComplete'); }} }}, {{ label: '20:00', action: () => {{ state.meridianTimeContext = 'setup'; setScreen(state.principlesEnabled && state.meridiansEnabled ? 'meridianTime' : state.principlesEnabled ? 'skipDays' : 'setupComplete'); }} }}],
       ]);
     }}
 
     function renderMeridianTime() {{
-      show('Meridian time', fmt(t('meridian_time_setup_step')), [
+      const textKey = state.meridianTimeContext === 'settings' ? 'meridian_time_step' : 'meridian_time_setup_step';
+      show('Meridian time', fmt(t(textKey)), [
         [{{ label: '20:00', action: () => setScreen('skipDays') }}, {{ label: '21:30', action: () => setScreen('skipDays') }}],
       ]);
     }}
@@ -2314,7 +2327,7 @@ def build_html() -> str:
         timeRow.push({{ label: t('change_time'), action: () => setScreen('time') }});
       }}
       if (state.meridiansEnabled) {{
-        timeRow.push({{ label: t('change_meridian_time'), action: () => setScreen('time') }});
+        timeRow.push({{ label: t('change_meridian_time'), action: () => {{ state.meridianTimeContext = 'settings'; setScreen('meridianTime'); }} }});
       }}
       if (timeRow.length) {{
         rows.push(timeRow);
@@ -2436,6 +2449,12 @@ def build_html() -> str:
       }} else if (scenario === 'about') {{
         state.screen = 'about';
       }} else if (scenario === 'settings') {{
+        resetState();
+        state.principlesEnabled = true;
+        state.meridiansEnabled = true;
+        state.learningMode = 'guided';
+        state.currentMeridianId = firstReadyMeridian().id;
+        state.currentPointIndex = 0;
         state.screen = 'settings';
       }} else if (scenario === 'timezone') {{
         state.screen = 'timezone';
