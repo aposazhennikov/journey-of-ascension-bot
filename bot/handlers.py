@@ -1300,7 +1300,147 @@ TEXTS_UPDATE = {
     }
 }
 
+LIVE_TEXT_OVERRIDES = {
+    "en": {
+        "language_chosen": "✅ Language set to English.",
+        "choose_language": "Choose the language you want to use:",
+        "timezone_step": "📍 Time zone\n\nChoose your time zone so reminders arrive at the right local time.",
+        "timezone_custom": "⌨️ Enter manually",
+        "timezone_manual_prompt": "Enter your time zone in IANA format.\n\nExamples: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC",
+        "timezone_saved": "✅ Time zone saved.",
+        "time_saved": "✅ Reminder time saved.",
+        "invalid_timezone": "❌ I could not recognize this time zone. Try a format like Europe/Moscow, Asia/Tashkent, Asia/Almaty, or UTC.",
+        "invalid_time": "❌ I could not recognize this time. Use HH:MM, for example 08:00 or 20:30.",
+        "invalid_skip_days": "❌ I could not recognize these days. Use numbers from 0 to 6 separated by commas.",
+        "setup_error": "❌ I could not save the settings. Please try again.",
+        "error": "Something went wrong. Please try again.",
+        "test_failed": "I could not send the test message.",
+        "menu_settings": "⚙️ Settings",
+        "menu_test": "🧪 Test message",
+        "sending_test": "🧪 Sending a test message...",
+        "menu_about": "ℹ️ About the bot",
+        "menu_feedback": "💌 Feedback and ideas",
+        "back_to_menu": "🔙 Back to menu",
+        "no_skip_days": "✅ No quiet days selected — reminders can arrive every day",
+        "skip_days_improved": (
+            "📅 <b>Quiet Days</b>\n\n"
+            "Choose weekdays when the bot should not send daily practice reminders.\n\n"
+            "Leave everything unselected if you want a daily rhythm."
+        ),
+        "current_settings": "⚙️ <b>Current practice rhythm</b>",
+        "feedback_prompt": (
+            "💌 <b>Feedback and ideas</b>\n\n"
+            "Your experience matters. Write what felt useful, what felt unclear, or what would make the practice more comfortable."
+        ),
+        "feedback_sent": "✅ Thank you. Your feedback has been sent.",
+        "feedback_too_long": "❌ The message is too long. Please keep it under 1000 characters.",
+        "feedback_rate_limit": "⏰ Please wait a little before sending another feedback message.",
+        "feedback_error": "❌ I could not save your feedback. Please try again later.",
+    },
+    "ru": {
+        "language_chosen": "✅ Язык установлен: русский.",
+        "choose_language": "Выберите язык, на котором хотите использовать бота:",
+        "timezone_step": "📍 Часовой пояс\n\nВыберите ваш часовой пояс, чтобы напоминания приходили в правильное местное время.",
+        "timezone_custom": "⌨️ Ввести вручную",
+        "timezone_manual_prompt": "Введите часовой пояс в формате IANA.\n\nПримеры: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC",
+        "timezone_saved": "✅ Часовой пояс сохранён.",
+        "time_saved": "✅ Время напоминаний сохранено.",
+        "invalid_timezone": "❌ Не удалось распознать часовой пояс. Попробуйте формат Europe/Moscow, Asia/Tashkent, Asia/Almaty или UTC.",
+        "invalid_time": "❌ Не удалось распознать время. Используйте формат ЧЧ:ММ, например 08:00 или 20:30.",
+        "invalid_skip_days": "❌ Не удалось распознать дни. Используйте числа от 0 до 6 через запятую.",
+        "setup_error": "❌ Не удалось сохранить настройки. Попробуйте ещё раз.",
+        "error": "Что-то пошло не так. Попробуйте ещё раз.",
+        "test_failed": "Не удалось отправить тестовое сообщение.",
+        "menu_settings": "⚙️ Настройки",
+        "menu_test": "🧪 Тестовое сообщение",
+        "sending_test": "🧪 Отправляю тестовое сообщение...",
+        "menu_about": "ℹ️ О боте",
+        "menu_feedback": "💌 Отзывы и идеи",
+        "back_to_menu": "🔙 Назад в меню",
+        "no_skip_days": "✅ Дни тишины не выбраны — напоминания могут приходить каждый день",
+        "skip_days_improved": (
+            "📅 <b>Дни тишины</b>\n\n"
+            "Выберите дни недели, когда бот не должен присылать ежедневные напоминания по практике.\n\n"
+            "Если хотите ежедневный ритм, оставьте дни невыбранными."
+        ),
+        "current_settings": "⚙️ <b>Текущий ритм практики</b>",
+        "feedback_prompt": (
+            "💌 <b>Отзывы и идеи</b>\n\n"
+            "Ваш опыт важен. Напишите, что оказалось полезным, что было непонятно или что сделало бы практику удобнее."
+        ),
+        "feedback_sent": "✅ Спасибо. Ваш отзыв отправлен.",
+        "feedback_too_long": "❌ Сообщение слишком длинное. Пожалуйста, уложитесь в 1000 символов.",
+        "feedback_rate_limit": "⏰ Пожалуйста, подождите немного перед следующим отзывом.",
+        "feedback_error": "❌ Не удалось сохранить отзыв. Попробуйте позже.",
+    },
+    "uz": {
+        "language_chosen": "✅ Til o'zbekchaga o'rnatildi.",
+        "choose_language": "Botdan qaysi tilda foydalanishni tanlang:",
+        "timezone_step": "📍 Vaqt mintaqasi\n\nEslatmalar to'g'ri mahalliy vaqtda kelishi uchun vaqt mintaqangizni tanlang.",
+        "timezone_custom": "⌨️ Qo'lda kiritish",
+        "timezone_manual_prompt": "Vaqt mintaqasini IANA formatida kiriting.\n\nMisollar: Asia/Tashkent, Europe/Moscow, Asia/Almaty, UTC",
+        "timezone_saved": "✅ Vaqt mintaqasi saqlandi.",
+        "time_saved": "✅ Eslatma vaqti saqlandi.",
+        "invalid_timezone": "❌ Bu vaqt mintaqasini taniy olmadim. Asia/Tashkent, Europe/Moscow, Asia/Almaty yoki UTC kabi formatni sinab ko'ring.",
+        "invalid_time": "❌ Bu vaqtni taniy olmadim. HH:MM formatidan foydalaning, masalan 08:00 yoki 20:30.",
+        "invalid_skip_days": "❌ Kunlarni taniy olmadim. 0 dan 6 gacha bo'lgan raqamlarni vergul bilan kiriting.",
+        "setup_error": "❌ Sozlamalarni saqlab bo'lmadi. Iltimos, qayta urinib ko'ring.",
+        "error": "Nimadir noto'g'ri ketdi. Iltimos, qayta urinib ko'ring.",
+        "test_failed": "Test xabarini yuborib bo'lmadi.",
+        "menu_settings": "⚙️ Sozlamalar",
+        "menu_test": "🧪 Test xabari",
+        "sending_test": "🧪 Test xabari yuborilmoqda...",
+        "menu_about": "ℹ️ Bot haqida",
+        "menu_feedback": "💌 Fikr va takliflar",
+        "back_to_menu": "🔙 Menyuga qaytish",
+        "no_skip_days": "✅ Sokin kunlar tanlanmadi — eslatmalar har kuni kelishi mumkin",
+        "current_settings": "⚙️ <b>Joriy amaliyot ritmi</b>",
+        "feedback_prompt": (
+            "💌 <b>Fikr va takliflar</b>\n\n"
+            "Tajribangiz muhim. Nima foydali bo'lganini, nima tushunarsiz qolganini yoki amaliyotni nima qulayroq qilishini yozing."
+        ),
+        "feedback_sent": "✅ Rahmat. Fikringiz yuborildi.",
+        "feedback_too_long": "❌ Xabar juda uzun. Iltimos, 1000 belgidan oshirmang.",
+        "feedback_rate_limit": "⏰ Keyingi fikrni yuborishdan oldin biroz kuting.",
+        "feedback_error": "❌ Fikringizni saqlab bo'lmadi. Iltimos, keyinroq urinib ko'ring.",
+    },
+    "kz": {
+        "language_chosen": "✅ Тіл қазақшаға орнатылды.",
+        "choose_language": "Ботты қай тілде қолданғыңыз келетінін таңдаңыз:",
+        "timezone_step": "📍 Уақыт белдеуі\n\nЕске салулар дұрыс жергілікті уақытта келуі үшін уақыт белдеуіңізді таңдаңыз.",
+        "timezone_custom": "⌨️ Қолмен енгізу",
+        "timezone_manual_prompt": "Уақыт белдеуін IANA форматында енгізіңіз.\n\nМысалдар: Asia/Almaty, Asia/Tashkent, Europe/Moscow, UTC",
+        "timezone_saved": "✅ Уақыт белдеуі сақталды.",
+        "time_saved": "✅ Еске салу уақыты сақталды.",
+        "invalid_timezone": "❌ Бұл уақыт белдеуін тани алмадым. Asia/Almaty, Asia/Tashkent, Europe/Moscow немесе UTC сияқты форматты қолданып көріңіз.",
+        "invalid_time": "❌ Бұл уақытты тани алмадым. HH:MM форматын қолданыңыз, мысалы 08:00 немесе 20:30.",
+        "invalid_skip_days": "❌ Күндерді тани алмадым. 0-ден 6-ға дейінгі сандарды үтірмен енгізіңіз.",
+        "setup_error": "❌ Баптауларды сақтай алмадым. Қайтадан көріңіз.",
+        "error": "Бір нәрсе дұрыс болмады. Қайтадан көріңіз.",
+        "test_failed": "Тест хабарын жіберу мүмкін болмады.",
+        "menu_settings": "⚙️ Баптаулар",
+        "menu_test": "🧪 Тест хабар",
+        "sending_test": "🧪 Тест хабары жіберіліп жатыр...",
+        "menu_about": "ℹ️ Бот туралы",
+        "menu_feedback": "💌 Пікірлер мен ұсыныстар",
+        "back_to_menu": "🔙 Мәзірге қайту",
+        "no_skip_days": "✅ Тыныш күндер таңдалмады — еске салулар күн сайын келуі мүмкін",
+        "current_settings": "⚙️ <b>Қазіргі тәжірибе ырғағы</b>",
+        "feedback_prompt": (
+            "💌 <b>Пікірлер мен ұсыныстар</b>\n\n"
+            "Тәжірибеңіз маңызды. Не пайдалы болғанын, не түсініксіз қалғанын немесе тәжірибені не ыңғайлырақ ететінін жазыңыз."
+        ),
+        "feedback_sent": "✅ Рақмет. Пікіріңіз жіберілді.",
+        "feedback_too_long": "❌ Хабар тым ұзын. 1000 таңбадан асырмаңыз.",
+        "feedback_rate_limit": "⏰ Келесі пікірді жібермес бұрын сәл күтіңіз.",
+        "feedback_error": "❌ Пікіріңізді сақтау мүмкін болмады. Кейінірек қайталап көріңіз.",
+    },
+}
+
 for _language, _updates in TEXTS_UPDATE.items():
+    TEXTS.setdefault(_language, {}).update(_updates)
+
+for _language, _updates in LIVE_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
 
@@ -1678,8 +1818,7 @@ class BotHandlers:
                     
                 custom_msg = (
                     f"{self._get_text('timezone_step', language)}\n\n"
-                    "Please enter your timezone in IANA format:\n\n"
-                    "Examples: Europe/Moscow, Asia/Tashkent, UTC"
+                    f"{self._get_text('timezone_manual_prompt', language)}"
                 )
                 await self._edit_message_text_safe(query, custom_msg, parse_mode='Markdown')
             else:

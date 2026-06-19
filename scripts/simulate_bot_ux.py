@@ -65,13 +65,16 @@ def load_texts() -> dict[str, dict[str, str]]:
         if not isinstance(node, ast.Assign):
             continue
         for target in node.targets:
-            if isinstance(target, ast.Name) and target.id in {"TEXTS", "TEXTS_UPDATE"}:
+            if isinstance(target, ast.Name) and target.id in {"TEXTS", "TEXTS_UPDATE", "LIVE_TEXT_OVERRIDES"}:
                 values[target.id] = ast.literal_eval(node.value)
 
     texts = values.get("TEXTS", {})
     updates = values.get("TEXTS_UPDATE", {})
     for language, language_updates in updates.items():
         texts.setdefault(language, {}).update(language_updates)
+    overrides = values.get("LIVE_TEXT_OVERRIDES", {})
+    for language, language_overrides in overrides.items():
+        texts.setdefault(language, {}).update(language_overrides)
     return texts
 
 
