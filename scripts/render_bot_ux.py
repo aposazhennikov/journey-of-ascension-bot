@@ -484,7 +484,9 @@ def audit() -> list[str]:
     for meridian in meridians:
         for point in meridian.get("points", []):
             image_name = point.get("image")
-            if image_name and not (image_dir / image_name).exists():
+            if not image_name:
+                issues.append(f"missing point image field: {meridian['id']} {point.get('code')}")
+            elif not (image_dir / image_name).exists():
                 issues.append(f"missing point image: {meridian['id']} {point.get('code')} -> {image_name}")
 
     button_rows = []
