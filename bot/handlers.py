@@ -1327,7 +1327,7 @@ ADMIN_TEXTS = {
 TEXTS_UPDATE = {
     "en": {
         "welcome": (
-            "🕊️ **Welcome to Journey of Ascension!**\n\n"
+            "🕊️ <b>Welcome to Journey of Ascension!</b>\n\n"
             "Yama and Niyama are the ethical foundation of inner practice. "
             "Meridians are the next step: learning to feel attention, body, and energy through direct observation.\n\n"
             "Let's start with choosing your preferred language:"
@@ -1368,7 +1368,7 @@ TEXTS_UPDATE = {
             "Format: HH:MM, for example 08:00 or 20:30."
         ),
         "continue_setup": "Continue",
-        "menu": "📋 **Journey of Ascension**",
+        "menu": "📋 <b>Journey of Ascension</b>",
         "menu_principles": "🧘🏻✨ Yama/Niyama",
         "menu_meridians": "☯️ Meridians",
         "menu_modes": "🧭 My Path",
@@ -1500,8 +1500,8 @@ TEXTS_UPDATE = {
         "stop_feedback_thanks": "Thank you, I will pass on your feedback.\n\nUse /start if you want to return.",
         "not_subscribed_test": "You're not subscribed yet. Use /start to begin.",
         "setup_complete": (
-            "🎉 **Your practice rhythm is ready.**\n\n"
-            "📋 **What is active now:**\n"
+            "🎉 <b>Your practice rhythm is ready.</b>\n\n"
+            "📋 <b>What is active now:</b>\n"
             "🕐 Time: {time}\n"
             "🌍 Time Zone: {timezone}\n"
             "📅 Quiet Days: {skip_days}\n\n"
@@ -1510,7 +1510,7 @@ TEXTS_UPDATE = {
     },
     "ru": {
         "welcome": (
-            "🕊️ **Добро пожаловать в Journey of Ascension!**\n\n"
+            "🕊️ <b>Добро пожаловать в Journey of Ascension!</b>\n\n"
             "Яма и Нияма остаются нравственным фундаментом внутренней практики. "
             "Меридианы — следующая ступень: учиться чувствовать внимание, тело и энергию через прямое наблюдение.\n\n"
             "Начнём с выбора языка:"
@@ -1551,7 +1551,7 @@ TEXTS_UPDATE = {
             "Формат: ЧЧ:ММ, например 08:00 или 20:30."
         ),
         "continue_setup": "Продолжить",
-        "menu": "📋 **Journey of Ascension**",
+        "menu": "📋 <b>Journey of Ascension</b>",
         "menu_principles": "🧘🏻✨ Яма/Нияма",
         "menu_meridians": "☯️ Меридианы",
         "menu_modes": "🧭 Мой путь",
@@ -1683,8 +1683,8 @@ TEXTS_UPDATE = {
         "stop_feedback_thanks": "Спасибо, я передам обратную связь.\n\nЕсли захотите вернуться, используйте /start.",
         "not_subscribed_test": "Вы пока не подписаны. Используйте /start, чтобы начать.",
         "setup_complete": (
-            "🎉 **Ритм практики настроен.**\n\n"
-            "📋 **Что сейчас активно:**\n"
+            "🎉 <b>Ритм практики настроен.</b>\n\n"
+            "📋 <b>Что сейчас активно:</b>\n"
             "🕐 Время: {time}\n"
             "🌍 Часовой пояс: {timezone}\n"
             "📅 Дни тишины: {skip_days}\n\n"
@@ -1693,7 +1693,7 @@ TEXTS_UPDATE = {
     },
     "uz": {
         "welcome": (
-            "🕊️ **Journey of Ascension botiga xush kelibsiz!**\n\n"
+            "🕊️ <b>Journey of Ascension botiga xush kelibsiz!</b>\n\n"
             "Yama va Niyama ichki amaliyotning axloqiy poydevori bo'lib qoladi. "
             "Meridianlar keyingi bosqich: diqqat, tana va energiyani bevosita kuzatish orqali sezishni o'rganish.\n\n"
             "Avval tilni tanlaymiz:"
@@ -1734,7 +1734,7 @@ TEXTS_UPDATE = {
             "Format: HH:MM, masalan 08:00 yoki 20:30."
         ),
         "continue_setup": "Davom etish",
-        "menu": "📋 **Journey of Ascension**",
+        "menu": "📋 <b>Journey of Ascension</b>",
         "menu_principles": "🧘🏻✨ Yama/Niyama",
         "menu_meridians": "☯️ Meridianlar",
         "menu_modes": "🧭 Mening yo'lim",
@@ -1880,8 +1880,8 @@ TEXTS_UPDATE = {
         ),
         "feedback_sent": "✅ Rahmat. Fikringiz ishlab chiquvchilarga yuborildi.",
         "setup_complete": (
-            "🎉 **Amaliyot ritmingiz tayyor.**\n\n"
-            "📋 **Hozir nimalar faol:**\n"
+            "🎉 <b>Amaliyot ritmingiz tayyor.</b>\n\n"
+            "📋 <b>Hozir nimalar faol:</b>\n"
             "🕐 Vaqt: {time}\n"
             "🌍 Vaqt mintaqasi: {timezone}\n"
             "📅 Sokin kunlar: {skip_days}\n\n"
@@ -1890,7 +1890,7 @@ TEXTS_UPDATE = {
     },
     "kz": {
         "welcome": (
-            "🕊️ **Journey of Ascension ботына қош келдіңіз!**\n\n"
+            "🕊️ <b>Journey of Ascension ботына қош келдіңіз!</b>\n\n"
             "Яма мен Нияма ішкі тәжірибенің адамгершілік негізі болып қалады. "
             "Меридиандар — келесі саты: зейін, дене және энергияны тікелей бақылау арқылы сезуді үйрену.\n\n"
             "Алдымен тілді таңдайық:"
@@ -1931,7 +1931,7 @@ TEXTS_UPDATE = {
             "Формат: HH:MM, мысалы 08:00 немесе 20:30."
         ),
         "continue_setup": "Жалғастыру",
-        "menu": "📋 **Journey of Ascension**",
+        "menu": "📋 <b>Journey of Ascension</b>",
         "menu_principles": "🧘🏻✨ Яма/Нияма",
         "menu_meridians": "☯️ Меридиандар",
         "menu_modes": "🧭 Менің жолым",
@@ -2077,8 +2077,8 @@ TEXTS_UPDATE = {
         ),
         "feedback_sent": "✅ Рақмет. Пікіріңіз әзірлеушілерге жіберілді.",
         "setup_complete": (
-            "🎉 **Тәжірибе ырғағы дайын.**\n\n"
-            "📋 **Қазір не белсенді:**\n"
+            "🎉 <b>Тәжірибе ырғағы дайын.</b>\n\n"
+            "📋 <b>Қазір не белсенді:</b>\n"
             "🕐 Уақыт: {time}\n"
             "🌍 Уақыт белдеуі: {timezone}\n"
             "📅 Тыныш күндер: {skip_days}\n\n"
@@ -4079,8 +4079,7 @@ class BotHandlers:
             await self.storage.save_user(user)
             await self.scheduler.schedule_user_immediately(chat_id)
 
-            menu_text = self._get_text("menu", language).replace("**", "<b>", 1).replace("**", "</b>", 1)
-            text = f"{self._get_text('mode_saved', language)}\n\n{menu_text}"
+            text = f"{self._get_text('mode_saved', language)}\n\n{self._get_text('menu', language)}"
             keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
             await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
