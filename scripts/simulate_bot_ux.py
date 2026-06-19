@@ -768,6 +768,18 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             "uz": ("Yin tizimiga", "Siydik pufagi meridianidan", "Perikard meridianiga", "chuqur resurs"),
             "kz": ("Инь жүйесіне", "Қуық меридианынан", "Перикард меридианына", "терең ресурс"),
         },
+        "pericardium": {
+            "en": ("Yin system", "Kidney Meridian", "Triple Burner Meridian", "protection"),
+            "ru": ("системе инь", "Меридиана почек", "Меридиану трёх обогревателей", "защита"),
+            "uz": ("Yin tizimiga", "Buyrak meridianidan", "Uch isituvchi meridianiga", "himoya"),
+            "kz": ("Инь жүйесіне", "Бүйрек меридианынан", "Үш жылытқыш меридианына", "қорғаныс"),
+        },
+        "triple_burner": {
+            "en": ("Yang system", "Pericardium Meridian", "Gallbladder Meridian", "warmth"),
+            "ru": ("системе ян", "Меридиана перикарда", "Меридиану желчного пузыря", "тепло"),
+            "uz": ("Yang tizimiga", "Perikard meridianidan", "O't pufagi meridianiga", "issiqlik"),
+            "kz": ("Ян жүйесіне", "Перикард меридианынан", "Өт қабы меридианына", "жылу"),
+        },
     }
     for meridian_id, language_markers in paired_channel_markers.items():
         raw_meridian = raw_meridians_by_id.get(meridian_id, {})
