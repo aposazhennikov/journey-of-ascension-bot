@@ -4222,9 +4222,12 @@ class BotHandlers:
                 and getattr(user, "meridian_learning_mode", None)
                 and not user.current_meridian_id
             ):
-                first_meridian = self.meridians_manager.get_first_meridian()
-                if first_meridian:
-                    user.current_meridian_id = first_meridian["id"]
+                next_meridian = self.meridians_manager.get_next_meridian(None, user.completed_meridians)
+                if not next_meridian and user.completed_meridians:
+                    user.completed_meridians = []
+                    next_meridian = self.meridians_manager.get_next_meridian(None, user.completed_meridians)
+                if next_meridian:
+                    user.current_meridian_id = next_meridian["id"]
                     user.current_point_index = -1
 
             await self.storage.save_user(user)
