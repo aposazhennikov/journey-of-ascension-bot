@@ -398,6 +398,75 @@ def format_meridian_intro(meridian: Dict[str, Any], language: str = "en") -> str
     return message
 
 
+def _short_point_area(location: str, limit: int = 96) -> str:
+    """Create a compact body-area phrase from a point location."""
+    if not location:
+        return ""
+    area = location.strip().split(".")[0].split(";")[0]
+    if len(area) <= limit:
+        return area
+    return area[:limit].rsplit(" ", 1)[0].rstrip(",") + "..."
+
+
+def _compact_point_location(location: str, limit: int = 260) -> str:
+    """Keep very long anatomical locations readable inside Telegram captions."""
+    if len(location) <= limit:
+        return location
+    return location[:limit].rsplit(" ", 1)[0].rstrip(",") + "..."
+
+
+def _point_observation_prompt(
+    point: Dict[str, Any],
+    point_index: int,
+    language: str,
+    point_title: str,
+    location: str,
+) -> str:
+    """Build a point-specific observation prompt so cards do not feel generic."""
+    area = _short_point_area(location)
+    code = str(point.get("code", "")).strip()
+    title = point_title or code
+    if language == "ru":
+        if point_index == 0:
+            return (
+                f"Что первым откликается в точке {title}: тепло, давление, пульсация, "
+                f"пустота или сопротивление внимания?{f' Проверьте область: {area}.' if area else ''}"
+            )
+        return (
+            f"Удерживая предыдущие точки, что меняется, когда вы добавляете {title}: "
+            f"линия становится яснее, теплее, плотнее или где-то обрывается?{f' Проверьте область: {area}.' if area else ''}"
+        )
+    if language == "uz":
+        if point_index == 0:
+            return (
+                f"{title} nuqtasida birinchi nima javob beradi: iliqlik, bosim, pulsatsiya, "
+                f"bo'shliq yoki diqqatga qarshilik?{f' Soha: {area}.' if area else ''}"
+            )
+        return (
+            f"Oldingi nuqtalarni ushlab turib, {title} qo'shilganda nima o'zgaradi: "
+            f"chiziq aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi?{f' Soha: {area}.' if area else ''}"
+        )
+    if language == "kz":
+        if point_index == 0:
+            return (
+                f"{title} нүктесінде алдымен не жауап береді: жылу, қысым, соғу, "
+                f"бос кеңістік немесе зейінге қарсылық па?{f' Аймақ: {area}.' if area else ''}"
+            )
+        return (
+            f"Алдыңғы нүктелерді ұстап тұрып, {title} қосылғанда не өзгереді: "
+            f"сызық анығырақ, жылырақ, тығызырақ бола ма, әлде бір жерде үзіле ме?{f' Аймақ: {area}.' if area else ''}"
+        )
+    if point_index == 0:
+        return (
+            f"What responds first at {title}: warmth, pressure, pulsation, emptiness, "
+            f"or resistance to attention?{f' Check the area: {area}.' if area else ''}"
+        )
+    return (
+        f"While holding the previous points, what changes when {title} is added: "
+        f"does the line become clearer, warmer, denser, or does it break somewhere?{f' Check the area: {area}.' if area else ''}"
+    )
+
+
 def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: str = "en") -> str:
     """Format a meridian point for meditation practice."""
     points = meridian.get("points", [])
@@ -407,9 +476,8 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     point = points[point_index]
     meridian_name = escape(_localized_value(meridian, language, "name", meridian.get("id", "Meridian")))
     point_name = escape(localized_point_name(point, language))
-    location = escape(_localized_location(point, language))
-    instruction = escape(_localized_value(point, language, "meditation_instruction"))
-    question = escape(_localized_value(point, language, "observation_question"))
+    raw_location = _localized_location(point, language)
+    location = escape(_compact_point_location(raw_location))
 
     practice_notes = {
         "en": (
@@ -452,13 +520,13 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     }.get(language, ("Point", "Location", "Focus", "Observe"))
 
     point_title = " ".join(part for part in (escape(str(point.get("code", ""))), point_name) if part)
+    raw_point_title = " ".join(part for part in (str(point.get("code", "")).strip(), localized_point_name(point, language)) if part)
+    question = escape(_point_observation_prompt(point, point_index, language, raw_point_title, raw_location))
     message = f"<b>{meridian_name}</b>\n"
     message += f"<b>{escape(labels[0])} {point_index + 1}/{len(points)}:</b> {point_title}\n\n"
     if location:
         message += f"<b>{escape(labels[1])}:</b> {location}\n\n"
-    if instruction:
-        message += f"<b>{escape(labels[2])}:</b> {instruction}\n\n"
-    message += f"{practice_note}\n\n"
+    message += f"<b>{escape(labels[2])}:</b> {practice_note}\n\n"
     if question:
         with_question = message + f"<i>{escape(labels[3])}:</i> {question}"
         if len(with_question) <= 1024:

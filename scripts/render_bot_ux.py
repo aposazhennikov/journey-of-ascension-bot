@@ -198,6 +198,41 @@ def practice_note(point_index: int, language: str) -> str:
     return notes[language][0 if point_index == 0 else 1]
 
 
+def short_point_area(location: str, limit: int = 96) -> str:
+    if not location:
+        return ""
+    area = location.strip().split(".")[0].split(";")[0]
+    if len(area) <= limit:
+        return area
+    return area[:limit].rsplit(" ", 1)[0].rstrip(",") + "..."
+
+
+def compact_point_location(location: str, limit: int = 260) -> str:
+    if len(location) <= limit:
+        return location
+    return location[:limit].rsplit(" ", 1)[0].rstrip(",") + "..."
+
+
+def point_observation_prompt(point: dict[str, Any], point_index: int, language: str, point_title: str, location: str) -> str:
+    area = short_point_area(location)
+    title = point_title or point.get("code", "")
+    if language == "ru":
+        if point_index == 0:
+            return f"Что первым откликается в точке {title}: тепло, давление, пульсация, пустота или сопротивление внимания?{f' Проверьте область: {area}.' if area else ''}"
+        return f"Удерживая предыдущие точки, что меняется, когда вы добавляете {title}: линия становится яснее, теплее, плотнее или где-то обрывается?{f' Проверьте область: {area}.' if area else ''}"
+    if language == "uz":
+        if point_index == 0:
+            return f"{title} nuqtasida birinchi nima javob beradi: iliqlik, bosim, pulsatsiya, bo'shliq yoki diqqatga qarshilik?{f' Soha: {area}.' if area else ''}"
+        return f"Oldingi nuqtalarni ushlab turib, {title} qo'shilganda nima o'zgaradi: chiziq aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi?{f' Soha: {area}.' if area else ''}"
+    if language == "kz":
+        if point_index == 0:
+            return f"{title} нүктесінде алдымен не жауап береді: жылу, қысым, соғу, бос кеңістік немесе зейінге қарсылық па?{f' Аймақ: {area}.' if area else ''}"
+        return f"Алдыңғы нүктелерді ұстап тұрып, {title} қосылғанда не өзгереді: сызық анығырақ, жылырақ, тығызырақ бола ма, әлде бір жерде үзіле ме?{f' Аймақ: {area}.' if area else ''}"
+    if point_index == 0:
+        return f"What responds first at {title}: warmth, pressure, pulsation, emptiness, or resistance to attention?{f' Check the area: {area}.' if area else ''}"
+    return f"While holding the previous points, what changes when {title} is added: does the line become clearer, warmer, denser, or does it break somewhere?{f' Check the area: {area}.' if area else ''}"
+
+
 def format_meridian_point(meridian: dict[str, Any], point_index: int, language: str) -> str:
     labels = {
         "en": ("Point", "Location", "Focus", "Observe"),
@@ -207,16 +242,15 @@ def format_meridian_point(meridian: dict[str, Any], point_index: int, language: 
     }[language]
     points = meridian.get("points", [])
     point = points[point_index]
-    point_i18n = point.get("i18n", {}).get(language, point.get("i18n", {}).get("en", {}))
     point_title = " ".join(part for part in (point.get("code", ""), localized_point_name(point, language)) if part)
+    location = localized_location(point, language)
     parts = [
         f"<b>{escape(localized(meridian, language, 'name'))}</b>",
         f"<b>{labels[0]} {point_index + 1}/{len(points)}:</b> {escape(point_title)}",
-        f"<b>{labels[1]}:</b> {escape(localized_location(point, language))}",
-        f"<b>{labels[2]}:</b> {escape(point_i18n.get('meditation_instruction', ''))}",
-        escape(practice_note(point_index, language)),
+        f"<b>{labels[1]}:</b> {escape(compact_point_location(location))}",
+        f"<b>{labels[2]}:</b> {escape(practice_note(point_index, language))}",
     ]
-    question = point_i18n.get("observation_question", "")
+    question = point_observation_prompt(point, point_index, language, point_title, location)
     if question:
         with_question = "\n\n".join(parts + [f"<i>{labels[3]}:</i> {escape(question)}"])
         if len(with_question) <= 1024:
