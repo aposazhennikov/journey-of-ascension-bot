@@ -1456,6 +1456,8 @@ def audit_rendered_html() -> list[str]:
             issues.append(f"browser simulator is missing {scenario_value} scenario")
         if f"scenario === '{scenario_value}'" not in html:
             issues.append(f"browser simulator scenario {scenario_value} has no quick-open handler")
+    if "currentMeridiansPage" not in html or "const pageSize = 7;" not in html:
+        issues.append("browser simulator should paginate meridian selection instead of showing all channels at once")
     if "function resetState()" not in html:
         issues.append("browser simulator scenarios do not reset shared state before opening")
     if "function currentMeridianName()" not in html or "if (!state.currentMeridianId) return '-'" not in html:
@@ -1587,6 +1589,7 @@ def build_html() -> str:
       currentMeridianId: 'conception_vessel',
       currentPointIndex: -1,
       currentPointsPage: 0,
+      currentMeridiansPage: 0,
       completed: [],
     }};
 
@@ -1597,6 +1600,7 @@ def build_html() -> str:
       state.currentMeridianId = 'conception_vessel';
       state.currentPointIndex = -1;
       state.currentPointsPage = 0;
+      state.currentMeridiansPage = 0;
       state.completed = [];
     }}
 
@@ -1949,13 +1953,31 @@ def build_html() -> str:
 
     function renderChooseMeridian() {{
       const buttons = [];
+      const pageSize = 7;
       const items = payload.meridians;
-      for (let index = 0; index < items.length; index += 2) {{
-        buttons.push(items.slice(index, index + 2).map((item) => ({{
+      const totalPages = Math.max(1, Math.ceil(items.length / pageSize));
+      state.currentMeridiansPage = Math.max(0, Math.min(state.currentMeridiansPage, totalPages - 1));
+      const start = state.currentMeridiansPage * pageSize;
+      const end = Math.min(start + pageSize, items.length);
+      for (let index = start; index < end; index += 2) {{
+        buttons.push(items.slice(index, Math.min(index + 2, end)).map((item) => ({{
           label: `${{item.names[state.language]}} (${{item.pointsCount}})`,
           action: () => {{ state.currentMeridianId = item.id; state.currentPointIndex = -1; state.learningMode = 'free'; setScreen('currentMeridian'); }},
           disabled: item.pointsCount === 0,
         }})));
+      }}
+      if (totalPages > 1) {{
+        const pageLabels = {{
+          en: ['◀️ Previous', 'Page', 'Next ▶️'],
+          ru: ['◀️ Назад', 'Стр.', 'Далее ▶️'],
+          uz: ['◀️ Oldingi', 'Sahifa', 'Keyingi ▶️'],
+          kz: ['◀️ Артқа', 'Бет', 'Келесі ▶️'],
+        }}[state.language] || ['◀️ Previous', 'Page', 'Next ▶️'];
+        const nav = [];
+        if (state.currentMeridiansPage > 0) nav.push({{ label: pageLabels[0], action: () => {{ state.currentMeridiansPage -= 1; setScreen('chooseMeridian'); }} }});
+        nav.push({{ label: `${{pageLabels[1]}} ${{state.currentMeridiansPage + 1}}/${{totalPages}}`, action: () => {{}} }});
+        if (state.currentMeridiansPage < totalPages - 1) nav.push({{ label: pageLabels[2], action: () => {{ state.currentMeridiansPage += 1; setScreen('chooseMeridian'); }} }});
+        buttons.push(nav);
       }}
       buttons.push([{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]);
       show('Choose meridian', t('choose_meridian'), buttons);
@@ -2191,6 +2213,7 @@ def build_html() -> str:
         state.learningMode = 'free';
         state.currentMeridianId = null;
         state.currentPointIndex = -1;
+        state.currentMeridiansPage = 0;
         state.screen = 'chooseMeridian';
       }} else if (scenario === 'pointHelp') {{
         state.screen = 'pointHelp';

@@ -34,6 +34,7 @@ from .utils import (
 logger = logging.getLogger(__name__)
 
 MERIDIAN_POINTS_PAGE_SIZE = 10
+MERIDIAN_SELECTION_PAGE_SIZE = 7
 CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement.png"
 
 
@@ -3814,13 +3815,17 @@ class BotHandlers:
         keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
         return InlineKeyboardMarkup(keyboard)
 
-    def _create_meridian_choice_keyboard(self, language: str) -> InlineKeyboardMarkup:
-        """Create meridian selection keyboard."""
+    def _create_meridian_choice_keyboard(self, language: str, page: int = 0) -> InlineKeyboardMarkup:
+        """Create a calm paginated meridian selection keyboard."""
         meridians = self.meridians_manager.get_all_meridians()
+        total_pages = max(1, (len(meridians) + MERIDIAN_SELECTION_PAGE_SIZE - 1) // MERIDIAN_SELECTION_PAGE_SIZE)
+        page = max(0, min(page, total_pages - 1))
+        start = page * MERIDIAN_SELECTION_PAGE_SIZE
+        end = min(start + MERIDIAN_SELECTION_PAGE_SIZE, len(meridians))
         keyboard = []
-        for index in range(0, len(meridians), 2):
+        for index in range(start, end, 2):
             row = []
-            for meridian in meridians[index:index + 2]:
+            for meridian in meridians[index:min(index + 2, end)]:
                 localized = meridian.get("i18n", {}).get(language, meridian.get("i18n", {}).get("en", {}))
                 name = localized.get("name", meridian.get("id"))
                 has_points = bool(meridian.get("points"))
@@ -3835,6 +3840,20 @@ class BotHandlers:
                     )
                 ))
             keyboard.append(row)
+        if total_pages > 1:
+            labels = {
+                "en": ("◀️ Previous", "Page", "Next ▶️"),
+                "ru": ("◀️ Назад", "Стр.", "Далее ▶️"),
+                "uz": ("◀️ Oldingi", "Sahifa", "Keyingi ▶️"),
+                "kz": ("◀️ Артқа", "Бет", "Келесі ▶️"),
+            }.get(language, ("◀️ Previous", "Page", "Next ▶️"))
+            navigation = []
+            if page > 0:
+                navigation.append(InlineKeyboardButton(labels[0], callback_data=f"meridian_choice_page:{page - 1}"))
+            navigation.append(InlineKeyboardButton(f"{labels[1]} {page + 1}/{total_pages}", callback_data="meridian_noop"))
+            if page < total_pages - 1:
+                navigation.append(InlineKeyboardButton(labels[2], callback_data=f"meridian_choice_page:{page + 1}"))
+            keyboard.append(navigation)
         keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
         return InlineKeyboardMarkup(keyboard)
 
@@ -4303,6 +4322,19 @@ class BotHandlers:
                     query,
                     text,
                     reply_markup=self._create_meridian_choice_keyboard(language),
+                    parse_mode='HTML'
+                )
+                return
+
+            if action.startswith("choice_page:"):
+                try:
+                    page = int(action.split(":", 1)[1])
+                except ValueError:
+                    page = 0
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("choose_meridian", language),
+                    reply_markup=self._create_meridian_choice_keyboard(language, page),
                     parse_mode='HTML'
                 )
                 return
