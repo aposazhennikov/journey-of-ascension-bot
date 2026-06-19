@@ -4218,6 +4218,7 @@ class BotHandlers:
         query = update.callback_query
         chat_id = query.message.chat.id
         mode = query.data.split("_", 1)[1]
+        language = "en"
 
         try:
             await query.answer()
@@ -4256,7 +4257,7 @@ class BotHandlers:
 
         except Exception as e:
             logger.error(f"Error in mode callback for user {chat_id}: {e}")
-            await self._edit_message_text_safe(query, self._get_text("error", "en"))
+            await self._edit_message_text_safe(query, self._get_text("error", language))
 
     async def _handle_stop_feedback_skip_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle optional stop-feedback skip."""

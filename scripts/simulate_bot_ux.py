@@ -1490,6 +1490,15 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         if "parse_mode='Markdown'" in stop_feedback_handler_source:
             issues.append("stop feedback handler still uses Markdown parse mode")
 
+    mode_handler_start = handlers_source.find("async def _handle_mode_callback")
+    stop_feedback_skip_start = handlers_source.find("async def _handle_stop_feedback_skip_callback")
+    if mode_handler_start != -1 and stop_feedback_skip_start != -1:
+        mode_handler_source = handlers_source[mode_handler_start:stop_feedback_skip_start]
+        if 'self._get_text("error", "en")' in mode_handler_source:
+            issues.append("practice mode error fallback ignores the user's language")
+        if 'language = "en"' not in mode_handler_source:
+            issues.append("practice mode callback does not initialize a safe language fallback")
+
     meridian_handler_start = handlers_source.find("async def _handle_meridian_callback")
     broadcast_handler_start = handlers_source.find("async def _handle_broadcast_callback")
     if meridian_handler_start != -1 and broadcast_handler_start != -1:
