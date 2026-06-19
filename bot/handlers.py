@@ -293,15 +293,23 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           '\n'
                           '<b>Why study meridians?</b>\n'
                           '\n'
-                          'Meridians describe how Qi is observed through the body. They help you notice where '
-                          'attention flows freely and where an area feels faint, tense, or closed.\n'
+                          'In the Chinese tradition, meridians describe pathways of Qi. In practice this '
+                          'becomes very concrete: you notice where the body responds to attention, where '
+                          'there is tension, and where sensation is still faint.\n'
                           '\n'
-                          "<b>How to start:</b> the bot can lead you through a recommended order, or you can "
-                          'freely choose any meridian yourself.\n'
+                          '<b>How it helps:</b> attention, breath, and gentle touch gradually bring '
+                          'sensitivity back into a point. The area may become warmer, clearer, and easier '
+                          'to connect with the whole channel.\n'
                           '\n'
-                          "Start by choosing how you want to study: follow the bot's route or pick a meridian yourself. If you already started, return to the current focus. "
-                          'Before working with points, open the <b>cun</b> guide: it helps you measure '
-                          'distances on your own body.',
+                          "<b>How to start:</b> choose the bot route if you want a calm sequence, or free "
+                          'choice if you already know which meridian you want to study.\n'
+                          '\n'
+                          'Before working with points, open the <b>cun</b> guide. It helps you find the '
+                          'right area on your own body; the point itself is refined by fingers, breath, '
+                          'and attention.\n'
+                          '\n'
+                          'This is a self-observation practice. It does not replace a doctor, diagnosis, '
+                          'or treatment.',
         'choose_meridian': '☯️ <b>Choose a meridian:</b>',
         'current_meridian': '▶️ Continue practice',
         'meridian_start_points': 'Start with point 1',
@@ -894,15 +902,24 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           '\n'
                           "<b>Meridianlarni nima uchun o'rganamiz?</b>\n"
                           '\n'
-                          'Meridianlar — tanadagi Qi harakati xaritasi. Ular diqqat erkin oqadigan va jim, '
-                          'tarang yoki yopiq joylarni sezishga yordam beradi.\n'
+                          "Xitoy an'anasida meridianlar Qi harakatlanadigan yo'llar sifatida tasvirlanadi. "
+                          "Amaliyotda bu aniq seziladi: tana qayerda diqqatga javob beradi, qayerda "
+                          "taranglik bor, qayerda sezgi hali sust ekanini kuzatasiz.\n"
                           '\n'
-                          "<b>Qanday boshlash:</b> bot tavsiya qilgan tartib bo'yicha olib borishi mumkin, "
-                          "yoki istalgan meridianni o'zingiz tanlaysiz.\n"
+                          "<b>Bu qanday yordam beradi:</b> diqqat, nafas va yumshoq teginish nuqtaga "
+                          "sezgirlikni asta-sekin qaytaradi. Hudud iliqroq, ravshanroq bo'lishi va kanal "
+                          "chizig'i bilan osonroq bog'lanishi mumkin.\n"
                           '\n'
-                          "Avval qanday o'rganishni tanlang: bot yo'nalishi bo'yicha yurish yoki meridianni o'zingiz tanlash. Agar boshlagan bo'lsangiz, joriy fokusga "
-                          "qayting. Nuqtalar bilan ishlashdan oldin <b>cun</b> bo'yicha qo'llanmani "
-                          "oching: u masofani o'z tanangizda o'lchashga yordam beradi.",
+                          "<b>Qanday boshlash:</b> sokin ketma-ketlik kerak bo'lsa, bot yo'nalishini "
+                          "tanlang. Qaysi meridianni o'rganmoqchi ekaningizni bilsangiz, erkin tanlovni "
+                          "tanlang.\n"
+                          '\n'
+                          "Nuqtalar bilan ishlashdan oldin <b>cun</b> bo'yicha qo'llanmani oching. U "
+                          "kerakli hududni o'z tanangizda topishga yordam beradi; nuqtaning o'zi esa "
+                          "barmoqlar, nafas va diqqat orqali aniqlanadi.\n"
+                          '\n'
+                          "Bu o'zini kuzatish amaliyoti. U shifokor, tashxis yoki davolanish o'rnini "
+                          "bosmaydi.",
         'choose_meridian': '☯️ <b>Meridianni tanlang:</b>',
         'current_meridian': '▶️ Amaliyotni davom ettirish',
         'meridian_start_points': '1-nuqtadan boshlash',
@@ -1194,15 +1211,23 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                           '\n'
                           '<b>Меридиандарды не үшін зерттейміз?</b>\n'
                           '\n'
-                          'Меридиандар — Ци қозғалысының дене картасы. Олар зейін еркін ағатын және үнсіз не '
-                          'жабық аймақтарды байқауға көмектеседі.\n'
+                          'Қытай дәстүрінде меридиандар Ци қозғалатын жолдар ретінде сипатталады. '
+                          'Тәжірибеде бұл өте нақты сезіледі: дене қай жерде зейінге жауап береді, қай '
+                          'жерде кернеу бар, қай жерде сезім әзірге әлсіз екенін байқайсыз.\n'
                           '\n'
-                          '<b>Қалай бастау:</b> бот ұсынған ретпен жүргізе алады немесе кез келген '
-                          'меридианды өзіңіз таңдай аласыз.\n'
+                          '<b>Бұл қалай көмектеседі:</b> зейін, тыныс және жұмсақ жанасу нүктеге '
+                          'сезімталдықты біртіндеп қайтарады. Аймақ жылырақ, айқынырақ болып, арнаның '
+                          'жалпы сызығымен оңайырақ байланыса бастауы мүмкін.\n'
                           '\n'
-                          'Алдымен қалай зерттейтініңізді таңдаңыз: бот маршрутымен жүру немесе меридианды өзіңіз таңдау. Егер бастап қойған болсаңыз, ағымдағы фокусқа '
-                          'оралыңыз. Нүктелермен жұмысқа кіріспес бұрын <b>цунь</b> нұсқаулығын ашыңыз: '
-                          'ол қашықтықты өз денеңізде өлшеуге көмектеседі.',
+                          '<b>Қалай бастау:</b> тыныш реттілік керек болса, бот бағытын таңдаңыз. Қай '
+                          'меридианды зерттегіңіз келетінін білсеңіз, еркін таңдауды таңдаңыз.\n'
+                          '\n'
+                          '<b>Нүктелерге дейін:</b> <b>цунь</b> нұсқаулығын ашыңыз. Ол керек аймақты өз '
+                          'денеңізден табуға көмектеседі, ал нақты нүктені саусақ, тыныс және зейін арқылы '
+                          'нақтылайсыз.\n'
+                          '\n'
+                          'Бұл өзін-өзі бақылау тәжірибесі. Ол дәрігерді, диагнозды немесе емді '
+                          'алмастырмайды.',
         'choose_meridian': '☯️ <b>Меридианды таңдаңыз:</b>',
         'current_meridian': '▶️ Тәжірибені жалғастыру',
         'meridian_start_points': '1-нүктеден бастау',
