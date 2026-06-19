@@ -155,8 +155,8 @@ class YogaScheduler:
             
             # Get user data.
             user = await self.storage.get_user(chat_id)
-            if not user or not user.is_active:
-                logger.warning(f"User {chat_id} not found or inactive.")
+            if not user or not user.is_active or not user.principles_enabled:
+                logger.warning(f"User {chat_id} not found, inactive, or principle practice is disabled.")
                 return
             
             # Get completely random principle for this user in their language.
@@ -181,7 +181,7 @@ class YogaScheduler:
             # Always schedule the next message for active users. A temporary
             # Telegram timeout should not break the daily delivery chain.
             current_user = await self.storage.get_user(chat_id)
-            if current_user and current_user.is_active:
+            if current_user and current_user.is_active and current_user.principles_enabled:
                 await self._schedule_user_message(current_user)
 
         except Exception as e:
@@ -223,7 +223,7 @@ class YogaScheduler:
             await self._send_meridian_message_with_retry(chat_id, message_text, image_path)
 
             current_user = await self.storage.get_user(chat_id)
-            if current_user and current_user.is_active:
+            if current_user and current_user.is_active and current_user.meridians_enabled:
                 await self._schedule_user_meridian_message(current_user)
 
         except Exception as e:

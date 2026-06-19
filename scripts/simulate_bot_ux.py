@@ -779,6 +779,20 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
         issues.append("scheduler does not explicitly convert scheduled jobs to UTC")
     if "user.current_point_index < -1 or user.current_point_index >= len(points)" not in scheduler_source:
         issues.append("scheduler does not normalize stale meridian point indexes")
+    if "not user.principles_enabled" not in scheduler_source:
+        issues.append("scheduler can send a stale principle job after principle practice is disabled")
+    if "current_user and current_user.is_active and current_user.principles_enabled" not in scheduler_source:
+        issues.append("scheduler can keep chaining principle jobs after principle practice is disabled")
+    if "current_user and current_user.is_active and current_user.meridians_enabled" not in scheduler_source:
+        issues.append("scheduler can keep chaining meridian jobs after meridian practice is disabled")
+    send_meridian_start = scheduler_source.find("async def _send_meridian_to_user")
+    send_meridian_end = scheduler_source.find("async def _send_meridian_message_with_retry")
+    if send_meridian_start != -1 and send_meridian_end != -1:
+        send_meridian_source = scheduler_source[send_meridian_start:send_meridian_end]
+        if re.search(r"current_point_index\s*[+\-]=", send_meridian_source):
+            issues.append("daily meridian reminder changes the current point automatically")
+        if "user.current_point_index = -1" not in send_meridian_source:
+            issues.append("daily meridian reminder does not reset invalid point index to the meridian intro")
 
     handlers_source = (ROOT / "bot" / "handlers.py").read_text(encoding="utf-8-sig")
     if "user and user.meridians_enabled and user.current_meridian_id" not in handlers_source:
