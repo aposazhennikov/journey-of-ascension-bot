@@ -79,7 +79,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'not_subscribed': 'The bot is not active for this chat yet. Use /start when you want to begin.',
         'current_settings': '⚙️ <b>Current practice rhythm</b>',
         'not_subscribed_test': "You're not subscribed yet. Use /start to begin.",
-        'test_failed': 'I could not send the test message right now. Please try again a little later.',
+        'test_failed': 'I could not send the reminder check right now. Please try again a little later.',
         'invalid_timezone': '❌ I could not recognize this time zone. Try a format like Europe/Moscow, '
                             'Asia/Tashkent, Asia/Almaty, or UTC.',
         'invalid_time': '❌ I could not recognize this time. Use HH:MM, for example 08:00 or 20:30.',
@@ -91,13 +91,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'english': '🇺🇸 English',
         'russian': '🇷🇺 Русский',
         'menu': '📋 <b>Journey of Ascension</b>',
-        'menu_settings': '⚙️ Settings',
-        'menu_test': '🧪 Test message',
-        'sending_test': '🧪 Sending a test message...',
+        'menu_settings': '⚙️ Practice rhythm',
+        'menu_test': '🧪 Check reminder',
+        'sending_test': '🧪 Sending a reminder check...',
         'menu_about': 'ℹ️ About the bot',
         'menu_feedback': '💌 Feedback and ideas',
         'menu_stop': '⏹ Stop bot',
-        'settings_menu': '⚙️ <b>Settings</b>\n'
+        'settings_menu': '⚙️ <b>Practice rhythm</b>\n'
                          '\n'
                          'Here you can tune the rhythm of practice: what the bot reminds you about, when '
                          'messages arrive, and which days stay quiet.',
@@ -389,7 +389,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'not_subscribed': 'Бот сейчас не активен для этого чата. Используйте /start, когда захотите начать.',
         'current_settings': '⚙️ <b>Текущий ритм практики</b>',
         'not_subscribed_test': 'Вы пока не подписаны. Используйте /start, чтобы начать.',
-        'test_failed': 'Сейчас не получилось отправить тестовое сообщение. Попробуйте немного позже.',
+        'test_failed': 'Сейчас не получилось проверить напоминание. Попробуйте немного позже.',
         'invalid_timezone': '❌ Не удалось распознать часовой пояс. Попробуйте формат Europe/Moscow, '
                             'Asia/Tashkent, Asia/Almaty или UTC.',
         'invalid_time': '❌ Не удалось распознать время. Используйте формат ЧЧ:ММ, например 08:00 или 20:30.',
@@ -400,13 +400,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'english': '🇺🇸 English',
         'russian': '🇷🇺 Русский',
         'menu': '📋 <b>Journey of Ascension</b>',
-        'menu_settings': '⚙️ Настройки',
-        'menu_test': '🧪 Тестовое сообщение',
-        'sending_test': '🧪 Отправляю тестовое сообщение...',
+        'menu_settings': '⚙️ Ритм практики',
+        'menu_test': '🧪 Проверить напоминание',
+        'sending_test': '🧪 Проверяю отправку напоминания...',
         'menu_about': 'ℹ️ О боте',
         'menu_feedback': '💌 Отзывы и идеи',
         'menu_stop': '⏹ Остановить бота',
-        'settings_menu': '⚙️ <b>Настройки</b>\n'
+        'settings_menu': '⚙️ <b>Ритм практики</b>\n'
                          '\n'
                          'Здесь можно настроить ритм практики: что бот напоминает, когда приходят сообщения '
                          'и в какие дни лучше оставить тишину.',
@@ -703,7 +703,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'not_subscribed': "Bot bu chatda hali faol emas. Boshlamoqchi bo'lsangiz, /start dan foydalaning.",
         'current_settings': '⚙️ <b>Joriy amaliyot ritmi</b>',
         'not_subscribed_test': "Siz hali obuna bo'lmagansiz. Boshlash uchun /start dan foydalaning.",
-        'test_failed': "Hozir test xabarini yubora olmadim. Birozdan keyin qayta urinib ko'ring.",
+        'test_failed': "Hozir eslatmani tekshirish xabarini yubora olmadim. Birozdan keyin qayta urinib ko'ring.",
         'invalid_timezone': '❌ Bu vaqt mintaqasini taniy olmadim. Asia/Tashkent, Europe/Moscow, Asia/Almaty '
                             "yoki UTC kabi formatni sinab ko'ring.",
         'invalid_time': '❌ Bu vaqtni taniy olmadim. HH:MM formatidan foydalaning, masalan 08:00 yoki 20:30.',
@@ -716,13 +716,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'russian': '🇷🇺 Русский',
         'uzbek': "🇺🇿 O'zbek",
         'menu': '📋 <b>Journey of Ascension</b>',
-        'menu_settings': '⚙️ Sozlamalar',
-        'menu_test': '🧪 Test xabari',
-        'sending_test': '🧪 Test xabari yuborilmoqda...',
+        'menu_settings': '⚙️ Amaliyot ritmi',
+        'menu_test': '🧪 Eslatmani tekshirish',
+        'sending_test': '🧪 Eslatma tekshiruvi yuborilmoqda...',
         'menu_about': 'ℹ️ Bot haqida',
         'menu_feedback': '💌 Fikr va takliflar',
         'menu_stop': "⏹ Botni to'xtatish",
-        'settings_menu': '⚙️ <b>Sozlamalar</b>\n'
+        'settings_menu': '⚙️ <b>Amaliyot ritmi</b>\n'
                          '\n'
                          'Bu yerda amaliyot ritmini sozlaysiz: bot nimani eslatadi, xabarlar qachon keladi '
                          'va qaysi kunlar sokin qoladi.',
@@ -1017,7 +1017,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'not_subscribed': 'Бұл чатта бот әлі белсенді емес. Бастау үшін /start қолданыңыз.',
         'current_settings': '⚙️ <b>Қазіргі тәжірибе ырғағы</b>',
         'not_subscribed_test': 'Сіз әлі жазылмағансыз. Бастау үшін /start қолданыңыз.',
-        'test_failed': 'Қазір тест хабарын жібере алмадым. Сәл кейін қайталап көріңіз.',
+        'test_failed': 'Қазір еске салуды тексеру хабарын жібере алмадым. Сәл кейін қайталап көріңіз.',
         'invalid_timezone': '❌ Бұл уақыт белдеуін тани алмадым. Asia/Almaty, Asia/Tashkent, Europe/Moscow '
                             'немесе UTC сияқты форматты қолданып көріңіз.',
         'invalid_time': '❌ Бұл уақытты тани алмадым. HH:MM форматын қолданыңыз, мысалы 08:00 немесе 20:30.',
@@ -1030,13 +1030,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'uzbek': "🇺🇿 O'zbek",
         'kazakh': '🇰🇿 Қазақша',
         'menu': '📋 <b>Journey of Ascension</b>',
-        'menu_settings': '⚙️ Баптаулар',
-        'menu_test': '🧪 Тест хабар',
-        'sending_test': '🧪 Тест хабары жіберіліп жатыр...',
+        'menu_settings': '⚙️ Тәжірибе ырғағы',
+        'menu_test': '🧪 Еске салуды тексеру',
+        'sending_test': '🧪 Еске салу тексеруі жіберіліп жатыр...',
         'menu_about': 'ℹ️ Бот туралы',
         'menu_feedback': '💌 Пікірлер мен ұсыныстар',
         'menu_stop': '⏹ Ботты тоқтату',
-        'settings_menu': '⚙️ <b>Баптаулар</b>\n'
+        'settings_menu': '⚙️ <b>Тәжірибе ырғағы</b>\n'
                          '\n'
                          'Мұнда тәжірибе ырғағын реттейсіз: бот нені еске салады, хабарлар қашан келеді және '
                          'қай күндер тыныш қалады.',
@@ -1396,7 +1396,7 @@ TEXTS_UPDATE = {
         "menu_modes": "🧭 My Path",
         "menu_stop": "⏹ Stop bot",
         "settings_menu": (
-            "⚙️ <b>Settings</b>\n\n"
+            "⚙️ <b>Practice rhythm</b>\n\n"
             "This is where you keep the practice comfortable: choose the active path, set separate reminder times, and leave quiet days when you need more space.\n\n"
             "Change only what genuinely helps your rhythm stay steady."
         ),
@@ -1596,7 +1596,7 @@ TEXTS_UPDATE = {
         "menu_modes": "🧭 Мой путь",
         "menu_stop": "⏹ Остановить бота",
         "settings_menu": (
-            "⚙️ <b>Настройки</b>\n\n"
+            "⚙️ <b>Ритм практики</b>\n\n"
             "Здесь вы держите практику удобной: выбираете активный путь, настраиваете отдельные времена напоминаний и оставляете дни тишины, когда нужно больше пространства.\n\n"
             "Меняйте только то, что действительно помогает ритму оставаться живым и устойчивым."
         ),
@@ -1796,7 +1796,7 @@ TEXTS_UPDATE = {
         "menu_modes": "🧭 Mening yo'lim",
         "menu_stop": "⏹ Botni to'xtatish",
         "settings_menu": (
-            "⚙️ <b>Sozlamalar</b>\n\n"
+            "⚙️ <b>Amaliyot ritmi</b>\n\n"
             "Bu yerda amaliyotni qulay ushlab turasiz: faol yo'lni tanlaysiz, eslatmalar vaqtini alohida sozlaysiz va kerak bo'lsa sokin kunlarni qoldirasiz.\n\n"
             "Faqat ritmingiz barqaror va tirik qolishiga yordam beradigan narsani o'zgartiring."
         ),
@@ -2010,7 +2010,7 @@ TEXTS_UPDATE = {
         "menu_modes": "🧭 Менің жолым",
         "menu_stop": "⏹ Ботты тоқтату",
         "settings_menu": (
-            "⚙️ <b>Баптаулар</b>\n\n"
+            "⚙️ <b>Тәжірибе ырғағы</b>\n\n"
             "Мұнда тәжірибені өзіңізге ыңғайлы ұстайсыз: белсенді жолды таңдайсыз, еске салу уақыттарын бөлек қоясыз және қажет болса тыныш күндер қалдырасыз.\n\n"
             "Ырғақ тірі әрі тұрақты болуына көмектесетін нәрсені ғана өзгертіңіз."
         ),
@@ -2193,10 +2193,10 @@ LIVE_TEXT_OVERRIDES = {
         "invalid_skip_days": "❌ I could not recognize these days. Use numbers from 0 to 6 separated by commas.",
         "setup_error": "❌ I could not save this yet. Please try once more; your practice rhythm is worth setting carefully.",
         "error": "Something interrupted the flow. Please try once more, or return to /menu.",
-        "test_failed": "I could not send the test message right now. Please try again a little later.",
-        "menu_settings": "⚙️ Settings",
-        "menu_test": "🧪 Test message",
-        "sending_test": "🧪 Sending a test message...",
+        "test_failed": "I could not send the reminder check right now. Please try again a little later.",
+        "menu_settings": "⚙️ Practice rhythm",
+        "menu_test": "🧪 Check reminder",
+        "sending_test": "🧪 Sending a reminder check...",
         "menu_about": "ℹ️ About the bot",
         "menu_feedback": "💌 Feedback and ideas",
         "back_to_menu": "🔙 Back to menu",
@@ -2231,10 +2231,10 @@ LIVE_TEXT_OVERRIDES = {
         "invalid_skip_days": "❌ Не удалось распознать дни. Используйте числа от 0 до 6 через запятую.",
         "setup_error": "❌ Пока не получилось сохранить настройки. Попробуйте ещё раз: ритм практики лучше настроить спокойно и точно.",
         "error": "Поток прервался. Попробуйте ещё раз или вернитесь в /menu.",
-        "test_failed": "Сейчас не получилось отправить тестовое сообщение. Попробуйте немного позже.",
-        "menu_settings": "⚙️ Настройки",
-        "menu_test": "🧪 Тестовое сообщение",
-        "sending_test": "🧪 Отправляю тестовое сообщение...",
+        "test_failed": "Сейчас не получилось проверить напоминание. Попробуйте немного позже.",
+        "menu_settings": "⚙️ Ритм практики",
+        "menu_test": "🧪 Проверить напоминание",
+        "sending_test": "🧪 Проверяю отправку напоминания...",
         "menu_about": "ℹ️ О боте",
         "menu_feedback": "💌 Отзывы и идеи",
         "back_to_menu": "🔙 Назад в меню",
@@ -2268,10 +2268,10 @@ LIVE_TEXT_OVERRIDES = {
         "invalid_skip_days": "❌ Kunlarni taniy olmadim. 0 dan 6 gacha bo'lgan raqamlarni vergul bilan kiriting.",
         "setup_error": "❌ Hozircha sozlamalarni saqlay olmadim. Yana bir marta urinib ko'ring: amaliyot ritmini sokin va aniq sozlagan yaxshi.",
         "error": "Jarayon uzilib qoldi. Yana bir marta urinib ko'ring yoki /menu ga qayting.",
-        "test_failed": "Hozir test xabarini yubora olmadim. Birozdan keyin qayta urinib ko'ring.",
-        "menu_settings": "⚙️ Sozlamalar",
-        "menu_test": "🧪 Test xabari",
-        "sending_test": "🧪 Test xabari yuborilmoqda...",
+        "test_failed": "Hozir eslatmani tekshirish xabarini yubora olmadim. Birozdan keyin qayta urinib ko'ring.",
+        "menu_settings": "⚙️ Amaliyot ritmi",
+        "menu_test": "🧪 Eslatmani tekshirish",
+        "sending_test": "🧪 Eslatma tekshiruvi yuborilmoqda...",
         "menu_about": "ℹ️ Bot haqida",
         "menu_feedback": "💌 Fikr va takliflar",
         "back_to_menu": "🔙 Menyuga qaytish",
@@ -2299,10 +2299,10 @@ LIVE_TEXT_OVERRIDES = {
         "invalid_skip_days": "❌ Күндерді тани алмадым. 0-ден 6-ға дейінгі сандарды үтірмен енгізіңіз.",
         "setup_error": "❌ Әзірге баптауларды сақтай алмадым. Қайтадан көріңіз: тәжірибе ырғағын тыныш әрі нақты қойған жақсы.",
         "error": "Жол үзіліп қалды. Қайтадан көріңіз немесе /menu бөліміне оралыңыз.",
-        "test_failed": "Қазір тест хабарын жібере алмадым. Сәл кейін қайталап көріңіз.",
-        "menu_settings": "⚙️ Баптаулар",
-        "menu_test": "🧪 Тест хабар",
-        "sending_test": "🧪 Тест хабары жіберіліп жатыр...",
+        "test_failed": "Қазір еске салуды тексеру хабарын жібере алмадым. Сәл кейін қайталап көріңіз.",
+        "menu_settings": "⚙️ Тәжірибе ырғағы",
+        "menu_test": "🧪 Еске салуды тексеру",
+        "sending_test": "🧪 Еске салу тексеруі жіберіліп жатыр...",
         "menu_about": "ℹ️ Бот туралы",
         "menu_feedback": "💌 Пікірлер мен ұсыныстар",
         "back_to_menu": "🔙 Мәзірге қайту",

@@ -1855,7 +1855,7 @@ def build_html() -> str:
           <option value="principles">Yama/Niyama section</option>
           <option value="modes">My Path</option>
           <option value="about">About bot</option>
-          <option value="settings">Settings</option>
+          <option value="settings">Practice rhythm</option>
         </select>
       </div>
       <button id="reset">Open scenario</button>
@@ -2481,7 +2481,7 @@ def build_html() -> str:
         [{{ label: t('change_skip_days'), action: () => setScreen('skipDays') }}],
         [{{ label: t('back_to_menu'), action: () => setScreen('main') }}],
       );
-      show('Settings', `${{renderSettingsSnapshot()}}<br><br>${{fmt(t('settings_menu'))}}`, rows);
+      show('Practice rhythm', `${{renderSettingsSnapshot()}}<br><br>${{fmt(t('settings_menu'))}}`, rows);
     }}
 
     function render() {{
