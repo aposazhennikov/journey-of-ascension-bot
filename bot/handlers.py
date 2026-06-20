@@ -41,6 +41,7 @@ MERIDIAN_VIDEO_PATHS = {
     "gallbladder": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "gallbladder.mp4",
     "governing_vessel": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "governing_vessel.mp4",
     "heart": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "heart.mp4",
+    "large_intestine": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "large_intestine.mp4",
     "liver": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "liver.mp4",
     "lung": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "lung.mp4",
     "pericardium": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "pericardium.mp4",
