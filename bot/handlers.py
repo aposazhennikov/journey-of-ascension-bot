@@ -102,9 +102,9 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'time_saved': '✅ Reminder time saved.',
         'skip_days_step': '📅 <b>Quiet Days</b>\n'
                           '\n'
-                          'Choose weekdays when the bot should not send daily practice reminders.\n'
+                          'Choose weekdays when the bot should stay silent and <b>not</b> send daily practice reminders.\n'
                           '\n'
-                          'Leave everything unselected if you want a daily rhythm.',
+                          'If you want reminders every day, choose <b>No quiet days</b>. If you want every day except Sunday, select only Sunday.',
         'setup_complete': '🎉 <b>The first step is set.</b>\n'
                           '\n'
                           '📋 <b>Your rhythm:</b>\n'
@@ -152,9 +152,9 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'back_to_menu': '🔙 Back to menu',
         'skip_days_improved': '📅 <b>Quiet Days</b>\n'
                               '\n'
-                              'Choose weekdays when the bot should not send daily practice reminders.\n'
+                              'Choose weekdays when the bot should stay silent and <b>not</b> send daily practice reminders.\n'
                               '\n'
-                              'Leave everything unselected if you want a daily rhythm.',
+                              'If you want reminders every day, choose <b>No quiet days</b>. If you want every day except Sunday, select only Sunday.',
         'no_skip_days': '✅ No quiet days selected — reminders can arrive every day',
         'about_text': '🕊️ <b>Journey of Ascension</b>\n'
                       '\n'
@@ -413,10 +413,11 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'time_saved': '✅ Время напоминаний сохранено.',
         'skip_days_step': '📅 <b>Дни тишины</b>\n'
                           '\n'
-                          'Выберите дни недели, когда бот не должен присылать ежедневные напоминания по '
-                          'практике.\n'
+                          'Выберите дни недели, когда бот должен молчать и <b>не</b> присылать ежедневные '
+                          'напоминания по практике.\n'
                           '\n'
-                          'Если хотите ежедневный ритм, оставьте дни невыбранными.',
+                          'Если хотите получать напоминания каждый день, выберите <b>Без дней тишины</b>. '
+                          'Если хотите получать во все дни, кроме воскресенья, выберите только воскресенье.',
         'setup_complete': '🎉 <b>Первый шаг настроен.</b>\n'
                           '\n'
                           '📋 <b>Ваш ритм:</b>\n'
@@ -463,10 +464,11 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'back_to_menu': '🔙 Назад в меню',
         'skip_days_improved': '📅 <b>Дни тишины</b>\n'
                               '\n'
-                              'Выберите дни недели, когда бот не должен присылать ежедневные напоминания по '
-                              'практике.\n'
+                              'Выберите дни недели, когда бот должен молчать и <b>не</b> присылать ежедневные '
+                              'напоминания по практике.\n'
                               '\n'
-                              'Если хотите ежедневный ритм, оставьте дни невыбранными.',
+                              'Если хотите получать напоминания каждый день, выберите <b>Без дней тишины</b>. '
+                              'Если хотите получать во все дни, кроме воскресенья, выберите только воскресенье.',
         'no_skip_days': '✅ Дни тишины не выбраны — напоминания могут приходить каждый день',
         'about_text': '🕊️ <b>Journey of Ascension</b>\n'
                       '\n'
@@ -1462,8 +1464,8 @@ TEXTS_UPDATE = {
         ),
         "skip_days_step": (
             "📅 <b>Quiet Days</b>\n\n"
-            "Choose weekdays when the bot should not send daily practice reminders.\n\n"
-            "Leave everything unselected if you want a daily rhythm."
+            "Choose the weekdays when the bot should stay silent and <b>not</b> send daily practice reminders.\n\n"
+            "If you want reminders every day, choose <b>No quiet days</b>. If you want every day except Sunday, select only Sunday."
         ),
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
@@ -1675,8 +1677,8 @@ TEXTS_UPDATE = {
         ),
         "skip_days_step": (
             "📅 <b>Дни тишины</b>\n\n"
-            "Выберите дни недели, когда бот не должен присылать ежедневные напоминания по практике.\n\n"
-            "Если хотите ежедневный ритм, оставьте дни невыбранными."
+            "Выберите дни недели, когда бот должен молчать и <b>не</b> присылать ежедневные напоминания по практике.\n\n"
+            "Если хотите получать напоминания каждый день, выберите <b>Без дней тишины</b>. Если хотите получать во все дни, кроме воскресенья, выберите только воскресенье."
         ),
         "principles_menu": (
             "🕊️ <b>Яма/Нияма</b>\n\n"
@@ -1888,8 +1890,8 @@ TEXTS_UPDATE = {
         ),
         "skip_days_step": (
             "📅 <b>Sokin kunlar</b>\n\n"
-            "Bot kundalik amaliyot eslatmalarini yubormaydigan hafta kunlarini tanlang.\n\n"
-            "Har kuni ritm kerak bo'lsa, kunlarni tanlamang."
+            "Bot jim turishi va kundalik amaliyot eslatmalarini <b>yubormasligi</b> kerak bo'lgan hafta kunlarini tanlang.\n\n"
+            "Har kuni eslatma olishni istasangiz, <b>Sokin kunlarsiz</b> ni tanlang. Yakshanbadan tashqari har kuni olishni istasangiz, faqat yakshanbani tanlang."
         ),
         "principles_menu": (
             "🕊️ <b>Yama/Niyama</b>\n\n"
@@ -2029,12 +2031,11 @@ TEXTS_UPDATE = {
         "stop_feedback_thanks": "Rahmat. Bu eslatma amaliyotni yumshoqroq va tushunarliroq qilishga yordam beradi.\n\nQaytmoqchi bo'lsangiz, /start dan foydalaning.",
         "not_subscribed_test": "Amaliyot ritmi hali sozlanmagan. Boshlash uchun /start dan foydalaning.",
         "skip_days_improved": (
-            "📅 <b>O'tkazib yuboriladigan kunlar (ixtiyoriy)</b>\n\n"
-            "Xohlasangiz, bot xabar yubormaydigan hafta kunlarini tanlashingiz mumkin.\n\n"
-            "Masalan: <code>5,6</code> — dam olish kunlarini o'tkazib yuborish.\n"
-            "Agar har kuni xabar olishni istasangiz, hech narsa tanlamang."
+            "📅 <b>Sokin kunlar</b>\n\n"
+            "Bot jim turishi va kundalik amaliyot eslatmalarini <b>yubormasligi</b> kerak bo'lgan hafta kunlarini tanlang.\n\n"
+            "Har kuni eslatma olishni istasangiz, <b>Sokin kunlarsiz</b> ni tanlang. Yakshanbadan tashqari har kuni olishni istasangiz, faqat yakshanbani tanlang."
         ),
-        "no_skip_days": "✅ Kunlar tanlanmadi — xabarlar har kuni yuboriladi",
+        "no_skip_days": "✅ Sokin kunlar tanlanmadi — eslatmalar har kuni yuboriladi",
         "feedback_prompt": (
             "💌 <b>Fikr va takliflar</b>\n\n"
             "Botni yanada qulay, tirik va foydali qilish uchun fikringiz muhim.\n\n"
@@ -2115,8 +2116,8 @@ TEXTS_UPDATE = {
         ),
         "skip_days_step": (
             "📅 <b>Тыныш күндер</b>\n\n"
-            "Бот күнделікті тәжірибе еске салуларын жібермейтін апта күндерін таңдаңыз.\n\n"
-            "Күн сайынғы ырғақ керек болса, күндерді таңдамаңыз."
+            "Бот тыныш болып, күнделікті тәжірибе еске салуларын <b>жібермейтін</b> апта күндерін таңдаңыз.\n\n"
+            "Еске салуларды күн сайын алғыңыз келсе, <b>Тыныш күндерсіз</b> таңдаңыз. Жексенбіден басқа күн сайын алғыңыз келсе, тек жексенбіні таңдаңыз."
         ),
         "principles_menu": (
             "🕊️ <b>Яма/Нияма</b>\n\n"
@@ -2256,12 +2257,11 @@ TEXTS_UPDATE = {
         "stop_feedback_thanks": "Рақмет. Бұл жазба тәжірибені жұмсағырақ әрі түсініктірек етуге көмектеседі.\n\nҚайта оралғыңыз келсе, /start қолданыңыз.",
         "not_subscribed_test": "Тәжірибе ырғағы әлі бапталмаған. Бастау үшін /start қолданыңыз.",
         "skip_days_improved": (
-            "📅 <b>Өткізіп жіберілетін күндер (міндетті емес)</b>\n\n"
-            "Қаласаңыз, бот хабар жібермейтін апта күндерін таңдай аласыз.\n\n"
-            "Мысалы: <code>5,6</code> — демалыс күндерін өткізіп жіберу.\n"
-            "Күн сайын хабар алғыңыз келсе, ештеңе таңдамаңыз."
+            "📅 <b>Тыныш күндер</b>\n\n"
+            "Бот тыныш болып, күнделікті тәжірибе еске салуларын <b>жібермейтін</b> апта күндерін таңдаңыз.\n\n"
+            "Еске салуларды күн сайын алғыңыз келсе, <b>Тыныш күндерсіз</b> таңдаңыз. Жексенбіден басқа күн сайын алғыңыз келсе, тек жексенбіні таңдаңыз."
         ),
-        "no_skip_days": "✅ Күндер таңдалмады — хабарлар күн сайын жіберіледі",
+        "no_skip_days": "✅ Тыныш күндер таңдалмаған — еске салулар күн сайын жіберіледі",
         "feedback_prompt": (
             "💌 <b>Пікірлер мен ұсыныстар</b>\n\n"
             "Ботты ыңғайлы, тірі және пайдалы ету үшін сіздің пікіріңіз маңызды.\n\n"
@@ -2306,8 +2306,8 @@ LIVE_TEXT_OVERRIDES = {
         "no_skip_days": "✅ No quiet days selected — reminders can arrive every day",
         "skip_days_improved": (
             "📅 <b>Quiet Days</b>\n\n"
-            "Choose weekdays when the bot should not send daily practice reminders.\n\n"
-            "Leave everything unselected if you want a daily rhythm."
+            "Choose the weekdays when the bot should stay silent and <b>not</b> send daily practice reminders.\n\n"
+            "If you want reminders every day, choose <b>No quiet days</b>. If you want every day except Sunday, select only Sunday."
         ),
         "current_settings": "⚙️ <b>Current practice rhythm</b>",
         "feedback_prompt": (
@@ -2344,8 +2344,8 @@ LIVE_TEXT_OVERRIDES = {
         "no_skip_days": "✅ Дни тишины не выбраны — напоминания могут приходить каждый день",
         "skip_days_improved": (
             "📅 <b>Дни тишины</b>\n\n"
-            "Выберите дни недели, когда бот не должен присылать ежедневные напоминания по практике.\n\n"
-            "Если хотите ежедневный ритм, оставьте дни невыбранными."
+            "Выберите дни недели, когда бот должен молчать и <b>не</b> присылать ежедневные напоминания по практике.\n\n"
+            "Если хотите получать напоминания каждый день, выберите <b>Без дней тишины</b>. Если хотите получать во все дни, кроме воскресенья, выберите только воскресенье."
         ),
         "current_settings": "⚙️ <b>Текущий ритм практики</b>",
         "feedback_prompt": (
@@ -2906,13 +2906,13 @@ class BotHandlers:
                             confirmation = f"✅ {skip_days_display}"
                         else:
                             if language == "en":
-                                confirmation = "✅ Skip days cleared - daily messages enabled"
+                                confirmation = "✅ Quiet days cleared — daily reminders are enabled"
                             elif language == "ru":
-                                confirmation = "✅ Дни пропуска очищены - включены ежедневные сообщения"
+                                confirmation = "✅ Дни тишины очищены — ежедневные напоминания включены"
                             elif language == "uz":
-                                confirmation = "✅ O'tkazib yuborish kunlari tozalandi - kundalik xabarlar yoqildi"
+                                confirmation = "✅ Sokin kunlar tozalandi — kundalik eslatmalar yoqildi"
                             elif language == "kz":
-                                confirmation = "✅ Өткізіп жіберу күндері тазаланды - күнделікті хабарлар қосылды"
+                                confirmation = "✅ Тыныш күндер тазартылды — күнделікті еске салулар қосылды"
 
                         text = f"{escape(confirmation)}\n\n{self._text_html('menu', language)}"
                         keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
@@ -3268,8 +3268,9 @@ class BotHandlers:
             step = user_state["step"]
             language = user_state["language"]
 
+            registration_steps = {"intro", "timezone", "timezone_manual", "time", "meridian_time", "skip_days"}
             user = await self.storage.get_user(chat_id)
-            if user and not user.is_active and step != "stop_feedback":
+            if user and not user.is_active and step not in registration_steps and step != "stop_feedback":
                 self.user_states.pop(chat_id, None)
                 await update.message.reply_text(self._get_text("not_subscribed_test", language), parse_mode='HTML')
                 return
@@ -3508,18 +3509,18 @@ class BotHandlers:
         """Format current skip-days state for HTML messages."""
         if skip_days:
             label = {
-                "en": "Current selection" if current else "Selected days to skip",
-                "ru": "Текущий выбор" if current else "Выбранные дни для пропуска",
-                "uz": "Joriy tanlov" if current else "O'tkazib yuborish uchun tanlangan kunlar",
-                "kz": "Ағымдағы таңдау" if current else "Өткізіп жіберу үшін таңдалған күндер",
-            }.get(language, "Selected days to skip")
+                "en": "Quiet days now" if current else "Bot will stay silent on",
+                "ru": "Текущие дни тишины" if current else "Бот будет молчать в эти дни",
+                "uz": "Hozirgi sokin kunlar" if current else "Bot shu kunlarda jim turadi",
+                "kz": "Қазіргі тыныш күндер" if current else "Бот осы күндері тыныш болады",
+            }.get(language, "Bot will stay silent on")
             return f"🔸 <b>{label}:</b> {escape(self._format_skip_days(skip_days, language))}"
 
         empty = {
-            "en": "No days selected — messages will be sent daily",
-            "ru": "Дни не выбраны — сообщения будут отправляться ежедневно",
-            "uz": "Kunlar tanlanmagan — xabarlar har kuni yuboriladi",
-            "kz": "Күндер таңдалмаған — хабарлар күн сайын жіберіледі",
+            "en": "No quiet days selected — reminders will be sent daily",
+            "ru": "Дни тишины не выбраны — напоминания будут приходить каждый день",
+            "uz": "Sokin kunlar tanlanmagan — eslatmalar har kuni yuboriladi",
+            "kz": "Тыныш күндер таңдалмаған — еске салулар күн сайын жіберіледі",
         }.get(language, "No days selected — messages will be sent daily")
         return f"🔸 <b>{empty}</b>"
 
@@ -3833,17 +3834,17 @@ class BotHandlers:
 
         # Add action buttons - split into two rows for better layout
         if language == "en":
-            keyboard.append([InlineKeyboardButton("🎯 No Skip Days", callback_data="skipday_none")])
-            keyboard.append([InlineKeyboardButton("📅 Weekends Only", callback_data="skipday_weekends")])
+            keyboard.append([InlineKeyboardButton("🎯 No quiet days", callback_data="skipday_none")])
+            keyboard.append([InlineKeyboardButton("📅 Skip weekends", callback_data="skipday_weekends")])
         elif language == "ru":
-            keyboard.append([InlineKeyboardButton("🎯 Не пропускать", callback_data="skipday_none")])
-            keyboard.append([InlineKeyboardButton("📅 Только выходные", callback_data="skipday_weekends")])
+            keyboard.append([InlineKeyboardButton("🎯 Без дней тишины", callback_data="skipday_none")])
+            keyboard.append([InlineKeyboardButton("📅 Пропускать выходные", callback_data="skipday_weekends")])
         elif language == "uz":
-            keyboard.append([InlineKeyboardButton("🎯 Kunlarni o'tkazmaslik", callback_data="skipday_none")])
-            keyboard.append([InlineKeyboardButton("📅 Faqat dam olish kunlari", callback_data="skipday_weekends")])
+            keyboard.append([InlineKeyboardButton("🎯 Sokin kunlarsiz", callback_data="skipday_none")])
+            keyboard.append([InlineKeyboardButton("📅 Dam olish kunlarini o'tkazish", callback_data="skipday_weekends")])
         elif language == "kz":
-            keyboard.append([InlineKeyboardButton("🎯 Күндерді өткізбеу", callback_data="skipday_none")])
-            keyboard.append([InlineKeyboardButton("📅 Тек демалыс күндері", callback_data="skipday_weekends")])
+            keyboard.append([InlineKeyboardButton("🎯 Тыныш күндерсіз", callback_data="skipday_none")])
+            keyboard.append([InlineKeyboardButton("📅 Демалыс күндерін өткізу", callback_data="skipday_weekends")])
 
         # Add finish button
         finish_text = {
