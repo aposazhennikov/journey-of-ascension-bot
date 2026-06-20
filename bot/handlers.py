@@ -39,6 +39,7 @@ CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" /
 MERIDIAN_VIDEO_PATHS = {
     "gallbladder": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "gallbladder.mp4",
     "liver": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "liver.mp4",
+    "lung": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "lung.mp4",
 }
 CUN_MEASUREMENT_IMAGE_PATHS = {
     "en": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_en.png",
