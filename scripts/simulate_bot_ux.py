@@ -755,8 +755,10 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             f"expected {expected_start}, got {ready_ids[:2]}"
         )
 
-    if not (ROOT / "images" / "meridians" / "cun_measurement.png").exists():
-        issues.append("missing cun measurement visual asset")
+    for language in LANGUAGES:
+        localized_cun_image = ROOT / "images" / "meridians" / f"cun_measurement_{language}.png"
+        if not localized_cun_image.exists():
+            issues.append(f"missing localized cun measurement visual asset for {language}")
 
     if tuple(payload["languages"]) != LANGUAGES:
         issues.append(f"languages mismatch: {payload['languages']}")
@@ -2018,7 +2020,8 @@ def build_html() -> str:
     }}
     function meridianImageUrl(item) {{ return item && item.overviewImage ? `../images/meridians/${{encodeURIComponent(item.overviewImage)}}` : null; }}
     function pointImageUrl(point) {{ return point && point.image ? `../images/meridians/${{encodeURIComponent(point.image)}}` : null; }}
-    function principleImageUrl(item) {{ return item && item.image ? `../images/${{encodeURIComponent(item.image)}}` : null; }}
+      function principleImageUrl(item) {{ return item && item.image ? `../images/${{encodeURIComponent(item.image)}}` : null; }}
+      function cunMeasurementImageUrl() {{ return `../images/meridians/cun_measurement_${{state.language}}.png`; }}
     function firstReadyMeridian() {{
       for (const id of payload.recommendedPath) {{
         const item = payload.meridians.find((candidate) => candidate.id === id && candidate.pointsCount > 0);
@@ -2588,7 +2591,7 @@ def build_html() -> str:
         chooseMeridian: renderChooseMeridian,
         allPoints: renderAllPoints,
         skipDays: renderSkipDays,
-        measurements: () => show('Measurements', fmt(t('meridian_measurements_text')), [[{{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}], [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]], '../images/meridians/cun_measurement.png'),
+        measurements: () => show('Measurements', fmt(t('meridian_measurements_text')), [[{{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}], [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]], cunMeasurementImageUrl()),
         pointHelp: () => {{
           const buttons = [];
           if (state.meridiansEnabled && state.currentMeridianId) buttons.push([{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}]);

@@ -458,6 +458,10 @@ def format_setup_complete_preview(language: str) -> str:
     return "\n\n".join(lines)
 
 
+def cun_measurement_image(language: str) -> str:
+    return f"../images/meridians/cun_measurement_{language}.png"
+
+
 def keyboard(rows: list[list[str]]) -> str:
     rendered_rows = []
     for row in rows:
@@ -652,7 +656,7 @@ def render_html(output: Path) -> None:
             "TCM measurements",
             allow_basic_html(t["meridian_measurements_text"]),
             [[t["meridian_back"]]],
-            image="../images/meridians/cun_measurement.png",
+            image=cun_measurement_image(language),
         ))
         sections.append(message("Point search help", allow_basic_html(t["meridian_point_help_text"]), [[t["current_meridian"]], [t["meridian_back"]]]))
         sections.append(meridian_message("Lung Meridian intro", lung, language, kb["meridian_intro"]))

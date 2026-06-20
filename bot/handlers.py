@@ -36,6 +36,20 @@ logger = logging.getLogger(__name__)
 MERIDIAN_POINTS_PAGE_SIZE = 7
 MERIDIAN_SELECTION_PAGE_SIZE = 7
 CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement.png"
+CUN_MEASUREMENT_IMAGE_PATHS = {
+    "en": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_en.png",
+    "ru": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_ru.png",
+    "uz": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_uz.png",
+    "kz": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_kz.png",
+}
+
+
+def get_cun_measurement_image_path(language: str) -> Path:
+    """Return localized cun measurement image with fallback to the generic asset."""
+    localized_path = CUN_MEASUREMENT_IMAGE_PATHS.get(language)
+    if localized_path and localized_path.exists():
+        return localized_path
+    return CUN_MEASUREMENT_IMAGE_PATH
 
 
 # Multilingual texts
@@ -4377,9 +4391,10 @@ class BotHandlers:
                 return
 
             if action == "measurements":
-                if CUN_MEASUREMENT_IMAGE_PATH.exists():
+                cun_image_path = get_cun_measurement_image_path(language)
+                if cun_image_path.exists():
                     try:
-                        with open(CUN_MEASUREMENT_IMAGE_PATH, "rb") as photo:
+                        with open(cun_image_path, "rb") as photo:
                             sent_message = await self.application.bot.send_photo(
                                 chat_id=chat_id,
                                 photo=photo,
