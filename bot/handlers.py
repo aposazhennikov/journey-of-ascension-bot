@@ -38,6 +38,7 @@ MERIDIAN_SELECTION_PAGE_SIZE = 7
 CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement.png"
 MERIDIAN_VIDEO_PATHS = {
     "bladder": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "bladder.mp4",
+    "conception_vessel": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "conception_vessel.mp4",
     "gallbladder": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "gallbladder.mp4",
     "governing_vessel": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "governing_vessel.mp4",
     "heart": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "heart.mp4",
