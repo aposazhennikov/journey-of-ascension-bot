@@ -75,6 +75,10 @@ def get_meridian_video_path(meridian_id: Optional[str]) -> Optional[Path]:
     video_path = MERIDIAN_VIDEO_PATHS.get(meridian_id)
     if video_path and video_path.exists():
         return video_path
+    default_path = Path(__file__).resolve().parent.parent / "videos" / "meridians" / f"{meridian_id}.mp4"
+    if default_path.exists():
+        return default_path
+    logger.warning("Meridian video is missing for id=%s. Expected path: %s", meridian_id, default_path)
     return None
 
 
@@ -132,6 +136,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'menu': '📋 <b>Journey of Ascension</b>',
         'menu_settings': '⚙️ Practice rhythm',
         'menu_test': '🧪 Check reminder',
+        'menu_announce_update': '📢 Send update',
         'sending_test': '🧪 Sending a reminder check...',
         'menu_about': 'ℹ️ About the bot',
         'menu_feedback': '💌 Feedback and ideas',
@@ -368,13 +373,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
             'Notice where the line feels warm and clear, and where it still breaks or goes silent.\n\n'
             'When the sensation becomes calmer, choose the next channel.'
         ),
-        'feature_announcement': '☯️ <b>New in Journey of Ascension: meridian practice</b>\n'
+        'feature_announcement': '☯️ <b>Journey of Ascension update</b>\n'
                                 '\n'
-                                'You can now study Chinese meridians inside the bot: choose a channel, open '
-                                'each point with its image, and move through the practice at your own pace.\n'
+                                'We noticed bugs that could make reminders arrive irregularly, and we fixed them.\n'
                                 '\n'
-                                'The daily reminder does not rush you forward. It simply brings you back to '
-                                'the current focus so attention can become steadier.\n'
+                                'We are also happy to present a new feature: <b>Chinese meridian study</b>.\n'
+                                'Now you can choose a meridian, view its overview image and video, open points '
+                                'with images, and move through the practice at your own pace.\n'
                                 '\n'
                                 'Open /menu and choose <b>Meridians</b>.',
         'stop_feedback_prompt': 'If you want, you can leave one short note about why you are pausing the practice. This is optional.',
@@ -439,6 +444,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'menu': '📋 <b>Journey of Ascension</b>',
         'menu_settings': '⚙️ Ритм практики',
         'menu_test': '🧪 Проверить напоминание',
+        'menu_announce_update': '📢 Разослать анонс',
         'sending_test': '🧪 Проверяю отправку напоминания...',
         'menu_about': 'ℹ️ О боте',
         'menu_feedback': '💌 Отзывы и идеи',
@@ -679,14 +685,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
             'Заметьте, где линия тёплая и ясная, а где она пока обрывается или молчит.\n\n'
             'Когда ощущение станет спокойнее, выбирайте следующий канал.'
         ),
-        'feature_announcement': '☯️ <b>Новое в Journey of Ascension: практика меридианов</b>\n'
+        'feature_announcement': '☯️ <b>Обновление Journey of Ascension</b>\n'
                                 '\n'
-                                'Теперь внутри бота можно изучать китайские меридианы: выбирать канал, '
-                                'открывать каждую точку с изображением и двигаться по практике в своём '
-                                'темпе.\n'
+                                'Мы заметили ошибки, из-за которых напоминания могли приходить нерегулярно, и исправили их.\n'
                                 '\n'
-                                'Ежедневное напоминание не торопит вас дальше. Оно просто возвращает к '
-                                'текущему фокусу, чтобы внимание становилось устойчивее.\n'
+                                'Также мы рады представить новую функцию: <b>изучение китайских меридианов</b>.\n'
+                                'Теперь в боте можно выбрать меридиан, посмотреть общую схему и видео, открыть '
+                                'точки с изображениями и двигаться по практике в своём темпе.\n'
                                 '\n'
                                 'Откройте /menu и выберите <b>Меридианы</b>.',
         'stop_feedback_prompt': 'Если хотите, можете одним сообщением написать, почему ставите практику на паузу. Это необязательно.',
@@ -753,6 +758,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'menu': '📋 <b>Journey of Ascension</b>',
         'menu_settings': '⚙️ Amaliyot ritmi',
         'menu_test': '🧪 Eslatmani tekshirish',
+        'menu_announce_update': '📢 Yangilikni yuborish',
         'sending_test': '🧪 Eslatma tekshiruvi yuborilmoqda...',
         'menu_about': 'ℹ️ Bot haqida',
         'menu_feedback': '💌 Fikr va takliflar',
@@ -980,13 +986,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
             "Chiziq qayerda iliq va ravshan, qayerda esa uzilib yoki jim qolayotganini sezing.\n\n"
             "Sezgi sokinlashganda keyingi kanalni tanlang."
         ),
-        'feature_announcement': "☯️ <b>Journey of Ascension'da yangilik: meridian amaliyoti</b>\n"
+        'feature_announcement': "☯️ <b>Journey of Ascension yangilanishi</b>\n"
                                 '\n'
-                                "Endi bot ichida Xitoy meridianlarini o'rganish mumkin: kanalni tanlang, har "
-                                "bir nuqtani rasmi bilan oching va amaliyotda o'z ritmingizda yuring.\n"
+                                "Eslatmalar ba'zan muntazam kelmasligiga sabab bo'lgan xatolarni ko'rdik va ularni tuzatdik.\n"
                                 '\n'
-                                'Kundalik eslatma sizni shoshiltirmaydi. U faqat joriy fokusga qaytaradi, '
-                                "shunda diqqat asta-sekin barqarorroq bo'ladi.\n"
+                                "Shuningdek, yangi funksiyani taqdim etishdan xursandmiz: <b>Xitoy meridianlarini o'rganish</b>.\n"
+                                "Endi botda meridianni tanlash, umumiy sxema va videoni ko'rish, nuqtalarni "
+                                "rasmlari bilan ochish va amaliyotni o'z sur'atingizda davom ettirish mumkin.\n"
                                 '\n'
                                 "/menu ni oching va <b>Meridianlar</b> bo'limini tanlang.",
         'stop_feedback_prompt': "Xohlasangiz, amaliyotni nima uchun pauzaga qo'yayotganingizni bitta qisqa xabarda yozishingiz mumkin. Bu majburiy emas.",
@@ -1065,6 +1071,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         'menu': '📋 <b>Journey of Ascension</b>',
         'menu_settings': '⚙️ Тәжірибе ырғағы',
         'menu_test': '🧪 Еске салуды тексеру',
+        'menu_announce_update': '📢 Жаңартуды жіберу',
         'sending_test': '🧪 Еске салу тексеруі жіберіліп жатыр...',
         'menu_about': 'ℹ️ Бот туралы',
         'menu_feedback': '💌 Пікірлер мен ұсыныстар',
@@ -1289,13 +1296,13 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
             "Сызық қай жерде жылы әрі анық, қай жерде әзірге үзіліп немесе үнсіз қалатынын байқаңыз.\n\n"
             "Сезім тынышталған кезде келесі арнаны таңдаңыз."
         ),
-        'feature_announcement': '☯️ <b>Journey of Ascension ішіндегі жаңалық: меридиан тәжірибесі</b>\n'
+        'feature_announcement': '☯️ <b>Journey of Ascension жаңартуы</b>\n'
                                 '\n'
-                                'Енді бот ішінде қытай меридиандарын зерттеуге болады: арнаны таңдаңыз, әр '
-                                'нүктені суретімен ашыңыз және тәжірибеде өз ырғағыңызбен жүріңіз.\n'
+                                'Еске салғыштар кейде тұрақты келмеуіне себеп болған қателерді байқадық және оларды түзеттік.\n'
                                 '\n'
-                                'Күнделікті еске салу сізді асықтырмайды. Ол тек ағымдағы фокусқа қайтарады, '
-                                'сонда зейін біртіндеп тұрақтанады.\n'
+                                'Сондай-ақ жаңа мүмкіндікті қуана ұсынамыз: <b>қытай меридиандарын зерттеу</b>.\n'
+                                'Енді ботта меридианды таңдап, жалпы схемасы мен видеосын көруге, нүктелерді '
+                                'суреттерімен ашуға және тәжірибені өз қарқыныңызбен жалғастыруға болады.\n'
                                 '\n'
                                 '/menu ашып, <b>Меридиандар</b> бөлімін таңдаңыз.',
         'stop_feedback_prompt': 'Қаласаңыз, тәжірибені не үшін паузаға қойып жатқаныңызды бір қысқа хабарламамен жаза аласыз. Бұл міндетті емес.',
@@ -1561,9 +1568,10 @@ TEXTS_UPDATE = {
             "The bot does one simple job: it keeps the thread of practice from disappearing in the noise of the day and shows the next small step."
         ),
         "feature_announcement": (
-            "☯️ <b>New in Journey of Ascension: meridian practice</b>\n\n"
-            "You can now study Chinese meridians inside the bot: choose a channel, open each point with its image, and move through the practice at your own pace.\n\n"
-            "The daily reminder does not rush you forward. It simply brings you back to the current focus so attention can become steadier.\n\n"
+            "☯️ <b>Journey of Ascension update</b>\n\n"
+            "We noticed bugs that could make reminders arrive irregularly, and we fixed them.\n\n"
+            "We are also happy to present a new feature: <b>Chinese meridian study</b>.\n"
+            "Now you can choose a meridian, view its overview image and video, open points with images, and move through the practice at your own pace.\n\n"
             "Open /menu and choose <b>Meridians</b>."
         ),
         "already_subscribed": "🕊️ Journey of Ascension is already open here.\n\nUse /menu to choose practices or /settings to tune your practice rhythm.",
@@ -1765,9 +1773,10 @@ TEXTS_UPDATE = {
             "Задача бота простая: не дать нити практики исчезнуть в шуме дня и показать следующий небольшой шаг."
         ),
         "feature_announcement": (
-            "☯️ <b>Новое в Journey of Ascension: практика меридианов</b>\n\n"
-            "Теперь внутри бота можно изучать китайские меридианы: выбирать канал, открывать каждую точку с изображением и двигаться по практике в своём темпе.\n\n"
-            "Ежедневное напоминание не торопит вас дальше. Оно просто возвращает к текущему фокусу, чтобы внимание становилось устойчивее.\n\n"
+            "☯️ <b>Обновление Journey of Ascension</b>\n\n"
+            "Мы заметили ошибки, из-за которых напоминания могли приходить нерегулярно, и исправили их.\n\n"
+            "Также мы рады представить новую функцию: <b>изучение китайских меридианов</b>.\n"
+            "Теперь в боте можно выбрать меридиан, посмотреть общую схему и видео, открыть точки с изображениями и двигаться по практике в своём темпе.\n\n"
             "Откройте /menu и выберите <b>Меридианы</b>."
         ),
         "already_subscribed": "🕊️ Journey of Ascension уже открыт здесь.\n\nИспользуйте /menu для выбора практик или /settings для настройки ритма практики.",
@@ -1969,9 +1978,10 @@ TEXTS_UPDATE = {
             "Botning vazifasi oddiy: amaliyot ipi kun shovqinida yo'qolib ketmasin va keyingi kichik qadam ko'rinib tursin."
         ),
         "feature_announcement": (
-            "☯️ <b>Journey of Ascension'da yangilik: meridian amaliyoti</b>\n\n"
-            "Endi bot ichida Xitoy meridianlarini o'rganish mumkin: kanalni tanlang, har bir nuqtani rasmi bilan oching va amaliyotda o'z ritmingizda yuring.\n\n"
-            "Kundalik eslatma sizni shoshiltirmaydi. U faqat joriy fokusga qaytaradi, shunda diqqat asta-sekin barqarorroq bo'ladi.\n\n"
+            "☯️ <b>Journey of Ascension yangilanishi</b>\n\n"
+            "Eslatmalar ba'zan muntazam kelmasligiga sabab bo'lgan xatolarni ko'rdik va ularni tuzatdik.\n\n"
+            "Shuningdek, yangi funksiyani taqdim etishdan xursandmiz: <b>Xitoy meridianlarini o'rganish</b>.\n"
+            "Endi botda meridianni tanlash, umumiy sxema va videoni ko'rish, nuqtalarni rasmlari bilan ochish va amaliyotni o'z sur'atingizda davom ettirish mumkin.\n\n"
             "/menu ni oching va <b>Meridianlar</b> bo'limini tanlang."
         ),
         "already_subscribed": "🕊️ Journey of Ascension bu yerda allaqachon ochilgan.\n\nAmaliyotlarni tanlash uchun /menu yoki amaliyot ritmini sozlash uchun /settings dan foydalaning.",
@@ -2187,9 +2197,10 @@ TEXTS_UPDATE = {
             "Боттың міндеті қарапайым: тәжірибе жібі күн шуында жоғалып кетпесін және келесі шағын қадам көрініп тұрсын."
         ),
         "feature_announcement": (
-            "☯️ <b>Journey of Ascension ішіндегі жаңалық: меридиан тәжірибесі</b>\n\n"
-            "Енді бот ішінде қытай меридиандарын зерттеуге болады: арнаны таңдаңыз, әр нүктені суретімен ашыңыз және тәжірибеде өз ырғағыңызбен жүріңіз.\n\n"
-            "Күнделікті еске салу сізді асықтырмайды. Ол тек ағымдағы фокусқа қайтарады, сонда зейін біртіндеп тұрақтанады.\n\n"
+            "☯️ <b>Journey of Ascension жаңартуы</b>\n\n"
+            "Еске салғыштар кейде тұрақты келмеуіне себеп болған қателерді байқадық және оларды түзеттік.\n\n"
+            "Сондай-ақ жаңа мүмкіндікті қуана ұсынамыз: <b>қытай меридиандарын зерттеу</b>.\n"
+            "Енді ботта меридианды таңдап, жалпы схемасы мен видеосын көруге, нүктелерді суреттерімен ашуға және тәжірибені өз қарқыныңызбен жалғастыруға болады.\n\n"
             "/menu ашып, <b>Меридиандар</b> бөлімін таңдаңыз."
         ),
         "already_subscribed": "🕊️ Journey of Ascension бұл жерде бұрыннан ашық.\n\nТәжірибелерді таңдау үшін /menu немесе тәжірибе ырғағын реттеу үшін /settings қолданыңыз.",
@@ -3080,7 +3091,7 @@ class BotHandlers:
         try:
             if not context.args:
                 keyboard = InlineKeyboardMarkup([[
-                    InlineKeyboardButton("Announce meridians feature", callback_data="broadcast_meridians_announcement")
+                    InlineKeyboardButton("📢 Send update announcement", callback_data="broadcast_meridians_announcement")
                 ]])
                 await update.message.reply_text(
                     f"{self._get_admin_text('broadcast_usage')}\n\nOr choose a localized template:",
@@ -3791,7 +3802,10 @@ class BotHandlers:
             ]
         ]
         if is_admin:
-            keyboard.append([InlineKeyboardButton(self._get_text("menu_test", language), callback_data="menu_test")])
+            keyboard.append([
+                InlineKeyboardButton(self._get_text("menu_test", language), callback_data="menu_test"),
+                InlineKeyboardButton(self._get_text("menu_announce_update", language), callback_data="broadcast_meridians_announcement")
+            ])
         return InlineKeyboardMarkup(keyboard)
 
     def _create_main_menu_keyboard_for_user(self, chat_id: int, language: str) -> InlineKeyboardMarkup:
