@@ -42,6 +42,7 @@ MERIDIAN_VIDEO_PATHS = {
     "heart": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "heart.mp4",
     "liver": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "liver.mp4",
     "lung": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "lung.mp4",
+    "pericardium": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "pericardium.mp4",
     "stomach": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "stomach.mp4",
 }
 CUN_MEASUREMENT_IMAGE_PATHS = {
