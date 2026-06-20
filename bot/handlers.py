@@ -49,6 +49,7 @@ MERIDIAN_VIDEO_PATHS = {
     "small_intestine": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "small_intestine.mp4",
     "spleen": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "spleen.mp4",
     "stomach": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "stomach.mp4",
+    "triple_burner": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "triple_burner.mp4",
 }
 CUN_MEASUREMENT_IMAGE_PATHS = {
     "en": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_en.png",
