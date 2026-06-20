@@ -9,7 +9,7 @@ from typing import List, Dict, Any, Optional
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaAnimation
 from telegram.ext import (
     Application, CommandHandler, MessageHandler, CallbackQueryHandler,
-    filters, ContextTypes
+    filters, ContextTypes, ApplicationHandlerStop
 )
 from telegram.error import BadRequest
 
@@ -1386,13 +1386,13 @@ ADMIN_TEXTS = {
     "admin_help": (
         "🔧 Admin Commands:\n\n"
         "📊 Statistics:\n"
-        "• stats - Bot usage statistics\n"
-        "• feedback_stats - Feedback statistics\n"
-        "• feedback_list [limit] - View recent feedback\n\n"
+        "• /stats - Bot usage statistics\n"
+        "• /feedback_stats - Feedback statistics\n"
+        "• /feedback_list [limit] - View recent feedback\n\n"
         "📨 Messages:\n"
-        "• next - Show random principle for user\n"
-        "• broadcast <message> - Send message to all users\n"
-        "• broadcast meridians_announcement - Send localized meridians announcement\n\n"
+        "• /next - Show random principle for user\n"
+        "• /broadcast <message> - Send message to all users\n"
+        "• /broadcast meridians_announcement - Send localized meridians announcement\n\n"
         "All commands are admin-only and require proper permissions."
     )
 }
@@ -2468,6 +2468,13 @@ class BotHandlers:
         self.application.add_handler(CommandHandler("menu", self._handle_menu))
 
         # Admin commands.
+        self.application.add_handler(
+            MessageHandler(
+                filters.Regex(r"^/(stats|feedback_stats|feedback_list|broadcast)(?:@\w+)?(?:\s|$)"),
+                self._handle_admin_text_command_fallback
+            ),
+            group=-1
+        )
         self.application.add_handler(CommandHandler("next", self._handle_next))
         self.application.add_handler(CommandHandler("add", self._handle_add_principle))
         self.application.add_handler(CommandHandler("stats", self._handle_stats))
@@ -2496,6 +2503,37 @@ class BotHandlers:
     def _get_text(self, key: str, language: str = "en", **kwargs) -> str:
         """Get localized text."""
         return TEXTS.get(language, TEXTS["en"]).get(key, key).format(**kwargs)
+
+    def _extract_command_args(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> List[str]:
+        """Return command arguments even when a text fallback handled the command."""
+        if getattr(context, "args", None):
+            return list(context.args)
+        message = getattr(update, "message", None)
+        text = getattr(message, "text", "") or ""
+        parts = text.split(maxsplit=1)
+        return parts[1].split() if len(parts) > 1 else []
+
+    async def _handle_admin_text_command_fallback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Catch critical admin commands as plain text if CommandHandler does not answer."""
+        message = update.message
+        if not message or not message.text:
+            return
+
+        command = message.text.split(maxsplit=1)[0].split("@", 1)[0].lower()
+        logger.info("Admin text command fallback received %s from chat %s", command, update.effective_chat.id)
+
+        if command == "/stats":
+            await self._handle_stats(update, context)
+            raise ApplicationHandlerStop
+        if command == "/feedback_stats":
+            await self._handle_feedback_stats(update, context)
+            raise ApplicationHandlerStop
+        if command == "/feedback_list":
+            await self._handle_feedback_list(update, context)
+            raise ApplicationHandlerStop
+        if command == "/broadcast":
+            await self._handle_broadcast(update, context)
+            raise ApplicationHandlerStop
 
     def _as_html(self, text: str) -> str:
         """Normalize legacy Markdown-bold text for HTML parse mode."""
@@ -3133,7 +3171,10 @@ class BotHandlers:
             return
 
         try:
-            if not context.args:
+            args = self._extract_command_args(update, context)
+            logger.info("Broadcast command received from admin %s with args=%s", chat_id, args)
+
+            if not args:
                 keyboard = InlineKeyboardMarkup([[
                     InlineKeyboardButton("📢 Send update announcement", callback_data="broadcast_meridians_announcement")
                 ]])
@@ -3143,7 +3184,7 @@ class BotHandlers:
                 )
                 return
 
-            broadcast_text = " ".join(context.args)
+            broadcast_text = " ".join(args)
             if not broadcast_text:
                 await update.message.reply_text(self._get_admin_text("broadcast_empty"))
                 return
@@ -5546,9 +5587,10 @@ class BotHandlers:
         try:
             # Parse limit argument
             limit = 10
-            if context.args:
+            args = self._extract_command_args(update, context)
+            if args:
                 try:
-                    limit = int(context.args[0])
+                    limit = int(args[0])
                     limit = max(1, min(limit, 50))  # Clamp between 1 and 50
                 except ValueError:
                     await update.message.reply_text(self._get_admin_text("feedback_list_usage"))
