@@ -8,6 +8,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./images:/app/images:ro
+      - ./videos:/app/videos:ro
       - ./bot/principles.json:/app/bot/principles.json:ro
       - ./bot/meridians.json:/app/bot/meridians.json:ro
     environment:

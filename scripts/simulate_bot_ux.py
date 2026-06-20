@@ -1757,6 +1757,7 @@ def audit_payload(payload: dict[str, Any]) -> list[str]:
             'callback_data="meridian_next"': 'action in ["next", "prev"]',
             'callback_data="meridian_prev"': 'action in ["next", "prev"]',
             'callback_data="meridian_complete"': 'if action == "complete"',
+            'callback_data="meridian_video"': 'if action == "video"',
             'callback_data="meridian_measurements"': 'if action == "measurements"',
             'callback_data="meridian_point_help"': 'if action == "point_help"',
             'callback_data="meridian_path"': 'if action == "path"',
@@ -2326,6 +2327,7 @@ def build_html() -> str:
       const buttons = state.currentPointIndex < 0
         ? [
           [{{ label: t('meridian_start_points'), action: nextPoint, disabled: item.pointsCount === 0 }}],
+          [{{ label: t('meridian_video'), action: () => setScreen('meridianVideo') }}],
           [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}],
           [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
         ]
@@ -2334,6 +2336,7 @@ def build_html() -> str:
             ...(state.currentPointIndex > 0 ? [{{ label: t('prev_point'), action: prevPoint, disabled: item.pointsCount === 0 }}] : []),
             ...(state.currentPointIndex < item.pointsCount - 1 ? [{{ label: t('next_point'), action: nextPoint, disabled: item.pointsCount === 0 }}] : []),
           ],
+          [{{ label: t('meridian_video'), action: () => setScreen('meridianVideo') }}],
           [{{ label: t('all_points'), action: () => {{ state.currentPointsPage = 0; setScreen('allPoints'); }}, disabled: item.pointsCount === 0 }}, {{ label: t('meridian_point_help'), action: () => setScreen('pointHelp') }}],
           ...(state.currentPointIndex >= item.pointsCount - 1 ? [[{{ label: t('complete_meridian'), action: completeMeridian }}]] : []),
           [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}],
@@ -2588,6 +2591,7 @@ def build_html() -> str:
         meridianPath: renderMeridianPath,
         meridianCompleted: renderMeridianCompleted,
         currentMeridian: renderCurrentMeridian,
+        meridianVideo: () => show('Meridian video', fmt(meridian().id === 'liver' ? t('meridian_video_caption') : t('meridian_video_missing')), [[{{ label: t('current_meridian'), action: () => setScreen('currentMeridian') }}], [{{ label: t('meridian_back'), action: () => setScreen('meridians') }}]]),
         chooseMeridian: renderChooseMeridian,
         allPoints: renderAllPoints,
         skipDays: renderSkipDays,

@@ -36,6 +36,9 @@ logger = logging.getLogger(__name__)
 MERIDIAN_POINTS_PAGE_SIZE = 7
 MERIDIAN_SELECTION_PAGE_SIZE = 7
 CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement.png"
+MERIDIAN_VIDEO_PATHS = {
+    "liver": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "liver.mp4",
+}
 CUN_MEASUREMENT_IMAGE_PATHS = {
     "en": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_en.png",
     "ru": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_ru.png",
@@ -50,6 +53,16 @@ def get_cun_measurement_image_path(language: str) -> Path:
     if localized_path and localized_path.exists():
         return localized_path
     return CUN_MEASUREMENT_IMAGE_PATH
+
+
+def get_meridian_video_path(meridian_id: Optional[str]) -> Optional[Path]:
+    """Return a meridian video path when the video is available."""
+    if not meridian_id:
+        return None
+    video_path = MERIDIAN_VIDEO_PATHS.get(meridian_id)
+    if video_path and video_path.exists():
+        return video_path
+    return None
 
 
 # Multilingual texts
@@ -1466,6 +1479,9 @@ TEXTS_UPDATE = {
         "meridian_measurements": "📏 Measure cun",
         "meridian_measurements_image_caption": "📏 <b>Cun at a glance</b>\nLook at this first: it shows how to estimate 1, 1.5, 2, 3, and 5 cun on the hand.",
         "meridian_point_help": "🖐 How to find a point",
+        "meridian_video": "🎥 Meridian video",
+        "meridian_video_caption": "🎥 <b>Meridian video</b>\nWatch the channel path, then return to the point practice and check what is easier to feel in the body.",
+        "meridian_video_missing": "🎥 <b>Meridian video</b>\n\nThe video for this meridian will be added later. For now, continue with the image, point description, and attention practice.",
         "meridian_back": "🔙 Back to meridians",
         "back_to_current_focus": "🔙 Back to current focus",
         "page_indicator_hint": "This is the page number. Use Previous or Next to move.",
@@ -1667,6 +1683,9 @@ TEXTS_UPDATE = {
         "meridian_measurements": "📏 Как измерять цуни",
         "meridian_measurements_image_caption": "📏 <b>Цуни наглядно</b>\nСначала посмотрите на эту схему: она показывает, как примерно отмерять 1, 1,5, 2, 3 и 5 цуней по руке.",
         "meridian_point_help": "🖐 Как искать точку",
+        "meridian_video": "🎥 Видео меридиана",
+        "meridian_video_caption": "🎥 <b>Видео меридиана</b>\nПосмотрите ход канала, а затем вернитесь к практике точек и проверьте, что стало легче почувствовать в теле.",
+        "meridian_video_missing": "🎥 <b>Видео меридиана</b>\n\nВидео для этого меридиана добавим позже. Пока продолжайте по схеме, описанию точки и практике внимания.",
         "meridian_back": "🔙 К меридианам",
         "back_to_current_focus": "🔙 К текущему фокусу",
         "page_indicator_hint": "Это номер страницы. Для перехода используйте «Назад» или «Далее».",
@@ -1868,6 +1887,9 @@ TEXTS_UPDATE = {
         "meridian_measurements": "📏 Cunni o'lchash",
         "meridian_measurements_image_caption": "📏 <b>Cun ko'rinishda</b>\nAvval shu sxemaga qarang: u qo'lda 1, 1,5, 2, 3 va 5 cunni taxminan qanday o'lchashni ko'rsatadi.",
         "meridian_point_help": "🖐 Nuqtani topish",
+        "meridian_video": "🎥 Meridian videosi",
+        "meridian_video_caption": "🎥 <b>Meridian videosi</b>\nKanal yo'lini ko'ring, keyin nuqtalar amaliyotiga qaytib, tanada nimani osonroq sezayotganingizni tekshiring.",
+        "meridian_video_missing": "🎥 <b>Meridian videosi</b>\n\nBu meridian videosi keyinroq qo'shiladi. Hozircha rasm, nuqta tavsifi va diqqat amaliyoti bilan davom eting.",
         "meridian_back": "🔙 Meridianlarga qaytish",
         "back_to_current_focus": "🔙 Joriy fokusga qaytish",
         "page_indicator_hint": "Bu sahifa raqami. O'tish uchun Oldingi yoki Keyingi tugmasidan foydalaning.",
@@ -2083,6 +2105,9 @@ TEXTS_UPDATE = {
         "meridian_measurements": "📏 Цуньді өлшеу",
         "meridian_measurements_image_caption": "📏 <b>Цунь көрнекі түрде</b>\nАлдымен осы сызбаға қараңыз: ол қол арқылы 1, 1,5, 2, 3 және 5 цуньді шамамен қалай өлшеуді көрсетеді.",
         "meridian_point_help": "🖐 Нүктені табу",
+        "meridian_video": "🎥 Меридиан видеосы",
+        "meridian_video_caption": "🎥 <b>Меридиан видеосы</b>\nАрнаның жолын көріңіз, содан кейін нүктелер тәжірибесіне оралып, денеде нені оңайырақ сезетініңізді тексеріңіз.",
+        "meridian_video_missing": "🎥 <b>Меридиан видеосы</b>\n\nБұл меридианның видеосы кейін қосылады. Әзірге суретпен, нүкте сипаттамасымен және зейін тәжірибесімен жалғастырыңыз.",
         "meridian_back": "🔙 Меридиандарға қайту",
         "back_to_current_focus": "🔙 Ағымдағы фокусқа қайту",
         "page_indicator_hint": "Бұл бет нөмірі. Өту үшін Артқа немесе Келесі түймесін қолданыңыз.",
@@ -3885,6 +3910,7 @@ class BotHandlers:
         if at_intro:
             return InlineKeyboardMarkup([
                 [InlineKeyboardButton(self._get_text("meridian_start_points", language), callback_data="meridian_next")],
+                [InlineKeyboardButton(self._get_text("meridian_video", language), callback_data="meridian_video")],
                 [
                     InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
                     InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
@@ -3902,6 +3928,7 @@ class BotHandlers:
         if navigation_row:
             keyboard.append(navigation_row)
         keyboard.extend([
+            [InlineKeyboardButton(self._get_text("meridian_video", language), callback_data="meridian_video")],
             [
                 InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
                 InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
@@ -4559,6 +4586,46 @@ class BotHandlers:
             if user.current_point_index < -1 or user.current_point_index >= len(points):
                 user.current_point_index = -1
                 await self.storage.save_user(user)
+
+            if action == "video":
+                video_path = get_meridian_video_path(meridian.get("id"))
+                if not video_path:
+                    await self._edit_message_text_safe(
+                        query,
+                        self._get_text("meridian_video_missing", language),
+                        reply_markup=self._create_meridian_practice_keyboard(
+                            language,
+                            at_intro=user.current_point_index < 0,
+                            point_index=user.current_point_index if user.current_point_index >= 0 else None,
+                            points_count=len(points)
+                        ),
+                        parse_mode='HTML'
+                    )
+                    return
+
+                try:
+                    with open(video_path, "rb") as video:
+                        sent_message = await self.application.bot.send_video(
+                            chat_id=chat_id,
+                            video=video,
+                            caption=self._get_text("meridian_video_caption", language),
+                            parse_mode='HTML'
+                        )
+                    await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
+                except Exception as e:
+                    logger.warning(f"Could not send meridian video {video_path} to {chat_id}: {e}")
+                    await self._edit_message_text_safe(
+                        query,
+                        self._get_text("meridian_video_missing", language),
+                        reply_markup=self._create_meridian_practice_keyboard(
+                            language,
+                            at_intro=user.current_point_index < 0,
+                            point_index=user.current_point_index if user.current_point_index >= 0 else None,
+                            points_count=len(points)
+                        ),
+                        parse_mode='HTML'
+                    )
+                return
 
             if action == "current":
                 text = format_meridian_point(meridian, user.current_point_index, language) if user.current_point_index >= 0 else format_meridian_intro(meridian, language)

@@ -566,17 +566,20 @@ def build_keyboards(texts: dict[str, str], admin: bool = False) -> dict[str, lis
         ],
         "meridian_intro": [
             [texts["meridian_start_points"]],
+            [texts["meridian_video"]],
             [texts["all_points"], texts["meridian_point_help"]],
             [texts["meridian_back"]],
         ],
         "meridian_first_point": [
             [texts["next_point"]],
+            [texts["meridian_video"]],
             [texts["all_points"], texts["meridian_point_help"]],
             [texts["complete_meridian"]],
             [texts["meridian_back"]],
         ],
         "meridian_practice": [
             [texts["prev_point"], texts["next_point"]],
+            [texts["meridian_video"]],
             [texts["all_points"], texts["meridian_point_help"]],
             [texts["complete_meridian"]],
             [texts["meridian_back"]],
