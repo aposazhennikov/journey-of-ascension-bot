@@ -375,13 +375,16 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         ),
         'feature_announcement': '☯️ <b>Journey of Ascension update</b>\n'
                                 '\n'
+                                'Please move to the new bot: @journey_ascension_bot.\n'
+                                '<b>This current bot will stop being supported soon.</b>\n'
+                                '\n'
                                 'We noticed bugs that could make reminders arrive irregularly, and we fixed them.\n'
                                 '\n'
                                 'We are also happy to present a new feature: <b>Chinese meridian study</b>.\n'
                                 'Now you can choose a meridian, view its overview image and video, open points '
                                 'with images, and move through the practice at your own pace.\n'
                                 '\n'
-                                'Open /menu and choose <b>Meridians</b>.',
+                                'Open @journey_ascension_bot and press /start.',
         'stop_feedback_prompt': 'If you want, you can leave one short note about why you are pausing the practice. This is optional.',
         'stop_feedback_thanks': 'Thank you. Your note will help make the practice gentler and clearer.\n'
                                 '\n'
@@ -687,13 +690,16 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         ),
         'feature_announcement': '☯️ <b>Обновление Journey of Ascension</b>\n'
                                 '\n'
+                                'Пожалуйста, переходите в нового бота: @journey_ascension_bot.\n'
+                                '<b>Текущий бот скоро перестанет поддерживаться.</b>\n'
+                                '\n'
                                 'Мы заметили ошибки, из-за которых напоминания могли приходить нерегулярно, и исправили их.\n'
                                 '\n'
                                 'Также мы рады представить новую функцию: <b>изучение китайских меридианов</b>.\n'
                                 'Теперь в боте можно выбрать меридиан, посмотреть общую схему и видео, открыть '
                                 'точки с изображениями и двигаться по практике в своём темпе.\n'
                                 '\n'
-                                'Откройте /menu и выберите <b>Меридианы</b>.',
+                                'Откройте @journey_ascension_bot и нажмите /start.',
         'stop_feedback_prompt': 'Если хотите, можете одним сообщением написать, почему ставите практику на паузу. Это необязательно.',
         'stop_feedback_thanks': 'Спасибо. Эта заметка поможет сделать практику мягче и понятнее.\n'
                                 '\n'
@@ -988,13 +994,16 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         ),
         'feature_announcement': "☯️ <b>Journey of Ascension yangilanishi</b>\n"
                                 '\n'
+                                "Iltimos, yangi botga o'ting: @journey_ascension_bot.\n"
+                                "<b>Hozirgi bot tez orada qo'llab-quvvatlanmaydi.</b>\n"
+                                '\n'
                                 "Eslatmalar ba'zan muntazam kelmasligiga sabab bo'lgan xatolarni ko'rdik va ularni tuzatdik.\n"
                                 '\n'
                                 "Shuningdek, yangi funksiyani taqdim etishdan xursandmiz: <b>Xitoy meridianlarini o'rganish</b>.\n"
                                 "Endi botda meridianni tanlash, umumiy sxema va videoni ko'rish, nuqtalarni "
                                 "rasmlari bilan ochish va amaliyotni o'z sur'atingizda davom ettirish mumkin.\n"
                                 '\n'
-                                "/menu ni oching va <b>Meridianlar</b> bo'limini tanlang.",
+                                "@journey_ascension_bot ni oching va /start ni bosing.",
         'stop_feedback_prompt': "Xohlasangiz, amaliyotni nima uchun pauzaga qo'yayotganingizni bitta qisqa xabarda yozishingiz mumkin. Bu majburiy emas.",
         'stop_feedback_thanks': "Rahmat. Bu eslatma amaliyotni yumshoqroq va tushunarliroq qilishga yordam beradi.\n"
                                 '\n'
@@ -1298,13 +1307,16 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
         ),
         'feature_announcement': '☯️ <b>Journey of Ascension жаңартуы</b>\n'
                                 '\n'
+                                'Өтінеміз, жаңа ботқа өтіңіз: @journey_ascension_bot.\n'
+                                '<b>Қазіргі бот жақында қолдауды тоқтатады.</b>\n'
+                                '\n'
                                 'Еске салғыштар кейде тұрақты келмеуіне себеп болған қателерді байқадық және оларды түзеттік.\n'
                                 '\n'
                                 'Сондай-ақ жаңа мүмкіндікті қуана ұсынамыз: <b>қытай меридиандарын зерттеу</b>.\n'
                                 'Енді ботта меридианды таңдап, жалпы схемасы мен видеосын көруге, нүктелерді '
                                 'суреттерімен ашуға және тәжірибені өз қарқыныңызбен жалғастыруға болады.\n'
                                 '\n'
-                                '/menu ашып, <b>Меридиандар</b> бөлімін таңдаңыз.',
+                                '@journey_ascension_bot ашып, /start басыңыз.',
         'stop_feedback_prompt': 'Қаласаңыз, тәжірибені не үшін паузаға қойып жатқаныңызды бір қысқа хабарламамен жаза аласыз. Бұл міндетті емес.',
         'stop_feedback_thanks': 'Рақмет. Бұл жазба тәжірибені жұмсағырақ әрі түсініктірек етуге көмектеседі.\n'
                                 '\n'
@@ -1575,10 +1587,12 @@ TEXTS_UPDATE = {
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension update</b>\n\n"
+            "Please move to the new bot: @journey_ascension_bot.\n"
+            "<b>This current bot will stop being supported soon.</b>\n\n"
             "We noticed bugs that could make reminders arrive irregularly, and we fixed them.\n\n"
             "We are also happy to present a new feature: <b>Chinese meridian study</b>.\n"
             "Now you can choose a meridian, view its overview image and video, open points with images, and move through the practice at your own pace.\n\n"
-            "Open /menu and choose <b>Meridians</b>."
+            "Open @journey_ascension_bot and press /start."
         ),
         "already_subscribed": "🕊️ Journey of Ascension is already open here.\n\nUse /menu to choose practices or /settings to tune your practice rhythm.",
         "not_subscribed": "The practice is not started in this chat yet. Use /start when you are ready to begin.",
@@ -1786,10 +1800,12 @@ TEXTS_UPDATE = {
         ),
         "feature_announcement": (
             "☯️ <b>Обновление Journey of Ascension</b>\n\n"
+            "Пожалуйста, переходите в нового бота: @journey_ascension_bot.\n"
+            "<b>Текущий бот скоро перестанет поддерживаться.</b>\n\n"
             "Мы заметили ошибки, из-за которых напоминания могли приходить нерегулярно, и исправили их.\n\n"
             "Также мы рады представить новую функцию: <b>изучение китайских меридианов</b>.\n"
             "Теперь в боте можно выбрать меридиан, посмотреть общую схему и видео, открыть точки с изображениями и двигаться по практике в своём темпе.\n\n"
-            "Откройте /menu и выберите <b>Меридианы</b>."
+            "Откройте @journey_ascension_bot и нажмите /start."
         ),
         "already_subscribed": "🕊️ Journey of Ascension уже открыт здесь.\n\nИспользуйте /menu для выбора практик или /settings для настройки ритма практики.",
         "not_subscribed": "Практика в этом чате ещё не запущена. Используйте /start, когда будете готовы начать.",
@@ -1997,10 +2013,12 @@ TEXTS_UPDATE = {
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension yangilanishi</b>\n\n"
+            "Iltimos, yangi botga o'ting: @journey_ascension_bot.\n"
+            "<b>Hozirgi bot tez orada qo'llab-quvvatlanmaydi.</b>\n\n"
             "Eslatmalar ba'zan muntazam kelmasligiga sabab bo'lgan xatolarni ko'rdik va ularni tuzatdik.\n\n"
             "Shuningdek, yangi funksiyani taqdim etishdan xursandmiz: <b>Xitoy meridianlarini o'rganish</b>.\n"
             "Endi botda meridianni tanlash, umumiy sxema va videoni ko'rish, nuqtalarni rasmlari bilan ochish va amaliyotni o'z sur'atingizda davom ettirish mumkin.\n\n"
-            "/menu ni oching va <b>Meridianlar</b> bo'limini tanlang."
+            "@journey_ascension_bot ni oching va /start ni bosing."
         ),
         "already_subscribed": "🕊️ Journey of Ascension bu yerda allaqachon ochilgan.\n\nAmaliyotlarni tanlash uchun /menu yoki amaliyot ritmini sozlash uchun /settings dan foydalaning.",
         "not_subscribed": "Bu chatda amaliyot hali boshlanmagan. Boshlashga tayyor bo'lsangiz, /start dan foydalaning.",
@@ -2222,10 +2240,12 @@ TEXTS_UPDATE = {
         ),
         "feature_announcement": (
             "☯️ <b>Journey of Ascension жаңартуы</b>\n\n"
+            "Өтінеміз, жаңа ботқа өтіңіз: @journey_ascension_bot.\n"
+            "<b>Қазіргі бот жақында қолдауды тоқтатады.</b>\n\n"
             "Еске салғыштар кейде тұрақты келмеуіне себеп болған қателерді байқадық және оларды түзеттік.\n\n"
             "Сондай-ақ жаңа мүмкіндікті қуана ұсынамыз: <b>қытай меридиандарын зерттеу</b>.\n"
             "Енді ботта меридианды таңдап, жалпы схемасы мен видеосын көруге, нүктелерді суреттерімен ашуға және тәжірибені өз қарқыныңызбен жалғастыруға болады.\n\n"
-            "/menu ашып, <b>Меридиандар</b> бөлімін таңдаңыз."
+            "@journey_ascension_bot ашып, /start басыңыз."
         ),
         "already_subscribed": "🕊️ Journey of Ascension бұл жерде бұрыннан ашық.\n\nТәжірибелерді таңдау үшін /menu немесе тәжірибе ырғағын реттеу үшін /settings қолданыңыз.",
         "not_subscribed": "Бұл чатта тәжірибе әлі басталмаған. Бастауға дайын болсаңыз, /start қолданыңыз.",
