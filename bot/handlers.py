@@ -37,6 +37,7 @@ MERIDIAN_POINTS_PAGE_SIZE = 7
 MERIDIAN_SELECTION_PAGE_SIZE = 7
 CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement.png"
 MERIDIAN_VIDEO_PATHS = {
+    "gallbladder": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "gallbladder.mp4",
     "liver": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "liver.mp4",
 }
 CUN_MEASUREMENT_IMAGE_PATHS = {
