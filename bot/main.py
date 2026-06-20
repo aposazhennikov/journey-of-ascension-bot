@@ -70,6 +70,7 @@ def setup_logging(log_level: str) -> None:
     # Reduce noise from some libraries.
     logging.getLogger('telegram').setLevel(logging.WARNING)
     logging.getLogger('aiohttp').setLevel(logging.WARNING)
+    logging.getLogger('aiohttp.server').setLevel(logging.CRITICAL)
     
     # Hide sensitive information (tokens) from logs
     logging.getLogger('httpx').setLevel(logging.WARNING)

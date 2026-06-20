@@ -1461,6 +1461,12 @@ TEXTS_UPDATE = {
             "The daily principle is only the accent of the day. It does not mean you practise Ahimsa today and forget it tomorrow. We keep all principles in life at once; each day one of them comes closer to the surface.\n\n"
             "Open one principle for today or view the full list."
         ),
+        "useful_materials": "📚 Useful materials",
+        "useful_materials_soon": (
+            "📚 <b>Useful materials</b>\n\n"
+            "Coming Soon.\n\n"
+            "Later this section will contain links to articles and other materials for deeper study."
+        ),
         "principles_random": "Random principle",
         "principles_all": "All principles",
         "principles_back": "🔙 Back to Yama/Niyama",
@@ -1666,6 +1672,12 @@ TEXTS_UPDATE = {
             "Принцип дня — это только акцент. Это не значит, что сегодня мы практикуем Ахимсу, а завтра забываем о ней. Мы держим все принципы в жизни одновременно; просто каждый день один из них выходит ближе к поверхности.\n\n"
             "Откройте принцип дня или посмотрите весь список."
         ),
+        "useful_materials": "📚 Полезные материалы",
+        "useful_materials_soon": (
+            "📚 <b>Полезные материалы</b>\n\n"
+            "Coming Soon.\n\n"
+            "Позже здесь будут ссылки на статьи и другие материалы для более глубокого изучения."
+        ),
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
         "principles_back": "🔙 К Яме/Нияме",
@@ -1870,6 +1882,12 @@ TEXTS_UPDATE = {
             "<b>Niyama</b> ichki tayanch bilan ishlaydi: poklik, qanoat, intizom, o'zini o'rganish va amaliyot mevasini oliy maqsadga bag'ishlash. U diqqatni tozaroq ritmga yig'adi.\n\n"
             "Kun tamoyili faqat urg'u. Bu bugun Ahimsani mashq qilib, ertaga uni unutamiz degani emas. Biz barcha tamoyillarni hayotda birga ushlab turamiz; har kuni bittasi yuzaga yaqinroq chiqadi.\n\n"
             "Bugungi tamoyilni oching yoki to'liq ro'yxatni ko'ring."
+        ),
+        "useful_materials": "📚 Foydali materiallar",
+        "useful_materials_soon": (
+            "📚 <b>Foydali materiallar</b>\n\n"
+            "Coming Soon.\n\n"
+            "Keyinroq bu yerda chuqurroq o'rganish uchun maqolalar va boshqa materiallarga havolalar bo'ladi."
         ),
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
@@ -2089,6 +2107,12 @@ TEXTS_UPDATE = {
             "<b>Нияма</b> ішкі тірекпен жұмыс істейді: тазалық, қанағат, тәртіп, өзін-өзі зерттеу және тәжірибе жемісін жоғары мақсатқа арнау. Ол зейінді таза ырғаққа жинайды.\n\n"
             "Күн қағидасы — тек екпін. Бұл бүгін Ахимсаны жасап, ертең оны ұмытамыз деген сөз емес. Біз барлық қағидаларды өмірде бірге ұстаймыз; әр күні біреуі бетке жақынырақ шығады.\n\n"
             "Бүгінгі қағиданы ашыңыз немесе толық тізімді көріңіз."
+        ),
+        "useful_materials": "📚 Пайдалы материалдар",
+        "useful_materials_soon": (
+            "📚 <b>Пайдалы материалдар</b>\n\n"
+            "Coming Soon.\n\n"
+            "Кейінірек мұнда тереңірек зерттеуге арналған мақалалар мен басқа материалдарға сілтемелер болады."
         ),
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
@@ -3846,6 +3870,7 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("principles_random", language), callback_data="principles_random"),
                 InlineKeyboardButton(self._get_text("principles_all", language), callback_data="principles_all")
             ],
+            [InlineKeyboardButton(self._get_text("useful_materials", language), callback_data="principles_materials")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
@@ -3856,6 +3881,7 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("principles_random", language), callback_data="principles_random"),
                 InlineKeyboardButton(self._get_text("principles_all", language), callback_data="principles_all")
             ],
+            [InlineKeyboardButton(self._get_text("useful_materials", language), callback_data="principles_materials")],
             [InlineKeyboardButton(self._get_text("principles_back", language), callback_data="principles_back")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
@@ -3922,6 +3948,7 @@ class BotHandlers:
         keyboard.extend([
             [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
             [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
+            [InlineKeyboardButton(self._get_text("useful_materials", language), callback_data="meridian_materials")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
         return InlineKeyboardMarkup(keyboard)
@@ -4206,6 +4233,10 @@ class BotHandlers:
             elif action == "all":
                 text = self._format_principles_list(language)
                 keyboard = self._create_principles_list_keyboard(language)
+                parse_mode = 'HTML'
+            elif action == "materials":
+                text = self._get_text("useful_materials_soon", language)
+                keyboard = self._create_principles_menu_keyboard(language)
                 parse_mode = 'HTML'
             elif action.startswith("show:"):
                 principle_id = int(action.split(":", 1)[1])
@@ -4525,6 +4556,15 @@ class BotHandlers:
                 await self._edit_message_text_safe(query,
                     text,
                     reply_markup=keyboard,
+                    parse_mode='HTML'
+                )
+                return
+
+            if action == "materials":
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("useful_materials_soon", language),
+                    reply_markup=self._create_meridians_menu_keyboard(language, user),
                     parse_mode='HTML'
                 )
                 return
