@@ -1,4 +1,4 @@
-"""Main entry point for yoga bot."""
+"""Main entry point for Journey of Ascension."""
 
 import asyncio
 import logging
@@ -10,7 +10,7 @@ from typing import List
 from aiohttp import web
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
-from telegram import Bot
+from telegram import Bot, BotCommand
 from telegram.request import HTTPXRequest
 from telegram.ext import Application, ContextTypes
 from pydantic_settings import BaseSettings
@@ -20,7 +20,7 @@ import re
 from .storage import JsonStorage
 from .scheduler import YogaScheduler
 from .handlers import BotHandlers
-from .utils import PrinciplesManager, HealthCheck, get_prometheus_metrics
+from .utils import PrinciplesManager, MeridiansManager, HealthCheck, get_prometheus_metrics
 
 
 class Settings(BaseSettings):
@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     
     # Logging settings.
     log_level: str = Field(default="INFO", description="Logging level")
+
+    # Network settings.
+    telegram_proxy_url: str = Field(default="", description="Proxy URL for Telegram API requests")
     
     class Config:
         env_file = ".env"
@@ -67,6 +70,7 @@ def setup_logging(log_level: str) -> None:
     # Reduce noise from some libraries.
     logging.getLogger('telegram').setLevel(logging.WARNING)
     logging.getLogger('aiohttp').setLevel(logging.WARNING)
+    logging.getLogger('aiohttp.server').setLevel(logging.CRITICAL)
     
     # Hide sensitive information (tokens) from logs
     logging.getLogger('httpx').setLevel(logging.WARNING)
@@ -106,7 +110,7 @@ def setup_sentry(dsn: str) -> None:
 
 
 class YogaBot:
-    """Main yoga bot application."""
+    """Main Journey of Ascension application."""
     
     def __init__(self, settings: Settings):
         self.settings = settings
@@ -115,6 +119,7 @@ class YogaBot:
         # Initialize components.
         self.storage = JsonStorage(settings.data_dir)
         self.principles_manager = PrinciplesManager()
+        self.meridians_manager = MeridiansManager()
         self.health_check = HealthCheck()
         
         # Initialize Telegram application.
@@ -123,11 +128,20 @@ class YogaBot:
             read_timeout=30.0,
             write_timeout=30.0,
             pool_timeout=20.0,
+            proxy_url=settings.telegram_proxy_url or None,
+        )
+        telegram_get_updates_request = HTTPXRequest(
+            connect_timeout=20.0,
+            read_timeout=30.0,
+            write_timeout=30.0,
+            pool_timeout=20.0,
+            proxy_url=settings.telegram_proxy_url or None,
         )
         self.application = (
             Application.builder()
             .token(settings.bot_token)
             .request(telegram_request)
+            .get_updates_request(telegram_get_updates_request)
             .build()
         )
         self.bot = self.application.bot
@@ -136,7 +150,8 @@ class YogaBot:
         self.scheduler = YogaScheduler(
             self.bot,
             self.storage,
-            self.principles_manager
+            self.principles_manager,
+            self.meridians_manager
         )
         
         # Initialize handlers.
@@ -145,6 +160,7 @@ class YogaBot:
             self.storage,
             self.scheduler,
             self.principles_manager,
+            self.meridians_manager,
             settings.get_admin_ids()
         )
         
@@ -158,15 +174,18 @@ class YogaBot:
     
     async def start(self) -> None:
         """Start the bot."""
-        self.logger.info("Starting yoga bot...")
+        self.logger.info("Starting Journey of Ascension...")
         
         try:
             # Load principles.
             await self.principles_manager.load_principles()
             self.logger.info(f"Loaded principles for languages: {list(self.principles_manager._principles.keys())}")
+            await self.meridians_manager.load_meridians()
+            self.logger.info(f"Loaded meridians: {len(self.meridians_manager.get_all_meridians())}")
             
             # Initialize bot application.
             await self.application.initialize()
+            await self.setup_bot_commands()
             
             # Start scheduler.
             await self.scheduler.start()
@@ -184,7 +203,7 @@ class YogaBot:
             
             if self.settings.notify_admins_on_startup:
                 startup_msg = (
-                    f"🚀 **Yoga Bot Started**\n\n"
+                    f"🚀 <b>Journey of Ascension started</b>\n\n"
                     f"🕐 Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC\n"
                     f"📊 Languages: {list(self.principles_manager._principles.keys())}\n"
                     f"🌐 HTTP server: http://localhost:{self.settings.http_port}"
@@ -192,15 +211,55 @@ class YogaBot:
 
                 for admin_id in self.settings.get_admin_ids():
                     try:
-                        await self.bot.send_message(admin_id, startup_msg, parse_mode='Markdown')
+                        await self.bot.send_message(admin_id, startup_msg, parse_mode='HTML')
                     except Exception as e:
                         self.logger.warning(f"Failed to send startup message to admin {admin_id}: {e}")
             
-            self.logger.info("Yoga bot started successfully!")
+            self.logger.info("Journey of Ascension started successfully!")
             
         except Exception as e:
             self.logger.error(f"Failed to start bot: {e}")
             raise
+
+    async def setup_bot_commands(self) -> None:
+        """Publish the public command menu shown by Telegram clients."""
+        localized_commands = {
+            None: [
+                BotCommand("start", "Start or restart setup"),
+                BotCommand("menu", "Open the main practice menu"),
+                BotCommand("settings", "Adjust practice rhythm"),
+                BotCommand("stop", "Pause practice"),
+            ],
+            "en": [
+                BotCommand("start", "Start or restart setup"),
+                BotCommand("menu", "Open the main practice menu"),
+                BotCommand("settings", "Adjust practice rhythm"),
+                BotCommand("stop", "Pause practice"),
+            ],
+            "ru": [
+                BotCommand("start", "Запустить настройку заново"),
+                BotCommand("menu", "Открыть главное меню"),
+                BotCommand("settings", "Настроить ритм практики"),
+                BotCommand("stop", "Поставить практику на паузу"),
+            ],
+            "uz": [
+                BotCommand("start", "Sozlashni qayta boshlash"),
+                BotCommand("menu", "Asosiy amaliyot menyusini ochish"),
+                BotCommand("settings", "Amaliyot ritmini sozlash"),
+                BotCommand("stop", "Amaliyotni pauza qilish"),
+            ],
+            "kk": [
+                BotCommand("start", "Баптауды қайта бастау"),
+                BotCommand("menu", "Негізгі тәжірибе мәзірін ашу"),
+                BotCommand("settings", "Тәжірибе ырғағын реттеу"),
+                BotCommand("stop", "Тәжірибені паузаға қою"),
+            ],
+        }
+
+        for language_code, commands in localized_commands.items():
+            await self.bot.set_my_commands(commands, language_code=language_code)
+
+        self.logger.info("Published public Telegram command menu.")
     
     async def stop(self) -> None:
         """Stop the bot."""
@@ -213,9 +272,12 @@ class YogaBot:
             # Stop HTTP server.
             await self.stop_http_server()
             
-            # Stop bot application.
-            await self.application.updater.stop()
-            await self.application.stop()
+            # Stop bot application. These guards keep failed startups from
+            # raising secondary shutdown errors that hide the original cause.
+            if self.application.updater and self.application.updater.running:
+                await self.application.updater.stop()
+            if self.application.running:
+                await self.application.stop()
             await self.application.shutdown()
             
             self.logger.info("Yoga bot stopped successfully.")
@@ -260,7 +322,8 @@ class YogaBot:
         health_status.update({
             "bot_running": self.application.running,
             "scheduler_running": self.scheduler.scheduler.running,
-            "languages_loaded": list(self.principles_manager._principles.keys())
+            "languages_loaded": list(self.principles_manager._principles.keys()),
+            "meridians_loaded": len(self.meridians_manager.get_all_meridians())
         })
         
         return web.json_response(health_status)
@@ -310,7 +373,8 @@ class YogaBot:
             "bot": {
                 "running": self.application.running,
                 "uptime_seconds": (datetime.now(timezone.utc) - self.health_check.start_time).total_seconds(),
-                "languages": list(self.principles_manager._principles.keys())
+                "languages": list(self.principles_manager._principles.keys()),
+                "meridians": len(self.meridians_manager.get_all_meridians())
             }
         }
         
@@ -340,7 +404,7 @@ async def main() -> None:
         # Setup Sentry.
         setup_sentry(settings.sentry_dsn)
         
-        logger.info("Starting Yoga Bot application...")
+        logger.info("Starting Journey of Ascension application...")
         
         # Create bot instance.
         bot = YogaBot(settings)

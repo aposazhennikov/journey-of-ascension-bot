@@ -4,7 +4,7 @@ import json
 import os
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, fields
 import aiofiles
 
 
@@ -18,14 +18,122 @@ class User:
     skip_day_id: List[int] = None
     is_active: bool = True
     last_feedback_time: Optional[float] = None  # Unix timestamp for rate limiting
-    
+    principles_enabled: bool = True
+    meridians_enabled: bool = False
+    meridian_time_for_send: str = "20:00"
+    current_meridian_id: Optional[str] = None
+    current_point_index: int = -1
+    completed_meridians: List[str] = None
+    meridian_learning_mode: Optional[str] = None
+
     def __post_init__(self):
         """Initialize default values."""
+        self.chat_id = int(self.chat_id)
+        self.language = self.language if self.language in {"en", "ru", "uz", "kz"} else "en"
+        self.timezone = self._normalize_timezone(self.timezone)
+        self.time_for_send = self._normalize_time(self.time_for_send, "06:00")
+        self.meridian_time_for_send = self._normalize_time(self.meridian_time_for_send, "20:00")
+        self.is_active = self._normalize_bool(self.is_active, True)
+        self.principles_enabled = self._normalize_bool(self.principles_enabled, True)
+        self.meridians_enabled = self._normalize_bool(self.meridians_enabled, False)
+        self.current_point_index = self._normalize_int(self.current_point_index, -1)
+        self.meridian_learning_mode = (
+            self.meridian_learning_mode if self.meridian_learning_mode in {"guided", "free", None} else None
+        )
         if self.skip_day_id is None:
             self.skip_day_id = []
+        self.skip_day_id = self._normalize_days(self.skip_day_id)
+        if self.completed_meridians is None:
+            self.completed_meridians = []
+        self.completed_meridians = self._normalize_string_list(self.completed_meridians)
         # Ensure last_feedback_time is None if not set
         if not hasattr(self, 'last_feedback_time'):
             self.last_feedback_time = None
+        if self.current_meridian_id is not None:
+            self.current_meridian_id = str(self.current_meridian_id)
+
+    @staticmethod
+    def _normalize_bool(value: Any, default: bool) -> bool:
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            normalized = value.strip().lower()
+            if normalized in {"true", "1", "yes", "on"}:
+                return True
+            if normalized in {"false", "0", "no", "off"}:
+                return False
+        if isinstance(value, (int, float)):
+            return bool(value)
+        return default
+
+    @staticmethod
+    def _normalize_int(value: Any, default: int) -> int:
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
+
+    @staticmethod
+    def _normalize_time(value: Any, default: str) -> str:
+        if not isinstance(value, str) or ":" not in value:
+            return default
+        try:
+            hour_text, minute_text = value.strip().split(":", 1)
+            hour = int(hour_text)
+            minute = int(minute_text)
+        except ValueError:
+            return default
+        if hour < 0 or hour > 23 or minute < 0 or minute > 59:
+            return default
+        return f"{hour:02d}:{minute:02d}"
+
+    @staticmethod
+    def _normalize_timezone(value: Any) -> str:
+        if not isinstance(value, str) or not value.strip():
+            return "Europe/Moscow"
+        aliases = {
+            "utc": "UTC",
+            "uct": "UTC",
+            "gmt": "UTC",
+            "moscow": "Europe/Moscow",
+            "msk": "Europe/Moscow",
+        }
+        stripped = value.strip()
+        return aliases.get(stripped.lower(), stripped)
+
+    @staticmethod
+    def _normalize_days(value: Any) -> List[int]:
+        if not isinstance(value, list):
+            return []
+        days = []
+        for item in value:
+            try:
+                day = int(item)
+            except (TypeError, ValueError):
+                continue
+            if 0 <= day <= 6 and day not in days:
+                days.append(day)
+        return days
+
+    @staticmethod
+    def _normalize_string_list(value: Any) -> List[str]:
+        if not isinstance(value, list):
+            return []
+        result = []
+        for item in value:
+            if item is None:
+                continue
+            text = str(item).strip()
+            if text and text not in result:
+                result.append(text)
+        return result
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "User":
+        """Create a user from stored JSON, ignoring fields from older or experimental builds."""
+        allowed_fields = {field.name for field in fields(cls)}
+        clean_data = {key: value for key, value in data.items() if key in allowed_fields}
+        return cls(**clean_data)
 
 
 @dataclass 
@@ -107,7 +215,7 @@ class JsonStorage:
         users_data = await self._read_json(self.users_file)
         user_data = users_data.get(str(chat_id))
         if user_data:
-            return User(**user_data)
+            return User.from_dict(user_data)
         return None
     
     async def save_user(self, user: User) -> bool:
@@ -136,7 +244,7 @@ class JsonStorage:
         active_users = []
         for user_data in users_data.values():
             if user_data.get("is_active", True):
-                active_users.append(User(**user_data))
+                active_users.append(User.from_dict(user_data))
         return active_users
     
     async def deactivate_user(self, chat_id: int) -> bool:
