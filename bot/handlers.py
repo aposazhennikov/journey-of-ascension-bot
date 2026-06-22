@@ -1491,7 +1491,12 @@ TEXTS_UPDATE = {
             "<b>Stabilizing points</b> help balance energy between paired meridians.\n\n"
             "<b>Alarm points</b> help assess the functional state of a meridian and its related organ. Some are located on their own meridian, others outside it.\n\n"
             "Acupuncture points on the classical permanent meridians are also divided into distal and proximal groups. Distal points are below the elbow and knee joints; proximal points are all the others. Distal points usually have a wider range of indications.\n\n"
-            "<b>The points that begin and end meridians are considered especially effective.</b>"
+            "<b>The points that begin and end meridians are considered especially effective.</b>\n\n"
+            "<b>What happens when energy circulation in meridians is disturbed?</b>\n\n"
+            "According to classical Chinese acupuncture theory, the work of the organs depends on internal energy. In a healthy state, energy circulates freely through Yang and Yin meridians and remains in harmony. When a pathological process develops, this harmony is disturbed: some meridians may show excess, while others may show deficiency. Correct work with acupuncture points is traditionally used to help restore balanced energy circulation.\n\n"
+            "<b>Examples of excess energy</b> may include arterial hypertension, gastritis with increased acidity, spastic constipation, lung conditions accompanied by bronchospasm, muscle hypertonicity, and impaired circulation in the lower limbs caused by vascular spasm.\n\n"
+            "<b>Examples of energy deficiency</b> may include arterial hypotension, gastritis with low acidity, atonic constipation, paresis and paralysis, muscle atrophy, and chronic conditions that lead to exhaustion and reduced protective reserves.\n\n"
+            "<i>This material is for study and self-observation. It does not replace medical diagnosis or treatment.</i>"
         ),
         "principles_random": "Random principle",
         "principles_all": "All principles",
@@ -1716,7 +1721,12 @@ TEXTS_UPDATE = {
             "<b>Стабилизирующие точки</b> помогают удерживать равновесие энергии в парных меридианах.\n\n"
             "<b>Сигнальные точки</b>, или точки тревоги, помогают определить функциональное состояние меридиана и связанного с ним органа. Одни находятся на своём меридиане, другие — за его пределами.\n\n"
             "Точки на постоянных классических меридианах также делят на дистальные и проксимальные. Дистальные расположены ниже локтевых и коленных суставов, проксимальные — все остальные. У дистальных точек обычно более широкий перечень показаний.\n\n"
-            "<b>Наиболее эффективными считаются точки, которыми начинаются и заканчиваются меридианы.</b>"
+            "<b>Наиболее эффективными считаются точки, которыми начинаются и заканчиваются меридианы.</b>\n\n"
+            "<b>К чему приводит нарушение циркуляции энергии в меридианах?</b>\n\n"
+            "Согласно древнекитайской теории акупунктуры, деятельность органов зависит от внутренней энергии. У здорового человека энергия в меридианах Ян и Инь циркулирует свободно и находится в гармонии. При развитии патологического процесса гармония нарушается: в одних меридианах возникает избыток, а в других — недостаток энергии. Правильное воздействие на точки иглорефлексотерапии традиционно используется для восстановления нормальной циркуляции энергии.\n\n"
+            "<b>Примеры избытка энергии</b>: артериальная гипертония, гастрит с повышенной кислотностью, спастические запоры, заболевания лёгких с бронхоспазмом, гипертонус мышц, нарушение кровообращения в нижних конечностях вследствие спазма сосудов.\n\n"
+            "<b>Примеры недостатка энергии</b>: артериальная гипотония, гастрит с пониженной кислотностью, атонические запоры, парезы и параличи, мышечная атрофия, хронические заболевания, которые приводят к истощению и снижению защитных сил организма.\n\n"
+            "<i>Материал дан для изучения и самонаблюдения. Он не заменяет медицинскую диагностику и лечение.</i>"
         ),
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
@@ -1941,7 +1951,12 @@ TEXTS_UPDATE = {
             "<b>Barqarorlashtiruvchi nuqtalar</b> juft meridianlar orasidagi energiya muvozanatini saqlashga yordam beradi.\n\n"
             "<b>Signal nuqtalar</b>, ya'ni xavotir nuqtalari, meridian va unga bog'liq organ holatini baholashga yordam beradi. Ularning ayrimlari o'z meridianida, boshqalari esa undan tashqarida joylashadi.\n\n"
             "Klassik doimiy meridianlardagi nuqtalar distal va proksimal guruhlarga ham bo'linadi. Distal nuqtalar tirsak va tizza bo'g'imlaridan pastda joylashadi; proksimal nuqtalar esa qolgan barcha nuqtalardir. Distal nuqtalarning qo'llanish doirasi odatda kengroq bo'ladi.\n\n"
-            "<b>Meridian boshlanadigan va tugaydigan nuqtalar ayniqsa samarali hisoblanadi.</b>"
+            "<b>Meridian boshlanadigan va tugaydigan nuqtalar ayniqsa samarali hisoblanadi.</b>\n\n"
+            "<b>Meridianlarda energiya aylanishi buzilsa, nima bo'ladi?</b>\n\n"
+            "Qadimgi Xitoy akupunktura nazariyasiga ko'ra, organlarning faoliyati ichki energiyaga bog'liq. Sog'lom holatda energiya Yang va Yin meridianlarida erkin aylanadi va uyg'unlikda bo'ladi. Patologik jarayon rivojlanganda bu uyg'unlik buziladi: ayrim meridianlarda ortiqchalik, boshqalarida esa yetishmovchilik paydo bo'lishi mumkin. Akupunktura nuqtalari bilan to'g'ri ishlash an'anaviy ravishda energiya aylanishini muvozanatga qaytarishga yordam beradi deb qaraladi.\n\n"
+            "<b>Energiya ortiqchaligiga misollar</b>: arterial gipertoniya, kislotalilik oshgan gastrit, spastik qabziyat, bronxospazm bilan kechadigan o'pka kasalliklari, mushak gipertonusi, tomir spazmi sabab pastki oyoqlarda qon aylanishining buzilishi.\n\n"
+            "<b>Energiya yetishmovchiligiga misollar</b>: arterial gipotoniya, kislotalilik pasaygan gastrit, atonik qabziyat, parez va falajlar, mushak atrofiyasi, charchash va himoya kuchlarining pasayishiga olib keladigan surunkali kasalliklar.\n\n"
+            "<i>Bu material o'rganish va o'zini kuzatish uchun berilgan. U tibbiy tashxis va davolash o'rnini bosmaydi.</i>"
         ),
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
@@ -2179,7 +2194,12 @@ TEXTS_UPDATE = {
             "<b>Тұрақтандырушы нүктелер</b> жұп меридиандардағы энергия тепе-теңдігін сақтауға көмектеседі.\n\n"
             "<b>Сигналдық нүктелер</b>, немесе дабыл нүктелері, меридиан мен оған байланысты ағзаның функционалдық күйін бағалауға көмектеседі. Олардың бір бөлігі өз меридианында, бір бөлігі одан тыс орналасады.\n\n"
             "Классикалық тұрақты меридиандардағы нүктелер дистальды және проксимальды топтарға да бөлінеді. Дистальды нүктелер шынтақ және тізе буындарынан төмен орналасады; проксимальды нүктелер — қалғандарының бәрі. Дистальды нүктелердің қолданылу аясы әдетте кеңірек.\n\n"
-            "<b>Меридиан басталатын және аяқталатын нүктелер әсіресе тиімді деп есептеледі.</b>"
+            "<b>Меридиан басталатын және аяқталатын нүктелер әсіресе тиімді деп есептеледі.</b>\n\n"
+            "<b>Меридиандардағы энергия айналымы бұзылса, не болады?</b>\n\n"
+            "Ежелгі қытай акупунктура теориясына сәйкес, ағзалардың қызметі ішкі энергияға байланысты. Сау адамда энергия Ян және Инь меридиандарында еркін айналып, үйлесімде болады. Патологиялық процесс дамығанда бұл үйлесім бұзылады: кейбір меридиандарда артықтық, ал басқаларында жетіспеушілік пайда болуы мүмкін. Акупунктура нүктелерімен дұрыс жұмыс істеу дәстүрлі түрде энергия айналымын теңестіруге көмектеседі деп қарастырылады.\n\n"
+            "<b>Энергия артықтығына мысалдар</b>: артериялық гипертония, қышқылдығы жоғары гастрит, спастикалық іш қату, бронхоспазммен жүретін өкпе аурулары, бұлшықет гипертонусы, тамыр спазмы салдарынан төменгі аяқтардағы қан айналымының бұзылуы.\n\n"
+            "<b>Энергия жетіспеушілігіне мысалдар</b>: артериялық гипотония, қышқылдығы төмен гастрит, атониялық іш қату, парездер мен салдану, бұлшықет атрофиясы, әлсіреу мен қорғаныс күштерінің төмендеуіне әкелетін созылмалы аурулар.\n\n"
+            "<i>Бұл материал оқу және өзін-өзі бақылау үшін берілген. Ол медициналық диагностика мен емдеуді алмастырмайды.</i>"
         ),
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
