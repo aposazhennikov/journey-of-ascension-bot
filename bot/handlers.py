@@ -1481,6 +1481,18 @@ TEXTS_UPDATE = {
             "Coming Soon.\n\n"
             "Later this section will contain links to articles and other materials for deeper study."
         ),
+        "meridian_materials_text": (
+            "📚 <b>Useful materials</b>\n\n"
+            "<b>Types of standard acupuncture points</b>\n\n"
+            "Classical permanent meridians contain from 9 to 67 acupuncture points; the traditional total is 361 points. The paired meridians I-XII have standard points that differ by their effect.\n\n"
+            "<b>Tonifying points</b> activate the meridian and support the work of the related internal organs.\n\n"
+            "<b>Sedating points</b> calm excessive activity, soften internal tension, and help release nervous overstrain.\n\n"
+            "<b>Assistant points</b> strengthen the action of a tonifying or sedating point and, depending on the method of stimulation, can sometimes replace them.\n\n"
+            "<b>Stabilizing points</b> help balance energy between paired meridians.\n\n"
+            "<b>Alarm points</b> help assess the functional state of a meridian and its related organ. Some are located on their own meridian, others outside it.\n\n"
+            "Acupuncture points on the classical permanent meridians are also divided into distal and proximal groups. Distal points are below the elbow and knee joints; proximal points are all the others. Distal points usually have a wider range of indications.\n\n"
+            "<b>The points that begin and end meridians are considered especially effective.</b>"
+        ),
         "principles_random": "Random principle",
         "principles_all": "All principles",
         "principles_back": "🔙 Back to Yama/Niyama",
@@ -1694,6 +1706,18 @@ TEXTS_UPDATE = {
             "Coming Soon.\n\n"
             "Позже здесь будут ссылки на статьи и другие материалы для более глубокого изучения."
         ),
+        "meridian_materials_text": (
+            "📚 <b>Полезные материалы</b>\n\n"
+            "<b>Виды стандартных акупунктурных точек</b>\n\n"
+            "На постоянных классических меридианах находится от 9 до 67 акупунктурных точек; традиционное общее количество — 361 точка. Парные меридианы I-XII имеют стандартные точки, которые различаются по воздействию.\n\n"
+            "<b>Тонизирующие точки</b> активизируют меридиан и поддерживают работу соответствующих внутренних органов.\n\n"
+            "<b>Седативные точки</b> оказывают успокаивающее действие, снижают чрезмерную активность внутренних органов и помогают снять нервное напряжение.\n\n"
+            "<b>Точки-пособники</b> усиливают действие тонизирующей или успокаивающей точки, а в зависимости от метода воздействия могут заменять их.\n\n"
+            "<b>Стабилизирующие точки</b> помогают удерживать равновесие энергии в парных меридианах.\n\n"
+            "<b>Сигнальные точки</b>, или точки тревоги, помогают определить функциональное состояние меридиана и связанного с ним органа. Одни находятся на своём меридиане, другие — за его пределами.\n\n"
+            "Точки на постоянных классических меридианах также делят на дистальные и проксимальные. Дистальные расположены ниже локтевых и коленных суставов, проксимальные — все остальные. У дистальных точек обычно более широкий перечень показаний.\n\n"
+            "<b>Наиболее эффективными считаются точки, которыми начинаются и заканчиваются меридианы.</b>"
+        ),
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
         "principles_back": "🔙 К Яме/Нияме",
@@ -1906,6 +1930,18 @@ TEXTS_UPDATE = {
             "📚 <b>Foydali materiallar</b>\n\n"
             "Coming Soon.\n\n"
             "Keyinroq bu yerda chuqurroq o'rganish uchun maqolalar va boshqa materiallarga havolalar bo'ladi."
+        ),
+        "meridian_materials_text": (
+            "📚 <b>Foydali materiallar</b>\n\n"
+            "<b>Standart akupunktura nuqtalarining turlari</b>\n\n"
+            "Doimiy klassik meridianlarda 9 tadan 67 tagacha akupunktura nuqtasi bo'ladi; an'anaviy umumiy soni 361 ta nuqta deb olinadi. I-XII juft meridianlarda ta'siriga ko'ra farqlanadigan standart nuqtalar bor.\n\n"
+            "<b>Tonizatsiya qiluvchi nuqtalar</b> meridianni faollashtiradi va tegishli ichki organlar ishini qo'llab-quvvatlaydi.\n\n"
+            "<b>Sedativ nuqtalar</b> ortiqcha faollikni tinchlantiradi, ichki taranglikni yumshatadi va asabiy zo'riqishni kamaytirishga yordam beradi.\n\n"
+            "<b>Yordamchi nuqtalar</b> tonizatsiya qiluvchi yoki tinchlantiruvchi nuqtaning ta'sirini kuchaytiradi; ta'sir usuliga qarab ularning o'rnini ham bosishi mumkin.\n\n"
+            "<b>Barqarorlashtiruvchi nuqtalar</b> juft meridianlar orasidagi energiya muvozanatini saqlashga yordam beradi.\n\n"
+            "<b>Signal nuqtalar</b>, ya'ni xavotir nuqtalari, meridian va unga bog'liq organ holatini baholashga yordam beradi. Ularning ayrimlari o'z meridianida, boshqalari esa undan tashqarida joylashadi.\n\n"
+            "Klassik doimiy meridianlardagi nuqtalar distal va proksimal guruhlarga ham bo'linadi. Distal nuqtalar tirsak va tizza bo'g'imlaridan pastda joylashadi; proksimal nuqtalar esa qolgan barcha nuqtalardir. Distal nuqtalarning qo'llanish doirasi odatda kengroq bo'ladi.\n\n"
+            "<b>Meridian boshlanadigan va tugaydigan nuqtalar ayniqsa samarali hisoblanadi.</b>"
         ),
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
@@ -2132,6 +2168,18 @@ TEXTS_UPDATE = {
             "📚 <b>Пайдалы материалдар</b>\n\n"
             "Coming Soon.\n\n"
             "Кейінірек мұнда тереңірек зерттеуге арналған мақалалар мен басқа материалдарға сілтемелер болады."
+        ),
+        "meridian_materials_text": (
+            "📚 <b>Пайдалы материалдар</b>\n\n"
+            "<b>Стандартты акупунктура нүктелерінің түрлері</b>\n\n"
+            "Тұрақты классикалық меридиандарда 9-дан 67-ге дейін акупунктура нүктесі болады; дәстүрлі жалпы саны — 361 нүкте. I-XII жұп меридиандарда әсеріне қарай бөлінетін стандартты нүктелер бар.\n\n"
+            "<b>Тонизациялайтын нүктелер</b> меридианды белсендіреді және тиісті ішкі ағзалардың жұмысын қолдайды.\n\n"
+            "<b>Седативті нүктелер</b> артық белсенділікті тыныштандырады, ішкі ширығуды жұмсартады және жүйке кернеуін азайтуға көмектеседі.\n\n"
+            "<b>Көмекші нүктелер</b> тонизациялайтын немесе тыныштандыратын нүктенің әсерін күшейтеді; әсер ету әдісіне қарай кейде олардың орнын баса алады.\n\n"
+            "<b>Тұрақтандырушы нүктелер</b> жұп меридиандардағы энергия тепе-теңдігін сақтауға көмектеседі.\n\n"
+            "<b>Сигналдық нүктелер</b>, немесе дабыл нүктелері, меридиан мен оған байланысты ағзаның функционалдық күйін бағалауға көмектеседі. Олардың бір бөлігі өз меридианында, бір бөлігі одан тыс орналасады.\n\n"
+            "Классикалық тұрақты меридиандардағы нүктелер дистальды және проксимальды топтарға да бөлінеді. Дистальды нүктелер шынтақ және тізе буындарынан төмен орналасады; проксимальды нүктелер — қалғандарының бәрі. Дистальды нүктелердің қолданылу аясы әдетте кеңірек.\n\n"
+            "<b>Меридиан басталатын және аяқталатын нүктелер әсіресе тиімді деп есептеледі.</b>"
         ),
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
@@ -4625,7 +4673,7 @@ class BotHandlers:
             if action == "materials":
                 await self._edit_message_text_safe(
                     query,
-                    self._get_text("useful_materials_soon", language),
+                    self._get_text("meridian_materials_text", language),
                     reply_markup=self._create_meridians_menu_keyboard(language, user),
                     parse_mode='HTML'
                 )

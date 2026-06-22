@@ -316,6 +316,126 @@ def _localized_value(item: Dict[str, Any], language: str, key: str, default: str
     return localized.get(language, localized.get("en", {})).get(key, default)
 
 
+MERIDIAN_METADATA: Dict[str, Dict[str, str]] = {
+    "lung": {"system": "yin", "element": "metal", "pair": "large_intestine", "level": "hand_taiyin"},
+    "large_intestine": {"system": "yang", "element": "metal", "pair": "lung", "level": "hand_yangming"},
+    "stomach": {"system": "yang", "element": "earth", "pair": "spleen", "level": "foot_yangming"},
+    "spleen": {"system": "yin", "element": "earth", "pair": "stomach", "level": "foot_taiyin"},
+    "heart": {"system": "yin", "element": "fire", "pair": "small_intestine", "level": "hand_shaoyin"},
+    "small_intestine": {"system": "yang", "element": "fire", "pair": "heart", "level": "hand_taiyang"},
+    "bladder": {"system": "yang", "element": "water", "pair": "kidney", "level": "foot_taiyang"},
+    "kidney": {"system": "yin", "element": "water", "pair": "bladder", "level": "foot_shaoyin"},
+    "pericardium": {"system": "yin", "element": "fire", "pair": "triple_burner", "level": "hand_jueyin"},
+    "triple_burner": {"system": "yang", "element": "fire", "pair": "pericardium", "level": "hand_shaoyang"},
+    "gallbladder": {"system": "yang", "element": "wood", "pair": "liver", "level": "foot_shaoyang"},
+    "liver": {"system": "yin", "element": "wood", "pair": "gallbladder", "level": "foot_jueyin"},
+    "governing_vessel": {"system": "yang", "element": "extraordinary", "pair": "none", "level": "du_mai"},
+    "conception_vessel": {"system": "yin", "element": "extraordinary", "pair": "none", "level": "ren_mai"},
+}
+
+
+MERIDIAN_METADATA_LABELS: Dict[str, Dict[str, Dict[str, str]]] = {
+    "field": {
+        "en": {"system": "System", "element": "Element", "pair": "Paired meridian", "level": "Level"},
+        "ru": {"system": "Система", "element": "Стихия", "pair": "Парный меридиан", "level": "Уровень"},
+        "uz": {"system": "Tizim", "element": "Unsur", "pair": "Juft meridian", "level": "Daraja"},
+        "kz": {"system": "Жүйе", "element": "Стихия", "pair": "Жұп меридиан", "level": "Деңгей"},
+    },
+    "system": {
+        "en": {"yin": "Yin", "yang": "Yang"},
+        "ru": {"yin": "Инь", "yang": "Ян"},
+        "uz": {"yin": "Yin", "yang": "Yang"},
+        "kz": {"yin": "Инь", "yang": "Ян"},
+    },
+    "element": {
+        "en": {"wood": "Wood", "fire": "Fire", "earth": "Earth", "metal": "Metal", "water": "Water", "extraordinary": "outside the five-element organ cycle"},
+        "ru": {"wood": "Дерево", "fire": "Огонь", "earth": "Земля", "metal": "Металл", "water": "Вода", "extraordinary": "вне пяти стихий органных меридианов"},
+        "uz": {"wood": "Daraxt", "fire": "Olov", "earth": "Yer", "metal": "Metall", "water": "Suv", "extraordinary": "organ meridianlarining besh unsur doirasidan tashqarida"},
+        "kz": {"wood": "Ағаш", "fire": "От", "earth": "Жер", "metal": "Металл", "water": "Су", "extraordinary": "ағзалық меридиандардың бес стихия шеңберінен тыс"},
+    },
+    "pair": {
+        "en": {"none": "unpaired"},
+        "ru": {"none": "непарный"},
+        "uz": {"none": "juftsiz"},
+        "kz": {"none": "жұпсыз"},
+    },
+    "level": {
+        "en": {
+            "hand_taiyin": "Hand Taiyin", "hand_yangming": "Hand Yangming", "foot_yangming": "Foot Yangming",
+            "foot_taiyin": "Foot Taiyin", "hand_shaoyin": "Hand Shaoyin", "hand_taiyang": "Hand Taiyang",
+            "foot_taiyang": "Foot Taiyang", "foot_shaoyin": "Foot Shaoyin", "hand_jueyin": "Hand Jueyin",
+            "hand_shaoyang": "Hand Shaoyang", "foot_shaoyang": "Foot Shaoyang", "foot_jueyin": "Foot Jueyin",
+            "du_mai": "Du Mai, extraordinary vessel", "ren_mai": "Ren Mai, extraordinary vessel",
+        },
+        "ru": {
+            "hand_taiyin": "Тай-инь руки", "hand_yangming": "Ян-мин руки", "foot_yangming": "Ян-мин ноги",
+            "foot_taiyin": "Тай-инь ноги", "hand_shaoyin": "Шао-инь руки", "hand_taiyang": "Тай-ян руки",
+            "foot_taiyang": "Тай-ян ноги", "foot_shaoyin": "Шао-инь ноги", "hand_jueyin": "Цзюэ-инь руки",
+            "hand_shaoyang": "Шао-ян руки", "foot_shaoyang": "Шао-ян ноги", "foot_jueyin": "Цзюэ-инь ноги",
+            "du_mai": "Ду-май, чудесный сосуд", "ren_mai": "Жэнь-май, чудесный сосуд",
+        },
+        "uz": {
+            "hand_taiyin": "Qo'l Taiyin", "hand_yangming": "Qo'l Yangming", "foot_yangming": "Oyoq Yangming",
+            "foot_taiyin": "Oyoq Taiyin", "hand_shaoyin": "Qo'l Shaoyin", "hand_taiyang": "Qo'l Taiyang",
+            "foot_taiyang": "Oyoq Taiyang", "foot_shaoyin": "Oyoq Shaoyin", "hand_jueyin": "Qo'l Jueyin",
+            "hand_shaoyang": "Qo'l Shaoyang", "foot_shaoyang": "Oyoq Shaoyang", "foot_jueyin": "Oyoq Jueyin",
+            "du_mai": "Du Mai, ajoyib tomir", "ren_mai": "Ren Mai, ajoyib tomir",
+        },
+        "kz": {
+            "hand_taiyin": "Қол Тай-инь", "hand_yangming": "Қол Ян-мин", "foot_yangming": "Аяқ Ян-мин",
+            "foot_taiyin": "Аяқ Тай-инь", "hand_shaoyin": "Қол Шао-инь", "hand_taiyang": "Қол Тай-ян",
+            "foot_taiyang": "Аяқ Тай-ян", "foot_shaoyin": "Аяқ Шао-инь", "hand_jueyin": "Қол Цзюэ-инь",
+            "hand_shaoyang": "Қол Шао-ян", "foot_shaoyang": "Аяқ Шао-ян", "foot_jueyin": "Аяқ Цзюэ-инь",
+            "du_mai": "Ду-май, ерекше тамыр", "ren_mai": "Жэнь-май, ерекше тамыр",
+        },
+    },
+}
+
+
+MERIDIAN_LOCALIZED_NAMES: Dict[str, Dict[str, str]] = {
+    "lung": {"en": "Lung Meridian", "ru": "Меридиан лёгких", "uz": "O'pka meridiani", "kz": "Өкпе меридианы"},
+    "large_intestine": {"en": "Large Intestine Meridian", "ru": "Меридиан толстой кишки", "uz": "Yo'g'on ichak meridiani", "kz": "Тоқ ішек меридианы"},
+    "stomach": {"en": "Stomach Meridian", "ru": "Меридиан желудка", "uz": "Oshqozon meridiani", "kz": "Асқазан меридианы"},
+    "spleen": {"en": "Spleen Meridian", "ru": "Меридиан селезёнки", "uz": "Taloq meridiani", "kz": "Көкбауыр меридианы"},
+    "heart": {"en": "Heart Meridian", "ru": "Меридиан сердца", "uz": "Yurak meridiani", "kz": "Жүрек меридианы"},
+    "small_intestine": {"en": "Small Intestine Meridian", "ru": "Меридиан тонкого кишечника", "uz": "Ingichka ichak meridiani", "kz": "Ащы ішек меридианы"},
+    "bladder": {"en": "Bladder Meridian", "ru": "Меридиан мочевого пузыря", "uz": "Siydik pufagi meridiani", "kz": "Қуық меридианы"},
+    "kidney": {"en": "Kidney Meridian", "ru": "Меридиан почек", "uz": "Buyrak meridiani", "kz": "Бүйрек меридианы"},
+    "pericardium": {"en": "Pericardium Meridian", "ru": "Меридиан перикарда", "uz": "Perikard meridiani", "kz": "Перикард меридианы"},
+    "triple_burner": {"en": "Triple Burner Meridian", "ru": "Меридиан трёх обогревателей", "uz": "Uch isitkich meridiani", "kz": "Үш жылытқыш меридианы"},
+    "gallbladder": {"en": "Gallbladder Meridian", "ru": "Меридиан желчного пузыря", "uz": "O't pufagi meridiani", "kz": "Өт қабы меридианы"},
+    "liver": {"en": "Liver Meridian", "ru": "Меридиан печени", "uz": "Jigar meridiani", "kz": "Бауыр меридианы"},
+}
+
+
+def _metadata_label(group: str, key: str, language: str) -> str:
+    labels = MERIDIAN_METADATA_LABELS.get(group, {})
+    return labels.get(language, labels.get("en", {})).get(key, key)
+
+
+def _format_meridian_metadata(meridian: Dict[str, Any], language: str) -> str:
+    """Return the meridian's TCM classification block."""
+    metadata = MERIDIAN_METADATA.get(meridian.get("id", ""))
+    if not metadata:
+        return ""
+
+    fields = MERIDIAN_METADATA_LABELS["field"].get(language, MERIDIAN_METADATA_LABELS["field"]["en"])
+    pair_id = metadata.get("pair", "none")
+    if pair_id == "none":
+        pair_name = _metadata_label("pair", "none", language)
+    else:
+        pair_names = MERIDIAN_LOCALIZED_NAMES.get(pair_id, {})
+        pair_name = pair_names.get(language, pair_names.get("en", pair_id))
+
+    lines = [
+        f"<b>{escape(fields['system'])}:</b> {escape(_metadata_label('system', metadata['system'], language))}",
+        f"<b>{escape(fields['element'])}:</b> {escape(_metadata_label('element', metadata['element'], language))}",
+        f"<b>{escape(fields['pair'])}:</b> {escape(pair_name)}",
+        f"<b>{escape(fields['level'])}:</b> {escape(_metadata_label('level', metadata['level'], language))}",
+    ]
+    return "\n".join(lines)
+
+
 def _content_html(value: str) -> str:
     """Escape local content while allowing basic Telegram HTML formatting."""
     escaped = escape(value)
@@ -427,6 +547,9 @@ def format_meridian_intro(meridian: Dict[str, Any], language: str = "en") -> str
     message += f"<b>{escape(labels[0])}:</b> {escape(str(active_time))}\n"
     message += f"<b>{escape(labels[1])}:</b> {escape(str(passive_time))}\n"
     message += f"<b>{escape(labels[2])}:</b> {len(points)}\n"
+    metadata = _format_meridian_metadata(meridian, language)
+    if metadata:
+        message += f"{metadata}\n"
     if direction:
         message += f"<b>{escape(labels[3])}:</b> {direction}\n"
     if practice:
