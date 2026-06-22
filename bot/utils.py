@@ -79,8 +79,9 @@ class MeridiansManager:
     """Manager for Chinese meridians study content."""
 
     RECOMMENDED_PATH = [
-        "conception_vessel",
         "governing_vessel",
+        "conception_vessel",
+        "kidney",
         "lung",
         "large_intestine",
         "stomach",
@@ -88,7 +89,6 @@ class MeridiansManager:
         "heart",
         "small_intestine",
         "bladder",
-        "kidney",
         "pericardium",
         "triple_burner",
         "gallbladder",
