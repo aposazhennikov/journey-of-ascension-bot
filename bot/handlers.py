@@ -27,7 +27,8 @@ from .utils import (
     fit_html_caption,
     get_principle_image_path,
     get_meridian_image_path,
-    localized_point_name
+    localized_point_name,
+    MERIDIAN_METADATA
 )
 
 
@@ -4325,16 +4326,51 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
         ])
 
+    def _localized_meridian_name(self, meridian: Optional[Dict[str, Any]], language: str) -> str:
+        """Return a meridian name in the user's language."""
+        if not meridian:
+            return ""
+        localized = meridian.get("i18n", {})
+        return localized.get(language, localized.get("en", {})).get("name", meridian.get("id", ""))
+
+    def _get_pair_meridian_id(self, meridian_id: Optional[str]) -> Optional[str]:
+        """Return paired meridian id for ordinary paired channels."""
+        if not meridian_id:
+            return None
+        pair_id = MERIDIAN_METADATA.get(meridian_id, {}).get("pair")
+        return pair_id if pair_id and pair_id != "none" else None
+
+    def _pair_meridian_button(self, meridian_id: Optional[str], language: str) -> Optional[InlineKeyboardButton]:
+        """Create a button that opens the paired meridian card."""
+        pair_id = self._get_pair_meridian_id(meridian_id)
+        if not pair_id:
+            return None
+        pair_meridian = self.meridians_manager.get_meridian_by_id(pair_id)
+        if not pair_meridian:
+            return None
+        prefixes = {
+            "en": "Paired",
+            "ru": "Парный",
+            "uz": "Juft",
+            "kz": "Жұп",
+        }
+        prefix = prefixes.get(language, prefixes["en"])
+        return InlineKeyboardButton(
+            f"{prefix}: {self._localized_meridian_name(pair_meridian, language)}",
+            callback_data=f"meridian_pair:{pair_id}"
+        )
+
     def _create_meridian_practice_keyboard(
         self,
         language: str,
         at_intro: bool = False,
         point_index: Optional[int] = None,
-        points_count: Optional[int] = None
+        points_count: Optional[int] = None,
+        meridian_id: Optional[str] = None
     ) -> InlineKeyboardMarkup:
         """Create navigation keyboard for an opened meridian or point."""
         if at_intro:
-            return InlineKeyboardMarkup([
+            keyboard = [
                 [InlineKeyboardButton(self._get_text("meridian_start_points", language), callback_data="meridian_next")],
                 [InlineKeyboardButton(self._get_text("meridian_video", language), callback_data="meridian_video")],
                 [
@@ -4342,7 +4378,11 @@ class BotHandlers:
                     InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
                 ],
                 [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
-            ])
+            ]
+            pair_button = self._pair_meridian_button(meridian_id, language)
+            if pair_button:
+                keyboard.insert(3, [pair_button])
+            return InlineKeyboardMarkup(keyboard)
 
         navigation_row = []
         if point_index is None or point_index > 0:
@@ -4903,7 +4943,7 @@ class BotHandlers:
                     await self._show_meridian_card(
                         query,
                         text,
-                        self._create_meridian_practice_keyboard(language, at_intro=True),
+                        self._create_meridian_practice_keyboard(language, at_intro=True, meridian_id=meridian.get("id") if meridian else None),
                         language,
                         meridian.get("id") if meridian else None
                     )
@@ -5008,7 +5048,28 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridian_practice_keyboard(language, at_intro=True),
+                    self._create_meridian_practice_keyboard(language, at_intro=True, meridian_id=meridian.get("id")),
+                    language,
+                    meridian.get("id")
+                )
+                return
+
+            if action.startswith("pair:"):
+                meridian_id = action.split(":", 1)[1]
+                meridian = self.meridians_manager.get_meridian_by_id(meridian_id)
+                if not meridian:
+                    await self._edit_message_text_safe(query, self._get_text("error", language))
+                    return
+                user.current_meridian_id = meridian_id
+                user.current_point_index = -1
+                user.meridians_enabled = True
+                await self.storage.save_user(user)
+                await self.scheduler.schedule_user_immediately(chat_id)
+                text = format_meridian_intro(meridian, language)
+                await self._show_meridian_card(
+                    query,
+                    text,
+                    self._create_meridian_practice_keyboard(language, at_intro=True, meridian_id=meridian.get("id")),
                     language,
                     meridian.get("id")
                 )
@@ -5056,7 +5117,8 @@ class BotHandlers:
                             language,
                             at_intro=user.current_point_index < 0,
                             point_index=user.current_point_index if user.current_point_index >= 0 else None,
-                            points_count=len(points)
+                            points_count=len(points),
+                            meridian_id=meridian.get("id")
                         ),
                         parse_mode='HTML'
                     )
@@ -5080,7 +5142,8 @@ class BotHandlers:
                             language,
                             at_intro=user.current_point_index < 0,
                             point_index=user.current_point_index if user.current_point_index >= 0 else None,
-                            points_count=len(points)
+                            points_count=len(points),
+                            meridian_id=meridian.get("id")
                         ),
                         parse_mode='HTML'
                     )
@@ -5096,7 +5159,8 @@ class BotHandlers:
                         language,
                         at_intro=user.current_point_index < 0,
                         point_index=user.current_point_index if user.current_point_index >= 0 else None,
-                        points_count=len(points)
+                        points_count=len(points),
+                        meridian_id=meridian.get("id")
                     ),
                     language,
                     meridian.get("id"),
