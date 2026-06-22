@@ -2728,6 +2728,234 @@ LIVE_TEXT_OVERRIDES = {
 for _language, _updates in TEXTS_UPDATE.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
+SHU_POINTS_ARTICLE_OVERRIDES = {
+    "ru": {
+        "meridian_materials_sending": "📚 <b>Пять шу-точек</b>\n\nОтправлю материал как статью: текстовыми блоками и изображениями в тех местах, где они нужны по смыслу.",
+        "shu_intro_text": (
+            "📚 <b>Пять шу-точек</b>\n\n"
+            "Пять шу-точек — это пять типов специфических точек <b>двенадцати главных каналов</b>, которые расположены <b>на дистальных отделах</b> каналов: между пальцами руки и локтем или между пальцами ноги и коленом.\n\n"
+            "<b>Пять шу-точек</b> (五输穴 wu shū xue):\n\n"
+            "• точки-истоки (井 <i>цзин</i>);\n"
+            "• точки-ручьи (荥 <i>ин</i>);\n"
+            "• точки-быстрины (输 <i>шу</i>);\n"
+            "• точки-реки (经 <i>цзин</i>);\n"
+            "• точки-устья (合 <i>хэ</i>).\n\n"
+            "Другие названия: 5 античных шу-точек, транспортировочные точки или точки 5 первоэлементов.\n\n"
+            "<b>Древние китайские мыслители сравнивали пять точек, расположенные между пальцами и коленом/локтем, с рекой.</b>"
+        ),
+        "shu_flow_text": (
+            "Точки, расположенные на кончиках пальцев кисти или стопы, — это <b>исток</b>. Затем река становится полноводнее и глубже и заканчивается <b>точкой-устьем</b>, расположенной в области колена или локтя.\n\n"
+            "Так обозначена тенденция к <b>нарастанию глубины и ширины канала</b>, направленная от кончиков пальцев к локтю или колену. На кончике пальца канал узкий и поверхностный, а в области колена и локтя — широкий и глубокий.\n\n"
+            "Важно: нарастание размера и глубины канала <b>не зависит от направления течения</b>. Эта закономерность справедлива для Инь- и Ян-каналов рук и ног.\n\n"
+            "Даже если каналы Инь рук текут к пальцам кисти, а каналы Ян рук текут к груди, сравнение точек на кончиках пальцев с истоком, а на локте — с устьем реки остаётся верным."
+        ),
+        "shu_indications_text": (
+            "<blockquote>Шу-точки расположены ближе к поверхности, чем остальные точки каналов. Энергетическое действие этих точек считается более быстрым, поэтому их часто используют в клинической практике.</blockquote>\n\n"
+            "<b>Основные показания пяти шу-точек:</b>\n\n"
+            "— <b>точки-истоки</b> — неотложная помощь при критических состояниях;\n"
+            "— <b>точки-ручьи</b> — болезни со свойствами жара;\n"
+            "— <b>точки-быстрины</b> — боль в суставах;\n"
+            "— <b>точки-реки</b> — наружный синдром с лихорадкой и ознобом, кашлем, одышкой и болезнями горла;\n"
+            "— <b>точки-устья</b> — болезни желудка, кишечника и других фу-органов."
+        ),
+        "shu_sources_text": (
+            "<b>1. ТОЧКИ-ИСТОКИ</b> (井 jǐng, <i>цзин</i>)\n\n"
+            "<i>Неотложная помощь при критических состояниях.</i>\n\n"
+            "<b>井</b> jǐng, цзин = исток.\n"
+            "В этих точках канал тоньше всего и расположен <b>наиболее поверхностно</b>. Обычно точки-истоки находятся у оснований ногтей пальцев рук и ног.\n\n"
+            "Исключение составляют точка-исток ножного шао-инь канала почек <b>Юн-цюань R1</b>, расположенная в середине подошвы, и точка-исток ручного цзюэ-инь канала перикарда <b>Чжун-чун MC9</b>, расположенная на кончике среднего пальца руки.\n\n"
+            "В точках-истоках канальная энергия расположена неглубоко. Их используют как неотложную помощь в критических состояниях, при упадке сил и для быстрой стимуляции защитной реакции организма.\n\n"
+            "Точка (1) <b>шао-шан</b> — канал лёгких.\n"
+            "Точка (2) <b>Чжун-чун</b> — канал перикарда.\n"
+            "Точка (3) <b>шао-чун</b> — канал сердца.\n"
+            "Точка (4) <b>ин-бай</b> — канал селезёнки.\n"
+            "Точка (5) <b>да-дунь</b> — канал печени.\n"
+            "Точка (6) <b>юн-цюань</b> — канал почек.\n"
+            "Точка (7) <b>шан-ян</b> — канал толстого кишечника.\n"
+            "Точка (8) <b>гуань-чун</b> — канал Сань-цзяо.\n"
+            "Точка (9) <b>шао-цзэ</b> — канал тонкого кишечника.\n"
+            "Точка (10) <b>ли-дуй</b> — канал желудка.\n"
+            "Точка (11) <b>цзу-цяо-инь</b> — канал желчного пузыря.\n"
+            "Точка (12) <b>чжи-инь</b> — канал мочевого пузыря."
+        ),
+        "shu_brooks_text": (
+            "<b>2. ТОЧКИ-РУЧЬИ</b> (荥 <i>ин</i>)\n\n"
+            "<i>Болезни со свойствами жара.</i>\n\n"
+            "<b>荥</b> ин = ручей.\n"
+            "Достигая этих точек, канальная Ци становится обильнее, напоминая небольшой ручей, уже вытекший из родника.\n\n"
+            "Используются для изгнания патогенных факторов, особенно <b>для охлаждения Жара</b>. Точки-ручьи применяют, чтобы погасить хронические воспаления в органах и системах.\n\n"
+            "<b>Точки-ручьи на ногах сильнее, чем эти же точки на руках.</b> Если стоит вопрос, какую из них использовать, сначала пробуют точки-ручьи на ручных каналах.\n\n"
+            "Точка (1) <b>юй-цзи</b> — канал лёгких.\n"
+            "Точка (2) <b>лао-гун</b> — канал перикарда.\n"
+            "Точка (3) <b>шао-фу</b> — канал сердца.\n"
+            "Точка (4) <b>да-ду</b> — канал селезёнки.\n"
+            "Точка (5) <b>жань-гу</b> — канал почек.\n"
+            "Точка (6) <b>син-цзянь</b> — канал печени.\n"
+            "Точка (7) <b>эр-цзянь</b> — канал толстого кишечника.\n"
+            "Точка (8) <b>е-мэнь</b> — канал Сань-цзяо."
+        ),
+        "shu_brooks_after_image_text": (
+            "Точка (9) <b>цянь-гу</b> — канал тонкого кишечника.\n"
+            "Точка (10) <b>нэй-тин</b> — канал желудка.\n"
+            "Точка (11) <b>ся-си</b> — канал желчного пузыря.\n"
+            "Точка (12) <b>цзу-тун-гу</b> — канал мочевого пузыря."
+        ),
+        "shu_rapids_text": (
+            "<b>3. ТОЧКИ-БЫСТРИНЫ</b> (输 <i>шу</i>)\n\n"
+            "<i>Боль в суставах. Болезнь то приходит, то уходит.</i>\n\n"
+            "<b>输</b> шу = переносить.\n"
+            "В этих точках Ци «разливается», образуя водовороты, течение становится более интенсивным и глубоким. В этих точках концентрируется защитная Ци.\n\n"
+            "Точки-быстрины используют при боли в суставах, тяжести в теле и болевом синдроме, особенно при синдроме сырости, чтобы убрать блокировку, связанную с сыростью и холодом в соответствующих каналах.\n\n"
+            "<i>Когда болезнь то приходит, то уходит, используйте быстрины.</i>\n\n"
+            "Точка (1) <b>тай-юань</b>\n"
+            "Точка (2) <b>да-лин</b>\n"
+            "Точка (3) <b>шэнь-мэнь</b>\n"
+            "Точка (4) <b>тай-бай</b>\n"
+            "Точка (5) <b>тай-си</b>\n"
+            "Точка (6) <b>тай-чун</b>\n"
+            "Точка (7) <b>сань-цзянь</b>\n"
+            "Точка (8) <b>чжун-чжу</b>\n"
+            "Точка (9) <b>хоу-си</b>\n"
+            "Точка (10) <b>сянь-гу</b>\n"
+            "Точка (11) <b>цзу-линь-ци</b>\n"
+            "Точка (12) <b>шу-гу</b>"
+        ),
+        "shu_rivers_text": (
+            "<b>4. ТОЧКИ-РЕКИ</b> (经 jīng, <i>цзин</i>)\n\n"
+            "<b>经</b> jīng, цзин = пройти насквозь.\n\n"
+            "В этих точках Ци канала становится ещё шире, сильнее и глубже. Ци течёт как полноводная река в середине русла.\n\n"
+            "Прогревание точек-рек традиционно связывают с очищением и оздоровлением органов дыхания. Точки-реки используют при одышке, нарушениях голоса и болезнях горла.\n\n"
+            "<i>Когда болезнь проявляется в нарушениях голоса, используйте реки.</i>\n\n"
+            "(1) <b>Цзинь-цюй</b>\n"
+            "(2) <b>Цзянь-ши</b>\n"
+            "(3) <b>Лин-дао</b>\n"
+            "(4) <b>Шан-цю</b>"
+        ),
+        "shu_rivers_after_image_text": (
+            "(5) <b>Чжун-фэн</b>\n"
+            "(6) <b>Фу-лю</b>\n"
+            "(7) <b>Ян-си</b>\n"
+            "(8) <b>Чжи-гоу</b>\n"
+            "(9) <b>Ян-гу</b>\n"
+            "(10) <b>Цзе-си</b>\n"
+            "(11) <b>Ян-фу</b>\n"
+            "(12) <b>Кунь-лунь</b>"
+        ),
+        "shu_mouths_text": (
+            "<b>5. ТОЧКИ-УСТЬЯ</b> (合 <i>хэ</i>)\n\n"
+            "<i>Болезни желудка, кишечника и других фу-органов. Извращение тока Ци.</i>\n\n"
+            "Точки-устья — пятые точки, всегда расположенные на уровне локтя или колена.\n\n"
+            "Достигая этих точек, канальная Ци становится обильной, как в устье реки, впадающей в море. <b>合</b> хэ = слияние, объединение. В этих точках Ци канала соединяется с Ци всего организма. Здесь поток Ци шире и глубже.\n\n"
+            "Точки-устья показаны при болезнях желудка и кишечника. Для плотных органов прогревание устья каналов даёт энергетический толчок.\n\n"
+            "(1) <b>Чи-цзэ</b>\n"
+            "(2) <b>Цюй-цзэ</b>\n"
+            "(3) <b>Шао-хай</b>\n"
+            "(4) <b>Инь-лин-цюань</b>\n"
+            "(5) <b>Цюй-цюань</b>"
+        ),
+        "shu_mouths_after_image_1_text": (
+            "(6) <b>Инь-гу</b>\n"
+            "(7) <b>цюй-чи</b>\n"
+            "(8) <b>тянь-цзин</b>\n"
+            "(9) <b>сяо-хай</b>"
+        ),
+        "shu_mouths_after_image_2_text": (
+            "(10) <b>цзу-сань-ли</b>\n"
+            "(11) <b>ян-лин-цюань</b>\n"
+            "(12) <b>вэй-чжун</b>"
+        ),
+        "shu_final_text": (
+            "<b>По материалам</b>\n\n"
+            "Джованни Мачоча, <i>Основы китайской медицины</i>, том 3.\n"
+            "П. В. Белоусов, <i>Акупунктурные точки китайской чжэньцзю-терапии</i>.\n\n"
+            "<blockquote>Информация носит ознакомительный и просветительский характер. Перед применением метода лечения консультируйтесь со специалистами.</blockquote>\n\n"
+            "<b>Фу-органы</b>, или янские органы: желудок, толстая кишка, тонкая кишка, мочевой пузырь, желчный пузырь и три части туловища — тройной обогреватель. Эти органы являются полыми и связаны с перевариванием, всасыванием и выделением."
+        ),
+    },
+    "en": {
+        "meridian_materials_sending": "📚 <b>Five shu-points</b>\n\nI will send this as an article: text blocks and images placed where they belong.",
+        "shu_intro_text": (
+            "📚 <b>Five shu-points</b>\n\n"
+            "The five shu-points are five types of specific points of the <b>twelve main channels</b>. They are located on the <b>distal parts</b> of the channels: between fingers and elbow, or between toes and knee.\n\n"
+            "<b>Five shu-points</b> (五输穴 wu shū xue):\n\n"
+            "• Spring points (井 <i>jing</i>);\n"
+            "• Brook points (荥 <i>ying</i>);\n"
+            "• Rapids points (输 <i>shu</i>);\n"
+            "• River points (经 <i>jing</i>);\n"
+            "• Mouth points (合 <i>he</i>).\n\n"
+            "They are also called the five antique shu-points, transport points, or five-element points.\n\n"
+            "<b>Ancient Chinese thinkers compared these five points with a river.</b>"
+        ),
+        "shu_flow_text": (
+            "Points at the tips of fingers or toes are the <b>spring</b>. Then the river becomes fuller and deeper and ends at the <b>mouth point</b> near the elbow or knee.\n\n"
+            "This shows a movement toward <b>greater depth and width of the channel</b> from fingertips or toes toward the elbow or knee. At the fingertip the channel is narrow and superficial; near the elbow or knee it is wider and deeper.\n\n"
+            "Important: this increase in size and depth <b>does not depend on the direction of channel flow</b>. The same rule applies to Yin and Yang channels of the arms and legs."
+        ),
+        "shu_indications_text": (
+            "<blockquote>Shu-points are closer to the surface than many other channel points. Their energetic action is considered faster, which explains their frequent use in clinical practice.</blockquote>\n\n"
+            "<b>Main indications:</b>\n\n"
+            "— <b>Spring points</b> — emergency help in critical states;\n"
+            "— <b>Brook points</b> — conditions with Heat qualities;\n"
+            "— <b>Rapids points</b> — joint pain;\n"
+            "— <b>River points</b> — exterior patterns with fever and chills, cough, shortness of breath and throat disorders;\n"
+            "— <b>Mouth points</b> — disorders of the stomach, intestines and other Fu organs."
+        ),
+        "shu_sources_text": (
+            "<b>1. SPRING POINTS</b> (井 jǐng)\n\n"
+            "<i>Emergency help in critical states.</i>\n\n"
+            "<b>井</b> jǐng = spring/source.\n"
+            "Here the channel is thinnest and <b>most superficial</b>. Usually Spring points are near the nail bases of fingers and toes.\n\n"
+            "Exceptions include <b>Kidney R1 Yong-quan</b> on the sole and <b>Pericardium MC9 Zhong-chong</b> on the tip of the middle finger.\n\n"
+            "(1) <b>Shao-shang</b> — Lung.\n(2) <b>Zhong-chong</b> — Pericardium.\n(3) <b>Shao-chong</b> — Heart.\n(4) <b>Yin-bai</b> — Spleen.\n(5) <b>Da-dun</b> — Liver.\n(6) <b>Yong-quan</b> — Kidney.\n(7) <b>Shang-yang</b> — Large Intestine.\n(8) <b>Guan-chong</b> — Triple Burner.\n(9) <b>Shao-ze</b> — Small Intestine.\n(10) <b>Li-dui</b> — Stomach.\n(11) <b>Zu-qiao-yin</b> — Gallbladder.\n(12) <b>Zhi-yin</b> — Bladder."
+        ),
+        "shu_brooks_text": (
+            "<b>2. BROOK POINTS</b> (荥 ying)\n\n"
+            "<i>Conditions with Heat qualities.</i>\n\n"
+            "<b>荥</b> ying = brook.\n"
+            "When Qi reaches these points, it becomes more abundant, like a small brook flowing from a spring.\n\n"
+            "They are used to clear pathogenic factors, especially <b>Heat</b>. Foot Brook points are considered stronger than the same type of points on the hands.\n\n"
+            "(1) <b>Yu-ji</b> — Lung.\n(2) <b>Lao-gong</b> — Pericardium.\n(3) <b>Shao-fu</b> — Heart.\n(4) <b>Da-du</b> — Spleen.\n(5) <b>Ran-gu</b> — Kidney.\n(6) <b>Xing-jian</b> — Liver.\n(7) <b>Er-jian</b> — Large Intestine.\n(8) <b>Ye-men</b> — Triple Burner."
+        ),
+        "shu_brooks_after_image_text": "(9) <b>Qian-gu</b> — Small Intestine.\n(10) <b>Nei-ting</b> — Stomach.\n(11) <b>Xia-xi</b> — Gallbladder.\n(12) <b>Zu-tong-gu</b> — Bladder.",
+        "shu_rapids_text": (
+            "<b>3. RAPIDS POINTS</b> (输 shu)\n\n"
+            "<i>Joint pain; illness that comes and goes.</i>\n\n"
+            "<b>输</b> shu = to transport.\n"
+            "Here Qi spreads, forms whirlpools, and the flow becomes stronger and deeper. Protective Qi is traditionally said to concentrate here.\n\n"
+            "These points are used for joint pain, heaviness and blockages related to dampness and cold.\n\n"
+            "(1) <b>Tai-yuan</b>\n(2) <b>Da-ling</b>\n(3) <b>Shen-men</b>\n(4) <b>Tai-bai</b>\n(5) <b>Tai-xi</b>\n(6) <b>Tai-chong</b>\n(7) <b>San-jian</b>\n(8) <b>Zhong-zhu</b>\n(9) <b>Hou-xi</b>\n(10) <b>Xian-gu</b>\n(11) <b>Zu-lin-qi</b>\n(12) <b>Shu-gu</b>"
+        ),
+        "shu_rivers_text": (
+            "<b>4. RIVER POINTS</b> (经 jīng)\n\n"
+            "<b>经</b> jīng = to pass through.\n\n"
+            "Here channel Qi becomes wider, stronger and deeper, like a full river in its bed. River points are associated with voice, breath, cough, shortness of breath and throat disorders.\n\n"
+            "(1) <b>Jing-qu</b>\n(2) <b>Jian-shi</b>\n(3) <b>Ling-dao</b>\n(4) <b>Shang-qiu</b>"
+        ),
+        "shu_rivers_after_image_text": "(5) <b>Zhong-feng</b>\n(6) <b>Fu-liu</b>\n(7) <b>Yang-xi</b>\n(8) <b>Zhi-gou</b>\n(9) <b>Yang-gu</b>\n(10) <b>Jie-xi</b>\n(11) <b>Yang-fu</b>\n(12) <b>Kun-lun</b>",
+        "shu_mouths_text": (
+            "<b>5. MOUTH POINTS</b> (合 he)\n\n"
+            "<i>Disorders of the stomach, intestines and other Fu organs.</i>\n\n"
+            "Mouth points are the fifth points and are always near the elbow or knee. Here channel Qi becomes abundant, like the mouth of a river flowing into the sea. <b>合</b> he = union, joining.\n\n"
+            "(1) <b>Chi-ze</b>\n(2) <b>Qu-ze</b>\n(3) <b>Shao-hai</b>\n(4) <b>Yin-ling-quan</b>\n(5) <b>Qu-quan</b>"
+        ),
+        "shu_mouths_after_image_1_text": "(6) <b>Yin-gu</b>\n(7) <b>Qu-chi</b>\n(8) <b>Tian-jing</b>\n(9) <b>Xiao-hai</b>",
+        "shu_mouths_after_image_2_text": "(10) <b>Zu-san-li</b>\n(11) <b>Yang-ling-quan</b>\n(12) <b>Wei-zhong</b>",
+        "shu_final_text": (
+            "<b>Sources</b>\n\n"
+            "Giovanni Maciocia, <i>The Foundations of Chinese Medicine</i>, vol. 3.\n"
+            "P. V. Belousov, <i>Acupuncture Points of Chinese Zhenjiu Therapy</i>.\n\n"
+            "<blockquote>This material is educational. Before using any treatment method, consult a qualified specialist.</blockquote>\n\n"
+            "<b>Fu organs</b> are Yang organs: stomach, large intestine, small intestine, bladder, gallbladder and triple burner."
+        ),
+    },
+}
+
+SHU_POINTS_ARTICLE_OVERRIDES["uz"] = SHU_POINTS_ARTICLE_OVERRIDES["en"]
+SHU_POINTS_ARTICLE_OVERRIDES["kz"] = SHU_POINTS_ARTICLE_OVERRIDES["en"]
+
+for _language, _updates in SHU_POINTS_ARTICLE_OVERRIDES.items():
+    TEXTS.setdefault(_language, {}).update(_updates)
+
 for _language, _updates in LIVE_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
@@ -5798,6 +6026,7 @@ class BotHandlers:
 
         await self._send_material_message(chat_id, self._get_text("shu_brooks_text", language))
         await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_brooks_1.png")
+        await self._send_material_message(chat_id, self._get_text("shu_brooks_after_image_text", language))
         await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_brooks_2.png")
 
         await self._send_material_message(chat_id, self._get_text("shu_rapids_text", language))
@@ -5805,12 +6034,16 @@ class BotHandlers:
 
         await self._send_material_message(chat_id, self._get_text("shu_rivers_text", language))
         await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_rivers_1.png")
+        await self._send_material_message(chat_id, self._get_text("shu_rivers_after_image_text", language))
         await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_rivers_2.png")
 
         await self._send_material_message(chat_id, self._get_text("shu_mouths_text", language))
         await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_mouths_1.png")
+        await self._send_material_message(chat_id, self._get_text("shu_mouths_after_image_1_text", language))
         await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_mouths_2.png")
+        await self._send_material_message(chat_id, self._get_text("shu_mouths_after_image_2_text", language))
         await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_mouths_3.png")
+        await self._send_material_message(chat_id, self._get_text("shu_final_text", language))
 
     async def _show_principle_detail(self, query, principle: Dict[str, Any], language: str) -> None:
         """Show a selected Yama/Niyama principle in the current menu message."""
