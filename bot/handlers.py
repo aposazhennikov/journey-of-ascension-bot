@@ -58,6 +58,24 @@ CUN_MEASUREMENT_IMAGE_PATHS = {
     "uz": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_uz.png",
     "kz": Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement_kz.png",
 }
+MERIDIAN_MATERIALS_IMAGE_DIR = Path(__file__).resolve().parent.parent / "images" / "meridians" / "materials"
+SHU_RIVER_IMAGE_PATHS = {
+    "en": MERIDIAN_MATERIALS_IMAGE_DIR / "shu_river_en.png",
+    "ru": MERIDIAN_MATERIALS_IMAGE_DIR / "shu_river_ru.png",
+    "uz": MERIDIAN_MATERIALS_IMAGE_DIR / "shu_river_uz.png",
+    "kz": MERIDIAN_MATERIALS_IMAGE_DIR / "shu_river_kz.png",
+}
+SHU_CHANNEL_IMAGE_PATHS = {
+    "en": MERIDIAN_MATERIALS_IMAGE_DIR / "shu_channel_en.png",
+    "ru": MERIDIAN_MATERIALS_IMAGE_DIR / "shu_channel_ru.png",
+    "uz": MERIDIAN_MATERIALS_IMAGE_DIR / "shu_channel_uz.png",
+    "kz": MERIDIAN_MATERIALS_IMAGE_DIR / "shu_channel_kz.png",
+}
+
+
+def _localized_material_image(paths: Dict[str, Path], language: str) -> Path:
+    path = paths.get(language) or paths.get("en")
+    return path if path and path.exists() else paths["en"]
 
 
 def get_cun_measurement_image_path(language: str) -> Path:
@@ -1504,6 +1522,54 @@ TEXTS_UPDATE = {
             "In real treatment, the method, duration, and number of sessions are chosen individually by a qualified specialist after consultation and examination.\n\n"
             "<b>Term note:</b> proximal means closer to the center of the body or to the median line; distal means farther from the center. For example, the shoulder is the proximal part of the arm, while the hand is distal."
         ),
+        "meridian_materials_menu": "📚 <b>Useful materials</b>\n\nChoose what to open.",
+        "meridian_materials_basics": "Basic articles",
+        "meridian_materials_shu": "Five shu-points",
+        "meridian_materials_sending": "📚 <b>Five shu-points</b>\n\nI will send the material below in several messages so the images stay in the right places.",
+        "shu_intro_text": (
+            "📚 <b>Five shu-points</b>\n\n"
+            "The five shu-points are five types of specific points of the twelve main channels. They are located on the distal parts of the channels: between the fingers and elbow, or between the toes and knee.\n\n"
+            "<b>Five shu-points:</b> Spring, Brook, Rapids, River and Mouth. They are also called antique shu-points, transport points, or points of the five elements.\n\n"
+            "Ancient Chinese thinkers compared these points to a river: at the fingertips and toes the channel is narrow and superficial, then it becomes wider and deeper toward the elbow or knee."
+        ),
+        "shu_flow_text": (
+            "The increase in depth and width does not depend on the direction of flow in the channel. This pattern applies to Yin and Yang channels of both arms and legs.\n\n"
+            "Even when a hand Yin channel flows toward the fingers, the fingertip point is still called a Spring, and the elbow area is compared with the river mouth."
+        ),
+        "shu_indications_text": (
+            "<b>Main indications:</b>\n"
+            "• <b>Spring points</b> — emergency help in critical states.\n"
+            "• <b>Brook points</b> — conditions with Heat qualities.\n"
+            "• <b>Rapids points</b> — joint pain.\n"
+            "• <b>River points</b> — exterior patterns with fever and chills, cough, shortness of breath and throat disorders.\n"
+            "• <b>Mouth points</b> — disorders of the stomach, intestines and other Fu organs."
+        ),
+        "shu_sources_text": (
+            "<b>1. Spring points</b>\n<i>Emergency help in critical states.</i>\n\n"
+            "Here the channel is thinnest and most superficial. Usually these points are near the nail bases of fingers and toes. Exceptions include Kidney R1 Yong-quan on the sole and Pericardium MC9 Zhong-chong on the fingertip.\n\n"
+            "(1) Shao-shang, Lung. (2) Zhong-chong, Pericardium. (3) Shao-chong, Heart. (4) Yin-bai, Spleen. (5) Da-dun, Liver. (6) Yong-quan, Kidney. (7) Shang-yang, Large Intestine. (8) Guan-chong, Triple Burner. (9) Shao-ze, Small Intestine. (10) Li-dui, Stomach. (11) Zu-qiao-yin, Gallbladder. (12) Zhi-yin, Bladder."
+        ),
+        "shu_brooks_text": (
+            "<b>2. Brook points</b>\n<i>Conditions with Heat qualities.</i>\n\n"
+            "When Qi reaches these points, it becomes more abundant, like a small brook already flowing from the spring. They are used to clear pathogenic factors, especially Heat.\n\n"
+            "(1) Yu-ji, Lung. (2) Lao-gong, Pericardium. (3) Shao-fu, Heart. (4) Da-du, Spleen. (5) Ran-gu, Kidney. (6) Xing-jian, Liver. (7) Er-jian, Large Intestine. (8) Ye-men, Triple Burner. (9) Qian-gu, Small Intestine. (10) Nei-ting, Stomach. (11) Xia-xi, Gallbladder. (12) Zu-tong-gu, Bladder."
+        ),
+        "shu_rapids_text": (
+            "<b>3. Rapids points</b>\n<i>Joint pain; illness that comes and goes.</i>\n\n"
+            "At these points Qi spreads, forms whirlpools, and the movement becomes stronger and deeper. They are traditionally used for joint pain, heaviness in the body, and blockages related to dampness and cold.\n\n"
+            "(1) Tai-yuan. (2) Da-ling. (3) Shen-men. (4) Tai-bai. (5) Tai-xi. (6) Tai-chong. (7) San-jian. (8) Zhong-zhu. (9) Hou-xi. (10) Xian-gu. (11) Zu-lin-qi. (12) Shu-gu."
+        ),
+        "shu_rivers_text": (
+            "<b>4. River points</b>\n\n"
+            "Here the Qi of the channel becomes wider, stronger and deeper, like a full river in the middle of its bed. River points are used in traditions connected with breathing, voice, cough, shortness of breath and throat disorders.\n\n"
+            "(1) Jing-qu. (2) Jian-shi. (3) Ling-dao. (4) Shang-qiu. (5) Zhong-feng. (6) Fu-liu. (7) Yang-xi. (8) Zhi-gou. (9) Yang-gu. (10) Jie-xi. (11) Yang-fu. (12) Kun-lun."
+        ),
+        "shu_mouths_text": (
+            "<b>5. Mouth points</b>\n<i>Disorders of the stomach, intestines and other Fu organs.</i>\n\n"
+            "These are the fifth points, always located around the elbow or knee. Here channel Qi becomes abundant like the mouth of a river flowing into the sea. The Qi of the channel joins the Qi of the whole body.\n\n"
+            "(1) Chi-ze. (2) Qu-ze. (3) Shao-hai. (4) Yin-ling-quan. (5) Qu-quan. (6) Yin-gu. (7) Qu-chi. (8) Tian-jing. (9) Xiao-hai. (10) Zu-san-li. (11) Yang-ling-quan. (12) Wei-zhong.\n\n"
+            "<i>Fu organs are Yang organs: stomach, large intestine, small intestine, bladder, gallbladder and triple burner. This material is educational and does not replace consultation with a specialist.</i>"
+        ),
         "principles_random": "Random principle",
         "principles_all": "All principles",
         "principles_back": "🔙 Back to Yama/Niyama",
@@ -1740,6 +1806,54 @@ TEXTS_UPDATE = {
             "В реальном лечении методика, длительность и количество сеансов подбираются индивидуально квалифицированным специалистом после консультации и обследования.\n\n"
             "<b>Пояснение термина:</b> проксимальный означает расположенный ближе к центру тела или к срединной линии; дистальный — дальше от центра. Например, плечо — проксимальный отдел руки, а кисть — дистальный."
         ),
+        "meridian_materials_menu": "📚 <b>Полезные материалы</b>\n\nВыберите, что открыть.",
+        "meridian_materials_basics": "Базовые статьи",
+        "meridian_materials_shu": "Пять шу-точек",
+        "meridian_materials_sending": "📚 <b>Пять шу-точек</b>\n\nОтправлю материал ниже несколькими сообщениями, чтобы картинки стояли в правильных местах.",
+        "shu_intro_text": (
+            "📚 <b>Пять шу-точек</b>\n\n"
+            "Пять шу-точек — это пять типов специфических точек двенадцати главных каналов. Они расположены на дистальных отделах каналов: между пальцами руки и локтем или между пальцами ноги и коленом.\n\n"
+            "<b>Пять шу-точек:</b> точки-истоки, точки-ручьи, точки-быстрины, точки-реки и точки-устья. Их также называют античными шу-точками, транспортировочными точками или точками пяти первоэлементов.\n\n"
+            "Древние китайские мыслители сравнивали эти точки с рекой: у кончиков пальцев канал узкий и поверхностный, затем к локтю или колену он становится шире и глубже."
+        ),
+        "shu_flow_text": (
+            "Нарастание глубины и ширины канала не зависит от направления течения энергии. Эта закономерность справедлива для Инь- и Ян-каналов рук и ног.\n\n"
+            "Даже если канал Инь руки течёт к пальцам, точка на кончике пальца всё равно считается истоком, а область локтя сравнивается с устьем реки."
+        ),
+        "shu_indications_text": (
+            "<b>Основные показания:</b>\n"
+            "• <b>Точки-истоки</b> — неотложная помощь при критических состояниях.\n"
+            "• <b>Точки-ручьи</b> — болезни со свойствами жара.\n"
+            "• <b>Точки-быстрины</b> — боль в суставах.\n"
+            "• <b>Точки-реки</b> — наружный синдром с лихорадкой и ознобом, кашель, одышка и болезни горла.\n"
+            "• <b>Точки-устья</b> — болезни желудка, кишечника и других фу-органов."
+        ),
+        "shu_sources_text": (
+            "<b>1. Точки-истоки</b>\n<i>Неотложная помощь при критических состояниях.</i>\n\n"
+            "Здесь канал тоньше всего и расположен наиболее поверхностно. Обычно точки-истоки находятся у оснований ногтей пальцев рук и ног. Исключения: Юн-цюань R1 на подошве и Чжун-чун MC9 на кончике среднего пальца.\n\n"
+            "(1) Шао-шан, лёгкие. (2) Чжун-чун, перикард. (3) Шао-чун, сердце. (4) Инь-бай, селезёнка. (5) Да-дунь, печень. (6) Юн-цюань, почки. (7) Шан-ян, толстый кишечник. (8) Гуань-чун, тройной обогреватель. (9) Шао-цзэ, тонкий кишечник. (10) Ли-дуй, желудок. (11) Цзу-цяо-инь, желчный пузырь. (12) Чжи-инь, мочевой пузырь."
+        ),
+        "shu_brooks_text": (
+            "<b>2. Точки-ручьи</b>\n<i>Болезни со свойствами жара.</i>\n\n"
+            "Когда Ци достигает этих точек, она становится обильнее, как небольшой ручей, уже вытекший из родника. Их используют для изгнания патогенных факторов, особенно для охлаждения жара.\n\n"
+            "(1) Юй-цзи, лёгкие. (2) Лао-гун, перикард. (3) Шао-фу, сердце. (4) Да-ду, селезёнка. (5) Жань-гу, почки. (6) Син-цзянь, печень. (7) Эр-цзянь, толстый кишечник. (8) Е-мэнь, тройной обогреватель. (9) Цянь-гу, тонкий кишечник. (10) Нэй-тин, желудок. (11) Ся-си, желчный пузырь. (12) Цзу-тун-гу, мочевой пузырь."
+        ),
+        "shu_rapids_text": (
+            "<b>3. Точки-быстрины</b>\n<i>Боль в суставах; болезнь то приходит, то уходит.</i>\n\n"
+            "В этих точках Ци разливается, образует водовороты, течение становится интенсивнее и глубже. Их традиционно используют при боли в суставах, тяжести в теле и блокировках, связанных с сыростью и холодом.\n\n"
+            "(1) Тай-юань. (2) Да-лин. (3) Шэнь-мэнь. (4) Тай-бай. (5) Тай-си. (6) Тай-чун. (7) Сань-цзянь. (8) Чжун-чжу. (9) Хоу-си. (10) Сянь-гу. (11) Цзу-линь-ци. (12) Шу-гу."
+        ),
+        "shu_rivers_text": (
+            "<b>4. Точки-реки</b>\n\n"
+            "Здесь Ци канала становится шире, сильнее и глубже, как полноводная река в середине русла. Точки-реки традиционно связывают с дыханием, голосом, кашлем, одышкой и болезнями горла.\n\n"
+            "(1) Цзинь-цюй. (2) Цзянь-ши. (3) Лин-дао. (4) Шан-цю. (5) Чжун-фэн. (6) Фу-лю. (7) Ян-си. (8) Чжи-гоу. (9) Ян-гу. (10) Цзе-си. (11) Ян-фу. (12) Кунь-лунь."
+        ),
+        "shu_mouths_text": (
+            "<b>5. Точки-устья</b>\n<i>Болезни желудка, кишечника и других фу-органов.</i>\n\n"
+            "Это пятые точки, которые всегда находятся на уровне локтя или колена. Здесь Ци канала становится обильной, как в устье реки, впадающей в море. Ци канала соединяется с Ци всего организма.\n\n"
+            "(1) Чи-цзэ. (2) Цюй-цзэ. (3) Шао-хай. (4) Инь-лин-цюань. (5) Цюй-цюань. (6) Инь-гу. (7) Цюй-чи. (8) Тянь-цзин. (9) Сяо-хай. (10) Цзу-сань-ли. (11) Ян-лин-цюань. (12) Вэй-чжун.\n\n"
+            "<i>Фу-органы, или Ян-органы: желудок, толстая кишка, тонкая кишка, мочевой пузырь, желчный пузырь и тройной обогреватель. Материал ознакомительный и не заменяет консультацию специалиста.</i>"
+        ),
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
         "principles_back": "🔙 К Яме/Нияме",
@@ -1975,6 +2089,54 @@ TEXTS_UPDATE = {
             "<b>Sedativ usul:</b> igna meridiandagi energiya oqimiga qarshi yo'naltiriladi va soat miliga qarshi aylantiriladi. Odatda kamroq nuqtalarga ta'sir qilinadi. Seanslar uzoqroq davom etadi: 20-40 daqiqadan bir necha soatgacha. Ignalar tez harakat bilan chiqariladi.\n\n"
             "Haqiqiy davolashda usul, davomiylik va seanslar soni malakali mutaxassis tomonidan maslahat va tekshiruvdan keyin individual tanlanadi.\n\n"
             "<b>Atama izohi:</b> proksimal tananing markaziga yoki o'rta chiziqqa yaqinroq joylashgan degani; distal esa markazdan uzoqroq degani. Masalan, yelka qo'lning proksimal qismi, kaft esa distal qismidir."
+        ),
+        "meridian_materials_menu": "📚 <b>Foydali materiallar</b>\n\nNimani ochishni tanlang.",
+        "meridian_materials_basics": "Asosiy maqolalar",
+        "meridian_materials_shu": "Besh shu-nuqta",
+        "meridian_materials_sending": "📚 <b>Besh shu-nuqta</b>\n\nRasmlar to'g'ri joyda turishi uchun materialni quyida bir nechta xabar qilib yuboraman.",
+        "shu_intro_text": (
+            "📚 <b>Besh shu-nuqta</b>\n\n"
+            "Besh shu-nuqta — o'n ikki asosiy kanalning besh turdagi maxsus nuqtalari. Ular kanallarning distal qismlarida: qo'l barmoqlari va tirsak orasida yoki oyoq barmoqlari va tizza orasida joylashadi.\n\n"
+            "<b>Besh shu-nuqta:</b> buloq, jilg'a, sharshara/tez oqim, daryo va og'iz nuqtalari. Ular antik shu-nuqtalar, transport nuqtalari yoki besh unsur nuqtalari deb ham ataladi.\n\n"
+            "Qadimgi Xitoy mutafakkirlari bu nuqtalarni daryoga qiyoslagan: barmoq uchlarida kanal tor va yuzaki, tirsak yoki tizza tomonga borib esa kengroq va chuqurroq bo'ladi."
+        ),
+        "shu_flow_text": (
+            "Kanalning chuqurligi va kengligi ortishi energiya oqimining yo'nalishiga bog'liq emas. Bu qonuniyat qo'l va oyoqdagi Yin hamda Yang kanallariga birdek tegishli.\n\n"
+            "Hatto qo'l Yin kanali barmoqlar tomon oqsa ham, barmoq uchidagi nuqta buloq deb ataladi, tirsak sohasi esa daryo og'ziga qiyoslanadi."
+        ),
+        "shu_indications_text": (
+            "<b>Asosiy ko'rsatmalar:</b>\n"
+            "• <b>Buloq nuqtalari</b> — kritik holatlarda shoshilinch yordam.\n"
+            "• <b>Jilg'a nuqtalari</b> — Issiqlik xususiyatiga ega holatlar.\n"
+            "• <b>Tez oqim nuqtalari</b> — bo'g'im og'rig'i.\n"
+            "• <b>Daryo nuqtalari</b> — isitma va titroq, yo'tal, hansirash va tomoq kasalliklari bilan bog'liq tashqi sindromlar.\n"
+            "• <b>Og'iz nuqtalari</b> — oshqozon, ichak va boshqa Fu organlari kasalliklari."
+        ),
+        "shu_sources_text": (
+            "<b>1. Buloq nuqtalari</b>\n<i>Kritik holatlarda shoshilinch yordam.</i>\n\n"
+            "Bu yerda kanal eng nozik va eng yuzaki bo'ladi. Odatda buloq nuqtalari qo'l va oyoq tirnoqlari asosida joylashadi. Istisnolar: oyoq kaftidagi Yong-quan R1 va o'rta barmoq uchidagi Zhong-chong MC9.\n\n"
+            "(1) Shao-shang, O'pka. (2) Zhong-chong, Perikard. (3) Shao-chong, Yurak. (4) Yin-bai, Taloq. (5) Da-dun, Jigar. (6) Yong-quan, Buyrak. (7) Shang-yang, Yo'g'on ichak. (8) Guan-chong, Uch isitkich. (9) Shao-ze, Ingichka ichak. (10) Li-dui, Oshqozon. (11) Zu-qiao-yin, O't pufagi. (12) Zhi-yin, Siydik pufagi."
+        ),
+        "shu_brooks_text": (
+            "<b>2. Jilg'a nuqtalari</b>\n<i>Issiqlik xususiyatiga ega holatlar.</i>\n\n"
+            "Qi bu nuqtalarga yetganda ko'payadi, go'yo buloqdan chiqqan kichik jilg'a kabi. Ular patogen omillarni chiqarish, ayniqsa Issiqlikni sovitish uchun ishlatiladi.\n\n"
+            "(1) Yu-ji, O'pka. (2) Lao-gong, Perikard. (3) Shao-fu, Yurak. (4) Da-du, Taloq. (5) Ran-gu, Buyrak. (6) Xing-jian, Jigar. (7) Er-jian, Yo'g'on ichak. (8) Ye-men, Uch isitkich. (9) Qian-gu, Ingichka ichak. (10) Nei-ting, Oshqozon. (11) Xia-xi, O't pufagi. (12) Zu-tong-gu, Siydik pufagi."
+        ),
+        "shu_rapids_text": (
+            "<b>3. Tez oqim nuqtalari</b>\n<i>Bo'g'im og'rig'i; kasallik goh kelib, goh ketishi.</i>\n\n"
+            "Bu nuqtalarda Qi yoyiladi, girdoblar hosil qiladi, oqim kuchliroq va chuqurroq bo'ladi. Ular an'anaviy ravishda bo'g'im og'rig'i, tanadagi og'irlik va namlik-sovuqlik bilan bog'liq bloklar uchun ishlatiladi.\n\n"
+            "(1) Tai-yuan. (2) Da-ling. (3) Shen-men. (4) Tai-bai. (5) Tai-xi. (6) Tai-chong. (7) San-jian. (8) Zhong-zhu. (9) Hou-xi. (10) Xian-gu. (11) Zu-lin-qi. (12) Shu-gu."
+        ),
+        "shu_rivers_text": (
+            "<b>4. Daryo nuqtalari</b>\n\n"
+            "Bu yerda kanal Qi kengroq, kuchliroq va chuqurroq bo'ladi, go'yo o'z o'zanida oqayotgan katta daryo kabi. Daryo nuqtalari nafas, ovoz, yo'tal, hansirash va tomoq kasalliklari bilan bog'lanadi.\n\n"
+            "(1) Jing-qu. (2) Jian-shi. (3) Ling-dao. (4) Shang-qiu. (5) Zhong-feng. (6) Fu-liu. (7) Yang-xi. (8) Zhi-gou. (9) Yang-gu. (10) Jie-xi. (11) Yang-fu. (12) Kun-lun."
+        ),
+        "shu_mouths_text": (
+            "<b>5. Og'iz nuqtalari</b>\n<i>Oshqozon, ichak va boshqa Fu organlari kasalliklari.</i>\n\n"
+            "Bu beshinchi nuqtalar bo'lib, doimo tirsak yoki tizza darajasida joylashadi. Bu yerda kanal Qi dengizga quyilayotgan daryo og'zidek serob bo'ladi. Kanal Qi butun organizm Qi bilan qo'shiladi.\n\n"
+            "(1) Chi-ze. (2) Qu-ze. (3) Shao-hai. (4) Yin-ling-quan. (5) Qu-quan. (6) Yin-gu. (7) Qu-chi. (8) Tian-jing. (9) Xiao-hai. (10) Zu-san-li. (11) Yang-ling-quan. (12) Wei-zhong.\n\n"
+            "<i>Fu organlari yoki Yang organlari: oshqozon, yo'g'on ichak, ingichka ichak, siydik pufagi, o't pufagi va uch isitkich. Material tanishish uchun; mutaxassis maslahatini almashtirmaydi.</i>"
         ),
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
@@ -2224,6 +2386,54 @@ TEXTS_UPDATE = {
             "<b>Седативті әдіс:</b> ине меридиандағы энергия ағынына қарсы бағытталып, сағат тіліне қарсы айналдырылады. Әдетте аздау нүктеге әсер етеді. Сеанстар ұзағырақ болады: 20-40 минуттан бірнеше сағатқа дейін. Инелер жылдам қозғалыспен шығарылады.\n\n"
             "Нақты емдеуде әдіс, ұзақтық және сеанс саны білікті маманмен кеңес пен тексеруден кейін жеке таңдалады.\n\n"
             "<b>Термин түсіндірмесі:</b> проксимальды — дене орталығына немесе орта сызыққа жақынырақ орналасқан деген сөз; дистальды — орталықтан алысырақ. Мысалы, иық — қолдың проксимальды бөлігі, ал қол басы — дистальды бөлігі."
+        ),
+        "meridian_materials_menu": "📚 <b>Пайдалы материалдар</b>\n\nНені ашатыныңызды таңдаңыз.",
+        "meridian_materials_basics": "Негізгі мақалалар",
+        "meridian_materials_shu": "Бес шу-нүкте",
+        "meridian_materials_sending": "📚 <b>Бес шу-нүкте</b>\n\nСуреттер дұрыс жерде тұруы үшін материалды төменде бірнеше хабармен жіберемін.",
+        "shu_intro_text": (
+            "📚 <b>Бес шу-нүкте</b>\n\n"
+            "Бес шу-нүкте — он екі негізгі арнаның бес түрлі арнайы нүктесі. Олар арналардың дистальды бөліктерінде: қол саусақтары мен шынтақ арасында немесе аяқ саусақтары мен тізе арасында орналасады.\n\n"
+            "<b>Бес шу-нүкте:</b> бұлақ, жылға, шапшаң ағыс, өзен және саға нүктелері. Оларды антикалық шу-нүктелер, тасымалдаушы нүктелер немесе бес стихия нүктелері деп те атайды.\n\n"
+            "Ежелгі қытай ойшылдары бұл нүктелерді өзенге теңеген: саусақ ұштарында арна тар әрі беткі қабатта, ал шынтақ немесе тізе жаққа қарай кең әрі терең болады."
+        ),
+        "shu_flow_text": (
+            "Арнаның тереңдігі мен кеңдігінің артуы энергия ағымының бағытына тәуелді емес. Бұл заңдылық қол мен аяқтағы Инь және Ян арналарына бірдей қатысты.\n\n"
+            "Қолдың Инь арнасы саусақтарға қарай ақса да, саусақ ұшындағы нүкте бұлақ деп саналады, ал шынтақ аймағы өзен сағасымен салыстырылады."
+        ),
+        "shu_indications_text": (
+            "<b>Негізгі көрсеткіштер:</b>\n"
+            "• <b>Бұлақ нүктелері</b> — сыни жағдайларда шұғыл көмек.\n"
+            "• <b>Жылға нүктелері</b> — Ыстық қасиеті бар жағдайлар.\n"
+            "• <b>Шапшаң ағыс нүктелері</b> — буын ауруы.\n"
+            "• <b>Өзен нүктелері</b> — қызба мен қалтырау, жөтел, ентігу және тамақ аурулары бар сыртқы синдромдар.\n"
+            "• <b>Саға нүктелері</b> — асқазан, ішек және басқа Фу-ағзалар аурулары."
+        ),
+        "shu_sources_text": (
+            "<b>1. Бұлақ нүктелері</b>\n<i>Сыни жағдайларда шұғыл көмек.</i>\n\n"
+            "Бұл жерде арна ең жіңішке және ең беткі орналасады. Әдетте бұлақ нүктелері қол мен аяқ тырнақтарының түбінде болады. Ерекшеліктер: табандағы Юн-цюань R1 және ортаңғы саусақ ұшындағы Чжун-чун MC9.\n\n"
+            "(1) Шао-шан, Өкпе. (2) Чжун-чун, Перикард. (3) Шао-чун, Жүрек. (4) Инь-бай, Көкбауыр. (5) Да-дунь, Бауыр. (6) Юн-цюань, Бүйрек. (7) Шан-ян, Тоқ ішек. (8) Гуань-чун, Үш жылытқыш. (9) Шао-цзэ, Ащы ішек. (10) Ли-дуй, Асқазан. (11) Цзу-цяо-инь, Өт қабы. (12) Чжи-инь, Қуық."
+        ),
+        "shu_brooks_text": (
+            "<b>2. Жылға нүктелері</b>\n<i>Ыстық қасиеті бар жағдайлар.</i>\n\n"
+            "Ци бұл нүктелерге жеткенде молаяды, бұлақтан шыққан шағын жылғаға ұқсайды. Олар патогендік факторларды шығару, әсіресе Ыстықты салқындату үшін қолданылады.\n\n"
+            "(1) Юй-цзи, Өкпе. (2) Лао-гун, Перикард. (3) Шао-фу, Жүрек. (4) Да-ду, Көкбауыр. (5) Жань-гу, Бүйрек. (6) Син-цзянь, Бауыр. (7) Эр-цзянь, Тоқ ішек. (8) Е-мэнь, Үш жылытқыш. (9) Цянь-гу, Ащы ішек. (10) Нэй-тин, Асқазан. (11) Ся-си, Өт қабы. (12) Цзу-тун-гу, Қуық."
+        ),
+        "shu_rapids_text": (
+            "<b>3. Шапшаң ағыс нүктелері</b>\n<i>Буын ауруы; ауру бірде келіп, бірде кетеді.</i>\n\n"
+            "Бұл нүктелерде Ци жайылып, иірімдер түзеді, ағым күшейіп әрі тереңдейді. Олар дәстүрлі түрде буын ауруы, денедегі ауырлық және ылғал-суықпен байланысты бөгелістер үшін қолданылады.\n\n"
+            "(1) Тай-юань. (2) Да-лин. (3) Шэнь-мэнь. (4) Тай-бай. (5) Тай-си. (6) Тай-чун. (7) Сань-цзянь. (8) Чжун-чжу. (9) Хоу-си. (10) Сянь-гу. (11) Цзу-линь-ци. (12) Шу-гу."
+        ),
+        "shu_rivers_text": (
+            "<b>4. Өзен нүктелері</b>\n\n"
+            "Бұл жерде арна Ци кеңірек, күштірек және тереңірек болады, өз арнасымен аққан үлкен өзендей. Өзен нүктелері тыныс, дауыс, жөтел, ентігу және тамақ ауруларымен байланыстырылады.\n\n"
+            "(1) Цзинь-цюй. (2) Цзянь-ши. (3) Лин-дао. (4) Шан-цю. (5) Чжун-фэн. (6) Фу-лю. (7) Ян-си. (8) Чжи-гоу. (9) Ян-гу. (10) Цзе-си. (11) Ян-фу. (12) Кунь-лунь."
+        ),
+        "shu_mouths_text": (
+            "<b>5. Саға нүктелері</b>\n<i>Асқазан, ішек және басқа Фу-ағзалар аурулары.</i>\n\n"
+            "Бұл бесінші нүктелер, олар әрқашан шынтақ немесе тізе деңгейінде орналасады. Мұнда арна Ци теңізге құятын өзен сағасындай мол болады. Арна Ци бүкіл ағзаның Ци-імен қосылады.\n\n"
+            "(1) Чи-цзэ. (2) Цюй-цзэ. (3) Шао-хай. (4) Инь-лин-цюань. (5) Цюй-цюань. (6) Инь-гу. (7) Цюй-чи. (8) Тянь-цзин. (9) Сяо-хай. (10) Цзу-сань-ли. (11) Ян-лин-цюань. (12) Вэй-чжун.\n\n"
+            "<i>Фу-ағзалар немесе Ян-ағзалар: асқазан, тоқ ішек, ащы ішек, қуық, өт қабы және үш жылытқыш. Материал танысуға арналған және маман кеңесін алмастырмайды.</i>"
         ),
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
@@ -4107,6 +4317,14 @@ class BotHandlers:
         ])
         return InlineKeyboardMarkup(keyboard)
 
+    def _create_meridian_materials_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create meridian materials article selection keyboard."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("meridian_materials_basics", language), callback_data="meridian_materials:base")],
+            [InlineKeyboardButton(self._get_text("meridian_materials_shu", language), callback_data="meridian_materials:shu")],
+            [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
+        ])
+
     def _create_meridian_practice_keyboard(
         self,
         language: str,
@@ -4717,11 +4935,31 @@ class BotHandlers:
             if action == "materials":
                 await self._edit_message_text_safe(
                     query,
-                    self._get_text("meridian_materials_text", language),
-                    reply_markup=self._create_meridians_menu_keyboard(language, user),
+                    self._get_text("meridian_materials_menu", language),
+                    reply_markup=self._create_meridian_materials_keyboard(language),
                     parse_mode='HTML'
                 )
                 return
+
+            if action.startswith("materials:"):
+                material_id = action.split(":", 1)[1]
+                if material_id == "base":
+                    await self._edit_message_text_safe(
+                        query,
+                        self._get_text("meridian_materials_text", language),
+                        reply_markup=self._create_meridian_materials_keyboard(language),
+                        parse_mode='HTML'
+                    )
+                    return
+                if material_id == "shu":
+                    await self._edit_message_text_safe(
+                        query,
+                        self._get_text("meridian_materials_sending", language),
+                        reply_markup=self._create_meridian_materials_keyboard(language),
+                        parse_mode='HTML'
+                    )
+                    await self._send_shu_points_material(chat_id, language)
+                    return
 
             if action == "choose":
                 user.meridian_learning_mode = "free"
@@ -5465,6 +5703,50 @@ class BotHandlers:
             if chat_id in self.user_states:
                 del self.user_states[chat_id]
             await update.message.reply_text(self._get_text("error", language))
+
+    async def _send_material_message(self, chat_id: int, text: str) -> None:
+        sent_message = await self.application.bot.send_message(chat_id, text, parse_mode='HTML')
+        await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
+
+    async def _send_material_photo(self, chat_id: int, image_path: Path, caption: Optional[str] = None) -> None:
+        if not image_path.exists():
+            logger.warning("Material image is missing: %s", image_path)
+            return
+        with open(image_path, "rb") as photo:
+            sent_message = await self.application.bot.send_photo(
+                chat_id=chat_id,
+                photo=photo,
+                caption=caption,
+                parse_mode='HTML' if caption else None
+            )
+        await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
+
+    async def _send_shu_points_material(self, chat_id: int, language: str) -> None:
+        """Send five shu-points material as ordered text and image blocks."""
+        await self._send_material_message(chat_id, self._get_text("shu_intro_text", language))
+        await self._send_material_photo(chat_id, _localized_material_image(SHU_RIVER_IMAGE_PATHS, language))
+        await self._send_material_message(chat_id, self._get_text("shu_flow_text", language))
+        await self._send_material_photo(chat_id, _localized_material_image(SHU_CHANNEL_IMAGE_PATHS, language))
+        await self._send_material_message(chat_id, self._get_text("shu_indications_text", language))
+
+        await self._send_material_message(chat_id, self._get_text("shu_sources_text", language))
+        await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_sources.png")
+
+        await self._send_material_message(chat_id, self._get_text("shu_brooks_text", language))
+        await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_brooks_1.png")
+        await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_brooks_2.png")
+
+        await self._send_material_message(chat_id, self._get_text("shu_rapids_text", language))
+        await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_rapids.png")
+
+        await self._send_material_message(chat_id, self._get_text("shu_rivers_text", language))
+        await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_rivers_1.png")
+        await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_rivers_2.png")
+
+        await self._send_material_message(chat_id, self._get_text("shu_mouths_text", language))
+        await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_mouths_1.png")
+        await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_mouths_2.png")
+        await self._send_material_photo(chat_id, MERIDIAN_MATERIALS_IMAGE_DIR / "shu_mouths_3.png")
 
     async def _show_principle_detail(self, query, principle: Dict[str, Any], language: str) -> None:
         """Show a selected Yama/Niyama principle in the current menu message."""
