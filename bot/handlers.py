@@ -1496,7 +1496,13 @@ TEXTS_UPDATE = {
             "According to classical Chinese acupuncture theory, the work of the organs depends on internal energy. In a healthy state, energy circulates freely through Yang and Yin meridians and remains in harmony. When a pathological process develops, this harmony is disturbed: some meridians may show excess, while others may show deficiency. Correct work with acupuncture points is traditionally used to help restore balanced energy circulation.\n\n"
             "<b>Examples of excess energy</b> may include arterial hypertension, gastritis with increased acidity, spastic constipation, lung conditions accompanied by bronchospasm, muscle hypertonicity, and impaired circulation in the lower limbs caused by vascular spasm.\n\n"
             "<b>Examples of energy deficiency</b> may include arterial hypotension, gastritis with low acidity, atonic constipation, paresis and paralysis, muscle atrophy, and chronic conditions that lead to exhaustion and reduced protective reserves.\n\n"
-            "<i>This material is for study and self-observation. It does not replace medical diagnosis or treatment.</i>"
+            "<i>This material is for study and self-observation. It does not replace medical diagnosis or treatment.</i>\n\n"
+            "<b>Methods of influencing acupuncture points</b>\n\n"
+            "In acupuncture, the effect depends not only on the point, but also on the method of influence. Traditionally, two approaches are described: a stimulating, or tonifying, method and an inhibiting, or sedating, method. In the first case, energy is added to the meridian; in the second, excessive activity is reduced.\n\n"
+            "<b>Tonifying method:</b> the needle is inserted quickly, its tip is directed along the meridian, and rotation is performed clockwise. Usually more points are used. The needles remain for a short time, from 30 seconds to 2-10 minutes, and are removed slowly.\n\n"
+            "<b>Sedating method:</b> the needle is directed against the flow of energy in the meridian and rotated counterclockwise. Usually fewer points are used. Sessions are longer: from 20-40 minutes to several hours. The needles are removed with a quick movement.\n\n"
+            "In real treatment, the method, duration, and number of sessions are chosen individually by a qualified specialist after consultation and examination.\n\n"
+            "<b>Term note:</b> proximal means closer to the center of the body or to the median line; distal means farther from the center. For example, the shoulder is the proximal part of the arm, while the hand is distal."
         ),
         "principles_random": "Random principle",
         "principles_all": "All principles",
@@ -1726,7 +1732,13 @@ TEXTS_UPDATE = {
             "Согласно древнекитайской теории акупунктуры, деятельность органов зависит от внутренней энергии. У здорового человека энергия в меридианах Ян и Инь циркулирует свободно и находится в гармонии. При развитии патологического процесса гармония нарушается: в одних меридианах возникает избыток, а в других — недостаток энергии. Правильное воздействие на точки иглорефлексотерапии традиционно используется для восстановления нормальной циркуляции энергии.\n\n"
             "<b>Примеры избытка энергии</b>: артериальная гипертония, гастрит с повышенной кислотностью, спастические запоры, заболевания лёгких с бронхоспазмом, гипертонус мышц, нарушение кровообращения в нижних конечностях вследствие спазма сосудов.\n\n"
             "<b>Примеры недостатка энергии</b>: артериальная гипотония, гастрит с пониженной кислотностью, атонические запоры, парезы и параличи, мышечная атрофия, хронические заболевания, которые приводят к истощению и снижению защитных сил организма.\n\n"
-            "<i>Материал дан для изучения и самонаблюдения. Он не заменяет медицинскую диагностику и лечение.</i>"
+            "<i>Материал дан для изучения и самонаблюдения. Он не заменяет медицинскую диагностику и лечение.</i>\n\n"
+            "<b>Методы воздействия на акупунктурные точки</b>\n\n"
+            "В иглорефлексотерапии эффект зависит не только от выбранной точки, но и от метода воздействия. Традиционно выделяют два подхода: возбуждающий, или тонизирующий, и тормозящий, или седативный. В первом случае в меридиан как бы добавляют энергию, во втором — снижают чрезмерную активность.\n\n"
+            "<b>Тонизирующий метод:</b> иглу вводят быстро, её кончик направляют по ходу меридиана, вращение выполняют по часовой стрелке. Обычно воздействуют на большее количество точек. Иглы оставляют ненадолго: от 30 секунд до 2-10 минут, извлекают медленно.\n\n"
+            "<b>Седативный метод:</b> иглу направляют против течения энергии в меридиане и вращают против часовой стрелки. Обычно воздействуют на меньшее количество точек. Сеансы более продолжительные: от 20-40 минут до нескольких часов. Иглы извлекают быстрым движением.\n\n"
+            "В реальном лечении методика, длительность и количество сеансов подбираются индивидуально квалифицированным специалистом после консультации и обследования.\n\n"
+            "<b>Пояснение термина:</b> проксимальный означает расположенный ближе к центру тела или к срединной линии; дистальный — дальше от центра. Например, плечо — проксимальный отдел руки, а кисть — дистальный."
         ),
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
@@ -1956,7 +1968,13 @@ TEXTS_UPDATE = {
             "Qadimgi Xitoy akupunktura nazariyasiga ko'ra, organlarning faoliyati ichki energiyaga bog'liq. Sog'lom holatda energiya Yang va Yin meridianlarida erkin aylanadi va uyg'unlikda bo'ladi. Patologik jarayon rivojlanganda bu uyg'unlik buziladi: ayrim meridianlarda ortiqchalik, boshqalarida esa yetishmovchilik paydo bo'lishi mumkin. Akupunktura nuqtalari bilan to'g'ri ishlash an'anaviy ravishda energiya aylanishini muvozanatga qaytarishga yordam beradi deb qaraladi.\n\n"
             "<b>Energiya ortiqchaligiga misollar</b>: arterial gipertoniya, kislotalilik oshgan gastrit, spastik qabziyat, bronxospazm bilan kechadigan o'pka kasalliklari, mushak gipertonusi, tomir spazmi sabab pastki oyoqlarda qon aylanishining buzilishi.\n\n"
             "<b>Energiya yetishmovchiligiga misollar</b>: arterial gipotoniya, kislotalilik pasaygan gastrit, atonik qabziyat, parez va falajlar, mushak atrofiyasi, charchash va himoya kuchlarining pasayishiga olib keladigan surunkali kasalliklar.\n\n"
-            "<i>Bu material o'rganish va o'zini kuzatish uchun berilgan. U tibbiy tashxis va davolash o'rnini bosmaydi.</i>"
+            "<i>Bu material o'rganish va o'zini kuzatish uchun berilgan. U tibbiy tashxis va davolash o'rnini bosmaydi.</i>\n\n"
+            "<b>Akupunktura nuqtalariga ta'sir qilish usullari</b>\n\n"
+            "Akupunkturada ta'sir faqat tanlangan nuqtaga emas, balki ta'sir qilish usuliga ham bog'liq. An'anaviy ravishda ikki yondashuv bor: qo'zg'atuvchi yoki tonizatsiya qiluvchi usul va tormozlovchi yoki sedativ usul. Birinchisida meridianga energiya qo'shiladi, ikkinchisida esa ortiqcha faollik pasaytiriladi.\n\n"
+            "<b>Tonizatsiya qiluvchi usul:</b> igna tez kiritiladi, uchi meridian yo'nalishi bo'ylab qaratiladi va soat mili bo'yicha aylantiriladi. Odatda ko'proq nuqtalarga ta'sir qilinadi. Ignalar qisqa vaqtga, 30 soniyadan 2-10 daqiqagacha qoldiriladi va sekin chiqariladi.\n\n"
+            "<b>Sedativ usul:</b> igna meridiandagi energiya oqimiga qarshi yo'naltiriladi va soat miliga qarshi aylantiriladi. Odatda kamroq nuqtalarga ta'sir qilinadi. Seanslar uzoqroq davom etadi: 20-40 daqiqadan bir necha soatgacha. Ignalar tez harakat bilan chiqariladi.\n\n"
+            "Haqiqiy davolashda usul, davomiylik va seanslar soni malakali mutaxassis tomonidan maslahat va tekshiruvdan keyin individual tanlanadi.\n\n"
+            "<b>Atama izohi:</b> proksimal tananing markaziga yoki o'rta chiziqqa yaqinroq joylashgan degani; distal esa markazdan uzoqroq degani. Masalan, yelka qo'lning proksimal qismi, kaft esa distal qismidir."
         ),
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
@@ -2199,7 +2217,13 @@ TEXTS_UPDATE = {
             "Ежелгі қытай акупунктура теориясына сәйкес, ағзалардың қызметі ішкі энергияға байланысты. Сау адамда энергия Ян және Инь меридиандарында еркін айналып, үйлесімде болады. Патологиялық процесс дамығанда бұл үйлесім бұзылады: кейбір меридиандарда артықтық, ал басқаларында жетіспеушілік пайда болуы мүмкін. Акупунктура нүктелерімен дұрыс жұмыс істеу дәстүрлі түрде энергия айналымын теңестіруге көмектеседі деп қарастырылады.\n\n"
             "<b>Энергия артықтығына мысалдар</b>: артериялық гипертония, қышқылдығы жоғары гастрит, спастикалық іш қату, бронхоспазммен жүретін өкпе аурулары, бұлшықет гипертонусы, тамыр спазмы салдарынан төменгі аяқтардағы қан айналымының бұзылуы.\n\n"
             "<b>Энергия жетіспеушілігіне мысалдар</b>: артериялық гипотония, қышқылдығы төмен гастрит, атониялық іш қату, парездер мен салдану, бұлшықет атрофиясы, әлсіреу мен қорғаныс күштерінің төмендеуіне әкелетін созылмалы аурулар.\n\n"
-            "<i>Бұл материал оқу және өзін-өзі бақылау үшін берілген. Ол медициналық диагностика мен емдеуді алмастырмайды.</i>"
+            "<i>Бұл материал оқу және өзін-өзі бақылау үшін берілген. Ол медициналық диагностика мен емдеуді алмастырмайды.</i>\n\n"
+            "<b>Акупунктура нүктелеріне әсер ету әдістері</b>\n\n"
+            "Акупунктурада әсер тек таңдалған нүктеге ғана емес, әсер ету әдісіне де байланысты. Дәстүрлі түрде екі тәсіл айтылады: қоздырушы, немесе тонизациялайтын әдіс және тежеуші, немесе седативті әдіс. Біріншісінде меридианға энергия қосылады, екіншісінде артық белсенділік төмендетіледі.\n\n"
+            "<b>Тонизациялайтын әдіс:</b> ине тез енгізіледі, ұшы меридиан бағытымен бағытталады және сағат тілі бағытымен айналдырылады. Әдетте көбірек нүктеге әсер етеді. Инелер қысқа уақытқа, 30 секундтан 2-10 минутқа дейін қалдырылады және баяу шығарылады.\n\n"
+            "<b>Седативті әдіс:</b> ине меридиандағы энергия ағынына қарсы бағытталып, сағат тіліне қарсы айналдырылады. Әдетте аздау нүктеге әсер етеді. Сеанстар ұзағырақ болады: 20-40 минуттан бірнеше сағатқа дейін. Инелер жылдам қозғалыспен шығарылады.\n\n"
+            "Нақты емдеуде әдіс, ұзақтық және сеанс саны білікті маманмен кеңес пен тексеруден кейін жеке таңдалады.\n\n"
+            "<b>Термин түсіндірмесі:</b> проксимальды — дене орталығына немесе орта сызыққа жақынырақ орналасқан деген сөз; дистальды — орталықтан алысырақ. Мысалы, иық — қолдың проксимальды бөлігі, ал қол басы — дистальды бөлігі."
         ),
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
