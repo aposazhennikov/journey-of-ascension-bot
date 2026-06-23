@@ -4860,7 +4860,7 @@ class BotHandlers:
 
             elif action == "test":
                 await self._edit_message_text_safe(query, self._get_text("sending_test", language))
-                success = await self.scheduler.send_reminder_check_message(chat_id, language)
+                success = await self.scheduler.send_full_reminder_check_message(chat_id, language)
                 if success:
                     text = self._as_html(self._get_text("menu", language))
                     keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)

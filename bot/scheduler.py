@@ -515,6 +515,89 @@ class YogaScheduler:
     async def send_test_message(self, chat_id: int, language: str = None) -> bool:
         """Backward-compatible alias for older handler code."""
         return await self.send_reminder_check_message(chat_id, language)
+
+    async def send_full_reminder_check_message(self, chat_id: int, language: str = None) -> bool:
+        """Send reminder checks for every active practice mode."""
+        try:
+            user = await self.storage.get_user(chat_id)
+            if language is None:
+                language = user.language if user else "en"
+
+            sent_any = False
+            should_send_principle = not user or getattr(user, "principles_enabled", True)
+            should_send_meridian = bool(
+                user
+                and getattr(user, "meridians_enabled", False)
+                and getattr(user, "meridian_learning_mode", None)
+            )
+
+            if should_send_principle:
+                sent_any = await self._send_principle_reminder_check(chat_id, language) or sent_any
+
+            if should_send_meridian:
+                sent_any = await self._send_meridian_reminder_check(user, language) or sent_any
+
+            return sent_any
+        except Exception as e:
+            logger.error(f"Error sending full reminder check message to user {chat_id}: {e}")
+            return False
+
+    async def _send_principle_reminder_check(self, chat_id: int, language: str) -> bool:
+        """Send a Yama/Niyama reminder check."""
+        principle = self.principles_manager.get_random_principle(language)
+        if not principle:
+            return False
+
+        prefixes = {
+            "en": "🧪 <b>Reminder check: Yama/Niyama</b>\n\n",
+            "ru": "🧪 <b>Проверка напоминания: Яма/Нияма</b>\n\n",
+            "uz": "🧪 <b>Eslatma tekshiruvi: Yama/Niyama</b>\n\n",
+            "kz": "🧪 <b>Еске салуды тексеру: Яма/Нияма</b>\n\n",
+        }
+        prefix = prefixes.get(language, prefixes["en"])
+        message_text = f"{prefix}{format_principle_message(principle, language, max_length=1024 - len(prefix))}"
+        return await self._send_message_with_retry(chat_id, message_text, principle_id=principle["id"])
+
+    async def _send_meridian_reminder_check(self, user: User, language: str) -> bool:
+        """Send a meridian reminder check without advancing progress."""
+        if not self.meridians_manager or self._is_guided_meridian_route_completed(user):
+            return False
+
+        meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id) if user.current_meridian_id else None
+        if not meridian:
+            if getattr(user, "meridian_learning_mode", None) == "guided":
+                meridian = self.meridians_manager.get_next_meridian(None, user.completed_meridians)
+            if not meridian:
+                meridian = self.meridians_manager.get_first_meridian()
+            if not meridian:
+                return False
+            user.current_meridian_id = meridian["id"]
+            user.current_point_index = -1
+            await self.storage.save_user(user)
+
+        points = meridian.get("points", [])
+        if user.current_point_index < -1 or user.current_point_index >= len(points):
+            user.current_point_index = -1
+            await self.storage.save_user(user)
+
+        prefixes = {
+            "en": "🧪 <b>Reminder check: Meridians</b>\n\n",
+            "ru": "🧪 <b>Проверка напоминания: Меридианы</b>\n\n",
+            "uz": "🧪 <b>Eslatma tekshiruvi: Meridianlar</b>\n\n",
+            "kz": "🧪 <b>Еске салуды тексеру: Меридиандар</b>\n\n",
+        }
+        prefix = prefixes.get(language, prefixes["en"])
+
+        if user.current_point_index >= 0:
+            message_text = prefix + format_meridian_point(meridian, user.current_point_index, language)
+            point_code = points[user.current_point_index].get("code") if user.current_point_index < len(points) else None
+            image_path = get_meridian_image_path(meridian["id"], point_code)
+        else:
+            message_text = prefix + format_meridian_intro(meridian, language)
+            image_path = get_meridian_image_path(meridian["id"])
+
+        keyboard = self._create_meridian_reminder_keyboard(language, user.current_point_index, len(points))
+        return await self._send_meridian_message_with_retry(user.chat_id, message_text, image_path, keyboard)
     
     def get_scheduler_stats(self) -> Dict[str, Any]:
         """Get scheduler statistics."""
