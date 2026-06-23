@@ -2959,6 +2959,52 @@ for _language, _updates in SHU_POINTS_ARTICLE_OVERRIDES.items():
 for _language, _updates in LIVE_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
+MERIDIAN_COMPLETION_TEXT_OVERRIDES = {
+    "en": {
+        "complete_meridian": "✅ Meridian studied / next",
+        "complete_meridian_confirm": (
+            "✅ <b>Finish this meridian?</b>\n\n"
+            "You have not opened all points yet. If you already studied this meridian on your own, "
+            "confirm and the bot will move you to the next meridian in the route."
+        ),
+        "complete_meridian_confirm_yes": "✅ Yes, move to the next meridian",
+        "complete_meridian_confirm_no": "↩️ Continue this meridian",
+    },
+    "ru": {
+        "complete_meridian": "✅ Меридиан изучен / дальше",
+        "complete_meridian_confirm": (
+            "✅ <b>Завершить этот меридиан?</b>\n\n"
+            "Вы ещё не открыли все точки в боте. Если вы уже изучили этот меридиан самостоятельно, "
+            "подтвердите, и бот переведёт вас к следующему меридиану маршрута."
+        ),
+        "complete_meridian_confirm_yes": "✅ Да, перейти к следующему",
+        "complete_meridian_confirm_no": "↩️ Продолжить этот меридиан",
+    },
+    "uz": {
+        "complete_meridian": "✅ Meridian o‘rganildi / keyingisi",
+        "complete_meridian_confirm": (
+            "✅ <b>Bu meridianni yakunlaysizmi?</b>\n\n"
+            "Siz hali botdagi barcha nuqtalarni ochmadingiz. Agar meridianni mustaqil o‘rgangan bo‘lsangiz, "
+            "tasdiqlang va bot sizni yo‘nalishdagi keyingi meridianga o‘tkazadi."
+        ),
+        "complete_meridian_confirm_yes": "✅ Ha, keyingisiga o‘tish",
+        "complete_meridian_confirm_no": "↩️ Shu meridianni davom ettirish",
+    },
+    "kz": {
+        "complete_meridian": "✅ Меридиан зерттелді / келесі",
+        "complete_meridian_confirm": (
+            "✅ <b>Бұл меридианды аяқтайсыз ба?</b>\n\n"
+            "Сіз боттағы барлық нүктені әлі ашқан жоқсыз. Егер меридианды өзіңіз зерттеп қойған болсаңыз, "
+            "растаңыз, сонда бот сізді бағыттағы келесі меридианға өткізеді."
+        ),
+        "complete_meridian_confirm_yes": "✅ Иә, келесіге өту",
+        "complete_meridian_confirm_no": "↩️ Осы меридианды жалғастыру",
+    },
+}
+
+for _language, _updates in MERIDIAN_COMPLETION_TEXT_OVERRIDES.items():
+    TEXTS.setdefault(_language, {}).update(_updates)
+
 DEPRECATED_TEXT_KEYS = ("feedback_request", "feedback_received", "skip_days_saved")
 for _language_texts in TEXTS.values():
     for _key in DEPRECATED_TEXT_KEYS:
@@ -4605,11 +4651,14 @@ class BotHandlers:
                     InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
                     InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
                 ],
-                [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
             ]
             pair_button = self._pair_meridian_button(meridian_id, language)
             if pair_button:
-                keyboard.insert(3, [pair_button])
+                keyboard.append([pair_button])
+            keyboard.extend([
+                [InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")],
+                [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
+            ])
             return InlineKeyboardMarkup(keyboard)
 
         navigation_row = []
@@ -4628,7 +4677,7 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
             ],
         ])
-        if point_index is not None and points_count is not None and point_index >= points_count - 1:
+        if points_count is None or points_count > 0:
             keyboard.append([InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")])
         keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
         return InlineKeyboardMarkup(keyboard)
@@ -4647,6 +4696,14 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("meridian_guided_path", language), callback_data="meridian_path:guided")],
             [InlineKeyboardButton(self._get_text("meridian_free_choice", language), callback_data="meridian_path:free")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
+        ])
+
+    def _create_meridian_complete_confirm_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create confirmation keyboard for finishing a meridian before the last point."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("complete_meridian_confirm_yes", language), callback_data="meridian_complete_confirm")],
+            [InlineKeyboardButton(self._get_text("complete_meridian_confirm_no", language), callback_data="meridian_current")],
+            [InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all")]
         ])
 
     def _create_meridian_help_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
@@ -5459,19 +5516,13 @@ class BotHandlers:
                 )
                 return
 
-            if action == "complete":
-                if points and user.current_point_index < len(points) - 1:
-                    user.current_point_index = max(0, user.current_point_index)
-                    await self.storage.save_user(user)
-                    text = format_meridian_point(meridian, user.current_point_index, language)
-                    point_code = points[user.current_point_index].get("code")
-                    await self._show_meridian_card(
+            if action in ("complete", "complete_confirm"):
+                if action == "complete" and points and user.current_point_index < len(points) - 1:
+                    await self._edit_message_text_safe(
                         query,
-                        text,
-                        self._create_meridian_practice_keyboard(language, point_index=user.current_point_index, points_count=len(points)),
-                        language,
-                        meridian.get("id"),
-                        point_code
+                        self._get_text("complete_meridian_confirm", language),
+                        reply_markup=self._create_meridian_complete_confirm_keyboard(language),
+                        parse_mode='HTML'
                     )
                     return
 
@@ -5499,6 +5550,21 @@ class BotHandlers:
                     else self._get_text("meridian_completed", language)
                 )
                 if user.current_meridian_id:
+                    next_meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id)
+                    if next_meridian:
+                        next_text = f"{text}\n\n{format_meridian_intro(next_meridian, language)}"
+                        await self._show_meridian_card(
+                            query,
+                            next_text,
+                            self._create_meridian_practice_keyboard(
+                                language,
+                                at_intro=True,
+                                meridian_id=next_meridian.get("id")
+                            ),
+                            language,
+                            next_meridian.get("id")
+                        )
+                        return
                     await self._edit_message_text_safe(
                         query,
                         text,
