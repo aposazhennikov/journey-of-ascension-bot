@@ -3094,6 +3094,60 @@ SECRET_TASK_TEXT_OVERRIDES = {
 for _language, _updates in SECRET_TASK_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
+MERIDIAN_PRACTICE_ADVICE_TEXT_OVERRIDES = {
+    "en": {
+        "meridian_practice_advice": "🌿 Practice advice",
+        "meridian_practice_advice_text": (
+            "🌿 <b>Practice advice</b>\n\n"
+            "<b>Best place:</b> if possible, practice meridian meditations in nature: in a forest, garden, near water, or in a quiet park. "
+            "Choose a place that feels pleasant to you, where the atmosphere helps you settle down.\n\n"
+            "Nature carries a lot of living energy: plants, trees, earth, air, water, birds, and animals all create a stronger field of life than a busy city street. "
+            "This makes it easier to calm down, breathe deeper, and feel the body more clearly.\n\n"
+            "<b>If nature is not available:</b> practice at home. The main thing is quiet conditions: no rush, no interruptions, no need to answer messages or talk to anyone.\n\n"
+            "Meridian meditation needs not only concentration, but also inner calm. Before starting, sit comfortably, soften the body, breathe naturally, and only then move attention to the points."
+        ),
+    },
+    "ru": {
+        "meridian_practice_advice": "🌿 Советы для практики",
+        "meridian_practice_advice_text": (
+            "🌿 <b>Советы для практики</b>\n\n"
+            "<b>Лучшее место:</b> если есть возможность, занимайтесь медитациями по меридианам на природе: в лесу, саду, у воды или в спокойном парке. "
+            "Выберите место, которое вам нравится, где приятная атмосфера и телу легче успокоиться.\n\n"
+            "На природе много живой энергии: растения, деревья, земля, воздух, вода, птицы и животные создают более сильное поле жизни, чем городская суета. "
+            "Так легче расслабиться, глубже дышать и яснее чувствовать тело.\n\n"
+            "<b>Если нет возможности выйти на природу:</b> занимайтесь дома. Главное, чтобы были спокойные условия: без спешки, без отвлечений, без необходимости отвечать на сообщения или разговаривать.\n\n"
+            "Медитация по меридианам требует не только концентрации, но и внутреннего спокойствия. Перед началом сядьте удобно, смягчите тело, выровняйте дыхание и только потом переводите внимание к точкам."
+        ),
+    },
+    "uz": {
+        "meridian_practice_advice": "🌿 Amaliyot bo‘yicha maslahat",
+        "meridian_practice_advice_text": (
+            "🌿 <b>Amaliyot bo‘yicha maslahat</b>\n\n"
+            "<b>Eng yaxshi joy:</b> imkon bo‘lsa, meridian meditatsiyalarini tabiatda bajaring: o‘rmon, bog‘, suv bo‘yi yoki sokin parkda. "
+            "O‘zingizga yoqadigan, muhiti yoqimli va tanangiz tinchlanishi oson bo‘lgan joyni tanlang.\n\n"
+            "Tabiatda hayot energiyasi ko‘proq seziladi: o‘simliklar, daraxtlar, yer, havo, suv, qushlar va hayvonlar shahar shovqiniga qaraganda kuchliroq tiriklik muhitini yaratadi. "
+            "Shunda tinchlanish, chuqurroq nafas olish va tanani aniqroq sezish osonlashadi.\n\n"
+            "<b>Agar tabiatga chiqish imkoni bo‘lmasa:</b> uyda shug‘ullaning. Muhimi, sharoit sokin bo‘lsin: shoshilmasdan, chalg‘imasdan, xabarlarga javob berish yoki gaplashish zaruratisiz.\n\n"
+            "Meridian meditatsiyasi nafaqat diqqatni, balki ichki xotirjamlikni ham talab qiladi. Boshlashdan oldin qulay o‘tiring, tanani yumshating, nafasni tabiiy qiling va keyin diqqatni nuqtalarga olib boring."
+        ),
+    },
+    "kz": {
+        "meridian_practice_advice": "🌿 Практикаға кеңес",
+        "meridian_practice_advice_text": (
+            "🌿 <b>Практикаға кеңес</b>\n\n"
+            "<b>Ең жақсы орын:</b> мүмкіндік болса, меридиан медитацияларын табиғатта жасаңыз: орманда, бақта, су маңында немесе тыныш паркте. "
+            "Өзіңізге ұнайтын, атмосферасы жағымды және денеңізге тынышталу жеңіл болатын жерді таңдаңыз.\n\n"
+            "Табиғатта тіршілік энергиясы көбірек сезіледі: өсімдіктер, ағаштар, жер, ауа, су, құстар мен жануарлар қала қарбаласына қарағанда тірі өрісті күштірек жасайды. "
+            "Сонда тынышталу, тереңірек тыныс алу және денені анық сезу жеңілдейді.\n\n"
+            "<b>Егер табиғатқа шығу мүмкін болмаса:</b> үйде айналысыңыз. Ең бастысы, жағдай тыныш болсын: асықпай, алаңдамай, хабарламаларға жауап бермей және сөйлеспей.\n\n"
+            "Меридиан медитациясына тек концентрация емес, ішкі тыныштық та қажет. Бастамас бұрын ыңғайлы отырыңыз, денені жұмсартыңыз, тынысты табиғи етіңіз, содан кейін ғана зейінді нүктелерге бағыттаңыз."
+        ),
+    },
+}
+
+for _language, _updates in MERIDIAN_PRACTICE_ADVICE_TEXT_OVERRIDES.items():
+    TEXTS.setdefault(_language, {}).update(_updates)
+
 DEPRECATED_TEXT_KEYS = ("feedback_request", "feedback_received", "skip_days_saved")
 for _language_texts in TEXTS.values():
     for _key in DEPRECATED_TEXT_KEYS:
@@ -4679,6 +4733,7 @@ class BotHandlers:
             keyboard.append([InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")])
         keyboard.extend([
             [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
+            [InlineKeyboardButton(self._get_text("meridian_practice_advice", language), callback_data="meridian_practice_advice")],
             [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
             [InlineKeyboardButton(self._get_text("useful_materials", language), callback_data="meridian_materials")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
@@ -5374,6 +5429,17 @@ class BotHandlers:
                     query,
                     self._get_text("meridian_point_help_text", language),
                     reply_markup=self._create_meridian_help_keyboard(language, user),
+                    parse_mode='HTML'
+                )
+                return
+
+            if action == "practice_advice":
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("meridian_practice_advice_text", language),
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
+                    ]),
                     parse_mode='HTML'
                 )
                 return
