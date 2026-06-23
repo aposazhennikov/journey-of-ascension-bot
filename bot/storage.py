@@ -25,6 +25,7 @@ class User:
     current_point_index: int = -1
     completed_meridians: List[str] = None
     meridian_learning_mode: Optional[str] = None
+    secret_tasks: Dict[str, str] = None
 
     def __post_init__(self):
         """Initialize default values."""
@@ -46,6 +47,13 @@ class User:
         if self.completed_meridians is None:
             self.completed_meridians = []
         self.completed_meridians = self._normalize_string_list(self.completed_meridians)
+        if self.secret_tasks is None or not isinstance(self.secret_tasks, dict):
+            self.secret_tasks = {}
+        self.secret_tasks = {
+            str(key): str(value)
+            for key, value in self.secret_tasks.items()
+            if key is not None and value is not None
+        }
         # Ensure last_feedback_time is None if not set
         if not hasattr(self, 'last_feedback_time'):
             self.last_feedback_time = None
@@ -246,6 +254,11 @@ class JsonStorage:
             if user_data.get("is_active", True):
                 active_users.append(User.from_dict(user_data))
         return active_users
+
+    async def get_all_users(self) -> List[User]:
+        """Get all users regardless of active status."""
+        users_data = await self._read_json(self.users_file)
+        return [User.from_dict(user_data) for user_data in users_data.values()]
     
     async def deactivate_user(self, chat_id: int) -> bool:
         """Deactivate user."""

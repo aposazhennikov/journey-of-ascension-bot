@@ -36,6 +36,7 @@ logger = logging.getLogger(__name__)
 
 MERIDIAN_POINTS_PAGE_SIZE = 7
 MERIDIAN_SELECTION_PAGE_SIZE = 7
+GOVERNING_VESSEL_SECRET_TASK_ID = "governing_vessel_forest_breathing"
 CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement.png"
 MERIDIAN_VIDEO_PATHS = {
     "bladder": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "bladder.mp4",
@@ -1404,12 +1405,14 @@ ADMIN_TEXTS = {
     ),
     "no_feedback": "No feedback received yet.",
     "feedback_list_usage": "Usage: /feedback_list [limit] (default: 10, max: 50)",
+    "progress_usage": "Usage: /progress [limit] (default: 30, max: 100)",
     "admin_help": (
         "🔧 Admin Commands:\n\n"
         "📊 Statistics:\n"
         "• /stats - Bot usage statistics\n"
         "• /feedback_stats - Feedback statistics\n"
-        "• /feedback_list [limit] - View recent feedback\n\n"
+        "• /feedback_list [limit] - View recent feedback\n"
+        "• /progress [limit] - View users' meridian progress and secret tasks\n\n"
         "📨 Messages:\n"
         "• /next - Show random principle for user\n"
         "• /broadcast <message> - Send message to all users\n"
@@ -3005,6 +3008,92 @@ MERIDIAN_COMPLETION_TEXT_OVERRIDES = {
 for _language, _updates in MERIDIAN_COMPLETION_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
+SECRET_TASK_TEXT_OVERRIDES = {
+    "en": {
+        "secret_task_offer_governing": (
+            "🌲 <b>Secret task</b>\n\n"
+            "You have completed the Governing Vessel in the bot route. Do you want to open a practice task before moving to the next meridian?"
+        ),
+        "secret_task_yes": "🌲 Yes, open the task",
+        "secret_task_no": "Not now, continue",
+        "secret_task_governing": (
+            "🌲 <b>Secret task: breathe with the Governing Vessel</b>\n\n"
+            "Go to a forest, park, garden, or any quiet place in nature. Sit calmly, ideally with your back near a tree.\n\n"
+            "Remember the whole Governing Vessel: from the lower point, up the spine, through the neck, head, and face. "
+            "Do not rush. First feel the points you remember. Then let them connect into one line.\n\n"
+            "Breathe as if the whole meridian is breathing with you. On the inhale, feel attention rising along the back line. "
+            "On the exhale, let the body soften and release excess tension.\n\n"
+            "The task is complete when the line becomes easier to feel as one living channel, not as separate points."
+        ),
+        "secret_task_continue": "➡️ Continue to next meridian",
+        "secret_task_done": "✅ Task done",
+        "secret_task_done_text": "✅ <b>Secret task marked as done.</b>\n\nThe route can continue.",
+    },
+    "ru": {
+        "secret_task_offer_governing": (
+            "🌲 <b>Секретное задание</b>\n\n"
+            "Вы завершили Заднесрединный меридиан в маршруте бота. Хотите открыть практическое задание перед переходом к следующему меридиану?"
+        ),
+        "secret_task_yes": "🌲 Да, открыть задание",
+        "secret_task_no": "Не сейчас, продолжить",
+        "secret_task_governing": (
+            "🌲 <b>Секретное задание: дыхание Заднесрединным меридианом</b>\n\n"
+            "Сходите в лес, парк, сад или любое спокойное место на природе. Сядьте спокойно, по возможности спиной к дереву.\n\n"
+            "Вспомните весь Заднесрединный меридиан: от нижней точки, вверх по позвоночнику, через шею, голову и лицо. "
+            "Не спешите. Сначала почувствуйте те точки, которые уже помните. Затем соедините их в одну линию.\n\n"
+            "Дышите так, будто весь меридиан дышит вместе с вами. На вдохе чувствуйте, как внимание поднимается по задней линии. "
+            "На выдохе позволяйте телу смягчаться и отпускать лишнее напряжение.\n\n"
+            "Задание выполнено, когда линию становится легче чувствовать целиком, как живой канал, а не как отдельные точки."
+        ),
+        "secret_task_continue": "➡️ Перейти к следующему меридиану",
+        "secret_task_done": "✅ Задание выполнено",
+        "secret_task_done_text": "✅ <b>Секретное задание отмечено как выполненное.</b>\n\nМаршрут можно продолжать.",
+    },
+    "uz": {
+        "secret_task_offer_governing": (
+            "🌲 <b>Maxfiy topshiriq</b>\n\n"
+            "Siz bot yo‘nalishida Orqa o‘rta meridianni yakunladingiz. Keyingi meridianga o‘tishdan oldin amaliy topshiriqni ochasizmi?"
+        ),
+        "secret_task_yes": "🌲 Ha, topshiriqni ochish",
+        "secret_task_no": "Hozir emas, davom etish",
+        "secret_task_governing": (
+            "🌲 <b>Maxfiy topshiriq: Orqa o‘rta meridian bilan nafas olish</b>\n\n"
+            "O‘rmon, park, bog‘ yoki tabiatdagi sokin joyga boring. Imkon bo‘lsa, daraxtga orqangizni yaqin qilib tinch o‘tiring.\n\n"
+            "Butun Orqa o‘rta meridianni eslang: pastki nuqtadan umurtqa bo‘ylab yuqoriga, bo‘yin, bosh va yuz orqali. "
+            "Shoshilmang. Avval esingizda qolgan nuqtalarni his qiling. Keyin ularni bitta chiziqqa ulang.\n\n"
+            "Butun meridian siz bilan birga nafas olayotgandek nafas oling. Nafas olayotganda e'tibor orqa chiziq bo‘ylab ko‘tarilishini his qiling. "
+            "Nafas chiqarishda tana yumshasin va ortiqcha taranglik qo‘yib yuborilsin.\n\n"
+            "Chiziqni alohida nuqtalar emas, bitta tirik kanal sifatida his qilish osonlashganda topshiriq bajarilgan bo‘ladi."
+        ),
+        "secret_task_continue": "➡️ Keyingi meridianga o‘tish",
+        "secret_task_done": "✅ Topshiriq bajarildi",
+        "secret_task_done_text": "✅ <b>Maxfiy topshiriq bajarildi deb belgilandi.</b>\n\nYo‘nalishni davom ettirish mumkin.",
+    },
+    "kz": {
+        "secret_task_offer_governing": (
+            "🌲 <b>Құпия тапсырма</b>\n\n"
+            "Сіз бот бағытында Артқы ортаңғы меридианды аяқтадыңыз. Келесі меридианға өтпес бұрын практикалық тапсырманы ашқыңыз келе ме?"
+        ),
+        "secret_task_yes": "🌲 Иә, тапсырманы ашу",
+        "secret_task_no": "Қазір емес, жалғастыру",
+        "secret_task_governing": (
+            "🌲 <b>Құпия тапсырма: Артқы ортаңғы меридианмен тыныстау</b>\n\n"
+            "Орманға, паркке, баққа немесе табиғаттағы тыныш жерге барыңыз. Мүмкін болса, арқаңызды ағашқа жақын қойып, тыныш отырыңыз.\n\n"
+            "Артқы ортаңғы меридианды түгел еске түсіріңіз: төменгі нүктеден омыртқа бойымен жоғары, мойын, бас және бет арқылы. "
+            "Асықпаңыз. Алдымен есте қалған нүктелерді сезіңіз. Содан кейін оларды бір сызыққа қосыңыз.\n\n"
+            "Бүкіл меридиан сізбен бірге тыныстап тұрғандай тыныс алыңыз. Дем алғанда назардың артқы сызық бойымен көтерілгенін сезіңіз. "
+            "Дем шығарғанда дененің жұмсарып, артық кернеуді босатуына мүмкіндік беріңіз.\n\n"
+            "Сызықты бөлек нүктелер емес, бір тірі арна ретінде сезіну жеңілдегенде тапсырма орындалды деп санауға болады."
+        ),
+        "secret_task_continue": "➡️ Келесі меридианға өту",
+        "secret_task_done": "✅ Тапсырма орындалды",
+        "secret_task_done_text": "✅ <b>Құпия тапсырма орындалды деп белгіленді.</b>\n\nБағытты жалғастыруға болады.",
+    },
+}
+
+for _language, _updates in SECRET_TASK_TEXT_OVERRIDES.items():
+    TEXTS.setdefault(_language, {}).update(_updates)
+
 DEPRECATED_TEXT_KEYS = ("feedback_request", "feedback_received", "skip_days_saved")
 for _language_texts in TEXTS.values():
     for _key in DEPRECATED_TEXT_KEYS:
@@ -3047,7 +3136,7 @@ class BotHandlers:
         # Admin commands.
         self.application.add_handler(
             MessageHandler(
-                filters.Regex(r"^/(stats|feedback_stats|feedback_list|broadcast)(?:@\w+)?(?:\s|$)"),
+                filters.Regex(r"^/(stats|feedback_stats|feedback_list|progress|broadcast)(?:@\w+)?(?:\s|$)"),
                 self._handle_admin_text_command_fallback
             ),
             group=-1
@@ -3058,6 +3147,7 @@ class BotHandlers:
         self.application.add_handler(CommandHandler("broadcast", self._handle_broadcast))
         self.application.add_handler(CommandHandler("feedback_stats", self._handle_feedback_stats))
         self.application.add_handler(CommandHandler("feedback_list", self._handle_feedback_list))
+        self.application.add_handler(CommandHandler("progress", self._handle_progress))
         self.application.add_handler(CommandHandler("admin", self._handle_admin))
 
         # Callback query handlers.
@@ -3107,6 +3197,9 @@ class BotHandlers:
             raise ApplicationHandlerStop
         if command == "/feedback_list":
             await self._handle_feedback_list(update, context)
+            raise ApplicationHandlerStop
+        if command == "/progress":
+            await self._handle_progress(update, context)
             raise ApplicationHandlerStop
         if command == "/broadcast":
             await self._handle_broadcast(update, context)
@@ -4706,6 +4799,51 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all")]
         ])
 
+    def _create_secret_task_offer_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create keyboard for the governing vessel secret task offer."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("secret_task_yes", language), callback_data="meridian_secret_yes")],
+            [InlineKeyboardButton(self._get_text("secret_task_no", language), callback_data="meridian_secret_no")]
+        ])
+
+    def _create_secret_task_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create keyboard for an opened secret task."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("secret_task_done", language), callback_data="meridian_secret_done")],
+            [InlineKeyboardButton(self._get_text("secret_task_continue", language), callback_data="meridian_secret_continue")]
+        ])
+
+    async def _advance_after_governing_secret_task(self, query, user: User, language: str) -> None:
+        """Move guided user from the governing vessel to the next route meridian."""
+        next_meridian = self.meridians_manager.get_next_meridian("governing_vessel", user.completed_meridians)
+        if next_meridian:
+            user.current_meridian_id = next_meridian["id"]
+            user.current_point_index = -1
+            await self.storage.save_user(user)
+            text = f"{self._get_text('meridian_completed', language)}\n\n{format_meridian_intro(next_meridian, language)}"
+            await self._show_meridian_card(
+                query,
+                text,
+                self._create_meridian_practice_keyboard(
+                    language,
+                    at_intro=True,
+                    meridian_id=next_meridian.get("id")
+                ),
+                language,
+                next_meridian.get("id")
+            )
+            return
+
+        user.current_meridian_id = None
+        user.current_point_index = -1
+        await self.storage.save_user(user)
+        await self._edit_message_text_safe(
+            query,
+            self._get_text("meridian_route_completed", language),
+            reply_markup=self._create_meridian_route_completed_keyboard(language),
+            parse_mode='HTML'
+        )
+
     def _create_meridian_help_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
         """Create keyboard for meridian reference screens without surprising auto-starts."""
         keyboard = []
@@ -5163,6 +5301,40 @@ class BotHandlers:
                 await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
                 return
 
+            if action == "secret_yes":
+                user.secret_tasks[GOVERNING_VESSEL_SECRET_TASK_ID] = "opened"
+                await self.storage.save_user(user)
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("secret_task_governing", language),
+                    reply_markup=self._create_secret_task_keyboard(language),
+                    parse_mode='HTML'
+                )
+                return
+
+            if action == "secret_no":
+                user.secret_tasks[GOVERNING_VESSEL_SECRET_TASK_ID] = "skipped"
+                await self.storage.save_user(user)
+                await self._advance_after_governing_secret_task(query, user, language)
+                return
+
+            if action == "secret_done":
+                user.secret_tasks[GOVERNING_VESSEL_SECRET_TASK_ID] = "done"
+                await self.storage.save_user(user)
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("secret_task_done_text", language),
+                    reply_markup=self._create_secret_task_keyboard(language),
+                    parse_mode='HTML'
+                )
+                return
+
+            if action == "secret_continue":
+                user.secret_tasks.setdefault(GOVERNING_VESSEL_SECRET_TASK_ID, "opened")
+                await self.storage.save_user(user)
+                await self._advance_after_governing_secret_task(query, user, language)
+                return
+
             if action == "path":
                 await self._edit_message_text_safe(
                     query,
@@ -5528,6 +5700,21 @@ class BotHandlers:
 
                 if user.current_meridian_id and user.current_meridian_id not in user.completed_meridians:
                     user.completed_meridians.append(user.current_meridian_id)
+
+                if (
+                    getattr(user, "meridian_learning_mode", None) == "guided"
+                    and user.current_meridian_id == "governing_vessel"
+                    and GOVERNING_VESSEL_SECRET_TASK_ID not in user.secret_tasks
+                ):
+                    user.secret_tasks[GOVERNING_VESSEL_SECRET_TASK_ID] = "offered"
+                    await self.storage.save_user(user)
+                    await self._edit_message_text_safe(
+                        query,
+                        self._get_text("secret_task_offer_governing", language),
+                        reply_markup=self._create_secret_task_offer_keyboard(language),
+                        parse_mode='HTML'
+                    )
+                    return
 
                 route_completed = False
                 if getattr(user, "meridian_learning_mode", None) == "guided":
@@ -6383,6 +6570,93 @@ class BotHandlers:
             except:
                 logger.error(f"Could not send error message to {chat_id}")
 
+
+    async def _handle_progress(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle /progress command (admin only)."""
+        chat_id = update.effective_chat.id
+
+        if chat_id not in self.admin_ids:
+            return
+
+        if not update.message:
+            logger.warning("progress called without message")
+            return
+
+        try:
+            limit = 30
+            args = self._extract_command_args(update, context)
+            if args:
+                try:
+                    limit = max(1, min(int(args[0]), 100))
+                except ValueError:
+                    await update.message.reply_text(self._get_admin_text("progress_usage"))
+                    return
+
+            users = await self.storage.get_all_users()
+            users.sort(key=lambda item: (not item.is_active, item.language, item.chat_id))
+
+            route = self.meridians_manager.get_recommended_path_meridians()
+            route_ids = [meridian.get("id") for meridian in route]
+            route_total = len(route_ids)
+
+            lines = [f"🧭 Users progress ({min(len(users), limit)}/{len(users)}):"]
+            for user in users[:limit]:
+                enabled_modes = []
+                if user.principles_enabled:
+                    enabled_modes.append("Yama/Niyama")
+                if user.meridians_enabled:
+                    enabled_modes.append("Meridians")
+
+                current_meridian = (
+                    self.meridians_manager.get_meridian_by_id(user.current_meridian_id)
+                    if user.current_meridian_id
+                    else None
+                )
+                current_name = (
+                    self._localized_meridian_name(current_meridian, user.language)
+                    if current_meridian
+                    else "-"
+                )
+
+                point_progress = "-"
+                if current_meridian:
+                    point_total = len(current_meridian.get("points", []))
+                    if user.current_point_index >= 0:
+                        point_progress = f"{user.current_point_index + 1}/{point_total}"
+                    else:
+                        point_progress = f"intro/{point_total}"
+
+                completed_count = len([item for item in user.completed_meridians if item in route_ids])
+                if not route_total:
+                    completed_count = len(user.completed_meridians)
+
+                secret_tasks = user.secret_tasks or {}
+                secret_progress = (
+                    ", ".join(f"{task}:{status}" for task, status in secret_tasks.items())
+                    if secret_tasks
+                    else "-"
+                )
+                active_status = "active" if user.is_active else "paused"
+                modes_text = ", ".join(enabled_modes) if enabled_modes else "-"
+                route_text = f"{completed_count}/{route_total}" if route_total else str(completed_count)
+
+                lines.append(
+                    f"\n{user.chat_id} | {active_status} | {user.language} | {modes_text}"
+                    f"\n  path: {user.meridian_learning_mode or '-'}; current: {current_name}; point: {point_progress}; completed: {route_text}"
+                    f"\n  secret: {secret_progress}"
+                )
+
+            text = "\n".join(lines)
+            chunks = [text[index:index + 3900] for index in range(0, len(text), 3900)]
+            for chunk in chunks:
+                await update.message.reply_text(chunk)
+
+        except Exception as e:
+            logger.error(f"Error in progress handler: {e}")
+            try:
+                await update.message.reply_text("Error getting progress.")
+            except Exception:
+                logger.error(f"Could not send progress error to {chat_id}")
 
 
     async def _handle_admin(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
