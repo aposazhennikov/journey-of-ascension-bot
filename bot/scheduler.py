@@ -7,7 +7,7 @@ from typing import Dict, Any, Optional
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.date import DateTrigger
-from telegram import Bot
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.error import TelegramError, Forbidden, BadRequest
 
 from .storage import JsonStorage, User, BotMessage
@@ -38,6 +38,85 @@ class YogaScheduler:
         self.meridians_manager = meridians_manager
         self.scheduler = AsyncIOScheduler(timezone='UTC')
         self.jobs_created = 0
+
+    def _meridian_button_text(self, key: str, language: str) -> str:
+        """Return localized labels for meridian reminder buttons."""
+        labels = {
+            "en": {
+                "start": "Start with point 1",
+                "prev": "Previous point",
+                "next": "Next point",
+                "video": "🎥 Meridian video",
+                "all": "All points",
+                "help": "🖐 How to find a point",
+                "complete": "✅ Meridian studied / next",
+                "back": "🔙 Back to meridians",
+            },
+            "ru": {
+                "start": "Начать с первой точки",
+                "prev": "Предыдущая точка",
+                "next": "Следующая точка",
+                "video": "🎥 Видео меридиана",
+                "all": "Все точки",
+                "help": "🖐 Как искать точку",
+                "complete": "✅ Меридиан изучен / дальше",
+                "back": "🔙 К меридианам",
+            },
+            "uz": {
+                "start": "1-nuqtadan boshlash",
+                "prev": "Oldingi nuqta",
+                "next": "Keyingi nuqta",
+                "video": "🎥 Meridian videosi",
+                "all": "Barcha nuqtalar",
+                "help": "🖐 Nuqtani topish",
+                "complete": "✅ Meridian o‘rganildi / keyingisi",
+                "back": "🔙 Meridianlarga qaytish",
+            },
+            "kz": {
+                "start": "1-нүктеден бастау",
+                "prev": "Алдыңғы нүкте",
+                "next": "Келесі нүкте",
+                "video": "🎥 Меридиан видеосы",
+                "all": "Барлық нүктелер",
+                "help": "🖐 Нүктені табу",
+                "complete": "✅ Меридиан зерттелді / келесі",
+                "back": "🔙 Меридиандарға қайту",
+            },
+        }
+        language_labels = labels.get(language, labels["en"])
+        return language_labels.get(key, labels["en"][key])
+
+    def _create_meridian_reminder_keyboard(self, language: str, point_index: int, points_count: int) -> InlineKeyboardMarkup:
+        """Create inline navigation for daily meridian reminder messages."""
+        keyboard = []
+
+        if point_index < 0:
+            keyboard.append([
+                InlineKeyboardButton(self._meridian_button_text("start", language), callback_data="meridian_next")
+            ])
+        else:
+            navigation_row = []
+            if point_index > 0:
+                navigation_row.append(
+                    InlineKeyboardButton(self._meridian_button_text("prev", language), callback_data="meridian_prev")
+                )
+            if point_index < points_count - 1:
+                navigation_row.append(
+                    InlineKeyboardButton(self._meridian_button_text("next", language), callback_data="meridian_next")
+                )
+            if navigation_row:
+                keyboard.append(navigation_row)
+
+        keyboard.extend([
+            [InlineKeyboardButton(self._meridian_button_text("video", language), callback_data="meridian_video")],
+            [
+                InlineKeyboardButton(self._meridian_button_text("all", language), callback_data="meridian_all"),
+                InlineKeyboardButton(self._meridian_button_text("help", language), callback_data="meridian_point_help"),
+            ],
+            [InlineKeyboardButton(self._meridian_button_text("complete", language), callback_data="meridian_complete")],
+            [InlineKeyboardButton(self._meridian_button_text("back", language), callback_data="meridian_main")],
+        ])
+        return InlineKeyboardMarkup(keyboard)
 
     def _is_guided_meridian_route_completed(self, user: User) -> bool:
         """Return True when the guided meridian route is finished and waiting for an explicit restart."""
@@ -243,7 +322,8 @@ class YogaScheduler:
                 message_text = format_meridian_intro(meridian, user.language)
                 image_path = get_meridian_image_path(meridian["id"])
 
-            await self._send_meridian_message_with_retry(chat_id, message_text, image_path)
+            keyboard = self._create_meridian_reminder_keyboard(user.language, user.current_point_index, len(points))
+            await self._send_meridian_message_with_retry(chat_id, message_text, image_path, keyboard)
 
             current_user = await self.storage.get_user(chat_id)
             if current_user and current_user.is_active and current_user.meridians_enabled:
@@ -252,7 +332,14 @@ class YogaScheduler:
         except Exception as e:
             logger.error(f"Error sending meridian focus to user {chat_id}: {e}")
 
-    async def _send_meridian_message_with_retry(self, chat_id: int, message: str, image_path: Optional[str] = None, max_retries: int = 3) -> bool:
+    async def _send_meridian_message_with_retry(
+        self,
+        chat_id: int,
+        message: str,
+        image_path: Optional[str] = None,
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
+        max_retries: int = 3
+    ) -> bool:
         """Send meridian message with optional image."""
         for attempt in range(max_retries):
             try:
@@ -266,6 +353,7 @@ class YogaScheduler:
                                     chat_id=chat_id,
                                     animation=media_file,
                                     caption=caption,
+                                    reply_markup=reply_markup,
                                     parse_mode='HTML'
                                 )
                             else:
@@ -273,13 +361,24 @@ class YogaScheduler:
                                     chat_id=chat_id,
                                     photo=media_file,
                                     caption=caption,
+                                    reply_markup=reply_markup,
                                     parse_mode='HTML'
                                 )
                     except Exception as img_error:
                         logger.error(f"Error sending meridian image {image_path}: {img_error}")
-                        sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='HTML')
+                        sent_message = await self.bot.send_message(
+                            chat_id=chat_id,
+                            text=message,
+                            reply_markup=reply_markup,
+                            parse_mode='HTML'
+                        )
                 else:
-                    sent_message = await self.bot.send_message(chat_id=chat_id, text=message, parse_mode='HTML')
+                    sent_message = await self.bot.send_message(
+                        chat_id=chat_id,
+                        text=message,
+                        reply_markup=reply_markup,
+                        parse_mode='HTML'
+                    )
 
                 if sent_message:
                     await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
