@@ -37,6 +37,7 @@ logger = logging.getLogger(__name__)
 MERIDIAN_POINTS_PAGE_SIZE = 7
 MERIDIAN_SELECTION_PAGE_SIZE = 7
 GOVERNING_VESSEL_SECRET_TASK_ID = "governing_vessel_forest_breathing"
+MICROCOSMIC_ORBIT_SECRET_TASK_ID = "microcosmic_orbit_nature_breathing"
 CUN_MEASUREMENT_IMAGE_PATH = Path(__file__).resolve().parent.parent / "images" / "meridians" / "cun_measurement.png"
 MERIDIAN_VIDEO_PATHS = {
     "bladder": Path(__file__).resolve().parent.parent / "videos" / "meridians" / "bladder.mp4",
@@ -3094,6 +3095,88 @@ SECRET_TASK_TEXT_OVERRIDES = {
 for _language, _updates in SECRET_TASK_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
+MICROCOSMIC_ORBIT_SECRET_TASK_TEXT_OVERRIDES = {
+    "en": {
+        "secret_task_offer_orbit": (
+            "☯️ <b>Secret task</b>\n\n"
+            "You have completed the Governing Vessel and the Conception Vessel. "
+            "Do you want to open a practice with the central circle before moving to the next meridian?"
+        ),
+        "secret_task_orbit": (
+            "☯️ <b>Secret task: central circle practice</b>\n\n"
+            "Go to nature or a quiet park. Sit comfortably, soften the body, and let the breath become calm.\n\n"
+            "<b>Forward circle:</b> on the inhale, feel energy rising from below upward along the Governing Vessel: "
+            "through the base of the body, spine, neck, and head. On the exhale, let attention descend along the Conception Vessel: "
+            "through the face, throat, chest, belly, and lower body. Let the two central lines connect into one soft circle.\n\n"
+            "<b>Reverse, feminine circle:</b> then try the opposite direction: raise attention up the front surface of the body "
+            "and let it descend down the back.\n\n"
+            "Do not force the effect. Observe how the sensations change: where the circle moves easily, where the line breaks, "
+            "where warmth, calm, density, lightness, or freedom appears."
+        ),
+        "secret_task_orbit_done_text": "✅ <b>Central circle practice marked as done.</b>\n\nThe route can continue.",
+    },
+    "ru": {
+        "secret_task_offer_orbit": (
+            "☯️ <b>Секретное задание</b>\n\n"
+            "Вы прошли Заднесрединный и Переднесрединный меридианы. "
+            "Хотите открыть практику центрального круга перед переходом к следующему меридиану?"
+        ),
+        "secret_task_orbit": (
+            "☯️ <b>Секретное задание: центральный круг</b>\n\n"
+            "Сходите на природу или в спокойный парк. Сядьте удобно, смягчите тело и дайте дыханию успокоиться.\n\n"
+            "<b>Прямой круг:</b> на вдохе представляйте и чувствуйте, как энергия поднимается снизу вверх по Заднесрединному меридиану: "
+            "через основание тела, спину, шею и голову. На выдохе опускайте внимание по Переднесрединному меридиану: "
+            "через лицо, горло, грудь, живот и ниже. Пусть две центральные линии соединятся в один мягкий круг.\n\n"
+            "<b>Обратный, женский круг:</b> затем попробуйте наоборот: поднимайте внимание по передней поверхности тела вверх "
+            "и опускайте по спине вниз.\n\n"
+            "Не добивайтесь эффекта силой. Наблюдайте, как меняются ощущения: где круг идёт легко, где линия обрывается, "
+            "где появляется тепло, спокойствие, плотность, лёгкость или освобождение."
+        ),
+        "secret_task_orbit_done_text": "✅ <b>Практика центрального круга отмечена как выполненная.</b>\n\nМаршрут можно продолжать.",
+    },
+    "uz": {
+        "secret_task_offer_orbit": (
+            "☯️ <b>Maxfiy topshiriq</b>\n\n"
+            "Siz Orqa o'rta va Old o'rta meridianlarni yakunladingiz. "
+            "Keyingi meridianga o'tishdan oldin markaziy aylana amaliyotini ochasizmi?"
+        ),
+        "secret_task_orbit": (
+            "☯️ <b>Maxfiy topshiriq: markaziy aylana</b>\n\n"
+            "Tabiatga yoki sokin parkka boring. Qulay o'tiring, tanani yumshating va nafas tinchlansin.\n\n"
+            "<b>To'g'ri aylana:</b> nafas olayotganda energiya pastdan yuqoriga Orqa o'rta meridian bo'ylab ko'tarilayotganini his qiling: "
+            "tana asosi, umurtqa, bo'yin va bosh orqali. Nafas chiqarayotganda e'tiborni Old o'rta meridian bo'ylab pastga tushiring: "
+            "yuz, tomoq, ko'krak, qorin va pastki tana orqali. Ikki markaziy chiziq bitta yumshoq aylanaga ulansin.\n\n"
+            "<b>Teskari, ayol aylana:</b> keyin aksincha sinab ko'ring: e'tiborni tananing old yuzasi bo'ylab yuqoriga ko'taring "
+            "va orqa tomondan pastga tushiring.\n\n"
+            "Natijani zo'rlamang. Sezgilar qanday o'zgarishini kuzating: aylana qayerda oson yuradi, qayerda chiziq uziladi, "
+            "qayerda iliqlik, xotirjamlik, zichlik, yengillik yoki erkinlik paydo bo'ladi."
+        ),
+        "secret_task_orbit_done_text": "✅ <b>Markaziy aylana amaliyoti bajarildi deb belgilandi.</b>\n\nYo'nalishni davom ettirish mumkin.",
+    },
+    "kz": {
+        "secret_task_offer_orbit": (
+            "☯️ <b>Құпия тапсырма</b>\n\n"
+            "Сіз Артқы ортаңғы және Алдыңғы ортаңғы меридиандарды аяқтадыңыз. "
+            "Келесі меридианға өтпей тұрып орталық шеңбер практикасын ашқыңыз келе ме?"
+        ),
+        "secret_task_orbit": (
+            "☯️ <b>Құпия тапсырма: орталық шеңбер</b>\n\n"
+            "Табиғатқа немесе тыныш паркке барыңыз. Ыңғайлы отырыңыз, денені жұмсартыңыз және тыныстың тынышталуына мүмкіндік беріңіз.\n\n"
+            "<b>Тікелей шеңбер:</b> дем алғанда энергияның төменнен жоғары Артқы ортаңғы меридиан бойымен көтерілгенін сезіңіз: "
+            "дене негізі, арқа, мойын және бас арқылы. Дем шығарғанда назарды Алдыңғы ортаңғы меридиан бойымен төмен түсіріңіз: "
+            "бет, тамақ, кеуде, іш және төменгі дене арқылы. Екі орталық сызық бір жұмсақ шеңберге қосылсын.\n\n"
+            "<b>Кері, әйел шеңбері:</b> содан кейін керісінше жасап көріңіз: назарды дененің алдыңғы бетімен жоғары көтеріп, "
+            "арқа бойымен төмен түсіріңіз.\n\n"
+            "Әсерді күшпен шақырмаңыз. Сезімдердің қалай өзгеретінін бақылаңыз: шеңбер қай жерде жеңіл жүреді, қай жерде сызық үзіледі, "
+            "қай жерде жылу, тыныштық, тығыздық, жеңілдік немесе босану сезімі пайда болады."
+        ),
+        "secret_task_orbit_done_text": "✅ <b>Орталық шеңбер практикасы орындалды деп белгіленді.</b>\n\nБағытты жалғастыруға болады.",
+    },
+}
+
+for _language, _updates in MICROCOSMIC_ORBIT_SECRET_TASK_TEXT_OVERRIDES.items():
+    TEXTS.setdefault(_language, {}).update(_updates)
+
 MERIDIAN_PRACTICE_ADVICE_TEXT_OVERRIDES = {
     "en": {
         "meridian_practice_advice": "🌿 Practice advice",
@@ -4868,9 +4951,54 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("secret_task_continue", language), callback_data="meridian_secret_continue")]
         ])
 
+    def _create_orbit_secret_task_offer_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create keyboard for the central orbit secret task offer."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("secret_task_yes", language), callback_data="meridian_secret_orbit_yes")],
+            [InlineKeyboardButton(self._get_text("secret_task_no", language), callback_data="meridian_secret_orbit_no")]
+        ])
+
+    def _create_orbit_secret_task_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Create keyboard for the opened central orbit secret task."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(self._get_text("secret_task_done", language), callback_data="meridian_secret_orbit_done")],
+            [InlineKeyboardButton(self._get_text("secret_task_continue", language), callback_data="meridian_secret_orbit_continue")]
+        ])
+
     async def _advance_after_governing_secret_task(self, query, user: User, language: str) -> None:
         """Move guided user from the governing vessel to the next route meridian."""
         next_meridian = self.meridians_manager.get_next_meridian("governing_vessel", user.completed_meridians)
+        if next_meridian:
+            user.current_meridian_id = next_meridian["id"]
+            user.current_point_index = -1
+            await self.storage.save_user(user)
+            text = f"{self._get_text('meridian_completed', language)}\n\n{format_meridian_intro(next_meridian, language)}"
+            await self._show_meridian_card(
+                query,
+                text,
+                self._create_meridian_practice_keyboard(
+                    language,
+                    at_intro=True,
+                    meridian_id=next_meridian.get("id")
+                ),
+                language,
+                next_meridian.get("id")
+            )
+            return
+
+        user.current_meridian_id = None
+        user.current_point_index = -1
+        await self.storage.save_user(user)
+        await self._edit_message_text_safe(
+            query,
+            self._get_text("meridian_route_completed", language),
+            reply_markup=self._create_meridian_route_completed_keyboard(language),
+            parse_mode='HTML'
+        )
+
+    async def _advance_after_orbit_secret_task(self, query, user: User, language: str) -> None:
+        """Move guided user from the central pair to the next route meridian."""
+        next_meridian = self.meridians_manager.get_next_meridian("conception_vessel", user.completed_meridians)
         if next_meridian:
             user.current_meridian_id = next_meridian["id"]
             user.current_point_index = -1
@@ -5390,6 +5518,40 @@ class BotHandlers:
                 await self._advance_after_governing_secret_task(query, user, language)
                 return
 
+            if action == "secret_orbit_yes":
+                user.secret_tasks[MICROCOSMIC_ORBIT_SECRET_TASK_ID] = "opened"
+                await self.storage.save_user(user)
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("secret_task_orbit", language),
+                    reply_markup=self._create_orbit_secret_task_keyboard(language),
+                    parse_mode='HTML'
+                )
+                return
+
+            if action == "secret_orbit_no":
+                user.secret_tasks[MICROCOSMIC_ORBIT_SECRET_TASK_ID] = "skipped"
+                await self.storage.save_user(user)
+                await self._advance_after_orbit_secret_task(query, user, language)
+                return
+
+            if action == "secret_orbit_done":
+                user.secret_tasks[MICROCOSMIC_ORBIT_SECRET_TASK_ID] = "done"
+                await self.storage.save_user(user)
+                await self._edit_message_text_safe(
+                    query,
+                    self._get_text("secret_task_orbit_done_text", language),
+                    reply_markup=self._create_orbit_secret_task_keyboard(language),
+                    parse_mode='HTML'
+                )
+                return
+
+            if action == "secret_orbit_continue":
+                user.secret_tasks.setdefault(MICROCOSMIC_ORBIT_SECRET_TASK_ID, "opened")
+                await self.storage.save_user(user)
+                await self._advance_after_orbit_secret_task(query, user, language)
+                return
+
             if action == "path":
                 await self._edit_message_text_safe(
                     query,
@@ -5778,6 +5940,22 @@ class BotHandlers:
                         query,
                         self._get_text("secret_task_offer_governing", language),
                         reply_markup=self._create_secret_task_offer_keyboard(language),
+                        parse_mode='HTML'
+                    )
+                    return
+
+                if (
+                    getattr(user, "meridian_learning_mode", None) == "guided"
+                    and user.current_meridian_id == "conception_vessel"
+                    and {"governing_vessel", "conception_vessel"}.issubset(set(user.completed_meridians))
+                    and MICROCOSMIC_ORBIT_SECRET_TASK_ID not in user.secret_tasks
+                ):
+                    user.secret_tasks[MICROCOSMIC_ORBIT_SECRET_TASK_ID] = "offered"
+                    await self.storage.save_user(user)
+                    await self._edit_message_text_safe(
+                        query,
+                        self._get_text("secret_task_offer_orbit", language),
+                        reply_markup=self._create_orbit_secret_task_offer_keyboard(language),
                         parse_mode='HTML'
                     )
                     return
