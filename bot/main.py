@@ -11,6 +11,7 @@ from aiohttp import web
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
 from telegram import Bot, BotCommand
+from telegram.error import NetworkError
 from telegram.request import HTTPXRequest
 from telegram.ext import Application, ContextTypes
 from pydantic_settings import BaseSettings
@@ -144,6 +145,7 @@ class YogaBot:
             .get_updates_request(telegram_get_updates_request)
             .build()
         )
+        self.application.add_error_handler(self.handle_telegram_error)
         self.bot = self.application.bot
         
         # Initialize scheduler.
@@ -260,6 +262,15 @@ class YogaBot:
             await self.bot.set_my_commands(commands, language_code=language_code)
 
         self.logger.info("Published public Telegram command menu.")
+
+    async def handle_telegram_error(self, update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle update errors that escaped command/callback handlers."""
+        error = context.error
+        if isinstance(error, NetworkError):
+            self.logger.warning("Transient Telegram network error while processing update: %s", error)
+            return
+
+        self.logger.error("Unhandled error while processing Telegram update", exc_info=error)
     
     async def stop(self) -> None:
         """Stop the bot."""

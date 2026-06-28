@@ -8,7 +8,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.date import DateTrigger
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.error import TelegramError, Forbidden, BadRequest
+from telegram.error import TelegramError, Forbidden, BadRequest, NetworkError
 
 from .storage import JsonStorage, User, BotMessage
 from .utils import (
@@ -364,6 +364,8 @@ class YogaScheduler:
                                     reply_markup=reply_markup,
                                     parse_mode='HTML'
                                 )
+                    except NetworkError:
+                        raise
                     except Exception as img_error:
                         logger.error(f"Error sending meridian image {image_path}: {img_error}")
                         sent_message = await self.bot.send_message(
@@ -391,6 +393,10 @@ class YogaScheduler:
             except BadRequest as e:
                 logger.error(f"Bad request for user {chat_id}: {e}")
                 return False
+            except NetworkError as e:
+                logger.warning(f"Telegram network error for user {chat_id}: {e}")
+                if attempt < max_retries - 1:
+                    await asyncio.sleep(2 ** attempt)
             except TelegramError as e:
                 logger.error(f"Telegram error for user {chat_id}: {e}")
                 if attempt < max_retries - 1:
@@ -430,6 +436,8 @@ class YogaScheduler:
                                         parse_mode='HTML'
                                     )
                                 logger.info(f"Successfully sent image for principle {principle_id}")
+                            except NetworkError:
+                                raise
                             except Exception as img_error:
                                 logger.error(f"Error sending image {image_path}: {img_error}")
                                 # Fallback to text message
@@ -462,7 +470,11 @@ class YogaScheduler:
             except BadRequest as e:
                 logger.error(f"Bad request for user {chat_id}: {e}")
                 return False
-                
+            except NetworkError as e:
+                logger.warning(f"Telegram network error for user {chat_id}: {e}")
+                if attempt < max_retries - 1:
+                    await asyncio.sleep(2 ** attempt)  # Exponential backoff.
+
             except TelegramError as e:
                 logger.error(f"Telegram error for user {chat_id}: {e}")
                 if attempt < max_retries - 1:
