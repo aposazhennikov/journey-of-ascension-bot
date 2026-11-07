@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Карта меридианов</title>
+  <link rel="stylesheet" href="styles.css?v=2026-11-07-2">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+        "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/build/index.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="stage"></div>
+  <div id="labels" class="labels" aria-hidden="true"></div>
+  <div class="gesture-hint" id="gestureHint" hidden></div>
+
+  <header class="topbar">
+    <button class="icon-btn" id="menuBtn">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="chips" id="chips" role="tablist"></div>
+  </header>
+
+  <div class="fabs" id="fabs">
+    <button class="fab" id="poseBtn" aria-pressed="false">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="5" r="2.2" fill="currentColor"/><path d="M12 8.5v6M6.5 12.5c1.8.9 3.6 1.3 5.5 1.3s3.7-.4 5.5-1.3M5 19.5c2.2-1.6 4.5-2.4 7-2.4s4.8.8 7 2.4M8.5 17.6 12 14.5l3.5 3.1" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="fab" id="turnBtn">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 7h11l-3-3M17 17H6l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="fab" id="fitBtn">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <button class="next-chip" id="nextChip" hidden></button>
+  <div class="pick-chips" id="pickChips" hidden></div>
+  <div class="tooltip" id="tooltip" hidden></div>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <div class="shade" id="shade"></div>
+
+  <section class="sheet" id="sheet" data-state="peek">
+    <div class="sheet-grip" id="sheetGrip"><span></span></div>
+    <div class="sheet-peek" id="sheetPeek"></div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </section>
+
+  <div class="editbar" id="editbar" hidden>
+    <div id="editText"></div>
+    <div class="editbar-actions"><button id="editExport"></button><button id="editReset"></button></div>
+    <textarea id="editOutput" readonly hidden></textarea>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner" id="spinner"></div>
+    <span id="loadingText"></span>
+    <div class="progress"><div id="progressBar"></div></div>
+    <button id="retryBtn" hidden></button>
+  </div>
+
+  <script type="module" src="app.js?v=2026-11-07-2"></script>
+</body>
+</html>

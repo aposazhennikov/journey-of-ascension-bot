@@ -6,7 +6,8 @@ import re
 from html import escape
 from pathlib import Path
 from typing import List, Dict, Any, Optional
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaAnimation
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaAnimation, WebAppInfo
 from telegram.ext import (
     Application, CommandHandler, MessageHandler, CallbackQueryHandler,
     filters, ContextTypes, ApplicationHandlerStop
@@ -3240,6 +3241,16 @@ MERIDIAN_PRACTICE_ADVICE_TEXT_OVERRIDES = {
 for _language, _updates in MERIDIAN_PRACTICE_ADVICE_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
+MERIDIAN_MAP_3D_TEXT_OVERRIDES = {
+    "en": {"meridian_map_3d": "🧍 3D meridian map"},
+    "ru": {"meridian_map_3d": "🧍 3D-карта меридианов"},
+    "uz": {"meridian_map_3d": "🧍 Meridianlarning 3D xaritasi"},
+    "kz": {"meridian_map_3d": "🧍 Меридиандардың 3D картасы"},
+}
+
+for _language, _updates in MERIDIAN_MAP_3D_TEXT_OVERRIDES.items():
+    TEXTS.setdefault(_language, {}).update(_updates)
+
 DEPRECATED_TEXT_KEYS = ("feedback_request", "feedback_received", "skip_days_saved")
 for _language_texts in TEXTS.values():
     for _key in DEPRECATED_TEXT_KEYS:
@@ -3256,7 +3267,8 @@ class BotHandlers:
         scheduler: YogaScheduler,
         principles_manager: PrinciplesManager,
         meridians_manager: MeridiansManager,
-        admin_ids: List[int]
+        admin_ids: List[int],
+        webapp_url: str = ""
     ):
         self.application = application
         self.storage = storage
@@ -3264,6 +3276,7 @@ class BotHandlers:
         self.principles_manager = principles_manager
         self.meridians_manager = meridians_manager
         self.admin_ids = admin_ids
+        self.webapp_url = webapp_url
         self.user_states = {}  # Track user registration states.
 
         # Register handlers.
@@ -4857,9 +4870,21 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("meridian_practice_advice", language), callback_data="meridian_practice_advice")],
             [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
             [InlineKeyboardButton(self._get_text("useful_materials", language), callback_data="meridian_materials")],
-            [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
+        map_button = self._create_meridian_map_button(language, user)
+        if map_button:
+            keyboard.append([map_button])
+        keyboard.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")])
         return InlineKeyboardMarkup(keyboard)
+
+    def _create_meridian_map_button(self, language: str, user: Optional[User]) -> Optional[InlineKeyboardButton]:
+        """Mini App button for the 3D meridian map; admin-only while the map is a prototype."""
+        if not self.webapp_url or not user or user.chat_id not in self.admin_ids:
+            return None
+        parts = urlsplit(self.webapp_url)
+        query = urlencode({**dict(parse_qsl(parts.query)), "lang": language})
+        url = urlunsplit((parts.scheme, parts.netloc, parts.path, query, parts.fragment))
+        return InlineKeyboardButton(self._get_text("meridian_map_3d", language), web_app=WebAppInfo(url=url))
 
     def _create_meridian_materials_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create meridian materials article selection keyboard."""

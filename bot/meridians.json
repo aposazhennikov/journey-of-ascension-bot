@@ -1237,7 +1237,7 @@
             },
             "ru": {
               "name": "Да-ин",
-              "location": "в углублении на 1,3 пуня кпереди oт угла нижней челюсти",
+              "location": "в углублении на 1,3 цуня кпереди от угла нижней челюсти",
               "meditation_instruction": "Сначала вспомните уже изученные точки. Удерживая их ощущение фоном, добавьте эту точку и посмотрите, становится ли линия меридиана яснее, теплее, плотнее или где-то обрывается. Если точка почти не чувствуется, уделите ей больше времени: мягко коснитесь, подышите через неё вниманием и снова вернитесь ко всей линии.",
               "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
             },
@@ -1333,7 +1333,7 @@
             },
             "ru": {
               "name": "Тоу-вэй",
-              "location": "в лобном углу на 0,5 цупя выше границы роста волос, на 4,5 цуня кнаружи от точки Шэнь-тин VG.24",
+              "location": "в лобном углу на 0,5 цуня выше границы роста волос, на 4,5 цуня кнаружи от точки Шэнь-тин VG.24",
               "meditation_instruction": "Сначала вспомните уже изученные точки. Удерживая их ощущение фоном, добавьте эту точку и посмотрите, становится ли линия меридиана яснее, теплее, плотнее или где-то обрывается. Если точка почти не чувствуется, уделите ей больше времени: мягко коснитесь, подышите через неё вниманием и снова вернитесь ко всей линии.",
               "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
             },
@@ -6279,7 +6279,7 @@
             },
             "uz": {
               "name": "Цзин-гу",
-              "location": "oyoq panjasining tashqi yuzasida, V kaft suyagi do'mboqchasidan oldinroqda va pastroqda joylashgan chuqurchada, panjaning ustki va tag yuzalari chegarasida",
+              "location": "oyoq panjasining tashqi yuzasida, V oyoq kaft suyagi do'mboqchasidan oldinroqda va pastroqda joylashgan chuqurchada, panjaning ustki va tag yuzalari chegarasida",
               "meditation_instruction": "Avval o'rgangan nuqtalarni eslang. Ularning sezgisini fonda ushlab, shu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi, kuzating. Agar nuqtani sezish qiyin bo'lsa, unga ko'proq vaqt bering: yumshoq teging, diqqat bilan nafas oling va yana butun chiziqqa qayting.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
@@ -6311,7 +6311,7 @@
             },
             "uz": {
               "name": "Шу-гу",
-              "location": "V kaft suyagi boshchasidan orqaroqda va pastroqda joylashgan chuqurchada, panjaning ustki va tag yuzalari chegarasida",
+              "location": "V oyoq kaft suyagi boshchasidan orqaroqda va pastroqda joylashgan chuqurchada, panjaning ustki va tag yuzalari chegarasida",
               "meditation_instruction": "Avval o'rgangan nuqtalarni eslang. Ularning sezgisini fonda ushlab, shu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi, kuzating. Agar nuqtani sezish qiyin bo'lsa, unga ko'proq vaqt bering: yumshoq teging, diqqat bilan nafas oling va yana butun chiziqqa qayting.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
@@ -6343,7 +6343,7 @@
             },
             "uz": {
               "name": "Цзу-тун-гу",
-              "location": "V kaft-barmoq bo'g'imidan oldinroqda va pastroqda joylashgan chuqurchada, panjaning ustki va tag yuzalari chegarasida",
+              "location": "V oyoq kaft-barmoq bo'g'imidan oldinroqda va pastroqda joylashgan chuqurchada, panjaning ustki va tag yuzalari chegarasida",
               "meditation_instruction": "Avval o'rgangan nuqtalarni eslang. Ularning sezgisini fonda ushlab, shu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi, kuzating. Agar nuqtani sezish qiyin bo'lsa, unga ko'proq vaqt bering: yumshoq teging, diqqat bilan nafas oling va yana butun chiziqqa qayting.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
@@ -8519,25 +8519,25 @@
           "i18n": {
             "en": {
               "name": "Хань-янь",
-              "location": "first locate VB7 at the intersection of the horizontal line through the apex of the ear and the vertical line along the anterior border of the ear. Draw a curved line from VB7 to E8 and divide it into four equal parts: VB4 is at the border between the 1st and 2nd quarters of this curve",
+              "location": "first locate VB7 at the intersection of the horizontal line through the apex of the ear and the vertical line along the anterior border of the ear. Draw a curved line from E8 to VB7 and divide it into four equal parts: VB4 is at the border between the 1st and 2nd quarters of this curve",
               "meditation_instruction": "First recall the points you have already studied. Keep their sensation in the background, then add this point and notice whether the meridian line becomes clearer, warmer, denser, or breaks somewhere. If the point is hard to feel, give it more time: touch it softly, breathe through it with attention, and return to the whole line.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
             },
             "ru": {
               "name": "Хань-янь",
-              "location": "вначале определяется VB7 - на пересечении горизонтали, проведенной через верхушку уха, и вертикали вдоль передней границы уха. От VB7 до E8 проводят кривую линию и делят её на 4 равные части: VB4 находится на границе 1-й и 2-й четверти этой кривой",
+              "location": "вначале определяется VB7 - на пересечении горизонтали, проведенной через верхушку уха, и вертикали вдоль передней границы уха. От E8 до VB7 проводят кривую линию и делят её на 4 равные части: VB4 находится на границе 1-й и 2-й четверти этой кривой",
               "meditation_instruction": "Сначала вспомните уже изученные точки. Удерживая их ощущение фоном, добавьте эту точку и посмотрите, становится ли линия меридиана яснее, теплее, плотнее или где-то обрывается. Если точка почти не чувствуется, уделите ей больше времени: мягко коснитесь, подышите через неё вниманием и снова вернитесь ко всей линии.",
               "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
             },
             "uz": {
               "name": "Хань-янь",
-              "location": "avval VB7 aniqlanadi: u quloq uchidan o'tkazilgan gorizontal chiziq va quloqning oldingi chegarasi bo'ylab o'tadigan vertikal chiziq kesishgan joyda. VB7 dan E8 gacha egri chiziq o'tkazilib, to'rt teng qismga bo'linadi: VB4 shu egri chiziqning 1- va 2-choraklari chegarasida joylashadi",
+              "location": "avval VB7 aniqlanadi: u quloq uchidan o'tkazilgan gorizontal chiziq va quloqning oldingi chegarasi bo'ylab o'tadigan vertikal chiziq kesishgan joyda. E8 dan VB7 gacha egri chiziq o'tkazilib, to'rt teng qismga bo'linadi: VB4 shu egri chiziqning 1- va 2-choraklari chegarasida joylashadi",
               "meditation_instruction": "Avval o'rgangan nuqtalarni eslang. Ularning sezgisini fonda ushlab, shu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi, kuzating. Agar nuqtani sezish qiyin bo'lsa, unga ko'proq vaqt bering: yumshoq teging, diqqat bilan nafas oling va yana butun chiziqqa qayting.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Хань-янь",
-              "location": "алдымен VB7 анықталады: ол құлақ ұшы арқылы жүргізілген көлденең сызық пен құлақтың алдыңғы шекарасы бойындағы тік сызықтың қиылысында. VB7-ден E8-ге дейін доға сызық жүргізіліп, төрт тең бөлікке бөлінеді: VB4 осы доғаның 1- және 2-ширектерінің шекарасында орналасады",
+              "location": "алдымен VB7 анықталады: ол құлақ ұшы арқылы жүргізілген көлденең сызық пен құлақтың алдыңғы шекарасы бойындағы тік сызықтың қиылысында. E8-ден VB7-ге дейін доға сызық жүргізіліп, төрт тең бөлікке бөлінеді: VB4 осы доғаның 1- және 2-ширектерінің шекарасында орналасады",
               "meditation_instruction": "Алдымен бұрын өткен нүктелерді еске түсіріңіз. Олардың сезімін фонда ұстап, осы нүктені қосыңыз да, меридиан сызығы анығырақ, жылырақ, тығызырақ бола ма, әлде бір жерде үзіле ме, бақылаңыз. Егер нүктені сезу қиын болса, оған көбірек уақыт беріңіз: жұмсақ тиіп, зейінмен тыныстаңыз және қайтадан бүкіл сызыққа оралыңыз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
             }
@@ -8551,25 +8551,25 @@
           "i18n": {
             "en": {
               "name": "Сюань-лу",
-              "location": "at the midpoint of the curved line connecting Tou-wei E8 and Qu-bin VB7. First locate VB7 at the intersection of the horizontal line through the apex of the ear and the vertical line along the anterior border of the ear. Draw a curved line from VB7 to E8 and divide it into four equal parts: VB5 is at the border between the 2nd and 3rd quarters of this curve",
+              "location": "at the midpoint of the curved line connecting Tou-wei E8 and Qu-bin VB7. First locate VB7 at the intersection of the horizontal line through the apex of the ear and the vertical line along the anterior border of the ear. Draw a curved line from E8 to VB7 and divide it into four equal parts: VB5 is at the border between the 2nd and 3rd quarters of this curve",
               "meditation_instruction": "First recall the points you have already studied. Keep their sensation in the background, then add this point and notice whether the meridian line becomes clearer, warmer, denser, or breaks somewhere. If the point is hard to feel, give it more time: touch it softly, breathe through it with attention, and return to the whole line.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
             },
             "ru": {
               "name": "Сюань-лу",
-              "location": "на середине дугообразной линии, соединяющей точки Тоу-вэй Е.8 и Цюй-бинь VB.7. Вначале определяется VB7 - на пересечении горизонтали, проведенной через верхушку уха, и вертикали вдоль передней границы уха. От VB7 до E8 проводят кривую линию и делят её на 4 равные части: VB5 находится на границе 2-й и 3-й четверти этой кривой",
+              "location": "на середине дугообразной линии, соединяющей точки Тоу-вэй Е.8 и Цюй-бинь VB.7. Вначале определяется VB7 - на пересечении горизонтали, проведенной через верхушку уха, и вертикали вдоль передней границы уха. От E8 до VB7 проводят кривую линию и делят её на 4 равные части: VB5 находится на границе 2-й и 3-й четверти этой кривой",
               "meditation_instruction": "Сначала вспомните уже изученные точки. Удерживая их ощущение фоном, добавьте эту точку и посмотрите, становится ли линия меридиана яснее, теплее, плотнее или где-то обрывается. Если точка почти не чувствуется, уделите ей больше времени: мягко коснитесь, подышите через неё вниманием и снова вернитесь ко всей линии.",
               "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
             },
             "uz": {
               "name": "Сюань-лу",
-              "location": "Tou-wei E8 va Qu-bin VB7 nuqtalarini bog'lovchi yoy chiziqning o'rtasida. Avval VB7 aniqlanadi: u quloq uchidan o'tkazilgan gorizontal chiziq va quloqning oldingi chegarasi bo'ylab o'tadigan vertikal chiziq kesishgan joyda. VB7 dan E8 gacha egri chiziq o'tkazilib, to'rt teng qismga bo'linadi: VB5 shu egri chiziqning 2- va 3-choraklari chegarasida joylashadi",
+              "location": "Tou-wei E8 va Qu-bin VB7 nuqtalarini bog'lovchi yoy chiziqning o'rtasida. Avval VB7 aniqlanadi: u quloq uchidan o'tkazilgan gorizontal chiziq va quloqning oldingi chegarasi bo'ylab o'tadigan vertikal chiziq kesishgan joyda. E8 dan VB7 gacha egri chiziq o'tkazilib, to'rt teng qismga bo'linadi: VB5 shu egri chiziqning 2- va 3-choraklari chegarasida joylashadi",
               "meditation_instruction": "Avval o'rgangan nuqtalarni eslang. Ularning sezgisini fonda ushlab, shu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi, kuzating. Agar nuqtani sezish qiyin bo'lsa, unga ko'proq vaqt bering: yumshoq teging, diqqat bilan nafas oling va yana butun chiziqqa qayting.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Сюань-лу",
-              "location": "Тоу-вэй E8 және Цюй-бинь VB7 нүктелерін қосатын доға сызықтың ортасында. Алдымен VB7 анықталады: ол құлақ ұшы арқылы жүргізілген көлденең сызық пен құлақтың алдыңғы шекарасы бойындағы тік сызықтың қиылысында. VB7-ден E8-ге дейін доға сызық жүргізіліп, төрт тең бөлікке бөлінеді: VB5 осы доғаның 2- және 3-ширектерінің шекарасында орналасады",
+              "location": "Тоу-вэй E8 және Цюй-бинь VB7 нүктелерін қосатын доға сызықтың ортасында. Алдымен VB7 анықталады: ол құлақ ұшы арқылы жүргізілген көлденең сызық пен құлақтың алдыңғы шекарасы бойындағы тік сызықтың қиылысында. E8-ден VB7-ге дейін доға сызық жүргізіліп, төрт тең бөлікке бөлінеді: VB5 осы доғаның 2- және 3-ширектерінің шекарасында орналасады",
               "meditation_instruction": "Алдымен бұрын өткен нүктелерді еске түсіріңіз. Олардың сезімін фонда ұстап, осы нүктені қосыңыз да, меридиан сызығы анығырақ, жылырақ, тығызырақ бола ма, әлде бір жерде үзіле ме, бақылаңыз. Егер нүктені сезу қиын болса, оған көбірек уақыт беріңіз: жұмсақ тиіп, зейінмен тыныстаңыз және қайтадан бүкіл сызыққа оралыңыз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
             }
@@ -8583,25 +8583,25 @@
           "i18n": {
             "en": {
               "name": "Сюань-ли",
-              "location": "first locate VB7 at the intersection of the horizontal line through the apex of the ear and the vertical line along the anterior border of the ear. Draw a curved line from VB7 to E8 and divide it into four equal parts: VB6 is at the border between the 3rd and 4th quarters of this curve",
+              "location": "first locate VB7 at the intersection of the horizontal line through the apex of the ear and the vertical line along the anterior border of the ear. Draw a curved line from E8 to VB7 and divide it into four equal parts: VB6 is at the border between the 3rd and 4th quarters of this curve",
               "meditation_instruction": "First recall the points you have already studied. Keep their sensation in the background, then add this point and notice whether the meridian line becomes clearer, warmer, denser, or breaks somewhere. If the point is hard to feel, give it more time: touch it softly, breathe through it with attention, and return to the whole line.",
               "observation_question": "What changes when attention rests here: sensation, breath, mood, thought flow, or inner imagery?"
             },
             "ru": {
               "name": "Сюань-ли",
-              "location": "вначале определяется VB7 - на пересечении горизонтали, проведенной через верхушку уха, и вертикали вдоль передней границы уха. От VB7 до E8 проводят кривую линию и делят её на 4 равные части: VB6 находится на границе 3-й и 4-й четверти этой кривой",
+              "location": "вначале определяется VB7 - на пересечении горизонтали, проведенной через верхушку уха, и вертикали вдоль передней границы уха. От E8 до VB7 проводят кривую линию и делят её на 4 равные части: VB6 находится на границе 3-й и 4-й четверти этой кривой",
               "meditation_instruction": "Сначала вспомните уже изученные точки. Удерживая их ощущение фоном, добавьте эту точку и посмотрите, становится ли линия меридиана яснее, теплее, плотнее или где-то обрывается. Если точка почти не чувствуется, уделите ей больше времени: мягко коснитесь, подышите через неё вниманием и снова вернитесь ко всей линии.",
               "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
             },
             "uz": {
               "name": "Сюань-ли",
-              "location": "avval VB7 aniqlanadi: u quloq uchidan o'tkazilgan gorizontal chiziq va quloqning oldingi chegarasi bo'ylab o'tadigan vertikal chiziq kesishgan joyda. VB7 dan E8 gacha egri chiziq o'tkazilib, to'rt teng qismga bo'linadi: VB6 shu egri chiziqning 3- va 4-choraklari chegarasida joylashadi",
+              "location": "avval VB7 aniqlanadi: u quloq uchidan o'tkazilgan gorizontal chiziq va quloqning oldingi chegarasi bo'ylab o'tadigan vertikal chiziq kesishgan joyda. E8 dan VB7 gacha egri chiziq o'tkazilib, to'rt teng qismga bo'linadi: VB6 shu egri chiziqning 3- va 4-choraklari chegarasida joylashadi",
               "meditation_instruction": "Avval o'rgangan nuqtalarni eslang. Ularning sezgisini fonda ushlab, shu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi, kuzating. Agar nuqtani sezish qiyin bo'lsa, unga ko'proq vaqt bering: yumshoq teging, diqqat bilan nafas oling va yana butun chiziqqa qayting.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
             "kz": {
               "name": "Сюань-ли",
-              "location": "алдымен VB7 анықталады: ол құлақ ұшы арқылы жүргізілген көлденең сызық пен құлақтың алдыңғы шекарасы бойындағы тік сызықтың қиылысында. VB7-ден E8-ге дейін доға сызық жүргізіліп, төрт тең бөлікке бөлінеді: VB6 осы доғаның 3- және 4-ширектерінің шекарасында орналасады",
+              "location": "алдымен VB7 анықталады: ол құлақ ұшы арқылы жүргізілген көлденең сызық пен құлақтың алдыңғы шекарасы бойындағы тік сызықтың қиылысында. E8-ден VB7-ге дейін доға сызық жүргізіліп, төрт тең бөлікке бөлінеді: VB6 осы доғаның 3- және 4-ширектерінің шекарасында орналасады",
               "meditation_instruction": "Алдымен бұрын өткен нүктелерді еске түсіріңіз. Олардың сезімін фонда ұстап, осы нүктені қосыңыз да, меридиан сызығы анығырақ, жылырақ, тығызырақ бола ма, әлде бір жерде үзіле ме, бақылаңыз. Егер нүктені сезу қиын болса, оған көбірек уақыт беріңіз: жұмсақ тиіп, зейінмен тыныстаңыз және қайтадан бүкіл сызыққа оралыңыз.",
               "observation_question": "Зейін осында тұрғанда не өзгереді: сезім, тыныс, көңіл күй, ой ағымы немесе ішкі бейнелер?"
             }
@@ -8653,7 +8653,7 @@
             },
             "ru": {
               "name": "Шуай-гу",
-              "location": "на 1,5 цуня прямо вверх от верхнего края уха, на 1,5 цуня кверху от границы роста волос точки Цзяо-сунь TR.20",
+              "location": "на 1,5 цуня прямо вверх от верхнего края уха, на 1,5 цуня выше точки Цзяо-сунь TR.20 (над верхушкой уха)",
               "meditation_instruction": "Сначала вспомните уже изученные точки. Удерживая их ощущение фоном, добавьте эту точку и посмотрите, становится ли линия меридиана яснее, теплее, плотнее или где-то обрывается. Если точка почти не чувствуется, уделите ей больше времени: мягко коснитесь, подышите через неё вниманием и снова вернитесь ко всей линии.",
               "observation_question": "Что меняется, когда внимание находится здесь: ощущение, дыхание, настроение, поток мыслей или внутренние образы?"
             },
@@ -9715,7 +9715,7 @@
             },
             "uz": {
               "name": "Цзу-линь-ци",
-              "location": "IV va V kaft suyaklari orasida, oyoq jimjilog'ini yozuvchi payning tashqi tomonidagi chuqurchada, Xia-xi VB43 nuqtasidan 1,5 cun yuqoriroqda",
+              "location": "IV va V oyoq kaft suyaklari orasida, oyoq jimjilog'ini yozuvchi payning tashqi tomonidagi chuqurchada, Xia-xi VB43 nuqtasidan 1,5 cun yuqoriroqda",
               "meditation_instruction": "Avval o'rgangan nuqtalarni eslang. Ularning sezgisini fonda ushlab, shu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi, kuzating. Agar nuqtani sezish qiyin bo'lsa, unga ko'proq vaqt bering: yumshoq teging, diqqat bilan nafas oling va yana butun chiziqqa qayting.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },
@@ -9747,7 +9747,7 @@
             },
             "uz": {
               "name": "Ди-у-хуэй",
-              "location": "IV va V kaft suyaklari orasida, jimjiloqni yozuvchi payning ichki chetida, Xia-xi VB43 nuqtasidan 1 cun yuqoriroqda",
+              "location": "IV va V oyoq kaft suyaklari orasida, jimjiloqni yozuvchi payning ichki chetida, Xia-xi VB43 nuqtasidan 1 cun yuqoriroqda",
               "meditation_instruction": "Avval o'rgangan nuqtalarni eslang. Ularning sezgisini fonda ushlab, shu nuqtani qo'shing va meridian chizig'i aniqroq, iliqroq, zichroq bo'ladimi yoki qayerdadir uziladimi, kuzating. Agar nuqtani sezish qiyin bo'lsa, unga ko'proq vaqt bering: yumshoq teging, diqqat bilan nafas oling va yana butun chiziqqa qayting.",
               "observation_question": "Diqqat shu yerda turganda nima o'zgaradi: sezgi, nafas, kayfiyat, fikr oqimi yoki ichki obrazlar?"
             },

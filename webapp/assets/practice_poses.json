@@ -1,0 +1,900 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "meridians_json",
+      "title": "bot/meridians.json: routes of the 14 meridians, point codes and locations (shiyanbin.ru, eledia.ru)",
+      "used_for": "point codes, channel routes, finger endings of the arm channels"
+    },
+    {
+      "id": "tcm_arm_channels",
+      "title": "Classical TCM channel pathways: the six arm channels begin or end at the fingertips (P11 thumb, GI1 index, MC9 middle, TR1 ring, C9 and IG1 little finger); branches P7 to GI1 and MC8 to TR1",
+      "used_for": "finger_meridians, meridians_note of mudras (the channel endings are classical; matching fingers to channels in mudras is modern practice)"
+    },
+    {
+      "id": "hirschi_mudras",
+      "title": "Gertrud Hirschi, Mudras: Yoga in Your Hands (1998)",
+      "used_for": "hand positions of gyan, prithvi, apana, hakini mudras"
+    },
+    {
+      "id": "kundalini_yoga",
+      "title": "Kundalini Yoga as taught by Yogi Bhajan (3HO teaching manuals)",
+      "used_for": "shuni mudra hand position"
+    },
+    {
+      "id": "yoga_prana_vayus",
+      "title": "Five prana vayus (prana, apana, samana, udana, vyana) in hatha yoga literature; vyana mudra as given in modern mudra manuals",
+      "used_for": "vyana and apana mudra names"
+    },
+    {
+      "id": "satyananda_apmb",
+      "title": "Swami Satyananda Saraswati, Asana Pranayama Mudra Bandha (Bihar School of Yoga)",
+      "used_for": "sukhasana, ardha padmasana, padmasana, vajrasana; jnana mudra"
+    },
+    {
+      "id": "iyengar_light_on_yoga",
+      "title": "B. K. S. Iyengar, Light on Yoga (1966)",
+      "used_for": "tadasana, vrikshasana, dandasana, padmasana alignment and knee cautions"
+    },
+    {
+      "id": "classical_hatha",
+      "title": "Hatha Yoga Pradipika (Svatmarama), Gheranda Samhita, chapter 2",
+      "used_for": "padmasana and vajrasana as classical seated postures"
+    }
+  ],
+  "finger_meridians": {
+    "thumb": {
+      "meridians": [
+        "lung"
+      ],
+      "tip_points": [
+        "P11"
+      ]
+    },
+    "index": {
+      "meridians": [
+        "large_intestine"
+      ],
+      "tip_points": [
+        "GI1"
+      ]
+    },
+    "middle": {
+      "meridians": [
+        "pericardium"
+      ],
+      "tip_points": [
+        "MC9"
+      ]
+    },
+    "ring": {
+      "meridians": [
+        "triple_burner"
+      ],
+      "tip_points": [
+        "TR1"
+      ]
+    },
+    "little": {
+      "meridians": [
+        "heart",
+        "small_intestine"
+      ],
+      "tip_points": [
+        "C9",
+        "IG1"
+      ]
+    },
+    "note_i18n": {
+      "ru": "Шесть ручных каналов начинаются или заканчиваются на кончиках пальцев. Меридиан лёгких выходит к большому пальцу (P11), меридиан толстой кишки начинается на указательном (GI1), меридиан перикарда заканчивается на кончике среднего (MC9), меридиан трёх обогревателей начинается на безымянном (TR1), а на мизинце сходятся меридиан сердца (C9) и меридиан тонкой кишки (IG1). Когда пальцы касаются друг друга, концы этих каналов встречаются. В практике мудр это соответствие подсказывает, куда направить внимание. Медицинского действия оно не означает. Соответствие пальцев и каналов принято в современной практике, в классических текстах китайской медицины его нет.",
+      "en": "The six arm channels begin or end at the fingertips. The Lung Meridian runs out to the thumb (P11), the Large Intestine Meridian starts at the index finger (GI1), the Pericardium Meridian ends at the tip of the middle finger (MC9), the Triple Burner Meridian starts at the ring finger (TR1), and the Heart (C9) and Small Intestine (IG1) Meridians meet at the little finger. When fingers touch, the ends of these channels meet. Mudra practice uses this correspondence as a hint for where to place attention. It does not imply a medical effect. The finger-to-channel correspondence comes from modern practice and is not found in classical Chinese medicine texts.",
+      "uz": "Qo'ldagi oltita kanal barmoq uchlarida boshlanadi yoki tugaydi. O'pka meridiani bosh barmoqqa chiqadi (P11), Yo'g'on ichak meridiani ko'rsatkich barmoqda boshlanadi (GI1), Perikard meridiani o'rta barmoq uchida tugaydi (MC9), Uch isituvchi meridiani nomsiz barmoqda boshlanadi (TR1), jimjiloqda esa Yurak (C9) va Ingichka ichak (IG1) meridianlari uchrashadi. Barmoqlar bir-biriga tekkanda shu kanallarning uchlari birlashadi. Mudra amaliyotida bu moslik diqqatni qayerga yo'naltirishga ishora beradi. U tibbiy ta'sirni anglatmaydi. Barmoqlar va kanallar mosligi zamonaviy amaliyotda qabul qilingan, mumtoz xitoy tibbiyoti matnlarida u yo'q.",
+      "kz": "Қолдағы алты арна саусақ ұштарында басталады немесе аяқталады. Өкпе меридианы бас бармаққа шығады (P11), Тоқ ішек меридианы сұқ саусақта басталады (GI1), Перикард меридианы ортаңғы саусақтың ұшында аяқталады (MC9), Үш жылытқыш меридианы аты жоқ саусақта басталады (TR1), ал шынашақта Жүрек (C9) және Ащы ішек (IG1) меридиандары тоғысады. Саусақтар бір-біріне тигенде осы арналардың ұштары түйіседі. Мудра тәжірибесінде бұл сәйкестік зейінді қайда бағыттауға болатынын көрсетеді. Ол емдік әсерді білдірмейді. Саусақтар мен арналардың сәйкестігі қазіргі тәжірибеде қабылданған, классикалық қытай медицинасы мәтіндерінде ол жоқ."
+    }
+  },
+  "asanas": [
+    {
+      "id": "stand",
+      "sanskrit": "",
+      "i18n": {
+        "ru": {
+          "name": "Исходная стойка",
+          "short": "Модель стоит прямо, руки свободно опущены.",
+          "how": "Стопы на ширине таза, колени мягкие, руки вдоль тела. Это нейтральное положение для просмотра всех каналов.",
+          "meridians_note": "Каналы показаны в обычном положении тела, без растяжения и сжатия. С этой позы удобно начинать знакомство с картой.",
+          "practice": "Выберите меридиан и пройдите по нему вниманием в том направлении, которое указано в его карточке."
+        },
+        "en": {
+          "name": "Base standing position",
+          "short": "The model stands upright with arms hanging freely.",
+          "how": "Feet hip-width apart, knees soft, arms along the body. This is a neutral position for viewing all channels.",
+          "meridians_note": "Channels are shown in the ordinary body position, neither stretched nor compressed. It is a convenient starting point for exploring the map.",
+          "practice": "Choose a meridian and follow it with attention in the direction given in its card."
+        },
+        "uz": {
+          "name": "Boshlang'ich holat",
+          "short": "Model to'g'ri turibdi, qo'llar erkin tushirilgan.",
+          "how": "Oyoqlar chanoq kengligida, tizzalar yumshoq, qo'llar tana bo'ylab. Bu barcha kanallarni ko'rish uchun neytral holat.",
+          "meridians_note": "Kanallar tananing oddiy holatida, cho'zilmagan va siqilmagan ko'rinishda ko'rsatilgan. Xarita bilan tanishishni shu holatdan boshlash qulay.",
+          "practice": "Meridianni tanlang va uning kartasida ko'rsatilgan yo'nalish bo'yicha diqqat bilan o'tib chiqing."
+        },
+        "kz": {
+          "name": "Бастапқы тұрыс",
+          "short": "Модель тік тұр, қолдары еркін салбырап тұр.",
+          "how": "Аяқтар жамбас енімен, тізелер жұмсақ, қолдар дене бойымен. Бұл барлық арналарды көруге арналған бейтарап қалып.",
+          "meridians_note": "Арналар дененің қалыпты күйінде, созылмай да, қысылмай да көрсетілген. Картамен танысуды осы қалыптан бастаған ыңғайлы.",
+          "practice": "Меридианды таңдап, оның картасында көрсетілген бағытпен зейінмен жүріп өтіңіз."
+        }
+      },
+      "emphasized_meridians": [],
+      "emphasized_points": []
+    },
+    {
+      "id": "tadasana",
+      "sanskrit": "Tāḍāsana",
+      "i18n": {
+        "ru": {
+          "name": "Тадасана (поза горы)",
+          "short": "Ровная стойка: опора в стопах, позвоночник вытянут, макушка тянется вверх.",
+          "how": "Поставьте стопы вместе или на ширине таза и распределите вес между пятками и подушечками стоп. Подтяните коленные чашечки, не зажимая колени. Копчик слегка опустите, грудь раскройте, плечи отведите вниз. Макушка тянется вверх, подбородок чуть опущен.",
+          "meridians_note": "Когда позвоночник выпрямлен, хорошо ощущается вся заднесрединная линия от поясницы к макушке (VG4, VG14, VG20) и передняя срединная линия от низа живота к груди (VC6, VC17). Опора в стопах приводит внимание к точке Юн-цюань на подошве (R1), где начинается меридиан почек. По задней поверхности ног и спины проходит меридиан мочевого пузыря: под коленом (V40) и на пояснице рядом с VG4 (V23) он слегка вытягивается.",
+          "practice": "Постойте 1–2 минуты. На вдохе ведите внимание от подошв вверх по спине к макушке, на выдохе опускайте его по передней линии тела к низу живота и обратно в стопы."
+        },
+        "en": {
+          "name": "Tadasana (mountain pose)",
+          "short": "An even stance: grounded feet, lengthened spine, crown reaching up.",
+          "how": "Stand with feet together or hip-width apart and spread the weight between heels and the balls of the feet. Lift the kneecaps without locking the knees. Let the tailbone drop slightly, open the chest, draw the shoulders down. The crown reaches up, the chin is slightly lowered.",
+          "meridians_note": "With an upright spine you can feel the whole back midline from the lower back to the crown (VG4, VG14, VG20) and the front midline from the lower belly to the chest (VC6, VC17). Grounding through the feet brings attention to Yongquan on the sole (R1), where the Kidney Meridian begins. The Bladder Meridian runs along the back of the legs and spine and lengthens slightly behind the knee (V40) and in the lower back next to VG4 (V23).",
+          "practice": "Stand for 1–2 minutes. On the inhale, move attention from the soles up the back to the crown; on the exhale, let it descend along the front of the body to the lower belly and back into the feet."
+        },
+        "uz": {
+          "name": "Tadasana (tog' holati)",
+          "short": "Tekis turish: oyoq tagida tayanch, umurtqa cho'zilgan, tepa yuqoriga intiladi.",
+          "how": "Oyoqlarni birga yoki chanoq kengligida qo'ying va og'irlikni tovon bilan oyoq panjasi yostiqchalari orasida taqsimlang. Tizza qopqoqlarini yuqoriga torting, lekin tizzalarni qotirmang. Dum suyagini biroz pastga tushiring, ko'krakni oching, yelkalarni pastga tushiring. Tepa yuqoriga intiladi, iyak biroz pastga tushgan.",
+          "meridians_note": "Umurtqa tik turganda beldan tepagacha bo'lgan butun orqa o'rta chiziq (VG4, VG14, VG20) va qorinning pastidan ko'krakkacha bo'lgan old o'rta chiziq (VC6, VC17) yaxshi seziladi. Oyoq tagidagi tayanch diqqatni Buyrak meridiani boshlanadigan Yongquan nuqtasiga (R1) olib keladi. Oyoq va orqaning orqa yuzasi bo'ylab Siydik pufagi meridiani o'tadi: tizza ostida (V40) va belda VG4 yonida (V23) u biroz cho'ziladi.",
+          "practice": "1–2 daqiqa turing. Nafas olganda diqqatni oyoq tagidan orqa bo'ylab tepaga ko'taring, nafas chiqarganda uni tananing old chizig'i bo'ylab qorinning pastiga va yana oyoq tagiga tushiring."
+        },
+        "kz": {
+          "name": "Тадасана (тау қалпы)",
+          "short": "Түзу тұрыс: табанда тірек, омыртқа созылған, төбе жоғары ұмтылады.",
+          "how": "Аяқтарды бірге немесе жамбас енімен қойып, салмақты өкше мен табан алдының арасында бөліңіз. Тізе тостағандарын жоғары тартыңыз, бірақ тізені қатайтпаңыз. Құйымшақты сәл төмен түсіріп, кеудені ашыңыз, иықты төмен түсіріңіз. Төбе жоғары ұмтылады, иек сәл төмен.",
+          "meridians_note": "Омыртқа тік тұрғанда белден төбеге дейінгі бүкіл артқы орта сызық (VG4, VG14, VG20) және іштің төменгі бөлігінен кеудеге дейінгі алдыңғы орта сызық (VC6, VC17) жақсы сезіледі. Табандағы тірек зейінді Бүйрек меридианы басталатын Юн-цюань нүктесіне (R1) әкеледі. Аяқ пен арқаның артқы бетімен Қуық меридианы өтеді: тізе астында (V40) және белде VG4 жанында (V23) ол сәл созылады.",
+          "practice": "1–2 минут тұрыңыз. Дем алғанда зейінді табаннан арқамен төбеге көтеріңіз, дем шығарғанда оны дененің алдыңғы сызығымен іштің төменгі бөлігіне және қайтадан табанға түсіріңіз."
+        }
+      },
+      "emphasized_meridians": [
+        "governing_vessel",
+        "conception_vessel",
+        "kidney",
+        "bladder"
+      ],
+      "emphasized_points": [
+        "R1",
+        "V40",
+        "V23",
+        "VG4",
+        "VG14",
+        "VG20",
+        "VC6",
+        "VC17"
+      ]
+    },
+    {
+      "id": "sukhasana",
+      "sanskrit": "Sukhāsana",
+      "i18n": {
+        "ru": {
+          "name": "Сукхасана (лёгкая поза)",
+          "short": "Простое сидение со скрещёнными голенями и прямой спиной.",
+          "how": "Сядьте на пол или на сложенный плед, скрестите голени, стопы окажутся под противоположными коленями. Если колени выше таза, подложите под ягодицы опору повыше. Спина ровная, кисти лежат на коленях.",
+          "meridians_note": "Бёдра слегка разворачиваются наружу. По наружной стороне таза и бедра проходит меридиан желчного пузыря (VB30, VB31), по внутренней стороне бедра раскрываются меридианы селезёнки (RP10) и печени (F10). Спина прямая, поэтому заднесрединный и переднесрединный меридианы выстраиваются по одной вертикали (VG4, VG20, VC6).",
+          "practice": "Посидите 3–5 минут. Заметьте, где в бёдрах и тазе держится напряжение, и мягко направляйте туда выдох. Потом соберите внимание на вертикальной линии от копчика до макушки."
+        },
+        "en": {
+          "name": "Sukhasana (easy pose)",
+          "short": "A simple cross-legged seat with a straight back.",
+          "how": "Sit on the floor or on a folded blanket and cross the shins so each foot rests under the opposite knee. If the knees are higher than the hips, sit on a higher support. Keep the back straight and rest the hands on the knees.",
+          "meridians_note": "The thighs turn slightly outward. The Gallbladder Meridian runs along the outer hip and thigh (VB30, VB31); along the inner thigh the Spleen (RP10) and Liver (F10) Meridians open. With a straight back the Governing and Conception Vessels line up along one vertical (VG4, VG20, VC6).",
+          "practice": "Sit for 3–5 minutes. Notice where the hips and pelvis hold tension and send the exhale there gently. Then gather attention on the vertical line from the tailbone to the crown."
+        },
+        "uz": {
+          "name": "Sukhasana (qulay o'tirish)",
+          "short": "Boldirlar chalishtirilgan, orqa tik holdagi oddiy o'tirish.",
+          "how": "Polga yoki buklangan pledga o'tiring, boldirlarni chalishtiring, oyoqlar qarama-qarshi tizzalar ostida bo'ladi. Agar tizzalar chanoqdan baland bo'lsa, dumba ostiga balandroq tayanch qo'ying. Orqa tekis, kaftlar tizzalarda.",
+          "meridians_note": "Sonlar biroz tashqariga buriladi. Chanoq va sonning tashqi tomoni bo'ylab O't pufagi meridiani o'tadi (VB30, VB31), sonning ichki tomonida Taloq (RP10) va Jigar (F10) meridianlari ochiladi. Orqa tik bo'lgani uchun Orqa o'rta va Old o'rta meridianlar bir vertikal chiziqqa tiziladi (VG4, VG20, VC6).",
+          "practice": "3–5 daqiqa o'tiring. Son va chanoqda qayerda taranglik borligini payqang va nafas chiqarishni yumshoq tarzda o'sha yerga yo'naltiring. Keyin diqqatni dum suyagidan tepagacha bo'lgan vertikal chiziqqa yig'ing."
+        },
+        "kz": {
+          "name": "Сукхасана (жеңіл отырыс)",
+          "short": "Сирақтар айқастырылған, арқа түзу қарапайым отырыс.",
+          "how": "Еденге немесе бүктелген пледке отырып, сирақтарды айқастырыңыз, табандар қарама-қарсы тізелердің астында болады. Тізелер жамбастан биік болса, бөкседің астына биігірек тірек қойыңыз. Арқа түзу, алақандар тізеде жатады.",
+          "meridians_note": "Сандар сәл сыртқа бұрылады. Жамбас пен санның сыртқы жағымен Өт қабы меридианы өтеді (VB30, VB31), санның ішкі жағында Көкбауыр (RP10) және Бауыр (F10) меридиандары ашылады. Арқа түзу болғандықтан Артқы орта және Алдыңғы орта меридиандар бір тік сызыққа келеді (VG4, VG20, VC6).",
+          "practice": "3–5 минут отырыңыз. Сан мен жамбаста қай жерде кернеу барын байқап, дем шығаруды жұмсақ түрде сол жерге бағыттаңыз. Содан кейін зейінді құйымшақтан төбеге дейінгі тік сызыққа жинаңыз."
+        }
+      },
+      "emphasized_meridians": [
+        "gallbladder",
+        "spleen",
+        "liver",
+        "governing_vessel",
+        "conception_vessel"
+      ],
+      "emphasized_points": [
+        "VB30",
+        "VB31",
+        "RP10",
+        "F10",
+        "VG4",
+        "VG20",
+        "VC6"
+      ]
+    },
+    {
+      "id": "ardha_padmasana",
+      "sanskrit": "Ardha Padmāsana",
+      "i18n": {
+        "ru": {
+          "name": "Ардха падмасана (полулотос)",
+          "short": "Одна стопа лежит на противоположном бедре подошвой вверх, другая под коленом.",
+          "how": "Сядьте на опору. Согните правую ногу и положите стопу на левое бедро ближе к паху, подошвой вверх; левая стопа остаётся под правым коленом. Колено опускается за счёт разворота бедра в тазобедренном суставе, стопу руками не тяните. Потом поменяйте ноги. Если в колене появилась боль или давление внутри сустава, сразу выйдите из позы и сядьте в сукхасану; при травмах колена полулотос не делают.",
+          "meridians_note": "Бедро верхней ноги сильно развёрнуто наружу. По наружной стороне таза и колена идёт меридиан желчного пузыря (VB30, VB34), у наружной лодыжки он растягивается вместе с подъёмом стопы (VB40). По внутренней поверхности бедра и колена раскрываются инь-каналы ноги: селезёнки (RP9, RP10), печени (F8) и почек (R10).",
+          "practice": "Посидите 1–3 минуты на каждую сторону. Сравните две ноги: где яснее ощущается внутренняя линия бедра и колена, где наружная."
+        },
+        "en": {
+          "name": "Ardha Padmasana (half lotus)",
+          "short": "One foot rests on the opposite thigh, sole up; the other foot is under the knee.",
+          "how": "Sit on a support. Bend the right leg and place the foot on the left thigh close to the groin, sole up; the left foot stays under the right knee. The knee lowers through outward rotation at the hip; do not pull the foot with your hands. Then switch legs. If pain or pressure inside the knee appears, come out of the pose at once and sit in sukhasana; with a knee injury, skip half lotus.",
+          "meridians_note": "The thigh of the top leg is strongly turned outward. The Gallbladder Meridian runs along the outer hip and knee (VB30, VB34) and stretches with the top of the foot near the outer ankle (VB40). Along the inner thigh and knee the yin channels of the leg open: Spleen (RP9, RP10), Liver (F8) and Kidney (R10).",
+          "practice": "Sit for 1–3 minutes on each side. Compare the two legs: where the inner line of the thigh and knee is clearer, and where the outer one is."
+        },
+        "uz": {
+          "name": "Ardha padmasana (yarim lotus)",
+          "short": "Bir oyoq tagi yuqoriga qaragan holda qarama-qarshi sonda yotadi, ikkinchisi tizza ostida.",
+          "how": "Tayanchga o'tiring. O'ng oyoqni bukib, oyoq panjasini chap songa, chovga yaqinroq, tagini yuqoriga qaratib qo'ying; chap oyoq o'ng tizza ostida qoladi. Tizza son-chanoq bo'g'imida sonning tashqariga burilishi hisobiga pastga tushadi, oyoqni qo'l bilan tortmang. Keyin oyoqlarni almashtiring. Agar tizzada og'riq yoki bo'g'im ichida bosim paydo bo'lsa, darhol holatdan chiqing va sukhasanaga o'ting; tizza jarohatida yarim lotus qilinmaydi.",
+          "meridians_note": "Yuqoridagi oyoqning soni kuchli tashqariga burilgan. Chanoq va tizzaning tashqi tomoni bo'ylab O't pufagi meridiani o'tadi (VB30, VB34), tashqi to'piq yonida u oyoq ustki qismi bilan birga cho'ziladi (VB40). Son va tizzaning ichki yuzasida oyoqning Yin kanallari ochiladi: Taloq (RP9, RP10), Jigar (F8) va Buyrak (R10).",
+          "practice": "Har bir tomonga 1–3 daqiqa o'tiring. Ikki oyoqni solishtiring: son va tizzaning ichki chizig'i qayerda aniqroq, tashqi chizig'i qayerda aniqroq seziladi."
+        },
+        "kz": {
+          "name": "Ардха падмасана (жарты лотос)",
+          "short": "Бір табан жоғары қарап қарама-қарсы санда жатады, екіншісі тізенің астында.",
+          "how": "Тірекке отырыңыз. Оң аяқты бүгіп, табанды сол санға, шапқа жақынырақ, табанын жоғары қаратып қойыңыз; сол аяқ оң тізенің астында қалады. Тізе жамбас буынында санның сыртқа бұрылуы арқылы төмендейді, аяқты қолмен тартпаңыз. Содан кейін аяқтарды ауыстырыңыз. Тізеде ауырсыну немесе буын ішінде қысым пайда болса, бірден қалыптан шығып, сукхасанаға отырыңыз; тізе жарақаты болса, жарты лотос жасалмайды.",
+          "meridians_note": "Үстіңгі аяқтың саны сыртқа қатты бұрылған. Жамбас пен тізенің сыртқы жағымен Өт қабы меридианы өтеді (VB30, VB34), сыртқы тобық маңында ол аяқтың үстіңгі бетімен бірге созылады (VB40). Сан мен тізенің ішкі бетінде аяқтың Инь арналары ашылады: Көкбауыр (RP9, RP10), Бауыр (F8) және Бүйрек (R10).",
+          "practice": "Әр жаққа 1–3 минут отырыңыз. Екі аяқты салыстырыңыз: сан мен тізенің ішкі сызығы қай жерде анығырақ, сыртқы сызығы қай жерде анығырақ сезіледі."
+        }
+      },
+      "emphasized_meridians": [
+        "gallbladder",
+        "spleen",
+        "liver",
+        "kidney"
+      ],
+      "emphasized_points": [
+        "VB30",
+        "VB34",
+        "VB40",
+        "RP9",
+        "RP10",
+        "F8",
+        "R10"
+      ]
+    },
+    {
+      "id": "padmasana",
+      "sanskrit": "Padmāsana",
+      "i18n": {
+        "ru": {
+          "name": "Падмасана (лотос)",
+          "short": "Обе стопы лежат на противоположных бёдрах подошвами вверх, спина прямая.",
+          "how": "Сначала положите правую стопу на левое бедро, затем левую на правое, обе ближе к паху. Колени опускаются к полу, спина прямая, кисти на коленях. Входите в позу только с хорошо раскрытыми тазобедренными суставами и не тяните стопы руками. Если колено болит или его тянет изнутри, остановитесь и вернитесь в полулотос или сукхасану; при травмах колена лотос не делают.",
+          "meridians_note": "Здесь работает то же, что в полулотосе, только с обеих сторон: наружная линия желчного пузыря (VB30, VB34, VB40) и внутренние линии селезёнки, печени и почек (RP9, RP10, F8, R10). Подошвы смотрят вверх, и точка Юн-цюань (R1), начало меридиана почек, хорошо ощущается вниманием. Таз устойчив, позвоночник поднимается вдоль заднесрединного меридиана (VG4, VG20), а внимание легко собирается внизу живота, у точки Ци-хай (VC6).",
+          "practice": "Если поза даётся спокойно, посидите 3–5 минут. Почувствуйте подошвы, затем внутреннюю линию ног, затем поднимите внимание по позвоночнику к макушке."
+        },
+        "en": {
+          "name": "Padmasana (lotus)",
+          "short": "Both feet rest on the opposite thighs, soles up, back straight.",
+          "how": "First place the right foot on the left thigh, then the left foot on the right thigh, both close to the groin. The knees lower toward the floor, the back is straight, hands on the knees. Enter the pose only with well-opened hips and do not pull the feet with your hands. If a knee hurts or pulls from the inside, stop and return to half lotus or sukhasana; with a knee injury, skip lotus.",
+          "meridians_note": "The same lines work as in half lotus, on both sides: the outer Gallbladder line (VB30, VB34, VB40) and the inner Spleen, Liver and Kidney lines (RP9, RP10, F8, R10). The soles face up, so Yongquan (R1), where the Kidney Meridian begins, is easy to feel. The pelvis is stable and the spine rises along the Governing Vessel (VG4, VG20), while attention gathers easily in the lower belly at Qihai (VC6).",
+          "practice": "If the pose comes easily, sit for 3–5 minutes. Feel the soles, then the inner line of the legs, then raise attention along the spine to the crown."
+        },
+        "uz": {
+          "name": "Padmasana (lotus)",
+          "short": "Ikkala oyoq tagi yuqoriga qaragan holda qarama-qarshi sonlarda yotadi, orqa tik.",
+          "how": "Avval o'ng oyoqni chap songa, keyin chap oyoqni o'ng songa qo'ying, ikkalasi ham chovga yaqin. Tizzalar polga tushadi, orqa tik, kaftlar tizzalarda. Holatga faqat son-chanoq bo'g'imlari yaxshi ochilgan bo'lsa kiring va oyoqlarni qo'l bilan tortmang. Agar tizza og'risa yoki ichidan tortilsa, to'xtang va yarim lotus yoki sukhasanaga qayting; tizza jarohatida lotus qilinmaydi.",
+          "meridians_note": "Bu yerda yarim lotusdagi chiziqlar ikkala tomonda ishlaydi: tashqi O't pufagi chizig'i (VB30, VB34, VB40) hamda ichki Taloq, Jigar va Buyrak chiziqlari (RP9, RP10, F8, R10). Oyoq taglari yuqoriga qaraydi va Buyrak meridianining boshlanishi bo'lgan Yongquan nuqtasi (R1) diqqat bilan yaxshi seziladi. Chanoq barqaror, umurtqa Orqa o'rta meridian bo'ylab ko'tariladi (VG4, VG20), diqqat esa qorinning pastida, Qihai nuqtasida (VC6) oson yig'iladi.",
+          "practice": "Agar holat osonlik bilan kelsa, 3–5 daqiqa o'tiring. Oyoq taglarini, keyin oyoqlarning ichki chizig'ini his qiling, so'ng diqqatni umurtqa bo'ylab tepaga ko'taring."
+        },
+        "kz": {
+          "name": "Падмасана (лотос)",
+          "short": "Екі табан да жоғары қарап қарама-қарсы сандарда жатады, арқа түзу.",
+          "how": "Алдымен оң табанды сол санға, содан кейін сол табанды оң санға қойыңыз, екеуі де шапқа жақын. Тізелер еденге қарай түседі, арқа түзу, алақандар тізеде. Қалыпқа тек жамбас буындары жақсы ашылғанда кіріңіз және табандарды қолмен тартпаңыз. Тізе ауырса немесе ішінен тартылса, тоқтап, жарты лотосқа немесе сукхасанаға оралыңыз; тізе жарақаты болса, лотос жасалмайды.",
+          "meridians_note": "Мұнда жарты лотостағы сызықтар екі жақта да жұмыс істейді: сыртқы Өт қабы сызығы (VB30, VB34, VB40) және ішкі Көкбауыр, Бауыр және Бүйрек сызықтары (RP9, RP10, F8, R10). Табандар жоғары қарайды, сондықтан Бүйрек меридианының басы болып табылатын Юн-цюань нүктесі (R1) зейінмен жақсы сезіледі. Жамбас тұрақты, омыртқа Артқы орта меридиан бойымен көтеріледі (VG4, VG20), ал зейін іштің төменгі бөлігінде, Ци-хай нүктесінде (VC6) оңай жиналады.",
+          "practice": "Қалып оңай келсе, 3–5 минут отырыңыз. Табандарды, содан кейін аяқтың ішкі сызығын сезініп, зейінді омыртқа бойымен төбеге көтеріңіз."
+        }
+      },
+      "emphasized_meridians": [
+        "gallbladder",
+        "spleen",
+        "liver",
+        "kidney",
+        "governing_vessel",
+        "conception_vessel"
+      ],
+      "emphasized_points": [
+        "VB30",
+        "VB34",
+        "VB40",
+        "RP9",
+        "RP10",
+        "F8",
+        "R10",
+        "R1",
+        "VG4",
+        "VG20",
+        "VC6"
+      ]
+    },
+    {
+      "id": "vajrasana",
+      "sanskrit": "Vajrāsana",
+      "i18n": {
+        "ru": {
+          "name": "Ваджрасана (поза алмаза)",
+          "short": "Сидение на пятках: колени вместе, спина прямая.",
+          "how": "Встаньте на колени и соедините их. Большие пальцы ног сведите, пятки слегка разведите и сядьте между ними на стопы. Подъёмы стоп лежат на полу. Если тянет колени или голеностопы, подложите плед под голени или валик между ягодицами и пятками. При боли в колене выйдите из позы.",
+          "meridians_note": "Передняя поверхность бедра, колено и подъём стопы растягиваются вдоль меридиана желудка (E32, E35, E36, E41). Сзади голени прижаты к бёдрам, и линия мочевого пузыря под коленом и на икре сдавливается (V40, V57). Спина прямая, и внимание легко держать на заднесрединном меридиане (VG4, VG20).",
+          "practice": "Посидите 2–5 минут. На вдохе ведите внимание вниз по передней линии бёдер к стопам, на выдохе поднимайте его по спине. После выхода из позы вытяните ноги и подождите, пока под коленями вернётся обычное ощущение."
+        },
+        "en": {
+          "name": "Vajrasana (diamond pose)",
+          "short": "Sitting on the heels with knees together and a straight back.",
+          "how": "Kneel and bring the knees together. Touch the big toes, let the heels part slightly and sit down on the feet. The tops of the feet rest on the floor. If the knees or ankles feel strained, put a blanket under the shins or a bolster between the buttocks and heels. If a knee hurts, come out of the pose.",
+          "meridians_note": "The front of the thigh, the knee and the top of the foot stretch along the Stomach Meridian (E32, E35, E36, E41). Behind, the shins press against the thighs, compressing the Bladder line behind the knee and in the calf (V40, V57). With a straight back it is easy to hold attention on the Governing Vessel (VG4, VG20).",
+          "practice": "Sit for 2–5 minutes. On the inhale, move attention down the front of the thighs to the feet; on the exhale, raise it along the spine. After coming out, stretch the legs and wait until normal sensation returns behind the knees."
+        },
+        "uz": {
+          "name": "Vajrasana (olmos holati)",
+          "short": "Tovonlar ustida o'tirish: tizzalar birga, orqa tik.",
+          "how": "Tizzalab turing va tizzalarni birlashtiring. Oyoqlarning bosh barmoqlarini yaqinlashtiring, tovonlarni biroz ajrating va oyoqlar ustiga o'tiring. Oyoq ustki qismlari polda yotadi. Agar tizza yoki to'piq tortilsa, boldirlar ostiga pled yoki dumba bilan tovon orasiga bolish qo'ying. Tizzada og'riq bo'lsa, holatdan chiqing.",
+          "meridians_note": "Sonning old yuzasi, tizza va oyoq ustki qismi Oshqozon meridiani bo'ylab cho'ziladi (E32, E35, E36, E41). Orqada boldirlar sonlarga bosilgan va tizza osti hamda boldirdagi Siydik pufagi chizig'i siqiladi (V40, V57). Orqa tik, diqqatni Orqa o'rta meridianda (VG4, VG20) ushlab turish oson.",
+          "practice": "2–5 daqiqa o'tiring. Nafas olganda diqqatni sonlarning old chizig'i bo'ylab oyoqlarga tushiring, nafas chiqarganda uni orqa bo'ylab ko'taring. Holatdan chiqqach, oyoqlarni cho'zing va tizza ostida odatiy sezgi qaytguncha kuting."
+        },
+        "kz": {
+          "name": "Ваджрасана (алмас қалпы)",
+          "short": "Өкшеге отыру: тізелер бірге, арқа түзу.",
+          "how": "Тізерлеп тұрып, тізелерді біріктіріңіз. Аяқтың бас бармақтарын жақындатып, өкшелерді сәл ажыратыңыз да, табандардың үстіне отырыңыз. Табанның үстіңгі беті еденде жатады. Тізе немесе тобық тартылса, сирақтың астына плед немесе бөксе мен өкшенің арасына білік қойыңыз. Тізе ауырса, қалыптан шығыңыз.",
+          "meridians_note": "Санның алдыңғы беті, тізе және табанның үстіңгі беті Асқазан меридианы бойымен созылады (E32, E35, E36, E41). Артта сирақтар санға басылып, тізе асты мен балтырдағы Қуық сызығы қысылады (V40, V57). Арқа түзу болғандықтан зейінді Артқы орта меридианда (VG4, VG20) ұстау оңай.",
+          "practice": "2–5 минут отырыңыз. Дем алғанда зейінді санның алдыңғы сызығымен табанға түсіріңіз, дем шығарғанда оны арқамен көтеріңіз. Қалыптан шыққан соң аяқтарды созып, тізе астында қалыпты сезім оралғанша күтіңіз."
+        }
+      },
+      "emphasized_meridians": [
+        "stomach",
+        "bladder",
+        "governing_vessel"
+      ],
+      "emphasized_points": [
+        "E32",
+        "E35",
+        "E36",
+        "E41",
+        "V40",
+        "V57",
+        "VG4",
+        "VG20"
+      ]
+    },
+    {
+      "id": "vrikshasana",
+      "sanskrit": "Vṛkṣāsana",
+      "i18n": {
+        "ru": {
+          "name": "Врикшасана (поза дерева)",
+          "short": "Стойка на одной ноге, стопа другой ноги прижата к внутренней стороне бедра.",
+          "how": "Встаньте в тадасану и перенесите вес на левую ногу. Согните правую ногу и поставьте подошву на внутреннюю сторону левого бедра или голени, пальцами вниз; на колено стопу не ставьте. Колено согнутой ноги смотрит в сторону, таз ровный. Ладони соедините у груди или поднимите вверх. Потом поменяйте ноги. Если трудно держать равновесие, встаньте боком к стене и касайтесь её рукой.",
+          "meridians_note": "Бедро согнутой ноги разворачивается наружу, и по его внутренней стороне раскрываются меридианы селезёнки (RP10), печени и почек (R10). Подошва с точкой Юн-цюань (R1) прижата к внутренней поверхности опорного бедра, примерно туда, где проходит меридиан печени (F9). Опорная нога держит равновесие по наружной линии желчного пузыря (VB30, VB31, VB34), а вытянутый вверх позвоночник ведёт внимание к макушке (VG20).",
+          "practice": "Стойте 30–60 секунд на каждой ноге. Почувствуйте, как подошва и бедро давят друг на друга, и на выдохе отпускайте вес в опорную стопу. Если качает, смотрите в одну неподвижную точку перед собой."
+        },
+        "en": {
+          "name": "Vrikshasana (tree pose)",
+          "short": "Standing on one leg with the other foot pressed to the inner thigh.",
+          "how": "Stand in tadasana and shift your weight onto the left leg. Bend the right leg and place the sole on the inner left thigh or shin, toes pointing down; do not place the foot on the knee. The bent knee points to the side, the pelvis stays level. Join the palms at the chest or raise them overhead. Then switch legs. If balance is hard, stand sideways to a wall and touch it with one hand.",
+          "meridians_note": "The thigh of the bent leg turns outward, and along its inner side the Spleen (RP10), Liver and Kidney (R10) Meridians open. The sole with Yongquan (R1) presses against the inner side of the standing thigh, roughly where the Liver Meridian runs (F9). The standing leg holds balance along the outer Gallbladder line (VB30, VB31, VB34), and the lengthened spine leads attention up to the crown (VG20).",
+          "practice": "Stand for 30–60 seconds on each leg. Feel the sole and the thigh pressing into each other, and on the exhale release the weight into the standing foot. If you sway, look at one still point in front of you."
+        },
+        "uz": {
+          "name": "Vrikshasana (daraxt holati)",
+          "short": "Bir oyoqda turish, ikkinchi oyoq tagi sonning ichki tomoniga bosilgan.",
+          "how": "Tadasanada turing va og'irlikni chap oyoqqa o'tkazing. O'ng oyoqni bukib, oyoq tagini chap sonning yoki boldirning ichki tomoniga, barmoqlarini pastga qaratib qo'ying; oyoqni tizzaga qo'ymang. Bukilgan oyoqning tizzasi yonga qaraydi, chanoq tekis. Kaftlarni ko'krak oldida birlashtiring yoki yuqoriga ko'taring. Keyin oyoqlarni almashtiring. Muvozanat qiyin bo'lsa, devorga yonbosh turing va unga qo'l bilan tegib turing.",
+          "meridians_note": "Bukilgan oyoqning soni tashqariga buriladi va uning ichki tomonida Taloq (RP10), Jigar va Buyrak (R10) meridianlari ochiladi. Yongquan nuqtasi (R1) joylashgan oyoq tagi tayanch sonning ichki yuzasiga, taxminan Jigar meridiani o'tadigan joyga (F9) bosiladi. Tayanch oyoq muvozanatni O't pufagining tashqi chizig'i bo'ylab ushlaydi (VB30, VB31, VB34), yuqoriga cho'zilgan umurtqa esa diqqatni tepaga olib boradi (VG20).",
+          "practice": "Har bir oyoqda 30–60 soniya turing. Oyoq tagi va son bir-biriga qanday bosilayotganini his qiling va nafas chiqarganda og'irlikni tayanch oyoqqa qo'yib yuboring. Agar chayqalsangiz, oldingizdagi bitta qimirlamaydigan nuqtaga qarang."
+        },
+        "kz": {
+          "name": "Врикшасана (ағаш қалпы)",
+          "short": "Бір аяқта тұру, екінші аяқтың табаны санның ішкі жағына басылған.",
+          "how": "Тадасанада тұрып, салмақты сол аяққа ауыстырыңыз. Оң аяқты бүгіп, табанды сол санның немесе сирақтың ішкі жағына, саусақтарын төмен қаратып қойыңыз; табанды тізеге қоймаңыз. Бүгілген аяқтың тізесі бүйірге қарайды, жамбас түзу. Алақандарды кеуде алдында біріктіріңіз немесе жоғары көтеріңіз. Содан кейін аяқтарды ауыстырыңыз. Тепе-теңдік қиын болса, қабырғаға бүйірмен тұрып, оған қолыңызбен тиіп тұрыңыз.",
+          "meridians_note": "Бүгілген аяқтың саны сыртқа бұрылып, оның ішкі жағында Көкбауыр (RP10), Бауыр және Бүйрек (R10) меридиандары ашылады. Юн-цюань нүктесі (R1) бар табан тірек санның ішкі бетіне, шамамен Бауыр меридианы өтетін жерге (F9) басылады. Тірек аяқ тепе-теңдікті Өт қабының сыртқы сызығы бойымен ұстайды (VB30, VB31, VB34), ал жоғары созылған омыртқа зейінді төбеге апарады (VG20).",
+          "practice": "Әр аяқта 30–60 секунд тұрыңыз. Табан мен санның бір-біріне қалай басылатынын сезініп, дем шығарғанда салмақты тірек табанға жіберіңіз. Теңселсеңіз, алдыңыздағы бір қозғалмайтын нүктеге қараңыз."
+        }
+      },
+      "emphasized_meridians": [
+        "kidney",
+        "liver",
+        "spleen",
+        "gallbladder",
+        "governing_vessel"
+      ],
+      "emphasized_points": [
+        "R1",
+        "F9",
+        "RP10",
+        "R10",
+        "VB30",
+        "VB31",
+        "VB34",
+        "VG20"
+      ]
+    },
+    {
+      "id": "dandasana",
+      "sanskrit": "Daṇḍāsana",
+      "i18n": {
+        "ru": {
+          "name": "Дандасана (поза посоха)",
+          "short": "Сидя на полу, ноги вытянуты вперёд и соединены, спина прямая.",
+          "how": "Сядьте на пол и вытяните ноги вперёд, соедините их. Стопы направлены вверх, пятки слегка тянутся вперёд. Ладони поставьте на пол рядом с бёдрами и мягко упритесь, чтобы поднять грудь и выпрямить спину. Если спина округляется, сядьте на сложенный плед или слегка согните колени.",
+          "meridians_note": "Вся задняя поверхность ног вытягивается вдоль меридиана мочевого пузыря: под ягодицей (V36), под коленом (V40), на икре (V57) и у наружной лодыжки (V60). Подошвы с точкой Юн-цюань (R1) обращены вперёд, и пятки можно ощущать как продолжение этой линии. Позвоночник стоит вертикально, вдоль заднесрединного меридиана (VG4, VG14, VG20).",
+          "practice": "Посидите 1–2 минуты. На вдохе поднимайте внимание от пяток по задней стороне ног и по спине к макушке, на выдохе опускайте его обратно к пяткам."
+        },
+        "en": {
+          "name": "Dandasana (staff pose)",
+          "short": "Seated on the floor, legs stretched forward and together, back straight.",
+          "how": "Sit on the floor, stretch the legs forward and bring them together. The feet point up, the heels reach slightly forward. Place the palms on the floor beside the hips and press gently to lift the chest and straighten the back. If the back rounds, sit on a folded blanket or bend the knees a little.",
+          "meridians_note": "The whole back of the legs lengthens along the Bladder Meridian: under the buttock (V36), behind the knee (V40), in the calf (V57) and by the outer ankle (V60). The soles with Yongquan (R1) face forward, and the heels can be felt as a continuation of this line. The spine stands vertical along the Governing Vessel (VG4, VG14, VG20).",
+          "practice": "Sit for 1–2 minutes. On the inhale, raise attention from the heels along the back of the legs and up the spine to the crown; on the exhale, let it return to the heels."
+        },
+        "uz": {
+          "name": "Dandasana (hassa holati)",
+          "short": "Polda o'tirish, oyoqlar oldinga cho'zilgan va birlashgan, orqa tik.",
+          "how": "Polga o'tiring, oyoqlarni oldinga cho'zing va birlashtiring. Oyoq panjalari yuqoriga qaragan, tovonlar biroz oldinga intiladi. Kaftlarni sonlar yoniga polga qo'ying va ko'krakni ko'tarib, orqani to'g'rilash uchun yumshoq tayaning. Agar orqa bukilsa, buklangan pledga o'tiring yoki tizzalarni biroz buking.",
+          "meridians_note": "Oyoqlarning butun orqa yuzasi Siydik pufagi meridiani bo'ylab cho'ziladi: dumba ostida (V36), tizza ostida (V40), boldirda (V57) va tashqi to'piq yonida (V60). Yongquan nuqtasi (R1) joylashgan oyoq taglari oldinga qaragan va tovonlarni shu chiziqning davomi sifatida his qilish mumkin. Umurtqa Orqa o'rta meridian bo'ylab tik turadi (VG4, VG14, VG20).",
+          "practice": "1–2 daqiqa o'tiring. Nafas olganda diqqatni tovonlardan oyoqlarning orqa tomoni va umurtqa bo'ylab tepaga ko'taring, nafas chiqarganda uni yana tovonlarga tushiring."
+        },
+        "kz": {
+          "name": "Дандасана (таяқ қалпы)",
+          "short": "Еденде отыру, аяқтар алға созылған және біріктірілген, арқа түзу.",
+          "how": "Еденге отырып, аяқтарды алға созыңыз да, біріктіріңіз. Табандар жоғары қарайды, өкшелер сәл алға ұмтылады. Алақандарды сандардың жанына еденге қойып, кеудені көтеріп, арқаны түзету үшін жұмсақ тіреліңіз. Арқа бүкірейсе, бүктелген пледке отырыңыз немесе тізені сәл бүгіңіз.",
+          "meridians_note": "Аяқтың бүкіл артқы беті Қуық меридианы бойымен созылады: бөксе астында (V36), тізе астында (V40), балтырда (V57) және сыртқы тобық жанында (V60). Юн-цюань нүктесі (R1) бар табандар алға қарайды, өкшелерді осы сызықтың жалғасы ретінде сезінуге болады. Омыртқа Артқы орта меридиан бойымен тік тұрады (VG4, VG14, VG20).",
+          "practice": "1–2 минут отырыңыз. Дем алғанда зейінді өкшеден аяқтың артқы жағы мен омыртқа бойымен төбеге көтеріңіз, дем шығарғанда оны қайтадан өкшеге түсіріңіз."
+        }
+      },
+      "emphasized_meridians": [
+        "bladder",
+        "kidney",
+        "governing_vessel"
+      ],
+      "emphasized_points": [
+        "V36",
+        "V40",
+        "V57",
+        "V60",
+        "R1",
+        "VG4",
+        "VG14",
+        "VG20"
+      ]
+    }
+  ],
+  "mudras": [
+    {
+      "id": "open",
+      "sanskrit": "",
+      "fingers": [],
+      "fold": [],
+      "palm": "down",
+      "connected_meridians": [],
+      "contact_points": [],
+      "i18n": {
+        "ru": {
+          "name": "Без мудры",
+          "short": "Кисти расслаблены, пальцы ничем не соединены.",
+          "how": "Положите кисти на бёдра или опустите руки вдоль тела, пальцы свободны.",
+          "meridians_note": "Концы ручных каналов на кончиках пальцев не соединены. Это удобная точка отсчёта, чтобы сравнить ощущения до мудры и после.",
+          "practice": "Перед любой мудрой посидите так полминуты и запомните, как ощущаются кисти и пальцы."
+        },
+        "en": {
+          "name": "No mudra",
+          "short": "Hands relaxed, fingers not joined.",
+          "how": "Rest the hands on the thighs or let the arms hang along the body, fingers free.",
+          "meridians_note": "The ends of the arm channels at the fingertips are not connected. It is a useful baseline for comparing sensations before and after a mudra.",
+          "practice": "Before any mudra, sit like this for half a minute and remember how the hands and fingers feel."
+        },
+        "uz": {
+          "name": "Mudrasiz",
+          "short": "Kaftlar bo'shashgan, barmoqlar birlashtirilmagan.",
+          "how": "Kaftlarni sonlarga qo'ying yoki qo'llarni tana bo'ylab tushiring, barmoqlar erkin.",
+          "meridians_note": "Barmoq uchlaridagi qo'l kanallarining uchlari birlashtirilmagan. Bu mudradan oldingi va keyingi sezgilarni solishtirish uchun qulay boshlang'ich nuqta.",
+          "practice": "Har qanday mudradan oldin yarim daqiqa shunday o'tiring va kaft hamda barmoqlar qanday sezilishini eslab qoling."
+        },
+        "kz": {
+          "name": "Мудрасыз",
+          "short": "Алақандар босаңсыған, саусақтар біріктірілмеген.",
+          "how": "Алақандарды санға қойыңыз немесе қолдарды дене бойымен түсіріңіз, саусақтар еркін.",
+          "meridians_note": "Саусақ ұштарындағы қол арналарының ұштары біріктірілмеген. Бұл мудраға дейінгі және кейінгі сезімдерді салыстыруға ыңғайлы бастапқы нүкте.",
+          "practice": "Кез келген мудрадан бұрын жарты минут осылай отырып, алақан мен саусақтардың қалай сезілетінін есте сақтаңыз."
+        }
+      }
+    },
+    {
+      "id": "gyan",
+      "sanskrit": "Jñāna mudrā",
+      "fingers": [
+        "thumb",
+        "index"
+      ],
+      "fold": [],
+      "palm": "down",
+      "connected_meridians": [
+        "lung",
+        "large_intestine"
+      ],
+      "contact_points": [
+        "P11",
+        "GI1"
+      ],
+      "i18n": {
+        "ru": {
+          "name": "Гьян-мудра (мудра знания)",
+          "short": "Кончики большого и указательного пальцев соединены, остальные пальцы выпрямлены.",
+          "how": "Соедините подушечки большого и указательного пальцев, остальные три пальца прямые и расслабленные. Кисти лежат на коленях ладонями вниз. В части школ ту же мудру делают ладонями вверх, а положение ладонями вниз называют чин-мудрой.",
+          "meridians_note": "На большом пальце заканчивается меридиан лёгких (P11), на указательном начинается меридиан толстой кишки (GI1). В классической последовательности энергия переходит именно из лёгких в толстую кишку, и в этой мудре концы пары встречаются. Соответствие большого пальца лёгким, а указательного толстой кишке взято из современной практики мудр.",
+          "practice": "Сядьте удобно, соедините пальцы и следите за дыханием 3–5 минут. Замечайте ощущение в месте касания и на внутренней линии руки от груди к большому пальцу."
+        },
+        "en": {
+          "name": "Gyan mudra (mudra of knowledge)",
+          "short": "Tips of the thumb and index finger joined, other fingers straight.",
+          "how": "Join the pads of the thumb and index finger; keep the other three fingers straight and relaxed. The hands rest on the knees, palms down. Some schools do the same mudra palms up and call the palms-down version chin mudra.",
+          "meridians_note": "The Lung Meridian ends at the thumb (P11) and the Large Intestine Meridian begins at the index finger (GI1). In the classical sequence energy passes from the lungs to the large intestine, and in this mudra the ends of the pair meet. Matching the thumb to the lungs and the index finger to the large intestine comes from modern mudra practice.",
+          "practice": "Sit comfortably, join the fingers and follow the breath for 3–5 minutes. Notice the sensation at the point of contact and along the inner line of the arm from the chest to the thumb."
+        },
+        "uz": {
+          "name": "Gyan-mudra (bilim mudrasi)",
+          "short": "Bosh barmoq va ko'rsatkich barmoq uchlari birlashgan, qolgan barmoqlar to'g'ri.",
+          "how": "Bosh barmoq va ko'rsatkich barmoq yostiqchalarini birlashtiring, qolgan uch barmoq to'g'ri va bo'shashgan. Kaftlar tizzalarda, pastga qaragan. Ba'zi maktablarda shu mudra kaftlar yuqoriga qaragan holda qilinadi, kaftlar pastga qaragan holat esa chin-mudra deb ataladi.",
+          "meridians_note": "Bosh barmoqda O'pka meridiani tugaydi (P11), ko'rsatkich barmoqda Yo'g'on ichak meridiani boshlanadi (GI1). Klassik ketma-ketlikda energiya aynan o'pkadan yo'g'on ichakka o'tadi va bu mudrada juftlikning uchlari uchrashadi. Bosh barmoqni o'pkaga, ko'rsatkich barmoqni yo'g'on ichakka moslash zamonaviy mudra amaliyotidan olingan.",
+          "practice": "Qulay o'tiring, barmoqlarni birlashtiring va 3–5 daqiqa nafasni kuzating. Tegib turgan joydagi sezgini va ko'krakdan bosh barmoqqacha qo'lning ichki chizig'ini payqang."
+        },
+        "kz": {
+          "name": "Гьян-мудра (білім мудрасы)",
+          "short": "Бас бармақ пен сұқ саусақтың ұштары біріктірілген, қалған саусақтар түзу.",
+          "how": "Бас бармақ пен сұқ саусақтың жастықшаларын біріктіріңіз, қалған үш саусақ түзу әрі босаңсыған. Алақандар тізеде, төмен қарап жатады. Кейбір мектептерде бұл мудра алақанды жоғары қаратып жасалады, ал алақан төмен қараған күйі чин-мудра деп аталады.",
+          "meridians_note": "Бас бармақта Өкпе меридианы аяқталады (P11), сұқ саусақта Тоқ ішек меридианы басталады (GI1). Классикалық ретте энергия дәл өкпеден тоқ ішекке өтеді, және бұл мудрада жұптың ұштары түйіседі. Бас бармақты өкпемен, сұқ саусақты тоқ ішекпен сәйкестендіру қазіргі мудра тәжірибесінен алынған.",
+          "practice": "Ыңғайлы отырып, саусақтарды біріктіріңіз де, 3–5 минут тынысты бақылаңыз. Тиісіп тұрған жердегі сезімді және кеудеден бас бармаққа дейінгі қолдың ішкі сызығын байқаңыз."
+        }
+      }
+    },
+    {
+      "id": "prithvi",
+      "sanskrit": "Pṛthvī mudrā",
+      "fingers": [
+        "thumb",
+        "ring"
+      ],
+      "fold": [],
+      "palm": "up",
+      "connected_meridians": [
+        "lung",
+        "triple_burner"
+      ],
+      "contact_points": [
+        "P11",
+        "TR1"
+      ],
+      "i18n": {
+        "ru": {
+          "name": "Притхиви-мудра (мудра земли)",
+          "short": "Кончики большого и безымянного пальцев соединены.",
+          "how": "Соедините подушечки большого и безымянного пальцев с лёгким нажимом. Остальные пальцы выпрямлены.",
+          "meridians_note": "Встречаются концы меридиана лёгких (P11) и меридиана трёх обогревателей (TR1). В современной практике мудр безымянный палец соотносят с меридианом трёх обогревателей.",
+          "practice": "Держите 5–15 минут. Почувствуйте вес тела на опоре и представьте, что выдох уходит вниз, в землю."
+        },
+        "en": {
+          "name": "Prithvi mudra (earth mudra)",
+          "short": "Tips of the thumb and ring finger joined.",
+          "how": "Join the pads of the thumb and ring finger with light pressure. The other fingers stay straight.",
+          "meridians_note": "The ends of the Lung Meridian (P11) and the Triple Burner Meridian (TR1) meet. In modern mudra practice the ring finger is matched to the Triple Burner Meridian.",
+          "practice": "Hold for 5–15 minutes. Feel the weight of the body on its support and imagine the exhale going down into the ground."
+        },
+        "uz": {
+          "name": "Prithvi-mudra (yer mudrasi)",
+          "short": "Bosh barmoq va nomsiz barmoq uchlari birlashgan.",
+          "how": "Bosh barmoq va nomsiz barmoq yostiqchalarini yengil bosim bilan birlashtiring. Qolgan barmoqlar to'g'ri.",
+          "meridians_note": "O'pka meridiani (P11) va Uch isituvchi meridiani (TR1) uchlari uchrashadi. Zamonaviy mudra amaliyotida nomsiz barmoq Uch isituvchi meridianiga moslanadi.",
+          "practice": "5–15 daqiqa ushlab turing. Tananing tayanchdagi og'irligini his qiling va nafas chiqarish pastga, yerga ketayotganini tasavvur qiling."
+        },
+        "kz": {
+          "name": "Притхиви-мудра (жер мудрасы)",
+          "short": "Бас бармақ пен аты жоқ саусақтың ұштары біріктірілген.",
+          "how": "Бас бармақ пен аты жоқ саусақтың жастықшаларын жеңіл басып біріктіріңіз. Қалған саусақтар түзу.",
+          "meridians_note": "Өкпе меридианы (P11) мен Үш жылытқыш меридианының (TR1) ұштары түйіседі. Қазіргі мудра тәжірибесінде аты жоқ саусақ Үш жылытқыш меридианымен сәйкестендіріледі.",
+          "practice": "5–15 минут ұстаңыз. Дененің тіректегі салмағын сезініп, дем шығару төмен, жерге кетіп жатқанын елестетіңіз."
+        }
+      }
+    },
+    {
+      "id": "shuni",
+      "sanskrit": "Shuni mudrā",
+      "fingers": [
+        "thumb",
+        "middle"
+      ],
+      "fold": [],
+      "palm": "up",
+      "connected_meridians": [
+        "lung",
+        "pericardium"
+      ],
+      "contact_points": [
+        "P11",
+        "MC9"
+      ],
+      "i18n": {
+        "ru": {
+          "name": "Шуни-мудра (мудра терпения)",
+          "short": "Кончики большого и среднего пальцев соединены.",
+          "how": "Соедините подушечки большого и среднего пальцев, остальные пальцы выпрямлены и расслаблены. Кисти лежат на коленях ладонями вверх.",
+          "meridians_note": "Конец меридиана перикарда на кончике среднего пальца (MC9) встречается с концом меридиана лёгких (P11). В современной практике мудр средний палец соотносят с меридианом перикарда. Саму мудру связывают с терпением и выдержкой.",
+          "practice": "Держите 3–5 минут. Кроме места касания замечайте середину ладони: по линии перикарда там лежит точка Лао-гун (MC8)."
+        },
+        "en": {
+          "name": "Shuni mudra (mudra of patience)",
+          "short": "Tips of the thumb and middle finger joined.",
+          "how": "Join the pads of the thumb and middle finger; the other fingers are straight and relaxed. The hands rest on the knees, palms up.",
+          "meridians_note": "The end of the Pericardium Meridian at the middle fingertip (MC9) meets the end of the Lung Meridian (P11). In modern mudra practice the middle finger is matched to the Pericardium Meridian. The mudra itself is associated with patience and endurance.",
+          "practice": "Hold for 3–5 minutes. Besides the point of contact, notice the centre of the palm, where Laogong (MC8) lies on the Pericardium line."
+        },
+        "uz": {
+          "name": "Shuni-mudra (sabr mudrasi)",
+          "short": "Bosh barmoq va o'rta barmoq uchlari birlashgan.",
+          "how": "Bosh barmoq va o'rta barmoq yostiqchalarini birlashtiring, qolgan barmoqlar to'g'ri va bo'shashgan. Kaftlar yuqoriga qaragan holda tizzalarda yotadi.",
+          "meridians_note": "O'rta barmoq uchidagi Perikard meridianining uchi (MC9) O'pka meridianining uchi (P11) bilan uchrashadi. Zamonaviy mudra amaliyotida o'rta barmoq Perikard meridianiga moslanadi. Mudraning o'zi sabr va chidamlilik bilan bog'lanadi.",
+          "practice": "3–5 daqiqa ushlab turing. Tegib turgan joydan tashqari kaft markazini ham payqang: Perikard chizig'ida u yerda Laogong nuqtasi (MC8) joylashgan."
+        },
+        "kz": {
+          "name": "Шуни-мудра (сабыр мудрасы)",
+          "short": "Бас бармақ пен ортаңғы саусақтың ұштары біріктірілген.",
+          "how": "Бас бармақ пен ортаңғы саусақтың жастықшаларын біріктіріңіз, қалған саусақтар түзу әрі босаңсыған. Алақандар жоғары қарап тізеде жатады.",
+          "meridians_note": "Ортаңғы саусақтың ұшындағы Перикард меридианының ұшы (MC9) Өкпе меридианының ұшымен (P11) түйіседі. Қазіргі мудра тәжірибесінде ортаңғы саусақ Перикард меридианымен сәйкестендіріледі. Мудраның өзі сабыр мен төзіммен байланыстырылады.",
+          "practice": "3–5 минут ұстаңыз. Тиісіп тұрған жерден басқа алақанның ортасын да байқаңыз: Перикард сызығында сол жерде Лао-гун нүктесі (MC8) орналасқан."
+        }
+      }
+    },
+    {
+      "id": "vyana",
+      "sanskrit": "Vyāna mudrā",
+      "fingers": [
+        "thumb",
+        "index",
+        "middle"
+      ],
+      "fold": [],
+      "palm": "up",
+      "connected_meridians": [
+        "lung",
+        "large_intestine",
+        "pericardium"
+      ],
+      "contact_points": [
+        "P11",
+        "GI1",
+        "MC9"
+      ],
+      "i18n": {
+        "ru": {
+          "name": "Вьяна-мудра",
+          "short": "Большой палец касается кончиков указательного и среднего пальцев одновременно.",
+          "how": "Сведите кончики указательного и среднего пальцев к подушечке большого. Безымянный палец и мизинец выпрямлены. Кисти лежат на коленях ладонями вверх.",
+          "meridians_note": "Встречаются концы трёх каналов: лёгких (P11), толстой кишки (GI1) и перикарда (MC9). По сути, в одной кисти соединены гьян-мудра и шуни-мудра. Вьяна в йоге — одна из пяти пран, та, что разносит дыхание и силу по всему телу.",
+          "practice": "Держите 5–10 минут. Следите, как ощущение от кончиков пальцев расходится по кисти и дальше по всей руке до плеча."
+        },
+        "en": {
+          "name": "Vyana mudra",
+          "short": "The thumb touches the tips of the index and middle fingers at once.",
+          "how": "Bring the tips of the index and middle fingers to the pad of the thumb. The ring and little fingers stay straight. The hands rest on the knees, palms up.",
+          "meridians_note": "The ends of three channels meet: Lung (P11), Large Intestine (GI1) and Pericardium (MC9). In effect, gyan mudra and shuni mudra are combined in one hand. In yoga vyana is one of the five pranas, the one that spreads breath and strength through the whole body.",
+          "practice": "Hold for 5–10 minutes. Notice how sensation spreads from the fingertips through the hand and on along the whole arm to the shoulder."
+        },
+        "uz": {
+          "name": "Vyana-mudra",
+          "short": "Bosh barmoq bir vaqtda ko'rsatkich va o'rta barmoq uchlariga tegadi.",
+          "how": "Ko'rsatkich va o'rta barmoq uchlarini bosh barmoq yostiqchasiga yaqinlashtiring. Nomsiz barmoq va jimjiloq to'g'ri. Kaftlar yuqoriga qaragan holda tizzalarda yotadi.",
+          "meridians_note": "Uchta kanalning uchlari uchrashadi: O'pka (P11), Yo'g'on ichak (GI1) va Perikard (MC9). Aslida bitta kaftda gyan-mudra va shuni-mudra birlashtirilgan. Yogada vyana beshta pranadan biri bo'lib, nafas va kuchni butun tanaga tarqatadi.",
+          "practice": "5–10 daqiqa ushlab turing. Sezgi barmoq uchlaridan kaft bo'ylab va undan keyin butun qo'l bo'ylab yelkagacha qanday tarqalishini kuzating."
+        },
+        "kz": {
+          "name": "Вьяна-мудра",
+          "short": "Бас бармақ бір мезетте сұқ және ортаңғы саусақтардың ұштарына тиеді.",
+          "how": "Сұқ және ортаңғы саусақтардың ұштарын бас бармақтың жастықшасына жақындатыңыз. Аты жоқ саусақ пен шынашақ түзу. Алақандар жоғары қарап тізеде жатады.",
+          "meridians_note": "Үш арнаның ұштары түйіседі: Өкпе (P11), Тоқ ішек (GI1) және Перикард (MC9). Шын мәнінде бір қолда гьян-мудра мен шуни-мудра біріктірілген. Йогада вьяна — бес прананың бірі, ол тыныс пен күшті бүкіл денеге таратады.",
+          "practice": "5–10 минут ұстаңыз. Сезімнің саусақ ұштарынан алақан бойымен, одан әрі бүкіл қол бойымен иыққа дейін қалай таралатынын бақылаңыз."
+        }
+      }
+    },
+    {
+      "id": "apana",
+      "sanskrit": "Apāna mudrā",
+      "fingers": [
+        "thumb",
+        "middle",
+        "ring"
+      ],
+      "fold": [],
+      "palm": "up",
+      "connected_meridians": [
+        "lung",
+        "pericardium",
+        "triple_burner"
+      ],
+      "contact_points": [
+        "P11",
+        "MC9",
+        "TR1"
+      ],
+      "i18n": {
+        "ru": {
+          "name": "Апана-мудра",
+          "short": "Большой палец касается кончиков среднего и безымянного пальцев.",
+          "how": "Соедините подушечки большого, среднего и безымянного пальцев. Указательный палец и мизинец выпрямлены.",
+          "meridians_note": "Соединяются концы меридианов лёгких (P11), перикарда (MC9) и трёх обогревателей (TR1). Перикард и три обогревателя образуют пару, и на ладони от точки Лао-гун к безымянному пальцу уходит ветвь, которая их связывает; в мудре концы этой пары встречаются. Апана в йоге означает нисходящий поток, поэтому мудру связывают с выдохом и ощущением опоры.",
+          "practice": "Держите 5–10 минут. На выдохе ведите внимание вниз, к животу и тазу, на вдохе просто отмечайте касание пальцев."
+        },
+        "en": {
+          "name": "Apana mudra",
+          "short": "The thumb touches the tips of the middle and ring fingers.",
+          "how": "Join the pads of the thumb, middle and ring fingers. The index and little fingers stay straight.",
+          "meridians_note": "The ends of the Lung (P11), Pericardium (MC9) and Triple Burner (TR1) Meridians join. Pericardium and Triple Burner are a pair, and on the palm a branch runs from Laogong to the ring finger to link them; in the mudra the ends of this pair meet. In yoga apana means the downward flow, so the mudra is associated with the exhale and a sense of grounding.",
+          "practice": "Hold for 5–10 minutes. On the exhale, move attention down to the belly and pelvis; on the inhale, simply notice the touch of the fingers."
+        },
+        "uz": {
+          "name": "Apana-mudra",
+          "short": "Bosh barmoq o'rta va nomsiz barmoq uchlariga tegadi.",
+          "how": "Bosh barmoq, o'rta va nomsiz barmoq yostiqchalarini birlashtiring. Ko'rsatkich barmoq va jimjiloq to'g'ri.",
+          "meridians_note": "O'pka (P11), Perikard (MC9) va Uch isituvchi (TR1) meridianlarining uchlari birlashadi. Perikard va Uch isituvchi juftlik hosil qiladi, kaftda Laogong nuqtasidan nomsiz barmoqqa ularni bog'lovchi tarmoq ketadi; mudrada shu juftlikning uchlari uchrashadi. Yogada apana pastga yo'nalgan oqimni anglatadi, shuning uchun mudra nafas chiqarish va tayanch hissi bilan bog'lanadi.",
+          "practice": "5–10 daqiqa ushlab turing. Nafas chiqarganda diqqatni pastga, qorin va chanoqqa yo'naltiring, nafas olganda faqat barmoqlar tegib turganini payqang."
+        },
+        "kz": {
+          "name": "Апана-мудра",
+          "short": "Бас бармақ ортаңғы және аты жоқ саусақтардың ұштарына тиеді.",
+          "how": "Бас бармақтың, ортаңғы және аты жоқ саусақтардың жастықшаларын біріктіріңіз. Сұқ саусақ пен шынашақ түзу.",
+          "meridians_note": "Өкпе (P11), Перикард (MC9) және Үш жылытқыш (TR1) меридиандарының ұштары біріктіріледі. Перикард пен Үш жылытқыш жұп құрайды, алақанда Лао-гун нүктесінен аты жоқ саусаққа оларды байланыстыратын тармақ кетеді; мудрада осы жұптың ұштары түйіседі. Йогада апана төмен бағытталған ағынды білдіреді, сондықтан мудра дем шығарумен және тірек сезімімен байланыстырылады.",
+          "practice": "5–10 минут ұстаңыз. Дем шығарғанда зейінді төмен, іш пен жамбасқа бағыттаңыз, дем алғанда тек саусақтардың тиісуін байқаңыз."
+        }
+      }
+    },
+    {
+      "id": "hakini",
+      "sanskrit": "Hākinī mudrā",
+      "fingers": [
+        "thumb",
+        "index",
+        "middle",
+        "ring",
+        "little"
+      ],
+      "fold": [],
+      "palm": "apart_facing",
+      "connected_meridians": [
+        "lung",
+        "large_intestine",
+        "pericardium",
+        "triple_burner",
+        "heart",
+        "small_intestine"
+      ],
+      "contact_points": [
+        "P11",
+        "GI1",
+        "MC9",
+        "TR1",
+        "C9",
+        "IG1"
+      ],
+      "i18n": {
+        "ru": {
+          "name": "Хакини-мудра",
+          "short": "Кончики всех пальцев одной руки касаются таких же пальцев другой руки, ладони разведены.",
+          "how": "Поднесите кисти к груди и соедините подушечки одноимённых пальцев: большой с большим, указательный с указательным и так до мизинцев. Ладони не касаются друг друга, между ними остаётся свободное пространство, как под куполом. Локти и плечи расслаблены.",
+          "meridians_note": "Каждый палец касается своего отражения на другой руке, поэтому каждый ручной канал встречается со своим парным каналом другой стороны: правый и левый меридианы лёгких (P11–P11), толстой кишки (GI1–GI1), перикарда (MC9–MC9), трёх обогревателей (TR1–TR1), а на мизинцах меридианы сердца и тонкой кишки (C9 и IG1). Мудра соединяет левую и правую половины тела. Хакини в тантрической традиции — имя божества аджна-чакры, точки между бровями.",
+          "practice": "Держите 3–5 минут перед грудью. На вдохе слегка прижимайте кончики пальцев друг к другу, на выдохе ослабляйте. Сравните, одинаково ли ощущаются правая и левая рука."
+        },
+        "en": {
+          "name": "Hakini mudra",
+          "short": "All fingertips of one hand touch the matching fingertips of the other hand, palms apart.",
+          "how": "Bring the hands in front of the chest and join the pads of matching fingers: thumb to thumb, index to index, and so on to the little fingers. The palms do not touch; a free space stays between them, like under a dome. Elbows and shoulders are relaxed.",
+          "meridians_note": "Each finger touches its mirror on the other hand, so each arm channel meets its counterpart from the other side: the right and left Lung (P11–P11), Large Intestine (GI1–GI1), Pericardium (MC9–MC9) and Triple Burner (TR1–TR1) Meridians, and at the little fingers the Heart and Small Intestine Meridians (C9 and IG1). The mudra joins the left and right halves of the body. In tantric tradition Hakini is the name of the deity of ajna chakra, the point between the eyebrows.",
+          "practice": "Hold in front of the chest for 3–5 minutes. On the inhale, press the fingertips lightly together; on the exhale, ease off. Compare whether the right and left hands feel the same."
+        },
+        "uz": {
+          "name": "Hakini-mudra",
+          "short": "Bir qo'l barcha barmoqlarining uchlari ikkinchi qo'lning xuddi shunday barmoqlariga tegadi, kaftlar ajralgan.",
+          "how": "Kaftlarni ko'krak oldiga keltiring va bir xil barmoqlar yostiqchalarini birlashtiring: bosh barmoqni bosh barmoqqa, ko'rsatkichni ko'rsatkichga va shunday qilib jimjiloqlargacha. Kaftlar bir-biriga tegmaydi, ular orasida gumbaz ostidagidek bo'sh joy qoladi. Tirsak va yelkalar bo'shashgan.",
+          "meridians_note": "Har bir barmoq ikkinchi qo'ldagi o'z aksiga tegadi, shuning uchun har bir qo'l kanali boshqa tomondagi jufti bilan uchrashadi: o'ng va chap O'pka (P11–P11), Yo'g'on ichak (GI1–GI1), Perikard (MC9–MC9), Uch isituvchi (TR1–TR1) meridianlari, jimjiloqlarda esa Yurak va Ingichka ichak meridianlari (C9 va IG1). Mudra tananing chap va o'ng yarmini birlashtiradi. Tantrik an'anada Hakini qoshlar orasidagi nuqta, ajna-chakra xudosining nomi.",
+          "practice": "Ko'krak oldida 3–5 daqiqa ushlab turing. Nafas olganda barmoq uchlarini bir-biriga yengil bosing, nafas chiqarganda bo'shating. O'ng va chap qo'l bir xil seziladimi, solishtiring."
+        },
+        "kz": {
+          "name": "Хакини-мудра",
+          "short": "Бір қолдың барлық саусақ ұштары екінші қолдың сондай саусақтарына тиеді, алақандар ажыратылған.",
+          "how": "Қолдарды кеуде алдына әкеліп, аттас саусақтардың жастықшаларын біріктіріңіз: бас бармақты бас бармаққа, сұқ саусақты сұқ саусаққа және солай шынашақтарға дейін. Алақандар бір-біріне тимейді, олардың арасында күмбездің астындағыдай бос кеңістік қалады. Шынтақ пен иық босаңсыған.",
+          "meridians_note": "Әр саусақ екінші қолдағы өз бейнесіне тиеді, сондықтан әр қол арнасы екінші жақтағы жұбымен түйіседі: оң және сол Өкпе (P11–P11), Тоқ ішек (GI1–GI1), Перикард (MC9–MC9), Үш жылытқыш (TR1–TR1) меридиандары, ал шынашақтарда Жүрек және Ащы ішек меридиандары (C9 және IG1). Мудра дененің сол және оң жартысын біріктіреді. Тантралық дәстүрде Хакини — қас арасындағы нүкте, аджна-чакра құдайының есімі.",
+          "practice": "Кеуде алдында 3–5 минут ұстаңыз. Дем алғанда саусақ ұштарын бір-біріне жеңіл басыңыз, дем шығарғанда босатыңыз. Оң және сол қол бірдей сезіле ме, салыстырыңыз."
+        }
+      }
+    },
+    {
+      "id": "anjali",
+      "sanskrit": "Añjali mudrā",
+      "fingers": [
+        "thumb",
+        "index",
+        "middle",
+        "ring",
+        "little"
+      ],
+      "fold": [],
+      "palm": "together",
+      "connected_meridians": [
+        "lung",
+        "large_intestine",
+        "pericardium",
+        "triple_burner",
+        "heart",
+        "small_intestine",
+        "conception_vessel"
+      ],
+      "contact_points": [
+        "P11",
+        "GI1",
+        "MC9",
+        "TR1",
+        "C9",
+        "IG1",
+        "MC8",
+        "VC17"
+      ],
+      "i18n": {
+        "ru": {
+          "name": "Анджали-мудра (приветствие)",
+          "short": "Ладони сложены вместе перед грудью.",
+          "how": "Соедините ладони и все пальцы перед грудью, большие пальцы слегка касаются грудины. Локти расслаблены, плечи опущены.",
+          "meridians_note": "Все пальцы касаются своих пар, поэтому встречаются концы всех шести ручных каналов: лёгких (P11), толстой кишки (GI1), перикарда (MC9), трёх обогревателей (TR1), сердца (C9) и тонкой кишки (IG1). Центры ладоней с точками Лао-гун (MC8) обращены друг к другу, а большие пальцы лежат у точки Тань-чжун (VC17) на переднесрединном меридиане.",
+          "practice": "Побудьте так минуту стоя или сидя. Слегка прижмите ладони и почувствуйте, как тепло собирается между ними и в центре груди."
+        },
+        "en": {
+          "name": "Anjali mudra (greeting)",
+          "short": "Palms pressed together in front of the chest.",
+          "how": "Join the palms and all fingers in front of the chest, thumbs lightly touching the breastbone. Elbows relaxed, shoulders down.",
+          "meridians_note": "Every finger touches its pair, so the ends of all six arm channels meet: Lung (P11), Large Intestine (GI1), Pericardium (MC9), Triple Burner (TR1), Heart (C9) and Small Intestine (IG1). The centres of the palms with Laogong (MC8) face each other, and the thumbs rest near Danzhong (VC17) on the Conception Vessel.",
+          "practice": "Stay like this for a minute, standing or sitting. Press the palms lightly and feel warmth gathering between them and in the centre of the chest."
+        },
+        "uz": {
+          "name": "Anjali-mudra (salomlashish)",
+          "short": "Kaftlar ko'krak oldida birlashtirilgan.",
+          "how": "Kaftlarni va barcha barmoqlarni ko'krak oldida birlashtiring, bosh barmoqlar to'sh suyagiga yengil tegib turadi. Tirsaklar bo'shashgan, yelkalar tushirilgan.",
+          "meridians_note": "Har bir barmoq o'z juftiga tegadi, shuning uchun qo'ldagi oltita kanalning barcha uchlari uchrashadi: O'pka (P11), Yo'g'on ichak (GI1), Perikard (MC9), Uch isituvchi (TR1), Yurak (C9) va Ingichka ichak (IG1). Laogong nuqtalari (MC8) joylashgan kaft markazlari bir-biriga qaragan, bosh barmoqlar esa Old o'rta meridianidagi Danzhong nuqtasi (VC17) yonida yotadi.",
+          "practice": "Turib yoki o'tirib bir daqiqa shunday qoling. Kaftlarni yengil bosing va ular orasida hamda ko'krak markazida iliqlik qanday yig'ilishini his qiling."
+        },
+        "kz": {
+          "name": "Анджали-мудра (сәлемдесу)",
+          "short": "Алақандар кеуде алдында біріктірілген.",
+          "how": "Алақандар мен барлық саусақтарды кеуде алдында біріктіріңіз, бас бармақтар төс сүйегіне жеңіл тиіп тұрады. Шынтақтар босаңсыған, иықтар түсірілген.",
+          "meridians_note": "Әр саусақ өз жұбына тиеді, сондықтан қолдағы алты арнаның барлық ұштары түйіседі: Өкпе (P11), Тоқ ішек (GI1), Перикард (MC9), Үш жылытқыш (TR1), Жүрек (C9) және Ащы ішек (IG1). Лао-гун нүктелері (MC8) орналасқан алақан орталары бір-біріне қарайды, ал бас бармақтар Алдыңғы орта меридиандағы Тань-чжун нүктесінің (VC17) жанында жатады.",
+          "practice": "Тұрып немесе отырып бір минут осылай болыңыз. Алақандарды жеңіл басып, олардың арасында және кеуденің ортасында жылудың қалай жиналатынын сезініңіз."
+        }
+      }
+    }
+  ],
+  "disclaimer_i18n": {
+    "ru": "Позы и мудры здесь служат практике внимания, дыхания и ощущений. Соответствие пальцев и каналов принято в современной практике мудр и подсказывает, куда направить внимание; лечения оно не обещает и врача не заменяет. При боли, травмах суставов, беременности или хронических заболеваниях подбирайте позы вместе со специалистом и выходите из любой позы, если появилась боль.",
+    "en": "The poses and mudras here serve the practice of attention, breath and sensation. The finger and channel correspondence comes from modern mudra practice and suggests where to place attention; it promises no treatment and does not replace a doctor. With pain, joint injuries, pregnancy or chronic illness, choose poses together with a specialist, and come out of any pose if pain appears.",
+    "uz": "Bu yerdagi holatlar va mudralar diqqat, nafas va sezgi amaliyotiga xizmat qiladi. Barmoqlar va kanallar mosligi zamonaviy mudra amaliyotida qabul qilingan va diqqatni qayerga yo'naltirishga ishora beradi; u davolashni va'da qilmaydi va shifokorning o'rnini bosmaydi. Og'riq, bo'g'im jarohatlari, homiladorlik yoki surunkali kasalliklarda holatlarni mutaxassis bilan birga tanlang va og'riq paydo bo'lsa, istalgan holatdan chiqing.",
+    "kz": "Мұндағы қалыптар мен мудралар зейін, тыныс және сезім тәжірибесіне қызмет етеді. Саусақтар мен арналардың сәйкестігі қазіргі мудра тәжірибесінде қабылданған және зейінді қайда бағыттауға болатынын көрсетеді; ол емдеуге уәде бермейді және дәрігерді алмастырмайды. Ауырсыну, буын жарақаттары, жүктілік немесе созылмалы аурулар болса, қалыптарды маманмен бірге таңдаңыз және ауырсыну пайда болса, кез келген қалыптан шығыңыз."
+  }
+}

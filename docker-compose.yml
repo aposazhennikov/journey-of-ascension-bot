@@ -9,6 +9,7 @@ services:
       - ./data:/app/data
       - ./images:/app/images:ro
       - ./videos:/app/videos:ro
+      - ./webapp:/app/webapp:ro
       - ./bot/principles.json:/app/bot/principles.json:ro
       - ./bot/meridians.json:/app/bot/meridians.json:ro
     environment:
@@ -20,6 +21,7 @@ services:
       - HTTP_PORT=8080
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
       - TELEGRAM_PROXY_URL=${TELEGRAM_PROXY_URL:-}
+      - WEBAPP_URL=${WEBAPP_URL:-}
     env_file:
       - .env
     healthcheck:

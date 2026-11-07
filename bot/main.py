@@ -22,6 +22,7 @@ from .storage import JsonStorage
 from .scheduler import YogaScheduler
 from .handlers import BotHandlers
 from .utils import PrinciplesManager, MeridiansManager, HealthCheck, get_prometheus_metrics
+from .webapp import setup_webapp_routes
 
 
 class Settings(BaseSettings):
@@ -40,6 +41,9 @@ class Settings(BaseSettings):
     # Monitoring settings.
     sentry_dsn: str = Field(default="", description="Sentry DSN for error tracking")
     http_port: int = Field(default=8080, description="HTTP server port for healthcheck")
+
+    # Mini App settings.
+    webapp_url: str = Field(default="", description="Public HTTPS URL of the 3D meridian map, e.g. https://example.com/webapp/")
     
     # Logging settings.
     log_level: str = Field(default="INFO", description="Logging level")
@@ -163,7 +167,8 @@ class YogaBot:
             self.scheduler,
             self.principles_manager,
             self.meridians_manager,
-            settings.get_admin_ids()
+            settings.get_admin_ids(),
+            webapp_url=settings.webapp_url,
         )
         
         # HTTP server for healthcheck.
@@ -304,7 +309,8 @@ class YogaBot:
         self.http_app.router.add_get('/healthz', self.health_handler)
         self.http_app.router.add_get('/metrics', self.metrics_handler)
         self.http_app.router.add_get('/stats', self.stats_handler)
-        
+        setup_webapp_routes(self.http_app, self.meridians_manager)
+
         # Start server.
         self.http_runner = web.AppRunner(self.http_app)
         await self.http_runner.setup()

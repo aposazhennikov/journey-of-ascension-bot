@@ -1,0 +1,305 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "title": "Deadman P., Al-Khafaji M., Baker K. A Manual of Acupuncture. 2nd ed. Journal of Chinese Medicine Publications, 2007",
+      "url": null,
+      "note": "Main reference for the point lists of all six courses (chapter on the eight extraordinary vessels) and for the opening points. Where other sources differ, the Deadman list was taken as the most common modern version."
+    },
+    {
+      "title": "Maciocia G. The Channels of Acupuncture: Clinical Use of the Secondary Channels and Eight Extraordinary Vessels. Churchill Livingstone, 2006",
+      "url": null,
+      "note": "Cross-check of the courses and of the opening/coupled point pairs."
+    },
+    {
+      "title": "Li Shizhen. Qi Jing Ba Mai Kao (1578); English translation: Chace C., Shima M. An Exposition on the Eight Extraordinary Vessels. Eastland Press, 2010",
+      "url": null,
+      "note": "Classical lineage of the point lists. Some head and abdominal points differ from modern textbooks; differences that affect the drawn path are listed in the editorial notes below."
+    },
+    {
+      "title": "Nan Jing (Classic of Difficulties), difficulties 27-29",
+      "url": null,
+      "note": "Classical definition of the eight extraordinary vessels and their general courses; gives no full point lists."
+    },
+    {
+      "title": "Dou Hanqing. Zhen Jing Zhi Nan (Guide to the Classics of Acupuncture), 13th century",
+      "url": null,
+      "note": "Traditional origin of the eight opening (confluent) points and their pairs: RP4-MC6 (Chong Mai / Yin Wei Mai), VB41-TR5 (Dai Mai / Yang Wei Mai), R6-P7 (Yin Qiao Mai / Conception Vessel), V62-IG3 (Yang Qiao Mai / Governing Vessel). The pairing is the same in all modern references used here."
+    },
+    {
+      "title": "Восемь чудесных меридианов — Байду Энциклопедия (Baidu Baike, русская версия)",
+      "url": "https://baike.baidu.com/ru/item/%D0%92%D0%BE%D1%81%D0%B5%D0%BC%D1%8C%20%D1%87%D1%83%D0%B4%D0%B5%D1%81%D0%BD%D1%8B%D1%85%20%D0%BC%D0%B5%D1%80%D0%B8%D0%B4%D0%B8%D0%B0%D0%BD%D0%BE%D0%B2/730885",
+      "note": "Cross-check of courses, intersection points and functions; reflects the modern Chinese textbook lists. Used for: Chong Mai as 'sea of the twelve meridians' and 'sea of blood' with a branch rising inside the spine; Dai Mai binding the vertical channels; Yin/Yang Wei linking all Yin/Yang; Yin/Yang Qiao governing rest and activity, sleep and waking, ease of the legs. Same opening points as Deadman/Maciocia. Agrees with Deadman on Chong Mai (VC1, VC7, E30, R11-R21) and on Yang Wei Mai including E8. Differences: Yin Wei Mai list has no RP12 (R9, RP13, RP15, RP16, F14, VC22, VC23); Dai Mai lists only VB26-VB28 and starts 'below the ribs' without naming F13; Yin Qiao Mai lists only R6, R8, V1, starts behind the navicular bone (R2 area, as in the Ling Shu) and gives E12/E9 only as landmarks; Yang Qiao Mai adds TR15 to the Deadman list and does not list VB20 as an intersection point, though the course text ends at Feng-chi."
+    },
+    {
+      "title": "Editorial note: Chong Mai",
+      "url": null,
+      "note": "Deadman lists VC1, VC7, E30, R11-R21. VC7 (Yin-jiao) is a meeting point on the midline 1 cun below the navel; it is left out of the drawn path because it would make the line zigzag between the midline and the kidney line. Above R21 the vessel disperses in the chest, rises to the throat and encircles the lips without named meeting points; VC23 and VC24 are drawn only as landmarks for this section (marked in path_note_codes). The descending branch along the inner leg to the foot and the posterior branch along the spine are not drawn."
+    },
+    {
+      "title": "Editorial note: Dai Mai",
+      "url": null,
+      "note": "Deadman list: F13, VB26, VB27, VB28. Baidu Baike lists only VB26-VB28 and says the vessel starts below the ribs, so F13 is kept as the start but marked in path_note_codes. The back half of the belt is said to cross the lumbar region at the level of L2 (near V23 / VG4); no source gives it as a meeting point, so it is not part of the path."
+    },
+    {
+      "title": "Editorial note: Yin Wei Mai",
+      "url": null,
+      "note": "Deadman list: R9, RP12, RP13, RP15, RP16, F14, VC22, VC23. Baidu Baike (modern Chinese list) omits RP12. RP12 is kept in the path because it lies on the way from R9 to RP13 and changes the drawn line very little, but it is marked in path_note_codes."
+    },
+    {
+      "title": "Editorial note: Yang Wei Mai",
+      "url": null,
+      "note": "List used: V63, VB35, IG10, TR15, VB21, E8, VB13-VB20, VG16, VG15. Deadman and Baidu Baike give exactly this list, including E8 (Tou-wei). Some other sources also add TR13; it is not included. VG16 and VG15 are ordered top to bottom, as the vessel ends at the nape."
+    },
+    {
+      "title": "Editorial note: Yin Qiao Mai",
+      "url": null,
+      "note": "Ling Shu and Baidu Baike place the origin behind the navicular bone, at Ran-gu (R2); Deadman and most modern lists start at the opening point R6, which is used here. Between R8 and E12 the vessel runs along the inner thigh, genitals, abdomen and chest without meeting points, so the map line jumps from R8 to E12. Baidu Baike lists only R6, R8 and V1 as intersection points and names the supraclavicular fossa and Ren-ying only as landmarks, so E12 and E9 are both marked in path_note_codes."
+    },
+    {
+      "title": "Editorial note: Yang Qiao Mai",
+      "url": null,
+      "note": "Deadman list: V62, V61, V59, VB29, IG10, GI15, GI16, E4, E3, E1, V1, VB20. Baidu Baike (modern Chinese list) also has TR15 between GI16 and E4; it is added to the path and marked in path_note_codes. Baidu does not list VB20 as an intersection point, though its course text ends at Feng-chi; the section from V1 over the head to VB20 has no meeting points and VB20 is marked in path_note_codes. Some sources start at V61 rather than V62, add E9 on the neck, or continue from VB20 to VG16 and into the brain; these are not drawn."
+    }
+  ],
+  "vessels": [
+    {
+      "id": "chong_mai",
+      "kind": "extraordinary",
+      "bilateral": true,
+      "confluent_point": "RP4",
+      "coupled_point": "MC6",
+      "path": ["VC1", "E30", "R11", "R12", "R13", "R14", "R15", "R16", "R17", "R18", "R19", "R20", "R21", "VC23", "VC24"],
+      "path_note_codes": ["VC23", "VC24"],
+      "i18n": {
+        "ru": {
+          "name": "Проникающий меридиан (Чун-май)",
+          "short": "Глубокая ось тела: от промежности вверх по животу и груди.",
+          "description": "Чун-май — один из восьми чудесных меридианов. <b>Своих точек у него нет</b>: он проходит через точки переднесрединного меридиана, меридианов желудка и почек. В традиции его называют «морем двенадцати меридианов» и «морем крови»: считается, что он собирает и распределяет ци и кровь всех основных каналов. Точка открытия — RP4 (Гун-сунь), парная к ней — MC6 (Нэй-гуань).",
+          "course": "Начинается в глубине нижней части живота и выходит на поверхность в промежности (VC1). Отсюда идёт к паховой складке (E30) и поднимается по обе стороны от передней срединной линии, в полуцуне от неё, по точкам меридиана почек от R11 до R21. Выше рассеивается в груди, поднимается к горлу и огибает губы. Внутренняя ветвь поднимается вдоль позвоночника.",
+          "practice": "Сядьте или лягте, положите ладони на низ живота. С каждым вдохом мягко ведите внимание от промежности вверх, по двум линиям рядом с серединой живота, к груди и горлу; на выдохе отпускайте. Отмечайте, где ощущение тёплое и ровное, а где пропадает."
+        },
+        "en": {
+          "name": "Penetrating Vessel (Chong Mai)",
+          "short": "The deep axis of the body: from the perineum up through the abdomen and chest.",
+          "description": "Chong Mai is one of the eight extraordinary vessels. <b>It has no points of its own</b>: it runs through points of the Conception Vessel and the Stomach and Kidney meridians. Tradition calls it the \"sea of the twelve meridians\" and the \"sea of blood\": it is said to gather and distribute the qi and blood of all the main channels. Its opening point is RP4 (Gong-sun), paired with MC6 (Nei-guan).",
+          "course": "It starts deep in the lower abdomen and surfaces at the perineum (VC1). From there it goes to the groin (E30) and rises on both sides of the front midline, half a cun from it, through Kidney points R11 to R21. Above, it spreads through the chest, rises to the throat and circles the lips. An inner branch rises along the spine.",
+          "practice": "Sit or lie down and rest your palms on the lower abdomen. With each inhale, let attention rise softly from the perineum along two lines beside the middle of the abdomen to the chest and throat; on the exhale, let go. Notice where the sensation feels warm and even and where it fades."
+        },
+        "uz": {
+          "name": "Kirib o'tuvchi meridian (Chong Mai)",
+          "short": "Tananing chuqur o'qi: oraliq sohasidan qorin va ko'krak orqali yuqoriga.",
+          "description": "Chong Mai sakkiz g'aroyib meridiandan biri. <b>Uning o'z nuqtalari yo'q</b>: u Old o'rta meridian, Oshqozon va Buyrak meridianlarining nuqtalari orqali o'tadi. An'anada uni \"o'n ikki meridian dengizi\" va \"qon dengizi\" deb atashadi: u barcha asosiy kanallarning qi va qonini yig'ib, taqsimlaydi deb hisoblanadi. Ochuvchi nuqtasi — RP4 (Gong-sun), unga juft nuqta — MC6 (Nei-guan).",
+          "course": "Qorinning pastki qismi chuqurligida boshlanadi va oraliq sohasida (VC1) yuzaga chiqadi. U yerdan chov burmasiga (E30) boradi va old o'rta chiziqning ikki tomonida, undan yarim cun narida, Buyrak meridianining R11 dan R21 gacha bo'lgan nuqtalari bo'ylab ko'tariladi. Yuqorida ko'krakda tarqaladi, tomoqqa ko'tariladi va lablarni aylanib o'tadi. Ichki tarmog'i umurtqa bo'ylab ko'tariladi.",
+          "practice": "O'tiring yoki yoting, kaftlaringizni qorinning pastki qismiga qo'ying. Har bir nafas olishda diqqatni oraliq sohasidan qorin o'rtasi yonidagi ikki chiziq bo'ylab ko'krak va tomoqqa yumshoq ko'taring; nafas chiqarishda bo'shating. Sezgi qayerda iliq va bir tekis, qayerda yo'qolib qolishini kuzating."
+        },
+        "kz": {
+          "name": "Тесіп өтетін меридиан (Чун-май)",
+          "short": "Дененің терең осі: аралық аймағынан іш пен кеуде арқылы жоғары.",
+          "description": "Чун-май — сегіз ғажайып меридианның бірі. <b>Оның өз нүктелері жоқ</b>: ол Алдыңғы орта меридиан, Асқазан және Бүйрек меридиандарының нүктелері арқылы өтеді. Дәстүрде оны \"он екі меридианның теңізі\" және \"қан теңізі\" деп атайды: ол барлық негізгі арналардың ци мен қанын жинап, таратады деп саналады. Ашушы нүктесі — RP4, оған жұп нүкте — MC6.",
+          "course": "Іштің төменгі бөлігінің тереңінде басталып, аралық аймағында (VC1) бетке шығады. Сол жерден шап қатпарына (E30) барып, алдыңғы орта сызықтың екі жағымен, одан жарты цунь қашықтықта, Бүйрек меридианының R11-ден R21-ге дейінгі нүктелері бойымен көтеріледі. Жоғарыда кеудеде таралып, тамаққа көтеріледі және ерінді айналып өтеді. Ішкі тармағы омыртқа бойымен көтеріледі.",
+          "practice": "Отырыңыз немесе жатыңыз, алақандарыңызды іштің төменгі бөлігіне қойыңыз. Әр дем алғанда зейінді аралық аймағынан іштің ортасына жақын екі сызықпен кеуде мен тамаққа қарай жұмсақ көтеріңіз; дем шығарғанда босатыңыз. Сезім қай жерде жылы әрі біркелкі, қай жерде жоғалатынын байқаңыз."
+        }
+      }
+    },
+    {
+      "id": "dai_mai",
+      "kind": "extraordinary",
+      "bilateral": true,
+      "confluent_point": "VB41",
+      "coupled_point": "TR5",
+      "path": ["F13", "VB26", "VB27", "VB28"],
+      "path_note_codes": ["F13"],
+      "i18n": {
+        "ru": {
+          "name": "Опоясывающий меридиан (Дай-май)",
+          "short": "Единственный поперечный канал: пояс вокруг талии.",
+          "description": "Дай-май — единственный меридиан, который идёт поперёк тела. Он охватывает талию как пояс и, по традиционному представлению, стягивает вместе все продольные каналы, проходящие через эту область. <b>Своих точек у него нет</b>: он проходит через точки меридианов печени и желчного пузыря. Точка открытия — VB41 (Цзу-линь-ци), парная к ней — TR5 (Вай-гуань).",
+          "course": "Начинается под свободным концом XI ребра (F13), опускается к уровню пупка (VB26) и идёт вперёд и вниз через VB27 и VB28 к передней верхней подвздошной ости. Сзади пояс замыкается примерно на уровне II поясничного позвонка; точной точки для этого участка в классических списках нет.",
+          "practice": "Встаньте или сядьте, положите ладони на талию по бокам. На вдохе почувствуйте, как пояс мягко расширяется во все стороны, на выдохе — как он собирается к центру. Если хочется, сделайте несколько медленных кругов тазом и проследите ощущение по всей окружности, включая поясницу."
+        },
+        "en": {
+          "name": "Girdle Vessel (Dai Mai)",
+          "short": "The only horizontal channel: a belt around the waist.",
+          "description": "Dai Mai is the only meridian that runs across the body. It wraps the waist like a belt and, in the traditional view, binds together all the vertical channels passing through this area. <b>It has no points of its own</b>: it runs through points of the Liver and Gallbladder meridians. Its opening point is VB41 (Zu-lin-qi), paired with TR5 (Wai-guan).",
+          "course": "It starts below the free end of the 11th rib (F13), descends to the level of the navel (VB26) and continues forward and down through VB27 and VB28 toward the front of the hip bone. At the back the belt closes at about the level of the 2nd lumbar vertebra; classical lists give no exact point for this part.",
+          "practice": "Stand or sit and rest your palms on the sides of the waist. On the inhale, feel the belt widen gently in all directions; on the exhale, feel it gather toward the center. If you like, make a few slow circles with the pelvis and follow the sensation all the way around, including the lower back."
+        },
+        "uz": {
+          "name": "Belbog' meridiani (Dai Mai)",
+          "short": "Yagona ko'ndalang kanal: bel atrofidagi belbog'.",
+          "description": "Dai Mai tanani ko'ndalangiga kesib o'tadigan yagona meridian. U belni belbog'dek o'rab oladi va an'anaviy qarashda shu sohadan o'tadigan barcha bo'ylama kanallarni birga tutib turadi. <b>Uning o'z nuqtalari yo'q</b>: u Jigar va O't pufagi meridianlarining nuqtalari orqali o'tadi. Ochuvchi nuqtasi — VB41 (Zu-lin-qi), unga juft nuqta — TR5 (Wai-guan).",
+          "course": "XI qovurg'aning erkin uchi ostidan (F13) boshlanadi, kindik darajasiga (VB26) tushadi va VB27 hamda VB28 orqali oldinga va pastga, yonbosh suyagining old qismiga qarab davom etadi. Orqada belbog' taxminan II bel umurtqasi darajasida tutashadi; klassik ro'yxatlarda bu qism uchun aniq nuqta berilmagan.",
+          "practice": "Turing yoki o'tiring, kaftlaringizni belning ikki yoniga qo'ying. Nafas olishda belbog' har tomonga yumshoq kengayishini, nafas chiqarishda markazga yig'ilishini sezing. Xohlasangiz, chanoq bilan bir necha sekin aylana yasang va sezgini butun aylana bo'ylab, belning orqa qismini ham qo'shib kuzating."
+        },
+        "kz": {
+          "name": "Белбеу меридианы (Дай-май)",
+          "short": "Жалғыз көлденең арна: бел айналасындағы белбеу.",
+          "description": "Дай-май — денені көлденеңінен орап өтетін жалғыз меридиан. Ол белді белбеу сияқты орап алады және дәстүрлі түсінікте осы аймақтан өтетін барлық тік арналарды бірге ұстап тұрады. <b>Оның өз нүктелері жоқ</b>: ол Бауыр және Өт қабы меридиандарының нүктелері арқылы өтеді. Ашушы нүктесі — VB41, оған жұп нүкте — TR5.",
+          "course": "XI қабырғаның бос ұшының астынан (F13) басталып, кіндік деңгейіне (VB26) түседі де, VB27 және VB28 арқылы алға және төмен, жамбас сүйегінің алдыңғы бөлігіне қарай жалғасады. Артқы жағында белбеу шамамен II бел омыртқасы деңгейінде тұйықталады; классикалық тізімдерде бұл бөлікке нақты нүкте көрсетілмеген.",
+          "practice": "Тұрыңыз немесе отырыңыз, алақандарыңызды белдің екі жағына қойыңыз. Дем алғанда белбеудің жан-жаққа жұмсақ кеңейгенін, дем шығарғанда ортаға жиналғанын сезіңіз. Қаласаңыз, жамбаспен бірнеше баяу шеңбер жасап, сезімді бүкіл шеңбер бойымен, белдің артқы жағын қоса бақылаңыз."
+        }
+      }
+    },
+    {
+      "id": "yin_wei_mai",
+      "kind": "extraordinary",
+      "bilateral": true,
+      "confluent_point": "MC6",
+      "coupled_point": "RP4",
+      "path": ["R9", "RP12", "RP13", "RP15", "RP16", "F14", "VC22", "VC23"],
+      "path_note_codes": ["RP12"],
+      "i18n": {
+        "ru": {
+          "name": "Иньский связующий меридиан (Инь-вэй-май)",
+          "short": "Связывает иньские меридианы: от голени по животу к горлу.",
+          "description": "Инь-вэй-май связывает между собой иньские меридианы, которые проходят по внутренней стороне ноги, животу и груди. В практике он подходит для спокойного наблюдения за грудью и областью сердца. <b>Своих точек у него нет</b>: он проходит через точки меридианов почек, селезёнки, печени и переднесрединного меридиана. Точка открытия — MC6 (Нэй-гуань), парная к ней — RP4 (Гун-сунь).",
+          "course": "Начинается на внутренней стороне голени, в точке R9, на 5 цуней выше лодыжки. Поднимается по внутренней стороне бедра к паху (RP12, RP13), затем по животу (RP15, RP16) к рёбрам (F14). Отсюда идёт к горлу и заканчивается на передней срединной линии, в точках VC22 и VC23.",
+          "practice": "Сядьте спокойно, положите одну ладонь на середину груди. Не торопясь, вместе с дыханием, ведите внимание от внутренней стороны голени вверх по бедру и животу к груди и горлу. В конце задержитесь на несколько вдохов у яремной ямки и отметьте, что меняется в груди."
+        },
+        "en": {
+          "name": "Yin Linking Vessel (Yin Wei Mai)",
+          "short": "Links the Yin meridians: from the lower leg through the abdomen to the throat.",
+          "description": "Yin Wei Mai links the Yin meridians that run along the inner leg, abdomen and chest. In practice it suits quiet observation of the chest and the heart area. <b>It has no points of its own</b>: it runs through points of the Kidney, Spleen and Liver meridians and the Conception Vessel. Its opening point is MC6 (Nei-guan), paired with RP4 (Gong-sun).",
+          "course": "It starts on the inner side of the lower leg at R9, 5 cun above the ankle. It rises along the inner thigh to the groin (RP12, RP13), then across the abdomen (RP15, RP16) to the ribs (F14). From there it goes to the throat and ends on the front midline at VC22 and VC23.",
+          "practice": "Sit calmly with one palm on the middle of the chest. Move attention slowly, together with the breath, from the inner lower leg up the thigh and abdomen to the chest and throat. At the end, stay for a few breaths at the notch above the breastbone and notice what changes in the chest."
+        },
+        "uz": {
+          "name": "Yin bog'lovchi meridian (Yin Wei Mai)",
+          "short": "Yin meridianlarini bog'laydi: boldirdan qorin orqali tomoqqa.",
+          "description": "Yin Wei Mai oyoqning ichki tomoni, qorin va ko'krak bo'ylab o'tadigan Yin meridianlarini o'zaro bog'laydi. Amaliyotda u ko'krak va yurak sohasini sokin kuzatish uchun mos keladi. <b>Uning o'z nuqtalari yo'q</b>: u Buyrak, Taloq, Jigar meridianlari va Old o'rta meridian nuqtalari orqali o'tadi. Ochuvchi nuqtasi — MC6 (Nei-guan), unga juft nuqta — RP4 (Gong-sun).",
+          "course": "Boldirning ichki tomonida, to'piqdan 5 cun yuqoridagi R9 nuqtasida boshlanadi. Sonning ichki tomoni bo'ylab chovga (RP12, RP13), so'ng qorin bo'ylab (RP15, RP16) qovurg'alarga (F14) ko'tariladi. U yerdan tomoqqa boradi va old o'rta chiziqdagi VC22 va VC23 nuqtalarida tugaydi.",
+          "practice": "Sokin o'tiring, bir kaftingizni ko'krak o'rtasiga qo'ying. Diqqatni shoshilmasdan, nafas bilan birga boldirning ichki tomonidan son va qorin bo'ylab ko'krak va tomoqqa olib boring. Oxirida to'sh suyagi ustidagi chuqurchada bir necha nafas turing va ko'krakda nima o'zgarishini kuzating."
+        },
+        "kz": {
+          "name": "Инь байланыстырушы меридиан (Инь-вэй-май)",
+          "short": "Инь меридиандарын байланыстырады: сирақтан іш арқылы тамаққа.",
+          "description": "Инь-вэй-май аяқтың ішкі жағы, іш және кеуде бойымен өтетін Инь меридиандарын өзара байланыстырады. Тәжірибеде ол кеуде мен жүрек аймағын тыныш бақылауға қолайлы. <b>Оның өз нүктелері жоқ</b>: ол Бүйрек, Көкбауыр, Бауыр меридиандары мен Алдыңғы орта меридианның нүктелері арқылы өтеді. Ашушы нүктесі — MC6, оған жұп нүкте — RP4.",
+          "course": "Сирақтың ішкі жағында, тобықтан 5 цунь жоғары R9 нүктесінде басталады. Санның ішкі жағымен шапқа (RP12, RP13), содан кейін іш бойымен (RP15, RP16) қабырғаларға (F14) көтеріледі. Сол жерден тамаққа барып, алдыңғы орта сызықтағы VC22 және VC23 нүктелерінде аяқталады.",
+          "practice": "Тыныш отырыңыз, бір алақаныңызды кеуденің ортасына қойыңыз. Зейінді асықпай, тыныспен бірге сирақтың ішкі жағынан сан мен іш бойымен кеуде мен тамаққа қарай жүргізіңіз. Соңында төс сүйегінің үстіндегі шұңқырда бірнеше тыныс бойы тоқтап, кеудеде не өзгеретінін байқаңыз."
+        }
+      }
+    },
+    {
+      "id": "yang_wei_mai",
+      "kind": "extraordinary",
+      "bilateral": true,
+      "confluent_point": "TR5",
+      "coupled_point": "VB41",
+      "path": ["V63", "VB35", "IG10", "TR15", "VB21", "E8", "VB13", "VB14", "VB15", "VB16", "VB17", "VB18", "VB19", "VB20", "VG16", "VG15"],
+      "path_note_codes": [],
+      "i18n": {
+        "ru": {
+          "name": "Янский связующий меридиан (Ян-вэй-май)",
+          "short": "Связывает янские меридианы: от наружного края стопы через плечо к затылку.",
+          "description": "Ян-вэй-май связывает между собой янские меридианы, которые идут по наружной стороне тела, плечам и голове. С ним удобно почувствовать боковые и задние линии тела как одно целое. <b>Своих точек у него нет</b>: он проходит через точки меридианов мочевого пузыря, желчного пузыря, тонкого кишечника, трёх обогревателей, желудка и заднесрединного меридиана. Точка открытия — TR5 (Вай-гуань), парная к ней — VB41 (Цзу-линь-ци).",
+          "course": "Начинается на наружной стороне стопы, в точке V63, поднимается по наружной стороне голени (VB35) и боку тела к задней поверхности плеча (IG10), затем через надлопаточную область (TR15) к вершине плеча (VB21). Дальше идёт за ухом к углу лба (E8, VB13), проходит по лбу и боковой части головы от VB14 до VB19, спускается к затылку (VB20) и заканчивается на задней срединной линии, в точках VG16 и VG15.",
+          "practice": "Сядьте ровно и опустите плечи. Ведите внимание от наружного края стопы вверх по боку ноги и тела к плечу, затем через голову к затылку. Отметьте, где по пути есть напряжение, и на выдохе дайте ему смягчиться."
+        },
+        "en": {
+          "name": "Yang Linking Vessel (Yang Wei Mai)",
+          "short": "Links the Yang meridians: from the outer edge of the foot over the shoulder to the back of the head.",
+          "description": "Yang Wei Mai links the Yang meridians that run along the outer side of the body, the shoulders and the head. It helps to feel the side and back lines of the body as one whole. <b>It has no points of its own</b>: it runs through points of the Bladder, Gallbladder, Small Intestine, Triple Burner and Stomach meridians and the Governing Vessel. Its opening point is TR5 (Wai-guan), paired with VB41 (Zu-lin-qi).",
+          "course": "It starts on the outer side of the foot at V63, rises along the outer lower leg (VB35) and the side of the body to the back of the shoulder (IG10), then through the area above the shoulder blade (TR15) to the top of the shoulder (VB21). From there it passes behind the ear to the corner of the forehead (E8, VB13), runs over the forehead and the side of the head from VB14 to VB19, descends to the base of the skull (VB20) and ends on the back midline at VG16 and VG15.",
+          "practice": "Sit upright and let the shoulders drop. Move attention from the outer edge of the foot up the side of the leg and body to the shoulder, then over the head to the base of the skull. Notice any tension along the way and let it soften on the exhale."
+        },
+        "uz": {
+          "name": "Yang bog'lovchi meridian (Yang Wei Mai)",
+          "short": "Yang meridianlarini bog'laydi: oyoq panjasining tashqi chetidan yelka orqali ensaga.",
+          "description": "Yang Wei Mai tananing tashqi tomoni, yelkalar va bosh bo'ylab o'tadigan Yang meridianlarini o'zaro bog'laydi. U tananing yon va orqa chiziqlarini yaxlit sezishga yordam beradi. <b>Uning o'z nuqtalari yo'q</b>: u Siydik pufagi, O't pufagi, Ingichka ichak, Uch isituvchi, Oshqozon meridianlari va Orqa o'rta meridian nuqtalari orqali o'tadi. Ochuvchi nuqtasi — TR5 (Wai-guan), unga juft nuqta — VB41 (Zu-lin-qi).",
+          "course": "Oyoq panjasining tashqi tomonidagi V63 nuqtasida boshlanadi, boldirning tashqi tomoni (VB35) va tananing yon tomoni bo'ylab yelkaning orqa yuzasiga (IG10), so'ng kurak usti sohasi (TR15) orqali yelka cho'qqisiga (VB21) ko'tariladi. Keyin quloq orqasidan peshona burchagiga (E8, VB13) o'tadi, peshona va boshning yon qismi bo'ylab VB14 dan VB19 gacha boradi, ensaga (VB20) tushadi va orqa o'rta chiziqdagi VG16 va VG15 nuqtalarida tugaydi.",
+          "practice": "Tik o'tiring va yelkalarni tushiring. Diqqatni oyoq panjasining tashqi chetidan oyoq va tananing yon tomoni bo'ylab yelkaga, so'ng bosh orqali ensaga olib boring. Yo'lda qayerda zo'riqish borligini sezing va nafas chiqarishda uning yumshashiga imkon bering."
+        },
+        "kz": {
+          "name": "Ян байланыстырушы меридиан (Ян-вэй-май)",
+          "short": "Ян меридиандарын байланыстырады: аяқ басының сыртқы жиегінен иық арқылы желкеге.",
+          "description": "Ян-вэй-май дененің сыртқы жағы, иықтар және бас бойымен өтетін Ян меридиандарын өзара байланыстырады. Ол дененің бүйір және артқы сызықтарын біртұтас сезуге көмектеседі. <b>Оның өз нүктелері жоқ</b>: ол Қуық, Өт қабы, Ащы ішек, Үш жылытқыш, Асқазан меридиандары мен Артқы орта меридианның нүктелері арқылы өтеді. Ашушы нүктесі — TR5, оған жұп нүкте — VB41.",
+          "course": "Аяқ басының сыртқы жағындағы V63 нүктесінде басталып, сирақтың сыртқы жағы (VB35) мен дененің бүйірі бойымен иықтың артқы бетіне (IG10), содан кейін жауырын үсті аймағы (TR15) арқылы иықтың ұшына (VB21) көтеріледі. Әрі қарай құлақтың артымен маңдай бұрышына (E8, VB13) өтіп, маңдай мен бастың бүйір бөлігі бойымен VB14-тен VB19-ға дейін барады, желкеге (VB20) түседі де, артқы орта сызықтағы VG16 және VG15 нүктелерінде аяқталады.",
+          "practice": "Тік отырыңыз, иықтарды түсіріңіз. Зейінді аяқ басының сыртқы жиегінен аяқ пен дененің бүйірі бойымен иыққа, содан кейін бас арқылы желкеге қарай жүргізіңіз. Жолда қай жерде кернеу бар екенін байқап, дем шығарғанда оның жұмсаруына мүмкіндік беріңіз."
+        }
+      }
+    },
+    {
+      "id": "yin_qiao_mai",
+      "kind": "extraordinary",
+      "bilateral": true,
+      "confluent_point": "R6",
+      "coupled_point": "P7",
+      "path": ["R6", "R8", "E12", "E9", "V1"],
+      "path_note_codes": ["E12", "E9"],
+      "i18n": {
+        "ru": {
+          "name": "Иньский меридиан пятки (Инь-цяо-май)",
+          "short": "От внутренней лодыжки по внутренней стороне тела к внутреннему углу глаза.",
+          "description": "Инь-цяо-май начинается у внутренней лодыжки и поднимается по внутренней стороне ноги и передней поверхности тела к глазам. В традиции его связывают с равновесием покоя и активности, со сменой сна и бодрствования. <b>Своих точек у него нет</b>: он проходит через точки меридианов почек, желудка и мочевого пузыря. Точка открытия — R6 (Чжао-хай), парная к ней — P7 (Ле-цюэ).",
+          "course": "Начинается под внутренней лодыжкой (R6), поднимается к R8 на внутренней стороне голени, затем по внутренней стороне бедра, через низ живота, живот и грудь к надключичной ямке (E12). Дальше идёт по передней стороне шеи (E9), по щеке и заканчивается у внутреннего угла глаза (V1), где встречается с Ян-цяо-май.",
+          "practice": "Сядьте или лягте, закройте глаза. Почувствуйте внутренние лодыжки, затем ведите внимание вверх по внутренней стороне ног и передней стороне тела к глазам. Дайте глазам расслабиться, как перед сном, и несколько вдохов наблюдайте за внутренними уголками глаз."
+        },
+        "en": {
+          "name": "Yin Heel Vessel (Yin Qiao Mai)",
+          "short": "From the inner ankle along the inner side of the body to the inner corner of the eye.",
+          "description": "Yin Qiao Mai starts at the inner ankle and rises along the inner leg and the front of the body to the eyes. Tradition links it with the balance of rest and activity and with the change between sleep and waking. <b>It has no points of its own</b>: it runs through points of the Kidney, Stomach and Bladder meridians. Its opening point is R6 (Zhao-hai), paired with P7 (Lie-que).",
+          "course": "It starts below the inner ankle (R6), rises to R8 on the inner lower leg, then along the inner thigh, through the lower abdomen, abdomen and chest to the hollow above the collarbone (E12). From there it runs up the front of the neck (E9), over the cheek and ends at the inner corner of the eye (V1), where it meets Yang Qiao Mai.",
+          "practice": "Sit or lie down and close your eyes. Feel the inner ankles, then move attention up the inner side of the legs and the front of the body to the eyes. Let the eyes relax as before sleep and watch the inner corners of the eyes for a few breaths."
+        },
+        "uz": {
+          "name": "Yin tovon meridiani (Yin Qiao Mai)",
+          "short": "Ichki to'piqdan tananing ichki tomoni bo'ylab ko'zning ichki burchagiga.",
+          "description": "Yin Qiao Mai ichki to'piqdan boshlanib, oyoqning ichki tomoni va tananing old yuzasi bo'ylab ko'zlarga ko'tariladi. An'anada u tinchlik va faollik muvozanati, uyqu va uyg'oqlik almashinuvi bilan bog'lanadi. <b>Uning o'z nuqtalari yo'q</b>: u Buyrak, Oshqozon va Siydik pufagi meridianlarining nuqtalari orqali o'tadi. Ochuvchi nuqtasi — R6 (Zhao-hai), unga juft nuqta — P7 (Lie-que).",
+          "course": "Ichki to'piq ostida (R6) boshlanadi, boldirning ichki tomonidagi R8 ga ko'tariladi, so'ng sonning ichki tomoni bo'ylab, qorinning pastki qismi, qorin va ko'krak orqali o'mrov usti chuqurchasiga (E12) boradi. Keyin bo'yinning old tomoni (E9) va yonoq bo'ylab o'tadi va ko'zning ichki burchagida (V1) tugaydi, u yerda Yang Qiao Mai bilan uchrashadi.",
+          "practice": "O'tiring yoki yoting, ko'zlaringizni yuming. Ichki to'piqlarni sezing, so'ng diqqatni oyoqlarning ichki tomoni va tananing old yuzasi bo'ylab ko'zlarga olib boring. Ko'zlarni uyqu oldidagidek bo'shating va bir necha nafas davomida ko'zlarning ichki burchaklarini kuzating."
+        },
+        "kz": {
+          "name": "Инь өкше меридианы (Инь-цяо-май)",
+          "short": "Ішкі тобықтан дененің ішкі жағымен көздің ішкі бұрышына.",
+          "description": "Инь-цяо-май ішкі тобықтан басталып, аяқтың ішкі жағы мен дененің алдыңғы беті бойымен көзге көтеріледі. Дәстүрде оны тыныштық пен белсенділік тепе-теңдігімен, ұйқы мен сергектіктің алмасуымен байланыстырады. <b>Оның өз нүктелері жоқ</b>: ол Бүйрек, Асқазан және Қуық меридиандарының нүктелері арқылы өтеді. Ашушы нүктесі — R6, оған жұп нүкте — P7.",
+          "course": "Ішкі тобықтың астында (R6) басталып, сирақтың ішкі жағындағы R8-ге көтеріледі, содан кейін санның ішкі жағымен, іштің төменгі бөлігі, іш және кеуде арқылы бұғана үсті шұңқырына (E12) барады. Әрі қарай мойынның алдыңғы жағы (E9) мен бет ұшы бойымен өтіп, көздің ішкі бұрышында (V1) аяқталады, сол жерде Ян-цяо-маймен кездеседі.",
+          "practice": "Отырыңыз немесе жатыңыз, көзіңізді жұмыңыз. Ішкі тобықтарды сезіп, содан кейін зейінді аяқтың ішкі жағы мен дененің алдыңғы беті бойымен көзге қарай жүргізіңіз. Көзді ұйқы алдындағыдай босатып, бірнеше тыныс бойы көздің ішкі бұрыштарын бақылаңыз."
+        }
+      }
+    },
+    {
+      "id": "yang_qiao_mai",
+      "kind": "extraordinary",
+      "bilateral": true,
+      "confluent_point": "V62",
+      "coupled_point": "IG3",
+      "path": ["V62", "V61", "V59", "VB29", "IG10", "GI15", "GI16", "TR15", "E4", "E3", "E1", "V1", "VB20"],
+      "path_note_codes": ["TR15", "VB20"],
+      "i18n": {
+        "ru": {
+          "name": "Янский меридиан пятки (Ян-цяо-май)",
+          "short": "От наружной лодыжки по боку тела к глазу и затылку.",
+          "description": "Ян-цяо-май начинается у наружной лодыжки и поднимается по наружной стороне ноги, боку тела и плечу к лицу и глазам. В традиции он вместе с Инь-цяо-май описывает ритм активности и отдыха; в практике это линия, на которой хорошо чувствуется устойчивость стоя и при ходьбе. <b>Своих точек у него нет</b>: он проходит через точки меридианов мочевого пузыря, желчного пузыря, тонкого кишечника, толстой кишки и желудка. Точка открытия — V62 (Шэнь-май), парная к ней — IG3 (Хоу-си).",
+          "course": "Начинается под наружной лодыжкой (V62), спускается к пятке (V61) и поднимается по наружной стороне голени (V59) и бедра к тазобедренному суставу (VB29). Затем идёт по боку туловища к задней поверхности плеча (IG10), к вершине плеча (GI15, GI16) и надлопаточной области (TR15), по шее к углу рта (E4), вверх по щеке (E3, E1) к внутреннему углу глаза (V1). Отсюда поднимается через голову и спускается к затылку (VB20).",
+          "practice": "Встаньте, стопы на ширине таза. Почувствуйте наружные края стоп и лодыжки, затем ведите внимание вверх по бокам ног и тела к плечам и глазам. Слегка покачайтесь из стороны в сторону и отметьте, как тело само находит равновесие."
+        },
+        "en": {
+          "name": "Yang Heel Vessel (Yang Qiao Mai)",
+          "short": "From the outer ankle along the side of the body to the eye and the back of the head.",
+          "description": "Yang Qiao Mai starts at the outer ankle and rises along the outer leg, the side of the body and the shoulder to the face and eyes. In tradition, together with Yin Qiao Mai, it describes the rhythm of activity and rest; in practice it is a line where steadiness in standing and walking is easy to feel. <b>It has no points of its own</b>: it runs through points of the Bladder, Gallbladder, Small Intestine, Large Intestine and Stomach meridians. Its opening point is V62 (Shen-mai), paired with IG3 (Hou-xi).",
+          "course": "It starts below the outer ankle (V62), goes down to the heel (V61) and rises along the outer lower leg (V59) and thigh to the hip joint (VB29). It then runs along the side of the trunk to the back of the shoulder (IG10), the top of the shoulder (GI15, GI16) and the area above the shoulder blade (TR15), up the neck to the corner of the mouth (E4), up the cheek (E3, E1) to the inner corner of the eye (V1). From there it rises over the head and descends to the base of the skull (VB20).",
+          "practice": "Stand with the feet hip-width apart. Feel the outer edges of the feet and the ankles, then move attention up the sides of the legs and body to the shoulders and eyes. Sway gently from side to side and notice how the body finds its balance on its own."
+        },
+        "uz": {
+          "name": "Yang tovon meridiani (Yang Qiao Mai)",
+          "short": "Tashqi to'piqdan tananing yon tomoni bo'ylab ko'z va ensaga.",
+          "description": "Yang Qiao Mai tashqi to'piqdan boshlanib, oyoqning tashqi tomoni, tananing yon tomoni va yelka bo'ylab yuz va ko'zlarga ko'tariladi. An'anada u Yin Qiao Mai bilan birga faollik va dam olish ritmini ifodalaydi; amaliyotda bu turish va yurishdagi barqarorlik yaxshi seziladigan chiziq. <b>Uning o'z nuqtalari yo'q</b>: u Siydik pufagi, O't pufagi, Ingichka ichak, Yo'g'on ichak va Oshqozon meridianlarining nuqtalari orqali o'tadi. Ochuvchi nuqtasi — V62 (Shen-mai), unga juft nuqta — IG3 (Hou-xi).",
+          "course": "Tashqi to'piq ostida (V62) boshlanadi, tovonga (V61) tushadi va boldirning tashqi tomoni (V59) hamda son bo'ylab chanoq-son bo'g'imiga (VB29) ko'tariladi. So'ng tananing yon tomoni bo'ylab yelkaning orqa yuzasiga (IG10), yelka cho'qqisiga (GI15, GI16) va kurak usti sohasiga (TR15), bo'yin bo'ylab og'iz burchagiga (E4), yonoq bo'ylab yuqoriga (E3, E1) ko'zning ichki burchagiga (V1) boradi. U yerdan bosh orqali ko'tarilib, ensaga (VB20) tushadi.",
+          "practice": "Turing, oyoqlar chanoq kengligida. Oyoq panjalarining tashqi chetlari va to'piqlarni sezing, so'ng diqqatni oyoqlar va tananing yon tomonlari bo'ylab yelkalar va ko'zlarga olib boring. Yengil u yoqdan bu yoqqa tebraning va tana muvozanatni o'zi qanday topishini kuzating."
+        },
+        "kz": {
+          "name": "Ян өкше меридианы (Ян-цяо-май)",
+          "short": "Сыртқы тобықтан дененің бүйірімен көз бен желкеге.",
+          "description": "Ян-цяо-май сыртқы тобықтан басталып, аяқтың сыртқы жағы, дененің бүйірі және иық бойымен бет пен көзге көтеріледі. Дәстүрде ол Инь-цяо-маймен бірге белсенділік пен демалыс ырғағын білдіреді; тәжірибеде бұл тұрғанда және жүргенде тұрақтылық жақсы сезілетін сызық. <b>Оның өз нүктелері жоқ</b>: ол Қуық, Өт қабы, Ащы ішек, Тоқ ішек және Асқазан меридиандарының нүктелері арқылы өтеді. Ашушы нүктесі — V62, оған жұп нүкте — IG3.",
+          "course": "Сыртқы тобықтың астында (V62) басталып, өкшеге (V61) түседі де, сирақтың сыртқы жағы (V59) мен сан бойымен жамбас-сан буынына (VB29) көтеріледі. Содан кейін дененің бүйірімен иықтың артқы бетіне (IG10), иықтың ұшына (GI15, GI16) және жауырын үсті аймағына (TR15), мойын бойымен ауыздың бұрышына (E4), бет ұшы бойымен жоғары (E3, E1) көздің ішкі бұрышына (V1) барады. Сол жерден бас арқылы көтеріліп, желкеге (VB20) түседі.",
+          "practice": "Тұрыңыз, аяқтар жамбас енімен. Аяқ басының сыртқы жиектері мен тобықтарды сезіп, содан кейін зейінді аяқ пен дененің бүйірлерімен иыққа және көзге қарай жүргізіңіз. Жан-жаққа жеңіл тербеліп, дене тепе-теңдікті өзі қалай табатынын байқаңыз."
+        }
+      }
+    }
+  ],
+  "references": [
+    {"id": "governing_vessel", "confluent_point": "IG3", "coupled_point": "V62"},
+    {"id": "conception_vessel", "confluent_point": "P7", "coupled_point": "R6"}
+  ]
+}

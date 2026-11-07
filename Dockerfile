@@ -25,6 +25,7 @@ RUN groupadd -r yogabot && useradd -r -g yogabot yogabot
 
 # Copy application code.
 COPY bot/ ./bot/
+COPY webapp/ ./webapp/
 
 # Create and setup data directory with proper permissions
 RUN mkdir -p /app/data && \

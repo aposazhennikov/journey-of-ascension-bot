@@ -1,0 +1,2379 @@
+{
+ "version": 1,
+ "sources": [
+  {
+   "id": "deadman",
+   "title": "Peter Deadman, Mazin Al-Khafaji, Kevin Baker. A Manual of Acupuncture, 2nd ed. Journal of Chinese Medicine Publications, 2007",
+   "used_for": "point categories (five shu, yuan, luo, xi, mu, back-shu, hui, lower he, confluent), meeting-point (jiaohui) notes per point, luo vessel pathways"
+  },
+  {
+   "id": "who_2008",
+   "title": "WHO Standard Acupuncture Point Locations in the Western Pacific Region. WHO Regional Office for the Western Pacific, 2008",
+   "used_for": "point numbering check (BL40 Weizhong, BL43 Gaohuang, GV/CV numbering)"
+  },
+  {
+   "id": "maciocia",
+   "title": "Giovanni Maciocia. The Foundations of Chinese Medicine, 2nd ed. Elsevier, 2005",
+   "used_for": "categories of points, five-shu elements, eight extraordinary vessels and their opening points"
+  },
+  {
+   "id": "lingshu_10",
+   "title": "Ling Shu (Spiritual Pivot), chapter 10: the fifteen luo vessels",
+   "used_for": "luo links, VC15 / VG1 / RP21 dispersal areas"
+  },
+  {
+   "id": "practical_dictionary",
+   "title": "Wiseman N., Feng Y. A Practical Dictionary of Chinese Medicine. Paradigm, 1998 (jiaohui table as reproduced at meandqi.com/blog/crossing-points-of-the-channels)",
+   "used_for": "cross-check of crossing points"
+  },
+  {
+   "id": "yinyanghouse",
+   "title": "yinyanghouse.com point database (intersection-point notes)",
+   "used_for": "cross-check of uncertain crossings (GB5, GB6, GB20, GB24, PC1, TB20, BL1, BL11, GV1, GV20, CV7, CV24, ST4, SI10, GB14)"
+  }
+ ],
+ "categories": {
+  "luo": {
+   "i18n": {
+    "ru": {
+     "name": "ЛО-пункт",
+     "short": "Соединительная точка: отсюда отходит ветвь к парному меридиану. На карте видно, куда она ведёт, и можно проследить, как внимание переходит с одной линии на другую."
+    },
+    "en": {
+     "name": "Luo (connecting) point",
+     "short": "A connecting point: a branch runs from here to the paired meridian. The map shows where it leads, so you can follow attention as it moves from one line to the other."
+    },
+    "uz": {
+     "name": "Lo-nuqta (bog'lovchi)",
+     "short": "Bog'lovchi nuqta: bu yerdan juft meridianga tarmoq ketadi. Xaritada u qayerga olib borishi ko'rinadi, diqqat bir chiziqdan ikkinchisiga qanday o'tishini kuzatish mumkin."
+    },
+    "kz": {
+     "name": "Ло-нүкте (байланыстырушы)",
+     "short": "Байланыстырушы нүкте: осыдан жұп меридианға тармақ кетеді. Картада оның қайда апаратыны көрінеді, зейіннің бір сызықтан екіншісіне қалай өтетінін бақылауға болады."
+    }
+   },
+   "color_hint": "#E4572E"
+  },
+  "great_luo": {
+   "i18n": {
+    "ru": {
+     "name": "Большой ЛО-пункт",
+     "short": "Большой соединительный пункт селезёнки сбоку на груди. По традиции отсюда сеть мелких сосудов расходится по всей грудной клетке и бокам."
+    },
+    "en": {
+     "name": "Great luo point",
+     "short": "The great connecting point of the spleen, on the side of the chest. Traditionally, a net of small vessels spreads from here across the whole chest and flanks."
+    },
+    "uz": {
+     "name": "Katta Lo-nuqta",
+     "short": "Taloqning katta bog'lovchi nuqtasi, ko'krakning yon tomonida. An'anaga ko'ra bu yerdan mayda tomirlar to'ri butun ko'krak qafasi va biqinlar bo'ylab tarqaladi."
+    },
+    "kz": {
+     "name": "Үлкен Ло-нүкте",
+     "short": "Көкбауырдың үлкен байланыстырушы нүктесі, кеуденің бүйір жағында. Дәстүр бойынша осыдан ұсақ тамырлар торы бүкіл кеуде мен бүйірлерге таралады."
+    }
+   },
+   "color_hint": "#B83B1D"
+  },
+  "yuan": {
+   "i18n": {
+    "ru": {
+     "name": "ЮАНЬ-пункт",
+     "short": "Точка-источник: по традиции здесь яснее всего проявляется сам меридиан. Хорошее место, чтобы задержать внимание и почувствовать линию целиком."
+    },
+    "en": {
+     "name": "Yuan (source) point",
+     "short": "The source point: traditionally, this is where the meridian shows itself most clearly. A good place to rest attention and sense the whole line."
+    },
+    "uz": {
+     "name": "Yuan-nuqta (manba)",
+     "short": "Manba nuqtasi: an'anaga ko'ra meridian aynan shu yerda eng aniq namoyon bo'ladi. Diqqatni to'xtatib, butun chiziqni his qilish uchun qulay joy."
+    },
+    "kz": {
+     "name": "Юань-нүкте (бастау)",
+     "short": "Бастау нүктесі: дәстүр бойынша меридиан дәл осы жерде ең анық білінеді. Зейінді тоқтатып, бүкіл сызықты сезінуге ыңғайлы орын."
+    }
+   },
+   "color_hint": "#F3A712"
+  },
+  "xi": {
+   "i18n": {
+    "ru": {
+     "name": "СИ-пункт",
+     "short": "Щелевая точка: здесь энергия меридиана собирается глубже, как вода в расщелине. Ощущения в ней нередко отчётливее, чем по соседству."
+    },
+    "en": {
+     "name": "Xi (cleft) point",
+     "short": "The cleft point: here the meridian's energy gathers deeper, like water in a crevice. Sensations here are often more distinct than in the surrounding area."
+    },
+    "uz": {
+     "name": "Si-nuqta (yoriq)",
+     "short": "Yoriq nuqtasi: bu yerda meridian energiyasi yoriqdagi suvdek chuqurroq to'planadi. Bu yerdagi sezgilar ko'pincha atrofdagidan aniqroq bo'ladi."
+    },
+    "kz": {
+     "name": "Си-нүкте (саңылау)",
+     "short": "Саңылау нүктесі: мұнда меридиан энергиясы жарықтағы судай тереңірек жиналады. Мұндағы сезімдер көбіне айналасындағыдан анығырақ болады."
+    }
+   },
+   "color_hint": "#8E44AD"
+  },
+  "jing_well": {
+   "i18n": {
+    "ru": {
+     "name": "Точка-колодец (цзин)",
+     "short": "Крайняя точка меридиана у кончика пальца, где канал выходит на поверхность или уходит с неё. С неё удобно начинать или заканчивать прохождение линии вниманием."
+    },
+    "en": {
+     "name": "Jing-well point",
+     "short": "The outermost point of the meridian at the tip of a finger or toe, where the channel surfaces or dives in. A natural place to begin or end tracing the line with attention."
+    },
+    "uz": {
+     "name": "Quduq nuqtasi (jing)",
+     "short": "Meridianning barmoq uchidagi chekka nuqtasi: kanal shu yerda yuzaga chiqadi yoki yuzadan ketadi. Chiziqni diqqat bilan bosib o'tishni shu yerdan boshlash yoki tugatish qulay."
+    },
+    "kz": {
+     "name": "Құдық нүктесі (цзин)",
+     "short": "Меридианның саусақ ұшындағы шеткі нүктесі: арна осы жерде бетке шығады немесе беттен кетеді. Сызықты зейінмен жүріп өтуді осы жерден бастау не аяқтау ыңғайлы."
+    }
+   },
+   "color_hint": "#7FDBFF"
+  },
+  "ying_spring": {
+   "i18n": {
+    "ru": {
+     "name": "Точка-родник (ин)",
+     "short": "Вторая из пяти точек-шу, обычно у основания пальца. Поток здесь только набирает силу, как родник."
+    },
+    "en": {
+     "name": "Ying-spring point",
+     "short": "The second of the five shu points, usually near the base of a finger or toe. The flow is just gathering strength here, like a spring."
+    },
+    "uz": {
+     "name": "Buloq nuqtasi (ying)",
+     "short": "Besh shu-nuqtaning ikkinchisi, odatda barmoq asosida joylashgan. Oqim bu yerda buloqdek endi kuch yig'a boshlaydi."
+    },
+    "kz": {
+     "name": "Бұлақ нүктесі (ин)",
+     "short": "Бес шу-нүктенің екіншісі, әдетте саусақ түбінде орналасады. Ағын мұнда бұлақтай енді ғана күш жинайды."
+    }
+   },
+   "color_hint": "#4FC3F7"
+  },
+  "shu_stream": {
+   "i18n": {
+    "ru": {
+     "name": "Точка-поток (шу)",
+     "short": "Третья из пяти точек-шу: поток становится заметнее, как ручей. На инь-меридианах эта точка одновременно ЮАНЬ-пункт."
+    },
+    "en": {
+     "name": "Shu-stream point",
+     "short": "The third of the five shu points: the flow becomes more noticeable, like a stream. On yin meridians it is also the yuan point."
+    },
+    "uz": {
+     "name": "Soy nuqtasi (shu)",
+     "short": "Besh shu-nuqtaning uchinchisi: oqim soydek sezilarliroq bo'ladi. Yin meridianlarida bu nuqta bir vaqtning o'zida Yuan-nuqta hamdir."
+    },
+    "kz": {
+     "name": "Жылға нүктесі (шу)",
+     "short": "Бес шу-нүктенің үшіншісі: ағын жылғадай байқалатын болады. Инь меридиандарында бұл нүкте әрі Юань-нүкте болып табылады."
+    }
+   },
+   "color_hint": "#29A3D9"
+  },
+  "jing_river": {
+   "i18n": {
+    "ru": {
+     "name": "Точка-река (цзин)",
+     "short": "Четвёртая из пяти точек-шу, у запястья или лодыжки либо немного выше. Поток здесь широкий и ровный, как река."
+    },
+    "en": {
+     "name": "Jing-river point",
+     "short": "The fourth of the five shu points, at or a little above the wrist or ankle. The flow here is broad and steady, like a river."
+    },
+    "uz": {
+     "name": "Daryo nuqtasi (jing)",
+     "short": "Besh shu-nuqtaning to'rtinchisi, bilak yoki to'piq sohasida yoxud undan biroz yuqorida. Oqim bu yerda daryodek keng va bir tekis."
+    },
+    "kz": {
+     "name": "Өзен нүктесі (цзин)",
+     "short": "Бес шу-нүктенің төртіншісі, білек не тобық тұсында немесе одан сәл жоғары. Ағын мұнда өзендей кең әрі бірқалыпты."
+    }
+   },
+   "color_hint": "#1F7FB8"
+  },
+  "he_sea": {
+   "i18n": {
+    "ru": {
+     "name": "Точка-море (хэ)",
+     "short": "Пятая из пяти точек-шу, у локтя или колена. Здесь поток уходит вглубь, как река, впадающая в море."
+    },
+    "en": {
+     "name": "He-sea point",
+     "short": "The fifth of the five shu points, at the elbow or knee. Here the flow goes deep, like a river entering the sea."
+    },
+    "uz": {
+     "name": "Dengiz nuqtasi (he)",
+     "short": "Besh shu-nuqtaning beshinchisi, tirsak yoki tizza sohasida. Bu yerda oqim dengizga quyilayotgan daryodek chuqurga ketadi."
+    },
+    "kz": {
+     "name": "Теңіз нүктесі (хэ)",
+     "short": "Бес шу-нүктенің бесіншісі, шынтақ не тізе тұсында. Мұнда ағын теңізге құятын өзендей тереңге кетеді."
+    }
+   },
+   "color_hint": "#145A86"
+  },
+  "mu": {
+   "i18n": {
+    "ru": {
+     "name": "МУ-пункт",
+     "short": "Точка на груди или животе, которую традиция связывает с органом одного из меридианов. Через неё удобно направить внимание внутрь тела спереди."
+    },
+    "en": {
+     "name": "Mu (front-collecting) point",
+     "short": "A point on the chest or abdomen that tradition links with the organ of one meridian. It is a convenient way to bring attention inward from the front of the body."
+    },
+    "uz": {
+     "name": "Mu-nuqta (old yig'uvchi)",
+     "short": "Ko'krak yoki qorindagi nuqta, an'ana uni biror meridian a'zosi bilan bog'laydi. U orqali diqqatni tananing old tomonidan ichkariga yo'naltirish qulay."
+    },
+    "kz": {
+     "name": "Му-нүкте (алдыңғы жинаушы)",
+     "short": "Кеудедегі не іштегі нүкте, дәстүр оны бір меридианның мүшесімен байланыстырады. Ол арқылы зейінді дененің алдыңғы жағынан ішке бағыттау ыңғайлы."
+    }
+   },
+   "color_hint": "#E84A8A"
+  },
+  "back_shu": {
+   "i18n": {
+    "ru": {
+     "name": "ШУ-пункт спины",
+     "short": "Точка на спине рядом с позвоночником, которую традиция связывает с органом одного из меридианов. Помогает почувствовать, как этот меридиан отзывается в спине."
+    },
+    "en": {
+     "name": "Back-shu point",
+     "short": "A point on the back beside the spine, traditionally linked with the organ of one meridian. It helps you notice how that meridian echoes in the back."
+    },
+    "uz": {
+     "name": "Orqa shu-nuqtasi",
+     "short": "Umurtqa pog'onasi yonidagi orqa nuqtasi, an'anaga ko'ra biror meridian a'zosi bilan bog'langan. U shu meridian orqada qanday aks etishini sezishga yordam beradi."
+    },
+    "kz": {
+     "name": "Арқа шу-нүктесі",
+     "short": "Омыртқа жанындағы арқа нүктесі, дәстүр бойынша бір меридианның мүшесімен байланысты. Ол сол меридианның арқада қалай білінетінін сезуге көмектеседі."
+    }
+   },
+   "color_hint": "#A0522D"
+  },
+  "confluent": {
+   "i18n": {
+    "ru": {
+     "name": "Ключевая точка чудесного сосуда",
+     "short": "По традиции через эту точку открывается один из восьми чудесных сосудов. На карте рядом подписано, какой именно."
+    },
+    "en": {
+     "name": "Confluent (opening) point",
+     "short": "Tradition holds that one of the eight extraordinary vessels opens through this point. The map labels which one."
+    },
+    "uz": {
+     "name": "Ajoyib tomirning kalit nuqtasi",
+     "short": "An'anaga ko'ra sakkiz ajoyib tomirdan biri shu nuqta orqali ochiladi. Xaritada qaysi biri ekanligi yozib qo'yilgan."
+    },
+    "kz": {
+     "name": "Ғажайып тамырдың кілт нүктесі",
+     "short": "Дәстүр бойынша сегіз ғажайып тамырдың бірі осы нүкте арқылы ашылады. Картада қайсысы екені жазылған."
+    }
+   },
+   "color_hint": "#2ECC71"
+  },
+  "hui": {
+   "i18n": {
+    "ru": {
+     "name": "Точка влияния (хуэй)",
+     "short": "Одна из восьми точек влияния: каждую традиция связывает со своей тканью или субстанцией — ци, кровью, сухожилиями, костями и другими. На карте подписано, с какой."
+    },
+    "en": {
+     "name": "Hui (influential) point",
+     "short": "One of the eight influential points, each traditionally linked with a tissue or substance: qi, blood, sinews, bones and others. The map shows which one."
+    },
+    "uz": {
+     "name": "Ta'sir nuqtasi (hui)",
+     "short": "Sakkiz ta'sir nuqtasidan biri: an'ana har birini o'z to'qimasi yoki moddasi bilan bog'laydi — qi, qon, paylar, suyaklar va boshqalar. Xaritada qaysi biri ekanligi ko'rsatilgan."
+    },
+    "kz": {
+     "name": "Ықпал нүктесі (хуэй)",
+     "short": "Сегіз ықпал нүктесінің бірі: дәстүр әрқайсысын өз тінімен не затымен байланыстырады — ци, қан, сіңірлер, сүйектер және басқалар. Картада қайсысы екені көрсетілген."
+    }
+   },
+   "color_hint": "#F1C40F"
+  },
+  "lower_he": {
+   "i18n": {
+    "ru": {
+     "name": "Нижняя точка-море",
+     "short": "Точка на ноге, которую традиция связывает с одним из ян-органов: желудком, кишечником, мочевым пузырём, желчным пузырём или тремя обогревателями. На карте подписано, с каким."
+    },
+    "en": {
+     "name": "Lower he-sea point",
+     "short": "A point on the leg that tradition links with one of the yang organs: stomach, intestines, bladder, gallbladder or triple burner. The map shows which one."
+    },
+    "uz": {
+     "name": "Pastki dengiz nuqtasi",
+     "short": "Oyoqdagi nuqta, an'ana uni yang a'zolaridan biri bilan bog'laydi: oshqozon, ichak, siydik pufagi, o't pufagi yoki uch isituvchi. Xaritada qaysi biri ekanligi ko'rsatilgan."
+    },
+    "kz": {
+     "name": "Төменгі теңіз нүктесі",
+     "short": "Аяқтағы нүкте, дәстүр оны ян мүшелерінің бірімен байланыстырады: асқазан, ішек, қуық, өт қабы не үш жылытқыш. Картада қайсысы екені көрсетілген."
+    }
+   },
+   "color_hint": "#16A085"
+  },
+  "crossing": {
+   "i18n": {
+    "ru": {
+     "name": "Точка пересечения",
+     "short": "Здесь сходятся два меридиана или больше. На карте видно, какие линии встречаются в этой точке, и внимание касается сразу нескольких каналов."
+    },
+    "en": {
+     "name": "Crossing point",
+     "short": "Two or more meridians meet here. The map shows which lines cross at this point, so attention touches several channels at once."
+    },
+    "uz": {
+     "name": "Kesishish nuqtasi",
+     "short": "Bu yerda ikki yoki undan ortiq meridian uchrashadi. Xaritada qaysi chiziqlar kesishishi ko'rinadi, diqqat bir vaqtning o'zida bir nechta kanalga tegadi."
+    },
+    "kz": {
+     "name": "Қиылысу нүктесі",
+     "short": "Мұнда екі не одан көп меридиан тоғысады. Картада қай сызықтар қиылысатыны көрінеді, зейін бір мезетте бірнеше арнаға тиеді."
+    }
+   },
+   "color_hint": "#FF66CC"
+  }
+ },
+ "extra_vessels": {
+  "chong_mai": {
+   "ru": "Чун-май (пронизывающий сосуд)",
+   "en": "Penetrating vessel (Chong mai)",
+   "uz": "Chun-may (kesib o'tuvchi tomir)",
+   "kz": "Чун-май (тесіп өтетін тамыр)"
+  },
+  "dai_mai": {
+   "ru": "Дай-май (опоясывающий сосуд)",
+   "en": "Girdle vessel (Dai mai)",
+   "uz": "Day-may (belbog' tomiri)",
+   "kz": "Дай-май (белдеу тамыры)"
+  },
+  "yin_wei_mai": {
+   "ru": "Инь-вэй-май (связующий сосуд инь)",
+   "en": "Yin linking vessel (Yin wei mai)",
+   "uz": "In-vey-may (Yin bog'lovchi tomiri)",
+   "kz": "Инь-вэй-май (Инь байланыстырушы тамыры)"
+  },
+  "yang_wei_mai": {
+   "ru": "Ян-вэй-май (связующий сосуд ян)",
+   "en": "Yang linking vessel (Yang wei mai)",
+   "uz": "Yan-vey-may (Yang bog'lovchi tomiri)",
+   "kz": "Ян-вэй-май (Ян байланыстырушы тамыры)"
+  },
+  "yin_qiao_mai": {
+   "ru": "Инь-цяо-май (сосуд подвижности инь)",
+   "en": "Yin motility vessel (Yin qiao mai)",
+   "uz": "In-tsyao-may (Yin harakat tomiri)",
+   "kz": "Инь-цяо-май (Инь қозғалыс тамыры)"
+  },
+  "yang_qiao_mai": {
+   "ru": "Ян-цяо-май (сосуд подвижности ян)",
+   "en": "Yang motility vessel (Yang qiao mai)",
+   "uz": "Yan-tsyao-may (Yang harakat tomiri)",
+   "kz": "Ян-цяо-май (Ян қозғалыс тамыры)"
+  }
+ },
+ "hui_labels": {
+  "zang": {
+   "ru": "плотные органы (цзан)",
+   "en": "zang organs",
+   "uz": "zang a'zolari (zich a'zolar)",
+   "kz": "цзан мүшелері (тығыз мүшелер)"
+  },
+  "fu": {
+   "ru": "полые органы (фу)",
+   "en": "fu organs",
+   "uz": "fu a'zolari (kovak a'zolar)",
+   "kz": "фу мүшелері (қуыс мүшелер)"
+  },
+  "qi": {
+   "ru": "ци",
+   "en": "qi",
+   "uz": "qi",
+   "kz": "ци"
+  },
+  "blood": {
+   "ru": "кровь",
+   "en": "blood",
+   "uz": "qon",
+   "kz": "қан"
+  },
+  "sinews": {
+   "ru": "сухожилия",
+   "en": "sinews",
+   "uz": "paylar",
+   "kz": "сіңірлер"
+  },
+  "marrow": {
+   "ru": "костный мозг",
+   "en": "marrow",
+   "uz": "ilik",
+   "kz": "жілік майы"
+  },
+  "bones": {
+   "ru": "кости",
+   "en": "bones",
+   "uz": "suyaklar",
+   "kz": "сүйектер"
+  },
+  "vessels": {
+   "ru": "сосуды",
+   "en": "vessels",
+   "uz": "tomirlar",
+   "kz": "тамырлар"
+  }
+ },
+ "elements": {
+  "wood": {
+   "ru": "дерево",
+   "en": "wood",
+   "uz": "yog'och",
+   "kz": "ағаш"
+  },
+  "fire": {
+   "ru": "огонь",
+   "en": "fire",
+   "uz": "olov",
+   "kz": "от"
+  },
+  "earth": {
+   "ru": "земля",
+   "en": "earth",
+   "uz": "yer",
+   "kz": "жер"
+  },
+  "metal": {
+   "ru": "металл",
+   "en": "metal",
+   "uz": "metall",
+   "kz": "металл"
+  },
+  "water": {
+   "ru": "вода",
+   "en": "water",
+   "uz": "suv",
+   "kz": "су"
+  }
+ },
+ "points": {
+  "P1": [
+   "mu",
+   "crossing"
+  ],
+  "P5": [
+   "he_sea"
+  ],
+  "P6": [
+   "xi"
+  ],
+  "P7": [
+   "luo",
+   "confluent"
+  ],
+  "P8": [
+   "jing_river"
+  ],
+  "P9": [
+   "yuan",
+   "shu_stream",
+   "hui"
+  ],
+  "P10": [
+   "ying_spring"
+  ],
+  "P11": [
+   "jing_well"
+  ],
+  "GI1": [
+   "jing_well"
+  ],
+  "GI2": [
+   "ying_spring"
+  ],
+  "GI3": [
+   "shu_stream"
+  ],
+  "GI4": [
+   "yuan"
+  ],
+  "GI5": [
+   "jing_river"
+  ],
+  "GI6": [
+   "luo"
+  ],
+  "GI7": [
+   "xi"
+  ],
+  "GI11": [
+   "he_sea"
+  ],
+  "GI15": [
+   "crossing"
+  ],
+  "GI16": [
+   "crossing"
+  ],
+  "GI20": [
+   "crossing"
+  ],
+  "E1": [
+   "crossing"
+  ],
+  "E3": [
+   "crossing"
+  ],
+  "E4": [
+   "crossing"
+  ],
+  "E7": [
+   "crossing"
+  ],
+  "E8": [
+   "crossing"
+  ],
+  "E9": [
+   "crossing"
+  ],
+  "E12": [
+   "crossing"
+  ],
+  "E25": [
+   "mu"
+  ],
+  "E30": [
+   "crossing"
+  ],
+  "E34": [
+   "xi"
+  ],
+  "E36": [
+   "he_sea",
+   "lower_he"
+  ],
+  "E37": [
+   "lower_he"
+  ],
+  "E39": [
+   "lower_he"
+  ],
+  "E40": [
+   "luo"
+  ],
+  "E41": [
+   "jing_river"
+  ],
+  "E42": [
+   "yuan"
+  ],
+  "E43": [
+   "shu_stream"
+  ],
+  "E44": [
+   "ying_spring"
+  ],
+  "E45": [
+   "jing_well"
+  ],
+  "RP1": [
+   "jing_well"
+  ],
+  "RP2": [
+   "ying_spring"
+  ],
+  "RP3": [
+   "yuan",
+   "shu_stream"
+  ],
+  "RP4": [
+   "luo",
+   "confluent"
+  ],
+  "RP5": [
+   "jing_river"
+  ],
+  "RP6": [
+   "crossing"
+  ],
+  "RP8": [
+   "xi"
+  ],
+  "RP9": [
+   "he_sea"
+  ],
+  "RP12": [
+   "crossing"
+  ],
+  "RP13": [
+   "crossing"
+  ],
+  "RP15": [
+   "crossing"
+  ],
+  "RP16": [
+   "crossing"
+  ],
+  "RP21": [
+   "luo",
+   "great_luo"
+  ],
+  "C3": [
+   "he_sea"
+  ],
+  "C4": [
+   "jing_river"
+  ],
+  "C5": [
+   "luo"
+  ],
+  "C6": [
+   "xi"
+  ],
+  "C7": [
+   "yuan",
+   "shu_stream"
+  ],
+  "C8": [
+   "ying_spring"
+  ],
+  "C9": [
+   "jing_well"
+  ],
+  "IG1": [
+   "jing_well"
+  ],
+  "IG2": [
+   "ying_spring"
+  ],
+  "IG3": [
+   "shu_stream",
+   "confluent"
+  ],
+  "IG4": [
+   "yuan"
+  ],
+  "IG5": [
+   "jing_river"
+  ],
+  "IG6": [
+   "xi"
+  ],
+  "IG7": [
+   "luo"
+  ],
+  "IG8": [
+   "he_sea"
+  ],
+  "IG10": [
+   "crossing"
+  ],
+  "IG12": [
+   "crossing"
+  ],
+  "IG18": [
+   "crossing"
+  ],
+  "IG19": [
+   "crossing"
+  ],
+  "V1": [
+   "crossing"
+  ],
+  "V11": [
+   "hui",
+   "crossing"
+  ],
+  "V12": [
+   "crossing"
+  ],
+  "V13": [
+   "back_shu"
+  ],
+  "V14": [
+   "back_shu"
+  ],
+  "V15": [
+   "back_shu"
+  ],
+  "V16": [
+   "back_shu"
+  ],
+  "V17": [
+   "hui"
+  ],
+  "V18": [
+   "back_shu"
+  ],
+  "V19": [
+   "back_shu"
+  ],
+  "V20": [
+   "back_shu"
+  ],
+  "V21": [
+   "back_shu"
+  ],
+  "V22": [
+   "back_shu"
+  ],
+  "V23": [
+   "back_shu"
+  ],
+  "V25": [
+   "back_shu"
+  ],
+  "V27": [
+   "back_shu"
+  ],
+  "V28": [
+   "back_shu"
+  ],
+  "V31": [
+   "crossing"
+  ],
+  "V32": [
+   "crossing"
+  ],
+  "V33": [
+   "crossing"
+  ],
+  "V34": [
+   "crossing"
+  ],
+  "V39": [
+   "lower_he"
+  ],
+  "V40": [
+   "he_sea",
+   "lower_he"
+  ],
+  "V41": [
+   "crossing"
+  ],
+  "V58": [
+   "luo"
+  ],
+  "V59": [
+   "xi",
+   "crossing"
+  ],
+  "V60": [
+   "jing_river"
+  ],
+  "V61": [
+   "crossing"
+  ],
+  "V62": [
+   "confluent",
+   "crossing"
+  ],
+  "V63": [
+   "xi",
+   "crossing"
+  ],
+  "V64": [
+   "yuan"
+  ],
+  "V65": [
+   "shu_stream"
+  ],
+  "V66": [
+   "ying_spring"
+  ],
+  "V67": [
+   "jing_well"
+  ],
+  "R1": [
+   "jing_well"
+  ],
+  "R2": [
+   "ying_spring"
+  ],
+  "R3": [
+   "yuan",
+   "shu_stream"
+  ],
+  "R4": [
+   "luo"
+  ],
+  "R5": [
+   "xi"
+  ],
+  "R6": [
+   "confluent"
+  ],
+  "R7": [
+   "jing_river"
+  ],
+  "R8": [
+   "xi"
+  ],
+  "R9": [
+   "xi"
+  ],
+  "R10": [
+   "he_sea"
+  ],
+  "R11": [
+   "crossing"
+  ],
+  "R12": [
+   "crossing"
+  ],
+  "R13": [
+   "crossing"
+  ],
+  "R14": [
+   "crossing"
+  ],
+  "R15": [
+   "crossing"
+  ],
+  "R16": [
+   "crossing"
+  ],
+  "R17": [
+   "crossing"
+  ],
+  "R18": [
+   "crossing"
+  ],
+  "R19": [
+   "crossing"
+  ],
+  "R20": [
+   "crossing"
+  ],
+  "R21": [
+   "crossing"
+  ],
+  "MC1": [
+   "crossing"
+  ],
+  "MC3": [
+   "he_sea"
+  ],
+  "MC4": [
+   "xi"
+  ],
+  "MC5": [
+   "jing_river"
+  ],
+  "MC6": [
+   "luo",
+   "confluent"
+  ],
+  "MC7": [
+   "yuan",
+   "shu_stream"
+  ],
+  "MC8": [
+   "ying_spring"
+  ],
+  "MC9": [
+   "jing_well"
+  ],
+  "TR1": [
+   "jing_well"
+  ],
+  "TR2": [
+   "ying_spring"
+  ],
+  "TR3": [
+   "shu_stream"
+  ],
+  "TR4": [
+   "yuan"
+  ],
+  "TR5": [
+   "luo",
+   "confluent"
+  ],
+  "TR6": [
+   "jing_river"
+  ],
+  "TR7": [
+   "xi"
+  ],
+  "TR10": [
+   "he_sea"
+  ],
+  "TR13": [
+   "crossing"
+  ],
+  "TR15": [
+   "crossing"
+  ],
+  "TR17": [
+   "crossing"
+  ],
+  "TR20": [
+   "crossing"
+  ],
+  "TR22": [
+   "crossing"
+  ],
+  "VB1": [
+   "crossing"
+  ],
+  "VB3": [
+   "crossing"
+  ],
+  "VB4": [
+   "crossing"
+  ],
+  "VB5": [
+   "crossing"
+  ],
+  "VB6": [
+   "crossing"
+  ],
+  "VB7": [
+   "crossing"
+  ],
+  "VB8": [
+   "crossing"
+  ],
+  "VB9": [
+   "crossing"
+  ],
+  "VB10": [
+   "crossing"
+  ],
+  "VB11": [
+   "crossing"
+  ],
+  "VB12": [
+   "crossing"
+  ],
+  "VB13": [
+   "crossing"
+  ],
+  "VB14": [
+   "crossing"
+  ],
+  "VB15": [
+   "crossing"
+  ],
+  "VB16": [
+   "crossing"
+  ],
+  "VB17": [
+   "crossing"
+  ],
+  "VB18": [
+   "crossing"
+  ],
+  "VB19": [
+   "crossing"
+  ],
+  "VB20": [
+   "crossing"
+  ],
+  "VB21": [
+   "crossing"
+  ],
+  "VB23": [
+   "crossing"
+  ],
+  "VB24": [
+   "mu",
+   "crossing"
+  ],
+  "VB25": [
+   "mu"
+  ],
+  "VB26": [
+   "crossing"
+  ],
+  "VB27": [
+   "crossing"
+  ],
+  "VB28": [
+   "crossing"
+  ],
+  "VB29": [
+   "crossing"
+  ],
+  "VB30": [
+   "crossing"
+  ],
+  "VB34": [
+   "he_sea",
+   "hui",
+   "lower_he"
+  ],
+  "VB35": [
+   "xi",
+   "crossing"
+  ],
+  "VB36": [
+   "xi"
+  ],
+  "VB37": [
+   "luo"
+  ],
+  "VB38": [
+   "jing_river"
+  ],
+  "VB39": [
+   "hui"
+  ],
+  "VB40": [
+   "yuan"
+  ],
+  "VB41": [
+   "shu_stream",
+   "confluent"
+  ],
+  "VB43": [
+   "ying_spring"
+  ],
+  "VB44": [
+   "jing_well"
+  ],
+  "F1": [
+   "jing_well"
+  ],
+  "F2": [
+   "ying_spring"
+  ],
+  "F3": [
+   "yuan",
+   "shu_stream"
+  ],
+  "F4": [
+   "jing_river"
+  ],
+  "F5": [
+   "luo"
+  ],
+  "F6": [
+   "xi"
+  ],
+  "F8": [
+   "he_sea"
+  ],
+  "F13": [
+   "mu",
+   "hui",
+   "crossing"
+  ],
+  "F14": [
+   "mu",
+   "crossing"
+  ],
+  "VG1": [
+   "luo",
+   "crossing"
+  ],
+  "VG13": [
+   "crossing"
+  ],
+  "VG14": [
+   "crossing"
+  ],
+  "VG15": [
+   "crossing"
+  ],
+  "VG16": [
+   "crossing"
+  ],
+  "VG17": [
+   "crossing"
+  ],
+  "VG20": [
+   "crossing"
+  ],
+  "VG24": [
+   "crossing"
+  ],
+  "VG26": [
+   "crossing"
+  ],
+  "VG28": [
+   "crossing"
+  ],
+  "VC1": [
+   "crossing"
+  ],
+  "VC2": [
+   "crossing"
+  ],
+  "VC3": [
+   "mu",
+   "crossing"
+  ],
+  "VC4": [
+   "mu",
+   "crossing"
+  ],
+  "VC5": [
+   "mu"
+  ],
+  "VC7": [
+   "crossing"
+  ],
+  "VC10": [
+   "crossing"
+  ],
+  "VC12": [
+   "mu",
+   "hui",
+   "crossing"
+  ],
+  "VC13": [
+   "crossing"
+  ],
+  "VC14": [
+   "mu"
+  ],
+  "VC15": [
+   "luo"
+  ],
+  "VC17": [
+   "mu",
+   "hui",
+   "crossing"
+  ],
+  "VC22": [
+   "crossing"
+  ],
+  "VC23": [
+   "crossing"
+  ],
+  "VC24": [
+   "crossing"
+  ]
+ },
+ "five_shu_elements": {
+  "P11": "wood",
+  "P10": "fire",
+  "P9": "earth",
+  "P8": "metal",
+  "P5": "water",
+  "GI1": "metal",
+  "GI2": "water",
+  "GI3": "wood",
+  "GI5": "fire",
+  "GI11": "earth",
+  "E45": "metal",
+  "E44": "water",
+  "E43": "wood",
+  "E41": "fire",
+  "E36": "earth",
+  "RP1": "wood",
+  "RP2": "fire",
+  "RP3": "earth",
+  "RP5": "metal",
+  "RP9": "water",
+  "C9": "wood",
+  "C8": "fire",
+  "C7": "earth",
+  "C4": "metal",
+  "C3": "water",
+  "IG1": "metal",
+  "IG2": "water",
+  "IG3": "wood",
+  "IG5": "fire",
+  "IG8": "earth",
+  "V67": "metal",
+  "V66": "water",
+  "V65": "wood",
+  "V60": "fire",
+  "V40": "earth",
+  "R1": "wood",
+  "R2": "fire",
+  "R3": "earth",
+  "R7": "metal",
+  "R10": "water",
+  "MC9": "wood",
+  "MC8": "fire",
+  "MC7": "earth",
+  "MC5": "metal",
+  "MC3": "water",
+  "TR1": "metal",
+  "TR2": "water",
+  "TR3": "wood",
+  "TR6": "fire",
+  "TR10": "earth",
+  "VB44": "metal",
+  "VB43": "water",
+  "VB41": "wood",
+  "VB38": "fire",
+  "VB34": "earth",
+  "F1": "wood",
+  "F2": "fire",
+  "F3": "earth",
+  "F4": "metal",
+  "F8": "water"
+ },
+ "luo_links": [
+  {
+   "from": "P7",
+   "meridian": "lung",
+   "to_meridian": "large_intestine",
+   "to": "GI4",
+   "kind": "luo"
+  },
+  {
+   "from": "GI6",
+   "meridian": "large_intestine",
+   "to_meridian": "lung",
+   "to": "P9",
+   "kind": "luo"
+  },
+  {
+   "from": "E40",
+   "meridian": "stomach",
+   "to_meridian": "spleen",
+   "to": "RP3",
+   "kind": "luo"
+  },
+  {
+   "from": "RP4",
+   "meridian": "spleen",
+   "to_meridian": "stomach",
+   "to": "E42",
+   "kind": "luo"
+  },
+  {
+   "from": "C5",
+   "meridian": "heart",
+   "to_meridian": "small_intestine",
+   "to": "IG4",
+   "kind": "luo"
+  },
+  {
+   "from": "IG7",
+   "meridian": "small_intestine",
+   "to_meridian": "heart",
+   "to": "C7",
+   "kind": "luo"
+  },
+  {
+   "from": "V58",
+   "meridian": "bladder",
+   "to_meridian": "kidney",
+   "to": "R3",
+   "kind": "luo"
+  },
+  {
+   "from": "R4",
+   "meridian": "kidney",
+   "to_meridian": "bladder",
+   "to": "V64",
+   "kind": "luo"
+  },
+  {
+   "from": "MC6",
+   "meridian": "pericardium",
+   "to_meridian": "triple_burner",
+   "to": "TR4",
+   "kind": "luo"
+  },
+  {
+   "from": "TR5",
+   "meridian": "triple_burner",
+   "to_meridian": "pericardium",
+   "to": "MC7",
+   "kind": "luo"
+  },
+  {
+   "from": "VB37",
+   "meridian": "gallbladder",
+   "to_meridian": "liver",
+   "to": "F3",
+   "kind": "luo"
+  },
+  {
+   "from": "F5",
+   "meridian": "liver",
+   "to_meridian": "gallbladder",
+   "to": "VB40",
+   "kind": "luo"
+  },
+  {
+   "from": "VC15",
+   "meridian": "conception_vessel",
+   "to_meridian": null,
+   "to": null,
+   "kind": "luo",
+   "disperses": {
+    "ru": "расходится по животу",
+    "en": "spreads over the abdomen",
+    "uz": "qorin bo'ylab tarqaladi",
+    "kz": "іш бойына таралады"
+   }
+  },
+  {
+   "from": "VG1",
+   "meridian": "governing_vessel",
+   "to_meridian": "bladder",
+   "to": null,
+   "kind": "luo",
+   "disperses": {
+    "ru": "поднимается вдоль позвоночника, расходится по голове и у лопаток соединяется с меридианом мочевого пузыря",
+    "en": "rises along the spine, spreads over the head and joins the Bladder Meridian at the shoulder blades",
+    "uz": "umurtqa pog'onasi bo'ylab ko'tariladi, bosh bo'ylab tarqaladi va kuraklar sohasida Siydik pufagi meridianiga qo'shiladi",
+    "kz": "омыртқа бойымен көтеріліп, басқа таралады және жауырын тұсында Қуық меридианына қосылады"
+   }
+  },
+  {
+   "from": "RP21",
+   "meridian": "spleen",
+   "to_meridian": null,
+   "to": null,
+   "kind": "great_luo",
+   "disperses": {
+    "ru": "расходится по груди и бокам",
+    "en": "spreads through the chest and flanks",
+    "uz": "ko'krak va biqinlar bo'ylab tarqaladi",
+    "kz": "кеуде мен бүйірлерге таралады"
+   }
+  }
+ ],
+ "crossings": [
+  {
+   "point": "P1",
+   "meridians": [
+    "lung",
+    "spleen"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "GI15",
+   "meridians": [
+    "large_intestine",
+    "yang_qiao_mai"
+   ],
+   "confidence": "medium",
+   "variants": [
+    "small_intestine",
+    "bladder"
+   ],
+   "note": "Deadman: LI + Yang Qiao; Practical Dictionary table adds SI and BL instead"
+  },
+  {
+   "point": "GI16",
+   "meridians": [
+    "large_intestine",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "GI20",
+   "meridians": [
+    "large_intestine",
+    "stomach"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "E1",
+   "meridians": [
+    "stomach",
+    "conception_vessel",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "E3",
+   "meridians": [
+    "stomach",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "E4",
+   "meridians": [
+    "stomach",
+    "large_intestine",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high",
+   "variants": [
+    "conception_vessel"
+   ]
+  },
+  {
+   "point": "E7",
+   "meridians": [
+    "stomach",
+    "gallbladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "E8",
+   "meridians": [
+    "stomach",
+    "gallbladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "E9",
+   "meridians": [
+    "stomach",
+    "gallbladder"
+   ],
+   "confidence": "medium",
+   "note": "listed in Deadman and the Practical Dictionary table, absent from some point databases"
+  },
+  {
+   "point": "E12",
+   "meridians": [
+    "stomach",
+    "large_intestine",
+    "small_intestine",
+    "triple_burner",
+    "gallbladder"
+   ],
+   "confidence": "medium",
+   "note": "Practical Dictionary jiaohui table; many texts describe Quepen as the junction of these channels without calling it a meeting point"
+  },
+  {
+   "point": "E30",
+   "meridians": [
+    "stomach",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "RP6",
+   "meridians": [
+    "spleen",
+    "liver",
+    "kidney"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "RP12",
+   "meridians": [
+    "spleen",
+    "liver"
+   ],
+   "confidence": "high",
+   "variants": [
+    "yin_wei_mai"
+   ]
+  },
+  {
+   "point": "RP13",
+   "meridians": [
+    "spleen",
+    "liver",
+    "yin_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "RP15",
+   "meridians": [
+    "spleen",
+    "yin_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "RP16",
+   "meridians": [
+    "spleen",
+    "yin_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "IG10",
+   "meridians": [
+    "small_intestine",
+    "yang_wei_mai",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high",
+   "variants": [
+    "bladder"
+   ]
+  },
+  {
+   "point": "IG12",
+   "meridians": [
+    "small_intestine",
+    "large_intestine",
+    "triple_burner",
+    "gallbladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "IG18",
+   "meridians": [
+    "small_intestine",
+    "triple_burner"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "IG19",
+   "meridians": [
+    "small_intestine",
+    "triple_burner",
+    "gallbladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "V1",
+   "meridians": [
+    "bladder",
+    "small_intestine",
+    "stomach",
+    "yin_qiao_mai",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high",
+   "variants": [
+    "gallbladder",
+    "triple_burner",
+    "governing_vessel"
+   ]
+  },
+  {
+   "point": "V11",
+   "meridians": [
+    "bladder",
+    "small_intestine"
+   ],
+   "confidence": "high",
+   "variants": [
+    "triple_burner",
+    "gallbladder",
+    "governing_vessel"
+   ]
+  },
+  {
+   "point": "V12",
+   "meridians": [
+    "bladder",
+    "governing_vessel"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "V31",
+   "meridians": [
+    "bladder",
+    "gallbladder"
+   ],
+   "confidence": "medium",
+   "note": "Practical Dictionary jiaohui table only"
+  },
+  {
+   "point": "V32",
+   "meridians": [
+    "bladder",
+    "gallbladder"
+   ],
+   "confidence": "medium",
+   "note": "Practical Dictionary jiaohui table only"
+  },
+  {
+   "point": "V33",
+   "meridians": [
+    "bladder",
+    "gallbladder"
+   ],
+   "confidence": "medium",
+   "note": "Practical Dictionary jiaohui table only"
+  },
+  {
+   "point": "V34",
+   "meridians": [
+    "bladder",
+    "gallbladder"
+   ],
+   "confidence": "medium",
+   "note": "Practical Dictionary jiaohui table only"
+  },
+  {
+   "point": "V41",
+   "meridians": [
+    "bladder",
+    "small_intestine"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "V59",
+   "meridians": [
+    "bladder",
+    "yang_qiao_mai"
+   ],
+   "confidence": "medium",
+   "note": "xi-cleft point of Yang Qiao, which runs through it"
+  },
+  {
+   "point": "V61",
+   "meridians": [
+    "bladder",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "V62",
+   "meridians": [
+    "bladder",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high",
+   "note": "Yang Qiao starts here"
+  },
+  {
+   "point": "V63",
+   "meridians": [
+    "bladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "high",
+   "note": "Yang Wei starts here"
+  },
+  {
+   "point": "R11",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R12",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R13",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R14",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R15",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R16",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R17",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R18",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R19",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R20",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "R21",
+   "meridians": [
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "MC1",
+   "meridians": [
+    "pericardium",
+    "gallbladder",
+    "liver",
+    "triple_burner"
+   ],
+   "confidence": "medium",
+   "note": "Deadman and Practical Dictionary list four channels; some databases give only PC + GB"
+  },
+  {
+   "point": "TR13",
+   "meridians": [
+    "triple_burner",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "TR15",
+   "meridians": [
+    "triple_burner",
+    "yang_wei_mai"
+   ],
+   "confidence": "high",
+   "variants": [
+    "gallbladder"
+   ]
+  },
+  {
+   "point": "TR17",
+   "meridians": [
+    "triple_burner",
+    "gallbladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "TR20",
+   "meridians": [
+    "triple_burner",
+    "gallbladder"
+   ],
+   "confidence": "medium",
+   "variants": [
+    "small_intestine",
+    "large_intestine"
+   ],
+   "note": "third channel differs between sources (SI or LI)"
+  },
+  {
+   "point": "TR22",
+   "meridians": [
+    "triple_burner",
+    "gallbladder",
+    "small_intestine"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB1",
+   "meridians": [
+    "gallbladder",
+    "small_intestine",
+    "triple_burner"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB3",
+   "meridians": [
+    "gallbladder",
+    "triple_burner",
+    "stomach"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB4",
+   "meridians": [
+    "gallbladder",
+    "triple_burner",
+    "stomach"
+   ],
+   "confidence": "high",
+   "variants": [
+    "large_intestine"
+   ]
+  },
+  {
+   "point": "VB5",
+   "meridians": [
+    "gallbladder",
+    "triple_burner",
+    "stomach",
+    "large_intestine"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB6",
+   "meridians": [
+    "gallbladder",
+    "triple_burner",
+    "stomach",
+    "large_intestine"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB7",
+   "meridians": [
+    "gallbladder",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB8",
+   "meridians": [
+    "gallbladder",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB9",
+   "meridians": [
+    "gallbladder",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB10",
+   "meridians": [
+    "gallbladder",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB12",
+   "meridians": [
+    "gallbladder",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB11",
+   "meridians": [
+    "gallbladder",
+    "bladder"
+   ],
+   "confidence": "high",
+   "variants": [
+    "small_intestine",
+    "triple_burner"
+   ]
+  },
+  {
+   "point": "VB13",
+   "meridians": [
+    "gallbladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB14",
+   "meridians": [
+    "gallbladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "high",
+   "variants": [
+    "stomach",
+    "large_intestine",
+    "triple_burner"
+   ]
+  },
+  {
+   "point": "VB15",
+   "meridians": [
+    "gallbladder",
+    "bladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB16",
+   "meridians": [
+    "gallbladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB17",
+   "meridians": [
+    "gallbladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB18",
+   "meridians": [
+    "gallbladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB19",
+   "meridians": [
+    "gallbladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB20",
+   "meridians": [
+    "gallbladder",
+    "triple_burner",
+    "yang_wei_mai",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB21",
+   "meridians": [
+    "gallbladder",
+    "triple_burner",
+    "stomach",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB23",
+   "meridians": [
+    "gallbladder",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB24",
+   "meridians": [
+    "gallbladder",
+    "spleen"
+   ],
+   "confidence": "high",
+   "variants": [
+    "yang_wei_mai"
+   ]
+  },
+  {
+   "point": "VB26",
+   "meridians": [
+    "gallbladder",
+    "dai_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB27",
+   "meridians": [
+    "gallbladder",
+    "dai_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB28",
+   "meridians": [
+    "gallbladder",
+    "dai_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB29",
+   "meridians": [
+    "gallbladder",
+    "yang_qiao_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB30",
+   "meridians": [
+    "gallbladder",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VB35",
+   "meridians": [
+    "gallbladder",
+    "yang_wei_mai"
+   ],
+   "confidence": "medium",
+   "note": "xi-cleft point of Yang Wei, which runs through it"
+  },
+  {
+   "point": "F13",
+   "meridians": [
+    "liver",
+    "gallbladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "F14",
+   "meridians": [
+    "liver",
+    "spleen",
+    "yin_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VG1",
+   "meridians": [
+    "governing_vessel",
+    "conception_vessel",
+    "kidney",
+    "gallbladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VG13",
+   "meridians": [
+    "governing_vessel",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VG14",
+   "meridians": [
+    "governing_vessel",
+    "large_intestine",
+    "stomach",
+    "small_intestine",
+    "bladder",
+    "triple_burner",
+    "gallbladder"
+   ],
+   "confidence": "high",
+   "note": "meeting of the governing vessel with all six yang channels"
+  },
+  {
+   "point": "VG15",
+   "meridians": [
+    "governing_vessel",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VG16",
+   "meridians": [
+    "governing_vessel",
+    "yang_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VG17",
+   "meridians": [
+    "governing_vessel",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VG20",
+   "meridians": [
+    "governing_vessel",
+    "bladder",
+    "triple_burner",
+    "gallbladder",
+    "liver"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VG24",
+   "meridians": [
+    "governing_vessel",
+    "stomach",
+    "bladder"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VG26",
+   "meridians": [
+    "governing_vessel",
+    "large_intestine",
+    "stomach"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VG28",
+   "meridians": [
+    "governing_vessel",
+    "conception_vessel",
+    "stomach"
+   ],
+   "confidence": "medium",
+   "note": "some sources list only GV + CV"
+  },
+  {
+   "point": "VC1",
+   "meridians": [
+    "conception_vessel",
+    "governing_vessel",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC2",
+   "meridians": [
+    "conception_vessel",
+    "liver"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC3",
+   "meridians": [
+    "conception_vessel",
+    "spleen",
+    "kidney",
+    "liver"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC4",
+   "meridians": [
+    "conception_vessel",
+    "spleen",
+    "kidney",
+    "liver"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC7",
+   "meridians": [
+    "conception_vessel",
+    "kidney",
+    "chong_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC10",
+   "meridians": [
+    "conception_vessel",
+    "spleen"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC12",
+   "meridians": [
+    "conception_vessel",
+    "stomach",
+    "small_intestine",
+    "triple_burner"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC13",
+   "meridians": [
+    "conception_vessel",
+    "stomach",
+    "small_intestine"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC17",
+   "meridians": [
+    "conception_vessel",
+    "spleen",
+    "kidney",
+    "small_intestine",
+    "triple_burner"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC22",
+   "meridians": [
+    "conception_vessel",
+    "yin_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC23",
+   "meridians": [
+    "conception_vessel",
+    "yin_wei_mai"
+   ],
+   "confidence": "high"
+  },
+  {
+   "point": "VC24",
+   "meridians": [
+    "conception_vessel",
+    "governing_vessel",
+    "large_intestine",
+    "stomach"
+   ],
+   "confidence": "high"
+  }
+ ],
+ "mu_of": {
+  "P1": "lung",
+  "E25": "large_intestine",
+  "VC12": "stomach",
+  "F13": "spleen",
+  "VC14": "heart",
+  "VC4": "small_intestine",
+  "VC3": "bladder",
+  "VB25": "kidney",
+  "VC17": "pericardium",
+  "VC5": "triple_burner",
+  "VB24": "gallbladder",
+  "F14": "liver"
+ },
+ "back_shu_of": {
+  "V13": "lung",
+  "V14": "pericardium",
+  "V15": "heart",
+  "V16": "governing_vessel",
+  "V18": "liver",
+  "V19": "gallbladder",
+  "V20": "spleen",
+  "V21": "stomach",
+  "V22": "triple_burner",
+  "V23": "kidney",
+  "V25": "large_intestine",
+  "V27": "small_intestine",
+  "V28": "bladder"
+ },
+ "confluent_of": {
+  "P7": "conception_vessel",
+  "R6": "yin_qiao_mai",
+  "RP4": "chong_mai",
+  "MC6": "yin_wei_mai",
+  "IG3": "governing_vessel",
+  "V62": "yang_qiao_mai",
+  "VB41": "dai_mai",
+  "TR5": "yang_wei_mai"
+ },
+ "confluent_pairs": [
+  [
+   "P7",
+   "R6"
+  ],
+  [
+   "RP4",
+   "MC6"
+  ],
+  [
+   "IG3",
+   "V62"
+  ],
+  [
+   "VB41",
+   "TR5"
+  ]
+ ],
+ "hui_of": {
+  "F13": "zang",
+  "VC12": "fu",
+  "VC17": "qi",
+  "V17": "blood",
+  "VB34": "sinews",
+  "VB39": "marrow",
+  "V11": "bones",
+  "P9": "vessels"
+ },
+ "xi_of": {
+  "P6": "lung",
+  "GI7": "large_intestine",
+  "E34": "stomach",
+  "RP8": "spleen",
+  "C6": "heart",
+  "IG6": "small_intestine",
+  "V63": "bladder",
+  "R5": "kidney",
+  "MC4": "pericardium",
+  "TR7": "triple_burner",
+  "VB36": "gallbladder",
+  "F6": "liver",
+  "R8": "yin_qiao_mai",
+  "R9": "yin_wei_mai",
+  "V59": "yang_qiao_mai",
+  "VB35": "yang_wei_mai"
+ },
+ "lower_he_of": {
+  "E36": "stomach",
+  "E37": "large_intestine",
+  "E39": "small_intestine",
+  "V40": "bladder",
+  "V39": "triple_burner",
+  "VB34": "gallbladder"
+ }
+}
