@@ -15,7 +15,8 @@ import { PALETTE, BODY_TONE } from './channels.js';
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
 const BODY_COLORS = {
-  light: { base: '#ddd5cd', shadow: '#a8968a', rim: '#ffffff' },
+  // a cooler, darker clay than the page background (#f4f1ec), so the body does not melt into it
+  light: { base: '#d6cabe', shadow: '#a08c7d', rim: '#ffffff' },
   dark: { base: '#4e4844', shadow: '#2a2522', rim: '#9fb4c8' },
 };
 
@@ -460,7 +461,7 @@ export class MeridianScene {
       if (i < codes.length - 1) for (const v of this.viaStops(code, codes[i + 1], side)) { stops.push(v); stopCodes.push(null); }
     });
     if (stops.length < 2) return null;
-    const { atts, stopIndex } = this.skin.layCurve(stops);
+    const { atts, stopIndex } = this.skin.layCurve(stops, 0.005, { midline: !!flags.midline, quiet: true });
     return { side, atts, stopIndex, stopCodes, s0, positions: null, arcs: null, ...flags };
   }
 
@@ -473,7 +474,9 @@ export class MeridianScene {
     chains.forEach((codes, ci) => {
       if (codes.length < 2) return;
       const s0 = arcOf.has(codes[0]) ? arcOf.get(codes[0]) : 0;
-      const made = sides.map((side) => this.layChain(codes, side, s0, { chain: ci })).filter(Boolean);
+      // unpaired channels (Du Mai, Ren Mai) stay exactly on the midline
+      const midline = !ch.bilateral && ch.kind !== 'vessel';
+      const made = sides.map((side) => this.layChain(codes, side, s0, { chain: ci, midline })).filter(Boolean);
       polylines.push(...made);
       const ref = made[0];
       if (!ref) return;
@@ -620,16 +623,18 @@ export class MeridianScene {
     const full = new Set(sel.fullColor || []);
     for (const [id, [a, b]] of this.segRanges) {
       const c = new THREE.Color(this.colorOf(id));
-      // spec says 35 % on home; on thin lines that reads as white, 12 % keeps the hue
-      let mix = level === 'home' ? 0.12 : 0.75;
+      // home: only the active channel is bright, the rest recede (14 bright lines merged into a tangle);
+      // the muted lines keep a darker version of their hue instead of turning white
+      let mix = level === 'home' ? 0.55 : 0.75;
       if (id === sel.pair) mix = 0.5;
       if (full.has(id) || highlight.has(id)) mix = 0;
       c.lerp(tone, mix);
       for (let i = a; i < b; i++) colors.set([c.r, c.g, c.b, c.r, c.g, c.b], i * 6);
     }
     this.overview.geometry.attributes.instanceColorStart.data.needsUpdate = true;
-    this.overview.material.linewidth = level === 'home' ? 2.5 : 1.5;
-    this.overview.material.uniforms.uCasing.value = this.theme === 'light' ? (level === 'home' ? 0.3 : 0.2) : 0;
+    this.overview.material.linewidth = level === 'home' ? 2.0 : 1.5;
+    // no white casing on the muted overview: on the light theme it made them look like scratches
+    this.overview.material.uniforms.uCasing.value = 0;
     this.overview.material.uniforms.uDarkEdge.value = this.theme === 'dark' ? 1 : 0;
     this.overview.visible = true;
 
@@ -650,7 +655,7 @@ export class MeridianScene {
       const c = new THREE.Color(this.colorOf(e.channel));
       let state = 0;
       let shp = e.shape || 0;
-      let sz = 7 + (shp === 1 ? 1 : 0);
+      let sz = 10 + (shp === 1 ? 1 : 0);   // 7 px was too small to see on a phone
       let coreC = white;
       let ringC = null;
       let a = -1000;
@@ -660,7 +665,7 @@ export class MeridianScene {
           coreC = [c.r, c.g, c.b];
           ringC = vesselColor;
           a = vesselArc?.get(e.code) ?? -1000;
-          if (e.code === vessel.confluent || e.code === vessel.coupled) { shp = 2; sz = 9; }
+          if (e.code === vessel.confluent || e.code === vessel.coupled) { shp = 2; sz = 12; }
           if (e.code === vessel.coupled && vessel.coupledColor) ringC = new THREE.Color(vessel.coupledColor);
         }
       } else if (visible) {

@@ -71,7 +71,8 @@ SPEC = {
     # E40 level with E38, in front of the fibula (VB36 sits on its anterior border at az 72, lower)
     "E40": shin(_E35_Y - 8 * _SHIN_CUN, 72),
     # Ankle and foot
-    "E41": (np.array([0.216, 0.104, 0.03]), np.array([0.0, 0.0, -1.0])),
+    # front of the ankle joint, level with the malleolar prominences (lateral ~0.07, medial tip 0.08)
+    "E41": (np.array([0.218, 0.090, 0.03]), np.array([0.0, 0.0, -1.0])),
     "E42": foot_top(0.214, -0.035),        # over the 2nd/3rd cuneiforms, highest part of the dorsum
     "E43": foot_top(0.222, 0.008),
     "E44": foot_top(0.222, 0.031),

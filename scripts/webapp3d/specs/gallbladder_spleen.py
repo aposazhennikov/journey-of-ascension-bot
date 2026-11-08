@@ -91,7 +91,8 @@ SPEC = {
     "VB39": shin(MALL_Y + 3 * CUN_LEG, 86),
     # lateral malleolus bulge at (0.259, 0.07, -0.11); VB40 in the depression in front of and below it
     "VB40": (np.array([0.215, 0.054, -0.095]), np.array([1.0, -0.1, 0.3])),
-    "VB41": foot_top(0.250, -0.012),
+    # distal to the junction of the 4th/5th metatarsal bases (5th tuberosity ~z -0.058), not at the MTP heads
+    "VB41": foot_top(0.244, -0.038),                 # x 0.248 already slid onto the lateral edge
     "VB42": foot_top(0.252, 0.002),
     "VB43": foot_top(0.2535, 0.017),                 # web margin between toes 4 and 5
     "VB44": (J["l-toe-4-3"], np.array([1.0, 0.6, 0.3])),
@@ -123,4 +124,8 @@ SPEC = {
 
 VIA = {
     "VB12>VB13": [sph(120, 42), sph(100, 55), sph(65, 58)],
+    # shoulder -> supraclavicular fossa (ST12, outside-in from above like E12) -> down in front of the
+    # armpit to VB22; before, the line ran out onto the deltoid and jumped through the armpit gap
+    "VB21>VB22": [(np.array([4 * CUN_T, 1.40, -0.050]), np.array([0.0, -1.0, 0.25])),
+                  torso(1.300, 60), torso(1.250, 78)],
 }

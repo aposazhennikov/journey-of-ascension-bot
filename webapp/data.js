@@ -2,7 +2,7 @@
 
 import { CLOCK_ORDER, MIDLINE_IDS, VESSEL_IDS, VIEW, TRANSITIONS } from './channels.js';
 
-export const ASSET_VERSION = '2026-11-08-1';
+export const ASSET_VERSION = '2026-11-08-2';
 
 async function getJson(url, optional = false) {
   try {

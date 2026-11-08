@@ -108,7 +108,7 @@ SPEC = {
     "GI13": _ua(3, 98),
     "GI14": _ua(7, 90),
     "GI15": (_S, np.array([0.65, 0.65, 0.3])),
-    "GI16": (np.array([0.135, 1.33, -0.10]), np.array([0.0, 1.0, -0.15])),
+    "GI16": (np.array([0.152, 1.33, -0.10]), np.array([0.0, 1.0, -0.15])),
     "GI17": _neck(1.387, 80),
     "GI18": _neck(1.405, 72),
     "GI19": face(0.012, 1.490, z_hint=0.045, toward=(0.15, 0.0, 1.0)),
@@ -155,8 +155,10 @@ SPEC = {
     "MC9": (lerp(_f(3, 3), _f(3, 4), 0.3), _f(3, 4) - _f(3, 3)),
     # ---- Triple burner ----
     "TR1": _nail(4, -130),
-    "TR2": hand(lerp(_MCP45, lerp(_f(4, 2), _f(5, 2), 0.5), 0.1), 180),
-    "TR3": hand(lerp(WRIST, _MCP45, 0.72), 180),
+    # web margin between the 4th and 5th fingers (0.1 sat on the knuckles; the mesh web is
+    # shallow - MCP->PIP is ~25 mm and from 0.3 on the origin is in the finger gap and misses)
+    "TR2": hand(lerp(_MCP45, lerp(_f(4, 2), _f(5, 2), 0.5), 0.25), 180),
+    "TR3": hand(lerp(WRIST, _MCP45, 0.8), 180),
     "TR4": _fa(0, -170),
     "TR5": _fa(2, 180),
     "TR6": _fa(3, 180),
@@ -166,8 +168,11 @@ SPEC = {
     "TR10": _ua(1, 180),
     "TR11": _ua(2, 180),
     "TR12": _ua(5, 180),
-    "TR13": _ua(8, 170),
-    "TR14": (_S, np.array([0.65, 0.65, -0.25])),   # ~1.3 cun behind GI15
+    # WHO: 3 cun below the acromial angle (8 cun put it ~5 cun below TR14)
+    "TR13": _ua(9.5, 170),
+    # posterolateral shoulder below the acromial angle, ~2 cun behind GI15 (the old ray
+    # (0.65, 0.65, -0.25) landed on top of the shoulder, 25 mm from GI15)
+    "TR14": (_S, np.array([0.6, 0.55, -0.55])),
     "TR15": (np.array([0.09, 1.33, -0.09]), np.array([0.0, 0.6, -1.0])),
     "TR16": _neck(1.457, 112),
     "TR17": aim(0.060, 1.503, -0.078),
@@ -180,15 +185,15 @@ SPEC = {
 }
 
 VIA = {
-    # around the anterior axillary fold instead of across the armpit gap
+    # over the top of the anterior axillary fold (solid skin from y ~1.29 up); the old
+    # second waypoint went up into the armpit vault and the line jumped across the gap
     "MC1>MC2": [(np.array([0.10, 1.25, -0.07]), np.array([0.5, 0.0, 0.866])),
-                (np.array([0.18, 1.25, -0.065]), np.array([0.0, 1.0, 0.0]))],
+                (np.array([0.165, 1.295, -0.09]), np.array([0.0, 0.0, 1.0]))],
     "C7>C8": [hand(lerp(WRIST, _MCP45, 0.3), -15)],
     "IG8>IG9": [_ua(3, -160), _ua(6, -170)],
     "IG15>IG16": [_neck(1.405, 120)],
     "IG18>IG19": [aim(0.064, 1.520, -0.010)],
     "TR9>TR10": [_fa(11, 180), _ua(0, 180)],
-    "TR13>TR14": [_ua(9.5, 172), (_S, np.array([0.45, 0.35, -0.8]))],
     "GI14>GI15": [_ua(10, 80)],
     "TR14>TR15": [back(0.14, 1.368)],
     "GI18>GI19": [_neck(1.432, 55, z=-0.07), face(0.040, 1.462, z_hint=0.02, toward=(0.6, 0.0, 0.8)),

@@ -142,7 +142,7 @@ SPEC.update({
     "V55": shin(V55_Y, 180),
     "V56": shin((V55_Y + CALF_MID_Y) / 2, 180),
     "V57": shin(CALF_MID_Y, 180),
-    "V58": shin(V60_Y + 7 * CUN_LEG, 145),
+    "V58": shin(V60_Y + 7 * CUN_LEG, 160),        # ~1 cun lateral/inferior to V57 (az 145 gave ~1.7 cun)
     "V59": shin(V60_Y + 3 * CUN_LEG, 135),
     # ankle and lateral foot
     "V60": (np.array([0.222, V60_Y, -0.115]), unit([0.75, 0.0, -0.66])),

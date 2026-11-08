@@ -34,12 +34,12 @@
     {
       "title": "Editorial note: Chong Mai",
       "url": null,
-      "note": "Deadman lists VC1, VC7, E30, R11-R21. VC7 (Yin-jiao) is a meeting point on the midline 1 cun below the navel; it is left out of the drawn path because it would make the line zigzag between the midline and the kidney line. Above R21 the vessel disperses in the chest, rises to the throat and encircles the lips without named meeting points; VC23 and VC24 are drawn only as landmarks for this section (marked in path_note_codes). The descending branch along the inner leg to the foot and the posterior branch along the spine are not drawn."
+      "note": "Deadman lists VC1, VC7, E30, R11-R21. The drawn line starts at E30 (Qi-chong), where the vessel is classically said to emerge on the surface; the short deep section from VC1 in the perineum to E30 is not drawn, because on the skin it would cross the genitals. VC7 (Yin-jiao) is a meeting point on the midline 1 cun below the navel; it is left out of the drawn path because it would make the line zigzag between the midline and the kidney line. Above R21 the vessel disperses in the chest, rises to the throat and encircles the lips without named meeting points; VC23 and VC24 are drawn only as landmarks for this section (marked in path_note_codes). The descending branch along the inner leg to the foot and the posterior branch along the spine are not drawn."
     },
     {
       "title": "Editorial note: Dai Mai",
       "url": null,
-      "note": "Deadman list: F13, VB26, VB27, VB28. Baidu Baike lists only VB26-VB28 and says the vessel starts below the ribs, so F13 is kept as the start but marked in path_note_codes. The back half of the belt is said to cross the lumbar region at the level of L2 (near V23 / VG4); no source gives it as a meeting point, so it is not part of the path."
+      "note": "Deadman list: F13, VB26, VB27, VB28. Baidu Baike lists only VB26-VB28 and says the vessel starts below the ribs, so F13 is kept as the start but marked in path_note_codes. The back half of the belt is said to cross the lumbar region at the level of L2 (near V23 / VG4); no source gives it as a meeting point, but without it the map showed no belt at all from behind, so the back half is drawn through VG4, V23, V52 and VB25 (all at the L2-L3 level) and these are marked in path_note_codes as landmarks only."
     },
     {
       "title": "Editorial note: Yin Wei Mai",
@@ -54,12 +54,12 @@
     {
       "title": "Editorial note: Yin Qiao Mai",
       "url": null,
-      "note": "Ling Shu and Baidu Baike place the origin behind the navicular bone, at Ran-gu (R2); Deadman and most modern lists start at the opening point R6, which is used here. Between R8 and E12 the vessel runs along the inner thigh, genitals, abdomen and chest without meeting points, so the map line jumps from R8 to E12. Baidu Baike lists only R6, R8 and V1 as intersection points and names the supraclavicular fossa and Ren-ying only as landmarks, so E12 and E9 are both marked in path_note_codes."
+      "note": "Ling Shu and Baidu Baike place the origin behind the navicular bone, at Ran-gu (R2); Deadman and most modern lists start at the opening point R6, which is used here. Between R8 and E12 the vessel runs along the inner thigh, genitals, abdomen and chest without meeting points; the map line is led there by shape-only waypoints (medial calf and thigh, groin, front of the abdomen and chest). Baidu Baike lists only R6, R8 and V1 as intersection points and names the supraclavicular fossa and Ren-ying only as landmarks, so E12 and E9 are both marked in path_note_codes."
     },
     {
       "title": "Editorial note: Yang Qiao Mai",
       "url": null,
-      "note": "Deadman list: V62, V61, V59, VB29, IG10, GI15, GI16, E4, E3, E1, V1, VB20. Baidu Baike (modern Chinese list) also has TR15 between GI16 and E4; it is added to the path and marked in path_note_codes. Baidu does not list VB20 as an intersection point, though its course text ends at Feng-chi; the section from V1 over the head to VB20 has no meeting points and VB20 is marked in path_note_codes. Some sources start at V61 rather than V62, add E9 on the neck, or continue from VB20 to VG16 and into the brain; these are not drawn."
+      "note": "Deadman list: V62, V61, V59, VB29, IG10, GI15, GI16, E4, E3, E1, V1, VB20. Baidu Baike (modern Chinese list) also has TR15 between GI16 and E4; it is not drawn, because TR15 lies on the back of the scapula and the line would run from the shoulder top back to the scapula and then across the front of the neck to the mouth (the Deadman course goes straight up the side of the neck). Baidu does not list VB20 as an intersection point, though its course text ends at Feng-chi; the section from V1 over the head to VB20 has no meeting points and VB20 is marked in path_note_codes. Some sources start at V61 rather than V62, add E9 on the neck, or continue from VB20 to VG16 and into the brain; these are not drawn."
     }
   ],
   "vessels": [
@@ -69,7 +69,7 @@
       "bilateral": true,
       "confluent_point": "RP4",
       "coupled_point": "MC6",
-      "path": ["VC1", "E30", "R11", "R12", "R13", "R14", "R15", "R16", "R17", "R18", "R19", "R20", "R21", "VC23", "VC24"],
+      "path": ["E30", "R11", "R12", "R13", "R14", "R15", "R16", "R17", "R18", "R19", "R20", "R21", "VC23", "VC24"],
       "path_note_codes": ["VC23", "VC24"],
       "i18n": {
         "ru": {
@@ -108,8 +108,8 @@
       "bilateral": true,
       "confluent_point": "VB41",
       "coupled_point": "TR5",
-      "path": ["F13", "VB26", "VB27", "VB28"],
-      "path_note_codes": ["F13"],
+      "path": ["VG4", "V23", "V52", "VB25", "F13", "VB26", "VB27", "VB28"],
+      "path_note_codes": ["VG4", "V23", "V52", "VB25", "F13"],
       "i18n": {
         "ru": {
           "name": "Опоясывающий меридиан (Дай-май)",
@@ -264,8 +264,8 @@
       "bilateral": true,
       "confluent_point": "V62",
       "coupled_point": "IG3",
-      "path": ["V62", "V61", "V59", "VB29", "IG10", "GI15", "GI16", "TR15", "E4", "E3", "E1", "V1", "VB20"],
-      "path_note_codes": ["TR15", "VB20"],
+      "path": ["V62", "V61", "V59", "VB29", "IG10", "GI15", "GI16", "E4", "E3", "E1", "V1", "VB20"],
+      "path_note_codes": ["VB20"],
       "i18n": {
         "ru": {
           "name": "Янский меридиан пятки (Ян-цяо-май)",

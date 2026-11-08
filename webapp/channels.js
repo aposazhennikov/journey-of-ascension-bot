@@ -13,7 +13,8 @@ export const PALETTE = {
   light: {
     lung: '#46546a', large_intestine: '#7c8ea6', stomach: '#e3ac00', spleen: '#b97a00',
     heart: '#c21f32', small_intestine: '#e0552b', bladder: '#2f7be0', kidney: '#1f3a9a',
-    pericardium: '#a3236e', triple_burner: '#e0609a', gallbladder: '#4f9a2a', liver: '#1e6b45',
+    // gallbladder yellow-green, liver deep green: the paired wood channels must not look the same
+    pericardium: '#a3236e', triple_burner: '#e0609a', gallbladder: '#8aae12', liver: '#1e6b45',
     governing_vessel: '#5b34b8', conception_vessel: '#9a5fd6',
     // the eight extraordinary vessels must stay apart from each other when shown together
     chong_mai: '#0d8f8c', dai_mai: '#8a6a2f', yin_wei_mai: '#6d7a12', yang_wei_mai: '#0099c4',
@@ -29,7 +30,7 @@ export const PALETTE = {
   },
 };
 
-export const BODY_TONE = { light: '#ddd5cd', dark: '#4e4844' };
+export const BODY_TONE = { light: '#d6cabe', dark: '#4e4844' };
 
 export const VIEW = {
   lung: 'front', large_intestine: 'side', stomach: 'front', spleen: 'front', heart: 'front',

@@ -56,6 +56,7 @@ const state = {
   lastTouch: performance.now(),
   autoPaused: false,
   nextShown: false,
+  multiSet: new Set(),
 };
 
 let scene = null;
@@ -75,7 +76,16 @@ const fullName = (id) => {
 const pointName = (code) => state.data.pointInfo.get(code)?.name || '';
 // channel groups that can be highlighted all at once (chips at the start of the row)
 const GROUPS = { regular: CLOCK_ORDER, extra: [...MIDLINE_IDS, ...VESSEL_IDS] };
-const groupIds = (id) => (GROUPS[id] || []).filter((c) => state.channelById.has(c));
+const groupIds = (id) => (id === 'custom' ? [...state.multiSet] : (GROUPS[id] || [])).filter((c) => state.channelById.has(c));
+const inCustom = () => state.level.view === 'group' && state.level.id === 'custom';
+
+// "several": channels chosen one by one (chips or lines on the body) are highlighted together
+function toggleCustom(id) {
+  if (state.multiSet.has(id)) state.multiSet.delete(id);
+  else state.multiSet.add(id);
+  haptic();
+  setLevel({ view: 'group', id: 'custom' }, { fly: false });
+}
 
 // ---------------------------------------------------------------- sheet geometry
 
@@ -384,7 +394,16 @@ function selectChannel(id, opts) {
 }
 
 function selectGroup(id) {
-  if (state.level.view === 'group' && state.level.id === id) return;
+  if (state.level.view === 'group' && state.level.id === id) {
+    if (id === 'custom') setLevel({ view: 'home' });   // the chip toggles the mode off
+    return;
+  }
+  if (id === 'custom') {
+    // start from what is on screen: the open channel, or the whole group being shown
+    const lv = state.level;
+    if (lv.view === 'channel' || lv.view === 'point') state.multiSet = new Set([lv.id]);
+    else if (lv.view === 'group') state.multiSet = new Set(groupIds(lv.id));
+  }
   if (state.overlay === 'poses') closePoses({ refocus: false });
   state.overlay = null;
   setLevel({ view: 'group', id });
@@ -446,15 +465,17 @@ function renderChips() {
   const selId = lv.view !== 'home' ? lv.id : null;
   const now = activeChannelNow(state.data.channels);
   const chip = (id, extra = '') => {
-    const sel = selId === id;
+    const sel = inCustom() ? state.multiSet.has(id) : selId === id;
     const c = color(id);
     const style = sel ? `background:color-mix(in srgb, ${c} 18%, var(--card));border:1.5px solid ${c}` : '';
     return `<button class="chip${extra}" role="tab" data-id="${id}" aria-selected="${sel}" style="${style}"><span class="dot" style="background:${c}"></span><span class="chip-label">${esc(shortName(id))}</span>${now?.id === id ? '<span class="now-dot"></span>' : ''}</button>`;
   };
   const html = [];
-  for (const g of ['regular', 'extra']) {
+  for (const g of ['regular', 'extra', 'custom']) {
     const sel = lv.view === 'group' && lv.id === g;
-    const dots = groupIds(g).slice(0, 4).map((id) => `<span class="dot" style="background:${color(id)}"></span>`).join('');
+    const ids = groupIds(g);
+    const dots = (g === 'custom' && !ids.length) ? '<span class="plus">＋</span>'
+      : ids.slice(0, 4).map((id) => `<span class="dot" style="background:${color(id)}"></span>`).join('');
     html.push(`<button class="chip group" role="tab" data-group="${g}" aria-selected="${sel}"><span class="dots">${dots}</span><span class="chip-label">${esc(t(`group_${g}`))}</span></button>`);
   }
   html.push('<span class="chip-sep"></span>');
@@ -473,6 +494,7 @@ els.chips.addEventListener('click', (e) => {
   if (!btn) return;
   if (btn.dataset.group) { selectGroup(btn.dataset.group); return; }
   const id = btn.dataset.id;
+  if (inCustom()) { toggleCustom(id); return; }
   if (state.level.view !== 'home' && state.level.id === id) return;
   selectChannel(id);
 });
@@ -513,9 +535,11 @@ function renderPeek() {
   if (lv.view === 'group') {
     els.sheet.style.removeProperty('--chan');
     const dots = groupIds(lv.id).map((id) => `<span class="dot" style="background:${color(id)}"></span>`).join('');
+    const n = groupIds(lv.id).length;
+    const sub = lv.id !== 'custom' ? t(`group_${lv.id}_sub`) : (n ? t('group_custom_sub', { n }) : t('group_custom_sub_empty'));
     els.peek.innerHTML = `<div class="peek-row"><div class="peek-main">
       <div class="peek-title">${esc(t(`group_${lv.id}_title`))}</div>
-      <div class="peek-sub group-dots">${dots}<span>${esc(t(`group_${lv.id}_sub`))}</span></div></div></div>`;
+      <div class="peek-sub group-dots">${dots}<span>${esc(sub)}</span></div></div></div>`;
     return;
   }
   const ch = state.channelById.get(lv.id);
@@ -719,8 +743,13 @@ function pointBody(ch, code) {
       <span class="name"><span class="row-title">${esc(t('indications_title'))}</span><span class="row-sub">${esc(ind.map((g) => t(`ind_${g.g}`)).join(' · '))}</span></span><span class="chev">${indOpen ? '⌄' : '›'}</span></button>
     ${indOpen ? `<dl class="ind">${ind.map((g) => `<dt>${esc(t(`ind_${g.g}`))}</dt><dd>${esc(g.items.join(', '))}</dd>`).join('')}</dl>` : ''}
     <p class="note">${esc(t('ind_note'))}</p></div>` : '';
+  // a luo point: say right away where its connecting branch goes (the owner looked for it on the body)
+  const luo = (cats.includes('luo') || cats.includes('great_luo')) ? d.luoLinks.find((x) => x.from === code) : null;
+  const luoRow = luo?.to_meridian ? `<p class="luo-row"><span class="dot" style="background:${color(luo.to_meridian)}"></span>
+    <button class="link" data-chan="${luo.to_meridian}">${esc(t('luo_to', { name: shortName(luo.to_meridian) }))}</button>${luo.to ? ` · <button class="link" data-act="showluo" data-from="${code}" data-to="${luo.to}">${esc(t('show_branch'))}</button>` : ''}</p>` : '';
   return `${cautions}
     ${ex.why ? `<p class="text lead">${esc(ex.why)}</p>` : ''}
+    ${luoRow}
     ${ex.name_meaning ? `<p class="text meaning">${esc(t('meaning', { text: ex.name_meaning }))}</p>` : ''}
     ${keys.length ? `<div class="tags">${badges}</div>${explain}` : ''}
     ${info?.location ? `<div class="section"><h3>${esc(t('location_title'))}</h3><p class="text big">${esc(info.location)}</p></div>` : ''}
@@ -1133,7 +1162,8 @@ function touched() {
 
 function handleTap(x, y, dbl) {
   els.pick.hidden = true;
-  const pointsEnabled = state.level.view !== 'home' || state.overlay === 'poses';
+  // groups show lines only, so a tap there picks a line, not a hidden point
+  const pointsEnabled = (state.level.view !== 'home' && state.level.view !== 'group') || state.overlay === 'poses';
   const res = scene.pick(x, y, { pointsEnabled });
   if (EDIT && state.editTarget && res.hit) { placeEditedPoint(res.hit); return; }
   if (dbl) {
@@ -1162,6 +1192,7 @@ function handleTap(x, y, dbl) {
   if (res.type === 'point') { openPoint(res.code, res.side); return; }
   if (res.type === 'link') { const n = nextChannelOf(res.channel); if (n) selectChannel(n); return; }
   if (res.type === 'line') {
+    if (inCustom()) { toggleCustom(res.channel); return; }
     if (state.level.view !== 'home' && state.level.id === res.channel) return;
     selectChannel(res.channel);
   }
@@ -1198,6 +1229,9 @@ function updateLabels() {
     const idx = ch.points.indexOf(lv.code);
     items.push({ code: lv.code, side: lv.side || 1, text: `${lv.code} · ${pointName(lv.code)}`, main: true });
     for (const c of [ch.points[idx - 1], ch.points[idx + 1]]) if (c) items.push({ code: c, side: lv.side || 1, text: c });
+    // the end of the luo branch is labelled with the channel it joins
+    const luo = state.luoOn ? state.data.luoLinks.find((x) => x.from === lv.code && x.to && x.to_meridian) : null;
+    if (luo) items.push({ code: luo.to, side: lv.side || 1, text: `→ ${shortName(luo.to_meridian)} · ${luo.to}` });
   } else if (lv.view === 'channel') {
     const ch = state.channelById.get(lv.id);
     if (ch.kind === 'vessel') {

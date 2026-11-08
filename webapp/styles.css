@@ -103,6 +103,7 @@ button:disabled { cursor: default; opacity: 0.35; }
 .chip.group .dots { display: inline-flex; }
 .chip.group .dots .dot { width: 8px; height: 8px; margin-left: -3px; box-shadow: 0 0 0 1.5px var(--card); }
 .chip.group .dots .dot:first-child { margin-left: 0; }
+.chip.group .plus { font-size: 15px; line-height: 1; font-weight: 700; }
 .chip.group[aria-selected="true"] { background: var(--text); color: var(--card); border-color: var(--text); }
 .group-dots { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
 .group-dots .dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
@@ -298,6 +299,8 @@ h3.inline { margin: 0; }
 .text.big { font-size: 16px; line-height: 1.5; }
 .text.meaning { color: var(--soft); }
 .text.lead { font-size: 16px; font-weight: 600; line-height: 1.35; margin: 4px 0 8px; }
+.luo-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 0 0 8px; font-size: 14px; }
+.luo-row .dot { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
 .bullets { margin: 4px 0 0; padding-left: 18px; }
 .bullets li { margin: 0 0 6px; line-height: 1.4; }
 .ind-head { padding-left: 0; padding-right: 0; }
