@@ -608,20 +608,69 @@ class Hand:
 
 
 RELAX = {2: (6, 8), 3: (7, 9), 4: (8, 10), 5: (9, 11)}
+# relaxed hand (council): MCP 10-25, PIP 15-35, DIP 10-20, more curl toward the little finger
+RELAXED_CURL = {2: (12, 18, 10), 3: (15, 22, 12), 4: (18, 26, 14), 5: (22, 30, 16)}
+# fingers almost parallel: fan angle from the middle finger in the palm plane (deg, sign kept)
+FAN = {2: 3.0, 3: 0.0, 4: 3.0, 5: 7.0}
+
+
+def fan_spread(hand):
+    """Spread (deg, for Hand.finger) that turns each finger from the MakeHuman rest fan to FAN."""
+    ps, n0 = hand.ps, hand.n0
+    sgn = np.sign(np.dot(np.cross(n0, hand.d0), hand.lit))
+    def dirp(k):
+        d = unit(ps.T(f"finger{k}-1.L") - ps.P(f"finger{k}-1.L"))
+        return unit(d - n0 * np.dot(d, n0))
+    dm = dirp(3)
+    out = {}
+    for k in range(2, 6):
+        dk = dirp(k)
+        a = np.degrees(np.arctan2(np.dot(np.cross(dm, dk), n0), np.dot(dm, dk)))
+        want = np.sign(a) * FAN[k] if abs(a) > 0.5 else 0.0
+        out[k] = (want - a) * sgn
+    return out
+
+
+def rest_flex(ps, k):
+    """Absolute flexion (deg) of MCP, PIP, DIP of finger k in the MakeHuman rest pose (already curled)."""
+    first = f"finger{k}-1.L"
+    chain = [ps.rig.names[ps.rig.parent[ps.rig.index[first]]], first, f"finger{k}-2.L", f"finger{k}-3.L"]
+    dirs = [unit(ps.T(n) - ps.P(n)) for n in chain]
+    return np.array([np.degrees(np.arccos(np.clip(np.dot(dirs[i], dirs[i + 1]), -1, 1))) for i in range(3)])
+
+
+def absolute_curl(hand, k, target):
+    """Hand.finger() angles are relative to the rest pose; turn absolute joint angles into them."""
+    return tuple(np.asarray(target, float) - rest_flex(hand.ps, k))
+
+
+def relaxed_hand(hand, curl=RELAXED_CURL, skip=()):
+    sp = fan_spread(hand)
+    loc = {}
+    for k in range(2, 6):
+        if k in skip:
+            continue
+        loc.update(hand.finger(k, *absolute_curl(hand, k, curl[k]), spread=sp[k]))
+    loc.update(hand.thumb(np.array([8.0, 0.0, 0.0]), 8.0, 6.0))
+    return loc
 
 
 def mudra_touch(hand, targets):
     """Thumb tip touches the tips of `targets`; other fingers relaxed straight."""
     rad = hand.rad
 
+    sp = fan_spread(hand)
+    # free fingers almost straight (absolute flexion <= 20 deg per joint) and together
+    straight = {k: absolute_curl(hand, k, v) for k, v in {2: (6, 9, 6), 3: (7, 10, 6), 4: (9, 12, 7), 5: (11, 14, 8)}.items()}
+
     def build(x):
         loc = {}
         for k in range(2, 6):
             if k in targets:
                 i = 3 + 2 * targets.index(k)
-                loc.update(hand.finger(k, x[i], x[i + 1]))
+                loc.update(hand.finger(k, x[i], x[i + 1], spread=sp[k] * 0.5))
             else:
-                loc.update(hand.finger(k, *RELAX[k]))
+                loc.update(hand.finger(k, *straight[k], spread=sp[k] * 0.5))
         loc.update(hand.thumb(x[0:3] * 0 + x[0:3], x[3 + 2 * len(targets)], x[4 + 2 * len(targets)]))
         return loc
 
@@ -744,10 +793,85 @@ def arms_for_hands(ps, hand, loc_fingers, hand_dir, palm_normal, center_y, cente
     return arms, out
 
 
+def arms_anatomy(ps, hand, loc_fingers, hand_dir, palm_normal, center_y, center_z, contact_x, ref, slope_deg=20.0):
+    """Both arms from anatomical angles (shoulder flex/abd/rot, elbow, supination, wrist flexion), solved
+    so the left hand has the requested frame, its palm (ref='palm') or fingertips (ref='tips') reach
+    x = contact_x, the middle-finger base sits at (center_y, center_z) and the forearm drops ~slope_deg
+    from the wrist to the elbow. The right arm uses the same angles (mirror). Returns (arm locals, info)."""
+    from anatomy import Anatomy
+    an = Anatomy(ps)
+    rig = ps.rig
+    hand_dir, palm_normal = unit(hand_dir), unit(palm_normal)
+    d0, n0 = ps.hand_frame0("L")
+    left = np.array([n.endswith(".L") for n in ps.dom]) & ps.hand_mask
+    palm_side = left & np.array([not n.startswith("finger1") for n in ps.dom])
+    if ref == "palm":
+        # the palmar surface (as check_poses measures it): palm-side vertices facing the palm direction
+        from check_poses import vertex_normals
+        tris = pk.load_glb(pk.GLB[ps.v])[0][1]
+        rn = vertex_normals(ps.rest, tris)
+        wr0 = ps.P("wrist.L")
+        dn = unit(ps.P("finger3-1.L") - wr0)
+        palm_side &= (rn @ n0 > 0.5) & ((ps.rest - wr0) @ dn > 0.0)
+    idx = np.flatnonzero(palm_side)
+    fingers = dict(loc_fingers)
+    fingers.update({k.replace(".L", ".R"): pk.qmirror(v) for k, v in loc_fingers.items()})
+    # shoulder flex/abd/rot, elbow, supination, wrist flexion (extension >= -78: the check allows 80)
+    rng = ((-10, 85), (0, 70), (-68, 40), (40, 150), (-40, 110), (-78, 40))
+
+    def world(x):
+        W = {}
+        for s in SIDES:
+            W.update(an.arm(s, shoulder=tuple(x[:3]), elbow=x[3], sup=x[4], wrist=(x[5], 0.0)))
+        return W
+
+    def pose(x):
+        ps.W = world(x)
+        loc = ps.local()
+        loc.update(fingers)
+        Q, H = rig.fk(ps.v, loc, ps.root)
+        return Q, H
+
+    def cost(x):
+        Q, H = pose(x)
+        Wh = Q[rig.index["wrist.L"]]
+        c = 60 * (float(np.sum((qrot(Wh, d0) - hand_dir) ** 2)) + float(np.sum((qrot(Wh, n0) - palm_normal) ** 2)))
+        pos = rig.skin(ps.rest, ps.v, Q, H, idx=idx)
+        if ref == "palm":
+            # the whole palmar surface lies in the mid plane, nothing crosses it
+            c += 4e4 * float(np.mean((pos[:, 0] - contact_x) ** 2))
+            c += 2e6 * float(np.mean(np.minimum(pos[:, 0], 0.0) ** 2)) + 2e5 * min(0.0, float(pos[:, 0].min()) + 0.001) ** 2
+        else:
+            tp = np.mean([H[rig.index[f"finger{k}-3.L"]] for k in range(2, 6)], axis=0)
+            c += 4e4 * (tp[0] - contact_x) ** 2
+        mid = H[rig.index["finger3-1.L"]]
+        c += 3e3 * ((mid[1] - center_y) ** 2 + (mid[2] - center_z) ** 2)
+        el, wr = H[rig.index["lowerarm01.L"]], H[rig.index["wrist.L"]]
+        sl = (wr[1] - el[1]) / max(1e-6, np.linalg.norm(wr - el))
+        c += 40 * (sl - np.sin(np.radians(slope_deg))) ** 2
+        for (lo, hi), v in zip(rng, x):
+            c += 20.0 * (max(0, lo - v) ** 2 + max(0, v - hi) ** 2)
+        return c
+    best = None
+    for x0 in ([40, 35, -50, 110, 30, -60], [30, 25, -60, 120, 50, -45], [50, 45, -30, 95, 10, -70]):
+        x, f = nelder_mead(cost, np.array(x0, float), 10.0, iters=1500)
+        x, f = nelder_mead(cost, x, 2.0, iters=800)
+        if best is None or f < best[1]:
+            best = (x, f)
+    x, f = best
+    Q, H = pose(x)
+    pos = rig.skin(ps.rest, ps.v, Q, H, idx=idx)
+    ps.W = world(x)
+    loc = ps.local()
+    arms = {k: v for k, v in loc.items() if k.split(".")[0] in ARM_BONES}
+    flat = float(np.mean(np.abs(pos[:, 0]) < 0.003)) if ref == "palm" else None
+    return arms, {"x": np.round(x, 1).tolist(), "cost": round(float(f), 5), "palm_within_3mm": None if flat is None else round(flat, 2)}
+
+
 def hand_poses(rig, variant, rest, which=None):
     ps = Poser(rig, variant, rest)
     hand = Hand(ps)
-    res = {"open": ({}, None, {})}
+    res = {"open": (relaxed_hand(hand), None, {"relaxed": True})}
     for pid, targets in (("gyan", [2]), ("prithvi", [4]), ("shuni", [3]), ("vyana", [2, 3]), ("apana", [3, 4])):
         if which and pid not in which:
             continue
@@ -760,8 +884,8 @@ def hand_poses(rig, variant, rest, which=None):
     loc = flat_hand(hand, spread=sp, thumb=32)
     yc = ps.P("spine01")[1] - 0.005
     zc = chest_front(ps, yc) + 0.075
-    arms, tw = arms_for_hands(ps, hand, loc, unit([0, 1, 0.22]), [-1, 0, 0], yc, zc, 0.0015, [1, -1.2, -0.3], ref="palm")
-    res["anjali"] = (loc, arms, {"twist/residual": tw})
+    arms, tw = arms_anatomy(ps, hand, loc, unit([0, 1, 0.22]), [-1, 0, 0], yc, zc, 0.0015, "palm", slope_deg=20)
+    res["anjali"] = (loc, arms, tw)
     # hakini: spread fingers, tips touching their mirror twins, palms apart
     ps2 = Poser(rig, variant, rest)
     spread = {2: -9, 3: 0, 4: 7, 5: 14}
@@ -789,8 +913,8 @@ def hand_poses(rig, variant, rest, which=None):
     loc = build(x)
     yc = 0.5 * (ps2.P("spine01")[1] + ps2.P("spine02")[1]) + 0.02
     zc = chest_front(ps2, yc) + 0.17
-    arms, tw = arms_for_hands(ps2, hand, loc, d_world, n_world, yc, zc, hand.rad[3] - 0.0005, [1, -0.9, 0.0], ref="tips")
-    res["hakini"] = (loc, arms, {"cost": round(float(f), 5), "x": np.round(x, 1).tolist(), "twist/residual": tw})
+    arms, tw = arms_anatomy(ps2, hand, loc, d_world, n_world, yc, zc, hand.rad[3] - 0.0005, "tips", slope_deg=10)
+    res["hakini"] = (loc, arms, {"cost": round(float(f), 5), "x": np.round(x, 1).tolist(), "arms": tw})
     return res
 
 
@@ -804,6 +928,7 @@ def main():
     ap.add_argument("--out", default=str(pk.ASSETS / "poses.json"))
     ap.add_argument("--only", choices=["body", "hand"], help="rebuild only this part (the rest is kept from --out)")
     ap.add_argument("--hands", nargs="*", help="rebuild only these hand poses (anjali/hakini are built together)")
+    ap.add_argument("--poses", nargs="*", help="rebuild only these body poses (others are kept)")
     args = ap.parse_args()
     rig = pk.Rig()
     labels = {
@@ -834,7 +959,7 @@ def main():
         for part in ("body", "hand"):
             for pid, e in old.get(part, {}).items():
                 if pid in out[part]:
-                    for key in ("rot", "root", "arms"):
+                    for key in ("rot", "root", "arms", "mudraArms"):
                         if key in e:
                             out[part][pid].setdefault(key, {}).update(e[key])
     for variant in args.variants:
@@ -858,12 +983,23 @@ def main():
         for s in SIDES:
             for b in ARM_BONES:
                 anjali_world[f"{b}.{s}"] = Q[rig.index[f"{b}.{s}"]]
+        import asanas  # noqa: E402  (anatomical-angle poses, see asanas.py)
+        ctx = asanas.Ctx(Poser, Capsule, rig, variant, rest)
+        fing = lambda pid: {k: np.array(v) for k, v in out["hand"][pid]["rot"].get(variant, {}).items()}  # noqa: E731
+        ctx.fingers = {"open": fing("open"), "mudras": [fing(m) for m in ("gyan", "prithvi", "shuni", "vyana", "apana")]}
         for pid in body_ids:
-            ps, info = body_pose(rig, variant, rest, pid, {"anjali": anjali_world})
-            loc = ps.local()
+            if args.poses and pid not in args.poses:
+                continue
+            W, root, info, mudra_W = asanas.body_pose(ctx, pid, anjali_world)
+            ctx.ps.W, ctx.ps.root = W, root
+            loc = ctx.ps.local()
             out["body"][pid]["rot"][variant] = {k: rnd(v) for k, v in loc.items()}
-            out["body"][pid]["root"][variant] = [round(float(v), 5) for v in ps.root]
-            print(variant, "body", pid, "root", np.round(ps.root, 4).tolist(), {k: round(v, 4) for k, v in info.items()})
+            out["body"][pid]["root"][variant] = [round(float(v), 5) for v in root]
+            if mudra_W:
+                out["body"][pid].setdefault("mudraArms", {})[variant] = {k: rnd(v) for k, v in asanas.arm_locals(ctx, mudra_W).items()}
+            else:
+                out["body"][pid].pop("mudraArms", None)
+            print(variant, "body", pid, "root", np.round(root, 4).tolist(), info)
     Path(args.out).write_text(json.dumps(out, separators=(",", ":")), encoding="utf-8")
     print("wrote", args.out, Path(args.out).stat().st_size, "bytes")
 

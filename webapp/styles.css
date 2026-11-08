@@ -297,6 +297,13 @@ h3.inline { margin: 0; }
 .text { margin: 0 0 6px; }
 .text.big { font-size: 16px; line-height: 1.5; }
 .text.meaning { color: var(--soft); }
+.text.lead { font-size: 16px; font-weight: 600; line-height: 1.35; margin: 4px 0 8px; }
+.bullets { margin: 4px 0 0; padding-left: 18px; }
+.bullets li { margin: 0 0 6px; line-height: 1.4; }
+.ind-head { padding-left: 0; padding-right: 0; }
+.ind { margin: 6px 0 0; }
+.ind dt { font-size: 13px; font-weight: 600; color: var(--soft); margin-top: 8px; }
+.ind dd { margin: 2px 0 0; line-height: 1.4; }
 .text.muted, .muted { color: var(--soft); font-size: 13px; }
 .flow-line { margin-top: 10px; }
 .clamp2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -367,7 +374,8 @@ h3.inline { margin: 0; }
 .row-btn .marks { display: flex; gap: 4px; color: var(--chan, var(--soft)); font-size: 12px; }
 .row-btn.missing .code, .row-btn.missing .name { opacity: 0.55; }
 
-.caution { margin: 8px 0 0; font-size: 13px; color: var(--soft); }
+.caution { margin: 4px 0 8px; font-size: 13px; font-weight: 600; color: #b3261e; }
+:root[data-theme="dark"] .caution { color: #ff8a80; }
 .note { margin-top: 18px; font-size: 13px; color: var(--soft); }
 .pairs { display: flex; flex-direction: column; gap: 6px; }
 .pair-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; }

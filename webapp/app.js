@@ -708,13 +708,26 @@ function pointBody(ch, code) {
   const meetChips = meets.length > 1 ? `<div class="section"><h3>${esc(t('crossings_title'))}${cr.confidence === 'medium' ? ` · <span class="muted">${esc(t('some_sources'))}</span>` : ''}</h3>
     <div class="tags">${meets.map((m) => `<button class="tag button chip-like" data-chan="${m}"><span class="dot" style="background:${color(m)}"></span>${esc(shortName(m))}</button>`).join('')}</div></div>` : '';
   const other = ex.other_names?.length ? `<div class="section"><h3>${esc(t('other_names'))}</h3><p class="text">${esc(ex.other_names.join(', '))}</p></div>` : '';
-  return `${ex.name_meaning ? `<p class="text meaning">${esc(t('meaning', { text: ex.name_meaning }))}</p>` : ''}
+  // what the point is for (traditional view): a lead line, 2 functions shown, indications folded
+  const fns = Array.isArray(ex.functions) ? ex.functions : [];
+  const fnOpen = state.expanded.has('fns');
+  const fnHtml = fns.length ? `<div class="section"><h3>${esc(t('functions_title'))}</h3><ul class="bullets">${(fnOpen ? fns : fns.slice(0, 2)).map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
+    ${fns.length > 2 ? `<button class="more" data-toggle="fns">${esc(fnOpen ? t('less') : t('more_n', { n: fns.length - 2 }))}</button>` : ''}</div>` : '';
+  const ind = Array.isArray(ex.indications) ? ex.indications : [];
+  const indOpen = state.expanded.has('ind');
+  const indHtml = ind.length ? `<div class="section"><button class="row-btn ind-head" data-toggle="ind" aria-expanded="${indOpen}">
+      <span class="name"><span class="row-title">${esc(t('indications_title'))}</span><span class="row-sub">${esc(ind.map((g) => t(`ind_${g.g}`)).join(' · '))}</span></span><span class="chev">${indOpen ? '⌄' : '›'}</span></button>
+    ${indOpen ? `<dl class="ind">${ind.map((g) => `<dt>${esc(t(`ind_${g.g}`))}</dt><dd>${esc(g.items.join(', '))}</dd>`).join('')}</dl>` : ''}
+    <p class="note">${esc(t('ind_note'))}</p></div>` : '';
+  return `${cautions}
+    ${ex.why ? `<p class="text lead">${esc(ex.why)}</p>` : ''}
+    ${ex.name_meaning ? `<p class="text meaning">${esc(t('meaning', { text: ex.name_meaning }))}</p>` : ''}
     ${keys.length ? `<div class="tags">${badges}</div>${explain}` : ''}
     ${info?.location ? `<div class="section"><h3>${esc(t('location_title'))}</h3><p class="text big">${esc(info.location)}</p></div>` : ''}
     ${ex.finding_hint || info?.setup ? `<div class="section"><h3>${esc(t('find_title'))}</h3><p class="text">${esc(ex.finding_hint || info.setup)}</p></div>` : ''}
-    ${cautions}
+    ${fnHtml}
+    ${indHtml}
     ${meetChips}
-    ${info?.observation ? `<div class="section"><h3>${esc(t('observe_title'))}</h3><p class="text">${esc(info.observation)}</p></div>` : ''}
     ${other}
     <p class="text muted">${esc(t('who_code'))}: ${esc(info?.who || '')}</p>
     <p class="note">${esc(t('source'))}: ${esc(t('source_line'))}</p>`;

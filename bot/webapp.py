@@ -1,5 +1,6 @@
 """HTTP routes for the 3D meridian map Telegram Mini App."""
 
+import json
 import re
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict
@@ -106,6 +107,34 @@ def setup_webapp_routes(app: web.Application, meridians_manager: "MeridiansManag
         response.enable_compression()  # ~500 KB of Cyrillic text shrinks to well under 100 KB
         return response
 
+    lang_cache: Dict[Any, bytes] = {}
+
+    def extras_for(path: Path, language: str) -> bytes:
+        """point_extras.json holds the texts of all four languages (~1 MB); a phone needs one."""
+        key = (str(path), language, path.stat().st_mtime)
+        if key not in lang_cache:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            for entry in data.get("points", {}).values():
+                i18n = entry.get("i18n") or {}
+                entry["i18n"] = {k: v for k, v in i18n.items() if k == language}
+            lang_cache.clear()
+            lang_cache[key] = json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        return lang_cache[key]
+
+    async def json_asset_handler(request: web.Request) -> web.Response:
+        # the asset JSON files (point texts, poses, coordinates) are large and compress ~6x;
+        # the static route below sends them uncompressed
+        name = request.match_info["name"]
+        path = WEBAPP_DIR / "assets" / f"{name}.json"
+        if not re.fullmatch(r"[a-z0-9_]+", name) or not path.is_file():
+            raise web.HTTPNotFound()
+        body = path.read_bytes()
+        if name == "point_extras" and request.query.get("lang"):
+            body = extras_for(path, normalize_webapp_language(request.query["lang"]))
+        response = web.Response(body=body, content_type="application/json", charset="utf-8")
+        response.enable_compression()
+        return response
+
     async def cache_headers(request: web.Request, response: web.StreamResponse) -> None:
         # Modules are imported without version suffixes, so they must be revalidated;
         # the body models are large and versioned through ?v=, so they may be cached.
@@ -121,4 +150,5 @@ def setup_webapp_routes(app: web.Application, meridians_manager: "MeridiansManag
     app.router.add_get("/webapp", redirect_handler)
     app.router.add_get("/webapp/", index_handler)
     app.router.add_get("/webapp/api/meridians", meridians_handler)
+    app.router.add_get("/webapp/assets/{name}.json", json_asset_handler)
     app.router.add_static("/webapp/", WEBAPP_DIR, show_index=False)

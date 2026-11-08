@@ -95,6 +95,9 @@ export function composePose(rig, variant, bodyPose, handPose) {
   const pick = (obj) => (obj ? obj[variant] || obj.neutral || {} : {});
   for (const [k, q] of Object.entries(pick(body.rot))) put(k, q);
   if (hand) {
+    // a mudra without its own arm pose: the seated pose's "palm up, back of the wrist on the knee" arms
+    const isMudra = typeof handPose === 'string' ? handPose !== 'open' : true;
+    if (!hand.arms && isMudra) for (const [k, q] of Object.entries(pick(body.mudraArms))) put(k, q);
     for (const [k, q] of Object.entries(pick(hand.arms))) put(k, q);
     for (const [k, q] of Object.entries(pick(hand.rot))) {
       put(k, q);

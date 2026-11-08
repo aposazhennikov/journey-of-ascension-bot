@@ -28,6 +28,8 @@ def compose(poses, body, hand, variant):
     b = poses["body"][body]
     h = poses["hand"][hand]
     loc = {k: np.array(v) for k, v in b["rot"][variant].items()}
+    if hand != "open" and "arms" not in h and variant in b.get("mudraArms", {}):
+        loc.update({k: np.array(v) for k, v in b["mudraArms"][variant].items()})   # same rule as pose.js
     if "arms" in h:
         loc.update({k: np.array(v) for k, v in h["arms"][variant].items()})
     for k, q in h["rot"][variant].items():

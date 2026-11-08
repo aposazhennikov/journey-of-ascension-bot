@@ -26,7 +26,7 @@ export async function loadData(lang) {
     getJson('assets/points3d.json'),
     getJson('assets/extra_vessels.json', true),
     getJson('assets/point_categories.json', true),
-    getJson('assets/point_extras.json', true),
+    getJson(`assets/point_extras.json?lang=${encodeURIComponent(lang)}`, true),   // the server keeps only this language
   ]);
   return shapeData(lang, api, points3d, vessels, categories, extras);
 }
