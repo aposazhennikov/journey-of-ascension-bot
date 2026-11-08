@@ -161,6 +161,8 @@ SPEC.update({
 })
 
 VIA = {
+    # along the outer side of the little toe to its nail (the curve hooked round the toe tip)
+    "V66>V67": [(np.array([0.36, 0.0125, 0.027]), np.array([-1.0, 0.0, 0.0]))],
     # over the occiput instead of a chord through the skull
     "V8>V9": [scalp(0.0208, 7.0), scalp(0.0197, 8.5)],
     # coccyx -> over the lower buttock -> gluteal fold

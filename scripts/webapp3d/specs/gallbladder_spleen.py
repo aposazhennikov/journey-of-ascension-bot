@@ -131,4 +131,6 @@ VIA = {
     # spleen -> heart transition: up the side of the chest into the armpit hollow to C1 (it jumped
     # 3 cm through the air from the chest wall onto the arm)
     "RP21>C1": [torso(1.200, 95), torso(1.240, 97)],
+    # web of toes 4/5 -> nail of toe 4 along the back of the toe (it dived into the 3/4 gap and zigzagged)
+    "VB43>VB44": [foot_top(0.248, 0.032)],
 }
