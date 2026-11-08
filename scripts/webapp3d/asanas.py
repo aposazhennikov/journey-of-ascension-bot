@@ -77,10 +77,16 @@ class Ctx:
             self.set[f"hand.{s}"] = ps.hand_mask & (side == s)
             self.set[f"palm.{s}"] = np.isin(base, ["wrist", "metacarpal1", "metacarpal2", "metacarpal3", "metacarpal4"]) & (side == s)
             self.set[f"arm.{s}"] = np.isin(base, ["upperarm01", "upperarm02", "lowerarm01", "lowerarm02"]) & (side == s)
+            self.set[f"fore.{s}"] = np.isin(base, ["lowerarm01", "lowerarm02"]) & (side == s)
+            self.set[f"nothumb.{s}"] = ps.hand_mask & (side == s) & ~np.isin(base, ["finger1-1", "finger1-2", "finger1-3", "metacarpal1"])
         hip = ps.P("upperleg01.L")
         r = ps.rest
         self.set["butt"] = (r[:, 2] < hip[2] + 0.02) & (np.abs(r[:, 0]) < 0.16) & (r[:, 1] > hip[1] - 0.20) & (r[:, 1] < hip[1] + 0.05) & ~ps.hand_mask
         self.set["body"] = ~ps.hand_mask
+        limb = np.array([b.startswith(("upperleg", "lowerleg", "foot", "toe", "upperarm", "lowerarm", "wrist", "finger",
+                                       "metacarpal", "neck", "head", "jaw", "eye", "tongue", "clavicle", "shoulder",
+                                       "breast")) for b in base])
+        self.set["trunk"] = ~limb & ~ps.hand_mask
         self.cap = {}
         for s in SIDES:
             self.cap[f"shin.{s}"] = Capsule(ps, [f"lowerleg01.{s}", f"lowerleg02.{s}"], f"lowerleg01.{s}", f"foot.{s}")
@@ -118,7 +124,7 @@ LEG_TABLE = {
 }
 
 
-def legs_world(ctx, pid, L, R, tilt=0.0, ankleL=None, ankleR=None):
+def legs_world(ctx, pid, L, R, tilt=0.0, ankleL=None, ankleR=None, tibL=0.0, tibR=0.0):
     """L/R = (flex, abd, rot, knee). Returns W dict incl. pelvis tilt and an upright spine."""
     tab = LEG_TABLE[pid]
     Qp = qaxis(X, tilt) if tilt else ID
@@ -126,9 +132,18 @@ def legs_world(ctx, pid, L, R, tilt=0.0, ankleL=None, ankleR=None):
     if tilt:
         W["root"] = Qp
         W["spine05"] = ID
-    W.update(ctx.an.leg("L", hip=L[:3], knee=L[3], ankle=ankleL or tab["ankle"], Qp=Qp))
-    W.update(ctx.an.leg("R", hip=R[:3], knee=R[3], ankle=ankleR or tab["ankle"], Qp=Qp))
+    W.update(ctx.an.leg("L", hip=L[:3], knee=L[3], ankle=ankleL or tab["ankle"], tibia=tibL, Qp=Qp))
+    W.update(ctx.an.leg("R", hip=R[:3], knee=R[3], ankle=ankleR or tab["ankle"], tibia=tibR, Qp=Qp))
     return W
+
+
+def foot_hidden(pos, foot, others, step=3):
+    """Fraction of foot vertices covered from above by other skin (within 1 cm sideways, 2 mm up)."""
+    f = pos[foot][::step]
+    o = pos[others][::2]
+    near = ((f[:, None, 0] - o[None, :, 0]) ** 2 + (f[:, None, 2] - o[None, :, 2]) ** 2) < 0.01 ** 2
+    above = near & (o[None, :, 1] > f[:, None, 1] + 0.002)
+    return float(above.any(axis=1).mean())
 
 
 def seated_eval(ctx, W):
@@ -196,17 +211,23 @@ def solve_lotus(ctx, half=False):
         x0 = np.array([*tab["hip"], tab["knee"], *suk["hip"], suk["knee"]], float)
         rngs = list(rng) + list(suk["rng"])
     else:
-        x0 = np.array([*tab["hip"], tab["knee"]] * 2, float)
+        # full lotus also turns the shins and supinates the feet (inversion, tibia rotation): without it
+        # the feet stayed buried in the opposite thighs, 95 % of the foot covered from above
+        x0 = np.array([*tab["hip"], tab["knee"]] * 2 + [30, 8, 30, 8], float)
         x0[0] += 5                                   # the top leg flexes a little more
-        rngs = list(rng) * 2
+        lot = list(rng)
+        lot[0], lot[2] = (80, 112), (45, 85)
+        rngs = lot * 2 + [(15, 50), (-15, 25)] * 2
+    others = {s: ~ctx.sub[f"foot.{s}"] for s in SIDES}
 
     def world(x):
-        L, R = x[:4], x[4:]
+        L, R = x[:4], x[4:8]
         if half:
             W = legs_world(ctx, "padmasana", L, L, tilt=tilt)
             W.update(ctx.an.leg("R", hip=R[:3], knee=R[3], ankle=suk["ankle"], Qp=W["root"]))
             return W
-        return legs_world(ctx, "padmasana", L, R, tilt=tilt)
+        dorsi = tab["ankle"][0]
+        return legs_world(ctx, "padmasana", L, R, tilt=tilt, ankleL=(dorsi, x[8]), ankleR=(dorsi, x[10]), tibL=x[9], tibR=x[11])
 
     def cost(x):
         pos, H, _ = seated_eval(ctx, world(x))
@@ -233,6 +254,9 @@ def solve_lotus(ctx, half=False):
         c += 1e3 * max(0.0, -0.012 - overlap(ctx, pos, H, "foot.L", "thigh.R")) ** 2
         if not half:
             c += 3e4 * max(0.0, overlap(ctx, pos, H, "foot.R", "thigh.L") - 0.012) ** 2
+            # both feet lie ON the thighs: seen from above, not covered by the legs
+            for s in SIDES:
+                c += 300 * foot_hidden(pos, ctx.sub[f"foot.{s}"], others[s]) ** 2
         else:
             c += 3e4 * max(0.0, overlap(ctx, pos, H, "foot.R", "thigh.L") - 0.010) ** 2
             c += 3e4 * max(0.0, overlap(ctx, pos, H, "foot.R", "shin.L") - 0.010) ** 2
@@ -249,7 +273,12 @@ def solve_lotus(ctx, half=False):
         if best is None or f < best[1]:
             best = (x, f)
     x, f = best
-    return world(x), {"cost": round(float(f), 4), "L": np.round(x[:4], 1).tolist(), "R": np.round(x[4:], 1).tolist(), "tilt": tilt}
+    info = {"cost": round(float(f), 4), "L": np.round(x[:4], 1).tolist(), "R": np.round(x[4:8], 1).tolist(), "tilt": tilt}
+    if not half:
+        pos, H, _ = seated_eval(ctx, world(x))
+        info["feet"] = np.round(x[8:], 1).tolist()
+        info["foot_hidden"] = {s: round(foot_hidden(pos, ctx.sub[f"foot.{s}"], others[s]), 2) for s in SIDES}
+    return world(x), info
 
 
 def solve_vajrasana(ctx):
@@ -295,7 +324,12 @@ ARM_DEFAULT = {
     # dandasana: these arms are too short for a flat palm beside the hips (hip joint ~16 cm up), so the
     # hand stands on its fingertips beside the hip, as the teacher allows
     "floor": dict(sh=(-4, 10, 0), elbow=4, sup=-60, wrist=(-25, 0), rng=((-25, 15), (3, 30), (-30, 25), (0, 25))),
-    "lap": dict(sh=(12, 14, -25), elbow=95, sup=85, wrist=(0, 0), rng=((-10, 45), (5, 35), (-80, 20), (60, 135))),
+    # dhyana: the forearm turn and the wrist are free too (x = sh3, elbow, sup, wrist flex, radial dev),
+    # so the fingers can point to the other side while the palm faces up
+    # ranges kept inside check_poses limits (humeral rot >= -70, pron_sup <= 90, |wrist dev| <= 25): a
+    # first try let the wrists bend 40 deg to make the fingers point straight across
+    "lap": dict(sh=(12, 14, -25), elbow=95, sup=85, wrist=(0, 0), rng=((-10, 45), (5, 35), (-66, 20), (60, 135)),
+                xrng=((55, 85), (-30, 35), (-17, 17)), bound_w=8.0),
     "side": dict(sh=(0, 6, 0), elbow=8, sup=0, wrist=(0, 0), rng=None),
 }
 
@@ -304,15 +338,19 @@ def arms_eval(ctx, Wlegs, root, s, x, mode):
     tab = ARM_DEFAULT[mode]
     sh = tuple(x[:3])
     el = x[3]
+    sup = x[4] if len(x) > 4 else tab["sup"]
+    wrist = (x[5], x[6]) if len(x) > 6 else tab["wrist"]
     W = dict(Wlegs)
-    W.update(ctx.an.arm(s, shoulder=sh, elbow=el, sup=tab["sup"], wrist=tab["wrist"], Qp=W.get("spine01", ID)))
+    W.update(ctx.an.arm(s, shoulder=sh, elbow=el, sup=sup, wrist=wrist, Qp=W.get("spine01", ID)))
     return W
 
 
 def solve_arm(ctx, Wlegs, root, s, mode, target_fn):
-    """Optimise (shoulder flex, abd, rot, elbow) so target_fn(ctx, pos, H, Q, s) -> cost is low."""
+    """Optimise (shoulder flex, abd, rot, elbow[, sup, wrist flex, dev]) so target_fn(ctx, pos, H, Q, s) is low."""
     tab = ARM_DEFAULT[mode]
-    x0 = np.array([*tab["sh"], tab["elbow"]], float)
+    free = "xrng" in tab
+    x0 = np.array([*tab["sh"], tab["elbow"]] + ([tab["sup"], *tab["wrist"]] if free else []), float)
+    rngs = list(tab["rng"]) + (list(tab["xrng"]) if free else [])
     ps = ctx.ps
 
     def cost(x):
@@ -320,12 +358,12 @@ def solve_arm(ctx, Wlegs, root, s, mode, target_fn):
         ps.root = root
         pos, Q, H = ctx.skin_idx(ctx.idx_hands)
         c = target_fn(ctx, pos, H, Q, s)
-        for (lo, hi), v in zip(tab["rng"], x):
-            c += bound(v, lo, hi, 0.5)
+        for (lo, hi), v in zip(rngs, x):
+            c += bound(v, lo, hi, tab.get("bound_w", 0.5))
         c += 2e-4 * float(np.sum((x - x0) ** 2))
         return c
-    x, f = nelder_mead(cost, x0, 6.0, iters=500)
-    x, f = nelder_mead(cost, x, 2.0, iters=300)
+    x, f = nelder_mead(cost, x0, 6.0, iters=700 if free else 500)
+    x, f = nelder_mead(cost, x, 2.0, iters=400 if free else 300)
     W = arms_eval(ctx, Wlegs, root, s, x, mode)
     return {k: v for k, v in W.items() if k.endswith(f".{s}") and k.split(".")[0] in ("upperarm01", "upperarm02", "lowerarm01", "lowerarm02", "wrist")}, {"x": np.round(x, 1).tolist(), "cost": round(float(f), 5)}
 
@@ -389,14 +427,15 @@ def make_palm_floor(point):
     return fn
 
 
-def contact(ctx, s, fingers=None):
+def contact(ctx, s, fingers=None, on_hand=False):
     """Signed distance (m) from the hand to the legs as check_poses measures it: <0 sinking, >0 gap.
-    fingers: list of left-hand finger pose dicts that will be shown with this arm (worst case wins)."""
+    fingers: list of left-hand finger pose dicts that will be shown with this arm (worst case wins).
+    on_hand: the other hand counts as support too (dhyana: the right hand rests on the left one)."""
     from check_poses import Body, surface_sd, vertex_normals
     if not hasattr(ctx, "cb"):
         ctx.cb = Body(ctx.rig, ctx.ps.v)
     cb = ctx.cb
-    legs = np.concatenate([cb.sets["legL"], cb.sets["legR"]])
+    legs = np.concatenate([cb.sets["legL"], cb.sets["legR"]] + ([cb.sets[f"hand{'R' if s == 'L' else 'L'}"]] if on_hand else []))
     ps = ctx.ps
     worst = None
     for f in (fingers or [{}]):
@@ -411,7 +450,7 @@ def contact(ctx, s, fingers=None):
     return worst
 
 
-def settle_arm(ctx, W, root, s, mode, make_fn, tgt, lo=-0.004, hi=0.006, rounds=6, fingers=None):
+def settle_arm(ctx, W, root, s, mode, make_fn, tgt, lo=-0.004, hi=0.006, rounds=6, fingers=None, on_hand=False):
     """Solve the arm for target `tgt`, then move the target up/down until the hand rests on the legs
     (sinking <= 4 mm, gap <= 6 mm, measured on the skin like check_poses, with the shown fingers)."""
     tgt = np.array(tgt, float)
@@ -420,7 +459,7 @@ def settle_arm(ctx, W, root, s, mode, make_fn, tgt, lo=-0.004, hi=0.006, rounds=
         Wt = dict(W)
         Wt.update(Wa)
         ctx.ps.W, ctx.ps.root = Wt, root
-        d = contact(ctx, s, fingers)
+        d = contact(ctx, s, fingers, on_hand)
         ai["contact_mm"] = round(d * 1000, 1)
         if lo <= d <= hi:
             break
@@ -491,9 +530,17 @@ def body_pose(ctx, pid, anjali_world):
     hipL, hipR = ctx.H("upperleg01.L", H), ctx.H("upperleg01.R", H)
     for s, sg in SIDES.items():
         if pid in ("padmasana", "ardha_padmasana"):
+            # dhyana: palms up over the heels, the fingers of each hand pointing to the other side, the
+            # right hand lying on the left one; forearms clear of the belly and the waist
+            if s == "L":
+                ps.W, ps.root = dict(W), root
+                torso = TorsoModel(ps.skin(), ctx.set["trunk"])
             heels = 0.5 * (ctx.H("foot.L", H) + ctx.H("foot.R", H))
-            tgt = np.array([0.015 * sg, heels[1] + 0.035 + (0.018 if s == "R" else 0.0), heels[2] + 0.02])
-            Wa, ai = settle_arm(ctx, W, root, s, "lap", make_lap, tgt, hi=0.008, fingers=[ctx.fingers.get("open", {})])
+            tgt = np.array([0.035 * sg, heels[1] + 0.035 + (0.012 if s == "R" else 0.0), heels[2] + 0.045])
+            d_t = unit(np.array([-sg, 0.0, 0.15]))
+            fl = ctx.fingers.get("dhyana") or ctx.fingers.get("open", {})
+            Wa, ai = settle_arm(ctx, W, root, s, "lap", lambda p, d_t=d_t, s=s: make_lap(p, d_t, torso, s == "R"), tgt,
+                                lo=-0.002 if s == "R" else -0.004, hi=0.008, fingers=[fl], on_hand=s == "R")
         elif pid == "dandasana":
             hip = hipL if s == "L" else hipR
             tgt = hip + np.array([sg * 0.13, 0, 0.04])
@@ -589,8 +636,39 @@ def vrikshasana_once(ctx, anjali_world, dx=0.0):
     return W, ps.root.copy(), {"cost": round(float(f), 4), "L": np.round(x, 1).tolist()}, None
 
 
-def make_lap(point):
-    """Dhyana: palms up in the lap, hands over the heels."""
+class TorsoModel:
+    """Posed trunk as elliptic cross-sections every 1.5 cm of height (centre, half-width, half-depth);
+    depth() tells how far points are inside it (> 0 inside). The trunk does not move with the arms."""
+
+    def __init__(self, pos, mask, step=0.015):
+        p = pos[mask]
+        self.y0, self.step = float(p[:, 1].min()), step
+        n = int((p[:, 1].max() - self.y0) / step) + 1
+        self.cx, self.w, self.cz, self.d = (np.full(n, np.nan) for _ in range(4))
+        for i in range(n):
+            q = p[np.abs(p[:, 1] - (self.y0 + i * step)) < 0.75 * step]
+            if len(q) < 20:
+                continue
+            self.cx[i], self.w[i] = 0.5 * (q[:, 0].max() + q[:, 0].min()), 0.5 * (q[:, 0].max() - q[:, 0].min())
+            self.cz[i], self.d[i] = 0.5 * (q[:, 2].max() + q[:, 2].min()), 0.5 * (q[:, 2].max() - q[:, 2].min())
+
+    def depth(self, pts):
+        i = np.round((pts[:, 1] - self.y0) / self.step).astype(int)
+        ok = (i >= 0) & (i < len(self.w))
+        i = np.clip(i, 0, len(self.w) - 1)
+        ok &= np.isfinite(self.w[i])
+        w, d = np.nan_to_num(self.w[i], nan=1.0), np.nan_to_num(self.d[i], nan=1.0)
+        # superellipse (p = 3): a trunk section is fuller than an ellipse at the diagonals, where the
+        # ellipse let the hands sink into the lower belly unnoticed
+        u = np.abs((pts[:, 0] - np.nan_to_num(self.cx[i])) / w)
+        v = np.abs((pts[:, 2] - np.nan_to_num(self.cz[i])) / d)
+        r = (u ** 3 + v ** 3) ** (1 / 3)
+        return np.where(ok, (1.0 - r) * np.minimum(w, d), -1.0)
+
+
+def make_lap(point, d_t=None, torso=None, on_left=False):
+    """Dhyana: palms up in the lap over the heels. d_t: wanted direction wrist -> middle knuckle;
+    torso: forearm and hand stay out of the trunk; on_left: this (right) hand lies above the left one."""
     def fn(ctx, pos, H, Q, s):
         palm = pos[ctx.subh[f"palm.{s}"]]
         centre = palm.mean(axis=0)
@@ -602,5 +680,25 @@ def make_lap(point):
             d = ctx.cap[cap].depth(H, hand)
             if np.isfinite(d).any():
                 c += 3e4 * max(0.0, float(np.max(d)) - 0.004) ** 2
+        if d_t is not None:
+            dh = unit(H[ctx.rig.index[f"finger3-1.{s}"]] - H[ctx.rig.index[f"wrist.{s}"]])
+            c += 400 * float(np.sum((dh - d_t) ** 2))
+        if torso is not None:
+            pts = pos[ctx.subh[f"fore.{s}"] | ctx.subh[f"hand.{s}"]]
+            # keep 6 mm off the model trunk: the skin check still found the hands 1-1.5 cm in the belly
+            c += 3e4 * max(0.0, float(torso.depth(pts).max()) + 0.006) ** 2
+        if on_left:
+            # the right hand lies ON the left one: never below its skin, and no gap either (the left
+            # thumb is left out, it stands up to meet the right thumb and pushed the hand 2 cm up)
+            other = pos[ctx.subh["nothumb.L"]][::2]
+            mine = pos[ctx.subh["nothumb.R"]][::3]
+            dxz = ((mine[:, None, 0] - other[None, :, 0]) ** 2 + (mine[:, None, 2] - other[None, :, 2]) ** 2) < 0.015 ** 2
+            if dxz.any():
+                under = np.where(dxz, other[None, :, 1], -np.inf).max(axis=1)
+                gap = mine[:, 1] - under
+                ok = np.isfinite(gap)
+                if ok.any():
+                    c += 2e5 * max(0.0, float(np.max(0.003 - gap[ok]))) ** 2       # through the left hand
+                    c += 2e3 * max(0.0, float(np.min(gap[ok])) - 0.006) ** 2        # floating above it
         return c
     return fn

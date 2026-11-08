@@ -655,6 +655,60 @@ def relaxed_hand(hand, curl=RELAXED_CURL, skip=()):
     return loc
 
 
+# soft, slightly cupped fingers (straight ones looked like boards)
+DHYANA_CURL = {2: (12, 16, 8), 3: (13, 17, 9), 4: (15, 19, 10), 5: (17, 22, 12)}
+
+
+def dhyana_fingers(hand, thumb=(20.0, -10.0, 0.0), ip=(5.0, 3.0)):
+    """Dhyana hands: fingers almost straight and together, the thumb lifted off the index side."""
+    sp = fan_spread(hand)
+    loc = {}
+    for k in range(2, 6):
+        loc.update(hand.finger(k, *absolute_curl(hand, k, DHYANA_CURL[k]), spread=sp[k] * 0.5))
+    loc.update(hand.thumb(np.asarray(thumb, float), *ip))
+    return loc
+
+
+def dhyana_thumbs(ps, hand, W, root):
+    """Thumb pose (shared by both hands, mirrored) that makes the two thumb tips touch above the palms
+    once the arms of the pose are set (W world rotations, root). Returns (left-hand finger locals, info)."""
+    rig = ps.rig
+    ps.W, ps.root = W, root
+    base = ps.local()
+    tipL = hand.tip[1]
+    b = "finger1-3"
+    PL, PR = ps.P(f"{b}.L"), ps.P(f"{b}.R")
+    tipR = tipL * np.array([-1, 1, 1])
+    rad = hand.rad[1]
+
+    def tips(x):
+        loc = dict(base)
+        f = dhyana_fingers(hand, x[:3], x[3:5])
+        loc.update(f)
+        loc.update({k.replace(".L", ".R"): pk.qmirror(np.asarray(q, float)) for k, q in f.items()})
+        Q, H = rig.fk(ps.v, loc, root)
+        iL, iR = rig.index[f"{b}.L"], rig.index[f"{b}.R"]
+        return H[iL] + qrot(Q[iL], tipL - PL), H[iR] + qrot(Q[iR], tipR - PR), f
+
+    def cost(x):
+        a, c, _ = tips(x)
+        gap = np.linalg.norm(a - c) - (2 * rad - 0.0015)
+        v = 4e4 * gap ** 2
+        v += 2e-5 * float(np.sum(x[:3] ** 2)) + 2e-4 * float(np.sum(x[3:5] ** 2))
+        v += 1e-2 * (max(0, -x[3] - 10) ** 2 + max(0, x[3] - 50) ** 2 + max(0, -x[4] - 15) ** 2 + max(0, x[4] - 60) ** 2)
+        return v
+    best = None
+    for seed in ([20, -10, 0, 5, 3], [35, 10, 0, 10, 5], [10, -30, 10, 0, 0], [40, -25, -10, 15, 10],
+                 [55, -40, 0, -5, -5], [60, 0, 20, 10, 10], [30, -50, -20, 20, 15]):
+        x, f = nelder_mead(cost, np.array(seed, float), 10.0, iters=600)
+        x, f = nelder_mead(cost, x, 3.0, iters=400)
+        if best is None or f < best[1]:
+            best = (x, f)
+    x, f = best
+    a, c, loc = tips(x)
+    return loc, {"thumb_gap_mm": round(float(np.linalg.norm(a - c) - 2 * rad) * 1000, 1), "x": np.round(x, 1).tolist()}
+
+
 def mudra_touch(hand, targets):
     """Thumb tip touches the tips of `targets`; other fingers relaxed straight."""
     rad = hand.rad
@@ -711,6 +765,9 @@ def mudra_touch(hand, targets):
     tp = hand.tips(loc)
     gaps = {k: round(float(np.linalg.norm(tp[1] - tp[k]) - rad[1] - rad[k]) * 1000, 1) for k in targets}
     return loc, {"cost": round(float(best[1]), 5), "gap_mm": gaps, "x": np.round(x, 1).tolist()}
+
+
+ANJALI_CUP = {2: 6.0, 3: 8.0, 4: 13.0}   # metacarpal flexion (deg) toward the palm: middle, ring, little
 
 
 def flat_hand(hand, spread=None, thumb=None):
@@ -835,7 +892,11 @@ def arms_anatomy(ps, hand, loc_fingers, hand_dir, palm_normal, center_y, center_
     def cost(x):
         Q, H = pose(x)
         Wh = Q[rig.index["wrist.L"]]
-        c = 60 * (float(np.sum((qrot(Wh, d0) - hand_dir) ** 2)) + float(np.sum((qrot(Wh, n0) - palm_normal) ** 2)))
+        # the bone-based palm normal n0 is ~10 deg off the palm skin: weighted as much as the direction it
+        # rolled the hands so only the index fingers touched and the little fingers stood 1-1.5 cm apart
+        # (seen from the front the fingers made an X); with ref='palm' the skin decides the roll
+        wn = 60 if ref != "palm" else 6
+        c = 60 * float(np.sum((qrot(Wh, d0) - hand_dir) ** 2)) + wn * float(np.sum((qrot(Wh, n0) - palm_normal) ** 2))
         pos = rig.skin(ps.rest, ps.v, Q, H, idx=idx)
         if ref == "palm":
             # the whole palmar surface lies in the mid plane, nothing crosses it
@@ -882,8 +943,14 @@ def hand_poses(rig, variant, rest, which=None):
     # anjali: flat hands, fingers together, palms pressed at the chest
     sp = {2: 2.0, 3: 0, 4: -2.0, 5: -3.5}  # slightly converging: the MH fingers are thinner than the knuckle spacing
     loc = flat_hand(hand, spread=sp, thumb=32)
+    # the ulnar side of a real palm curves toward the palm (4th/5th carpometacarpal flexion); the flat
+    # MakeHuman palm kept the ring and little fingers 1-2 cm off the other hand
+    for k, ang in ANJALI_CUP.items():
+        b = f"metacarpal{k}.L"
+        dmc = unit(ps.T(b) - ps.P(b))
+        loc[b] = qaxis(unit(np.cross(dmc, hand.n0)), ang)
     yc = ps.P("spine01")[1] - 0.005
-    zc = chest_front(ps, yc) + 0.075
+    zc = chest_front(ps, yc) + 0.095   # 7.5 cm left the wrists 2 cm inside the chest (arm_trunk_pen)
     arms, tw = arms_anatomy(ps, hand, loc, unit([0, 1, 0.22]), [-1, 0, 0], yc, zc, 0.0015, "palm", slope_deg=20)
     res["anjali"] = (loc, arms, tw)
     # hakini: spread fingers, tips touching their mirror twins, palms apart
@@ -949,7 +1016,8 @@ def main():
         "handMirror": "hand.*.rot holds LEFT-hand bones (*.L); apply the mirrored quaternion [x, -y, -z, w] to the "
                       "matching *.R bone. hand.*.arms (if present) overrides arm bones of both sides explicitly.",
         "compose": "local = body.rot[variant]; if hand.arms: local.update(hand.arms[variant]); local.update(fingers of "
-                   "hand.rot[variant] for both sides); root = body.root[variant].",
+                   "hand.rot[variant] for both sides; with the open hand body.openRot[variant] replaces hand.rot when "
+                   "present: the lotus dhyana fingers); root = body.root[variant].",
         "body": {pid: {"label": labels[pid], "rot": {}, "root": {}} for pid in body_ids},
         "hand": {pid: {"label": labels[pid], "rot": {}} for pid in hand_ids},
     }
@@ -959,7 +1027,7 @@ def main():
         for part in ("body", "hand"):
             for pid, e in old.get(part, {}).items():
                 if pid in out[part]:
-                    for key in ("rot", "root", "arms", "mudraArms"):
+                    for key in ("rot", "root", "arms", "mudraArms", "openRot"):
                         if key in e:
                             out[part][pid].setdefault(key, {}).update(e[key])
     for variant in args.variants:
@@ -986,11 +1054,18 @@ def main():
         import asanas  # noqa: E402  (anatomical-angle poses, see asanas.py)
         ctx = asanas.Ctx(Poser, Capsule, rig, variant, rest)
         fing = lambda pid: {k: np.array(v) for k, v in out["hand"][pid]["rot"].get(variant, {}).items()}  # noqa: E731
-        ctx.fingers = {"open": fing("open"), "mudras": [fing(m) for m in ("gyan", "prithvi", "shuni", "vyana", "apana")]}
+        dh_hand = Hand(ctx.ps)
+        ctx.fingers = {"open": fing("open"), "mudras": [fing(m) for m in ("gyan", "prithvi", "shuni", "vyana", "apana")],
+                       "dhyana": dhyana_fingers(dh_hand)}
         for pid in body_ids:
             if args.poses and pid not in args.poses:
                 continue
             W, root, info, mudra_W = asanas.body_pose(ctx, pid, anjali_world)
+            if pid in ("padmasana", "ardha_padmasana"):
+                # the open hand of the lotus is dhyana: its own fingers with the thumb tips touching
+                floc, finfo = dhyana_thumbs(ctx.ps, dh_hand, W, root)
+                out["body"][pid].setdefault("openRot", {})[variant] = {k: rnd(v) for k, v in floc.items() if k.split(".")[0] in FINGER_BONES}
+                info["dhyana"] = finfo
             ctx.ps.W, ctx.ps.root = W, root
             loc = ctx.ps.local()
             out["body"][pid]["rot"][variant] = {k: rnd(v) for k, v in loc.items()}

@@ -61,6 +61,9 @@ LIM = {
     "buttock_floor": 0.003, "floor_pen": -0.003, "buttock_heel_gap": 0.010,
     "foot_thigh_gap": 0.005, "foot_thigh_sink": 0.010,
     "hand_leg_sink": 0.005, "hand_leg_gap": 0.010, "hand_floor_gap": 0.010,
+    # added after the lotus review: forearms went 5 cm into the belly, the hands into each other and the
+    # feet were buried in the thighs, and nothing here measured it
+    "arm_trunk_pen": 0.006, "hand_hand_pen": 0.004, "foot_top_visible": 0.30,
     "anjali_frac": 0.90, "anjali_band": 0.003, "anjali_pen": 0.002,
     # whole-body p99 of edge length / rest; per region (legs, arms, hands, hips, torso, head) a looser
     # limit that still catches local tearing such as the crotch spike (ratio 2-7 there in the lotus)
@@ -300,7 +303,8 @@ def compose(poses, variant, body_id, hand_id):
         if not arms and hand_id != "open":   # same rule as pose.js: mudra -> the pose's palm-up arms
             local.update({k: np.array(q, float) for k, q in pick(body.get("mudraArms")).items()})
         local.update({k: np.array(q, float) for k, q in arms.items()})
-        for k, q in pick(hand.get("rot")).items():
+        own = pick(body.get("openRot")) if hand_id == "open" else {}     # same rule as pose.js: lotus dhyana
+        for k, q in (own or pick(hand.get("rot"))).items():
             local[k] = np.array(q, float)
             if k.endswith(".L"):
                 local[k[:-2] + ".R"] = np.array([q[0], -q[1], -q[2], q[3]], float)
@@ -519,6 +523,29 @@ def evaluate(b, local, root, body_id, hand_id, has_arms):
         M["foot_on_thigh"][s] = {"gap": gap, "sink": sink}
         C.add("foot_thigh_gap", gap, "<=", LIM["foot_thigh_gap"], s, "m")
         C.add("foot_thigh_sink", sink, "<=", LIM["foot_thigh_sink"], s, "m")
+    # feet that rest on the thighs must be seen from above (a foot is visible where no other skin lies
+    # above it within 1 cm sideways)
+    if body_id in LOTUS:
+        others = np.setdiff1d(np.arange(len(pos)), np.concatenate([b.sets["footL"], b.sets["footR"]]))
+        po = pos[others]
+        for s in rest_on:
+            f = pos[b.sets[f"foot{s}"]][::2]
+            vis = 0
+            for p in f:
+                near = ((po[:, 0] - p[0]) ** 2 + (po[:, 2] - p[2]) ** 2) < 0.01 ** 2
+                if not near.any() or po[near, 1].max() < p[1] + 0.002:
+                    vis += 1
+            M.setdefault("foot_visible", {})[s] = vis / max(1, len(f))
+            C.add("foot_top_visible", vis / max(1, len(f)), ">=", LIM["foot_top_visible"], s, "")
+    # arms out of the trunk, hands out of each other
+    trunk = np.flatnonzero(np.isin(b.region, ["torso", "hips"]))
+    for s in SIDES:
+        fore = np.flatnonzero((np.isin(b.base, ["lowerarm01", "lowerarm02"]) | b.is_hand) & (b.side == s))
+        sd = surface_sd(b, pos, nrm, fore, trunk)
+        C.add("arm_trunk_pen", float(max(0.0, -sd.min())), "<=", LIM["arm_trunk_pen"], s, "m")
+    if hand_id not in ("anjali", "hakini"):
+        hh = min(surface_sd(b, pos, nrm, b.sets["handR"], b.sets["handL"]).min(), surface_sd(b, pos, nrm, b.sets["handL"], b.sets["handR"]).min())
+        C.add("hand_hand_pen", float(max(0.0, -hh)), "<=", LIM["hand_hand_pen"], None, "m")
     # ---- hands
     legs = np.concatenate([b.sets["legL"], b.sets["legR"]])
     if body_id in SEATED and body_id != "dandasana" and not has_arms:

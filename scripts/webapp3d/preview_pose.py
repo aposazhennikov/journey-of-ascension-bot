@@ -32,7 +32,8 @@ def compose(poses, body, hand, variant):
         loc.update({k: np.array(v) for k, v in b["mudraArms"][variant].items()})   # same rule as pose.js
     if "arms" in h:
         loc.update({k: np.array(v) for k, v in h["arms"][variant].items()})
-    for k, q in h["rot"][variant].items():
+    own = b.get("openRot", {}).get(variant) if hand == "open" else None   # same rule as pose.js: lotus dhyana
+    for k, q in (own or h["rot"][variant]).items():
         loc[k] = np.array(q)
         loc[k.replace(".L", ".R")] = pk.qmirror(np.array(q))
     return loc, np.array(b["root"][variant])
