@@ -56,8 +56,29 @@ export class SkinSurface {
     this.triangle(att.tri);
     const [w0, w1, w2] = att.bary;
     out.set(0, 0, 0).addScaledVector(_a, w0).addScaledVector(_b, w1).addScaledVector(_c, w2);
-    if (att.offset) out.addScaledVector(this.normal(att.tri, _e1), att.offset);
+    if (att.offset) out.addScaledVector(this.smoothNormal(att, _e1), att.offset);
     return out;
+  }
+
+  /**
+   * Normal interpolated from the vertex normals (falls back to the face normal). Lines are lifted off
+   * the skin along it: with the flat face normal the lift jumped at every edge of this low-poly mesh
+   * and drew little steps along the line.
+   */
+  smoothNormal(att, out = new THREE.Vector3()) {
+    const nAttr = this.geometry.attributes.normal;
+    if (!nAttr) return this.normal(att.tri, out);
+    const n = nAttr.array;
+    const idx = this.index;
+    const [w0, w1, w2] = att.bary;
+    const i0 = 3 * idx[3 * att.tri], i1 = 3 * idx[3 * att.tri + 1], i2 = 3 * idx[3 * att.tri + 2];
+    out.set(
+      n[i0] * w0 + n[i1] * w1 + n[i2] * w2,
+      n[i0 + 1] * w0 + n[i1 + 1] * w1 + n[i2 + 1] * w2,
+      n[i0 + 2] * w0 + n[i1 + 2] * w1 + n[i2 + 2] * w2,
+    );
+    if (out.lengthSq() < 1e-10) return this.normal(att.tri, out);
+    return out.normalize();
   }
 
   /** Outward normal of triangle `tri` on the current positions (MakeHuman winding faces out). */
@@ -176,6 +197,38 @@ SkinSurface.prototype.densifyStops = function densifyStops(stopsIn, opts = {}) {
   return { stops: out, original };
 };
 
+/**
+ * Midline channels (Du Mai, Ren Mai): find the skin point ON the plane x = 0 by a ray inside that
+ * plane. The closest-point search must not be used there: in the gluteal cleft (and under the chin)
+ * the two sides of the body meet at the midline and the closest point flips from one wall to the
+ * other, which drew a zigzag.
+ */
+SkinSurface.prototype.pressMidline = function pressMidline(p, dir) {
+  const first = new THREE.Vector3(0, dir.y, dir.z);
+  // try the blended normal, then straight back/front and down/up, all inside the plane x = 0
+  const tries = [first, new THREE.Vector3(0, 0, p.z >= -0.05 ? 1 : -1), new THREE.Vector3(0, 0, p.z >= -0.05 ? -1 : 1),
+    new THREE.Vector3(0, -1, 0), new THREE.Vector3(0, 1, 0)];
+  for (const d of tries) {
+    if (d.lengthSq() < 1e-8) continue;
+    d.normalize();
+    const ray = new THREE.Ray(new THREE.Vector3(0, p.y, p.z).addScaledVector(d, -0.06), d);
+    const hits = this.bvh.raycast(ray, THREE.DoubleSide, 0, 0.14) || [];
+    // the first place where the ray leaves the body inside the plane: the bottom of a crease, never
+    // a second body part further along the ray
+    let best = null;
+    for (const h of hits) {
+      if (h.face.normal.dot(d) <= 0) continue;
+      if (!best || h.distance < best.distance) best = h;
+    }
+    if (!best) continue;
+    const q = best.point.clone();
+    if (q.distanceTo(p) > 0.05) continue;     // that ray found some other surface
+    q.x = 0;
+    return this.attach(q, best.faceIndex);
+  }
+  return null;
+};
+
 /** Catmull-Rom through the stops, every `step` m, pressed onto the skin. pinned[i] = stop number or -1. */
 SkinSurface.prototype.sampleCurve = function sampleCurve(stops, step, opts = {}) {
   const curve = new THREE.CatmullRomCurve3(stops.map((s) => s.p), false, 'centripetal');
@@ -197,7 +250,11 @@ SkinSurface.prototype.sampleCurve = function sampleCurve(stops, step, opts = {})
       curve.getPoint((i + k) / n, q);
       nrm.lerpVectors(a.n, b.n, k).normalize();
       if (nrm.lengthSq() < 1e-6) nrm.copy(a.n);
-      if (opts.midline) { q.x = 0; nrm.x = 0; nrm.normalize(); }
+      if (opts.midline) {
+        q.x = 0; nrm.x = 0; nrm.normalize();
+        const am = this.pressMidline(q, nrm);
+        if (am) { atts.push(am); pinned.push(-1); continue; }
+      }
       const res = this.bvh.closestPointToPoint(q, hit);
       const near = res ? res.distance : 0.05;
       let att = null;
@@ -231,8 +288,12 @@ SkinSurface.prototype.cleanSamples = function cleanSamples(attsIn, pinnedIn, opt
   const pos = () => atts.map((a) => this.evaluate({ ...a, offset: 0 }));
   const nrm = () => atts.map((a) => this.normal(a.tri, new THREE.Vector3()));
   const tmp = new THREE.Vector3();
-  const press = (p) => {
-    if (opts.midline) p.x = 0;
+  const press = (p, i) => {
+    if (opts.midline) {
+      p.x = 0;
+      const n = i != null ? this.normal(atts[i].tri, new THREE.Vector3()) : new THREE.Vector3(0, 0, p.z >= 0 ? 1 : -1);
+      return this.pressMidline(p, n);   // no closest-point fallback on the midline (it flips sides)
+    }
     return this.attachNearest(p);
   };
   for (let pass = 0; pass < 2; pass++) {
@@ -244,7 +305,7 @@ SkinSurface.prototype.cleanSamples = function cleanSamples(attsIn, pinnedIn, opt
       const jump = Math.max(P[i].distanceTo(P[i - 1]), P[i].distanceTo(P[i + 1]));
       const turned = N[i].dot(N[i - 1]) < 0.2 && N[i].dot(N[i + 1]) < 0.2;
       if (jump > 0.015 || turned) {
-        const a = press(tmp.lerpVectors(P[i - 1], P[i + 1], 0.5).clone());
+        const a = press(tmp.lerpVectors(P[i - 1], P[i + 1], 0.5).clone(), i);
         if (a) { atts[i] = a; P[i] = this.evaluate({ ...a, offset: 0 }); N[i] = this.normal(a.tri, new THREE.Vector3()); changed = true; }
       }
     }
@@ -257,7 +318,7 @@ SkinSurface.prototype.cleanSamples = function cleanSamples(attsIn, pinnedIn, opt
       if (pinned[i] !== -1) continue;
       const target = tmp.addVectors(P[i - 1], P[i + 1]).multiplyScalar(0.5);
       const moved = P[i].clone().lerp(target, 0.5);
-      const a = press(moved);
+      const a = press(moved, i);
       if (a) next[i] = a;
     }
     atts = next;
