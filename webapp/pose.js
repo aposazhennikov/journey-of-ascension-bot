@@ -104,7 +104,9 @@ export function composePose(rig, variant, bodyPose, handPose) {
     const fingers = Object.keys(own).length ? own : pick(hand.rot);
     for (const [k, q] of Object.entries(fingers)) {
       put(k, q);
-      put(k.replace(/\.L$/, '.R'), [q[0], -q[1], -q[2], q[3]]); // mirror through x = 0
+      // mirror through x = 0, unless the right hand has its own value (dhyana thumbs)
+      const r = k.replace(/\.L$/, '.R');
+      if (r !== k && !(r in fingers)) put(r, [q[0], -q[1], -q[2], q[3]]);
     }
   }
   const root = (body.root && (body.root[variant] || body.root.neutral)) || [0, 0, 0];

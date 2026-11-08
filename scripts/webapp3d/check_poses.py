@@ -64,7 +64,12 @@ LIM = {
     # added after the lotus review: forearms went 5 cm into the belly, the hands into each other and the
     # feet were buried in the thighs, and nothing here measured it
     "arm_trunk_pen": 0.006, "hand_hand_pen": 0.004, "foot_top_visible": 0.30,
-    "anjali_frac": 0.90, "anjali_band": 0.003, "anjali_pen": 0.002,
+    # anjali: a real palm has a hollow, so "90 % of the palm within 3 mm of the mid plane" failed on every
+    # body from the start and hid the one real defect (a 1.5 cm slit between the neutral palms, median
+    # 9 mm per hand; 6 mm shows no slit from above). Measured instead: the median palm offset, and the
+    # finger pads (palmar side of fingers 2-5) lying on the other hand
+    # pad limits set from renders: 0.70 (female) and 0.47-0.53 (neutral, male) look closed from above
+    "anjali_palm_med": 0.007, "anjali_pad_frac": 0.45, "anjali_pad_band": 0.006, "anjali_pen": 0.002,
     # whole-body p99 of edge length / rest; per region (legs, arms, hands, hips, torso, head) a looser
     # limit that still catches local tearing such as the crotch spike (ratio 2-7 there in the lotus)
     "stretch_p99": 1.5, "stretch_p99_region": 2.0, "forearm_area": 0.8,
@@ -304,9 +309,10 @@ def compose(poses, variant, body_id, hand_id):
             local.update({k: np.array(q, float) for k, q in pick(body.get("mudraArms")).items()})
         local.update({k: np.array(q, float) for k, q in arms.items()})
         own = pick(body.get("openRot")) if hand_id == "open" else {}     # same rule as pose.js: lotus dhyana
-        for k, q in (own or pick(hand.get("rot"))).items():
+        fingers = own or pick(hand.get("rot"))
+        for k, q in fingers.items():
             local[k] = np.array(q, float)
-            if k.endswith(".L"):
+            if k.endswith(".L") and k[:-2] + ".R" not in fingers:   # explicit right values win (dhyana thumbs)
                 local[k[:-2] + ".R"] = np.array([q[0], -q[1], -q[2], q[3]], float)
     root = np.array(pick(body.get("root")) or [0, 0, 0], float)
     return local, root, has_arms
@@ -506,7 +512,9 @@ def evaluate(b, local, root, body_id, hand_id, has_arms):
     if body_id == "padmasana":
         rest_on = ["L", "R"]
     elif body_id == "ardha_padmasana":
-        rest_on = [max(SIDES, key=lambda s: H[I[f"foot.{s}"]][1])]
+        # asanas.solve_lotus always puts the left foot on top; picking the higher ankle chose the right
+        # foot (under the left knee) on the neutral body and checked the wrong leg
+        rest_on = ["L"]
     elif body_id == "vrikshasana":
         bent = max(SIDES, key=lambda s: A[s]["knee_flex"])
         rest_on = [bent]
@@ -551,7 +559,10 @@ def evaluate(b, local, root, body_id, hand_id, has_arms):
     if body_id in SEATED and body_id != "dandasana" and not has_arms:
         M["hand_leg"] = {}
         for s in SIDES:
-            sd = surface_sd(b, pos, nrm, b.sets[f"hand{s}"], legs)
+            # lotus dhyana: the right hand rests on the left one, which is its support (it read as a
+            # 4-10 cm gap over the legs)
+            sup = np.concatenate([legs, b.sets["handL"]]) if (body_id in LOTUS and hand_id == "open" and s == "R") else legs
+            sd = surface_sd(b, pos, nrm, b.sets[f"hand{s}"], sup)
             M["hand_leg"][s] = {"gap": float(sd.min()), "sink": float(max(0.0, -sd.min()))}
             C.add("hand_leg_gap", float(sd.min()), "<=", LIM["hand_leg_gap"], s, "m")
             C.add("hand_leg_sink", float(max(0.0, -sd.min())), "<=", LIM["hand_leg_sink"], s, "m")
@@ -563,10 +574,13 @@ def evaluate(b, local, root, body_id, hand_id, has_arms):
         mid, lat = H[I["spine01"]], qrot(Q[I["spine01"]], X)   # body mid plane (the root may be shifted)
         for s, sg in SIDES.items():
             x = (pos[b.palm[s]] - mid) @ lat * sg   # distance from the mid plane, + on the own side
-            frac = float(np.mean(np.abs(x) <= LIM["anjali_band"]))
+            pads = np.isin(b.palm[s], b.bones([f"finger{k}-{j}.{s}" for k in range(2, 6) for j in (2, 3)]))
+            pad_frac = float(np.mean(np.abs(x[pads]) <= LIM["anjali_pad_band"]))
+            med = float(np.median(x))
             pen = float(max(0.0, -x.min()))
-            M["anjali"][s] = {"frac_in_band": frac, "penetration": pen, "median_gap": float(np.median(x))}
-            C.add("anjali_palm_frac", frac, ">=", LIM["anjali_frac"], s, "")
+            M["anjali"][s] = {"pad_frac": pad_frac, "penetration": pen, "median_gap": med}
+            C.add("anjali_palm_med", med, "<=", LIM["anjali_palm_med"], s, "m")
+            C.add("anjali_pad_frac", pad_frac, ">=", LIM["anjali_pad_frac"], s, "")
             C.add("anjali_palm_pen", pen, "<=", LIM["anjali_pen"], s, "m")
     if hand_id in MUDRA_TARGETS:
         M["mudra"] = {}
