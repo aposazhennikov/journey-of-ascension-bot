@@ -89,6 +89,9 @@ VIA = {
 CHAINS = {
     "stomach": [
         ["E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8"],
-        ["E5"] + [f"E{i}" for i in range(9, 46)],
+        # E40 (luo) lies 1 cun lateral to E38, above E39: drawn as a short side branch from E38,
+        # otherwise the line would run down to E39, back up to E40 and down again (a hairpin)
+        ["E5"] + [f"E{i}" for i in range(9, 40)] + [f"E{i}" for i in range(41, 46)],
+        ["E38", "E40"],
     ],
 }

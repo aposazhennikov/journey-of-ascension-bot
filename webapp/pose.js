@@ -1,11 +1,12 @@
-// CPU linear-blend skinning for the meridian body (MakeHuman default rig, see assets/rig.json)
+// CPU dual-quaternion skinning for the meridian body (MakeHuman default rig, see assets/rig.json)
 // and named poses (assets/poses.json): asanas (body) + mudras (hands).
 //
 // Rotation convention (same as scripts/webapp3d/posekit.py): every bone's rest frame is aligned
 // with the world axes (+x body's left, +y up, +z front). A pose gives each bone a LOCAL rotation
 // q (quaternion [x, y, z, w]) relative to rest, applied about the bone head in the parent's
 // posed frame:  Q_b = Q_parent * q_b,  H_b = H_parent + Q_parent * (head_b - head_parent),
-// and a skin vertex is  v' = sum_i w_i * (H_i + Q_i * (v - head_i)).  The root also gets the
+// and a skin vertex is moved by the weighted dual-quaternion blend of the bone transforms
+// (v -> H_i + Q_i * (v - head_i)), as posekit.Rig.skin(method='dqs') does.  The root also gets the
 // pose's root offset (metres), which lowers the pelvis to the floor in seated poses.
 //
 // Usage: see the comment at the end of the file.
@@ -125,6 +126,7 @@ export function createSkinner(rig, restPositions, variant = 'neutral') {
   const fromRoot = new Float32Array(3), toRoot = new Float32Array(3), curRoot = new Float32Array(3);
   const Qw = new Float32Array(n * 4), Hw = new Float32Array(n * 3);
   const M = new Float32Array(n * 12); // per bone: 3x3 rotation (row-major) + translation
+  const DQ = new Float32Array(n * 8); // per bone: dual quaternion (real xyzw, dual xyzw)
   let targetKey = 'stand|open';
   let lastT = 1;
 
@@ -151,22 +153,48 @@ export function createSkinner(rig, restPositions, variant = 'neutral') {
       M[mi + 9] = Hw[hi] - (M[mi] * heads[hi] + M[mi + 1] * heads[hi + 1] + M[mi + 2] * heads[hi + 2]);
       M[mi + 10] = Hw[hi + 1] - (M[mi + 3] * heads[hi] + M[mi + 4] * heads[hi + 1] + M[mi + 5] * heads[hi + 2]);
       M[mi + 11] = Hw[hi + 2] - (M[mi + 6] * heads[hi] + M[mi + 7] * heads[hi + 1] + M[mi + 8] * heads[hi + 2]);
+      // dual quaternion of the bone: real part = Qw (normalised), dual part = 0.5 * (t, 0) * Qw
+      const l = Math.hypot(Qw[qi], Qw[qi + 1], Qw[qi + 2], Qw[qi + 3]) || 1;
+      const ax = Qw[qi] / l, ay = Qw[qi + 1] / l, az = Qw[qi + 2] / l, aw = Qw[qi + 3] / l;
+      const tx = M[mi + 9], ty = M[mi + 10], tz = M[mi + 11];
+      const di = i * 8;
+      DQ[di] = ax; DQ[di + 1] = ay; DQ[di + 2] = az; DQ[di + 3] = aw;
+      DQ[di + 4] = 0.5 * (tx * aw + ty * az - tz * ay);
+      DQ[di + 5] = 0.5 * (-tx * az + ty * aw + tz * ax);
+      DQ[di + 6] = 0.5 * (tx * ay - ty * ax + tz * aw);
+      DQ[di + 7] = -0.5 * (tx * ax + ty * ay + tz * az);
     }
   }
 
+  // Dual quaternion skinning: unlike a linear blend it keeps the volume where a joint turns far
+  // (hips in the lotus poses, the twisted forearm), so the buttocks and elbows do not collapse.
   function skin() {
     let minY = Infinity;
     for (let v = 0, o = 0, w = 0; v < nv; v++, o += 3) {
       const x = rest[o], y = rest[o + 1], z = rest[o + 2];
-      let px = 0, py = 0, pz = 0;
+      let b0x = 0, b0y = 0, b0z = 0, b0w = 0, bex = 0, bey = 0, bez = 0, bew = 0;
+      const p = J[w] * 8;
+      const px0 = DQ[p], py0 = DQ[p + 1], pz0 = DQ[p + 2], pw0 = DQ[p + 3];
       for (let k = 0; k < K; k++, w++) {
-        const wt = Wt[w];
+        let wt = Wt[w];
         if (wt === 0) continue;
-        const m = J[w] * 12;
-        px += wt * (M[m] * x + M[m + 1] * y + M[m + 2] * z + M[m + 9]);
-        py += wt * (M[m + 3] * x + M[m + 4] * y + M[m + 5] * z + M[m + 10]);
-        pz += wt * (M[m + 6] * x + M[m + 7] * y + M[m + 8] * z + M[m + 11]);
+        const d = J[w] * 8;
+        if (DQ[d] * px0 + DQ[d + 1] * py0 + DQ[d + 2] * pz0 + DQ[d + 3] * pw0 < 0) wt = -wt;
+        b0x += wt * DQ[d]; b0y += wt * DQ[d + 1]; b0z += wt * DQ[d + 2]; b0w += wt * DQ[d + 3];
+        bex += wt * DQ[d + 4]; bey += wt * DQ[d + 5]; bez += wt * DQ[d + 6]; bew += wt * DQ[d + 7];
       }
+      const il = 1 / (Math.hypot(b0x, b0y, b0z, b0w) || 1);
+      const rx = b0x * il, ry = b0y * il, rz = b0z * il, rw = b0w * il;
+      const ex = bex * il, ey = bey * il, ez = bez * il, ew = bew * il;
+      // rotate: v + 2 r x (r x v + w v)
+      const cx = ry * z - rz * y + rw * x, cy = rz * x - rx * z + rw * y, cz = rx * y - ry * x + rw * z;
+      let px = x + 2 * (ry * cz - rz * cy);
+      let py = y + 2 * (rz * cx - rx * cz);
+      let pz = z + 2 * (rx * cy - ry * cx);
+      // translate: 2 (w e - ew r + r x e)
+      px += 2 * (rw * ex - ew * rx + ry * ez - rz * ey);
+      py += 2 * (rw * ey - ew * ry + rz * ex - rx * ez);
+      pz += 2 * (rw * ez - ew * rz + rx * ey - ry * ex);
       positions[o] = px; positions[o + 1] = py; positions[o + 2] = pz;
       if (py < minY) minY = py;
     }

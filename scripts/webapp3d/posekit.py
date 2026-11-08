@@ -155,15 +155,44 @@ class Rig:
                 H[i] = H[p] + qrot(Q[p], heads[i] - heads[p])
         return Q, H
 
-    def skin(self, rest, variant, Q, H):
+    def skin(self, rest, variant, Q, H, method="dqs", idx=None):
+        """Skin the rest vertices. method='dqs' (dual quaternion, default; keeps volume at the hips
+        in the lotus poses, same as webapp/pose.js) or 'lbs' (linear blend). idx: only these vertices."""
+        if idx is not None:
+            full = (self.joints, self.weights)
+            self.joints, self.weights = self.joints[idx], self.weights[idx]
+            try:
+                return self.skin(rest[idx], variant, Q, H, method)
+            finally:
+                self.joints, self.weights = full
         heads = self.heads[variant]
         mats = np.stack([qmat(q) for q in Q])           # (N,3,3)
         trans = H - np.einsum("nij,nj->ni", mats, heads)  # (N,3)
-        out = np.zeros_like(rest)
+        if method == "lbs":
+            out = np.zeros_like(rest)
+            for k in range(self.joints.shape[1]):
+                j = self.joints[:, k]
+                w = self.weights[:, k:k + 1]
+                out += w * (np.einsum("vij,vj->vi", mats[j], rest) + trans[j])
+            return out
+        # dual part of each bone: qd = 0.5 * (t, 0) * q
+        Qn = Q / np.linalg.norm(Q, axis=1, keepdims=True)
+        D = 0.5 * np.stack([qmul(np.array([*t, 0.0]), q) for t, q in zip(trans, Qn)])
+        piv = Qn[self.joints[:, 0]]
+        b0 = np.zeros((len(rest), 4))
+        be = np.zeros((len(rest), 4))
         for k in range(self.joints.shape[1]):
             j = self.joints[:, k]
             w = self.weights[:, k:k + 1]
-            out += w * (np.einsum("vij,vj->vi", mats[j], rest) + trans[j])
+            sg = np.where(np.sum(Qn[j] * piv, axis=1, keepdims=True) < 0, -1.0, 1.0)
+            b0 += w * sg * Qn[j]
+            be += w * sg * D[j]
+        ln = np.linalg.norm(b0, axis=1, keepdims=True)
+        c0, ce = b0 / ln, be / ln
+        r, w0 = c0[:, :3], c0[:, 3:4]
+        re, we = ce[:, :3], ce[:, 3:4]
+        out = rest + 2 * np.cross(r, np.cross(r, rest) + w0 * rest)
+        out += 2 * (w0 * re - we * r + np.cross(r, re))
         return out
 
     def rigid(self, rest, bone, Q, H, variant):

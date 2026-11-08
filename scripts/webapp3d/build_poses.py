@@ -231,7 +231,7 @@ def legs_seated(ps, kind):
         hy = hip["L"][1]
         # left foot on the right thigh (on top); padmasana: right foot on the left thigh (below),
         # ardha: right foot tucked under the left knee
-        Lt = LOTUS
+        Lt = getattr(ps, "lotus", LOTUS)
         ankL = np.array([-Lt["top_x"] * k, hy + Lt["top_lift"], hz + Lt["top_fwd"] * k])
         ps.set_leg("L", ankL, _knee_pole(hip["L"], ankL, l1, l2, knee_y + 0.015, 1), foot_dir=unit(Lt["foot_dir"]),
                    sole_normal=unit(Lt["sole"]))
@@ -240,7 +240,7 @@ def legs_seated(ps, kind):
             ps.set_leg("R", ankR, _knee_pole(hip["R"], ankR, l1, l2, knee_y, -1), foot_dir=unit(np.multiply(Lt["foot_dir"], [-1, 1, 1])),
                        sole_normal=unit(np.multiply(Lt["sole"], [-1, 1, 1])))
         else:
-            ankR = np.array([0.15 * k, 0.06, hz + 0.27 * k])
+            ankR = np.array([Lt["ard_x"] * k, 0.06, hz + Lt["ard_fwd"] * k])
             ps.set_leg("R", ankR, [-1, 0.35, 0.35], foot_dir=unit([1, -0.05, 0.3]), sole_normal=unit([0.2, 0.55, -0.8]))
         return
     raise ValueError(kind)
@@ -261,7 +261,140 @@ def _knee_pole(hip, ank, l1, l2, knee_y, side):
 
 
 LOTUS = {"top_x": 0.075, "top_lift": 0.115, "top_fwd": 0.15, "low_x": 0.075, "low_lift": 0.07, "low_fwd": 0.11,
-         "foot_dir": [-1, -0.12, 0.2], "sole": [0.1, 1, -0.35]}
+         "ard_x": 0.15, "ard_fwd": 0.27, "foot_dir": [-1, -0.12, 0.2], "sole": [0.1, 1, -0.35]}
+# feet stay near the opposite hip crease (lotus) / under the opposite knee (ardha), cun-scaled metres
+LOTUS_RANGE = {"top_x": (0.06, 0.16), "top_lift": (0.08, 0.20), "top_fwd": (0.09, 0.21),
+               "low_x": (0.01, 0.12), "low_lift": (0.05, 0.15), "low_fwd": (0.07, 0.17),
+               "ard_x": (0.11, 0.19), "ard_fwd": (0.22, 0.33)}
+LOTUS_KEYS = {"padmasana": ["top_x", "top_lift", "top_fwd", "low_x", "low_lift", "low_fwd"],
+              "ardha_padmasana": ["top_x", "top_lift", "top_fwd", "ard_x", "ard_fwd"]}
+
+
+class Capsule:
+    """Radius profile of a limb segment (bones `names`, axis head(a) -> head(b)) measured on the rest
+    mesh; used to tell how deep posed vertices of another limb sink into it."""
+
+    def __init__(self, ps, names, a, b, bins=12):
+        self.ps, self.names, self.a, self.b = ps, names, a, b
+        pa, pb = ps.P(a), ps.P(b)
+        ax = pb - pa
+        ln = np.linalg.norm(ax)
+        m = np.isin(ps.dom, names)
+        rel = ps.rest[m] - pa
+        t = rel @ ax / ln ** 2
+        r = np.linalg.norm(rel - np.outer(t, ax), axis=1)
+        self.edges = np.linspace(0, 1, bins + 1)
+        self.r = np.array([np.median(r[(t >= lo) & (t < hi)]) if np.any((t >= lo) & (t < hi)) else r.mean()
+                           for lo, hi in zip(self.edges[:-1], self.edges[1:])])
+
+    def depth(self, H, pts):
+        """Penetration depth (m, >0 inside) of each point into the posed capsule; -inf off the segment."""
+        pa, pb = H[self.ps.rig.index[self.a]], H[self.ps.rig.index[self.b]]
+        ax = pb - pa
+        t = (pts - pa) @ ax / (ax @ ax)
+        d = np.linalg.norm(pts - pa - np.outer(t, ax), axis=1)
+        k = np.clip((t * (len(self.r))).astype(int), 0, len(self.r) - 1)
+        out = self.r[k] - d
+        out[(t < 0.02) | (t > 0.98)] = -np.inf
+        return out
+
+
+class LotusProbe:
+    """How the crossed legs touch each other: worst sinking (m, >0 = inside, <0 = gap) of a limb's
+    vertices into another limb's capsule. Only leg vertices are skinned, so it is cheap."""
+
+    def __init__(self, ps):
+        self.ps = ps
+        self.cap = {}
+        for s in SIDES:
+            self.cap[f"shin{s}"] = Capsule(ps, [f"lowerleg01.{s}", f"lowerleg02.{s}"], f"lowerleg01.{s}", f"foot.{s}")
+            self.cap[f"thigh{s}"] = Capsule(ps, [f"upperleg01.{s}", f"upperleg02.{s}"], f"upperleg01.{s}", f"lowerleg01.{s}")
+        sets = {}
+        for s in SIDES:
+            sets[f"shin{s}"] = np.isin(ps.dom, [f"lowerleg01.{s}", f"lowerleg02.{s}"])
+            sets[f"foot{s}"] = np.char.startswith(ps.dom.astype(str), "foot.") & np.char.endswith(ps.dom.astype(str), "." + s)
+        self.idx = np.flatnonzero(np.any(np.stack(list(sets.values())), axis=0))
+        self.sets = {k: v[self.idx] for k, v in sets.items()}
+
+    def __call__(self):
+        ps = self.ps
+        Q, H = ps.fk()
+        pos = ps.rig.skin(ps.rest, ps.v, Q, H, idx=self.idx)
+
+        def sink(part, cap):
+            d = self.cap[cap].depth(H, pos[self.sets[part]])
+            return float(np.max(d)) if np.isfinite(d).any() else -1.0
+        r = {}
+        for s, o in (("L", "R"), ("R", "L")):
+            r[f"shin{s}_in_shin{o}"] = sink(f"shin{s}", f"shin{o}")
+            r[f"foot{s}_in_thigh{o}"] = sink(f"foot{s}", f"thigh{o}")
+            r[f"foot{s}_in_shin{o}"] = sink(f"foot{s}", f"shin{o}")
+            r[f"shin{s}_in_thigh{o}"] = sink(f"shin{s}", f"thigh{o}")
+        r["shins"] = max(r["shinL_in_shinR"], r["shinR_in_shinL"])
+        r["kneeL_y"] = float(H[ps.rig.index["lowerleg01.L"]][1])
+        r["kneeR_y"] = float(H[ps.rig.index["lowerleg01.R"]][1])
+        return r
+
+
+def lotus_overlap(ps, pos=None):
+    return LotusProbe(ps)()
+
+
+SINK_OK, GAP_OK, SHIN_OK = 0.010, 0.012, 0.004   # allowed overlap / air under a resting foot / shin-on-shin overlap
+
+
+def tune_lotus(ps, pid):
+    """Place the ankles so that the feet rest on the opposite thighs (no gap, no sinking), the top
+    shin lies over the bottom one and the knees stay low. Pelvis height fixed; the caller re-seats
+    the body afterwards."""
+    probe = LotusProbe(ps)
+    keys = LOTUS_KEYS[pid]
+    x0 = np.array([LOTUS[k] for k in keys])
+
+    def over(v, lim=SINK_OK):
+        return max(0.0, v - lim) ** 2
+
+    def gap(v):
+        return max(0.0, -GAP_OK - v) ** 2
+
+    def run(x):
+        ps.lotus = dict(LOTUS)
+        ps.lotus.update(dict(zip(keys, x)))
+        ps.W = {}
+        legs_seated(ps, pid)
+        return probe()
+
+    def cost(x):
+        r = run(x)
+        c = 1e5 * (over(r["shinL_in_shinR"], SHIN_OK) + over(r["shinR_in_shinL"], SHIN_OK))
+        c += 1e4 * (over(r["footL_in_thighR"]) + gap(r["footL_in_thighR"]))
+        c += 1e4 * (over(r["shinL_in_thighR"], 0.015) + over(r["shinR_in_thighL"], 0.015) + over(r["footL_in_shinR"]))
+        if pid == "padmasana":
+            c += 1e4 * (over(r["footR_in_thighL"]) + gap(r["footR_in_thighL"]) + over(r["footR_in_shinL"]))
+        else:   # bottom foot on the floor under the top leg: just keep it out of the thigh and shin
+            c += 1e4 * (over(r["footR_in_thighL"]) + over(r["footR_in_shinL"]))
+        c += 200 * (max(0, r["kneeL_y"] - 0.09) ** 2 + max(0, r["kneeR_y"] - 0.09) ** 2)
+        for k, v, v0 in zip(keys, x, x0):
+            lo, hi = LOTUS_RANGE[k]
+            c += 1e4 * (max(0, lo - v) ** 2 + max(0, v - hi) ** 2)
+            c += (40 if k.startswith("ard") else 2) * (v - v0) ** 2
+        return c
+    best = None
+    seeds = [x0]
+    for dl in (0.04, 0.08):
+        s = x0.copy()
+        s[keys.index("top_lift")] += dl
+        s[keys.index("top_x")] += dl * 0.5
+        seeds.append(s)
+    for s in seeds:
+        x, f = nelder_mead(cost, s, 0.02, iters=400, tol=1e-10)
+        x, f = nelder_mead(cost, x, 0.006, iters=200, tol=1e-11)
+        if best is None or f < best[1]:
+            best = (x, f)
+    x = best[0]
+    r = run(x)
+    print("    tune", pid, "cost %.4f" % best[1], {k: round(v * 1000) for k, v in r.items()})
+    return {k: round(v * 1000) for k, v in r.items()}, {k: round(float(ps.lotus[k]), 3) for k in keys}
 
 
 def knee_top(ps, pos, s):
@@ -368,18 +501,22 @@ def body_pose(rig, variant, rest, pid, hands):
     ps.knee_lift = 0.0
     butt = (rest[:, 2] < ps.P("upperleg01.L")[2] + 0.02) & (np.abs(rest[:, 0]) < 0.16) & \
            (rest[:, 1] > hipy - 0.20) & (rest[:, 1] < hipy + 0.05) & ~ps.hand_mask
-    for it in range(7):
-        ps.root = np.array([0, hip_h - hipy, 0])
-        ps.W = {}
-        legs_seated(ps, pid)
-        pos = ps.skin()
-        bmin = pos[butt][:, 1].min()
-        if pid == "vajrasana":
-            break
-        low = pos[~ps.hand_mask & ~butt][:, 1].min()
-        if pid in ("padmasana", "ardha_padmasana") and low < bmin - 0.003:
-            ps.knee_lift = min(0.05, ps.knee_lift + bmin - low)   # knees lower than the buttocks: lift them
-        hip_h -= bmin
+    lotus = pid in ("padmasana", "ardha_padmasana")
+    for rnd_ in range(2 if lotus else 1):
+        if rnd_ == 1:
+            ps.tune = tune_lotus(ps, pid)
+        for it in range(7):
+            ps.root = np.array([0, hip_h - hipy, 0])
+            ps.W = {}
+            legs_seated(ps, pid)
+            pos = ps.skin()
+            bmin = pos[butt][:, 1].min()
+            if pid == "vajrasana":
+                break
+            low = pos[~ps.hand_mask & ~butt][:, 1].min()
+            if lotus and rnd_ == 0 and low < bmin - 0.003:
+                ps.knee_lift = min(0.05, ps.knee_lift + bmin - low)   # knees lower than the buttocks: lift them
+            hip_h -= bmin
     if pid == "dandasana":
         arms_dandasana(ps)
     else:
@@ -392,6 +529,9 @@ def body_pose(rig, variant, rest, pid, hands):
            (rest[:, 1] > hipy - 0.20) & (rest[:, 1] < hipy + 0.05) & ~ps.hand_mask
     info = {"buttock_y": float(pos[butt][:, 1].min()), "body_min": float(body[:, 1].min()),
             "hand_min": float(pos[ps.hand_mask][:, 1].min())}
+    if lotus:
+        ov = lotus_overlap(ps, pos)
+        print("   ", pid, "overlap mm", {k: round(v * 1000) for k, v in ov.items()}, "lifts", ps.tune[1])
     return ps, info
 
 
