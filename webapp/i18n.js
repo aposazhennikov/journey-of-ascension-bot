@@ -121,6 +121,7 @@ const S = {
   ind_local: ['Место точки', 'Around the point', 'Nuqta atrofi', 'Нүкте маңы'],
   group_custom: ['Несколько', 'Several', 'Bir nechta', 'Бірнеше'],
   group_custom_title: ['Несколько каналов', 'Several channels', 'Bir nechta kanal', 'Бірнеше арна'],
+  scenery_toggle: ['Фон: гора Кайлас', 'Background: Mount Kailash', 'Fon: Kaylas tog‘i', 'Фон: Кайлас тауы'],
   rel_title: ['Как они связаны', 'How they connect', "Ular qanday bog'langan", 'Олар қалай байланысқан'],
   rel_flow: ['переход энергии', 'energy passes on', "energiya o'tishi", 'энергияның өтуі'],
   rel_pair: ['пара инь-ян, ЛО-ветви', 'yin-yang pair, luo branches', "in-yan juftligi, LO tarmoqlari", 'инь-ян жұбы, ЛО тармақтары'],

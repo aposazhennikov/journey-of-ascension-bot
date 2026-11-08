@@ -44,6 +44,16 @@ button:disabled { cursor: default; opacity: 0.35; }
   background: radial-gradient(120% 75% at 50% 42%, var(--stage-center) 0%, var(--bg) 72%);
 }
 #stage canvas { display: block; }
+/* scenery behind the figure in the poses mode (Mount Kailash, assets/kailash.svg) */
+.backdrop {
+  position: fixed; inset: 0;
+  background: url("assets/kailash.svg") center bottom / cover no-repeat;
+  opacity: 0; transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+body.scenery .backdrop { opacity: 1; }
+body.scenery #stage { background: transparent; }
+:root[data-theme="dark"] .backdrop { filter: brightness(0.55) saturate(0.85); }
 
 /* ---------- top bar ---------- */
 

@@ -99,7 +99,10 @@ export function composePose(rig, variant, bodyPose, handPose) {
     const isMudra = typeof handPose === 'string' ? handPose !== 'open' : true;
     if (!hand.arms && isMudra) for (const [k, q] of Object.entries(pick(body.mudraArms))) put(k, q);
     for (const [k, q] of Object.entries(pick(hand.arms))) put(k, q);
-    for (const [k, q] of Object.entries(pick(hand.rot))) {
+    // the open hand of the lotus is dhyana: the pose's own fingers (thumb tips touching)
+    const own = !isMudra ? pick(body.openRot) : {};
+    const fingers = Object.keys(own).length ? own : pick(hand.rot);
+    for (const [k, q] of Object.entries(fingers)) {
       put(k, q);
       put(k.replace(/\.L$/, '.R'), [q[0], -q[1], -q[2], q[3]]); // mirror through x = 0
     }

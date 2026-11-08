@@ -46,6 +46,7 @@ const state = {
   flowAuto: store.get('flow_auto', true),
   flowSlow: store.get('flow_slow', false),
   luoOn: store.get('luo_links', true),
+  scenery: store.get('scenery', true),
   special: false,
   expanded: new Set(),
   body: ({ f: 'female', m: 'male' })[params.get('body') || startTokens.b] || store.get('body', 'female'),
@@ -875,6 +876,7 @@ function onSheetClick(e) {
   if (ds.act === 'flow') { toggleFlow(); return; }
   if (ds.act === 'prev') { stepPoint(-1); return; }
   if (ds.act === 'next') { stepPoint(1); return; }
+  if (ds.act === 'scenery') { state.scenery = !state.scenery; store.set('scenery', state.scenery); applyScenery(); renderSheet(); return; }
   if (ds.act === 'luo') { state.luoOn = !state.luoOn; store.set('luo_links', state.luoOn); applySelection(); renderSheet(); return; }
   if (ds.act === 'slow') {
     state.flowSlow = !state.flowSlow;
@@ -987,8 +989,14 @@ async function ensurePoses() {
   return poseSys.loading;
 }
 
+// Mount Kailash behind the figure while the poses are open (switch in the poses sheet)
+function applyScenery() {
+  document.body.classList.toggle('scenery', state.overlay === 'poses' && state.scenery);
+}
+
 async function openPoses() {
   state.overlay = 'poses';
+  applyScenery();
   $('poseBtn').setAttribute('aria-pressed', 'true');
   hideNext();
   setSheet('peek', { silent: true });
@@ -1001,6 +1009,7 @@ async function openPoses() {
 
 function closePoses({ refocus }) {
   state.overlay = null;
+  applyScenery();
   $('poseBtn').setAttribute('aria-pressed', 'false');
   setSheet('peek', { silent: true });
   applySelection();
@@ -1045,8 +1054,9 @@ function posesBody() {
   const tx = poseText(item);
   const disclaimer = state.poseContent?.disclaimer_i18n?.[LANG] || '';
   const chips = (ids) => ids.map((id) => `<button class="tag button chip-like" data-chan="${id}"><span class="dot" style="background:${color(id)}"></span>${esc(shortName(id))}</button>`).join('');
+  const sceneryRow = `<div class="toggle-row"><span>${esc(t('scenery_toggle'))}</span><button class="switch" role="switch" data-act="scenery" aria-checked="${state.scenery}"></button></div>`;
   if (tab === 'asanas') {
-    return `<h2 class="card-h">${esc(tx.name || item.id)}${item.sanskrit ? ` <span class="muted">${esc(item.sanskrit)}</span>` : ''}</h2>
+    return `${sceneryRow}<h2 class="card-h">${esc(tx.name || item.id)}${item.sanskrit ? ` <span class="muted">${esc(item.sanskrit)}</span>` : ''}</h2>
       ${tx.how ? `<div class="section"><h3>${esc(t('how_title'))}</h3><p class="text">${esc(tx.how)}</p></div>` : ''}
       ${(item.emphasized_meridians || []).length ? `<div class="section"><h3>${esc(t('focus_channels'))}</h3><div class="tags">${chips(item.emphasized_meridians)}</div></div>` : ''}
       ${tx.meridians_note ? `<p class="text">${esc(tx.meridians_note)}</p>` : ''}
@@ -1066,7 +1076,7 @@ function posesBody() {
     }
   }
   void fm;
-  return `<h2 class="card-h">${esc(tx.name || item.id)}${item.sanskrit ? ` <span class="muted">${esc(item.sanskrit)}</span>` : ''}</h2>
+  return `${sceneryRow}<h2 class="card-h">${esc(tx.name || item.id)}${item.sanskrit ? ` <span class="muted">${esc(item.sanskrit)}</span>` : ''}</h2>
     ${pairs.length ? `<div class="section"><h3>${esc(t('connects'))}</h3><div class="pairs">${pairs.join('')}</div></div>` : ''}
     ${(item.connected_meridians || []).length ? `<div class="tags">${chips(item.connected_meridians.filter((id) => state.channelById.has(id)))}</div>` : ''}
     ${tx.meridians_note ? `<p class="text">${esc(tx.meridians_note)}</p>` : ''}
