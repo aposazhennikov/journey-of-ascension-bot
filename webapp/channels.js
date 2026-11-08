@@ -15,16 +15,17 @@ export const PALETTE = {
     heart: '#c21f32', small_intestine: '#e0552b', bladder: '#2f7be0', kidney: '#1f3a9a',
     pericardium: '#a3236e', triple_burner: '#e0609a', gallbladder: '#4f9a2a', liver: '#1e6b45',
     governing_vessel: '#5b34b8', conception_vessel: '#9a5fd6',
-    chong_mai: '#0d8f8c', dai_mai: '#8a6a2f', yin_wei_mai: '#0b6f7a', yang_wei_mai: '#38b2b0',
-    yin_qiao_mai: '#3d4fb0', yang_qiao_mai: '#6f7fe0',
+    // the eight extraordinary vessels must stay apart from each other when shown together
+    chong_mai: '#0d8f8c', dai_mai: '#8a6a2f', yin_wei_mai: '#6d7a12', yang_wei_mai: '#0099c4',
+    yin_qiao_mai: '#c0397a', yang_qiao_mai: '#d9781c',
   },
   dark: {
     lung: '#f2f5f8', large_intestine: '#b9c6d6', stomach: '#ffd84a', spleen: '#f0a830',
     heart: '#ff5a5f', small_intestine: '#ff8a50', bladder: '#5cc0ff', kidney: '#6f8cff',
     pericardium: '#f05aa8', triple_burner: '#ff9ac6', gallbladder: '#9be05a', liver: '#3fbf7f',
     governing_vessel: '#b08cff', conception_vessel: '#e0a8ff',
-    chong_mai: '#3fe0d0', dai_mai: '#e0c070', yin_wei_mai: '#30c8c8', yang_wei_mai: '#a0f0e8',
-    yin_qiao_mai: '#8f9cff', yang_qiao_mai: '#c0c8ff',
+    chong_mai: '#3fe0d0', dai_mai: '#e0c070', yin_wei_mai: '#c8d850', yang_wei_mai: '#4fd2ff',
+    yin_qiao_mai: '#ff6fae', yang_qiao_mai: '#ffad5a',
   },
 };
 

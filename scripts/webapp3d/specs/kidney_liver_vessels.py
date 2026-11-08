@@ -230,4 +230,10 @@ VIA = {
     # conception vessel: perineum round to the pubis, neck under the chin
     "VC1>VC2": [mid([0, 0.830, -0.060], [0, -1.0, 0.7]), mid([0, 0.830, -0.060], [0, -0.5, 1.0])],
     "VC23>VC24": [from_outside(np.array([0.0, 1.437, 0.020]), (0.0, -1.0, 0.25)), face(0.0, 1.447)],
+    # yang wei / yang qiao: up the side of the trunk along the posterior axillary line to the back of
+    # the shoulder (IG10); without waypoints the long jump from the leg cut through the armpit gap
+    # and was drawn in the air between the flank and the arm
+    "VB35>IG10": [thigh(0.560, 92), thigh(0.760, 92), torso(0.950, 95), torso(1.080, 100),
+                  torso(1.180, 108), torso(1.250, 125)],
+    "VB29>IG10": [torso(0.980, 98), torso(1.080, 100), torso(1.180, 108), torso(1.250, 125)],
 }

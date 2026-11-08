@@ -99,6 +99,14 @@ button:disabled { cursor: default; opacity: 0.35; }
 .chip .dot { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
 .chip-label { overflow: hidden; text-overflow: ellipsis; }
 .chip.vessel { border-style: dashed; }
+.chip.group { gap: 6px; font-weight: 600; }
+.chip.group .dots { display: inline-flex; }
+.chip.group .dots .dot { width: 8px; height: 8px; margin-left: -3px; box-shadow: 0 0 0 1.5px var(--card); }
+.chip.group .dots .dot:first-child { margin-left: 0; }
+.chip.group[aria-selected="true"] { background: var(--text); color: var(--card); border-color: var(--text); }
+.group-dots { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.group-dots .dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
+.group-dots span:last-child { margin-left: 4px; }
 .now-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text); flex: 0 0 auto; }
 .chip-sep { flex: 0 0 1px; height: 24px; background: var(--line); }
 
@@ -123,6 +131,7 @@ button:disabled { cursor: default; opacity: 0.35; }
   box-shadow: var(--shadow);
 }
 .fab[aria-pressed="true"] { background: var(--text); color: var(--card); }
+.fab-text { font-size: 17px; font-weight: 700; }
 
 .next-chip {
   position: fixed;

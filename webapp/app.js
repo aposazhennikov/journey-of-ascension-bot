@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { MeridianScene, reducedMotion } from './scene3d.js';
 import { loadData, loadPoseContent, isActiveNow, activeChannelNow, hh, ASSET_VERSION } from './data.js';
 import {
-  CLOCK_ORDER, PALETTE, TRANSITIONS, SHORT, FLOW_SHORT, POSE_GROUP, ASANA_ORDER, MUDRA_ORDER, normalizeCode,
+  CLOCK_ORDER, PALETTE, TRANSITIONS, SHORT, FLOW_SHORT, POSE_GROUP, ASANA_ORDER, MUDRA_ORDER, normalizeCode, MIDLINE_IDS, VESSEL_IDS,
 } from './channels.js';
 import { makeT, normalizeLang } from './i18n.js';
 
@@ -73,12 +73,27 @@ const fullName = (id) => {
   return ch?.meta?.name || ch?.text?.name || shortName(id);
 };
 const pointName = (code) => state.data.pointInfo.get(code)?.name || '';
+// channel groups that can be highlighted all at once (chips at the start of the row)
+const GROUPS = { regular: CLOCK_ORDER, extra: [...MIDLINE_IDS, ...VESSEL_IDS] };
+const groupIds = (id) => (GROUPS[id] || []).filter((c) => state.channelById.has(c));
 
 // ---------------------------------------------------------------- sheet geometry
 
+// bottom safe area in px: Telegram's own insets or the CSS env() value (home indicator on iPhone)
+let safeProbe = null;
+function safeBottom() {
+  if (!safeProbe) {
+    safeProbe = document.createElement('div');
+    safeProbe.style.cssText = 'position:fixed;left:0;bottom:0;width:1px;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';
+    document.body.appendChild(safeProbe);
+  }
+  const tgInset = Math.max(tg?.safeAreaInset?.bottom || 0, tg?.contentSafeAreaInset?.bottom || 0);
+  return Math.max(tgInset, safeProbe.getBoundingClientRect().height || 0);
+}
 function peekHeight() {
-  const safe = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-bottom-px')) || 0;
-  return (state.overlay === 'poses' ? 184 : 96) + safe;
+  // the poses peek (tabs + body switch + cards + one line) is measured: a fixed height cut its header off
+  const content = state.overlay === 'poses' ? Math.max(184, 16 + (els.peek.scrollHeight || 0)) : 96;
+  return content + safeBottom();
 }
 function sheetVisible(s = state.sheet) {
   const h = tg?.viewportStableHeight || window.innerHeight;
@@ -244,6 +259,10 @@ function applySelection() {
   if (lv.view === 'home') {
     const now = activeChannelNow(d.channels);
     if (now) sel.highlight = [now.id];
+  } else if (lv.view === 'group') {
+    sel.level = 'group';
+    sel.highlight = groupIds(lv.id);
+    sel.visiblePoints = new Set();
   } else {
     const ch = state.channelById.get(lv.id);
     if (ch.kind === 'vessel') {
@@ -278,7 +297,7 @@ function applySelection() {
 function flowMode() {
   const lv = state.level;
   if (state.overlay === 'poses' && lv.view === 'home' && state.mudra !== 'open') return 'comet';
-  if (lv.view === 'home') return null;
+  if (lv.view === 'home' || lv.view === 'group') return null;
   const ch = state.channelById.get(lv.id);
   if (ch.kind === 'vessel') return ch.id === 'dai_mai' ? 'breath' : 'wave';
   return 'comet';
@@ -334,7 +353,7 @@ function setLevel(level, { fly = true, instant = false } = {}) {
   if (EDIT) renderEditbar();
   if (!fly) { setTimeout(startFlow, 150); return; }
   const onEnd = () => setTimeout(startFlow, 150);
-  if (level.view === 'home') { scene.setView('front', { instant }); return; }
+  if (level.view === 'home' || level.view === 'group') { scene.setView('front', { instant }); return; }
   if (level.view === 'point') {
     level.side = level.side || scene.sideFacingCamera(level.code);
     const owner = state.data.pointOwner.get(level.code);
@@ -362,6 +381,14 @@ function selectChannel(id, opts) {
     toast(t('hint_points'));
     store.set('onb_points', true);
   }
+}
+
+function selectGroup(id) {
+  if (state.level.view === 'group' && state.level.id === id) return;
+  if (state.overlay === 'poses') closePoses({ refocus: false });
+  state.overlay = null;
+  setLevel({ view: 'group', id });
+  haptic();
 }
 
 function openPoint(code, side, opts) {
@@ -395,7 +422,7 @@ function back() {
   if (state.overlay === 'poses') { closePoses({ refocus: true }); return; }
   const lv = state.level;
   if (lv.view === 'point') { setLevel({ view: 'channel', id: lv.id }); return; }
-  if (lv.view === 'channel') { setLevel({ view: 'home' }); return; }
+  if (lv.view === 'channel' || lv.view === 'group') { setLevel({ view: 'home' }); return; }
   tg?.close?.();
 }
 
@@ -425,6 +452,12 @@ function renderChips() {
     return `<button class="chip${extra}" role="tab" data-id="${id}" aria-selected="${sel}" style="${style}"><span class="dot" style="background:${c}"></span><span class="chip-label">${esc(shortName(id))}</span>${now?.id === id ? '<span class="now-dot"></span>' : ''}</button>`;
   };
   const html = [];
+  for (const g of ['regular', 'extra']) {
+    const sel = lv.view === 'group' && lv.id === g;
+    const dots = groupIds(g).slice(0, 4).map((id) => `<span class="dot" style="background:${color(id)}"></span>`).join('');
+    html.push(`<button class="chip group" role="tab" data-group="${g}" aria-selected="${sel}"><span class="dots">${dots}</span><span class="chip-label">${esc(t(`group_${g}`))}</span></button>`);
+  }
+  html.push('<span class="chip-sep"></span>');
   for (const id of CLOCK_ORDER) if (state.channelById.has(id)) html.push(chip(id));
   html.push('<span class="chip-sep"></span>');
   for (const id of ['governing_vessel', 'conception_vessel']) if (state.channelById.has(id)) html.push(chip(id));
@@ -438,6 +471,7 @@ function renderChips() {
 els.chips.addEventListener('click', (e) => {
   const btn = e.target.closest('.chip');
   if (!btn) return;
+  if (btn.dataset.group) { selectGroup(btn.dataset.group); return; }
   const id = btn.dataset.id;
   if (state.level.view !== 'home' && state.level.id === id) return;
   selectChannel(id);
@@ -476,6 +510,14 @@ function renderPeek() {
       : `<div class="peek-row"><span class="peek-title">${esc(t('pick_channel'))}</span></div>`;
     return;
   }
+  if (lv.view === 'group') {
+    els.sheet.style.removeProperty('--chan');
+    const dots = groupIds(lv.id).map((id) => `<span class="dot" style="background:${color(id)}"></span>`).join('');
+    els.peek.innerHTML = `<div class="peek-row"><div class="peek-main">
+      <div class="peek-title">${esc(t(`group_${lv.id}_title`))}</div>
+      <div class="peek-sub group-dots">${dots}<span>${esc(t(`group_${lv.id}_sub`))}</span></div></div></div>`;
+    return;
+  }
   const ch = state.channelById.get(lv.id);
   els.sheet.style.setProperty('--chan', color(ch.id));
   if (lv.view === 'point') {
@@ -509,6 +551,7 @@ function renderSheet() {
   if (state.overlay === 'poses') { els.body.innerHTML = posesBody(); return; }
   const lv = state.level;
   if (lv.view === 'home' || state.overlay === 'list') { els.body.innerHTML = homeBody(); return; }
+  if (lv.view === 'group') { els.body.innerHTML = groupBody(lv.id); return; }
   const ch = state.channelById.get(lv.id);
   if (lv.view === 'point') els.body.innerHTML = pointBody(ch, lv.code);
   else if (ch.kind === 'vessel') els.body.innerHTML = vesselBody(ch);
@@ -539,6 +582,20 @@ function homeBody() {
     <p class="note">${esc(t('disclaimer'))}</p>
     <button class="row-btn" data-toggle="about"><span class="name">${esc(t('about_title'))}</span><span class="chev">${about ? '⌄' : '›'}</span></button>
     ${about ? `<p class="text">${esc(t('about_text'))}</p>` : ''}`;
+}
+
+/** List of the group's channels (it doubles as the colour legend); a tap opens the channel. */
+function groupBody(id) {
+  const rows = groupIds(id).map((cid) => {
+    const ch = state.channelById.get(cid);
+    const v = state.data.vessels.find((x) => x.id === cid);
+    const sub = v ? t('opening_point', { code: v.confluent })
+      : ch.midline ? `${t('outside_clock')} · ${t.points(ch.points.length)}`
+        : [ch.meta?.labels?.system, `${hh(ch.meta.active_time, 0)}–${hh(ch.meta.active_time, 1)}`].filter(Boolean).join(' · ');
+    return `<button class="row-btn tall" data-chan="${cid}"><span class="dot big" style="background:${color(cid)}"></span>
+      <span class="name"><span class="row-title">${esc(v?.text?.name || fullName(cid))}</span><span class="row-sub">${esc(sub)}</span></span><span class="chev">›</span></button>`;
+  }).join('');
+  return `<div class="section"><div class="rows">${rows}</div></div>`;
 }
 
 function clampText(key, text) {
@@ -757,6 +814,22 @@ $('turnBtn').addEventListener('click', () => {
   scene.flyTo(tgt, tgt.clone().add(off));
 });
 $('poseBtn').addEventListener('click', () => (state.overlay === 'poses' ? closePoses({ refocus: true }) : openPoses()));
+// female / male: its own button, the switch inside the poses panel was too hard to find
+function renderBodyBtn() {
+  const b = $('bodyBtn');
+  if (!b) return;
+  const male = state.body === 'male';
+  b.textContent = t(male ? 'body_m' : 'body_f');
+  b.setAttribute('aria-label', t('body_switch_aria', { name: t(male ? 'body_m_aria' : 'body_f_aria') }));
+}
+$('bodyBtn').addEventListener('click', async () => {
+  await ensurePoses();
+  const next = state.body === 'male' ? 'female' : 'male';
+  await setBody(next);
+  renderBodyBtn();
+  toast(t(next === 'male' ? 'body_switched_m' : 'body_switched_f'));
+});
+renderBodyBtn();
 $('menuBtn').addEventListener('click', () => {
   state.overlay = 'list';
   setLevel(state.level, { fly: false });
@@ -766,7 +839,7 @@ $('menuBtn').addEventListener('click', () => {
 
 // ---------------------------------------------------------------- poses
 
-const poseSys = { mod: null, rig: null, skinner: null, segments: [], seg: 0, t0: 0, variantRest: {}, morph: null, loading: null };
+const poseSys = { mod: null, rig: null, skinner: null, segments: [], seg: 0, t0: 0, variantRest: {}, variantEyes: {}, morph: null, loading: null };
 
 async function ensurePoses() {
   if (poseSys.loading) return poseSys.loading;
@@ -832,6 +905,7 @@ function renderPosesPeek() {
     </div>
     <div class="pose-row">${cards || `<span class="muted">${esc(poseSys.loading ? t('poses_loading') : t('poses_unavailable'))}</span>`}</div>
     <div class="peek-sub one-line">${esc(poseText(cur).short || '')}</div>`;
+  if (state.sheet === 'peek') document.documentElement.style.setProperty('--sheet-visible', `${sheetVisible('peek')}px`);
 }
 
 function posesBody() {
@@ -977,6 +1051,8 @@ async function bodyPositions(variant) {
   gltf.scene.traverse((o) => { if (o.isMesh) meshes.push(o); });
   const body = meshes.find((m) => m.geometry.attributes.position.count > 1000);
   poseSys.variantRest[variant] = Float32Array.from(body.geometry.attributes.position.array);
+  // the eyes differ per body too; skinning the old body's eyes with the new head put them under the chin
+  poseSys.variantEyes[variant] = meshes.filter((m) => m !== body).map((m) => Float32Array.from(m.geometry.attributes.position.array));
   return poseSys.variantRest[variant];
 }
 
@@ -987,8 +1063,10 @@ async function setBody(variant) {
   const skB = poseSys.mod.createSkinner(poseSys.rig, restB, variant);
   const b = Float32Array.from(skB.apply(state.pose, state.mudra, 1));
   poseSys.skinner = skB;
+  if (poseSys.variantEyes[variant]?.length === scene.eyes.length) scene.eyeRest = poseSys.variantEyes[variant];
   state.body = variant;
   store.set('body', variant);
+  renderBodyBtn();
   poseSys.morphBuf = new Float32Array(a.length);
   poseSys.morph = { a, b, t0: performance.now(), ms: reducedMotion.matches ? 1 : 500 };
   scene.stopFlow(true);
