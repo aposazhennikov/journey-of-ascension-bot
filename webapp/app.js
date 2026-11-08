@@ -747,9 +747,10 @@ function pointBody(ch, code) {
   const luo = (cats.includes('luo') || cats.includes('great_luo')) ? d.luoLinks.find((x) => x.from === code) : null;
   const luoRow = luo?.to_meridian ? `<p class="luo-row"><span class="dot" style="background:${color(luo.to_meridian)}"></span>
     <button class="link" data-chan="${luo.to_meridian}">${esc(t('luo_to', { name: shortName(luo.to_meridian) }))}</button>${luo.to ? ` · <button class="link" data-act="showluo" data-from="${code}" data-to="${luo.to}">${esc(t('show_branch'))}</button>` : ''}</p>` : '';
+  const crossNote = (code === 'GI19' || code === 'GI20') ? `<p class="text meaning">${esc(t('li_cross'))}</p>` : '';
   return `${cautions}
     ${ex.why ? `<p class="text lead">${esc(ex.why)}</p>` : ''}
-    ${luoRow}
+    ${luoRow}${crossNote}
     ${ex.name_meaning ? `<p class="text meaning">${esc(t('meaning', { text: ex.name_meaning }))}</p>` : ''}
     ${keys.length ? `<div class="tags">${badges}</div>${explain}` : ''}
     ${info?.location ? `<div class="section"><h3>${esc(t('location_title'))}</h3><p class="text big">${esc(info.location)}</p></div>` : ''}
