@@ -196,9 +196,16 @@ VIA = {
     "TR9>TR10": [_fa(11, 180), _ua(0, 180)],
     "GI14>GI15": [_ua(10, 80)],
     "TR14>TR15": [back(0.14, 1.368)],
-    "GI18>GI19": [_neck(1.432, 55, z=-0.07), face(0.040, 1.462, z_hint=0.02, toward=(0.6, 0.0, 0.8)),
+    # neck -> corner of the mouth -> above the upper lip to VG26 (then across to the other side)
+    "GI18>VG26": [_neck(1.432, 55, z=-0.07), face(0.040, 1.462, z_hint=0.02, toward=(0.6, 0.0, 0.8)),
                   face(0.026, 1.478, z_hint=0.04, toward=(0.3, 0.0, 1.0))],
     "IG17>IG18": [face(0.055, 1.480, z_hint=0.0, toward=(0.8, 0.0, 0.6))],
     "TR15>TR16": [_neck(1.410, 130)],
     "TR20>TR21": [aim(0.072, 1.553, -0.048)],
+}
+
+# The large intestine channel crosses the midline at VG26 and ends at GI19/GI20 of the OTHER side
+# (Ling Shu 10). "CODE*" = that point on the opposite side (the app lays it from the mirrored point).
+CHAINS = {
+    "large_intestine": [[f"GI{i}" for i in range(1, 19)] + ["VG26", "GI19*", "GI20*"]],
 }

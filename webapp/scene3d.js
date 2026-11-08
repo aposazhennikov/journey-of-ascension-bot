@@ -454,7 +454,9 @@ export class MeridianScene {
     const stops = [];
     const stopCodes = [];
     codes.forEach((code, i) => {
-      const st = this.restAtt(code, side);
+      // "CODE*" = the point on the opposite side (the large intestine crosses to the other GI19/GI20)
+      const flip = code.endsWith('*');
+      const st = this.restAtt(flip ? code.slice(0, -1) : code, flip ? -side : side);
       if (!st) return;
       stops.push(st);
       stopCodes.push(code);
@@ -467,7 +469,7 @@ export class MeridianScene {
 
   layChannel(ch) {
     const sides = ch.bilateral ? [1, -1] : [1];
-    const chains = ch.chains.map((codes) => codes.filter((c) => this.coords[c]));
+    const chains = ch.chains.map((codes) => codes.filter((c) => this.coords[c.replace(/\*$/, '')]));
     const arcOf = new Map();
     const polylines = [];
     let mainLen = 0;

@@ -128,4 +128,7 @@ VIA = {
     # armpit to VB22; before, the line ran out onto the deltoid and jumped through the armpit gap
     "VB21>VB22": [(np.array([4 * CUN_T, 1.40, -0.050]), np.array([0.0, -1.0, 0.25])),
                   torso(1.300, 60), torso(1.250, 78)],
+    # spleen -> heart transition: up the side of the chest into the armpit hollow to C1 (it jumped
+    # 3 cm through the air from the chest wall onto the arm)
+    "RP21>C1": [torso(1.200, 95), torso(1.240, 97)],
 }

@@ -265,3 +265,9 @@ VIA = {
     "V1>VB20": [aim(0.031, 1.630, 0.016), aim(0.034, 1.661, -0.049), aim(0.034, 1.615, -0.115),
                 head(0.38, 0.05, -1.0)],
 }
+
+# VG28 lies inside the upper lip (frenulum): the line ends at VG27 on the lip, VG28 stays a point;
+# drawn to VG28 the last segment curled into the mouth and looked like an error.
+CHAINS = {
+    "governing_vessel": [[f"VG{i}" for i in range(1, 28)]],
+}
