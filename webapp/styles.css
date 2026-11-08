@@ -389,8 +389,8 @@ h3.inline { margin: 0; }
 .pose-row { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding: 6px 0 2px; }
 .pose-row::-webkit-scrollbar { display: none; }
 .pose-card {
-  flex: 0 0 104px;
-  height: 80px;
+  flex: 0 0 112px;
+  min-height: 80px;
   display: flex; flex-direction: column; justify-content: center; gap: 2px;
   padding: 8px 10px;
   border-radius: 12px;
@@ -401,6 +401,7 @@ h3.inline { margin: 0; }
 }
 .pose-card[aria-pressed="true"] { border: 2px solid var(--text); }
 .pose-card[aria-pressed="true"]::after { content: "✓"; position: absolute; top: 4px; right: 8px; font-size: 13px; font-weight: 700; }
+.pose-card > * { flex-shrink: 0; }
 .pose-name { font-size: 14px; font-weight: 600; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .pose-sk { font-size: 11px; color: var(--soft); }
 
