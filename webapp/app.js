@@ -234,6 +234,35 @@ function crossingsFor(id) {
   return out;
 }
 
+/** "Several" mode: flow, points and the links that show how the chosen channels work together. */
+function multiSelection(ids) {
+  const set = new Set(ids);
+  const visible = new Set();
+  const luo = [];
+  const seen = new Set();
+  const crossings = new Map();
+  const nextOf = {};
+  for (const id of ids) {
+    const ch = state.channelById.get(id);
+    if (!ch) continue;
+    if (ch.kind === 'vessel') { for (const c of ch.path || []) visible.add(c); continue; }
+    for (const c of ch.points) visible.add(c);
+    const next = nextChannelOf(id);
+    nextOf[id] = next;
+    if (ch.link && set.has(next)) visible.add(ch.link.to);
+    for (const l of luoFor(id)) {
+      const k = `${l.from}>${l.to}`;
+      // with several channels only the luo branches between the chosen ones
+      if (seen.has(k) || (ids.length > 1 && !set.has(state.data.pointOwner.get(l.to)))) continue;
+      seen.add(k);
+      luo.push(l);
+    }
+    for (const [code, c] of crossingsFor(id)) crossings.set(code, c);
+  }
+  return { flowChannels: ids, visiblePoints: visible, luo, crossings, nextOf };
+}
+const multiMode = () => inCustom() || (state.level.view === 'point' && !!state.level.multi);
+
 function mudraContacts(m) {
   if (!m || m.id === 'open') return [];
   const pts = m.contact_points || [];
@@ -273,6 +302,7 @@ function applySelection() {
     sel.level = 'group';
     sel.highlight = groupIds(lv.id);
     sel.visiblePoints = new Set();
+    if (lv.id === 'custom' && sel.highlight.length) Object.assign(sel, multiSelection(sel.highlight));
   } else {
     const ch = state.channelById.get(lv.id);
     if (ch.kind === 'vessel') {
@@ -291,6 +321,17 @@ function applySelection() {
       const visible = new Set(ch.points);
       if (ch.link) visible.add(ch.link.to);
       sel.visiblePoints = visible;
+      if (lv.multi) {
+        // a point opened from "several": the other chosen channels stay lit and flowing
+        const ids = [...new Set([...state.multiSet, ch.id])];
+        const m = multiSelection(ids);
+        sel.highlight = ids;
+        sel.flowChannels = ids;
+        sel.luo = m.luo;
+        sel.nextOf = m.nextOf;
+        for (const [k, v] of m.crossings) sel.crossings.set(k, v);
+        for (const c of m.visiblePoints) visible.add(c);
+      }
       if (lv.view === 'point') {
         sel.point = lv.code;
         sel.side = lv.side || 1;
@@ -307,7 +348,8 @@ function applySelection() {
 function flowMode() {
   const lv = state.level;
   if (state.overlay === 'poses' && lv.view === 'home' && state.mudra !== 'open') return 'comet';
-  if (lv.view === 'home' || lv.view === 'group') return null;
+  if (lv.view === 'group') return inCustom() && groupIds('custom').length ? 'comet' : null;
+  if (lv.view === 'home') return null;
   const ch = state.channelById.get(lv.id);
   if (ch.kind === 'vessel') return ch.id === 'dai_mai' ? 'breath' : 'wave';
   return 'comet';
@@ -401,7 +443,8 @@ function selectGroup(id) {
   if (id === 'custom') {
     // start from what is on screen: the open channel, or the whole group being shown
     const lv = state.level;
-    if (lv.view === 'channel' || lv.view === 'point') state.multiSet = new Set([lv.id]);
+    if (lv.view === 'point' && lv.multi) { /* back to the chosen set */ }
+    else if (lv.view === 'channel' || lv.view === 'point') state.multiSet = new Set([lv.id]);
     else if (lv.view === 'group') state.multiSet = new Set(groupIds(lv.id));
   }
   if (state.overlay === 'poses') closePoses({ refocus: false });
@@ -415,7 +458,7 @@ function openPoint(code, side, opts) {
   if (!owner) { toast(t('point_not_found', { code })); return; }
   if (state.overlay === 'poses') closePoses({ refocus: false });
   const wasOther = state.level.view !== 'home' && state.level.id !== owner;
-  setLevel({ view: 'point', id: owner, code, side }, opts);
+  setLevel({ view: 'point', id: owner, code, side, multi: multiMode() }, opts);
   if (wasOther) haptic('medium'); else haptic();
 }
 
@@ -440,7 +483,7 @@ function back() {
   if (state.overlay === 'list') { state.overlay = null; setSheet('peek'); renderSheet(); return; }
   if (state.overlay === 'poses') { closePoses({ refocus: true }); return; }
   const lv = state.level;
-  if (lv.view === 'point') { setLevel({ view: 'channel', id: lv.id }); return; }
+  if (lv.view === 'point') { setLevel(lv.multi ? { view: 'group', id: 'custom' } : { view: 'channel', id: lv.id }); return; }
   if (lv.view === 'channel' || lv.view === 'group') { setLevel({ view: 'home' }); return; }
   tg?.close?.();
 }
@@ -465,14 +508,14 @@ function renderChips() {
   const selId = lv.view !== 'home' ? lv.id : null;
   const now = activeChannelNow(state.data.channels);
   const chip = (id, extra = '') => {
-    const sel = inCustom() ? state.multiSet.has(id) : selId === id;
+    const sel = multiMode() ? state.multiSet.has(id) : selId === id;
     const c = color(id);
     const style = sel ? `background:color-mix(in srgb, ${c} 18%, var(--card));border:1.5px solid ${c}` : '';
     return `<button class="chip${extra}" role="tab" data-id="${id}" aria-selected="${sel}" style="${style}"><span class="dot" style="background:${c}"></span><span class="chip-label">${esc(shortName(id))}</span>${now?.id === id ? '<span class="now-dot"></span>' : ''}</button>`;
   };
   const html = [];
   for (const g of ['regular', 'extra', 'custom']) {
-    const sel = lv.view === 'group' && lv.id === g;
+    const sel = (lv.view === 'group' && lv.id === g) || (g === 'custom' && multiMode());
     const ids = groupIds(g);
     const dots = (g === 'custom' && !ids.length) ? '<span class="plus">＋</span>'
       : ids.slice(0, 4).map((id) => `<span class="dot" style="background:${color(id)}"></span>`).join('');
@@ -494,7 +537,7 @@ els.chips.addEventListener('click', (e) => {
   if (!btn) return;
   if (btn.dataset.group) { selectGroup(btn.dataset.group); return; }
   const id = btn.dataset.id;
-  if (inCustom()) { toggleCustom(id); return; }
+  if (multiMode()) { toggleCustom(id); return; }
   if (state.level.view !== 'home' && state.level.id === id) return;
   selectChannel(id);
 });
@@ -539,7 +582,7 @@ function renderPeek() {
     const sub = lv.id !== 'custom' ? t(`group_${lv.id}_sub`) : (n ? t('group_custom_sub', { n }) : t('group_custom_sub_empty'));
     els.peek.innerHTML = `<div class="peek-row"><div class="peek-main">
       <div class="peek-title">${esc(t(`group_${lv.id}_title`))}</div>
-      <div class="peek-sub group-dots">${dots}<span>${esc(sub)}</span></div></div></div>`;
+      <div class="peek-sub group-dots">${dots}<span>${esc(sub)}</span></div></div>${lv.id === 'custom' && n ? playButton() : ''}</div>`;
     return;
   }
   const ch = state.channelById.get(lv.id);
@@ -610,16 +653,60 @@ function homeBody() {
 
 /** List of the group's channels (it doubles as the colour legend); a tap opens the channel. */
 function groupBody(id) {
-  const rows = groupIds(id).map((cid) => {
+  const ids = groupIds(id);
+  const custom = id === 'custom';
+  const rows = ids.map((cid) => {
     const ch = state.channelById.get(cid);
     const v = state.data.vessels.find((x) => x.id === cid);
     const sub = v ? t('opening_point', { code: v.confluent })
       : ch.midline ? `${t('outside_clock')} · ${t.points(ch.points.length)}`
         : [ch.meta?.labels?.system, `${hh(ch.meta.active_time, 0)}–${hh(ch.meta.active_time, 1)}`].filter(Boolean).join(' · ');
-    return `<button class="row-btn tall" data-chan="${cid}"><span class="dot big" style="background:${color(cid)}"></span>
+    const row = `<button class="row-btn tall" data-chan="${cid}"><span class="dot big" style="background:${color(cid)}"></span>
       <span class="name"><span class="row-title">${esc(v?.text?.name || fullName(cid))}</span><span class="row-sub">${esc(sub)}</span></span><span class="chev">›</span></button>`;
+    if (!custom || v || !ch.points?.length) return row;
+    // "several": the points of every chosen channel, a tap opens the point card and keeps the set
+    const key = `pts:${cid}`;
+    const open = state.expanded.has(key);
+    const list = open ? `<div class="pt-grid">${ch.points.map((c) => `<button class="pt-chip" data-point="${c}" style="--chan:${color(cid)}" title="${esc(pointName(c))}">${esc(c)}</button>`).join('')}</div>` : '';
+    return `${row}<button class="row-btn sub-row" data-toggle="${key}"><span class="name">${esc(t.points(ch.points.length))}</span><span class="chev">${open ? '⌄' : '›'}</span></button>${list}`;
   }).join('');
-  return `<div class="section"><div class="rows">${rows}</div></div>`;
+  return `${custom && ids.length > 1 ? relationsBody(ids) : ''}<div class="section"><div class="rows">${rows}</div></div>`;
+}
+
+/** How the chosen channels work together: energy passing on, yin-yang pairs with luo branches, shared points. */
+function relationsBody(ids) {
+  const set = new Set(ids);
+  const d = state.data;
+  const out = [];
+  const name = (id) => esc(shortName(id));
+  for (const id of ids) {
+    const tr = TRANSITIONS[id];
+    const next = nextChannelOf(id);
+    if (tr && set.has(next)) {
+      out.push(`<button class="row-btn" data-act="showluo" data-from="${tr.from}" data-to="${tr.to}"><span class="name">${name(id)} → ${name(next)}<span class="row-sub">${esc(t('rel_flow'))}: ${esc(tr.from)} → ${esc(tr.to)}</span></span><span class="chev">›</span></button>`);
+    }
+  }
+  const pairsSeen = new Set();
+  for (const id of ids) {
+    const pair = state.channelById.get(id)?.meta?.pair;
+    if (!pair || !set.has(pair) || pairsSeen.has(pair)) continue;
+    pairsSeen.add(id);
+    const branches = d.luoLinks.filter((l) => l.to && ((l.meridian === id && l.to_meridian === pair) || (l.meridian === pair && l.to_meridian === id)))
+      .map((l) => `${l.from} → ${l.to}`).join(', ');
+    const first = d.luoLinks.find((l) => l.to && l.meridian === id && l.to_meridian === pair);
+    out.push(`<button class="row-btn"${first ? ` data-act="showluo" data-from="${first.from}" data-to="${first.to}"` : ''}><span class="name">${name(id)} ⇄ ${name(pair)}<span class="row-sub">${esc(t('rel_pair'))}${branches ? `: ${esc(branches)}` : ''}</span></span><span class="chev">›</span></button>`);
+  }
+  const shared = [];
+  for (const [code, c] of d.crossings) {
+    if (c.confidence && c.confidence !== 'high') continue;
+    const ms = (c.meridians || []).filter((m) => set.has(m));
+    if (ms.length >= 2) shared.push(code);
+  }
+  if (shared.length) {
+    out.push(`<div class="row-btn static"><span class="name"><span class="row-sub">${esc(t('rel_cross'))}</span></span></div>
+      <div class="pt-grid">${shared.map((c) => `<button class="pt-chip" data-point="${c}" style="--chan:${color(d.pointOwner.get(c))}" title="${esc(pointName(c))}">${esc(c)}</button>`).join('')}</div>`);
+  }
+  return `<div class="section"><h3>${esc(t('rel_title'))}</h3>${out.length ? `<div class="rows">${out.join('')}</div>` : `<p class="text muted">${esc(t('rel_none'))}</p>`}</div>`;
 }
 
 function clampText(key, text) {
@@ -1164,7 +1251,7 @@ function touched() {
 function handleTap(x, y, dbl) {
   els.pick.hidden = true;
   // groups show lines only, so a tap there picks a line, not a hidden point
-  const pointsEnabled = (state.level.view !== 'home' && state.level.view !== 'group') || state.overlay === 'poses';
+  const pointsEnabled = (state.level.view !== 'home' && (state.level.view !== 'group' || inCustom())) || state.overlay === 'poses';
   const res = scene.pick(x, y, { pointsEnabled });
   if (EDIT && state.editTarget && res.hit) { placeEditedPoint(res.hit); return; }
   if (dbl) {
@@ -1193,7 +1280,7 @@ function handleTap(x, y, dbl) {
   if (res.type === 'point') { openPoint(res.code, res.side); return; }
   if (res.type === 'link') { const n = nextChannelOf(res.channel); if (n) selectChannel(n); return; }
   if (res.type === 'line') {
-    if (inCustom()) { toggleCustom(res.channel); return; }
+    if (multiMode()) { toggleCustom(res.channel); return; }
     if (state.level.view !== 'home' && state.level.id === res.channel) return;
     selectChannel(res.channel);
   }

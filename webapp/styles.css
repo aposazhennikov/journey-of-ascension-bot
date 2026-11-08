@@ -376,6 +376,15 @@ h3.inline { margin: 0; }
 .row-sub { font-size: 13px; color: var(--soft); }
 .row-btn .marks { display: flex; gap: 4px; color: var(--chan, var(--soft)); font-size: 12px; }
 .row-btn.missing .code, .row-btn.missing .name { opacity: 0.55; }
+.row-btn.sub-row { min-height: 36px; padding-left: 36px; font-size: 14px; color: var(--soft); }
+.row-btn.static { min-height: 28px; border-bottom: 0; }
+.pt-grid { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px 0 10px 36px; border-bottom: 1px solid var(--line); }
+.pt-chip {
+  min-width: 44px; height: 32px; padding: 0 8px;
+  border-radius: 16px; border: 1.5px solid var(--chan, var(--line));
+  background: color-mix(in srgb, var(--chan, transparent) 10%, var(--card));
+  font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
 
 .caution { margin: 4px 0 8px; font-size: 13px; font-weight: 600; color: #b3261e; }
 :root[data-theme="dark"] .caution { color: #ff8a80; }

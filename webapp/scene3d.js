@@ -352,6 +352,14 @@ export class MeridianScene {
     this.bvh = new MeshBVH(this.body.geometry, { indirect: true });
     this.body.geometry.boundsTree = this.bvh;
     this.skin = new SkinSurface(this.body.geometry, this.bvh);
+    // lines and stops are always laid on a separate copy of the rest (standing) skin: laid on a posed
+    // body (or with a stale BVH after a pose change) samples stuck to the wrong body part, and once the
+    // limbs moved those segments ran through the air as long straight dashes
+    const restGeom = new THREE.BufferGeometry();
+    restGeom.setAttribute('position', new THREE.BufferAttribute(Float32Array.from(this.restPositions), 3));
+    restGeom.setIndex(new THREE.BufferAttribute(Uint32Array.from(this.body.geometry.index.array), 1));
+    restGeom.computeVertexNormals();
+    this.restSkin = new SkinSurface(restGeom, new MeshBVH(restGeom, { indirect: true }));
     this.requestRender();
   }
 
@@ -422,19 +430,20 @@ export class MeridianScene {
    */
   stopFromEntry(c, side) {
     if (!c) return null;
-    let attL = c.tri != null ? { tri: c.tri, bary: c.bary, offset: SURFACE_OFFSET } : this.skin.attachNearest(new THREE.Vector3(...c.p));
+    const rs = this.restSkin;
+    let attL = c.tri != null ? { tri: c.tri, bary: c.bary, offset: SURFACE_OFFSET } : rs.attachNearest(new THREE.Vector3(...c.p));
     if (!attL) return null;
     let att = attL;
     if (side === -1) {
       if (c.tri_r != null) att = { tri: c.tri_r, bary: c.bary_r, offset: SURFACE_OFFSET };
       else {
-        const pL = this.skin.evaluate({ ...attL, offset: 0 });
-        att = this.skin.attachNearest(new THREE.Vector3(-pL.x, pL.y, pL.z));
+        const pL = rs.evaluate({ ...attL, offset: 0 });
+        att = rs.attachNearest(new THREE.Vector3(-pL.x, pL.y, pL.z));
       }
     }
     if (!att) return null;
-    const p = this.skin.evaluate({ ...att, offset: 0 });
-    const n = this.skin.normal(att.tri, new THREE.Vector3());
+    const p = rs.evaluate({ ...att, offset: 0 });
+    const n = rs.normal(att.tri, new THREE.Vector3());
     return { p, n, att };
   }
 
@@ -463,7 +472,7 @@ export class MeridianScene {
       if (i < codes.length - 1) for (const v of this.viaStops(code, codes[i + 1], side)) { stops.push(v); stopCodes.push(null); }
     });
     if (stops.length < 2) return null;
-    const { atts, stopIndex } = this.skin.layCurve(stops, 0.005, { midline: !!flags.midline, quiet: true });
+    const { atts, stopIndex } = this.restSkin.layCurve(stops, 0.005, { midline: !!flags.midline, quiet: true });
     return { side, atts, stopIndex, stopCodes, s0, positions: null, arcs: null, ...flags };
   }
 
@@ -482,7 +491,7 @@ export class MeridianScene {
       polylines.push(...made);
       const ref = made[0];
       if (!ref) return;
-      const pos = ref.atts.map((a) => this.skin.evaluate(a));
+      const pos = ref.atts.map((a) => this.restSkin.evaluate(a));
       let s = s0;
       const arcs = [s];
       for (let i = 1; i < pos.length; i++) { s += pos[i].distanceTo(pos[i - 1]); arcs.push(s); }
@@ -742,10 +751,13 @@ export class MeridianScene {
     }
 
     // flow layer: selected channels incl. branches and the transition link
+    // several channels (sel.nextOf): a transition link is drawn only when it leads to another chosen channel
+    const flowSet = new Set(flowIds);
+    const linkShown = (id) => !sel.nextOf || flowSet.has(sel.nextOf[id]);
     const flowPolys = [];
     for (const id of flowIds) {
       const ch = this.channels.get(id);
-      if (ch) flowPolys.push(...ch.polylines);
+      if (ch) flowPolys.push(...ch.polylines.filter((p) => !p.link || linkShown(id)));
     }
     if (flowPolys.length) {
       const geom = segmentsGeometry(flowPolys, { withDistance: true, colors: (pl) => new THREE.Color(this.colorOf(pl.channelId)) });
@@ -765,16 +777,17 @@ export class MeridianScene {
         if (!a?.att || !b?.att) continue;
         const key = `${l.from}>${l.to}|${side}`;
         if (!this.luoCache) this.luoCache = new Map();
-        if (!this.luoCache.has(key)) this.luoCache.set(key, this.skin.layCurve([a, b]).atts);
+        if (!this.luoCache.has(key)) this.luoCache.set(key, this.restSkin.layCurve([a, b], 0.005, { quiet: true }).atts);
         const positions = this.luoCache.get(key).map((x) => this.skin.evaluate(x, new THREE.Vector3()));
         linkPolys.push({ positions, color: new THREE.Color(l.color), strong: l.strong });
       }
     }
     for (const id of flowIds) {
       const ch = this.channels.get(id);
+      if (!linkShown(id)) continue;
       for (const pl of ch?.polylines || []) {
         if (!pl.link) continue;
-        const next = new THREE.Color(this.colorOf(sel.nextChannel || id));
+        const next = new THREE.Color(this.colorOf(sel.nextOf?.[id] || sel.nextChannel || id));
         if (pl.internal) next.lerp(new THREE.Color(BODY_TONE[this.theme]), 0.55);
         linkPolys.push({ positions: pl.positions, color: next });
       }

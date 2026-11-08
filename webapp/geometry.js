@@ -139,8 +139,10 @@ SkinSurface.prototype.layCurve = function layCurve(stopsIn, step = 0.005, opts =
   const { stops, original } = this.densifyStops(stopsIn, opts);
   const raw = this.sampleCurve(stops, step, opts);
   // 2) continuity: samples that jump between two facing surfaces are re-pressed or interpolated,
-  // 3) a light Laplacian smoothing with the stops pinned
-  const fixed = this.cleanSamples(raw.atts, raw.pinned, opts);
+  // 3) a light Laplacian smoothing with the acupuncture points pinned (the inserted helper stops may
+  //    move: pinned, they left small kinks wherever the ray put them a little off the smooth curve)
+  const pinOriginal = raw.pinned.map((n) => (n !== -1 && original[n] ? n : -1));
+  const fixed = this.cleanSamples(raw.atts, pinOriginal, opts);
   const stopIndex = [];
   fixed.pinned.forEach((stopNo, i) => { if (stopNo !== -1 && original[stopNo]) stopIndex.push(i); });
   return { atts: fixed.atts, stopIndex };
@@ -311,7 +313,8 @@ SkinSurface.prototype.cleanSamples = function cleanSamples(attsIn, pinnedIn, opt
     }
     if (!changed) break;
   }
-  for (let it = 0; it < 2; it++) {
+  const iters = opts.smoothIters ?? this.constructor.smoothIters ?? 4;
+  for (let it = 0; it < iters; it++) {
     const P = pos();
     const next = atts.slice();
     for (let i = 1; i < atts.length - 1; i++) {
