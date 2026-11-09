@@ -132,6 +132,25 @@ export function createSkinner(rig, restPositions, variant = 'neutral') {
   const from = new Float32Array(n * 4), to = new Float32Array(n * 4), cur = new Float32Array(n * 4);
   for (let i = 0; i < n; i++) { from[i * 4 + 3] = 1; to[i * 4 + 3] = 1; cur[i * 4 + 3] = 1; }
   const fromRoot = new Float32Array(3), toRoot = new Float32Array(3), curRoot = new Float32Array(3);
+  // contact / delta-mush correctives of the body poses (scripts/webapp3d/correctives.py): displacements
+  // added after skinning, the old pose's fading out and the new one's fading in during a transition
+  const corrCache = new Map();
+  const corrOf = (bodyPose) => {
+    const body = typeof bodyPose === 'string' ? rig.poses?.body?.[bodyPose] : bodyPose;
+    const c = body?.corr?.[variant];
+    if (!c || !c.i?.length) return null;
+    if (!corrCache.has(c)) corrCache.set(c, { i: Int32Array.from(c.i), d: Float32Array.from(c.d) });
+    return corrCache.get(c);
+  };
+  let corrFrom = null, corrTo = null;
+  function addCorr(c, s) {
+    if (!c || s <= 0) return;
+    const { i, d } = c;
+    for (let k = 0; k < i.length; k++) {
+      const o = i[k] * 3, q = k * 3;
+      positions[o] += s * d[q]; positions[o + 1] += s * d[q + 1]; positions[o + 2] += s * d[q + 2];
+    }
+  }
   const Qw = new Float32Array(n * 4), Hw = new Float32Array(n * 3);
   const M = new Float32Array(n * 12); // per bone: 3x3 rotation (row-major) + translation
   const DQ = new Float32Array(n * 8); // per bone: dual quaternion (real xyzw, dual xyzw)
@@ -233,10 +252,12 @@ export function createSkinner(rig, restPositions, variant = 'neutral') {
         if (key !== targetKey) {
           from.set(cur);
           fromRoot.set(curRoot);
+          corrFrom = corrTo;
         }
         const c = composePose(rig, variant, bodyPose, handPose);
         to.set(c.local);
         toRoot.set(c.root);
+        corrTo = corrOf(bodyPose);
         targetKey = key;
       }
       t = Math.min(1, Math.max(0, t));
@@ -245,6 +266,8 @@ export function createSkinner(rig, restPositions, variant = 'neutral') {
       for (let k = 0; k < 3; k++) curRoot[k] = fromRoot[k] + (toRoot[k] - fromRoot[k]) * t;
       forward();
       const minY = skin();
+      addCorr(corrFrom, 1 - t);
+      addCorr(corrTo, t);
       if (t < 1) liftAboveFloor(minY);
       return positions;
     },

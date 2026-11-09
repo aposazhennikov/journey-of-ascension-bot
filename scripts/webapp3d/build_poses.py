@@ -1207,7 +1207,7 @@ def main():
         for part in ("body", "hand"):
             for pid, e in old.get(part, {}).items():
                 if pid in out[part]:
-                    for key in ("rot", "root", "arms", "mudraArms", "openRot"):
+                    for key in ("rot", "root", "arms", "mudraArms", "openRot", "corr"):
                         if key in e:
                             out[part][pid].setdefault(key, {}).update(e[key])
     for variant in args.variants:
@@ -1281,6 +1281,19 @@ def main():
             else:
                 out["body"][pid].pop("mudraArms", None)
             print(variant, "body", pid, "root", np.round(root, 4).tolist(), info)
+        # contact / delta-mush correctives of the poses just built (pose.js adds them after skinning)
+        import correctives  # noqa: E402
+        from check_poses import Body as CBody
+        cb = CBody(rig, variant)
+        adj = correctives.adjacency(cb.tris, len(cb.rest))
+        mush = correctives.DeltaMush(cb, adj)
+        for pid in body_ids:
+            if (args.poses and pid not in args.poses) or pid in ("stand", "tadasana"):
+                continue
+            corr, mx = correctives.pose_corrective(rig, cb, adj, out, variant, pid, mush)
+            out["body"][pid].setdefault("corr", {})[variant] = corr
+            print(variant, "corrective", pid, len(corr["i"]), "vertices, max %.1f mm" % (mx * 1000))
+    out["corr"] = correctives.CORR_DOC if "correctives" in sys.modules else out.get("corr")
     Path(args.out).write_text(json.dumps(out, separators=(",", ":")), encoding="utf-8")
     print("wrote", args.out, Path(args.out).stat().st_size, "bytes")
 

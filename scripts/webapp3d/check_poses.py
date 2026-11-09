@@ -442,10 +442,20 @@ def finger_fan(b, Q, s):
     return max(abs(signed_angle(dirs[i], dirs[i + 1], n)) for i in range(3))
 
 
-def evaluate(b, local, root, body_id, hand_id, has_arms):
+def corrective(poses, variant, body_id):
+    """Contact/delta-mush corrective of a body pose (correctives.py) as (vertex ids, n x 3 displacements)."""
+    c = (poses["body"][body_id].get("corr") or {}).get(variant)
+    if not c or not c.get("i"):
+        return None
+    return np.asarray(c["i"], dtype=np.int64), np.asarray(c["d"], float).reshape(-1, 3)
+
+
+def evaluate(b, local, root, body_id, hand_id, has_arms, corr=None):
     rig = b.rig
     Q, H = rig.fk(b.v, local, root)
     pos = rig.skin(b.rest, b.v, Q, H)
+    if corr is not None:              # the page adds the pose's corrective after skinning (pose.js)
+        pos[corr[0]] += corr[1]
     nrm = vertex_normals(pos, b.tris)
     I = b.I
     C = Checks()
@@ -715,7 +725,7 @@ def main():
         b = Body(rig, variant)
         for pid, hid in combos:
             local, root, has_arms = compose(poses, variant, pid, hid)
-            M, checks, pos = evaluate(b, local, root, pid, hid, has_arms)
+            M, checks, pos = evaluate(b, local, root, pid, hid, has_arms, corrective(poses, variant, pid))
             bad = [c for c in checks if not c["ok"]]
             results.append({"variant": variant, "body": pid, "hand": hid, "pass": not bad,
                             "n_checks": len(checks), "n_fail": len(bad), "metrics": M, "checks": checks})

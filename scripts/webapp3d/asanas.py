@@ -240,7 +240,8 @@ class LegSkin:
 # and the lower foot is no longer pinned 30 cm in front of the hip (footR 2e3 -> 200)
 LOTUS_W = {"sink": 3e4, "sink_ok": 0.006, "knee": 3e4, "knee_max": 0.026, "hide": 3e3, "hide_max": 0.45,
            "on_thigh": 3e4, "er_hi": 80, "heel": 1.5e3, "footR": 200, "knee_top": 0.085, "under": 1e5,
-           "knee_low": 0.022}     # half lotus lower knee aim (0.026 ended at 31 mm, the check allows 30)
+           "knee_low": 0.022,     # half lotus lower knee aim (0.026 ended at 31 mm, the check allows 30)
+           "sink_max": 0.008, "knee_flex_hi": 158}
 
 
 def solve_lotus(ctx, half=False):
@@ -271,6 +272,7 @@ def solve_lotus(ctx, half=False):
         x0[0] += 5                                   # the top leg flexes a little more
         lot = list(rng)
         lot[0], lot[2] = (80, 112), (45, LOTUS_W["er_hi"] - 1)
+        lot[3] = (148, LOTUS_W["knee_flex_hi"])
         rngs = lot * 2 + [(15, 50), (-15, 25)] * 2
     others = {s: ~ctx.sub[f"foot.{s}"] for s in SIDES}
     sk = LegSkin(ctx)
@@ -286,7 +288,7 @@ def solve_lotus(ctx, half=False):
             # not into the thigh (a few mm of soft tissue allowed), but resting on it
             c += Wt["sink"] * float(np.sum(np.maximum(0.0, -sd - Wt["sink_ok"]) ** 2))
             # the deepest vertex too: a single male toe vertex stood 29 mm in, too little for the sum
-            c += 1e5 * max(0.0, -float(sd.min()) - 0.008) ** 2
+            c += 1e5 * max(0.0, -float(sd.min()) - Wt["sink_max"]) ** 2
             c += Wt["on_thigh"] * max(0.0, float(sd.min()) - 0.004) ** 2
             parts[f"sd{s}"] = float(sd.min())
         ky = {s: sk.knee_y(P, s) for s in SIDES}
@@ -459,6 +461,8 @@ ARM_DEFAULT = {
     # hand stands on its fingertips beside the hip, as the teacher allows
     # (council 2026-11-09 asked for flat palms beside the hips; wrist -78 with abduction <= 15 drove the female
     # forearms 5 cm into the trunk and lifted the hands off the floor, so this stays as it was)
+    # (wrist 45 with the hands 11 cm out spread the male arms wider still and put the female forearms 5 cm
+    # into the trunk: with straight arms these bodies reach the floor only a little out from the hips)
     "floor": dict(sh=(-4, 10, 0), elbow=4, sup=-60, wrist=(-25, 0), rng=((-25, 15), (3, 30), (-30, 25), (0, 25))),
     # dhyana: the forearm turn and the wrist are free too (x = sh3, elbow, sup, wrist flex, radial dev),
     # so the fingers can point to the other side while the palm faces up
