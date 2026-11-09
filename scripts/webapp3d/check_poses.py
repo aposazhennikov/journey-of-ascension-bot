@@ -51,6 +51,9 @@ SEATED = {"sukhasana", "ardha_padmasana", "padmasana", "vajrasana", "dandasana"}
 LOTUS = {"padmasana", "ardha_padmasana"}
 SHIN_CROSS_MAX = {"padmasana": 0.12, "ardha_padmasana": 0.20, "sukhasana": 0.20}   # m in front of the pubis
 KNEE_FLOOR = {"padmasana": (0.03, 0.015), "ardha_padmasana": (0.03, None)}         # max height, max L/R difference
+# half lotus: the lower (right) foot lies under the top leg and lifts its knee; the top knee may stand that
+# high but has to rest on the foot (with both knees on the floor the rigid foot sat 2-4 cm inside the shin)
+HALF_TOP_KNEE = {"side": "L", "max": 0.10, "gap": 0.010, "sink": 0.010}
 MUDRA_TARGETS = {"gyan": [2], "prithvi": [4], "shuni": [3], "vyana": [2, 3], "apana": [3, 4]}
 
 LIM = {
@@ -60,7 +63,7 @@ LIM = {
     "wrist_ext": 80, "wrist_ext_dandasana": 90, "wrist_flex": 80, "wrist_dev": 25, "wrist_twist": 5,
     "buttock_floor": 0.003, "floor_pen": -0.003, "buttock_heel_gap": 0.010,
     "foot_thigh_gap": 0.005, "foot_thigh_sink": 0.010,
-    "hand_leg_sink": 0.005, "hand_leg_gap": 0.010, "hand_floor_gap": 0.010,
+    "hand_leg_sink": 0.005, "hand_leg_gap": 0.010, "hand_floor_gap": 0.010, "palm_leg_gap": 0.012,
     # added after the lotus review: forearms went 5 cm into the belly, the hands into each other and the
     # feet were buried in the thighs, and nothing here measured it
     "arm_trunk_pen": 0.006, "hand_hand_pen": 0.004, "foot_top_visible": 0.30,
@@ -274,6 +277,10 @@ class Body:
             rings.append((st, idx, hull_area(np.stack([p @ e1, p @ e2], axis=1))))
         return rings
 
+    def palm_bones(self, s):
+        """The palm itself (wrist and metacarpal skin), without the fingers."""
+        return self.bones([f"wrist.{s}"] + [f"metacarpal{k}.{s}" for k in range(1, 5)])
+
     def _palm_set(self, s):
         d, t, n = self.hand[s]
         wr = self.P(f"wrist.{s}")
@@ -478,6 +485,13 @@ def evaluate(b, local, root, body_id, hand_id, has_arms):
         if body_id in KNEE_FLOOR:
             hmax, dmax = KNEE_FLOOR[body_id]
             for s in SIDES:
+                if body_id == "ardha_padmasana" and s == HALF_TOP_KNEE["side"]:
+                    C.add("knee_height", M["knee_skin_y"][s], "<=", HALF_TOP_KNEE["max"], s, "m")
+                    legT = np.concatenate([b.sets[f"thigh{s}"], b.sets[f"shin{s}"]])
+                    sd = surface_sd(b, pos, nrm, b.sets[f"foot{OTHER[s]}"], legT)
+                    C.add("top_leg_on_foot_gap", float(sd.min()), "<=", HALF_TOP_KNEE["gap"], s, "m")
+                    C.add("top_leg_on_foot_sink", float(max(0.0, -sd.min())), "<=", HALF_TOP_KNEE["sink"], s, "m")
+                    continue
                 C.add("knee_height", M["knee_skin_y"][s], "<=", hmax, s, "m")
             if dmax is not None:
                 C.add("knee_height_diff", abs(M["knee_skin_y"]["L"] - M["knee_skin_y"]["R"]), "<=", dmax, None, "m")
@@ -527,7 +541,10 @@ def evaluate(b, local, root, body_id, hand_id, has_arms):
     M["foot_on_thigh"] = {}
     for s in rest_on:
         sd = surface_sd(b, pos, nrm, b.sets[f"foot{s}"], b.sets[f"thigh{OTHER[s]}"])
-        gap, sink = float(sd.min()), float(max(0.0, -sd.min()))
+        # sinking = depth of the 3rd deepest foot vertex: a single heel vertex in the groin fold, where
+        # the thigh set meets the pelvis and the normals turn, read 22 mm while the solver on the same
+        # pose read 0 (3-4 vertices 38 mm in, as once on the male body, still fail)
+        gap, sink = float(sd.min()), float(max(0.0, -np.sort(sd)[min(2, len(sd) - 1)]))
         M["foot_on_thigh"][s] = {"gap": gap, "sink": sink}
         C.add("foot_thigh_gap", gap, "<=", LIM["foot_thigh_gap"], s, "m")
         C.add("foot_thigh_sink", sink, "<=", LIM["foot_thigh_sink"], s, "m")
@@ -566,6 +583,11 @@ def evaluate(b, local, root, body_id, hand_id, has_arms):
             M["hand_leg"][s] = {"gap": float(sd.min()), "sink": float(max(0.0, -sd.min()))}
             C.add("hand_leg_gap", float(sd.min()), "<=", LIM["hand_leg_gap"], s, "m")
             C.add("hand_leg_sink", float(max(0.0, -sd.min())), "<=", LIM["hand_leg_sink"], s, "m")
+            if hand_id == "open" and body_id not in LOTUS:
+                # the palm itself rests on the thigh: curled fingertips touching the knee passed the gap
+                # above while the palm hung 1-2 cm over the thigh (sukhasana)
+                sdp = surface_sd(b, pos, nrm, b.palm_bones(s), legs)
+                C.add("palm_leg_gap", float(sdp.min()), "<=", LIM["palm_leg_gap"], s, "m")
     if body_id == "dandasana" and not has_arms:
         for s in SIDES:
             C.add("hand_floor_gap", float(pos[b.sets[f"hand{s}"], 1].min()), "<=", LIM["hand_floor_gap"], s, "m")

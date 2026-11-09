@@ -662,6 +662,17 @@ def relaxed_hand(hand, curl=RELAXED_CURL, skip=()):
 
 # soft, slightly cupped fingers (straight ones looked like boards)
 DHYANA_CURL = {2: (12, 16, 8), 3: (13, 17, 9), 4: (15, 19, 10), 5: (17, 22, 12)}
+# a palm lying on the thigh (sukhasana, vajrasana): the fingers follow the thigh, nearly flat; with the
+# relaxed hanging curl the fingertips went 9-14 mm into the knee once the palm itself lay on the thigh
+THIGH_CURL = {2: (5, 7, 4), 3: (6, 8, 4), 4: (7, 9, 5), 5: (8, 11, 6)}
+
+
+def thigh_fingers(hand):
+    """Hand lying palm down on the thigh: nearly flat fingers, the thumb in the palm plane tilted a little
+    toward the back (the relaxed thumb hung below the palm and went 8-12 mm into the thigh in vajrasana)."""
+    loc = relaxed_hand(hand, THIGH_CURL)
+    loc.update({k: v for k, v in flat_hand(hand, thumb=35, thumb_tilt=10).items() if k.startswith("finger1-")})
+    return loc
 
 
 def dhyana_fingers(hand, thumb=(20.0, -10.0, 0.0), ip=(5.0, 3.0)):
@@ -669,7 +680,8 @@ def dhyana_fingers(hand, thumb=(20.0, -10.0, 0.0), ip=(5.0, 3.0)):
     sp = fan_spread(hand)
     loc = {}
     for k in range(2, 6):
-        loc.update(hand.finger(k, *absolute_curl(hand, k, DHYANA_CURL[k]), spread=sp[k] * 0.5))
+        # the full fan spread: half of it fanned the fingers 10 deg apart (check_poses allows 5)
+        loc.update(hand.finger(k, *absolute_curl(hand, k, DHYANA_CURL[k]), spread=sp[k]))
     loc.update(hand.thumb(np.asarray(thumb, float), *ip))
     return loc
 
@@ -741,7 +753,9 @@ def dhyana_thumbs(ps, hand, W, root):
         # (they went 1 cm into the lower belly)
         mid = 0.5 * (a + c)
         zb = 0.5 * (H[mL][2] + H[mR][2])
-        yb = max(H[mL][1], H[mR][1])
+        # halfway between the thumb bases: above the higher (right) one the left thumb stood up almost
+        # vertically to reach the right one, which lies ~1.5 cm higher on the left hand
+        yb = 0.5 * (H[mL][1] + H[mR][1])
         v += 4e4 * max(0.0, zb - 0.005 - mid[2]) ** 2 + 4e4 * max(0.0, yb - mid[1]) ** 2
         for o in (0, 5):
             v += 2e-5 * float(np.sum(x[o:o + 3] ** 2)) + 2e-4 * float(np.sum(x[o + 3:o + 5] ** 2)) + lim(x[o + 3], x[o + 4])
@@ -851,7 +865,11 @@ def mudra_touch(hand, targets):
     return loc, {"cost": round(float(best[1]), 5), "gap_mm": gaps, "x": np.round(x, 1).tolist()}
 
 
-ANJALI_CUP = {2: 6.0, 3: 8.0, 4: 13.0}   # metacarpal flexion (deg) toward the palm: middle, ring, little
+# metacarpal flexion (deg) toward the palm: middle, ring, little (6/8/13 left the little-finger side of
+# the palm 10-15 mm off the other hand while the heels of the hands met)
+# metacarpal flexion (deg) toward the palm: middle, ring, little. A light cup: flat (0) left the little-finger
+# side off the other hand, 6/11/19 fanned the fingers out as seen from the side (council 2026-11-09)
+ANJALI_CUP = {2: 3.0, 3: 5.0, 4: 9.0}
 
 
 def flat_hand(hand, spread=None, thumb=None, thumb_tilt=0.0):
@@ -991,6 +1009,10 @@ def arms_anatomy(ps, hand, loc_fingers, hand_dir, palm_normal, center_y, center_
     # angle x[5] is ~14 deg off it on the neutral body, which passed -74 here and failed with 88 there
     from check_poses import Body, swing_vec
     cb = Body(rig, ps.v)
+    if ref == "palm":
+        # the palm vertices exactly as check_poses picks them: the set above (other normals, other hand
+        # axis) missed heel-of-hand vertices that went 2-3 mm past the mid plane
+        idx = cb.palm["L"]
     dh, _th, nh = cb.hand["L"]
     ext_axis = unit(np.cross(dh, nh))
     iA, iW = rig.index["lowerarm02.L"], rig.index["wrist.L"]
@@ -1036,7 +1058,8 @@ def arms_anatomy(ps, hand, loc_fingers, hand_dir, palm_normal, center_y, center_
         if ref == "palm":
             # the whole palmar surface lies in the mid plane, nothing crosses it
             t["flat"] = 8e4 * float(np.mean((pos[:, 0] - contact_x) ** 2))
-            t["cross"] = 2e6 * float(np.mean(np.minimum(pos[:, 0], 0.0) ** 2)) + 2e5 * min(0.0, float(pos[:, 0].min()) + 0.001) ** 2
+            # the heels of the hands (wrist skin) went 2-4 mm past the mid plane at 2e5 here
+            t["cross"] = 2e6 * float(np.mean(np.minimum(pos[:, 0], 0.0) ** 2)) + 3e6 * max(0.0, -0.0012 - float(pos[:, 0].min())) ** 2
         else:
             tp = np.mean([H[rig.index[f"finger{k}-3.L"]] for k in range(2, 6)], axis=0)
             t["flat"] = 4e4 * (tp[0] - contact_x) ** 2
@@ -1084,16 +1107,27 @@ def hand_poses(rig, variant, rest, which=None):
     if which and "anjali" not in which and "hakini" not in which:
         return res
     # anjali: flat hands, fingers together, palms pressed at the chest
-    sp = {2: 2.0, 3: 0, 4: -2.0, 5: -3.5}  # slightly converging: the MH fingers are thinner than the knuckle spacing
+    # converging: the MH fingers are thinner than the knuckle spacing (2/0/-2/-3.5 still showed gaps, a fan
+    # from the side, council 2026-11-09)
+    sp = {2: -3.0, 3: 0, 4: 3.0, 5: 5.5}   # this sign converges (4.5/0/-4/-7.5 fanned them out more)
     loc = anjali_fingers(ps, hand, sp)
     yc = ps.P("spine01")[1] - 0.005
-    # 7.5 cm left the wrists 2 cm inside the chest (arm_trunk_pen); 9.5 cm did too once the elbows dropped
-    zc = chest_front(ps, yc) + 0.115
+    # 7.5 cm left the wrists 2 cm inside the chest (arm_trunk_pen); 11.5 held the palms 8-10 cm in front of
+    # the sternum (council); the solver now keeps the forearms out of the trunk itself (TorsoModel term)
+    zc = chest_front(ps, yc) + 0.09
     # forearms dropping 30 deg to the elbows: at 20 deg the neutral and male wrists hit the extension
     # limit and the palms stood 1.5 cm apart in the middle
     # fingers tilted 19 deg forward (12 before): less wrist extension for the same flat palms
-    arms, tw = arms_anatomy(ps, hand, loc, unit([0, 1, 0.35]), [-1, 0, 0], yc, zc, 0.0015, "palm", slope_deg=30)
-    tilt = anjali_thumb_tilt(ps, hand, sp, arms)
+    tilt = 0
+    for _ in range(3):
+        # the thumb tilt moves the heel-of-hand skin too (it went 2-3 mm past the mid plane after the arms
+        # were solved with the untilted thumb), so the arms are solved again with the tilted thumb
+        arms, tw = arms_anatomy(ps, hand, loc, unit([0, 1, 0.35]), [-1, 0, 0], yc, zc, 0.0015, "palm", slope_deg=30)
+        new =anjali_thumb_tilt(ps, hand, sp, arms)
+        loc = anjali_fingers(ps, hand, sp, new)
+        if new <= tilt:      # the arms were solved with this tilt and the thumbs stay apart
+            break
+        tilt = new
     loc = anjali_fingers(ps, hand, sp, tilt)
     tw["thumb_tilt"] = tilt
     res["anjali"] = (loc, arms, tw)
@@ -1202,7 +1236,7 @@ def main():
         fing = lambda pid: {k: np.array(v) for k, v in out["hand"][pid]["rot"].get(variant, {}).items()}  # noqa: E731
         dh_hand = Hand(ctx.ps)
         ctx.fingers = {"open": fing("open"), "mudras": [fing(m) for m in ("gyan", "prithvi", "shuni", "vyana", "apana")],
-                       "dhyana": dhyana_fingers(dh_hand)}
+                       "dhyana": dhyana_fingers(dh_hand), "thigh": thigh_fingers(dh_hand)}
         for pid in body_ids:
             if args.poses and pid not in args.poses:
                 continue
@@ -1216,7 +1250,9 @@ def main():
                 # arm setting suits all three bodies (short arms reach the heels only with the hands apart,
                 # then the thumbs cannot meet), so every setting is tried on the same legs and the best kept
                 best = None
-                for cfg in asanas.LAP_CFGS:
+                for cfg in asanas.LAP_CFGS + asanas.LAP_CFGS_NEAR:
+                    if cfg in asanas.LAP_CFGS_NEAR and best[0] < 5.0:
+                        break          # the near-belly settings only when the usual ones do not fit
                     asanas.LAP_CFG = cfg
                     Wc, rootc, infoc, mudrac = asanas.body_pose(ctx, pid, anjali_world)
                     floc, finfo = dhyana_thumbs(ctx.ps, dh_hand, Wc, rootc)
@@ -1232,6 +1268,10 @@ def main():
                 info["dhyana"] = dict(finfo, setting=cfg, score=parts)
             else:
                 W, root, info, mudra_W = asanas.body_pose(ctx, pid, anjali_world)
+                if pid in asanas.THIGH_POSES:
+                    # the open hand of these poses lies on the thigh with its own flatter fingers
+                    out["body"][pid].setdefault("openRot", {})[variant] = {
+                        k: rnd(v) for k, v in ctx.fingers["thigh"].items() if k.split(".")[0] in FINGER_BONES}
             ctx.ps.W, ctx.ps.root = W, root
             loc = ctx.ps.local()
             out["body"][pid]["rot"][variant] = {k: rnd(v) for k, v in loc.items()}

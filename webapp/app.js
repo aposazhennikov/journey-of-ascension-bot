@@ -77,7 +77,15 @@ const fullName = (id) => {
 };
 const pointName = (code) => state.data.pointInfo.get(code)?.name || '';
 // channel groups that can be highlighted all at once (chips at the start of the row)
-const GROUPS = { regular: CLOCK_ORDER, extra: [...MIDLINE_IDS, ...VESSEL_IDS] };
+const YIN = new Set(['lung', 'spleen', 'heart', 'kidney', 'pericardium', 'liver']);
+const GROUPS = {
+  regular: CLOCK_ORDER,
+  yin: CLOCK_ORDER.filter((id) => YIN.has(id)),
+  yang: CLOCK_ORDER.filter((id) => !YIN.has(id)),
+  extra: [...MIDLINE_IDS, ...VESSEL_IDS],
+};
+// the yang channels run mostly over the back and the sides, the yin ones over the front
+const GROUP_VIEW = { yang: 'back' };
 const groupIds = (id) => (id === 'custom' ? [...state.multiSet] : (GROUPS[id] || [])).filter((c) => state.channelById.has(c));
 const inCustom = () => state.level.view === 'group' && state.level.id === 'custom';
 
@@ -407,7 +415,10 @@ function setLevel(level, { fly = true, instant = false } = {}) {
   if (EDIT) renderEditbar();
   if (!fly) { setTimeout(startFlow, 150); return; }
   const onEnd = () => setTimeout(startFlow, 150);
-  if (level.view === 'home' || level.view === 'group') { scene.setView('front', { instant }); return; }
+  if (level.view === 'home' || level.view === 'group') {
+    scene.setView((level.view === 'group' && GROUP_VIEW[level.id]) || 'front', { instant });
+    return;
+  }
   if (level.view === 'point') {
     level.side = level.side || scene.sideFacingCamera(level.code);
     const owner = state.data.pointOwner.get(level.code);
@@ -516,7 +527,7 @@ function renderChips() {
     return `<button class="chip${extra}" role="tab" data-id="${id}" aria-selected="${sel}" style="${style}"><span class="dot" style="background:${c}"></span><span class="chip-label">${esc(shortName(id))}</span>${now?.id === id ? '<span class="now-dot"></span>' : ''}</button>`;
   };
   const html = [];
-  for (const g of ['regular', 'extra', 'custom']) {
+  for (const g of ['regular', 'yin', 'yang', 'extra', 'custom']) {
     const sel = (lv.view === 'group' && lv.id === g) || (g === 'custom' && multiMode());
     const ids = groupIds(g);
     const dots = (g === 'custom' && !ids.length) ? '<span class="plus">＋</span>'
