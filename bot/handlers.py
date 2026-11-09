@@ -6203,9 +6203,30 @@ class BotHandlers:
         try:
             await query.answer()
             if action == "map3d_announcement":
+                # preview first: the admin gets the announcement in every language exactly as users will see
+                # it (text and the map button), then confirms; nothing goes out from this first press
                 if not self.webapp_url:
                     await self._edit_message_text_safe(query, "WEBAPP_URL is not set: the map button would be missing.")
                     return
+                for lang in ("ru", "en", "uz", "kz"):
+                    button = self._create_meridian_map_button(lang)
+                    await context.bot.send_message(
+                        chat_id, f"[{lang}]\n\n" + self._get_text("map3d_announcement", lang), parse_mode='HTML',
+                        reply_markup=InlineKeyboardMarkup([[button]]) if button else None)
+                total = len(await self.storage.get_all_active_users())
+                await context.bot.send_message(
+                    chat_id, f"Preview above. Send the 3D map announcement to {total} active users?",
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(f"✅ Send to all ({total})", callback_data="broadcast_map3d_confirm")],
+                        [InlineKeyboardButton("✖️ Cancel", callback_data="broadcast_map3d_cancel")],
+                    ]))
+                await self._edit_message_text_safe(query, "Preview sent below.")
+                return
+            if action == "map3d_cancel":
+                await self._edit_message_text_safe(query, "Announcement cancelled, nothing was sent.")
+                return
+            if action == "map3d_confirm":
+                await self._edit_message_text_safe(query, "Sending…")
                 sent_count, failed_count, total = await self._send_localized_broadcast(
                     "map3d_announcement", context, map_button=True)
                 result_text = self._get_admin_text("broadcast_result", sent=sent_count, failed=failed_count, total=total)
