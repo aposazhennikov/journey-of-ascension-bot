@@ -3242,10 +3242,66 @@ for _language, _updates in MERIDIAN_PRACTICE_ADVICE_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
 MERIDIAN_MAP_3D_TEXT_OVERRIDES = {
-    "en": {"meridian_map_3d": "🧍 3D meridian map"},
-    "ru": {"meridian_map_3d": "🧍 3D-карта меридианов"},
-    "uz": {"meridian_map_3d": "🧍 Meridianlarning 3D xaritasi"},
-    "kz": {"meridian_map_3d": "🧍 Меридиандардың 3D картасы"},
+    "en": {
+        "meridian_map_3d": "🧍 3D meridian map",
+        "map3d_announcement": (
+            "🧍 <b>New: a 3D meridian map</b>\n\n"
+            "The bot now has a three-dimensional map of all 12 main meridians, Du Mai, Ren Mai and the six "
+            "extraordinary vessels, with 361 points placed right on the body.\n\n"
+            "What you can do with it:\n"
+            "• turn the figure with one finger and zoom in on any spot;\n"
+            "• open any point to see where it is, what it is for and how it helps;\n"
+            "• show all yin or all yang meridians at once;\n"
+            "• put the figure into an asana or a mudra, and the points and lines stay in place;\n"
+            "• pick a background: Kailash, the pyramids, Altai, Tian Shan, Stonehenge.\n\n"
+            "Open the map with the button below or from the meridians menu."
+        ),
+    },
+    "ru": {
+        "meridian_map_3d": "🧍 3D-карта меридианов",
+        "map3d_announcement": (
+            "🧍 <b>Новое: 3D-карта меридианов</b>\n\n"
+            "В боте появилась объёмная карта: все 12 основных меридианов, Ду-май, Жэнь-май и шесть чудесных "
+            "сосудов, 361 точка прямо на теле.\n\n"
+            "Что с ней можно делать:\n"
+            "• крутить фигуру пальцем и приближать нужное место;\n"
+            "• открыть любую точку и посмотреть, где она, зачем нужна и чем полезна;\n"
+            "• показать сразу все иньские или все янские меридианы;\n"
+            "• поставить фигуру в асану или мудру, точки и линии останутся на своих местах;\n"
+            "• выбрать фон: Кайлас, пирамиды, Алтай, Тянь-Шань, Стоунхендж.\n\n"
+            "Открыть карту можно кнопкой ниже или из меню меридианов."
+        ),
+    },
+    "uz": {
+        "meridian_map_3d": "🧍 Meridianlarning 3D xaritasi",
+        "map3d_announcement": (
+            "🧍 <b>Yangilik: meridianlarning 3D xaritasi</b>\n\n"
+            "Botda hajmli xarita paydo bo'ldi: 12 asosiy meridian, Du-may, Ren-may va oltita g'aroyib tomir, "
+            "tananing o'zida 361 ta nuqta.\n\n"
+            "Xarita bilan nima qilish mumkin:\n"
+            "• figurani barmoq bilan aylantirish va kerakli joyni yaqinlashtirish;\n"
+            "• istalgan nuqtani ochib, u qayerda, nima uchun kerak va nimaga foydali ekanini ko'rish;\n"
+            "• barcha in yoki barcha yan meridianlarini birdaniga ko'rsatish;\n"
+            "• figurani asana yoki mudraga qo'yish, nuqtalar va chiziqlar o'z joyida qoladi;\n"
+            "• fonni tanlash: Kaylas, piramidalar, Oltoy, Tyan-Shan, Stounxenj.\n\n"
+            "Xaritani pastdagi tugma yoki meridianlar menyusi orqali oching."
+        ),
+    },
+    "kz": {
+        "meridian_map_3d": "🧍 Меридиандардың 3D картасы",
+        "map3d_announcement": (
+            "🧍 <b>Жаңалық: меридиандардың 3D картасы</b>\n\n"
+            "Ботта көлемді карта пайда болды: 12 негізгі меридиан, Ду-май, Жэнь-май және алты ғажайып тамыр, "
+            "дененің өзінде 361 нүкте.\n\n"
+            "Картамен не істеуге болады:\n"
+            "• фигураны саусақпен айналдырып, керек жерді жақындату;\n"
+            "• кез келген нүктені ашып, оның қайда екенін, не үшін керек екенін және пайдасын көру;\n"
+            "• барлық инь немесе барлық ян меридиандарын бірден көрсету;\n"
+            "• фигураны асанаға немесе мудраға қою, нүктелер мен сызықтар орнында қалады;\n"
+            "• фонды таңдау: Қайлас, пирамидалар, Алтай, Тянь-Шань, Стоунхендж.\n\n"
+            "Картаны төмендегі батырмамен немесе меридиандар мәзірінен ашыңыз."
+        ),
+    },
 }
 
 for _language, _updates in MERIDIAN_MAP_3D_TEXT_OVERRIDES.items():
@@ -4008,9 +4064,10 @@ class BotHandlers:
             logger.info("Broadcast command received from admin %s with args=%s", chat_id, args)
 
             if not args:
-                keyboard = InlineKeyboardMarkup([[
-                    InlineKeyboardButton("📢 Send update announcement", callback_data="broadcast_meridians_announcement")
-                ]])
+                keyboard = InlineKeyboardMarkup([
+                    [InlineKeyboardButton("🧍 Announce the 3D meridian map", callback_data="broadcast_map3d_announcement")],
+                    [InlineKeyboardButton("📢 Send update announcement", callback_data="broadcast_meridians_announcement")],
+                ])
                 await update.message.reply_text(
                     f"{self._get_admin_text('broadcast_usage')}\n\nOr choose a localized template:",
                     reply_markup=keyboard
@@ -4092,8 +4149,9 @@ class BotHandlers:
             logger.error("Error resending daily reminders: %s", e)
             await update.message.reply_text("Error while resending today's reminders.")
 
-    async def _send_localized_broadcast(self, text_key: str, context: ContextTypes.DEFAULT_TYPE) -> tuple:
-        """Send a localized broadcast template to all active users."""
+    async def _send_localized_broadcast(self, text_key: str, context: ContextTypes.DEFAULT_TYPE,
+                                        map_button: bool = False) -> tuple:
+        """Send a localized broadcast template to all active users (map_button: with the 3D map button)."""
         active_users = await self.storage.get_all_active_users()
         sent_count = 0
         failed_count = 0
@@ -4101,7 +4159,11 @@ class BotHandlers:
         for user in active_users:
             try:
                 text = self._get_text(text_key, user.language)
-                await context.bot.send_message(user.chat_id, text, parse_mode='HTML')
+                markup = None
+                if map_button:
+                    button = self._create_meridian_map_button(user.language, user)
+                    markup = InlineKeyboardMarkup([[button]]) if button else None
+                await context.bot.send_message(user.chat_id, text, parse_mode='HTML', reply_markup=markup)
                 sent_count += 1
             except Exception:
                 failed_count += 1
@@ -4877,9 +4939,9 @@ class BotHandlers:
         keyboard.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")])
         return InlineKeyboardMarkup(keyboard)
 
-    def _create_meridian_map_button(self, language: str, user: Optional[User]) -> Optional[InlineKeyboardButton]:
-        """Mini App button for the 3D meridian map; admin-only while the map is a prototype."""
-        if not self.webapp_url or not user or user.chat_id not in self.admin_ids:
+    def _create_meridian_map_button(self, language: str, user: Optional[User] = None) -> Optional[InlineKeyboardButton]:
+        """Mini App button for the 3D meridian map (shown to everyone once WEBAPP_URL is set)."""
+        if not self.webapp_url:
             return None
         parts = urlsplit(self.webapp_url)
         query = urlencode({**dict(parse_qsl(parts.query)), "lang": language})
@@ -6140,6 +6202,15 @@ class BotHandlers:
 
         try:
             await query.answer()
+            if action == "map3d_announcement":
+                if not self.webapp_url:
+                    await self._edit_message_text_safe(query, "WEBAPP_URL is not set: the map button would be missing.")
+                    return
+                sent_count, failed_count, total = await self._send_localized_broadcast(
+                    "map3d_announcement", context, map_button=True)
+                result_text = self._get_admin_text("broadcast_result", sent=sent_count, failed=failed_count, total=total)
+                await self._edit_message_text_safe(query, result_text)
+                return
             if action != "meridians_announcement":
                 await self._edit_message_text_safe(query, self._get_admin_text("broadcast_usage"))
                 return
