@@ -177,6 +177,10 @@ class DeltaMush:
         # unsmoothed, cut off and striped
         floor = np.full(len(P), 1.0)
         floor[b.buttock] = P[b.buttock, 1] - P[:, 1].min()
+        # and every vertex actually on the floor, with a short fade (6 mm -> 2 cm): the rounded dandasana
+        # calves and heels went 10 mm under it; the lotus knees, 2-3 cm up, stay free
+        y = P[:, 1] - P[:, 1].min()
+        touch = np.clip((y - 0.006) / 0.014, 0.0, 1.0)
         near_feet = np.full(len(P), 1.0)
         cand = np.flatnonzero(self.w > 0)
         cand = cand[~np.isin(cand, feet)]
@@ -195,7 +199,7 @@ class DeltaMush:
             # the skin under the hands too: rounding the knee lowered it 18 mm under the male palm
             near_feet[cand] = np.minimum(near_feet[cand], dist_to(cand, keep))
         dist = np.minimum(floor, near_feet)
-        pin = np.clip((dist - 0.01) / 0.04, 0.0, 1.0)
+        pin = np.clip((dist - 0.01) / 0.04, 0.0, 1.0) * touch
         return P + (M - P) * (self.w * pin)[:, None]
 
 

@@ -461,9 +461,12 @@ ARM_DEFAULT = {
     # hand stands on its fingertips beside the hip, as the teacher allows
     # (council 2026-11-09 asked for flat palms beside the hips; wrist -78 with abduction <= 15 drove the female
     # forearms 5 cm into the trunk and lifted the hands off the floor, so this stays as it was)
-    # (wrist 45 with the hands 11 cm out spread the male arms wider still and put the female forearms 5 cm
-    # into the trunk: with straight arms these bodies reach the floor only a little out from the hips)
-    "floor": dict(sh=(-4, 10, 0), elbow=4, sup=-60, wrist=(-25, 0), rng=((-25, 15), (3, 30), (-30, 25), (0, 25))),
+    # palm flat on the floor: forearm turn and wrist free (x = sh3, elbow, sup, wrist flex, dev), extension
+    # up to 85 (the dandasana limit is 90); the trunk term keeps the forearms out of the body
+    # abduction from 8: at 3-4 the straight male arm lay 5 cm into the flank; radial/ulnar deviation within
+    # 12 here (check_poses reads it ~8 deg higher: 20 here was 28 there, the limit is 25)
+    "floor": dict(sh=(-8, 10, 0), elbow=8, sup=-70, wrist=(-70, 0), rng=((-30, 15), (8, 25), (-30, 30), (0, 30)),
+                  xrng=((-82, -40), (-85, 10), (-12, 12)), bound_w=4.0),   # pronation inside -85
     # dhyana: the forearm turn and the wrist are free too (x = sh3, elbow, sup, wrist flex, radial dev),
     # so the fingers can point to the other side while the palm faces up
     # ranges kept inside check_poses limits (humeral rot >= -70, pron_sup <= 90, |wrist dev| <= 25): a
@@ -566,16 +569,24 @@ def make_wrist_on(point):
     return fn
 
 
-def make_palm_floor(point):
+def make_palm_floor(point, torso=None):
+    """Dandasana: the palm flat on the floor beside the hip, fingers forward, the arm clear of the trunk.
+    (It used to stand the hand on its fingertips: the reviewers saw the palms lifted and the arms spread;
+    aiming the palms nearer without a trunk term drove the forearms 5 cm into the body.)"""
     def fn(ctx, pos, H, Q, s):
         palm = pos[ctx.subh[f"palm.{s}"]]
         centre = palm.mean(axis=0)
         n = qrot(Q[ctx.rig.index[f"wrist.{s}"]], ctx.ps.hand_frame0(s)[1])
+        d = qrot(Q[ctx.rig.index[f"wrist.{s}"]], ctx.ps.hand_frame0(s)[0])
         c = 3e3 * float(np.sum((centre[[0, 2]] - point[[0, 2]]) ** 2))
+        c += 30 * (n[1] + 1.0) ** 2                      # palm facing the floor
+        c += 10 * max(0.0, 0.5 - d[2]) ** 2              # fingers forward, not out to the side
         hand = pos[ctx.subh[f"hand.{s}"]]
-        # fingertips on the floor beside the hip, the hand standing on them (never through the floor)
-        c += 3e4 * (hand[:, 1].min() - 0.002) ** 2
-        c += 1e6 * min(0.0, hand[:, 1].min()) ** 2
+        c += 3e4 * (palm[:, 1].min() - 0.003) ** 2       # the palm itself on the floor
+        c += 1e6 * min(0.0, hand[:, 1].min() + 0.001) ** 2
+        if torso is not None:
+            pts = pos[ctx.subh[f"fore.{s}"] | ctx.subh[f"hand.{s}"]]
+            c += 3e4 * max(0.0, float(torso.depth(pts).max()) + 0.006) ** 2
         return c
     return fn
 
@@ -649,7 +660,9 @@ def ground(ctx):
 
 
 ARM_BONES = ("upperarm01", "upperarm02", "lowerarm01", "lowerarm02", "wrist")
-THIGH_POSES = ("sukhasana", "vajrasana")     # open hand: palm down on the thigh, own flat fingers (openRot)
+# open hand lying flat (on the thigh, on the floor in dandasana): own flat fingers (openRot); the relaxed
+# curled fingers put the dandasana fingertips 10 mm under the floor once the palm lay flat
+THIGH_POSES = ("sukhasana", "vajrasana", "dandasana")
 
 
 def arm_locals(ctx, W):
@@ -729,10 +742,24 @@ def body_pose(ctx, pid, anjali_world):
                                 lo=-0.002 if s == "R" else -0.004, hi=0.008, fingers=[fl], on_hand=s == "R")
         elif pid == "dandasana":
             hip = hipL if s == "L" else hipR
-            # (aiming behind the hips spread the male arms like wings, aiming closer drove the female forearms
-            # into the trunk: this is the best these proportions allow)
-            tgt = hip + np.array([sg * 0.13, 0, 0.04])
-            Wa, ai = solve_arm(ctx, W, root, s, "floor", make_palm_floor(tgt))
+            if s == "L":
+                ps.W, ps.root = dict(W), root
+                skin_d = ps.skin()
+                # the trunk model with the pelvis and the tops of the thighs: the palms beside the hips go
+                # down to the seat, where the hip flesh is upperleg skin (the forearms went 4 cm into it)
+                seat = ctx.set["trunk"] | ((skin_d[:, 1] < hipL[1] + 0.12) & ~ps.hand_mask &
+                                           (np.abs(skin_d[:, 2] - hipL[2]) < 0.12))
+                torso_d = TorsoModel(skin_d, seat)
+                near = (skin_d[:, 1] < 0.10) & (np.abs(skin_d[:, 2] - hipL[2]) < 0.08) & ~ps.hand_mask
+                edge = float(np.abs(skin_d[near, 0]).max()) if near.any() else abs(hipL[0]) + 0.08
+            # palm centre 4.5 cm beyond the outer edge of the seat, a little behind the hip joint, fingers
+            # forward (a fixed 11.5 cm from the joint put the palms inside the wider female hips)
+            tgt = np.array([sg * (edge + 0.045), hip[1], hip[2] - 0.01])
+            fo = ctx.fingers.get("thigh") or ctx.fingers.get("open", {})
+            ps.hold = dict(fo)
+            ps.hold.update({k.replace(".L", ".R"): pk.qmirror(np.asarray(q, float)) for k, q in fo.items()})
+            Wa, ai = solve_arm(ctx, W, root, s, "floor", make_palm_floor(tgt, torso_d))
+            ps.hold = {}
         else:
             # the solver sees the relaxed fingers that are shown, and the palm itself has to rest on the
             # thigh: with the rest fingers and the gap taken from the whole hand the curled fingertips
