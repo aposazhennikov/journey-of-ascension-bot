@@ -1122,7 +1122,8 @@ def hand_poses(rig, variant, rest, which=None):
     for _ in range(3):
         # the thumb tilt moves the heel-of-hand skin too (it went 2-3 mm past the mid plane after the arms
         # were solved with the untilted thumb), so the arms are solved again with the tilted thumb
-        arms, tw = arms_anatomy(ps, hand, loc, unit([0, 1, 0.35]), [-1, 0, 0], yc, zc, 0.0015, "palm", slope_deg=30)
+        # palms aimed 1 mm off the mid plane (1.5 left the male finger pads 42 % within 6 mm, the check wants 45)
+        arms, tw = arms_anatomy(ps, hand, loc, unit([0, 1, 0.35]), [-1, 0, 0], yc, zc, 0.001, "palm", slope_deg=30)
         new =anjali_thumb_tilt(ps, hand, sp, arms)
         loc = anjali_fingers(ps, hand, sp, new)
         if new <= tilt:      # the arms were solved with this tilt and the thumbs stay apart

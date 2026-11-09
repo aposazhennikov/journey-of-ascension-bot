@@ -37,6 +37,10 @@ const richText = (s) => esc(s).replace(/&lt;(\/?)(b|i)&gt;/g, '<$1$2>');
 
 // ---------------------------------------------------------------- state
 
+// background photos (styles.css .backdrop[data-photo]): the author's two of Kailash, the rest from Wikimedia
+// Commons under CC0 / public domain (see webapp/assets/PHOTOS.md)
+const SCENERY = ['k1', 'k2', 'pyramids', 'altai', 'tianshan', 'stonehenge'];
+
 const state = {
   data: null,
   channelById: new Map(),
@@ -46,8 +50,8 @@ const state = {
   flowAuto: store.get('flow_auto', true),
   flowSlow: store.get('flow_slow', false),
   luoOn: store.get('luo_links', true),
-  // 'k1' | 'k2' (photos of Kailash) | 'off'; older builds stored a boolean
-  scenery: ((v) => (v === false ? 'off' : (v === 'k2' || v === 'off' ? v : 'k1')))(store.get('scenery', 'k1')),
+  // one of SCENERY (photos behind the figure) or 'off'; older builds stored a boolean
+  scenery: ((v) => (v === false ? 'off' : ([...SCENERY, 'off'].includes(v) ? v : 'k1')))(store.get('scenery', 'k1')),
   special: false,
   expanded: new Set(),
   body: ({ f: 'female', m: 'male' })[params.get('body') || startTokens.b] || store.get('body', 'female'),
@@ -1001,9 +1005,10 @@ async function ensurePoses() {
   return poseSys.loading;
 }
 
-// Mount Kailash behind the figure while the poses are open (switch in the poses sheet)
+// A photo behind the figure (chosen in the poses sheet). It stays when the poses sheet closes and channels
+// are picked: tied to the sheet, it vanished on every channel change and had to be switched on again.
 function applyScenery() {
-  const on = state.overlay === 'poses' && state.scenery !== 'off';
+  const on = state.scenery !== 'off';
   if (on) $('backdrop').dataset.photo = state.scenery;
   document.body.classList.toggle('scenery', on);
 }
@@ -1068,7 +1073,7 @@ function posesBody() {
   const tx = poseText(item);
   const disclaimer = state.poseContent?.disclaimer_i18n?.[LANG] || '';
   const chips = (ids) => ids.map((id) => `<button class="tag button chip-like" data-chan="${id}"><span class="dot" style="background:${color(id)}"></span>${esc(shortName(id))}</button>`).join('');
-  const sceneryRow = `<div class="toggle-row"><span>${esc(t('scenery_toggle'))}</span><div class="seg seg-small" role="tablist">${['k1', 'k2', 'off'].map((v) => `<button role="tab" data-scenery="${v}" aria-selected="${state.scenery === v}">${esc(t(`scenery_${v}`))}</button>`).join('')}</div></div>`;
+  const sceneryRow = `<div class="scenery-row"><span class="scenery-label">${esc(t('scenery_toggle'))}</span><div class="scenery-opts" role="tablist">${[...SCENERY, 'off'].map((v) => `<button role="tab" data-scenery="${v}" aria-selected="${state.scenery === v}">${esc(t(`scenery_${v}`))}</button>`).join('')}</div></div>`;
   if (tab === 'asanas') {
     return `${sceneryRow}<h2 class="card-h">${esc(tx.name || item.id)}${item.sanskrit ? ` <span class="muted">${esc(item.sanskrit)}</span>` : ''}</h2>
       ${tx.how ? `<div class="section"><h3>${esc(t('how_title'))}</h3><p class="text">${esc(tx.how)}</p></div>` : ''}
@@ -1532,6 +1537,7 @@ async function boot() {
     scene.resize();
     bindCanvas();
     renderChips();
+    applyScenery();      // the chosen photo shows from the start, not only once the poses sheet opens
     if (!deepLink()) { applySelection(); renderSheet(); scene.setView('front', { instant: true }); }
     if (EDIT) renderEditbar();
     try { await scene.renderer.compileAsync(scene.scene, scene.camera); } catch { /* optional */ }

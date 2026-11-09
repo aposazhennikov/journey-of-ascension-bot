@@ -53,6 +53,10 @@ button:disabled { cursor: default; opacity: 0.35; }
 }
 .backdrop[data-photo="k1"] { background-image: url("assets/kailash1.jpg"); background-position: 45% center; }
 .backdrop[data-photo="k2"] { background-image: url("assets/kailash2.jpg"); background-position: 50% center; }
+.backdrop[data-photo="pyramids"] { background-image: url("assets/pyramids.jpg"); background-position: 38% center; }
+.backdrop[data-photo="altai"] { background-image: url("assets/altai.jpg"); background-position: 45% center; }
+.backdrop[data-photo="tianshan"] { background-image: url("assets/tianshan.jpg"); background-position: 50% center; }
+.backdrop[data-photo="stonehenge"] { background-image: url("assets/stonehenge.jpg"); background-position: 50% center; }
 body.scenery .backdrop { opacity: 1; }
 body.scenery #stage { background: transparent; }
 :root[data-theme="dark"] .backdrop { filter: brightness(0.55) saturate(0.85); }
@@ -371,6 +375,13 @@ h3.inline { margin: 0; }
 .seg button { height: 32px; min-width: 44px; padding: 0 12px; border-radius: 9px; font-size: 13px; font-weight: 500; text-align: center; }
 .seg button[aria-selected="true"] { background: var(--card); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12); }
 .seg-small button { height: 30px; }
+/* background photo choice: a wrapping row of small pills (seven do not fit one segmented control) */
+.scenery-row { margin-top: 6px; }
+.scenery-label { display: block; font-size: 13px; color: var(--soft); margin-bottom: 6px; }
+.scenery-opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.scenery-opts button { height: 30px; padding: 0 12px; border-radius: 15px; font-size: 13px; font-weight: 500;
+  background: color-mix(in srgb, var(--text) 7%, transparent); }
+.scenery-opts button[aria-selected="true"] { background: var(--text); color: var(--card); }
 
 .rows { display: flex; flex-direction: column; }
 .row-btn {

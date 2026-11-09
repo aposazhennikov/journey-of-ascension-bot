@@ -729,6 +729,8 @@ def body_pose(ctx, pid, anjali_world):
                                 lo=-0.002 if s == "R" else -0.004, hi=0.008, fingers=[fl], on_hand=s == "R")
         elif pid == "dandasana":
             hip = hipL if s == "L" else hipR
+            # (aiming behind the hips spread the male arms like wings, aiming closer drove the female forearms
+            # into the trunk: this is the best these proportions allow)
             tgt = hip + np.array([sg * 0.13, 0, 0.04])
             Wa, ai = solve_arm(ctx, W, root, s, "floor", make_palm_floor(tgt))
         else:
@@ -826,7 +828,8 @@ def vrikshasana_once(ctx, anjali_world, dx=0.0):
         tgt = hipR + (kneeR - hipR) * 0.28 + np.array([0.095 + dx, 0, 0.03])   # sole against, not into, the thigh
         c = 2e3 * float(np.sum((ank - tgt) ** 2))
         rel_h = (foot[:, 1].mean() - kneeR[1]) / max(1e-6, hipR[1] - kneeR[1])   # as check_poses measures
-        c += 3e4 * max(0.0, 0.60 - rel_h) ** 2          # 300 and 3e3 left the foot at 0.50-0.54 of the thigh
+        # 300 and 3e3 left the foot at 0.50-0.54 of the thigh (1e5 broke the solve: foot at knee height)
+        c += 3e4 * max(0.0, 0.60 - rel_h) ** 2
         # sole on the skin of the standing thigh (the capsule read 6 mm while the foot was 14-22 mm in),
         # on the whole mesh as check_poses measures it: on the legs subset the thigh normals at the groin
         # differ and the male heel in the groin fold read 3 mm instead of 38
