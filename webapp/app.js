@@ -22,6 +22,12 @@ const store = {
 // reloads the page with that ?lang= and lasts only until the map is closed, so every open from the bot is in its language
 const LANG = normalizeLang(params.get('lang') || startTokens.l || tg?.initDataUnsafe?.user?.language_code || 'ru');
 const LANG_NAMES = { ru: 'Русский', en: 'English', uz: "O'zbek", kz: 'Қазақ' };
+// practice progress the bot puts into the button URL: meridian in work, point reached (0-based), finished meridians
+const PROGRESS = {
+  m: params.get('pm') || null,
+  p: /^\d+$/.test(params.get('pi') || '') ? Number(params.get('pi')) : -1,
+  done: new Set((params.get('pd') || '').split(',').filter(Boolean)),
+};
 const t = makeT(LANG);
 const EDIT = params.get('edit') === '1';
 const SPECIAL_CATS = new Set(['jing_well', 'ying_spring', 'shu_stream', 'jing_river', 'he_sea', 'yuan', 'luo', 'great_luo', 'mu', 'back_shu', 'confluent']);
@@ -414,6 +420,7 @@ function setLevel(level, { fly = true, instant = false } = {}) {
   state.level = level;
   state.expanded.clear();
   hideNext();
+  scene.clearRuler();
   els.pick.hidden = true;
   scene.stopFlow(true);
   applySelection();
@@ -587,11 +594,108 @@ function factsLine(ch) {
   return bits.filter(Boolean).join(' · ');
 }
 
+// ---------------------------------------------------------------- practice progress (from the bot)
+
+const pathChannel = () => (PROGRESS.m && state.channelById.get(PROGRESS.m)) || null;
+function pathPoint() {
+  const ch = pathChannel();
+  return ch && PROGRESS.p >= 0 ? ch.points[PROGRESS.p] || null : null;
+}
+function pointPassed(ch, code) {
+  if (PROGRESS.done.has(ch.id)) return true;
+  return PROGRESS.m === ch.id && PROGRESS.p >= 0 && ch.points.indexOf(code) <= PROGRESS.p;
+}
+function pathBadge(id) {
+  if (PROGRESS.done.has(id)) return `<span class="path-badge done" title="${esc(t('path_done'))}">✓</span>`;
+  if (PROGRESS.m === id) return `<span class="path-badge">${esc(t('path_in_work'))}</span>`;
+  return '';
+}
+function pathSection() {
+  const ch = pathChannel();
+  const done = [...PROGRESS.done].filter((id) => state.channelById.has(id));
+  if (!ch && !done.length) return '';
+  const cur = pathPoint();
+  const work = ch ? `<button class="row-btn tall" ${cur ? `data-goto="${cur}"` : `data-chan="${ch.id}"`}><span class="dot big" style="background:${color(ch.id)}"></span>
+    <span class="name"><span class="row-title">${esc(fullName(ch.id))}</span><span class="row-sub">${esc(cur ? t('path_point', { i: PROGRESS.p + 1, n: ch.points.length, code: cur }) : t('path_intro'))}</span></span><span class="chev">›</span></button>` : '';
+  const doneHtml = done.length ? `<p class="text muted small-gap">${esc(t('path_done_list'))}</p><div class="tags">${done.map((id) => `<button class="tag button chip-like" data-chan="${id}"><span class="dot" style="background:${color(id)}"></span>${esc(shortName(id))} ✓</button>`).join('')}</div>` : '';
+  return `<div class="section"><h3>${esc(t('path_title'))}</h3>${work ? `<div class="rows">${work}</div>` : ''}${doneHtml}</div>`;
+}
+
+// ---------------------------------------------------------------- search by how one feels (point indications)
+
+const SYM_GROUPS = ['sleep_mood', 'head_face', 'eyes', 'ent', 'breathing', 'chest_heart', 'digestion', 'back', 'arms', 'legs', 'urogenital', 'cycle', 'cold', 'fatigue', 'skin', 'swelling'];
+const symptom = { q: '', g: null, more: false };
+
+function symptomMatches() {
+  const d = state.data;
+  const raw = symptom.q.trim().toLowerCase();
+  // crude stem so "бессонница" also finds "бессонницы", "головная боль" finds "головные боли"
+  const stem = (w) => (w.length > 5 ? w.slice(0, -2) : w.length > 3 ? w.slice(0, -1) : w);
+  const words = raw.split(/\s+/).filter(Boolean).map(stem);
+  if (!words.length && !symptom.g) return [];
+  const out = [];
+  for (const code of d.pointOwner.keys()) {
+    const ind = d.extraText(code).indications;
+    if (!Array.isArray(ind)) continue;
+    const hits = [];
+    for (const grp of ind) {
+      if (symptom.g && grp.g !== symptom.g) continue;
+      for (const item of grp.items || []) {
+        const low = item.toLowerCase();
+        if (words.every((w) => low.includes(w))) hits.push(item);
+      }
+    }
+    if (hits.length) out.push({ code, hits });
+  }
+  out.sort((a, b) => b.hits.length - a.hits.length);
+  return out;
+}
+
+function symptomResultsHtml() {
+  const res = symptomMatches();
+  if (!symptom.q.trim() && !symptom.g) return `<p class="text muted">${esc(t('sym_hint'))}</p>`;
+  if (!res.length) return `<p class="text muted">${esc(t('sym_none'))}</p>`;
+  const shown = symptom.more ? res : res.slice(0, 12);
+  const rows = shown.map(({ code, hits }) => {
+    const owner = state.data.pointOwner.get(code);
+    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(code)}</span><span class="name">${esc(pointName(code))}<span class="row-sub">${esc(hits.slice(0, 3).join(', '))}</span></span><span class="dot" style="background:${color(owner)}"></span></button>`;
+  }).join('');
+  return `<p class="text muted small-gap">${esc(t('sym_found', { n: res.length }))}</p><div class="rows">${rows}</div>
+    ${res.length > shown.length ? `<button class="more" data-act="symmore">${esc(t('more_n', { n: res.length - shown.length }))}</button>` : ''}
+    <p class="note">${esc(t('ind_note'))}</p>`;
+}
+
+function symptomSection() {
+  const pills = SYM_GROUPS.map((g) => `<button role="tab" data-symg="${g}" aria-selected="${symptom.g === g}">${esc(t(`ind_${g}`))}</button>`).join('');
+  return `<div class="section sym"><h3>${esc(t('sym_title'))}</h3>
+    <input class="sym-input" id="symInput" type="search" enterkeyhint="search" autocomplete="off" placeholder="${esc(t('sym_placeholder'))}" value="${esc(symptom.q)}">
+    <div class="scenery-opts sym-groups" role="tablist">${pills}</div>
+    <div id="symResults">${symptomResultsHtml()}</div></div>`;
+}
+
+function refreshSymptomResults() {
+  const box = document.getElementById('symResults');
+  if (box) box.innerHTML = symptomResultsHtml();
+}
+
 function renderPeek() {
   if (!state.data) return;
   const lv = state.level;
   const d = state.data;
   if (state.overlay === 'poses') { renderPosesPeek(); return; }
+  if (lv.view === 'home' && pathChannel()) {
+    // opened from the bot mid-practice: the first thing shown is where the person stopped
+    const ch = pathChannel();
+    const cur = pathPoint();
+    const now = activeChannelNow(d.channels);
+    const sub = [cur ? t('path_point', { i: PROGRESS.p + 1, n: ch.points.length, code: cur }) : t('path_intro'),
+      now ? `${t('now_active')}: ${shortName(now.id)}` : ''].filter(Boolean).join(' · ');
+    els.sheet.style.setProperty('--chan', color(ch.id));
+    els.peek.innerHTML = `<button class="peek-row peek-button" ${cur ? `data-goto="${cur}"` : `data-chan="${ch.id}"`}><span class="dot big" style="background:${color(ch.id)}"></span>
+      <span class="peek-main"><span class="peek-title">${esc(t('path_title'))} · ${esc(shortName(ch.id))}</span>
+      <span class="peek-sub">${esc(sub)}</span></span><span class="chev">›</span></button>`;
+    return;
+  }
   if (lv.view === 'home') {
     const now = activeChannelNow(d.channels);
     els.sheet.style.removeProperty('--chan');
@@ -658,7 +762,7 @@ function homeBody() {
   const start = now ? CLOCK_ORDER.indexOf(now.id) : 0;
   const order = CLOCK_ORDER.map((_, i) => CLOCK_ORDER[(start + i) % 12]).filter((id) => state.channelById.has(id));
   const row = (id, sub, badge = '') => `<button class="row-btn tall" data-chan="${id}"><span class="dot big" style="background:${color(id)}"></span>
-    <span class="name"><span class="row-title">${esc(fullName(id))}</span><span class="row-sub">${esc(sub)}</span></span>${badge}</button>`;
+    <span class="name"><span class="row-title">${esc(fullName(id))}</span><span class="row-sub">${esc(sub)}</span></span>${pathBadge(id)}${badge}</button>`;
   const regRows = order.map((id) => {
     const ch = state.channelById.get(id);
     const m = ch.meta;
@@ -671,6 +775,8 @@ function homeBody() {
     <span class="name"><span class="row-title">${esc(v.text.name || shortName(v.id))}</span><span class="row-sub">${esc(t('opening_point', { code: v.confluent }))}</span></span></button>`).join('');
   const about = state.expanded.has('about');
   return `<div class="section prefs">${langRowHtml()}${sceneryRowHtml()}</div>
+    ${pathSection()}
+    ${symptomSection()}
     <div class="section"><h3>${esc(t('sec_main'))}</h3><div class="rows">${regRows}</div></div>
     <div class="section"><h3>${esc(t('sec_mid'))}</h3><div class="rows">${midRows}</div></div>
     <div class="section"><h3>${esc(t('sec_vessels'))}</h3><div class="rows">${vesRows}</div></div>
@@ -765,10 +871,19 @@ function channelBody(ch) {
   }
   const hours = ch.midline ? '' : `<div class="hours-row"><span>${esc(t('hours', { a: `${hh(m.active_time, 0)}–${hh(m.active_time, 1)}`, p: `${hh(m.passive_time, 0)}–${hh(m.passive_time, 1)}` }))}</span><button class="info" data-toggle="hours" aria-label="i">i</button></div>${state.expanded.has('hours') ? `<p class="tag-explain">${esc(t('hint_hours'))}</p>` : ''}`;
   const rows = ch.points.filter((code) => !state.special || isSpecial(ch, code)).map((code) => pointRow(ch, code)).join('');
+  let path = '';
+  if (PROGRESS.done.has(ch.id)) path = `<p class="path-line done">✓ ${esc(t('path_done_channel'))}</p>`;
+  else if (PROGRESS.m === ch.id) {
+    const cur = pathPoint();
+    path = `<button class="row-btn path-line" ${cur ? `data-goto="${cur}"` : ''}><span class="name"><span class="row-title">${esc(t('path_title'))}</span>
+      <span class="row-sub">${esc(cur ? t('path_point', { i: PROGRESS.p + 1, n: ch.points.length, code: cur }) : t('path_intro'))}</span></span>${cur ? `<span class="chev">${esc(t('path_continue'))} ›</span>` : ''}</button>`;
+  }
   return `<div class="tags">${tagHtml}</div>${explain}
+    ${path}
     <p class="text flow-line">${esc(t('flow_label'))}: ${esc(FLOW_SHORT[LANG][ch.id] || m.direction || '')}</p>
     ${hours}
     ${neighbours}
+    ${profileSection(ch.id)}
     ${m.intro_practice ? `<div class="section"><h3>${esc(t('practice_title'))}</h3>${clampText('practice', m.intro_practice)}</div>` : ''}
     <div class="toggle-row"><span>${esc(t('luo_toggle'))}</span><button class="switch" role="switch" data-act="luo" aria-checked="${state.luoOn}"></button></div>
     <div class="toggle-row"><span>${esc(t('slow_toggle'))}</span><button class="switch" role="switch" data-act="slow" aria-checked="${state.flowSlow}"></button></div>
@@ -779,6 +894,42 @@ function channelBody(ch) {
         <div class="seg seg-small"><button data-filter="all" aria-selected="${!state.special}">${esc(t('filter_all'))}</button><button data-filter="special" aria-selected="${state.special}">${esc(t('filter_special'))}</button></div></div>
       <div class="rows">${rows}</div>
     </div>`;
+}
+
+function fmtCun(n) {
+  const num = String(n).replace('.', LANG === 'en' ? '.' : ',');
+  if (LANG === 'ru') return `${num} ${n === 1 ? 'цунь' : n < 5 ? 'цуня' : 'цуней'}`;
+  if (LANG === 'uz') return `${num} sun`;
+  if (LANG === 'kz') return `${num} цунь`;
+  return `${num} cun`;
+}
+
+function showRuler(from, to, cun) {
+  const r = scene.showRuler(from, to, cun, state.level.side || 1);
+  if (!r) return;
+  scene.frameBox(r.box, r.normal.clone().add(new THREE.Vector3(0, 0.15, 0)), { minRadius: 0.07 });
+  toast(t('ruler_toast', { n: fmtCun(cun), code: from }));
+  haptic('light');
+}
+
+/** Traditional profile of a channel: role, five-element correspondences, balance / imbalance, where to begin. */
+function profileSection(id) {
+  const pr = state.data.profile(id);
+  if (!pr || !pr.organ) return '';
+  const c = pr.correspondences || {};
+  const corr = ['element', 'emotion', 'season', 'taste', 'color', 'sense', 'tissue'].filter((k) => c[k])
+    .map((k) => `<dt>${esc(t(`corr_${k}`))}</dt><dd>${esc(c[k])}</dd>`).join('');
+  const open = state.expanded.has('imbalance');
+  const imb = Array.isArray(pr.imbalance) ? pr.imbalance : [];
+  const start = pr.start && state.data.pointOwner.has(pr.start)
+    ? `<button class="row-btn" data-goto="${pr.start}"><span class="name"><span class="row-sub">${esc(t('start_title'))}</span><span class="code">${esc(pr.start)}</span> ${esc(pointName(pr.start))}${pr.start_why ? `<span class="row-sub">${esc(pr.start_why)}</span>` : ''}</span><span class="chev">›</span></button>` : '';
+  return `<div class="section profile"><h3>${esc(t('profile_title'))}</h3>
+    <p class="text">${esc(pr.organ)}</p>
+    ${corr ? `<dl class="ind corr">${corr}</dl>` : ''}
+    ${pr.balance ? `<p class="text"><b>${esc(t('balance_title'))}:</b> ${esc(pr.balance)}</p>` : ''}
+    ${imb.length ? `<button class="row-btn ind-head" data-toggle="imbalance" aria-expanded="${open}"><span class="name"><span class="row-title">${esc(t('imbalance_title'))}</span></span><span class="chev">${open ? '⌄' : '›'}</span></button>
+      ${open ? `<ul class="bullets">${imb.map((x) => `<li>${esc(x)}</li>`).join('')}</ul><p class="note">${esc(t('imbalance_note'))}</p>` : ''}` : ''}
+    ${start ? `<div class="rows">${start}</div>` : ''}</div>`;
 }
 
 function isSpecial(ch, code) {
@@ -795,6 +946,8 @@ function pointRow(ch, code) {
   const cr = state.data.crossings.get(code);
   if (cr && (cr.meridians || []).length > 1) marks.push('<span class="mk">◎</span>');
   const has = !!state.data.coords[code];
+  if (pathPoint() === code) marks.unshift(`<span class="mk here" title="${esc(t('path_here_short'))}">●</span>`);
+  else if (pointPassed(ch, code)) marks.unshift(`<span class="mk passed" title="${esc(t('path_done'))}">✓</span>`);
   return `<button class="row-btn${has ? '' : ' missing'}" data-point="${code}"><span class="code">${esc(code)}</span>
     <span class="name">${esc(pointName(code))}${has ? '' : `<span class="row-sub">${esc(t('not_on_model'))}</span>`}</span><span class="marks">${marks.join('')}</span></button>`;
 }
@@ -863,13 +1016,24 @@ function pointBody(ch, code) {
   const luoRow = luo?.to_meridian ? `<p class="luo-row"><span class="dot" style="background:${color(luo.to_meridian)}"></span>
     <button class="link" data-chan="${luo.to_meridian}">${esc(t('luo_to', { name: shortName(luo.to_meridian) }))}</button>${luo.to ? ` · <button class="link" data-act="showluo" data-from="${code}" data-to="${luo.to}">${esc(t('show_branch'))}</button>` : ''}</p>` : '';
   const crossNote = (code === 'GI19' || code === 'GI20') ? `<p class="text meaning">${esc(t('li_cross'))}</p>` : '';
-  return `${cautions}
+  const here = pathPoint() === code ? `<p class="path-here">● ${esc(t('path_here'))}</p>` : '';
+  // how to find it on one's own body: position, numbered steps, an optional cun ruler from a reference point
+  const steps = Array.isArray(ex.find_steps) ? ex.find_steps : [];
+  const find = extra.find || {};
+  const rulerOk = find.ref && find.cun > 0 && d.coords[find.ref] && d.coords[code];
+  const findHtml = steps.length || ex.finding_hint || info?.setup ? `<div class="section find"><h3>${esc(t('find_title'))}</h3>
+    ${ex.find_pose ? `<p class="text muted">${esc(ex.find_pose)}</p>` : ''}
+    ${steps.length ? `<ol class="steps">${steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>` : ''}
+    ${ex.finding_hint ? `<p class="text tip">${esc(ex.finding_hint)}</p>` : (!steps.length && info?.setup ? `<p class="text">${esc(info.setup)}</p>` : '')}
+    ${rulerOk ? `<button class="tag button chip-like ruler-btn" data-act="ruler" data-from="${find.ref}" data-to="${code}" data-cun="${find.cun}">📏 ${esc(t('ruler_show', { n: fmtCun(find.cun), code: find.ref }))}</button>` : ''}
+    <p class="note">${esc(t('cun_note'))}</p></div>` : '';
+  return `${here}${cautions}
     ${ex.why ? `<p class="text lead">${esc(ex.why)}</p>` : ''}
     ${luoRow}${crossNote}
     ${ex.name_meaning ? `<p class="text meaning">${esc(t('meaning', { text: ex.name_meaning }))}</p>` : ''}
     ${keys.length ? `<div class="tags">${badges}</div>${explain}` : ''}
     ${info?.location ? `<div class="section"><h3>${esc(t('location_title'))}</h3><p class="text big">${esc(info.location)}</p></div>` : ''}
-    ${ex.finding_hint || info?.setup ? `<div class="section"><h3>${esc(t('find_title'))}</h3><p class="text">${esc(ex.finding_hint || info.setup)}</p></div>` : ''}
+    ${findHtml}
     ${fnHtml}
     ${indHtml}
     ${meetChips}
@@ -889,6 +1053,7 @@ function vesselBody(v) {
     <button class="row-btn" data-goto="${v.confluent}"><span class="name"><span class="row-sub">${esc(t('opening_title'))}</span>${esc(v.confluent)} ${esc(pointName(v.confluent))} · ${esc(shortName(d.pointOwner.get(v.confluent)))}</span><span class="chev">›</span></button>
     ${v.pairId ? `<button class="row-btn" data-chan="${v.pairId}"><span class="name">${esc(t('pair_with', { name: shortName(v.pairId) }))} · ${esc(v.coupled)}</span><span class="chev">›</span></button>` : ''}
     <p class="text muted">${esc(t('no_own_points'))}</p>
+    ${profileSection(v.id)}
     ${tx.practice ? `<div class="section"><h3>${esc(t('practice'))}</h3>${clampText('vpractice', tx.practice)}</div>` : ''}
     ${tx.course ? `<div class="section"><h3>${esc(t('course_title'))}</h3><p class="text">${richText(tx.course)}</p></div>` : ''}
     ${tx.description ? `<div class="section"><h3>${esc(t('description_title'))}</h3><p class="text">${richText(tx.description)}</p></div>` : ''}
@@ -903,6 +1068,15 @@ function onSheetClick(e) {
   if (ds.act === 'flow') { toggleFlow(); return; }
   if (ds.act === 'prev') { stepPoint(-1); return; }
   if (ds.act === 'next') { stepPoint(1); return; }
+  if (ds.symg) {
+    symptom.g = symptom.g === ds.symg ? null : ds.symg;
+    symptom.more = false;
+    for (const b of els.body.querySelectorAll('[data-symg]')) b.setAttribute('aria-selected', String(b.dataset.symg === symptom.g));
+    refreshSymptomResults();
+    return;
+  }
+  if (ds.act === 'symmore') { symptom.more = true; refreshSymptomResults(); return; }
+  if (ds.act === 'ruler') { showRuler(ds.from, ds.to, Number(ds.cun)); return; }
   if (ds.lang) {
     if (ds.lang !== LANG) {
       const url = new URL(location.href);
@@ -947,6 +1121,13 @@ function onSheetClick(e) {
 }
 els.peek.addEventListener('click', onSheetClick);
 els.body.addEventListener('click', onSheetClick);
+// typing in the symptom search updates only the results, so the field keeps focus and the keyboard stays up
+els.body.addEventListener('input', (e) => {
+  if (e.target.id !== 'symInput') return;
+  symptom.q = e.target.value;
+  symptom.more = false;
+  refreshSymptomResults();
+});
 
 // ---------------------------------------------------------------- floating buttons
 

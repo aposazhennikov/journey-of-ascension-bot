@@ -419,6 +419,34 @@ h3.inline { margin: 0; }
 }
 
 .caution { margin: 4px 0 8px; font-size: 13px; font-weight: 600; color: #b3261e; }
+
+/* practice progress from the bot */
+.path-badge { flex: 0 0 auto; margin-left: 6px; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;
+  background: color-mix(in srgb, var(--text) 8%, transparent); color: var(--soft); }
+.path-badge.done { background: #2e7d4f; color: #fff; padding: 2px 7px; }
+.path-line { margin: 8px 0 4px; }
+p.path-line.done { font-size: 14px; font-weight: 600; color: #2e7d4f; }
+button.path-line { border: 1.5px solid var(--chan, var(--line)); border-radius: 14px; padding: 8px 12px; }
+.path-here { margin: 0 0 8px; padding: 6px 10px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  background: color-mix(in srgb, var(--chan, #2f7be0) 14%, var(--card)); }
+.mk.passed { color: #2e7d4f; font-weight: 700; }
+.mk.here { color: var(--chan, #2f7be0); }
+.small-gap { margin: 10px 0 6px; }
+
+/* symptom search */
+.sym-input { width: 100%; height: 40px; margin: 4px 0 8px; padding: 0 12px; border-radius: 12px; font: inherit; font-size: 15px;
+  border: 1px solid var(--line); background: var(--card); color: var(--text); }
+.sym-input:focus { outline: 2px solid color-mix(in srgb, var(--text) 30%, transparent); outline-offset: 0; }
+.sym-groups { margin-bottom: 4px; }
+
+/* channel profile, finding steps */
+.corr { display: grid; grid-template-columns: max-content 1fr; column-gap: 12px; }
+.corr dt { margin-top: 6px; }
+.corr dd { margin-top: 6px; }
+.steps { margin: 6px 0 0; padding-left: 22px; }
+.steps li { margin: 0 0 8px; line-height: 1.45; }
+.tip { padding: 8px 10px; border-radius: 10px; background: color-mix(in srgb, var(--text) 5%, transparent); }
+.ruler-btn { margin-top: 6px; }
 :root[data-theme="dark"] .caution { color: #ff8a80; }
 .note { margin-top: 18px; font-size: 13px; color: var(--soft); }
 .pairs { display: flex; flex-direction: column; gap: 6px; }

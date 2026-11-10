@@ -2,7 +2,7 @@
 
 import { CLOCK_ORDER, MIDLINE_IDS, VESSEL_IDS, VIEW, TRANSITIONS } from './channels.js';
 
-export const ASSET_VERSION = '2026-11-10-1';
+export const ASSET_VERSION = '2026-11-10-2';
 
 async function getJson(url, optional = false) {
   try {
@@ -21,14 +21,21 @@ export function loadPoseContent() {
 }
 
 export async function loadData(lang) {
-  const [api, points3d, vessels, categories, extras] = await Promise.all([
+  const [api, points3d, vessels, categories, extras, profiles] = await Promise.all([
     getJson(`api/meridians?lang=${encodeURIComponent(lang)}`),
     getJson('assets/points3d.json'),
     getJson('assets/extra_vessels.json', true),
     getJson('assets/point_categories.json', true),
     getJson(`assets/point_extras.json?lang=${encodeURIComponent(lang)}`, true),   // the server keeps only this language
+    getJson('assets/meridian_profiles.json', true),
   ]);
-  return shapeData(lang, api, points3d, vessels, categories, extras);
+  const data = shapeData(lang, api, points3d, vessels, categories, extras);
+  // traditional profile per channel (role, five elements, balance, where to begin)
+  data.profile = (id) => {
+    const p = profiles?.channels?.[id];
+    return p ? { start: p.start_code, ...pick(p.i18n, lang) } : null;
+  };
+  return data;
 }
 
 const pick = (i18n, lang) => (i18n && (i18n[lang] || i18n.en || i18n.ru)) || {};

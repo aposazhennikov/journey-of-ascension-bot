@@ -868,6 +868,58 @@ export class MeridianScene {
     });
   }
 
+  /**
+   * A cun ruler from point `from` to point `to`: a line just above the skin with a mark at every cun
+   * (and the last mark at a half cun when the distance is 1.5, 2.5…). Drawn over the body so it is not
+   * hidden by the curve of a limb. Returns {box, normal} to frame it, or null.
+   */
+  showRuler(from, to, cun, side = 1) {
+    this.clearRuler();
+    const a = this.pointPosition(from, side);
+    const b = this.pointPosition(to, side);
+    if (!a || !b || !(cun > 0)) return null;
+    const lift = (pp) => pp.p.clone().addScaledVector(pp.n, 0.004);
+    const pa = lift(a);
+    const pb = lift(b);
+    const group = new THREE.Group();
+    const ink = 0x1b1b1f;
+    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([pa, pb]),
+      new THREE.LineBasicMaterial({ color: ink, depthTest: false, transparent: true, opacity: 0.9 }));
+    line.renderOrder = 30;
+    group.add(line);
+    const marks = [];
+    for (let i = 0; i <= Math.floor(cun + 1e-6); i++) marks.push(i);
+    if (cun - Math.floor(cun) > 1e-6) marks.push(cun);
+    const dotGeo = new THREE.SphereGeometry(1, 12, 8);
+    for (const m of marks) {
+      const end = m === 0 || Math.abs(m - cun) < 1e-6;
+      const dot = new THREE.Mesh(dotGeo, new THREE.MeshBasicMaterial({ color: end ? ink : 0xffffff, depthTest: false, transparent: true }));
+      dot.scale.setScalar(end ? 0.0045 : 0.0032);
+      dot.position.copy(pa).lerp(pb, m / cun);
+      dot.renderOrder = 31;
+      group.add(dot);
+      if (!end) {
+        const rim = new THREE.Mesh(dotGeo, new THREE.MeshBasicMaterial({ color: ink, depthTest: false, transparent: true }));
+        rim.scale.setScalar(0.0042);
+        rim.position.copy(dot.position);
+        rim.renderOrder = 30;
+        group.add(rim);
+      }
+    }
+    this.ruler = group;
+    this.scene.add(group);
+    this.requestRender();
+    return { box: new THREE.Box3().setFromPoints([pa, pb]), normal: a.n.clone().add(b.n).normalize() };
+  }
+
+  clearRuler() {
+    if (!this.ruler) return;
+    this.scene.remove(this.ruler);
+    this.ruler.traverse((o) => { o.geometry?.dispose?.(); o.material?.dispose?.(); });
+    this.ruler = null;
+    this.requestRender();
+  }
+
   pointPosition(code, side = 1) {
     let idx = this.pointIndex.get(`${code}|${side}`);
     if (idx == null) idx = this.pointIndex.get(`${code}|1`);

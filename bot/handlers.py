@@ -4947,7 +4947,17 @@ class BotHandlers:
         if not self.webapp_url:
             return None
         parts = urlsplit(self.webapp_url)
-        query = urlencode({**dict(parse_qsl(parts.query)), "lang": language})
+        params = {**dict(parse_qsl(parts.query)), "lang": language}
+        if user and user.meridians_enabled:
+            # the map marks the practice progress: the meridian in work (pm), the point reached (pi, 0-based),
+            # the finished meridians (pd); m and p are taken by the map's own deep links
+            if user.current_meridian_id:
+                params["pm"] = user.current_meridian_id
+                if user.current_point_index is not None and user.current_point_index >= 0:
+                    params["pi"] = str(user.current_point_index)
+            if user.completed_meridians:
+                params["pd"] = ",".join(user.completed_meridians)
+        query = urlencode(params)
         url = urlunsplit((parts.scheme, parts.netloc, parts.path, query, parts.fragment))
         return InlineKeyboardButton(self._get_text("meridian_map_3d", language), web_app=WebAppInfo(url=url))
 
