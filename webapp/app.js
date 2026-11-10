@@ -18,9 +18,9 @@ const store = {
   },
 };
 
-// the bot passes its own language; a language picked inside the map wins until the bot sends a different one
-const URL_LANG = normalizeLang(params.get('lang') || startTokens.l || tg?.initDataUnsafe?.user?.language_code || 'ru');
-const LANG = ((p) => (p && p.from === URL_LANG && LANGS.includes(p.lang) ? p.lang : URL_LANG))(store.get('lang_pick', null));
+// the bot opens the map with the language its messages go out in (?lang=); a language picked in the map menu
+// reloads the page with that ?lang= and lasts only until the map is closed, so every open from the bot is in its language
+const LANG = normalizeLang(params.get('lang') || startTokens.l || tg?.initDataUnsafe?.user?.language_code || 'ru');
 const LANG_NAMES = { ru: 'Русский', en: 'English', uz: "O'zbek", kz: 'Қазақ' };
 const t = makeT(LANG);
 const EDIT = params.get('edit') === '1';
@@ -904,7 +904,11 @@ function onSheetClick(e) {
   if (ds.act === 'prev') { stepPoint(-1); return; }
   if (ds.act === 'next') { stepPoint(1); return; }
   if (ds.lang) {
-    if (ds.lang !== LANG) { store.set('lang_pick', { lang: ds.lang, from: URL_LANG }); location.reload(); }
+    if (ds.lang !== LANG) {
+      const url = new URL(location.href);
+      url.searchParams.set('lang', ds.lang);
+      location.replace(url.toString());
+    }
     return;
   }
   if (ds.scenery) { state.scenery = ds.scenery; store.set('scenery', state.scenery); applyScenery(); renderSheet(); return; }
