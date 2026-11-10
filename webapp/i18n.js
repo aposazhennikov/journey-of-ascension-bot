@@ -119,9 +119,10 @@ const S = {
   ind_fatigue: ['Упадок сил', 'Low energy', 'Holsizlik', 'Әлсіздік'],
   ind_skin: ['Кожа', 'Skin', 'Teri', 'Тері'],
   ind_local: ['Место точки', 'Around the point', 'Nuqta atrofi', 'Нүкте маңы'],
-  group_custom: ['Несколько', 'Several', 'Bir nechta', 'Бірнеше'],
-  group_custom_title: ['Несколько каналов', 'Several channels', 'Bir nechta kanal', 'Бірнеше арна'],
+  group_custom: ['Свой набор', 'My set', "O'z to'plamim", 'Өз жинағым'],
+  group_custom_title: ['Свой набор каналов', 'My set of channels', "O'z kanallar to'plamim", 'Өз арналар жинағым'],
   scenery_toggle: ['Фон', 'Background', 'Fon', 'Фон'],
+  lang_label: ['Язык', 'Language', 'Til', 'Тіл'],
   scenery_k1: ['Кайлас 1', 'Kailash 1', 'Kaylas 1', 'Қайлас 1'],
   scenery_k2: ['Кайлас 2', 'Kailash 2', 'Kaylas 2', 'Қайлас 2'],
   scenery_pyramids: ['Пирамиды', 'Pyramids', 'Piramidalar', 'Пирамидалар'],
@@ -163,7 +164,7 @@ const S = {
   edit_copied: ['JSON скопирован.', 'JSON copied.', 'JSON nusxalandi.', 'JSON көшірілді.'],
 };
 
-const LANGS = ['ru', 'en', 'uz', 'kz'];
+export const LANGS = ['ru', 'en', 'uz', 'kz'];
 const PLURAL_POINTS = {
   ru: { one: '{n} точка', few: '{n} точки', many: '{n} точек', other: '{n} точки' },
   en: { one: '{n} point', other: '{n} points' },

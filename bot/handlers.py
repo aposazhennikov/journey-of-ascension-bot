@@ -1422,7 +1422,8 @@ ADMIN_TEXTS = {
         "• /stats - Bot usage statistics\n"
         "• /feedback_stats - Feedback statistics\n"
         "• /feedback_list [limit] - View recent feedback\n"
-        "• /progress [limit] - View users' meridian progress and secret tasks\n\n"
+        "• /progress [limit] - View users' meridian progress and secret tasks\n"
+        "• /subscribers - Who is subscribed, with links to their Telegram profiles\n\n"
         "📨 Messages:\n"
         "• /next - Show random principle for user\n"
         "• /resend_today - Resend today's practices to all active users\n"
@@ -3365,6 +3366,7 @@ class BotHandlers:
         self.application.add_handler(CommandHandler("feedback_list", self._handle_feedback_list))
         self.application.add_handler(CommandHandler("progress", self._handle_progress))
         self.application.add_handler(CommandHandler("admin", self._handle_admin))
+        self.application.add_handler(CommandHandler("subscribers", self._handle_subscribers))
 
         # Callback query handlers.
         self.application.add_handler(CallbackQueryHandler(self._handle_language_callback, pattern="^lang_"))
@@ -3379,6 +3381,7 @@ class BotHandlers:
         self.application.add_handler(CallbackQueryHandler(self._handle_stop_feedback_skip_callback, pattern="^stop_feedback_skip$"))
         self.application.add_handler(CallbackQueryHandler(self._handle_meridian_callback, pattern="^meridian_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_broadcast_callback, pattern="^broadcast_"))
+        self.application.add_handler(CallbackQueryHandler(self._handle_admin_callback, pattern="^admin_"))
 
         # General message handler for registration flow.
         self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self._handle_message))
@@ -7153,7 +7156,8 @@ class BotHandlers:
         try:
             text = self._get_admin_text("admin_help")
             # Send without Markdown to avoid parsing errors
-            await update.message.reply_text(text)
+            keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("👥 Subscribers", callback_data="admin_subscribers")]])
+            await update.message.reply_text(text, reply_markup=keyboard)
 
         except Exception as e:
             logger.error(f"Error in admin handler: {e}")
@@ -7161,3 +7165,78 @@ class BotHandlers:
                 await update.message.reply_text("Error showing admin help.")
             except:
                 logger.error(f"Could not send error message to {chat_id}")
+
+    async def _handle_subscribers(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle /subscribers (admin only): subscribed users with links to their Telegram profiles."""
+        chat_id = update.effective_chat.id
+        if chat_id not in self.admin_ids or not update.message:
+            return
+        await self._send_subscribers_list(chat_id, context)
+
+    async def _handle_admin_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Buttons under the /admin message."""
+        query = update.callback_query
+        await query.answer()
+        chat_id = query.message.chat.id
+        if chat_id not in self.admin_ids:
+            return
+        if query.data == "admin_subscribers":
+            await self._send_subscribers_list(chat_id, context)
+
+    async def _subscriber_chat(self, context: ContextTypes.DEFAULT_TYPE, chat_id: int):
+        """The user's Telegram profile (name, username), or None when Telegram does not give it."""
+        try:
+            return await asyncio.wait_for(context.bot.get_chat(chat_id), timeout=20)
+        except Exception as e:
+            logger.debug(f"Could not get chat {chat_id}: {e}")
+            return None
+
+    def _subscriber_line(self, number: int, user: User, chat) -> str:
+        first = getattr(chat, "first_name", None)
+        last = getattr(chat, "last_name", None)
+        name = " ".join(part for part in (first, last) if part) or getattr(chat, "title", None) or f"id {user.chat_id}"
+        username = getattr(chat, "username", None)
+        # tg://user?id opens the profile even without a username
+        href = f"https://t.me/{username}" if username else f"tg://user?id={user.chat_id}"
+        handle = f" @{escape(username)}" if username else ""
+        modes = []
+        if user.principles_enabled:
+            modes.append(f"🕊 {user.time_for_send}")
+        if user.meridians_enabled:
+            modes.append(f"☯️ {user.meridian_time_for_send}")
+        details = " · ".join([f"<code>{user.chat_id}</code>", user.language, escape(user.timezone)] + (modes or ["no reminders"]))
+        return f'{number}. <a href="{href}">{escape(name)}</a>{handle}\n    {details}'
+
+    async def _send_subscribers_list(self, chat_id: int, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Send the admin the list of active subscribers, split to fit Telegram's message limit."""
+        try:
+            users = await self.storage.get_all_users()
+            active = [u for u in users if u.is_active]
+            inactive = len(users) - len(active)
+            semaphore = asyncio.Semaphore(10)
+
+            async def profile(user: User):
+                async with semaphore:
+                    return await self._subscriber_chat(context, user.chat_id)
+
+            chats = await asyncio.gather(*(profile(u) for u in active))
+            header = f"👥 <b>Subscribers: {len(active)}</b>" + (f" · unsubscribed: {inactive}" if inactive else "")
+            lines = [self._subscriber_line(i, u, c) for i, (u, c) in enumerate(zip(active, chats), 1)]
+            if not lines:
+                lines = ["Nobody is subscribed yet."]
+            chunks, current = [], header
+            for line in lines:
+                if len(current) + len(line) + 2 > 3800:
+                    chunks.append(current)
+                    current = line
+                else:
+                    current += "\n\n" + line
+            chunks.append(current)
+            for chunk in chunks:
+                await context.bot.send_message(chat_id, chunk, parse_mode='HTML', disable_web_page_preview=True)
+        except Exception as e:
+            logger.error(f"Error sending subscribers list: {e}")
+            try:
+                await context.bot.send_message(chat_id, "Error getting the subscribers list.")
+            except Exception:
+                logger.error(f"Could not send subscribers error to {chat_id}")

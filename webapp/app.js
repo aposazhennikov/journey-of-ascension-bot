@@ -4,12 +4,24 @@ import { loadData, loadPoseContent, isActiveNow, activeChannelNow, hh, ASSET_VER
 import {
   CLOCK_ORDER, PALETTE, TRANSITIONS, SHORT, FLOW_SHORT, POSE_GROUP, ASANA_ORDER, MUDRA_ORDER, normalizeCode, MIDLINE_IDS, VESSEL_IDS,
 } from './channels.js';
-import { makeT, normalizeLang } from './i18n.js';
+import { makeT, normalizeLang, LANGS } from './i18n.js';
 
 const tg = window.Telegram?.WebApp;
 const params = new URLSearchParams(location.search);
 const startTokens = parseStartParam(tg?.initDataUnsafe?.start_param || params.get('tgWebAppStartParam') || '');
-const LANG = normalizeLang(params.get('lang') || startTokens.l || tg?.initDataUnsafe?.user?.language_code || 'ru');
+
+const store = {
+  get(key, def) { try { const v = localStorage.getItem(`m3d-${key}`); return v == null ? def : JSON.parse(v); } catch { return def; } },
+  set(key, val) {
+    try { localStorage.setItem(`m3d-${key}`, JSON.stringify(val)); } catch { /* storage blocked */ }
+    try { if (tg?.isVersionAtLeast?.('6.9')) tg.CloudStorage.setItem(key, JSON.stringify(val)); } catch { /* old client */ }
+  },
+};
+
+// the bot passes its own language; a language picked inside the map wins until the bot sends a different one
+const URL_LANG = normalizeLang(params.get('lang') || startTokens.l || tg?.initDataUnsafe?.user?.language_code || 'ru');
+const LANG = ((p) => (p && p.from === URL_LANG && LANGS.includes(p.lang) ? p.lang : URL_LANG))(store.get('lang_pick', null));
+const LANG_NAMES = { ru: 'Русский', en: 'English', uz: "O'zbek", kz: 'Қазақ' };
 const t = makeT(LANG);
 const EDIT = params.get('edit') === '1';
 const SPECIAL_CATS = new Set(['jing_well', 'ying_spring', 'shu_stream', 'jing_river', 'he_sea', 'yuan', 'luo', 'great_luo', 'mu', 'back_shu', 'confluent']);
@@ -23,14 +35,6 @@ function parseStartParam(sp) {
   }
   return out;
 }
-
-const store = {
-  get(key, def) { try { const v = localStorage.getItem(`m3d-${key}`); return v == null ? def : JSON.parse(v); } catch { return def; } },
-  set(key, val) {
-    try { localStorage.setItem(`m3d-${key}`, JSON.stringify(val)); } catch { /* storage blocked */ }
-    try { if (tg?.isVersionAtLeast?.('6.9')) tg.CloudStorage.setItem(key, JSON.stringify(val)); } catch { /* old client */ }
-  },
-};
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 const richText = (s) => esc(s).replace(/&lt;(\/?)(b|i)&gt;/g, '<$1$2>');
@@ -527,8 +531,11 @@ function renderChips() {
   const chip = (id, extra = '') => {
     const sel = multiMode() ? state.multiSet.has(id) : selId === id;
     const c = color(id);
-    const style = sel ? `background:color-mix(in srgb, ${c} 18%, var(--card));border:1.5px solid ${c}` : '';
-    return `<button class="chip${extra}" role="tab" data-id="${id}" aria-selected="${sel}" style="${style}"><span class="dot" style="background:${c}"></span><span class="chip-label">${esc(shortName(id))}</span>${now?.id === id ? '<span class="now-dot"></span>' : ''}</button>`;
+    const style = sel ? `background:color-mix(in srgb, ${c} 26%, var(--card));border:2px solid ${c}` : '';
+    // in "my set" the chips are checkboxes: an empty ring / a tick instead of the colour dot alone
+    const mark = multiMode() ? `<span class="tick" style="--chan:${c}">${sel ? '✓' : ''}</span>` : `<span class="dot" style="background:${c}"></span>`;
+    const nowTag = now?.id === id ? `<span class="now-tag">${esc(t('now_badge'))}</span>` : '';
+    return `<button class="chip${extra}" role="tab" data-id="${id}" aria-selected="${sel}" style="${style}">${mark}<span class="chip-label">${esc(shortName(id))}</span>${nowTag}</button>`;
   };
   const html = [];
   for (const g of ['regular', 'yin', 'yang', 'extra', 'custom']) {
@@ -545,8 +552,11 @@ function renderChips() {
   html.push('<span class="chip-sep"></span>');
   for (const v of state.data.vessels) html.push(chip(v.id, ' vessel'));
   els.chips.innerHTML = html.join('');
-  const target = els.chips.querySelector('[aria-selected="true"]') || els.chips.querySelector('.now-dot')?.parentElement;
-  target?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+  // on the start screen the row stays at its beginning (the groups); a selection is only brought into view
+  // when it is off screen, so the row does not jump under the finger on every tap
+  if (lv.view === 'home') { els.chips.scrollLeft = 0; return; }
+  const target = lv.view === 'group' ? els.chips.querySelector(`[data-group="${lv.id}"]`) : els.chips.querySelector(`[data-id="${lv.id}"]`);
+  target?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reducedMotion.matches ? 'auto' : 'smooth' });
 }
 
 els.chips.addEventListener('click', (e) => {
@@ -660,7 +670,8 @@ function homeBody() {
   const vesRows = d.vessels.map((v) => `<button class="row-btn tall" data-chan="${v.id}"><span class="vessel-icon" style="color:${color(v.id)}">∴</span>
     <span class="name"><span class="row-title">${esc(v.text.name || shortName(v.id))}</span><span class="row-sub">${esc(t('opening_point', { code: v.confluent }))}</span></span></button>`).join('');
   const about = state.expanded.has('about');
-  return `<div class="section"><h3>${esc(t('sec_main'))}</h3><div class="rows">${regRows}</div></div>
+  return `<div class="section prefs">${langRowHtml()}${sceneryRowHtml()}</div>
+    <div class="section"><h3>${esc(t('sec_main'))}</h3><div class="rows">${regRows}</div></div>
     <div class="section"><h3>${esc(t('sec_mid'))}</h3><div class="rows">${midRows}</div></div>
     <div class="section"><h3>${esc(t('sec_vessels'))}</h3><div class="rows">${vesRows}</div></div>
     <p class="note">${esc(t('disclaimer'))}</p>
@@ -892,6 +903,10 @@ function onSheetClick(e) {
   if (ds.act === 'flow') { toggleFlow(); return; }
   if (ds.act === 'prev') { stepPoint(-1); return; }
   if (ds.act === 'next') { stepPoint(1); return; }
+  if (ds.lang) {
+    if (ds.lang !== LANG) { store.set('lang_pick', { lang: ds.lang, from: URL_LANG }); location.reload(); }
+    return;
+  }
   if (ds.scenery) { state.scenery = ds.scenery; store.set('scenery', state.scenery); applyScenery(); renderSheet(); return; }
   if (ds.act === 'luo') { state.luoOn = !state.luoOn; store.set('luo_links', state.luoOn); applySelection(); renderSheet(); return; }
   if (ds.act === 'slow') {
@@ -1066,6 +1081,13 @@ function renderPosesPeek() {
   if (state.sheet === 'peek') document.documentElement.style.setProperty('--sheet-visible', `${sheetVisible('peek')}px`);
 }
 
+function sceneryRowHtml() {
+  return `<div class="scenery-row"><span class="scenery-label">${esc(t('scenery_toggle'))}</span><div class="scenery-opts" role="tablist">${[...SCENERY, 'off'].map((v) => `<button role="tab" data-scenery="${v}" aria-selected="${state.scenery === v}">${esc(t(`scenery_${v}`))}</button>`).join('')}</div></div>`;
+}
+function langRowHtml() {
+  return `<div class="scenery-row"><span class="scenery-label">${esc(t('lang_label'))}</span><div class="scenery-opts" role="tablist">${LANGS.map((l) => `<button role="tab" data-lang="${l}" lang="${l === 'kz' ? 'kk' : l}" aria-selected="${LANG === l}">${esc(LANG_NAMES[l])}</button>`).join('')}</div></div>`;
+}
+
 function posesBody() {
   const tab = state.posesTab;
   const item = poseItems(tab).find((x) => x.id === (tab === 'asanas' ? state.pose : state.mudra));
@@ -1073,7 +1095,7 @@ function posesBody() {
   const tx = poseText(item);
   const disclaimer = state.poseContent?.disclaimer_i18n?.[LANG] || '';
   const chips = (ids) => ids.map((id) => `<button class="tag button chip-like" data-chan="${id}"><span class="dot" style="background:${color(id)}"></span>${esc(shortName(id))}</button>`).join('');
-  const sceneryRow = `<div class="scenery-row"><span class="scenery-label">${esc(t('scenery_toggle'))}</span><div class="scenery-opts" role="tablist">${[...SCENERY, 'off'].map((v) => `<button role="tab" data-scenery="${v}" aria-selected="${state.scenery === v}">${esc(t(`scenery_${v}`))}</button>`).join('')}</div></div>`;
+  const sceneryRow = sceneryRowHtml();
   if (tab === 'asanas') {
     return `${sceneryRow}<h2 class="card-h">${esc(tx.name || item.id)}${item.sanskrit ? ` <span class="muted">${esc(item.sanskrit)}</span>` : ''}</h2>
       ${tx.how ? `<div class="section"><h3>${esc(t('how_title'))}</h3><p class="text">${esc(tx.how)}</p></div>` : ''}
