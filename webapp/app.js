@@ -1321,11 +1321,7 @@ function choosePose(id) {
     const def = state.poseContent?.asanas?.find((a) => a.id === id);
     if (id === 'vrikshasana' && state.mudra === 'open') state.mudra = def?.defaultHand || 'open';
   } else {
-    state.mudra = id;
-    if (id !== 'open' && POSE_GROUP[state.pose] === 'standing' && state.pose !== 'vrikshasana') {
-      state.pose = 'sukhasana';
-      toast(t('mudra_seated'));
-    }
+    state.mudra = id;   // the body keeps its pose: a mudra can be shown standing too
   }
   scheduleTransition(prevBody, state.pose, state.mudra);
   haptic();

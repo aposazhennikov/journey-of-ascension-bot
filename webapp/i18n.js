@@ -186,7 +186,6 @@ const S = {
   how_title: ['Как выполнить', 'How to do it', 'Qanday bajariladi', 'Қалай орындалады'],
   focus_channels: ['Внимание в этой позе', 'Attention in this pose', 'Bu holatda diqqat', 'Бұл қалыпта зейін'],
   connects: ['Соединяет', 'Connects', "Bog'laydi", 'Байланыстырады'],
-  mudra_seated: ['Мудры показываются в сидячей позе', 'Mudras are shown in a seated pose', "Mudralar o'tirgan holatda ko'rsatiladi", 'Мудралар отырған қалыпта көрсетіледі'],
   mudra_note: ['Соответствие пальцев и каналов принято в современной практике, в классических текстах китайской медицины его нет.', 'The finger-to-channel correspondence comes from modern practice and is not found in classical Chinese medicine texts.', "Barmoqlar va kanallar mosligi zamonaviy amaliyotda qabul qilingan, mumtoz xitoy tibbiyoti matnlarida u yo'q.", 'Саусақтар мен арналардың сәйкестігі қазіргі тәжірибеде қабылданған, классикалық қытай медицинасы мәтіндерінде ол жоқ.'],
   poses_loading: ['Загружаю позы…', 'Loading poses…', 'Holatlar yuklanmoqda…', 'Қалыптар жүктелуде…'],
   poses_unavailable: ['Позы пока недоступны', 'Poses are not available yet', "Holatlar hozircha mavjud emas", 'Қалыптар әзірге қолжетімсіз'],
