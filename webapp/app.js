@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { MeridianScene, reducedMotion } from './scene3d.js';
 import { loadData, loadPoseContent, isActiveNow, activeChannelNow, hh, ASSET_VERSION } from './data.js';
 import {
-  CLOCK_ORDER, PALETTE, TRANSITIONS, SHORT, FLOW_SHORT, POSE_GROUP, ASANA_ORDER, MUDRA_ORDER, normalizeCode, MIDLINE_IDS, VESSEL_IDS,
+  CLOCK_ORDER, PALETTE, TRANSITIONS, SHORT, FLOW_SHORT, POSE_GROUP, ASANA_ORDER, MUDRA_ORDER, ARM_ORDER, normalizeCode, MIDLINE_IDS, VESSEL_IDS,
 } from './channels.js';
 import { makeT, normalizeLang, LANGS } from './i18n.js';
 
@@ -287,6 +287,11 @@ function multiSelection(ids) {
 }
 const multiMode = () => inCustom() || (state.level.view === 'point' && !!state.level.multi);
 
+// the hand slot (state.mudra) holds either a mudra or an arm position (arms up, hands behind the head)
+const isArmPos = (id = state.mudra) => id !== 'open' && ARM_ORDER.includes(id);
+const isMudraOn = () => state.mudra !== 'open' && !isArmPos();
+const armItem = (id = state.mudra) => state.poseContent?.arm_positions?.find((x) => x.id === id);
+
 function mudraContacts(m) {
   if (!m || m.id === 'open') return [];
   const pts = m.contact_points || [];
@@ -303,7 +308,14 @@ function applySelection() {
   const d = state.data;
   const sel = { level: 'home', highlight: [], flowChannels: [] };
   if (state.overlay === 'poses' && lv.view === 'home') {
-    if (state.mudra !== 'open') {
+    if (isArmPos()) {
+      // an arm position shows the channels it opens, like an asana (with the body pose's own ones)
+      const a = armItem();
+      const b = state.poseContent?.asanas?.find((x) => x.id === state.pose);
+      sel.level = 'asana';
+      sel.highlight = [...new Set([...(a?.emphasized_meridians || []), ...(b?.emphasized_meridians || [])])];
+      sel.visiblePoints = new Set([...(a?.emphasized_points || []), ...(b?.emphasized_points || [])]);
+    } else if (state.mudra !== 'open') {
       const m = state.poseContent?.mudras?.find((x) => x.id === state.mudra);
       sel.level = 'mudra';
       sel.highlight = m?.connected_meridians || [];
@@ -371,7 +383,7 @@ function applySelection() {
 
 function flowMode() {
   const lv = state.level;
-  if (state.overlay === 'poses' && lv.view === 'home' && state.mudra !== 'open') return 'comet';
+  if (state.overlay === 'poses' && lv.view === 'home' && isMudraOn()) return 'comet';
   if (lv.view === 'group') return inCustom() && groupIds('custom').length ? 'comet' : null;
   if (lv.view === 'home') return null;
   const ch = state.channelById.get(lv.id);
@@ -1135,7 +1147,8 @@ let facing = 'front';
 $('fitBtn').addEventListener('click', fitCurrent);
 function fitCurrent() {
   const lv = state.level;
-  if (state.overlay === 'poses' && state.mudra !== 'open') { frameHands(); return; }
+  if (state.overlay === 'poses' && isMudraOn()) { frameHands(); return; }
+  if (state.overlay === 'poses' && isArmPos() && lv.view === 'home') { frameArms(); return; }
   if (lv.view === 'point') scene.focusPoint(lv.code, lv.side || 1);
   else if (lv.view === 'channel') frameChannel(state.channelById.get(lv.id));
   else scene.setView(facing);
@@ -1240,8 +1253,8 @@ function closePoses({ refocus }) {
 function poseItems(kind) {
   const c = state.poseContent;
   if (!c) return [];
-  const order = kind === 'asanas' ? ASANA_ORDER : MUDRA_ORDER;
-  const list = kind === 'asanas' ? c.asanas : c.mudras;
+  const order = kind === 'asanas' ? ASANA_ORDER : kind === 'arms' ? ARM_ORDER : MUDRA_ORDER;
+  const list = (kind === 'asanas' ? c.asanas : kind === 'arms' ? c.arm_positions : c.mudras) || [];
   return order.map((id) => list.find((x) => x.id === id)).filter(Boolean);
 }
 const poseText = (item) => (item?.i18n?.[LANG] || item?.i18n?.en || {});
@@ -1258,7 +1271,7 @@ function renderPosesPeek() {
   const cur = items.find((x) => x.id === active);
   els.sheet.style.removeProperty('--chan');
   els.peek.innerHTML = `<div class="poses-head">
-      <div class="seg"><button data-tab="asanas" aria-selected="${tab === 'asanas'}">${esc(t('tab_asanas'))}</button><button data-tab="mudras" aria-selected="${tab === 'mudras'}">${esc(t('tab_mudras'))}</button></div>
+      <div class="seg">${['asanas', 'mudras', 'arms'].map((k) => `<button data-tab="${k}" aria-selected="${tab === k}">${esc(t(`tab_${k}`))}</button>`).join('')}</div>
       <div class="seg"><button data-body="female" aria-selected="${state.body === 'female'}" aria-label="${esc(t('body_f_aria'))}">${esc(t('body_f'))}</button><button data-body="male" aria-selected="${state.body === 'male'}" aria-label="${esc(t('body_m_aria'))}">${esc(t('body_m'))}</button></div>
     </div>
     <div class="pose-row">${cards || `<span class="muted">${esc(poseSys.loading ? t('poses_loading') : t('poses_unavailable'))}</span>`}</div>
@@ -1281,7 +1294,7 @@ function posesBody() {
   const disclaimer = state.poseContent?.disclaimer_i18n?.[LANG] || '';
   const chips = (ids) => ids.map((id) => `<button class="tag button chip-like" data-chan="${id}"><span class="dot" style="background:${color(id)}"></span>${esc(shortName(id))}</button>`).join('');
   const sceneryRow = sceneryRowHtml();
-  if (tab === 'asanas') {
+  if (tab === 'asanas' || tab === 'arms') {
     return `${sceneryRow}<h2 class="card-h">${esc(tx.name || item.id)}${item.sanskrit ? ` <span class="muted">${esc(item.sanskrit)}</span>` : ''}</h2>
       ${tx.how ? `<div class="section"><h3>${esc(t('how_title'))}</h3><p class="text">${esc(tx.how)}</p></div>` : ''}
       ${(item.emphasized_meridians || []).length ? `<div class="section"><h3>${esc(t('focus_channels'))}</h3><div class="tags">${chips(item.emphasized_meridians)}</div></div>` : ''}
@@ -1321,7 +1334,8 @@ function choosePose(id) {
     const def = state.poseContent?.asanas?.find((a) => a.id === id);
     if (id === 'vrikshasana' && state.mudra === 'open') state.mudra = def?.defaultHand || 'open';
   } else {
-    state.mudra = id;   // the body keeps its pose: a mudra can be shown standing too
+    // mudras and arm positions share the hand slot; the body keeps its pose either way
+    state.mudra = id;
   }
   scheduleTransition(prevBody, state.pose, state.mudra);
   haptic();
@@ -1386,7 +1400,7 @@ function eyePositions() {
 
 function afterPose() {
   haptic('light');
-  if (state.overlay === 'poses' && state.mudra !== 'open' && state.level.view === 'home') { frameHands(); setTimeout(startFlow, 750); return; }
+  if (state.overlay === 'poses' && isMudraOn() && state.level.view === 'home') { frameHands(); setTimeout(startFlow, 750); return; }
   fitCurrent();
   setTimeout(startFlow, 750);
 }
@@ -1403,6 +1417,21 @@ function frameHands() {
   const polar = THREE.MathUtils.degToRad(state.mudra === 'hakini' ? 50 : state.mudra === 'anjali' ? 80 : 60);
   const dir = new THREE.Vector3(0, Math.cos(polar), Math.sin(polar));
   scene.frameBox(box, dir, { ms: 600, minDist: 0.3 });
+}
+
+// an arm position is there to open the armpit and the inner arm: from the front the raised arm hides
+// the armpit (UX council 2026-11-12), so the camera looks at the upper body from 35 deg to one side
+function frameArms() {
+  const box = new THREE.Box3();
+  for (const code of armItem()?.emphasized_points || []) for (const side of [1, -1]) {
+    const pp = scene.pointPosition(code, side);
+    if (pp) box.expandByPoint(pp.p);
+  }
+  if (box.isEmpty()) { scene.setView(facing); return; }
+  box.expandByScalar(0.12);
+  const polar = THREE.MathUtils.degToRad(78), az = THREE.MathUtils.degToRad(35);
+  const dir = new THREE.Vector3(Math.sin(polar) * Math.sin(az), Math.cos(polar), Math.sin(polar) * Math.cos(az));
+  scene.frameBox(box, dir, { ms: 600, minDist: 0.5 });
 }
 
 async function bodyPositions(variant) {
@@ -1541,7 +1570,7 @@ function updateLabels() {
   if (!state.data) return;
   const items = [];
   const lv = state.level;
-  if (state.overlay === 'poses' && lv.view === 'home' && state.mudra !== 'open') {
+  if (state.overlay === 'poses' && lv.view === 'home' && isMudraOn()) {
     const m = state.poseContent?.mudras?.find((x) => x.id === state.mudra);
     const groups = mudraContacts(m);
     // hakini/anjali: each code touches its twin, so one label per code on the side facing the camera
@@ -1555,6 +1584,9 @@ function updateLabels() {
         items.push({ code: g.codes[0], side: null, text: g.codes[0], main: false, grazing: true });
       } else items.push({ code: g.codes[0], side: g.side, text: g.codes.join(' · '), main: false });
     }
+  } else if (state.overlay === 'poses' && lv.view === 'home' && isArmPos()) {
+    // the points the arm position opens (armpit, side of the chest), on the side facing the camera
+    for (const code of armItem()?.emphasized_points || []) items.push({ code, side: null, text: code, main: false });
   } else if (lv.view === 'point') {
     const ch = state.channelById.get(lv.id);
     const idx = ch.points.indexOf(lv.code);
@@ -1776,7 +1808,7 @@ async function boot() {
       if ((pose || mudra) && poseSys.skinner) {
         await openPoses();
         if (pose) { state.posesTab = 'asanas'; choosePose(pose); }
-        if (mudra) { state.posesTab = 'mudras'; choosePose(mudra); }
+        if (mudra) { state.posesTab = isArmPos(mudra) ? 'arms' : 'mudras'; choosePose(mudra); }
       }
     }));
     if (params.get('debug') === '1') window.__map = { THREE, scene, state, openPoint, selectChannel, setBody, choosePose, poseSys };

@@ -77,6 +77,9 @@ export const POSE_GROUP = {
 };
 export const ASANA_ORDER = ['stand', 'tadasana', 'vrikshasana', 'dandasana', 'sukhasana', 'ardha_padmasana', 'padmasana', 'vajrasana'];
 export const MUDRA_ORDER = ['open', 'gyan', 'prithvi', 'shuni', 'vyana', 'apana', 'hakini', 'anjali'];
+// arm positions share the hand slot with the mudras (poses.json hand.* with their own arms)
+// ('behind_head' has its text in practice_poses.json; its interlaced-fingers pose is not built yet)
+export const ARM_ORDER = ['open', 'arms_up'];
 
 /** Normalize a point code from any notation: P7, LU7, lu 7, Cyrillic look-alikes. */
 export function normalizeCode(raw) {

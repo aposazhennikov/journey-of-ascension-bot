@@ -45,6 +45,7 @@ ID = np.array([0, 0, 0, 1.0])
 SIDES = {"L": 1.0, "R": -1.0}
 OTHER = {"L": "R", "R": "L"}
 X = np.array([1.0, 0, 0])
+Y = np.array([0, 1.0, 0])
 VIEWS6 = ["front", "back", "left", "right", "top", "below"]
 
 SEATED = {"sukhasana", "ardha_padmasana", "padmasana", "vajrasana", "dandasana"}
@@ -414,10 +415,32 @@ def joint_angles(b, Q, H):
         dh, th_, nh = b.hand[s]
         rel = qmul(qconj(Qa), Qw)
         sv = swing_vec(rel, dh)
+        # humeral rotation: the twist about the rest humerus axis is undefined once the arm swings ~180 deg
+        # away from it (arms overhead read 156 or -112 deg for a solved rotation of -11); there the
+        # anatomy.py angles are used instead (A = Rx(-flex) Rz(sg abd) Ry(sg rot) from the arm-down
+        # frame N), which themselves lock only at 90 deg of abduction
+        # Of the twist about the rest axis, the twist about the hanging-arm axis (-y) of frame N and the
+        # Euler angles, the decomposition whose reference axis the arm has swung away from the least is
+        # used (hands behind the head: ~100 deg of abduction, where the Euler angles lock too)
+        q_rel = qmul(qconj(Qth), Qh)
+        cur = unit(qrot(q_rel, u0))
+        sw_rest = np.degrees(np.arccos(np.clip(np.dot(unit(u0), cur), -1, 1)))
+        sw_down = np.degrees(np.arccos(np.clip(np.dot(-Y, cur), -1, 1)))
+        h0 = unit(np.cross(unit(u0), unit(f0)))
+        R0 = pk.frame_rot(unit(u0), h0, -Y, -X)
+        A_n = qmul(q_rel, qconj(R0))
+        off = -sg * twist_deg(R0, u0)     # the rest-twist zero vs the frame-N zero (0.5-8.7 deg)
+        if sw_rest <= 110:
+            hum = -sg * twist_deg(q_rel, u0)
+        elif sw_down <= 140:
+            hum = sg * twist_deg(A_n, Y) + off
+        else:
+            Mx = pk.qmat(A_n)
+            hum = sg * float(np.degrees(np.arctan2(Mx[0][2], Mx[0][0]))) + off
         out[s].update({
             "sh_flex": float(np.degrees(np.arctan2(u[2], -u[1]))),
             "sh_abd": float(np.degrees(np.arcsin(np.clip(sg * u[0], -1, 1)))),
-            "humeral_rot": -sg * twist_deg(qmul(qconj(Qth), Qh), u0),
+            "humeral_rot": hum,
             # absolute, signed by the elbow hinge of the rest pose carried by the humerus
             "elbow_flex": hinge_angle(el - sh, wr - el, qrot(Qh, np.cross(u0, f0))),
             "pron_sup": float((b.rest_pronation(s) - sg * tau + 180) % 360 - 180),

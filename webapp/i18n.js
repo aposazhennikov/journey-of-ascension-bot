@@ -90,6 +90,7 @@ const S = {
   poses_title: ['Поза и тело', 'Pose and body', 'Holat va tana', 'Қалып және дене'],
   tab_asanas: ['Асаны', 'Asanas', 'Asanalar', 'Асаналар'],
   tab_mudras: ['Мудры', 'Mudras', 'Mudralar', 'Мудралар'],
+  tab_arms: ['Руки', 'Arms', "Qo'llar", 'Қолдар'],
   body_f: ['Ж', 'F', 'A', 'Ә'],
   body_m: ['М', 'M', 'E', 'Е'],
   body_f_aria: ['Женское тело', 'Female body', 'Ayol tanasi', 'Әйел денесі'],

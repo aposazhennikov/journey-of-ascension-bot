@@ -65,12 +65,13 @@ def part_normals_at(b, pos, nrm, A, pts, k=4):
     return n / np.maximum(np.linalg.norm(n, axis=1, keepdims=True), 1e-9)
 
 
-def contact_deltas(b, pos, adj):
+def contact_deltas(b, pos, adj, pairs=None):
     """Displacements (n x 3) that take soft skin out of the parts pressing on it."""
+    pairs = PAIRS if pairs is None else pairs
     n = len(pos)
     delta = np.zeros((n, 3))
     nrm = vertex_normals(pos, b.tris)
-    for A_name, B_name, share in PAIRS:
+    for A_name, B_name, share in pairs:
         A, B = b.sets[A_name], b.sets[B_name]
         sd = surface_sd(b, pos, nrm, B, A)             # soft vertices inside the pressing part: < 0
         inside = (sd < -0.0005) & (sd > -MAX_PUSH - 0.01)
@@ -89,7 +90,7 @@ def contact_deltas(b, pos, adj):
     # spread: smooth the displacement field over the soft parts so the skin dents instead of spiking;
     # the vertices that were inside keep at least their own push
     soft = np.zeros(n, bool)
-    for _A, B_name, _s in PAIRS:
+    for _A, B_name, _s in pairs:
         soft[b.sets[B_name]] = True
     region = np.flatnonzero(soft)
     cur = delta.copy()
@@ -208,7 +209,9 @@ class ShoulderMush(DeltaMush):
     head): the glenohumeral joint alone, skinned rigidly, folds the deltoid and tears the armpit (edge
     stretch p99 3.5 x on the male body with the arms up; 2.3 x after this). Nothing is pinned."""
 
-    def __init__(self, b, adj, iters=14, lam=0.5, radius=0.13):
+    # 40 passes over 17 cm: arm-region stretch 3.55 -> 2.07 with the arms up (14 passes over 13 cm left 2.26);
+    # what remains is the front of the straightened elbow (the rest pose bends it ~40 deg)
+    def __init__(self, b, adj, iters=40, lam=0.5, radius=0.17):
         n = len(b.rest)
         self.b, self.adj, self.iters, self.lam = b, adj, iters, lam
         e = set()
@@ -243,13 +246,114 @@ class ShoulderMush(DeltaMush):
         return P + (M - P) * self.w[:, None]
 
 
+def relax_armpits(b, adj, P, radius=0.08, iters=25, lam=0.5):
+    """Laplacian relaxation of the posed skin around each armpit apex (rest: the torso vertex just under
+    the shoulder joint that sticks out the most sideways), weight fading to 0 at `radius`."""
+    w = np.zeros(len(P))
+    for s, sg in (("L", 1.0), ("R", -1.0)):
+        sh = b.P(f"upperarm01.{s}")
+        cand = np.flatnonzero(np.isin(b.region, ["torso"]) & (b.rest[:, 1] < sh[1] - 0.04) & (b.rest[:, 1] > sh[1] - 0.14)
+                              & (np.abs(b.rest[:, 2] - sh[2]) < 0.04))
+        if not len(cand):
+            continue
+        apex = b.rest[cand[np.argmax(sg * b.rest[cand, 0])]]
+        r = np.linalg.norm(b.rest - apex, axis=1)
+        w = np.maximum(w, np.clip(1.0 - r / radius, 0.0, 1.0))
+    w[b.is_hand] = 0.0
+    idx = np.flatnonzero(w > 0)
+    X = P.copy()
+    for _ in range(iters):
+        avg = np.array([X[adj[v]].mean(0) if len(adj[v]) else X[v] for v in idx])
+        X[idx] = X[idx] + lam * w[idx, None] * (avg - X[idx])
+    return X
+
+
+def _tri_normals(X, T):
+    n = np.cross(X[T[:, 1]] - X[T[:, 0]], X[T[:, 2]] - X[T[:, 0]])
+    return n / np.maximum(np.linalg.norm(n, axis=1, keepdims=True), 1e-12)
+
+
+def unfold(b, mush, P, region, rings=3, rounds=12, iters=10):
+    """Smooth the skin out where it has turned over. A triangle is folded when its normal points against
+    the normal of a heavily smoothed copy of the mesh there; its vertices plus `rings` rings get a plain
+    Laplacian relaxation (weight 1, fading out over 3 more rings), repeated until nothing in `region` is
+    folded. With the arms up the back of the armpit folded 50-91 triangles per body into dark wedges that
+    neither the delta mush nor the contact pairs nor a relaxation around a fixed apex removed (council
+    2026-11-12); one or two rounds of this clear them."""
+    T = np.asarray(b.tris)
+    src, dst, deg = mush.src, mush.dst, mush.deg
+
+    def smooth(X, n_it, w=None):
+        for _ in range(n_it):
+            acc = np.zeros_like(X)
+            np.add.at(acc, src, X[dst])
+            d = acc / deg[:, None] - X
+            X = X + 0.5 * (d if w is None else d * w[:, None])
+        return X
+
+    def grow(m):
+        nx = m.copy()
+        nx[dst[m[src]]] = True
+        return nx
+
+    inside = region[T].all(1)
+
+    def folded(X):
+        vn = np.zeros_like(X)
+        ns = _tri_normals(smooth(X, 30), T)
+        for k in range(3):
+            np.add.at(vn, T[:, k], ns)
+        vn /= np.maximum(np.linalg.norm(vn, axis=1, keepdims=True), 1e-12)
+        return inside & ((_tri_normals(X, T) * vn[T].mean(1)).sum(1) < 0)
+
+    X = P
+    for _ in range(rounds):
+        bad = folded(X)
+        if not bad.any():
+            break
+        m = np.zeros(len(X), bool)
+        m[T[bad].ravel()] = True
+        for _ in range(rings):
+            m = grow(m)
+        w = m.astype(float)
+        for k in range(3):
+            nx = grow(m)
+            w[nx & ~m] = 1.0 - (k + 1) / 4.0
+            m = nx
+        X = smooth(X, iters, w)
+    # what is left are thin slivers where the fold was, seen only in a close-up of the armpit; sliding the
+    # vertices apart along the surface (15 tangential passes) hardly changed them and raised the stretch
+    # p99 on every body (neutral 1.49 -> 1.53), so it is not done
+    return X
+
+
 def arm_corrective(rig, b, adj, poses, variant, hand_id, mush):
     """Shoulder corrective of an arm position, computed on the standing body (the spine is the same in
     every pose, so it fits every body pose); stored as hand[hand_id].corr[variant]."""
     local, root, _ = compose(poses, variant, "stand", hand_id)
     Q, H = rig.fk(variant, local, root)
     pos = rig.skin(b.rest, variant, Q, H)
-    d = mush.apply(pos) - pos
+    P = mush.apply(pos)
+    # the armpit: upper-arm and chest-wall skin pass into each other with the arm overhead (dark wedges
+    # and a pinched notch at the back of the armpit, council 2026-11-12); both give way half each
+    for s in SIDES:
+        b.sets.setdefault(f"upperarm{s}", b.bones([f"upperarm01.{s}", f"upperarm02.{s}"]))
+        if f"chest{s}" not in b.sets:
+            sh = b.P(f"upperarm01.{s}")
+            side = (b.rest[:, 0] * (1 if s == "L" else -1)) > 0.02
+            b.sets[f"chest{s}"] = np.flatnonzero(np.isin(b.region, ["torso"]) & side & (np.linalg.norm(b.rest - sh, axis=1) < 0.22))
+    pairs = []
+    for s in SIDES:
+        pairs += [(f"upperarm{s}", f"chest{s}", 0.5), (f"chest{s}", f"upperarm{s}", 0.5)]
+    P = P + contact_deltas(b, P, adj, pairs)
+    # the fold of the armpit itself turns over (skin of one part folding onto itself, so no contact pair
+    # sees it): plain Laplacian relaxation, no detail restored, within 8 cm of each armpit apex
+    P = relax_armpits(b, adj, P)
+    near = np.zeros(len(P), bool)
+    for s in SIDES:
+        near |= np.linalg.norm(b.rest - b.P(f"upperarm01.{s}"), axis=1) < 0.20
+    P = unfold(b, mush, P, near & ~b.is_hand)
+    d = P - pos
     idx = np.flatnonzero(np.linalg.norm(d, axis=1) > 3e-4)
     return {"i": idx.tolist(), "d": [round(float(v), 4) for v in d[idx].ravel()]}, float(np.linalg.norm(d, axis=1).max())
 

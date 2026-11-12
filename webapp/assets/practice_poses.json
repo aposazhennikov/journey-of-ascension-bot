@@ -896,5 +896,125 @@
     "en": "The poses and mudras here serve the practice of attention, breath and sensation. The finger and channel correspondence comes from modern mudra practice and suggests where to place attention; it promises no treatment and does not replace a doctor. With pain, joint injuries, pregnancy or chronic illness, choose poses together with a specialist, and come out of any pose if pain appears.",
     "uz": "Bu yerdagi holatlar va mudralar diqqat, nafas va sezgi amaliyotiga xizmat qiladi. Barmoqlar va kanallar mosligi zamonaviy mudra amaliyotida qabul qilingan va diqqatni qayerga yo'naltirishga ishora beradi; u davolashni va'da qilmaydi va shifokorning o'rnini bosmaydi. Og'riq, bo'g'im jarohatlari, homiladorlik yoki surunkali kasalliklarda holatlarni mutaxassis bilan birga tanlang va og'riq paydo bo'lsa, istalgan holatdan chiqing.",
     "kz": "Мұндағы қалыптар мен мудралар зейін, тыныс және сезім тәжірибесіне қызмет етеді. Саусақтар мен арналардың сәйкестігі қазіргі мудра тәжірибесінде қабылданған және зейінді қайда бағыттауға болатынын көрсетеді; ол емдеуге уәде бермейді және дәрігерді алмастырмайды. Ауырсыну, буын жарақаттары, жүктілік немесе созылмалы аурулар болса, қалыптарды маманмен бірге таңдаңыз және ауырсыну пайда болса, кез келген қалыптан шығыңыз."
-  }
+  },
+  "arm_positions": [
+    {
+      "id": "open",
+      "i18n": {
+        "ru": {
+          "name": "Руки опущены",
+          "short": "Руки свободно вдоль тела или на коленях, как в выбранной позе."
+        },
+        "en": {
+          "name": "Arms down",
+          "short": "Arms resting by the body or on the knees, as in the chosen pose."
+        },
+        "uz": {
+          "name": "Qo'llar pastda",
+          "short": "Qo'llar tana bo'ylab yoki tizzalarda, tanlangan holatdagidek erkin."
+        },
+        "kz": {
+          "name": "Қолдар төменде",
+          "short": "Қолдар дене бойында немесе тізеде, таңдалған қалыптағыдай еркін."
+        }
+      },
+      "emphasized_meridians": [],
+      "emphasized_points": []
+    },
+    {
+      "id": "arms_up",
+      "sanskrit": "Ūrdhva hastāsana",
+      "i18n": {
+        "ru": {
+          "name": "Руки вверх",
+          "short": "Прямые руки подняты над головой на ширине плеч, ладони смотрят друг на друга.",
+          "how": "Стоя или сидя с прямой спиной, на вдохе поднимите руки вперёд и вверх. Руки на ширине плеч, локти мягкие, ладони обращены друг к другу, пальцы вытянуты. Плечи не поднимайте к ушам, лопатки опустите.",
+          "meridians_note": "Когда руки подняты, внутренняя сторона рук смотрит вперёд и внутрь, и три иньских канала руки видны во всю длину: меридиан лёгких идёт по переднему краю к большому пальцу, перикарда посередине к среднему пальцу, сердца по заднему краю от подмышки к мизинцу. Подмышечная впадина открыта, в её центре лежит первая точка меридиана сердца (C1). Бок вытягивается, и по средней подмышечной линии видны точки меридиана желчного пузыря (VB22) и большое ло селезёнки (RP21).",
+          "practice": "Побудьте так 5–10 дыханий. На вдохе тянитесь кончиками пальцев вверх, на выдохе опускайте плечи, не опуская рук. При боли в плече опустите руки."
+        },
+        "en": {
+          "name": "Arms up",
+          "short": "Straight arms raised overhead, shoulder-width apart, palms facing each other.",
+          "how": "Standing or sitting with a straight back, raise the arms forward and up on an inhale. Arms shoulder-width apart, elbows soft, palms facing each other, fingers extended. Keep the shoulders away from the ears and the shoulder blades down.",
+          "meridians_note": "With the arms raised, the inner side of the arms faces forward and inward, and the three yin channels of the arm show along their whole length: the Lung Meridian runs along the front edge to the thumb, the Pericardium Meridian through the middle to the middle finger, the Heart Meridian along the back edge from the armpit to the little finger. The armpit opens; the first point of the Heart Meridian (C1) lies in its centre. The side of the trunk lengthens, showing the Gallbladder Meridian (VB22) and the great luo of the Spleen (RP21) on the mid-axillary line.",
+          "practice": "Stay for 5–10 breaths. On the inhale, reach up through the fingertips; on the exhale, let the shoulders drop without lowering the arms. If the shoulder hurts, lower the arms."
+        },
+        "uz": {
+          "name": "Qo'llar yuqorida",
+          "short": "To'g'ri qo'llar bosh ustida yelka kengligida ko'tarilgan, kaftlar bir-biriga qaragan.",
+          "how": "Tik turib yoki to'g'ri o'tirib, nafas olganda qo'llarni oldinga va yuqoriga ko'taring. Qo'llar yelka kengligida, tirsaklar yumshoq, kaftlar bir-biriga qaragan, barmoqlar cho'zilgan. Yelkalarni quloqqa ko'tarmang, kuraklarni pastga tushiring.",
+          "meridians_note": "Qo'llar ko'tarilganda qo'lning ichki tomoni oldinga va ichkariga qaraydi, qo'ldagi uchta in kanali butun uzunligi bo'ylab ko'rinadi: O'pka meridiani old chet bo'ylab bosh barmoqqa, Perikard meridiani o'rtadan o'rta barmoqqa, Yurak meridiani orqa chet bo'ylab qo'ltiqdan jimjiloqqa boradi. Qo'ltiq ochiladi, uning markazida Yurak meridianining birinchi nuqtasi (C1) joylashgan. Tananing yon tomoni cho'ziladi va o'rta qo'ltiq chizig'ida O't pufagi meridiani nuqtasi (VB22) va Taloqning katta lo nuqtasi (RP21) ko'rinadi.",
+          "practice": "5–10 nafas shunday turing. Nafas olganda barmoq uchlari bilan yuqoriga intiling, nafas chiqarganda qo'llarni tushirmasdan yelkalarni bo'shating. Yelkada og'riq bo'lsa, qo'llarni tushiring."
+        },
+        "kz": {
+          "name": "Қолдар жоғары",
+          "short": "Түзу қолдар бас үстіне иық енімен көтерілген, алақандар бір-біріне қарайды.",
+          "how": "Тік тұрып немесе түзу отырып, дем алғанда қолдарды алға және жоғары көтеріңіз. Қолдар иық енінде, шынтақтар жұмсақ, алақандар бір-біріне қарайды, саусақтар созылған. Иықты құлаққа көтермеңіз, жауырындарды төмен түсіріңіз.",
+          "meridians_note": "Қолдар көтерілгенде қолдың ішкі жағы алға және ішке қарайды, қолдағы үш инь арнасы бүкіл ұзындығымен көрінеді: Өкпе меридианы алдыңғы жиекпен бас бармаққа, Перикард меридианы ортамен ортаңғы саусаққа, Жүрек меридианы артқы жиекпен қолтықтан шынашаққа жүреді. Қолтық ашылады, оның ортасында Жүрек меридианының бірінші нүктесі (C1) жатыр. Дененің бүйірі созылып, орта қолтық сызығында Өт қабы меридианының нүктесі (VB22) және Көкбауырдың үлкен ло нүктесі (RP21) көрінеді.",
+          "practice": "5–10 тыныс осылай тұрыңыз. Дем алғанда саусақ ұштарымен жоғары созылыңыз, дем шығарғанда қолды түсірмей иықты босатыңыз. Иық ауырса, қолды түсіріңіз."
+        }
+      },
+      "emphasized_meridians": [
+        "lung",
+        "pericardium",
+        "heart",
+        "gallbladder",
+        "spleen"
+      ],
+      "emphasized_points": [
+        "C1",
+        "P1",
+        "MC1",
+        "VB22",
+        "RP21"
+      ]
+    },
+    {
+      "id": "behind_head",
+      "i18n": {
+        "ru": {
+          "name": "Руки за головой",
+          "short": "Пальцы сцеплены в замок на затылке, локти разведены в стороны.",
+          "how": "Сцепите пальцы в замок и положите ладони на затылок. Разведите локти в стороны, раскройте грудь. Голову руками не тяните, шея остаётся длинной, затылок только опирается на ладони.",
+          "meridians_note": "С разведёнными локтями открываются подмышки и бока. Становится видна задняя сторона плеча с меридианами тонкой кишки (IG9, IG10) и трёх обогревателей (TR14), в подмышке лежит C1, первая точка меридиана сердца. По боку вытягивается меридиан желчного пузыря, и ладони лежат как раз над его точкой Фэн-чи под затылком (VB20).",
+          "practice": "Побудьте так 5–10 дыханий. На вдохе слегка отводите локти назад, на выдохе отпускайте. Если тянет шею, разожмите пальцы и опустите руки."
+        },
+        "en": {
+          "name": "Hands behind the head",
+          "short": "Fingers interlaced on the back of the head, elbows out to the sides.",
+          "how": "Interlace the fingers and place the palms on the back of the head. Spread the elbows to the sides and open the chest. Do not pull the head with the hands: the neck stays long, the back of the head only rests on the palms.",
+          "meridians_note": "With the elbows wide the armpits and the sides open. The back of the upper arm shows the Small Intestine (IG9, IG10) and Triple Burner (TR14) Meridians, and C1, the first point of the Heart Meridian, lies in the armpit. The Gallbladder Meridian lengthens along the side, and the palms rest right over its point Fengchi below the occiput (VB20).",
+          "practice": "Stay for 5–10 breaths. On the inhale, draw the elbows slightly back; on the exhale, release. If the neck strains, unclasp the fingers and lower the arms."
+        },
+        "uz": {
+          "name": "Qo'llar bosh orqasida",
+          "short": "Barmoqlar ensada qulf qilib birlashtirilgan, tirsaklar yon tomonlarga yoyilgan.",
+          "how": "Barmoqlarni qulf qilib birlashtiring va kaftlarni ensaga qo'ying. Tirsaklarni yon tomonlarga yoying, ko'krakni oching. Boshni qo'llar bilan tortmang: bo'yin uzun qoladi, ensa faqat kaftlarga tayanadi.",
+          "meridians_note": "Tirsaklar yoyilganda qo'ltiqlar va biqinlar ochiladi. Yelkaning orqa tomonida Ingichka ichak (IG9, IG10) va Uch isituvchi (TR14) meridianlari ko'rinadi, qo'ltiqda Yurak meridianining birinchi nuqtasi C1 joylashgan. Yon tomon bo'ylab O't pufagi meridiani cho'ziladi, kaftlar esa aynan uning ensa ostidagi Fengchi nuqtasi (VB20) ustida yotadi.",
+          "practice": "5–10 nafas shunday turing. Nafas olganda tirsaklarni biroz orqaga torting, nafas chiqarganda bo'shating. Bo'yin tortilsa, barmoqlarni ajrating va qo'llarni tushiring."
+        },
+        "kz": {
+          "name": "Қолдар бас артында",
+          "short": "Саусақтар желкеде құлыпқа айқастырылған, шынтақтар екі жаққа ашылған.",
+          "how": "Саусақтарды құлыпқа айқастырып, алақандарды желкеге қойыңыз. Шынтақтарды екі жаққа ашып, кеудені ашыңыз. Басты қолмен тартпаңыз: мойын ұзын қалады, желке тек алақанға сүйенеді.",
+          "meridians_note": "Шынтақтар ашылғанда қолтық пен бүйір ашылады. Иықтың артқы жағында Ащы ішек (IG9, IG10) және Үш жылытқыш (TR14) меридиандары көрінеді, қолтықта Жүрек меридианының бірінші нүктесі C1 жатыр. Бүйір бойымен Өт қабы меридианы созылады, ал алақандар дәл оның желке астындағы Фэн-чи нүктесінің (VB20) үстінде жатады.",
+          "practice": "5–10 тыныс осылай болыңыз. Дем алғанда шынтақтарды сәл артқа апарыңыз, дем шығарғанда босатыңыз. Мойын тартылса, саусақтарды ажыратып, қолды түсіріңіз."
+        }
+      },
+      "emphasized_meridians": [
+        "small_intestine",
+        "triple_burner",
+        "heart",
+        "gallbladder"
+      ],
+      "emphasized_points": [
+        "C1",
+        "IG9",
+        "IG10",
+        "TR14",
+        "VB20",
+        "VB22"
+      ]
+    }
+  ]
 }
