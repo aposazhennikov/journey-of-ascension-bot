@@ -443,12 +443,17 @@ def finger_fan(b, Q, s):
     return max(abs(signed_angle(dirs[i], dirs[i + 1], n)) for i in range(3))
 
 
-def corrective(poses, variant, body_id):
-    """Contact/delta-mush corrective of a body pose (correctives.py) as (vertex ids, n x 3 displacements)."""
-    c = (poses["body"][body_id].get("corr") or {}).get(variant)
-    if not c or not c.get("i"):
+def corrective(poses, variant, body_id, hand_id=None):
+    """Correctives (correctives.py) of the body pose plus, for an arm position, the hand pose's own
+    shoulder corrective, as (vertex ids, n x 3 displacements); ids may repeat (summed, as pose.js does)."""
+    parts = [(poses["body"][body_id].get("corr") or {}).get(variant)]
+    if hand_id:
+        parts.append(((poses["hand"].get(hand_id) or {}).get("corr") or {}).get(variant))
+    parts = [c for c in parts if c and c.get("i")]
+    if not parts:
         return None
-    return np.asarray(c["i"], dtype=np.int64), np.asarray(c["d"], float).reshape(-1, 3)
+    return (np.concatenate([np.asarray(c["i"], dtype=np.int64) for c in parts]),
+            np.concatenate([np.asarray(c["d"], float).reshape(-1, 3) for c in parts]))
 
 
 def evaluate(b, local, root, body_id, hand_id, has_arms, corr=None):
@@ -456,7 +461,7 @@ def evaluate(b, local, root, body_id, hand_id, has_arms, corr=None):
     Q, H = rig.fk(b.v, local, root)
     pos = rig.skin(b.rest, b.v, Q, H)
     if corr is not None:              # the page adds the pose's corrective after skinning (pose.js)
-        pos[corr[0]] += corr[1]
+        np.add.at(pos, corr[0], corr[1])
     nrm = vertex_normals(pos, b.tris)
     I = b.I
     C = Checks()
@@ -741,7 +746,7 @@ def main():
         b = Body(rig, variant)
         for pid, hid in combos:
             local, root, has_arms = compose(poses, variant, pid, hid)
-            M, checks, pos = evaluate(b, local, root, pid, hid, has_arms, corrective(poses, variant, pid))
+            M, checks, pos = evaluate(b, local, root, pid, hid, has_arms, corrective(poses, variant, pid, hid))
             bad = [c for c in checks if not c["ok"]]
             results.append({"variant": variant, "body": pid, "hand": hid, "pass": not bad,
                             "n_checks": len(checks), "n_fail": len(bad), "metrics": M, "checks": checks})

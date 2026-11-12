@@ -203,6 +203,57 @@ class DeltaMush:
         return P + (M - P) * (self.w * pin)[:, None]
 
 
+class ShoulderMush(DeltaMush):
+    """Delta mush around both shoulder joints for the arm positions (arms overhead, hands behind the
+    head): the glenohumeral joint alone, skinned rigidly, folds the deltoid and tears the armpit (edge
+    stretch p99 3.5 x on the male body with the arms up; 2.3 x after this). Nothing is pinned."""
+
+    def __init__(self, b, adj, iters=14, lam=0.5, radius=0.13):
+        n = len(b.rest)
+        self.b, self.adj, self.iters, self.lam = b, adj, iters, lam
+        e = set()
+        for a, c, d in b.tris:
+            e.update(((a, c), (c, a), (c, d), (d, c), (a, d), (d, a)))
+        e = np.array(sorted(e))
+        self.src, self.dst = e[:, 0], e[:, 1]
+        self.deg = np.bincount(self.src, minlength=n).astype(float)
+        self.first = np.array([nb[0] if len(nb) else i for i, nb in enumerate(adj)])
+        self.tris = b.tris
+        m = np.zeros(n, bool)
+        for s in SIDES:
+            m |= np.linalg.norm(b.rest - b.P(f"upperarm01.{s}"), axis=1) < radius
+        m &= ~b.is_hand
+        w = m.astype(float)
+        ring = m.copy()
+        for r in range(4):
+            nxt = ring.copy()
+            for v in np.flatnonzero(ring):
+                nxt[adj[v]] = True
+            new = nxt & ~ring
+            w[new] = 1.0 - (r + 1) / 5.0
+            ring = nxt
+        self.w = w
+        S = self.smooth(b.rest)
+        self.dl = self.to_local(S, b.rest - S)
+
+    def apply(self, P, keep=None):
+        S = self.smooth(P)
+        t, bt, n = self.frames(S)
+        M = S + self.dl[:, :1] * t + self.dl[:, 1:2] * bt + self.dl[:, 2:] * n
+        return P + (M - P) * self.w[:, None]
+
+
+def arm_corrective(rig, b, adj, poses, variant, hand_id, mush):
+    """Shoulder corrective of an arm position, computed on the standing body (the spine is the same in
+    every pose, so it fits every body pose); stored as hand[hand_id].corr[variant]."""
+    local, root, _ = compose(poses, variant, "stand", hand_id)
+    Q, H = rig.fk(variant, local, root)
+    pos = rig.skin(b.rest, variant, Q, H)
+    d = mush.apply(pos) - pos
+    idx = np.flatnonzero(np.linalg.norm(d, axis=1) > 3e-4)
+    return {"i": idx.tolist(), "d": [round(float(v), 4) for v in d[idx].ravel()]}, float(np.linalg.norm(d, axis=1).max())
+
+
 def pose_corrective(rig, b, adj, poses, variant, pid, mush=None):
     local, root, _ = compose(poses, variant, pid, "open")
     Q, H = rig.fk(variant, local, root)

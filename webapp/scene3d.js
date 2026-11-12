@@ -1083,9 +1083,21 @@ export class MeridianScene {
     return [((out.x + 1) / 2) * window.innerWidth, ((1 - out.y) / 2) * window.innerHeight, out.z];
   }
 
-  isVisible(p, n) {
+  isVisible(p, n, min = 0.1) {
     const toCam = this.camera.position.clone().sub(p).normalize();
-    return toCam.dot(n) > 0.1;
+    return toCam.dot(n) > min;
+  }
+
+  /** True when nothing of the body lies between the camera and p (BVH ray). */
+  unoccluded(p) {
+    this.refitBvh();
+    const from = this.camera.position;
+    const dir = p.clone().sub(from);
+    const dist = dir.length();
+    const rc = new THREE.Raycaster(from, dir.normalize(), 0, dist);
+    rc.firstHitOnly = true;
+    const hit = rc.intersectObject(this.body, false)[0];
+    return !hit || hit.distance > dist - 0.006;
   }
 
   bodyHit(x, y) {

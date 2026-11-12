@@ -54,9 +54,11 @@ class Scene:
         loc, root = compose(self.poses, body, hand, self.variant)
         Q, H = self.rig.fk(self.variant, loc, root)
         skin = self.rig.skin(self.prims[0][0], self.variant, Q, H)
-        c = (self.poses["body"][body].get("corr") or {}).get(self.variant)
-        if c and c.get("i"):          # the pose's corrective, added after skinning as pose.js does
-            skin[np.asarray(c["i"])] += np.asarray(c["d"], float).reshape(-1, 3)
+        # the body pose's corrective and an arm position's own one, added after skinning as pose.js does
+        for e in (self.poses["body"][body], self.poses["hand"].get(hand) or {}):
+            c = (e.get("corr") or {}).get(self.variant)
+            if c and c.get("i"):
+                np.add.at(skin, np.asarray(c["i"]), np.asarray(c["d"], float).reshape(-1, 3))
         eyes =[self.rig.rigid(p, self.rig.eye_bone, Q, H, self.variant) for p, _ in self.prims[1:]]
         return skin, eyes, Q, H
 

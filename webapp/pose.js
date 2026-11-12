@@ -134,21 +134,28 @@ export function createSkinner(rig, restPositions, variant = 'neutral') {
   const fromRoot = new Float32Array(3), toRoot = new Float32Array(3), curRoot = new Float32Array(3);
   // contact / delta-mush correctives of the body poses (scripts/webapp3d/correctives.py): displacements
   // added after skinning, the old pose's fading out and the new one's fading in during a transition
+  // arm positions (hand poses with their own arms: arms overhead) carry a shoulder corrective of their
+  // own; it is added on top of the body pose's (legs/hips), the two regions do not overlap
   const corrCache = new Map();
-  const corrOf = (bodyPose) => {
-    const body = typeof bodyPose === 'string' ? rig.poses?.body?.[bodyPose] : bodyPose;
-    const c = body?.corr?.[variant];
+  const corrEntry = (e) => {
+    const c = e?.corr?.[variant];
     if (!c || !c.i?.length) return null;
     if (!corrCache.has(c)) corrCache.set(c, { i: Int32Array.from(c.i), d: Float32Array.from(c.d) });
     return corrCache.get(c);
   };
-  let corrFrom = null, corrTo = null;
-  function addCorr(c, s) {
-    if (!c || s <= 0) return;
-    const { i, d } = c;
-    for (let k = 0; k < i.length; k++) {
-      const o = i[k] * 3, q = k * 3;
-      positions[o] += s * d[q]; positions[o + 1] += s * d[q + 1]; positions[o + 2] += s * d[q + 2];
+  const corrOf = (bodyPose, handPose) => {
+    const body = typeof bodyPose === 'string' ? rig.poses?.body?.[bodyPose] : bodyPose;
+    const hand = typeof handPose === 'string' ? rig.poses?.hand?.[handPose] : handPose;
+    return [corrEntry(body), corrEntry(hand)].filter(Boolean);
+  };
+  let corrFrom = [], corrTo = [];
+  function addCorr(list, s) {
+    if (!list || s <= 0) return;
+    for (const { i, d } of list) {
+      for (let k = 0; k < i.length; k++) {
+        const o = i[k] * 3, q = k * 3;
+        positions[o] += s * d[q]; positions[o + 1] += s * d[q + 1]; positions[o + 2] += s * d[q + 2];
+      }
     }
   }
   const Qw = new Float32Array(n * 4), Hw = new Float32Array(n * 3);
@@ -257,7 +264,7 @@ export function createSkinner(rig, restPositions, variant = 'neutral') {
         const c = composePose(rig, variant, bodyPose, handPose);
         to.set(c.local);
         toRoot.set(c.root);
-        corrTo = corrOf(bodyPose);
+        corrTo = corrOf(bodyPose, handPose);
         targetKey = key;
       }
       t = Math.min(1, Math.max(0, t));

@@ -1399,8 +1399,8 @@ function frameHands() {
   }
   if (box.isEmpty()) return;
   box.expandByScalar(0.06);
-  const level = state.mudra === 'hakini' || state.mudra === 'anjali';
-  const polar = THREE.MathUtils.degToRad(level ? 80 : 60);
+  // hakini reads best from the front and above (the dome and the meeting tips); anjali from the front
+  const polar = THREE.MathUtils.degToRad(state.mudra === 'hakini' ? 50 : state.mudra === 'anjali' ? 80 : 60);
   const dir = new THREE.Vector3(0, Math.cos(polar), Math.sin(polar));
   scene.frameBox(box, dir, { ms: 600, minDist: 0.3 });
 }
@@ -1543,7 +1543,18 @@ function updateLabels() {
   const lv = state.level;
   if (state.overlay === 'poses' && lv.view === 'home' && state.mudra !== 'open') {
     const m = state.poseContent?.mudras?.find((x) => x.id === state.mudra);
-    for (const g of mudraContacts(m).slice(0, 6)) items.push({ code: g.codes[0], side: g.side, text: g.codes.join(' · '), main: false });
+    const groups = mudraContacts(m);
+    // hakini/anjali: each code touches its twin, so one label per code on the side facing the camera
+    // (two per code with a cap of 6 left TR1, C9 and IG1 unlabelled)
+    const paired = groups.length > 0 && groups.every((g) => g.codes.length === 1);
+    const seen = new Set();
+    for (const g of groups) {
+      if (paired) {
+        if (seen.has(g.codes[0])) continue;
+        seen.add(g.codes[0]);
+        items.push({ code: g.codes[0], side: null, text: g.codes[0], main: false, grazing: true });
+      } else items.push({ code: g.codes[0], side: g.side, text: g.codes.join(' · '), main: false });
+    }
   } else if (lv.view === 'point') {
     const ch = state.channelById.get(lv.id);
     const idx = ch.points.indexOf(lv.code);
@@ -1562,16 +1573,25 @@ function updateLabels() {
     }
   }
   let used = 0;
+  const placed = [];
   for (const it of items) {
     let pp = null;
     if (it.side == null) {
       const s = scene.sideFacingCamera(it.code);
       pp = scene.pointPosition(it.code, s);
     } else pp = scene.pointPosition(it.code, it.side);
-    if (!pp || !scene.isVisible(pp.p, pp.n)) continue;
+    if (!pp) continue;
+    // fingertips pressed together face each other, edge-on to the camera: shown when nothing hides them
+    if (it.grazing ? !(scene.isVisible(pp.p, pp.n, -0.35) && scene.unoccluded(pp.p)) : !scene.isVisible(pp.p, pp.n)) continue;
     const [sx, sy, sz] = scene.toScreen(pp.p);
     if (sz > 1 || sx < 0 || sx > window.innerWidth || sy < 0 || sy > window.innerHeight - sheetVisible()) continue;
+    // points closer than a label's height share one label (C9 and IG1 sit on the same little fingertip)
+    const near = placed.find((q) => Math.abs(q.sx - sx) < 40 && Math.abs(q.sy - sy) < 18);
+    if (near) {
+      if (!it.main) { near.el.textContent += ` · ${it.text}`; continue; }
+    }
     const el = label(used++);
+    placed.push({ sx, sy, el });
     el.textContent = it.text;
     el.className = `plabel${it.main ? ' main' : ''}${sy < 110 ? ' below' : ''}`;
     el.style.transform = `translate(${Math.round(sx)}px, ${Math.round(sy)}px)`;
