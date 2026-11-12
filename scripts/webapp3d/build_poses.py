@@ -1132,36 +1132,191 @@ def hand_poses(rig, variant, rest, which=None):
     loc = anjali_fingers(ps, hand, sp, tilt)
     tw["thumb_tilt"] = tilt
     res["anjali"] = (loc, arms, tw)
-    # hakini: spread fingers, tips touching their mirror twins, palms apart
-    ps2 = Poser(rig, variant, rest)
-    spread = {2: -9, 3: 0, 4: 7, 5: 14}
-    off = 0.034
-    d_world, n_world = unit([0, 0.8, 0.6]), np.array([-1.0, 0, 0])
-    Rh = world_hand_rot(ps2, "L", d_world, n_world)
+    # hakini: spread fingers, every fingertip on its mirror twin, palms apart
+    res["hakini"] = hakini_pose(Poser(rig, variant, rest), hand)
+    return res
 
-    def build(x):
-        loc = {}
-        for i, k in enumerate(range(2, 6)):
-            loc.update(hand.finger(k, x[i], 0.55 * x[i], 0.35 * x[i], spread=spread[k]))
-        loc.update(hand.thumb(x[4:7], x[7], 0.0))
-        return loc
+
+HAKINI_SPREAD = {2: -9, 3: 0, 4: 7, 5: 14}
+
+
+def hakini_build_fingers(hand, c):
+    """Finger locals from c = [curl2..curl5, thumb r0, r1, r2, thumb ip]; spread fixed."""
+    loc = {}
+    for i, k in enumerate(range(2, 6)):
+        loc.update(hand.finger(k, 0.6 * c[i], c[i], 0.6 * c[i], spread=HAKINI_SPREAD[k]))
+    loc.update(hand.thumb(c[4:7], c[7], 0.5 * c[7]))
+    return loc
+
+
+def hakini_pose(ps, hand):
+    """Arms and fingers solved together on the skin. The old two-step build (fingers first, then the arms
+    aimed at a fixed hand frame) asked for fingers up + palms medial at forearm slope 10 deg: the shoulder
+    rotation and the wrist sat on their limits, the hands rolled ~25 deg, the index fingers lay on the
+    other hand and the palms merged (505-646 of 1602 left-hand vertices past the mid plane, 2026-11-12).
+    Here: each fingertip's skin reaches the mid plane (touching its mirror twin), nothing of the hand
+    crosses it, the palms stay apart, the hands sit in front of the lower chest, fingers pointing forward/up."""
+    from anatomy import Anatomy
+    from asanas import TorsoModel
+    from check_poses import Body, swing_vec
+    an = Anatomy(ps)
+    rig = ps.rig
+    cb = Body(rig, ps.v)
+    dh, _th, nh = cb.hand["L"]
+    ext_axis = unit(np.cross(dh, nh))
+    iA, iW = rig.index["lowerarm02.L"], rig.index["wrist.L"]
+    dom = ps.dom.astype(str)
+    left = np.array([n.endswith(".L") for n in dom]) & ps.hand_mask
+    hand_idx = np.flatnonzero(left)
+    tip_sets = {k: np.searchsorted(hand_idx, np.flatnonzero(dom == f"finger{k}-3.L")) for k in range(1, 6)}
+    palm_sel = np.isin(dom[hand_idx], [f"metacarpal{k}.L" for k in range(1, 5)])
+    base_n = np.array([n.split(".")[0] for n in dom])
+    limb = np.array([bn.startswith(("upperleg", "lowerleg", "foot", "toe", "upperarm", "lowerarm", "wrist", "finger", "metacarpal",
+                                    "neck", "head", "jaw", "eye", "tongue", "clavicle", "shoulder", "breast")) for bn in base_n])
+    torso = TorsoModel(ps.rest, ~limb & ~ps.hand_mask)
+    fore_idx = np.flatnonzero(np.isin(dom, ["lowerarm01.L", "lowerarm02.L"]))[::2]
+    yc = 0.5 * (ps.P("spine01")[1] + ps.P("spine02")[1]) + 0.02
+    zc = chest_front(ps, yc) + 0.15
+    # shoulder flex/abd/rot, elbow, supination, wrist flexion | curls 2-5, thumb r(3), thumb ip
+    rng = ((-10, 85), (0, 70), (-68, 40), (40, 150), (-75, 110), (-78, 40),
+           (-5, 45), (-5, 45), (-5, 45), (-5, 45), (-60, 60), (-60, 60), (-60, 60), (-10, 40))
+
+    def pose(x):
+        W = {}
+        for s in SIDES:
+            W.update(an.arm(s, shoulder=tuple(x[:3]), elbow=x[3], sup=x[4], wrist=(x[5], 0.0)))
+        ps.W = W
+        loc = ps.local()
+        fl = hakini_build_fingers(hand, x[6:])
+        loc.update(fl)
+        loc.update({k.replace(".L", ".R"): pk.qmirror(v) for k, v in fl.items()})
+        Q, H = rig.fk(ps.v, loc, ps.root)
+        return Q, H, fl
+
+    def terms(x):
+        Q, H, _ = pose(x)
+        pos = rig.skin(ps.rest, ps.v, Q, H, idx=hand_idx)
+        px = pos[:, 0]
+        t = {}
+        # every fingertip touches its twin: the tip's innermost skin on the mid plane
+        t["tips"] = sum(3e5 * (float(px[tip_sets[k]].min()) - 0.0005) ** 2 for k in range(1, 6))
+        # nothing of the hand past the mid plane
+        t["cross"] = 3e6 * max(0.0, -0.0005 - float(px.min())) ** 2 + 1e6 * float(np.mean(np.minimum(px, 0.0) ** 2))
+        # palms apart (a hollow between the hands), but not flung out
+        pm = float(px[palm_sel].mean())
+        t["palms"] = 3e4 * max(0.0, 0.045 - pm) ** 2 + 3e3 * max(0.0, pm - 0.075) ** 2
+        # fingers forward/up: middle finger proximal phalanx
+        b = rig.index["finger3-1.L"]
+        fd = unit(H[rig.index["finger3-2.L"]] - H[b])
+        t["dir"] = 20 * (max(0.0, 0.25 - fd[1]) ** 2 + max(0.0, 0.3 - fd[2]) ** 2)
+        mid = H[b]
+        t["centre"] = 3e3 * ((mid[1] - yc) ** 2 + (mid[2] - zc) ** 2)
+        el, wr = H[rig.index["lowerarm01.L"]], H[iW]
+        sl = (wr[1] - el[1]) / max(1e-6, np.linalg.norm(wr - el))
+        t["slope"] = 10 * max(0.0, np.sin(np.radians(5)) - sl) ** 2 + 10 * max(0.0, sl - np.sin(np.radians(50))) ** 2
+        ext = -float(np.dot(swing_vec(qmul(qconj(Q[iA]), Q[iW]), dh), ext_axis))
+        t["wrist"] = 20.0 * max(0.0, ext - 75.0) ** 2
+        fp = rig.skin(ps.rest, ps.v, Q, H, idx=fore_idx)
+        t["trunk"] = 3e4 * max(0.0, float(torso.depth(fp).max()) + 0.004) ** 2
+        # a gently rounded hand: curls close to each other, not hooked
+        c = np.asarray(x[6:10])
+        t["curl"] = 2e-3 * float(np.sum((c - c.mean()) ** 2)) + 1e-3 * float(np.sum(np.maximum(0, c - 25) ** 2))
+        t["bounds"] = sum(20.0 * (max(0, lo - v) ** 2 + max(0, v - hi) ** 2) for (lo, hi), v in zip(rng, x))
+        return t
 
     def cost(x):
-        tp = hand.tips(build(x))
-        c = 0.0
-        for k in range(1, 6):
-            c += 4e4 * (np.dot(tp[k] - ps2.P("wrist.L"), hand.n0) - off) ** 2
-        c += 4e4 * max(0, 0.045 - np.linalg.norm(tp[1] - tp[2])) ** 2
-        c += 1e-4 * np.sum(np.asarray(x) ** 2) * 0.2
-        return c
-    x, f = nelder_mead(cost, np.array([20, 20, 20, 20, 10, -20, 0, 5.0]), 10.0, iters=3000)
-    x, f = nelder_mead(cost, x, 3.0, iters=2000)
-    loc = build(x)
-    yc = 0.5 * (ps2.P("spine01")[1] + ps2.P("spine02")[1]) + 0.02
-    zc = chest_front(ps2, yc) + 0.17
-    arms, tw = arms_anatomy(ps2, hand, loc, d_world, n_world, yc, zc, hand.rad[3] - 0.0005, "tips", slope_deg=10)
-    res["hakini"] = (loc, arms, {"cost": round(float(f), 5), "x": np.round(x, 1).tolist(), "arms": tw})
-    return res
+        return sum(terms(x).values())
+    best = None
+    starts = ([30, 30, -40, 100, 10, -60, 12, 12, 12, 12, 24, -9, 21, 15],
+              [20, 45, -20, 110, 30, -70, 15, 15, 15, 15, 10, -20, 10, 10],
+              [40, 20, -55, 95, -10, -50, 8, 10, 12, 14, 30, 0, 25, 10],
+              [25, 55, 0, 120, 50, -75, 18, 18, 18, 18, 0, -30, 0, 5])
+    for x0 in starts:
+        x, f = nelder_mead(cost, np.array(x0, float), 10.0, iters=4000)
+        x, f = nelder_mead(cost, x, 2.0, iters=2500)
+        x, f = nelder_mead(cost, x, 0.5, iters=1500)
+        if best is None or f < best[1]:
+            best = (x, f)
+    x, f = best
+    Q, H, fl = pose(x)
+    arms = {k: v for k, v in ps.local().items() if k.split(".")[0] in ARM_BONES}
+    pos = rig.skin(ps.rest, ps.v, Q, H, idx=hand_idx)
+    info = {"x": np.round(x, 1).tolist(), "cost": round(float(f), 5),
+            "tip_x_mm": [round(float(pos[tip_sets[k], 0].min()) * 1000, 1) for k in range(1, 6)],
+            "hand_min_x_mm": round(float(pos[:, 0].min()) * 1000, 1),
+            "palm_x_mm": round(float(pos[palm_sel, 0].mean()) * 1000, 1),
+            "terms": {k: round(v, 4) for k, v in terms(x).items()}}
+    return fl, arms, info
+
+
+def arms_up_pose(ps, hand, fingers):
+    """Both arms straight up, shoulder-width, palms facing each other (urdhva hastasana arms): the inner
+    arm channels (lung, pericardium, heart) face forward/inward and run in one line. The clavicle lifts
+    too, otherwise the glenohumeral joint alone crushes the deltoid at 170+ deg."""
+    from anatomy import Anatomy
+    from check_poses import Body
+    an = Anatomy(ps)
+    rig = ps.rig
+    cb = Body(rig, ps.v)
+    dom = ps.dom.astype(str)
+    sh0 = ps.P("upperarm01.L")
+    near = np.flatnonzero(np.linalg.norm(ps.rest - sh0, axis=1) < 0.16)
+    near_set = set(near.tolist())
+    e = cb.edges[[a in near_set and b in near_set for a, b in cb.edges]]
+    rl = cb.rest_len[[a in near_set and b in near_set for a, b in cb.edges]]
+    pos_of = {v: i for i, v in enumerate(near)}
+    e_loc = np.array([[pos_of[a], pos_of[b]] for a, b in e])
+    arm_idx = np.flatnonzero(np.isin(dom, ["upperarm01.L", "upperarm02.L", "lowerarm01.L"]))[::3]
+    head = np.flatnonzero(np.isin(np.array([n.split(".")[0] for n in dom]), ["head", "neck01", "neck02", "neck03", "jaw"]))[::4]
+    head_p = ps.rest[head]
+    d0, n0 = ps.hand_frame0("L")
+    out = unit([np.sin(np.radians(6)), 1.0, 0.0])
+    rng = ((0, 35), (120, 190), (-15, 45), (-70, 70), (0, 20), (-80, 80))
+
+    def pose(x):
+        W = {}
+        for s, sg in SIDES.items():
+            C = qaxis(np.array([0, 0, 1.0]), sg * x[0])
+            W[f"clavicle.{s}"] = C
+            W.update(an.arm(s, shoulder=tuple(x[1:4]), elbow=x[4], sup=x[5], wrist=(0.0, 0.0), Qp=C))
+        ps.W = W
+        loc = ps.local()
+        loc.update(fingers)
+        loc.update({k.replace(".L", ".R"): pk.qmirror(v) for k, v in fingers.items()})
+        Q, H = rig.fk(ps.v, loc, ps.root)
+        return Q, H, loc
+
+    def terms(x):
+        Q, H, _ = pose(x)
+        t = {}
+        a, b, c = (H[rig.index[n]] for n in ("upperarm01.L", "lowerarm01.L", "wrist.L"))
+        t["upper"] = 40 * float(np.sum((unit(b - a) - out) ** 2))
+        t["fore"] = 40 * float(np.sum((unit(c - b) - out) ** 2))
+        t["palm"] = 8 * float(np.sum((qrot(Q[rig.index["wrist.L"]], n0) - np.array([-1.0, 0, 0])) ** 2))
+        p = rig.skin(ps.rest, ps.v, Q, H, idx=near)
+        r = np.linalg.norm(p[e_loc[:, 0]] - p[e_loc[:, 1]], axis=1) / rl
+        # the armpit always stretches with the arm overhead; only the tearing range is penalised
+        # (weighted like the direction, the stretch held the arms in a 45 deg V)
+        t["stretch"] = 20.0 * max(0.0, float(np.quantile(r, 0.99)) - 1.8) ** 2 + 20.0 * float(np.mean(np.maximum(0, r - 1.5) ** 2))
+        ap = rig.skin(ps.rest, ps.v, Q, H, idx=arm_idx)
+        dmin = float(np.sqrt(((ap[:, None, :] - head_p[None, :, :]) ** 2).sum(-1)).min())
+        t["head"] = 3e4 * max(0.0, 0.015 - dmin) ** 2
+        t["bounds"] = sum(20.0 * (max(0, lo - v) ** 2 + max(0, v - hi) ** 2) for (lo, hi), v in zip(rng, x))
+        return t
+
+    def cost(x):
+        return sum(terms(x).values())
+    best = None
+    for x0 in ([20, 165, 5, 0, 3, 0], [30, 175, 0, 15, 0, -10], [12, 160, 12, -15, 5, 10]):
+        x, f = nelder_mead(cost, np.array(x0, float), 8.0, iters=2500)
+        x, f = nelder_mead(cost, x, 1.5, iters=1500)
+        if best is None or f < best[1]:
+            best = (x, f)
+    x, f = best
+    pose(x)
+    arms = {k: v for k, v in ps.local().items() if k.split(".")[0] in ARM_BONES}
+    return dict(fingers), arms, {"x": np.round(x, 1).tolist(), "cost": round(float(f), 5),
+                                 "terms": {k: round(v, 4) for k, v in terms(x).items()}}
 
 
 def rnd(q):

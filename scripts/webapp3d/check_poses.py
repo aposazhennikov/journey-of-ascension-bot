@@ -77,6 +77,7 @@ LIM = {
     # limit that still catches local tearing such as the crotch spike (ratio 2-7 there in the lotus)
     "stretch_p99": 1.5, "stretch_p99_region": 2.0, "forearm_area": 0.8,
     "mudra_gap": 0.005, "mudra_free_flex": 20, "finger_fan": 5,
+    "hakini_tip_gap": 0.004, "hakini_cross": 0.003, "hakini_palm": 0.03,
     # dandasana: the teacher's 2 cm is not reachable on this mesh - with straight legs the knee joint
     # sits at hip-joint height (~9 cm) and the back of the knee ~5 cm above the floor; 6 cm = straight
     "danda_knee": 5, "danda_leg_gap": 0.05, "danda_popliteal": 0.06, "danda_foot_up": 20,
@@ -614,6 +615,21 @@ def evaluate(b, local, root, body_id, hand_id, has_arms, corr=None):
             C.add("anjali_palm_med", med, "<=", LIM["anjali_palm_med"], s, "m")
             C.add("anjali_pad_frac", pad_frac, ">=", LIM["anjali_pad_frac"], s, "")
             C.add("anjali_palm_pen", pen, "<=", LIM["anjali_pen"], s, "m")
+    if hand_id == "hakini":
+        # nothing measured hakini until 2026-11-12, when the user saw the palms merged and the index
+        # fingers lying on the other hand: every fingertip on its twin, no hand past the mid plane,
+        # a hollow between the palms
+        mid, lat = H[I["spine01"]], qrot(Q[I["spine01"]], X)
+        M["hakini"] = {"tip_gap": {}}
+        for k in range(1, 6):
+            g = min_dist(pos, b.sets[f"tip{k}L"], b.sets[f"tip{k}R"])
+            M["hakini"]["tip_gap"][k] = g
+            C.add(f"hakini_tip_gap_f{k}", g, "<=", LIM["hakini_tip_gap"], None, "m")
+        for s, sg in SIDES.items():
+            x = (pos[b.sets[f"hand{s}"]] - mid) @ lat * sg
+            C.add("hakini_cross", float(max(0.0, -x.min())), "<=", LIM["hakini_cross"], s, "m")
+        pl = (pos[b.bones([f"metacarpal{k}.L" for k in range(1, 5)])] - mid) @ lat
+        C.add("hakini_palm_apart", float(np.median(pl)), ">=", LIM["hakini_palm"], "L", "m")
     if hand_id in MUDRA_TARGETS:
         M["mudra"] = {}
         for s in SIDES:
