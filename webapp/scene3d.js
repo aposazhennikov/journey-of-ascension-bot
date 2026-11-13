@@ -18,10 +18,10 @@ const BODY_COLORS = {
   // warm skin with warm shadows, a cool fill from the sky on the shadow side, a light rim along the
   // silhouette and a warm band where light turns to shadow (the artist of the council: the grey-beige
   // clay with flat front light read as a plastic dummy)
-  light: { base: '#dcb89d', shadow: '#7f5b49', rim: '#fff6ec', fill: '#a9bccd', sss: '#d58e74' },
-  // dark: lighter skin and a dimmer rim (round 3: with the narrower light wrap the figure went near black
-  // on the dark theme and the rim drew a white line along the arms)
-  dark: { base: '#75655a', shadow: '#33291f', rim: '#a3b2c2', fill: '#5d7186', sss: '#8a5644' },
+  // after the sRGB fix (round 3): a warm, dimmer rim on the light theme, the white one vanished against the
+  // snow and the shins merged with it; the dark theme warm instead of ash grey (cold fill + cold rim)
+  light: { base: '#d2aa8c', shadow: '#6f4d3d', rim: '#e9c9b0', fill: '#a9bccd', sss: '#d58e74', rimAmt: 0.5 },
+  dark: { base: '#7a6252', shadow: '#2e2219', rim: '#9a8a7c', fill: '#4f5f70', sss: '#9b5a43', rimAmt: 0.6 },
 };
 
 export const reducedMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
@@ -197,11 +197,14 @@ void main() {
   float a = disc * vFacing * vDim;
   if ( a < 0.01 ) discard;
   gl_FragColor = vec4( col, a );
+  // the colours come from THREE.Color (linear): encode them like the lines do, or a point's ring came out
+  // darker than its own channel line
+  #include <colorspace_fragment>
 }`;
 
 // ---------- helpers ----------
 
-function makeClayMatcap({ base, shadow, rim, fill, sss }, size = 256) {
+function makeClayMatcap({ base, shadow, rim, fill, sss, rimAmt = 0.58 }, size = 256) {
   const c = document.createElement('canvas');
   c.width = c.height = size;
   const g = c.getContext('2d');
@@ -238,7 +241,7 @@ function makeClayMatcap({ base, shadow, rim, fill, sss }, size = 256) {
       const fillK = (1 - wrap) * 0.22 * THREE.MathUtils.smoothstep(nx * 0.7 + 0.3, 0, 1);
       // (band .26, rim .58: at .18 / .42 neither showed against the photo, artist round 2)
       const band = Math.exp(-Math.pow((wrap - 0.42) / 0.16, 2)) * 0.26;
-      const rimK = fres * 0.58 * (0.55 + 0.45 * THREE.MathUtils.smoothstep(ny + 0.3, 0, 1));
+      const rimK = fres * rimAmt * (0.55 + 0.45 * THREE.MathUtils.smoothstep(ny + 0.3, 0, 1));
       for (let k = 0; k < 3; k++) {
         let v = ch[k][0] + (ch[k][1] - ch[k][0]) * wrap;
         v += (ch[k][3] - v) * fillK;
@@ -704,16 +707,24 @@ export class MeridianScene {
       // the muted lines keep a darker version of their hue instead of turning white
       // on the dark body the muted lines need more muting to recede (round 3: they glowed like neon and the
       // channel active by the clock did not stand out)
-      let mix = level === 'home' ? (this.theme === 'dark' ? 0.66 : 0.45) : 0.75;
+      // light home after the sRGB fix: less muting and 18 % darker, the yellow and lime lines were nearly lost
+      // on the paler skin (artist round 3)
+      const lightHome = level === 'home' && this.theme === 'light';
+      let mix = level === 'home' ? (this.theme === 'dark' ? 0.66 : 0.3) : 0.75;
       if (id === sel.pair) mix = 0.5;
-      if (full.has(id) || highlight.has(id)) mix = 0;
+      const lit = full.has(id) || highlight.has(id);
+      if (lit) mix = 0;
       c.lerp(tone, mix);
+      if (lightHome && !lit) c.multiplyScalar(0.82);
       for (let i = a; i < b; i++) colors.set([c.r, c.g, c.b, c.r, c.g, c.b], i * 6);
     }
     this.overview.geometry.attributes.instanceColorStart.data.needsUpdate = true;
     // three line weights, about 1 : 2.5 : 5 (overview, a group or pose, one chosen channel), artist round 2
     // home 1.8: at 1.5 the muted lines read as yellow-grey scratches and nearly vanished on the male body (artist round 3)
     this.overview.material.linewidth = level === 'home' ? 1.8 : 1.25;
+    // the dark home: the many bright lines still drowned the body, so they go to 62 % (artist round 3)
+    this.overview.material.transparent = true;
+    this.overview.material.opacity = level === 'home' && this.theme === 'dark' ? 0.62 : 1;
     // no white casing on the muted overview: on the light theme it made them look like scratches
     this.overview.material.uniforms.uCasing.value = 0;
     this.overview.material.uniforms.uDarkEdge.value = this.theme === 'dark' ? 1 : 0;

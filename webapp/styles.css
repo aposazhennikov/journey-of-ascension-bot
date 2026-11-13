@@ -487,6 +487,7 @@ h3.inline { margin: 0; }
 .caution.sym-flags { font-weight: 400; font-size: 12.5px; line-height: 1.4; color: var(--soft); padding-left: 12px; position: relative; }
 .row-sub .region { font-weight: 600; color: var(--text); opacity: 0.8; }
 .caution.sym-flags.strong { font-weight: 600; font-size: 14px; color: #8f1d17; }
+:root[data-theme="dark"] .caution.sym-flags.strong { color: #ff8a80; }
 .caution.sym-flags::before { content: ""; position: absolute; left: 0; top: 0.45em; width: 6px; height: 6px; border-radius: 50%; background: #b3261e; }
 .warn { margin-left: 6px; color: #b3261e; font-size: 13px; white-space: nowrap; }
 

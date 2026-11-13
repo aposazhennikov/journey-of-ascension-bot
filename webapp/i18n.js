@@ -210,6 +210,7 @@ const S = {
   how_title: ['Как выполнить', 'How to do it', 'Qanday bajariladi', 'Қалай орындалады'],
   focus_channels: ['Внимание в этой позе', 'Attention in this pose', 'Bu holatda diqqat', 'Бұл қалыпта зейін'],
   connects: ['Соединяет', 'Connects', "Bog'laydi", 'Байланыстырады'],
+  sym_show_anyway: ['Показать точки всё равно ({n})', 'Show the points anyway ({n})', "Baribir nuqtalarni ko'rsatish ({n})", 'Бәрібір нүктелерді көрсету ({n})'],
   region_hand: ['кисть', 'hand', "kaft", 'қол басы'],
   region_foot: ['стопа', 'foot', "oyoq panjasi", 'табан'],
   region_head: ['голова', 'head', "bosh", 'бас'],

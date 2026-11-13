@@ -833,6 +833,11 @@ function symptomResultsHtml() {
   const flag = `<p class="caution sym-flags${symptom.complaint?.red_flag ? ' strong' : ''}">${esc(t('sym_red_flags'))}</p>`;
   // the complaint's own warning ("одышка в покое, синие губы — сразу скорая"); written in Russian only
   const note = LANG === 'ru' && symptom.complaint?.note ? `<p class="caution sym-flags${symptom.complaint.red_flag ? ' strong' : ''}">${esc(symptom.complaint.note)}</p>` : '';
+  // an emergency complaint (chest pain) gets the warnings, not a list of points to press; the list stays one
+  // tap away for someone who has been to a doctor (TCM council round 3: "no points for a red flag")
+  if (symptom.complaint?.red_flag && !symptom.showFlagged) {
+    return `${flag}${note}${extra}<button class="more" data-act="symflagged">${esc(t('sym_show_anyway', { n: res.length }))}</button>`;
+  }
   return `${symptom.complaint?.red_flag ? flag + note + extra : note + extra + flag}
     <p class="text muted small-gap">${esc(t('sym_found', { n: res.length }))}</p><div class="rows">${rows}</div>
     ${res.length > shown.length ? `<button class="more" data-act="symmore">${esc(t('more_n', { n: res.length - shown.length }))}</button>` : ''}
@@ -1324,6 +1329,7 @@ function onSheetClick(e) {
     return;
   }
   if (ds.act === 'symmore') { symptom.more = true; refreshSymptomResults(); return; }
+  if (ds.act === 'symflagged') { symptom.showFlagged = true; refreshSymptomResults(); return; }
   if (ds.act === 'ruler') { showRuler(ds.from, ds.to, Number(ds.cun)); return; }
   if (ds.lang) {
     if (ds.lang !== LANG) {
@@ -1388,6 +1394,7 @@ els.body.addEventListener('input', (e) => {
   if (e.target.id !== 'symInput') return;
   symptom.q = e.target.value;
   symptom.more = false;
+  symptom.showFlagged = false;
   refreshSymptomResults();
 });
 
