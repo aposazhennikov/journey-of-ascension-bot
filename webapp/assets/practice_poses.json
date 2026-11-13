@@ -974,31 +974,31 @@
       "i18n": {
         "ru": {
           "name": "Руки за головой",
-          "short": "Пальцы сцеплены в замок на затылке, локти разведены в стороны.",
-          "how": "Сцепите пальцы в замок и положите ладони на затылок. Разведите локти в стороны, раскройте грудь. Голову руками не тяните, шея остаётся длинной, затылок только опирается на ладони.",
+          "short": "Ладони на затылке, кончики пальцев касаются, локти разведены в стороны.",
+          "how": "Положите ладони на затылок, пальцы направьте друг к другу, чтобы кончики средних пальцев встретились посередине. Можно сцепить пальцы в замок, меридианы откроются так же. Разведите локти в стороны, раскройте грудь. Голову руками не тяните, шея остаётся длинной, затылок только опирается на ладони.",
           "meridians_note": "С разведёнными локтями открываются подмышки и бока. Становится видна задняя сторона плеча с меридианами тонкой кишки (IG9, IG10) и трёх обогревателей (TR14), в подмышке лежит C1, первая точка меридиана сердца. По боку вытягивается меридиан желчного пузыря, и ладони лежат как раз над его точкой Фэн-чи под затылком (VB20).",
-          "practice": "Побудьте так 5–10 дыханий. На вдохе слегка отводите локти назад, на выдохе отпускайте. Если тянет шею, разожмите пальцы и опустите руки."
+          "practice": "Побудьте так 5–10 дыханий. На вдохе слегка отводите локти назад, на выдохе отпускайте. Если тянет шею, опустите руки."
         },
         "en": {
           "name": "Hands behind the head",
-          "short": "Fingers interlaced on the back of the head, elbows out to the sides.",
-          "how": "Interlace the fingers and place the palms on the back of the head. Spread the elbows to the sides and open the chest. Do not pull the head with the hands: the neck stays long, the back of the head only rests on the palms.",
+          "short": "Palms on the back of the head, fingertips touching, elbows out to the sides.",
+          "how": "Place the palms on the back of the head with the fingers pointing towards each other, so the tips of the middle fingers meet in the middle. You may interlace the fingers instead: the meridians open the same way. Spread the elbows to the sides and open the chest. Do not pull the head with the hands: the neck stays long, the back of the head only rests on the palms.",
           "meridians_note": "With the elbows wide the armpits and the sides open. The back of the upper arm shows the Small Intestine (IG9, IG10) and Triple Burner (TR14) Meridians, and C1, the first point of the Heart Meridian, lies in the armpit. The Gallbladder Meridian lengthens along the side, and the palms rest right over its point Fengchi below the occiput (VB20).",
-          "practice": "Stay for 5–10 breaths. On the inhale, draw the elbows slightly back; on the exhale, release. If the neck strains, unclasp the fingers and lower the arms."
+          "practice": "Stay for 5–10 breaths. On the inhale, draw the elbows slightly back; on the exhale, release. If the neck strains, lower the arms."
         },
         "uz": {
           "name": "Qo'llar bosh orqasida",
-          "short": "Barmoqlar ensada qulf qilib birlashtirilgan, tirsaklar yon tomonlarga yoyilgan.",
-          "how": "Barmoqlarni qulf qilib birlashtiring va kaftlarni ensaga qo'ying. Tirsaklarni yon tomonlarga yoying, ko'krakni oching. Boshni qo'llar bilan tortmang: bo'yin uzun qoladi, ensa faqat kaftlarga tayanadi.",
+          "short": "Kaftlar ensada, barmoq uchlari tegib turadi, tirsaklar yon tomonlarga yoyilgan.",
+          "how": "Kaftlarni ensaga qo'ying, barmoqlarni bir-biriga qarating, o'rta barmoqlarning uchlari o'rtada uchrashsin. Barmoqlarni qulf qilib birlashtirsangiz ham bo'ladi, meridianlar xuddi shunday ochiladi. Tirsaklarni yon tomonlarga yoying, ko'krakni oching. Boshni qo'llar bilan tortmang: bo'yin uzun qoladi, ensa faqat kaftlarga tayanadi.",
           "meridians_note": "Tirsaklar yoyilganda qo'ltiqlar va biqinlar ochiladi. Yelkaning orqa tomonida Ingichka ichak (IG9, IG10) va Uch isituvchi (TR14) meridianlari ko'rinadi, qo'ltiqda Yurak meridianining birinchi nuqtasi C1 joylashgan. Yon tomon bo'ylab O't pufagi meridiani cho'ziladi, kaftlar esa aynan uning ensa ostidagi Fengchi nuqtasi (VB20) ustida yotadi.",
-          "practice": "5–10 nafas shunday turing. Nafas olganda tirsaklarni biroz orqaga torting, nafas chiqarganda bo'shating. Bo'yin tortilsa, barmoqlarni ajrating va qo'llarni tushiring."
+          "practice": "5–10 nafas shunday turing. Nafas olganda tirsaklarni biroz orqaga torting, nafas chiqarganda bo'shating. Bo'yin tortilsa, qo'llarni tushiring."
         },
         "kz": {
           "name": "Қолдар бас артында",
-          "short": "Саусақтар желкеде құлыпқа айқастырылған, шынтақтар екі жаққа ашылған.",
-          "how": "Саусақтарды құлыпқа айқастырып, алақандарды желкеге қойыңыз. Шынтақтарды екі жаққа ашып, кеудені ашыңыз. Басты қолмен тартпаңыз: мойын ұзын қалады, желке тек алақанға сүйенеді.",
+          "short": "Алақандар желкеде, саусақ ұштары тиісіп тұр, шынтақтар екі жаққа ашылған.",
+          "how": "Алақандарды желкеге қойып, саусақтарды бір-біріне қаратыңыз, ортаңғы саусақтардың ұштары ортада түйіссін. Саусақтарды құлыпқа айқастыруға да болады, меридиандар дәл солай ашылады. Шынтақтарды екі жаққа ашып, кеудені ашыңыз. Басты қолмен тартпаңыз: мойын ұзын қалады, желке тек алақанға сүйенеді.",
           "meridians_note": "Шынтақтар ашылғанда қолтық пен бүйір ашылады. Иықтың артқы жағында Ащы ішек (IG9, IG10) және Үш жылытқыш (TR14) меридиандары көрінеді, қолтықта Жүрек меридианының бірінші нүктесі C1 жатыр. Бүйір бойымен Өт қабы меридианы созылады, ал алақандар дәл оның желке астындағы Фэн-чи нүктесінің (VB20) үстінде жатады.",
-          "practice": "5–10 тыныс осылай болыңыз. Дем алғанда шынтақтарды сәл артқа апарыңыз, дем шығарғанда босатыңыз. Мойын тартылса, саусақтарды ажыратып, қолды түсіріңіз."
+          "practice": "5–10 тыныс осылай болыңыз. Дем алғанда шынтақтарды сәл артқа апарыңыз, дем шығарғанда босатыңыз. Мойын тартылса, қолды түсіріңіз."
         }
       },
       "emphasized_meridians": [

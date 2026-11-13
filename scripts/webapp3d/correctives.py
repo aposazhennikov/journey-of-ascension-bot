@@ -273,7 +273,7 @@ def _tri_normals(X, T):
     return n / np.maximum(np.linalg.norm(n, axis=1, keepdims=True), 1e-12)
 
 
-def unfold(b, mush, P, region, rings=3, rounds=12, iters=10):
+def unfold(b, mush, P, region, rings=3, rounds=12, iters=10, keep=None):
     """Smooth the skin out where it has turned over. A triangle is folded when its normal points against
     the normal of a heavily smoothed copy of the mesh there; its vertices plus `rings` rings get a plain
     Laplacian relaxation (weight 1, fading out over 3 more rings), repeated until nothing in `region` is
@@ -320,6 +320,8 @@ def unfold(b, mush, P, region, rings=3, rounds=12, iters=10):
             nx = grow(m)
             w[nx & ~m] = 1.0 - (k + 1) / 4.0
             m = nx
+        if keep is not None:
+            w[keep] = 0.0          # vertices the relaxation must not move (it spreads 6 rings past a fold)
         X = smooth(X, iters, w)
     # what is left are thin slivers where the fold was, seen only in a close-up of the armpit; sliding the
     # vertices apart along the surface (15 tangential passes) hardly changed them and raised the stretch
@@ -338,6 +340,7 @@ def arm_corrective(rig, b, adj, poses, variant, hand_id, mush):
     # and a pinched notch at the back of the armpit, council 2026-11-12); both give way half each
     for s in SIDES:
         b.sets.setdefault(f"upperarm{s}", b.bones([f"upperarm01.{s}", f"upperarm02.{s}"]))
+        b.sets.setdefault(f"forearm{s}", b.bones([f"lowerarm01.{s}", f"lowerarm02.{s}"]))
         if f"chest{s}" not in b.sets:
             sh = b.P(f"upperarm01.{s}")
             side = (b.rest[:, 0] * (1 if s == "L" else -1)) > 0.02
@@ -345,14 +348,31 @@ def arm_corrective(rig, b, adj, poses, variant, hand_id, mush):
     pairs = []
     for s in SIDES:
         pairs += [(f"upperarm{s}", f"chest{s}", 0.5), (f"chest{s}", f"upperarm{s}", 0.5)]
+        # the deeply bent elbow of the hands behind the head: forearm and upper arm share the fold, as
+        # calf and thigh do at the knee (torn light triangles in the elbow crease, council 2026-11-12)
+        pairs += [(f"forearm{s}", f"upperarm{s}", 0.5), (f"upperarm{s}", f"forearm{s}", 0.5)]
     P = P + contact_deltas(b, P, adj, pairs)
     # the fold of the armpit itself turns over (skin of one part folding onto itself, so no contact pair
     # sees it): plain Laplacian relaxation, no detail restored, within 8 cm of each armpit apex
     P = relax_armpits(b, adj, P)
+    # turned-over skin around the shoulders, and at the elbow and the wrist too (the hands behind the head
+    # bend both deeply)
     near = np.zeros(len(P), bool)
     for s in SIDES:
         near |= np.linalg.norm(b.rest - b.P(f"upperarm01.{s}"), axis=1) < 0.20
-    P = unfold(b, mush, P, near & ~b.is_hand)
+        near |= np.linalg.norm(b.rest - b.P(f"lowerarm01.{s}"), axis=1) < 0.09
+        near |= np.linalg.norm(b.rest - b.P(f"wrist.{s}"), axis=1) < 0.06
+    # the forearm shaft past the first fifth stays as skinned: the relaxation spreads 6 rings from the
+    # elbow-crease folds down the forearm and, Laplacian, shrank it to 0.71-0.75 of its cross-section 7 cm
+    # from the elbow (check forearm_area; skinning alone 0.98). Volume-keeping Taubin passes left 32-36
+    # triangles turned over, and giving the arm its radius back between unfoldings thinned the male one more
+    shaft = np.zeros(len(P), bool)
+    for s in SIDES:
+        e0, w0 = b.P(f"lowerarm01.{s}"), b.P(f"wrist.{s}")
+        fi = b.bones([f"lowerarm01.{s}", f"lowerarm02.{s}"])
+        t = (b.rest[fi] - e0) @ (w0 - e0) / ((w0 - e0) @ (w0 - e0))
+        shaft[fi[t > 0.2]] = True
+    P = unfold(b, mush, P, near & ~b.is_hand, keep=shaft)
     d = P - pos
     idx = np.flatnonzero(np.linalg.norm(d, axis=1) > 3e-4)
     return {"i": idx.tolist(), "d": [round(float(v), 4) for v in d[idx].ravel()]}, float(np.linalg.norm(d, axis=1).max())

@@ -1420,7 +1420,9 @@ function frameHands() {
 }
 
 // an arm position is there to open the armpit and the inner arm: from the front the raised arm hides
-// the armpit (UX council 2026-11-12), so the camera looks at the upper body from 35 deg to one side
+// the armpit (UX council 2026-11-12), so the camera looks at the upper body from 35 deg to one side;
+// hands behind the head open the back of the upper arm (IG9, IG10, TR14), seen from behind and aside
+const ARM_VIEW_AZ = { arms_up: 35, behind_head: 140 };
 function frameArms() {
   const box = new THREE.Box3();
   for (const code of armItem()?.emphasized_points || []) for (const side of [1, -1]) {
@@ -1429,7 +1431,7 @@ function frameArms() {
   }
   if (box.isEmpty()) { scene.setView(facing); return; }
   box.expandByScalar(0.12);
-  const polar = THREE.MathUtils.degToRad(78), az = THREE.MathUtils.degToRad(35);
+  const polar = THREE.MathUtils.degToRad(78), az = THREE.MathUtils.degToRad(ARM_VIEW_AZ[state.mudra] ?? 35);
   const dir = new THREE.Vector3(Math.sin(polar) * Math.sin(az), Math.cos(polar), Math.sin(polar) * Math.cos(az));
   scene.frameBox(box, dir, { ms: 600, minDist: 0.5 });
 }

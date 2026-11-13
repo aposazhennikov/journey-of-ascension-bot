@@ -680,7 +680,8 @@ export class MeridianScene {
           if (e.code === vessel.coupled && vessel.coupledColor) ringC = new THREE.Color(vessel.coupledColor);
         }
       } else if (visible) {
-        if (visible.has(e.code)) state = 2;
+        // a pose's own points are few and seen from afar: larger markers (10 px read as 8 px specks)
+        if (visible.has(e.code)) { state = 2; if (level === 'asana' || level === 'mudra') sz += 3; }
       } else if (sel.channel && e.channel === sel.channel) {
         state = 2;
       }
@@ -730,7 +731,9 @@ export class MeridianScene {
     }
     if (basePolys.length) {
       const geom = segmentsGeometry(basePolys, { colors: (pl) => new THREE.Color(this.colorOf(pl.channelId)) });
-      const width = sel.level === 'asana' || sel.level === 'mudra' ? 2.5 : 3.5;
+      // poses: the whole figure is in view, so the lines are thin on screen; 2.5 px yellow and green lines
+      // were lost on the skin (UX council 2026-11-12), the hand close-ups of the mudras need less
+      const width = sel.level === 'mudra' ? 3.0 : 3.5;
       this.selBase = new LineSegments2(geom, new CasedLineMaterial({ vertexColors: true, linewidth: width }));
       this.selBase.material.uniforms.uLift.value = 0.005;
       this.selBase.material.uniforms.uCasing.value = this.theme === 'light' ? 0.55 : 0;
