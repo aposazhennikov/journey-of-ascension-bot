@@ -273,6 +273,28 @@ def setup_webapp_routes(
         response.enable_compression()
         return response
 
+    text_types = {".js": "application/javascript", ".css": "text/css", ".glb": "model/gltf-binary"}
+    webapp_root = WEBAPP_DIR.resolve()
+
+    async def compressed_static_handler(request: web.Request) -> web.StreamResponse:
+        # the static route sends files as they are: three.js alone went out as 690 KB where gzip makes it
+        # ~170 KB, about 0.8 MB more on every cold start over mobile internet. Same files, compressed, with an
+        # ETag so the no-cache revalidation of the modules stays a 304
+        path = (WEBAPP_DIR / request.match_info["tail"]).resolve()
+        if webapp_root not in path.parents or path.suffix not in text_types or not path.is_file():
+            raise web.HTTPNotFound()
+        st = path.stat()
+        etag = f'"{st.st_mtime_ns:x}-{st.st_size:x}"'
+        if request.headers.get("If-None-Match") == etag:
+            return web.Response(status=304, headers={"ETag": etag})
+        response = web.Response(body=path.read_bytes(), content_type=text_types[path.suffix], headers={"ETag": etag})
+        # gzip when offered (aiohttp's default picks raw deflate, which some proxies handle badly)
+        if "gzip" in request.headers.get("Accept-Encoding", ""):
+            response.enable_compression(web.ContentCoding.gzip)
+        else:
+            response.enable_compression()
+        return response
+
     async def cache_headers(request: web.Request, response: web.StreamResponse) -> None:
         # Modules are imported without version suffixes, so they must be revalidated;
         # the body models are large and versioned through ?v=, so they may be cached.
@@ -290,4 +312,5 @@ def setup_webapp_routes(
     app.router.add_get("/webapp/api/meridians", meridians_handler)
     app.router.add_post("/webapp/api/progress", progress_handler)
     app.router.add_get("/webapp/assets/{name}.json", json_asset_handler)
+    app.router.add_get(r"/webapp/{tail:.+\.(?:js|css|glb)}", compressed_static_handler)
     app.router.add_static("/webapp/", WEBAPP_DIR, show_index=False)

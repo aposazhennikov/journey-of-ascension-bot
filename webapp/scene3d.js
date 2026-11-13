@@ -18,8 +18,10 @@ const BODY_COLORS = {
   // warm skin with warm shadows, a cool fill from the sky on the shadow side, a light rim along the
   // silhouette and a warm band where light turns to shadow (the artist of the council: the grey-beige
   // clay with flat front light read as a plastic dummy)
-  light: { base: '#e2c9b3', shadow: '#7f5b49', rim: '#fff6ec', fill: '#a9bccd', sss: '#d58e74' },
-  dark: { base: '#574c45', shadow: '#2b221d', rim: '#c9d6e4', fill: '#5d7186', sss: '#7a4a38' },
+  light: { base: '#dcb89d', shadow: '#7f5b49', rim: '#fff6ec', fill: '#a9bccd', sss: '#d58e74' },
+  // dark: lighter skin and a dimmer rim (round 3: with the narrower light wrap the figure went near black
+  // on the dark theme and the rim drew a white line along the arms)
+  dark: { base: '#75655a', shadow: '#33291f', rim: '#a3b2c2', fill: '#5d7186', sss: '#8a5644' },
 };
 
 export const reducedMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
@@ -206,11 +208,15 @@ function makeClayMatcap({ base, shadow, rim, fill, sss }, size = 256) {
   const img = g.createImageData(size, size);
   // key light from the upper left at ~45 deg
   const L = new THREE.Vector3(-0.5, 0.6, 0.62).normalize();
-  const b = new THREE.Color(base);
-  const s = new THREE.Color(shadow);
-  const r = new THREE.Color(rim);
-  const f = new THREE.Color(fill || shadow);
-  const t = new THREE.Color(sss || base);
+  // the canvas holds sRGB bytes: THREE.Color keeps linear values, so read them back as sRGB (writing the
+  // linear ones made every tone darker and more saturated - the dark skin #75655a came out as (33,23,18),
+  // and the light skin read as evenly orange to the artist, round 3)
+  const srgb = (hex) => { const o = { r: 0, g: 0, b: 0 }; new THREE.Color(hex).getRGB(o, THREE.SRGBColorSpace); return o; };
+  const b = srgb(base);
+  const s = srgb(shadow);
+  const r = srgb(rim);
+  const f = srgb(fill || shadow);
+  const t = srgb(sss || base);
   const ch = [[s.r, b.r, r.r, f.r, t.r], [s.g, b.g, r.g, f.g, t.g], [s.b, b.b, r.b, f.b, t.b]];
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
@@ -696,7 +702,9 @@ export class MeridianScene {
       const c = new THREE.Color(this.colorOf(id));
       // home: only the active channel is bright, the rest recede (14 bright lines merged into a tangle);
       // the muted lines keep a darker version of their hue instead of turning white
-      let mix = level === 'home' ? 0.45 : 0.75;
+      // on the dark body the muted lines need more muting to recede (round 3: they glowed like neon and the
+      // channel active by the clock did not stand out)
+      let mix = level === 'home' ? (this.theme === 'dark' ? 0.66 : 0.45) : 0.75;
       if (id === sel.pair) mix = 0.5;
       if (full.has(id) || highlight.has(id)) mix = 0;
       c.lerp(tone, mix);
