@@ -89,7 +89,9 @@ const fullName = (id) => {
   const ch = state.channelById.get(id);
   return ch?.meta?.name || ch?.text?.name || shortName(id);
 };
-const pointName = (code) => state.data.pointInfo.get(code)?.name || '';
+// English and Uzbek show the pinyin (the API gave a Palladius latinisation: GI11 "Cyuy-Chi" for Quchi,
+// TCM council); Russian and Kazakh keep the Cyrillic names
+const pointName = (code) => ((LANG === 'en' || LANG === 'uz') && state.data.pointNames?.[code]?.pinyin) || state.data.pointInfo.get(code)?.name || '';
 // channel groups that can be highlighted all at once (chips at the start of the row)
 const YIN = new Set(['lung', 'spleen', 'heart', 'kidney', 'pericardium', 'liver']);
 const GROUPS = {
@@ -136,7 +138,9 @@ function sheetVisible(s = state.sheet) {
   return h - 64;
 }
 function viewportInsets() {
-  return { top: 58, bottom: Math.min(sheetVisible(), Math.round(window.innerHeight * 0.5)) };
+  // right: the column of round buttons (44 px + 12 px margin) covered the knees and points (council)
+  const right = state.sheet === 'full' || window.innerWidth > 700 ? 0 : 56;
+  return { top: 58, bottom: Math.min(sheetVisible(), Math.round(window.innerHeight * 0.5)), right };
 }
 
 function setSheet(s, { silent = false } = {}) {
@@ -430,6 +434,7 @@ function toggleFlow() {
 
 function setLevel(level, { fly = true, instant = false } = {}) {
   state.level = level;
+  wholeShown = false;
   state.expanded.clear();
   hideNext();
   scene.clearRuler();
@@ -438,6 +443,9 @@ function setLevel(level, { fly = true, instant = false } = {}) {
   applySelection();
   renderChips();
   renderSheet();
+  // a new channel or point starts at its top (a point opened from the end of the point list kept the
+  // list's scroll and showed the bottom of its card)
+  els.body.scrollTop = 0;
   updateBackButton();
   if (EDIT) renderEditbar();
   if (!fly) { setTimeout(startFlow, 150); return; }
@@ -448,13 +456,20 @@ function setLevel(level, { fly = true, instant = false } = {}) {
   }
   if (level.view === 'point') {
     level.side = level.side || scene.sideFacingCamera(level.code);
-    const owner = state.data.pointOwner.get(level.code);
-    const small = /^(P1[01]|GI[1-5]|C[789]|IG[1-5]|MC[789]|TR[1-4]|RP[1-5]|E4[1-5]|V6[0-7]|R[1-6]|F[1-4]|VB4[0-4])$/.test(level.code);
-    scene.focusPoint(level.code, level.side, { onEnd, instant, distance: small ? 0.4 : 0.5 });
-    void owner;
+    scene.focusPoint(level.code, level.side, { onEnd, instant, distance: pointDistance(level.code) });
     return;
   }
   frameChannel(state.channelById.get(level.id), onEnd, instant);
+}
+
+// camera distance for a point: hands and feet close, the head farther (a head point filled the screen
+// and it was unclear where on the body it was, council)
+function pointDistance(code) {
+  if (/^(P1[01]|GI[1-5]|C[789]|IG[1-5]|MC[789]|TR[1-4]|RP[1-5]|E4[1-5]|V6[0-7]|R[1-6]|F[1-4]|VB4[0-4])$/.test(code)) return 0.4;
+  const pp = scene.pointPosition(code, 1);
+  const { center, size } = scene.bodyCenter();
+  if (pp && pp.p.y > center.y + size.y * 0.33) return 0.7;
+  return 0.5;
 }
 
 function frameChannel(ch, onEnd, instant = false) {
@@ -497,8 +512,13 @@ function openPoint(code, side, opts) {
   const owner = state.data.pointOwner.get(code);
   if (!owner) { toast(t('point_not_found', { code })); return; }
   if (state.overlay === 'poses') closePoses({ refocus: false });
+  // from the menu (search results, the practice path): leave the menu and show the point on the body (the
+  // menu stayed on top and the camera flew behind it, council round 2)
+  const fromMenu = state.overlay === 'list';
+  if (fromMenu) state.overlay = null;
   const wasOther = state.level.view !== 'home' && state.level.id !== owner;
   setLevel({ view: 'point', id: owner, code, side, multi: multiMode() }, opts);
+  if (fromMenu || state.sheet === 'full') setSheet('half');
   if (wasOther) haptic('medium'); else haptic();
 }
 
@@ -519,8 +539,9 @@ function stepPoint(dir) {
 
 function back() {
   if (!els.pick.hidden) { els.pick.hidden = true; return; }
+  // the menu closes in one step (the full -> half step came first and left the menu open, council)
+  if (state.overlay === 'list') { state.overlay = null; setSheet(state.level.view === 'home' ? 'peek' : 'half'); renderSheet(); return; }
   if (state.sheet === 'full') { setSheet('half'); return; }
-  if (state.overlay === 'list') { state.overlay = null; setSheet('peek'); renderSheet(); return; }
   if (state.overlay === 'poses') { closePoses({ refocus: true }); return; }
   const lv = state.level;
   if (lv.view === 'point') { setLevel(lv.multi ? { view: 'group', id: 'custom' } : { view: 'channel', id: lv.id }); return; }
@@ -637,13 +658,36 @@ function pathSection() {
 
 const SYM_GROUPS = ['sleep_mood', 'head_face', 'eyes', 'ent', 'breathing', 'chest_heart', 'digestion', 'back', 'arms', 'legs', 'urogenital', 'cycle', 'cold', 'fatigue', 'skin', 'swelling'];
 const symptom = { q: '', g: null, more: false };
+// how people type a complaint vs how the indications are written: "болит плечо" found nothing because the
+// texts say "боль в плече". Small words are dropped, verb and case forms map to the stem the texts use.
+const SYM_STOP = new Set(['в', 'во', 'на', 'и', 'у', 'с', 'со', 'при', 'от', 'по', 'к', 'мне', 'меня', 'очень', 'сильно', 'часто',
+  'не', 'плохо', 'постоянно', 'бывает', 'есть',
+  'the', 'of', 'in', 'my', 'a', 'an', 'and', 'with', 'i', 'have', 'va', 'bilan', 'men', 'мен', 'және']);
+const SYM_SYN = [
+  // "боль", "боли", "болезнь", not "большой палец"
+  [/^(болит|болят|болело|болела|болели|болеть|больно|боли|болью|болей|боль)$/, /бол(ь(?!ш)|и|е[зй]|ям|ях)/],
+  // the shoulder and the top of the shoulder, not the forearm ("предплечье")
+  [/^голов/, 'голов'], [/^плеч/, /(^|[^а-я])(над)?плеч/], [/^спин/, 'спин'], [/^поясниц/, 'поясниц'], [/^ше[яиюе]$/, /(^|[^а-я])ше[йияюе]/],
+  [/^живот/, 'живот'], [/^желуд/, 'желуд'], [/^горл/, 'горл'], [/^кашл|^кашел/, 'каш'], [/^насморк/, 'насморк'],
+  [/^тошн/, 'тошн'], [/^запор/, 'запор'], [/^понос|^диаре/, 'диаре'], [/^бессон|^сплю$|^спится$|^уснуть$|^засып/, 'бессон'],
+  [/^тревог|^тревожн/, 'трев'], [/^давлен|^давит/, /(^|[^а-я])давлен/], [/^устал|^усталост/, 'устал'],
+  [/^отек/, /(^|[^а-я])отек/], [/^ауру|^ауыр/, /(^|[^а-яәіңғүұқөһ])ауы?р/],
+  [/^колен/, 'колен'], [/^зуб/, 'зуб'], [/^глаз/, 'глаз'], [/^ух[оаеу]$|^уши|^ушей/, /(^|[^а-я])(ух[оаеу]|уш[иаеу])/],
+  [/^aches?$|^aching$|^hurts?$|^painful$|^pains?$|^sore$/, 'pain'], [/^headaches?$/, 'headache'],
+];
+function symStem(w) {
+  for (const [re, s] of SYM_SYN) if (re.test(w)) return s;
+  // Kazakh and Uzbek suffixes are long: compare the first 4-5 letters
+  if (LANG === 'kz' || LANG === 'uz') return w.length > 5 ? w.slice(0, 5) : w;
+  // crude stem so "бессонница" also finds "бессонницы", "головная боль" finds "головные боли"
+  return w.length > 5 ? w.slice(0, -2) : w.length > 3 ? w.slice(0, -1) : w;
+}
 
 function symptomMatches() {
   const d = state.data;
-  const raw = symptom.q.trim().toLowerCase();
-  // crude stem so "бессонница" also finds "бессонницы", "головная боль" finds "головные боли"
-  const stem = (w) => (w.length > 5 ? w.slice(0, -2) : w.length > 3 ? w.slice(0, -1) : w);
-  const words = raw.split(/\s+/).filter(Boolean).map(stem);
+  // typographic apostrophes as typed on phones (’ ‘ ʻ ʼ `) count as the ASCII one the Uzbek texts use
+  const raw = symptom.q.trim().toLowerCase().replace(/ё/g, 'е').replace(/[’‘ʻʼ`´]/g, "'").replace(/[.,;:!?()«»"]/g, ' ');
+  const words = raw.split(/\s+/).filter((w) => w && !SYM_STOP.has(w)).map(symStem);
   if (!words.length && !symptom.g) return [];
   const out = [];
   for (const code of d.pointOwner.keys()) {
@@ -653,8 +697,8 @@ function symptomMatches() {
     for (const grp of ind) {
       if (symptom.g && grp.g !== symptom.g) continue;
       for (const item of grp.items || []) {
-        const low = item.toLowerCase();
-        if (words.every((w) => low.includes(w))) hits.push(item);
+        const low = item.toLowerCase().replace(/ё/g, 'е').replace(/[’‘ʻʼ`´]/g, "'");
+        if (words.every((w) => (typeof w === 'string' ? low.includes(w) : w.test(low)))) hits.push(item);
       }
     }
     if (hits.length) out.push({ code, hits });
@@ -670,19 +714,30 @@ function symptomResultsHtml() {
   const shown = symptom.more ? res : res.slice(0, 12);
   const rows = shown.map(({ code, hits }) => {
     const owner = state.data.pointOwner.get(code);
-    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(code)}</span><span class="name">${esc(pointName(code))}<span class="row-sub">${esc(hits.slice(0, 3).join(', '))}</span></span><span class="dot" style="background:${color(owner)}"></span></button>`;
+    // a point with a caution (pregnancy, an artery, the eye...) is marked here too, not only in its card
+    const warn = (state.data.extras[code]?.caution || []).length ? `<span class="warn" title="${esc(t('sym_warn_title'))}">⚠</span>` : '';
+    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(dispCode(code))}</span><span class="name"><span>${esc(pointName(code))}${warn}</span><span class="row-sub">${esc(hits.slice(0, 3).join(', '))}</span></span><span class="dot" style="background:${color(owner)}"></span></button>`;
   }).join('');
-  return `<p class="text muted small-gap">${esc(t('sym_found', { n: res.length }))}</p><div class="rows">${rows}</div>
+  // a query that may mean pregnancy (no periods) or blood / retained urine gets its own line: the search
+  // offered exactly the points not used in pregnancy for "нет месячных" (TCM council round 2)
+  const q = symptom.q.toLowerCase();
+  const preg = symptom.g === 'cycle' || /месячн|менстру|беремен|задерж|period|menstru|pregnan|hayz|homilador|етеккір|жүкті/.test(q);
+  const blood = /кров|задержк\w* моч|не могу помочит|blood|bleed|retention|qon|siydik tutil|қан|зәр ұста/.test(q);
+  const extra = (preg ? `<p class="caution sym-flags">${esc(t('sym_pregnancy'))}</p>` : '') + (blood ? `<p class="caution sym-flags">${esc(t('sym_blood'))}</p>` : '');
+  return `${extra}<p class="caution sym-flags">${esc(t('sym_red_flags'))}</p>
+    <p class="text muted small-gap">${esc(t('sym_found', { n: res.length }))}</p><div class="rows">${rows}</div>
     ${res.length > shown.length ? `<button class="more" data-act="symmore">${esc(t('more_n', { n: res.length - shown.length }))}</button>` : ''}
     <p class="note">${esc(t('ind_note'))}</p>`;
 }
 
 function symptomSection() {
-  const pills = SYM_GROUPS.map((g) => `<button role="tab" data-symg="${g}" aria-selected="${symptom.g === g}">${esc(t(`ind_${g}`))}</button>`).join('');
-  return `<div class="section sym"><h3>${esc(t('sym_title'))}</h3>
-    <input class="sym-input" id="symInput" type="search" enterkeyhint="search" autocomplete="off" placeholder="${esc(t('sym_placeholder'))}" value="${esc(symptom.q)}">
-    <div class="scenery-opts sym-groups" role="tablist">${pills}</div>
-    <div id="symResults">${symptomResultsHtml()}</div></div>`;
+  const pills = SYM_GROUPS.map((g) => `<button data-symg="${g}" aria-pressed="${symptom.g === g}" aria-selected="${symptom.g === g}">${esc(t(`ind_${g}`))}</button>`).join('');
+  // the results right under the field: below the 16 topic buttons they were off screen while typing with
+  // the keyboard open (council round 2)
+  return `<div class="section sym"><h3 id="symTitle">${esc(t('sym_title'))}</h3>
+    <input class="sym-input" id="symInput" type="search" enterkeyhint="search" autocomplete="off" aria-labelledby="symTitle" placeholder="${esc(t('sym_placeholder'))}" value="${esc(symptom.q)}">
+    <div id="symResults">${symptomResultsHtml()}</div>
+    <div class="scenery-opts sym-groups">${pills}</div></div>`;
 }
 
 function refreshSymptomResults() {
@@ -690,11 +745,37 @@ function refreshSymptomResults() {
   if (box) box.innerHTML = symptomResultsHtml();
 }
 
+// the WHO code beside the European one (IG19 · SI19): readers of English and international books know
+// only the WHO codes (council)
+function whoCode(code) {
+  const who = state.data.pointInfo.get(code)?.who;
+  return who ? String(who).replace(/\s+/g, '') : '';
+}
+// the code shown in lists, labels and buttons: WHO in English (readers know only LI11, not GI11),
+// the French/Russian code otherwise; both appear together only in the point card header
+function dispCode(code) {
+  return (LANG === 'en' && whoCode(code)) || code;
+}
+// in English the WHO code comes first (LI11 · GI11): English books use only it
+function codePair(code) {
+  const w = whoCode(code);
+  if (!w || w === code) return `<span class="code">${esc(code)}</span>`;
+  const [a, b] = LANG === 'en' ? [w, code] : [code, w];
+  return `<span class="code">${esc(a)}</span> <span class="code who">· ${esc(b)}</span>`;
+}
+
 function renderPeek() {
   if (!state.data) return;
   const lv = state.level;
   const d = state.data;
   if (state.overlay === 'poses') { renderPosesPeek(); return; }
+  // the menu opened over a channel kept that channel's card on top, so it read as its profile (council)
+  if (state.overlay === 'list') {
+    els.sheet.style.removeProperty('--chan');
+    els.peek.innerHTML = `<div class="peek-row"><div class="peek-main"><div class="peek-title">${esc(t('menu_title'))}</div></div>
+      <button class="round" data-act="closemenu" aria-label="${esc(t('close'))}">✕</button></div>`;
+    return;
+  }
   if (lv.view === 'home' && pathChannel()) {
     // opened from the bot mid-practice: the first thing shown is where the person stopped
     const ch = pathChannel();
@@ -714,7 +795,7 @@ function renderPeek() {
     els.peek.innerHTML = now
       ? `<button class="peek-row peek-button" data-chan="${now.id}"><span class="dot big" style="background:${color(now.id)}"></span>
           <span class="peek-main"><span class="peek-title">${esc(t('now_active'))} · ${esc(shortName(now.id))}</span>
-          <span class="peek-sub">${esc(t('until', { time: `${hh(now.meta.active_time, 1)}:00` }))}</span></span><span class="chev">›</span></button>`
+          <span class="peek-sub">${esc(t('by_clock'))} · ${esc(t('until', { time: `${hh(now.meta.active_time, 1)}:00` }))}</span></span><span class="chev">›</span></button>`
       : `<div class="peek-row"><span class="peek-title">${esc(t('pick_channel'))}</span></div>`;
     return;
   }
@@ -737,8 +818,8 @@ function renderPeek() {
     els.peek.innerHTML = `<div class="peek-row">
       <button class="round" data-act="prev" ${hasPrev ? '' : 'disabled'} aria-label="${esc(t('aria_prev'))}">‹</button>
       <div class="peek-main">
-        <div class="peek-title"><span class="code">${esc(lv.code)}</span> <span class="ellipsis">${esc(pointName(lv.code))}</span></div>
-        <div class="peek-sub"><button class="link" data-chan="${ch.id}">${esc(fullName(ch.id))}</button> · ${esc(t('point_of', { i: idx + 1, n: ch.points.length }))} · ${esc(ch.midline ? t('midline') : t('bilateral'))}</div>
+        <div class="peek-title">${codePair(lv.code)} <span class="ellipsis">${esc(pointName(lv.code))}</span></div>
+        <div class="peek-sub"><button class="link" data-chan="${ch.id}">${esc(shortName(ch.id))}</button> · ${idx + 1}/${ch.points.length}</div>
       </div>
       <button class="round" data-act="next" ${hasNext ? '' : 'disabled'} aria-label="${esc(t('aria_next'))}">›</button></div>`;
     return;
@@ -786,12 +867,23 @@ function homeBody() {
   const vesRows = d.vessels.map((v) => `<button class="row-btn tall" data-chan="${v.id}"><span class="vessel-icon" style="color:${color(v.id)}">∴</span>
     <span class="name"><span class="row-title">${esc(v.text.name || shortName(v.id))}</span><span class="row-sub">${esc(t('opening_point', { code: v.confluent }))}</span></span></button>`).join('');
   const about = state.expanded.has('about');
-  return `<div class="section prefs">${langRowHtml()}${sceneryRowHtml()}</div>
-    ${pathSection()}
+  // first run: what this is and three ways in (a new person saw a figure, chips and four unlabelled buttons
+  // and did not know where to start, council)
+  const intro = state.introSession && state.overlay !== 'list' ? `<div class="section intro"><p class="text lead">${esc(t('intro_text'))}</p><div class="rows">
+    <button class="row-btn" data-act="introsearch"><span class="name"><span class="row-title">${esc(t('intro_search'))}</span></span><span class="chev">›</span></button>
+    <button class="row-btn" data-act="introposes"><span class="name"><span class="row-title">${esc(t('intro_poses'))}</span></span><span class="chev">›</span></button>
+  </div></div>` : '';
+  // search and the practice path first, the settings last (the language and photo rows stood on top, the
+  // search in the middle, council)
+  return `${intro}${pathSection()}
     ${symptomSection()}
+    ${state.overlay === 'list' && !state.expanded.has('allch') ? `<div class="section"><button class="row-btn ind-head" data-toggle="allch" aria-expanded="false"><span class="name"><span class="row-title">${esc(t('all_channels_row'))}</span><span class="row-sub">${esc(t('all_channels_sub'))}</span></span><span class="chev">›</span></button></div>` : `
     <div class="section"><h3>${esc(t('sec_main'))}</h3><div class="rows">${regRows}</div></div>
     <div class="section"><h3>${esc(t('sec_mid'))}</h3><div class="rows">${midRows}</div></div>
-    <div class="section"><h3>${esc(t('sec_vessels'))}</h3><div class="rows">${vesRows}</div></div>
+    <div class="section"><h3>${esc(t('sec_vessels'))}</h3><div class="rows">${vesRows}</div></div>`}
+    <div class="section prefs" id="prefs"><h3>${esc(t('settings_title'))}</h3>${langRowHtml()}${sceneryRowHtml()}
+      <div class="toggle-row"><span id="lbl-luo">${esc(t('luo_toggle'))}</span><button class="switch" role="switch" data-act="luo" aria-checked="${state.luoOn}" aria-labelledby="lbl-luo"></button></div>
+      <div class="toggle-row"><span id="lbl-slow">${esc(t('slow_toggle'))}</span><button class="switch" role="switch" data-act="slow" aria-checked="${state.flowSlow}" aria-labelledby="lbl-slow"></button></div></div>
     <p class="note">${esc(t('disclaimer'))}</p>
     <button class="row-btn" data-toggle="about"><span class="name">${esc(t('about_title'))}</span><span class="chev">${about ? '⌄' : '›'}</span></button>
     ${about ? `<p class="text">${esc(t('about_text'))}</p>` : ''}`;
@@ -881,7 +973,7 @@ function channelBody(ch) {
     const ref = state.data.references.get(ch.id);
     if (ref) neighbours = `<button class="row-btn" data-goto="${ref.confluent_point}"><span class="name">${esc(t('outside_clock'))} · ${esc(t('opening_point', { code: ref.confluent_point }))}</span><span class="chev">›</span></button>`;
   }
-  const hours = ch.midline ? '' : `<div class="hours-row"><span>${esc(t('hours', { a: `${hh(m.active_time, 0)}–${hh(m.active_time, 1)}`, p: `${hh(m.passive_time, 0)}–${hh(m.passive_time, 1)}` }))}</span><button class="info" data-toggle="hours" aria-label="i">i</button></div>${state.expanded.has('hours') ? `<p class="tag-explain">${esc(t('hint_hours'))}</p>` : ''}`;
+  const hours = ch.midline ? '' : `<div class="hours-row"><span>${esc(t('hours', { a: `${hh(m.active_time, 0)}–${hh(m.active_time, 1)}`, p: `${hh(m.passive_time, 0)}–${hh(m.passive_time, 1)}` }))}</span><button class="info" data-toggle="hours" aria-label="${esc(t('aria_hours'))}">i</button></div>${state.expanded.has('hours') ? `<p class="tag-explain">${esc(t('hint_hours'))}</p>` : ''}`;
   const rows = ch.points.filter((code) => !state.special || isSpecial(ch, code)).map((code) => pointRow(ch, code)).join('');
   let path = '';
   if (PROGRESS.done.has(ch.id)) path = `<p class="path-line done">✓ ${esc(t('path_done_channel'))}</p>`;
@@ -890,22 +982,29 @@ function channelBody(ch) {
     path = `<button class="row-btn path-line" ${cur ? `data-goto="${cur}"` : ''}><span class="name"><span class="row-title">${esc(t('path_title'))}</span>
       <span class="row-sub">${esc(cur ? t('path_point', { i: PROGRESS.p + 1, n: ch.points.length, code: cur }) : t('path_intro'))}</span></span>${cur ? `<span class="chev">${esc(t('path_continue'))} ›</span>` : ''}</button>`;
   }
+  // practice first, theory folded (council: the profile opened with seven correspondences and hid the
+  // practice under them); where to begin is a plain button, the switches live in the menu settings
+  const pr = state.data.profile(ch.id);
+  const start = pr?.start && state.data.pointOwner.has(pr.start)
+    ? `<div class="rows"><button class="row-btn start-btn" data-goto="${pr.start}"><span class="name"><span class="row-title">${esc(t('start_with', { name: pointName(pr.start), code: dispCode(pr.start) }))}${(state.data.extras[pr.start]?.caution || []).length ? `<span class="warn" title="${esc(t('sym_warn_title'))}">⚠</span>` : ''}</span>${pr.start_why ? `<span class="row-sub">${esc(pr.start_why)}</span>` : ''}</span><span class="chev">›</span></button></div>` : '';
+  const tradOpen = state.expanded.has('trad');
+  const trad = (pr?.organ || m.description) ? `<div class="section"><button class="row-btn ind-head" data-toggle="trad" aria-expanded="${tradOpen}"><span class="name"><span class="row-title">${esc(t('profile_title'))}</span><span class="row-sub">${esc(t('trad_sub'))}</span></span><span class="chev">${tradOpen ? '⌄' : '›'}</span></button>
+    ${tradOpen ? `${profileSection(ch.id, { bare: true })}${m.description ? `<h3>${esc(t('description_title'))}</h3><p class="text">${richText(m.description)}</p>` : ''}${m.labels?.level ? `<p class="text muted">${esc(t('level_label'))}: ${esc(m.labels.level)}</p>` : ''}` : ''}</div>` : '';
   return `<div class="tags">${tagHtml}</div>${explain}
     ${path}
+    ${pr?.organ ? `<p class="text lead">${esc(pr.organ)}</p>` : ''}
+    ${start}
+    ${m.intro_practice ? `<div class="section"><h3>${esc(t('practice_title'))}</h3><p class="text">${richText(m.intro_practice)}</p></div>` : ''}
     <p class="text flow-line">${esc(t('flow_label'))}: ${esc(FLOW_SHORT[LANG][ch.id] || m.direction || '')}</p>
     ${hours}
     ${neighbours}
-    ${profileSection(ch.id)}
-    ${m.intro_practice ? `<div class="section"><h3>${esc(t('practice_title'))}</h3>${clampText('practice', m.intro_practice)}</div>` : ''}
-    <div class="toggle-row"><span>${esc(t('luo_toggle'))}</span><button class="switch" role="switch" data-act="luo" aria-checked="${state.luoOn}"></button></div>
-    <div class="toggle-row"><span>${esc(t('slow_toggle'))}</span><button class="switch" role="switch" data-act="slow" aria-checked="${state.flowSlow}"></button></div>
-    ${m.description ? `<div class="section"><h3>${esc(t('description_title'))}</h3><p class="text">${richText(m.description)}</p></div>` : ''}
-    ${m.labels?.level ? `<p class="text muted">${esc(t('level_label'))}: ${esc(m.labels.level)}</p>` : ''}
     <div class="section">
       <div class="toggle-row"><h3 class="inline">${esc(t('points_title'))} · ${esc(t.points(ch.points.length))}</h3>
         <div class="seg seg-small"><button data-filter="all" aria-selected="${!state.special}">${esc(t('filter_all'))}</button><button data-filter="special" aria-selected="${state.special}">${esc(t('filter_special'))}</button></div></div>
+      <p class="note legend">${esc(t('marks_legend'))}</p>
       <div class="rows">${rows}</div>
-    </div>`;
+    </div>
+    ${trad}`;
 }
 
 function fmtCun(n) {
@@ -925,9 +1024,19 @@ function showRuler(from, to, cun) {
 }
 
 /** Traditional profile of a channel: role, five-element correspondences, balance / imbalance, where to begin. */
-function profileSection(id) {
+function profileSection(id, { bare = false } = {}) {
   const pr = state.data.profile(id);
   if (!pr || !pr.organ) return '';
+  if (bare) {
+    // inside the folded "In the tradition" row of a channel: no heading, no repeated lead or start button
+    const c = pr.correspondences || {};
+    const corr = ['element', 'emotion', 'season', 'taste', 'color', 'sense', 'tissue'].filter((k) => c[k])
+      .map((k) => `<dt>${esc(t(`corr_${k}`))}</dt><dd>${esc(c[k])}</dd>`).join('');
+    const imb = Array.isArray(pr.imbalance) ? pr.imbalance : [];
+    return `${corr ? `<dl class="ind corr">${corr}</dl>` : ''}
+      ${pr.balance ? `<p class="text"><b>${esc(t('balance_title'))}:</b> ${esc(pr.balance)}</p>` : ''}
+      ${imb.length ? `<h3>${esc(t('imbalance_title'))}</h3><ul class="bullets">${imb.map((x) => `<li>${esc(x)}</li>`).join('')}</ul><p class="note">${esc(t('imbalance_note'))}</p>` : ''}`;
+  }
   const c = pr.correspondences || {};
   const corr = ['element', 'emotion', 'season', 'taste', 'color', 'sense', 'tissue'].filter((k) => c[k])
     .map((k) => `<dt>${esc(t(`corr_${k}`))}</dt><dd>${esc(c[k])}</dd>`).join('');
@@ -960,7 +1069,7 @@ function pointRow(ch, code) {
   const has = !!state.data.coords[code];
   if (pathPoint() === code) marks.unshift(`<span class="mk here" title="${esc(t('path_here_short'))}">●</span>`);
   else if (pointPassed(ch, code)) marks.unshift(`<span class="mk passed" title="${esc(t('path_done'))}">✓</span>`);
-  return `<button class="row-btn${has ? '' : ' missing'}" data-point="${code}"><span class="code">${esc(code)}</span>
+  return `<button class="row-btn${has ? '' : ' missing'}" data-point="${code}"><span class="code">${esc(dispCode(code))}</span>
     <span class="name">${esc(pointName(code))}${has ? '' : `<span class="row-sub">${esc(t('not_on_model'))}</span>`}</span><span class="marks">${marks.join('')}</span></button>`;
 }
 
@@ -1006,7 +1115,7 @@ function pointBody(ch, code) {
     if (openBadge === 'transition') actions = `<button class="link" data-chan="${nextChannelOf(ch.id)}">${esc(shortName(nextChannelOf(ch.id)))} ›</button>`;
     explain = `<div class="tag-explain">${esc(text)}${actions ? `<div class="explain-actions">${actions}</div>` : ''}</div>`;
   }
-  const cautions = (extra.caution || []).map((k) => `<p class="caution">${esc(t(`caution_${k}`))}</p>`).join('');
+  const cautions = (extra.caution || []).map((k) => `<p class="caution">⚠ ${esc(t(`caution_${k}`))}</p>`).join('');
   const cr = d.crossings.get(code);
   const meets = cr ? (cr.meridians || []).filter((m) => state.channelById.has(m)) : [];
   const meetChips = meets.length > 1 ? `<div class="section"><h3>${esc(t('crossings_title'))}${cr.confidence === 'medium' ? ` · <span class="muted">${esc(t('some_sources'))}</span>` : ''}</h3>
@@ -1038,19 +1147,22 @@ function pointBody(ch, code) {
     ${steps.length ? `<ol class="steps">${steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>` : ''}
     ${ex.finding_hint ? `<p class="text tip">${esc(ex.finding_hint)}</p>` : (!steps.length && info?.setup ? `<p class="text">${esc(info.setup)}</p>` : '')}
     ${rulerOk ? `<button class="tag button chip-like ruler-btn" data-act="ruler" data-from="${find.ref}" data-to="${code}" data-cun="${find.cun}">📏 ${esc(t('ruler_show', { n: fmtCun(find.cun), code: find.ref }))}</button>` : ''}
-    <p class="note">${esc(t('cun_note'))}</p></div>` : '';
-  return `${here}${cautions}
+    ${rulerOk || /цун|cun|\bsun\b/i.test(steps.join(' ') + (ex.finding_hint || '')) ? `<p class="note">${esc(t('cun_note'))}</p>` : ''}</div>` : '';
+  const nm = d.pointNames?.[code];
+  const hanzi = nm?.hanzi ? `<p class="text muted hanzi"><span lang="zh">${esc(nm.hanzi)}</span> · ${esc(nm.pinyin_tone || nm.pinyin || '')}</p>` : '';
+  // what the point is comes first; the caution sits with "where it is" (it opened the card before the
+  // point was even named, council round 2)
+  return `${here}${hanzi}
     ${ex.why ? `<p class="text lead">${esc(ex.why)}</p>` : ''}
     ${luoRow}${crossNote}
     ${ex.name_meaning ? `<p class="text meaning">${esc(t('meaning', { text: ex.name_meaning }))}</p>` : ''}
     ${keys.length ? `<div class="tags">${badges}</div>${explain}` : ''}
-    ${info?.location ? `<div class="section"><h3>${esc(t('location_title'))}</h3><p class="text big">${esc(info.location)}</p></div>` : ''}
+    ${info?.location ? `<div class="section"><h3>${esc(t('location_title'))}</h3>${cautions}<p class="text big">${esc(info.location.charAt(0).toUpperCase() + info.location.slice(1))}</p></div>` : cautions}
     ${findHtml}
     ${fnHtml}
     ${indHtml}
     ${meetChips}
     ${other}
-    <p class="text muted">${esc(t('who_code'))}: ${esc(info?.who || '')}</p>
     <p class="note">${esc(t('source'))}: ${esc(t('source_line'))}</p>`;
 }
 
@@ -1059,7 +1171,7 @@ function vesselBody(v) {
   const tx = v.text;
   const rows = v.path.map((code) => {
     const owner = d.pointOwner.get(code);
-    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(code)}</span><span class="name">${esc(pointName(code))}<span class="row-sub">${esc(shortName(owner))}${v.disputed.has(code) ? ` · ${esc(t('some_sources'))}` : ''}</span></span><span class="dot" style="background:${color(owner)}"></span></button>`;
+    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(dispCode(code))}</span><span class="name">${esc(pointName(code))}<span class="row-sub">${esc(shortName(owner))}${v.disputed.has(code) ? ` · ${esc(t('some_sources'))}` : ''}</span></span><span class="dot" style="background:${color(owner)}"></span></button>`;
   }).join('');
   return `${tx.short ? `<p class="text">${esc(tx.short)}</p>` : ''}
     <button class="row-btn" data-goto="${v.confluent}"><span class="name"><span class="row-sub">${esc(t('opening_title'))}</span>${esc(v.confluent)} ${esc(pointName(v.confluent))} · ${esc(shortName(d.pointOwner.get(v.confluent)))}</span><span class="chev">›</span></button>
@@ -1080,10 +1192,20 @@ function onSheetClick(e) {
   if (ds.act === 'flow') { toggleFlow(); return; }
   if (ds.act === 'prev') { stepPoint(-1); return; }
   if (ds.act === 'next') { stepPoint(1); return; }
+  if (ds.act === 'closemenu') { back(); return; }
+  if (el.closest('.intro')) state.introSession = false;
+  if (ds.act === 'introsearch') {
+    setSheet('full');
+    const inp = els.body.querySelector('input[type="search"], .sym-input, input');
+    inp?.scrollIntoView({ block: 'center' });
+    inp?.focus();
+    return;
+  }
+  if (ds.act === 'introposes') { openPoses(); return; }
   if (ds.symg) {
     symptom.g = symptom.g === ds.symg ? null : ds.symg;
     symptom.more = false;
-    for (const b of els.body.querySelectorAll('[data-symg]')) b.setAttribute('aria-selected', String(b.dataset.symg === symptom.g));
+    for (const b of els.body.querySelectorAll('[data-symg]')) { b.setAttribute('aria-selected', String(b.dataset.symg === symptom.g)); b.setAttribute('aria-pressed', String(b.dataset.symg === symptom.g)); }
     refreshSymptomResults();
     return;
   }
@@ -1093,6 +1215,11 @@ function onSheetClick(e) {
     if (ds.lang !== LANG) {
       const url = new URL(location.href);
       url.searchParams.set('lang', ds.lang);
+      // the reload keeps the open channel or point (it went back to the start screen)
+      url.searchParams.delete('p');
+      url.searchParams.delete('m');
+      if (lv.view === 'point') url.searchParams.set('p', lv.code);
+      else if (lv.view === 'channel') url.searchParams.set('m', lv.id);
       location.replace(url.toString());
     }
     return;
@@ -1144,12 +1271,21 @@ els.body.addEventListener('input', (e) => {
 // ---------------------------------------------------------------- floating buttons
 
 let facing = 'front';
-$('fitBtn').addEventListener('click', fitCurrent);
+// "show whole": the whole figure, also with a point open (it kept the close-up, council); pressed again
+// with the whole figure in view, it goes back to the point or channel
+var wholeShown = false;
+$('fitBtn').addEventListener('click', () => {
+  const lv = state.level;
+  if (wholeShown || (lv.view === 'home' && state.overlay !== 'poses')) { wholeShown = false; $('fitBtn').setAttribute('aria-pressed', 'false'); fitCurrent(); return; }
+  wholeShown = true;
+  $('fitBtn').setAttribute('aria-pressed', 'true');
+  scene.setView(facing);
+});
 function fitCurrent() {
   const lv = state.level;
   if (state.overlay === 'poses' && isMudraOn()) { frameHands(); return; }
   if (state.overlay === 'poses' && isArmPos() && lv.view === 'home') { frameArms(); return; }
-  if (lv.view === 'point') scene.focusPoint(lv.code, lv.side || 1);
+  if (lv.view === 'point') scene.focusPoint(lv.code, lv.side || 1, { distance: pointDistance(lv.code) });
   else if (lv.view === 'channel') frameChannel(state.channelById.get(lv.id));
   else scene.setView(facing);
 }
@@ -1167,6 +1303,26 @@ $('turnBtn').addEventListener('pointerdown', () => {
 $('turnBtn').addEventListener('pointerup', () => clearTimeout(turnTimer));
 $('turnBtn').addEventListener('click', () => {
   if (longPressed) return;
+  // with a point open: the same point on the other side of the body (turning the camera round the point
+  // looked at it from inside the head, council)
+  const lv = state.level;
+  const owner = lv.view === 'point' ? state.channelById.get(lv.id) : null;
+  if (owner && !owner.midline) {
+    lv.side = -(lv.side || 1);
+    scene.focusPoint(lv.code, lv.side, { distance: pointDistance(lv.code) });
+    applySelection();
+    haptic('light');
+    return;
+  }
+  // a midline point (Du Mai / Ren Mai) has no other side: the whole figure from the opposite side
+  // instead of orbiting the point through the body
+  if (owner && owner.midline) {
+    facing = facing === 'front' ? 'back' : 'front';
+    wholeShown = true;
+    scene.setView(facing);
+    haptic('light');
+    return;
+  }
   facing = facing === 'front' ? 'back' : 'front';
   const tgt = scene.controls.target.clone();
   const off = scene.camera.position.clone().sub(tgt);
@@ -1188,15 +1344,25 @@ $('bodyBtn').addEventListener('click', async () => {
   const next = state.body === 'male' ? 'female' : 'male';
   await setBody(next);
   renderBodyBtn();
-  toast(t(next === 'male' ? 'body_switched_m' : 'body_switched_f'));
+  // only when it really switched (without the poses setBody returns quietly)
+  if (state.body === next) toast(t(next === 'male' ? 'body_switched_m' : 'body_switched_f'));
+  else toast(t('poses_unavailable'));
 });
 renderBodyBtn();
-$('menuBtn').addEventListener('click', () => {
+function openMenu() {
+  if (!state.data) return;
+  if (state.overlay === 'poses') closePoses({ refocus: false });
+  // over the open channel or point without resetting it (setLevel cleared the open sections, the ruler
+  // and stopped the flow, which did not come back, council round 2)
   state.overlay = 'list';
-  setLevel(state.level, { fly: false });
-  els.body.innerHTML = homeBody();
+  hideNext();
+  els.pick.hidden = true;
+  renderSheet();
+  els.body.scrollTop = 0;
   setSheet('full');
-});
+  updateBackButton();
+}
+$('menuBtn').addEventListener('click', openMenu);
 
 // ---------------------------------------------------------------- poses
 
@@ -1270,12 +1436,19 @@ function renderPosesPeek() {
   }).join('');
   const cur = items.find((x) => x.id === active);
   els.sheet.style.removeProperty('--chan');
+  const prevScroll = els.peek.querySelector('.pose-row')?.scrollLeft || 0;
   els.peek.innerHTML = `<div class="poses-head">
-      <div class="seg">${['asanas', 'mudras', 'arms'].map((k) => `<button data-tab="${k}" aria-selected="${tab === k}">${esc(t(`tab_${k}`))}</button>`).join('')}</div>
-      <div class="seg"><button data-body="female" aria-selected="${state.body === 'female'}" aria-label="${esc(t('body_f_aria'))}">${esc(t('body_f'))}</button><button data-body="male" aria-selected="${state.body === 'male'}" aria-label="${esc(t('body_m_aria'))}">${esc(t('body_m'))}</button></div>
+      <div class="seg" role="tablist">${['asanas', 'mudras', 'arms'].map((k) => `<button role="tab" data-tab="${k}" aria-selected="${tab === k}">${esc(t(`tab_${k}`))}</button>`).join('')}</div>
     </div>
     <div class="pose-row">${cards || `<span class="muted">${esc(poseSys.loading ? t('poses_loading') : t('poses_unavailable'))}</span>`}</div>
-    <div class="peek-sub one-line">${esc(poseText(cur).short || '')}</div>`;
+    <div class="peek-sub pose-desc">${esc(poseText(cur).short || '')}</div>`;
+  // keep the row where it was and bring the chosen card into view (padmasana stayed off screen)
+  const row = els.peek.querySelector('.pose-row');
+  if (row) {
+    row.scrollLeft = prevScroll;
+    // after layout: drawn before it (a pose from a link while the sheet opens) the boxes were all zero
+    requestAnimationFrame(() => row.querySelector('[aria-pressed="true"]')?.scrollIntoView({ inline: 'nearest', block: 'nearest' }));
+  }
   if (state.sheet === 'peek') document.documentElement.style.setProperty('--sheet-visible', `${sheetVisible('peek')}px`);
 }
 
@@ -1327,6 +1500,7 @@ function posesBody() {
 
 function choosePose(id) {
   if (!poseSys.skinner) { toast(t('poses_unavailable')); return; }
+  wholeShown = false;    // a new pose is framed afresh; "show whole" starts from it (council round 2)
   const tab = state.posesTab;
   const prevBody = state.pose;
   if (tab === 'asanas') {
@@ -1406,15 +1580,34 @@ function afterPose() {
 }
 
 function frameHands() {
+  const tips = ['P11', 'GI1', 'MC9', 'TR1', 'C9', 'IG1', 'MC8', 'P9'];
+  const together = state.mudra === 'hakini' || state.mudra === 'anjali';
+  if (!together) {
+    // hands apart (on the knees, at the thighs, out to the sides): one hand close up, three-quarter view;
+    // a box round both hands and the head cut the head off or made the mudra a speck (council); "show
+    // whole" gives the whole figure
+    // the fingertips only (the wrist and palm points made the box 24 cm wide: a far shot on a phone)
+    const box = new THREE.Box3();
+    for (const code of ['P11', 'GI1', 'MC9', 'TR1', 'C9', 'IG1']) { const pp = scene.pointPosition(code, 1); if (pp) box.expandByPoint(pp.p); }
+    if (box.isEmpty()) return;
+    box.expandByScalar(0.012);
+    const c = box.getCenter(new THREE.Vector3());
+    const out = new THREE.Vector3(Math.sign(c.x) || 1, 0, 0);
+    const dir = new THREE.Vector3(0, 0.6, 1).addScaledVector(out, 0.5).normalize();
+    scene.frameBox(box, dir, { ms: 600, minDist: 0.22, minRadius: 0.06 });
+    return;
+  }
   const box = new THREE.Box3();
-  for (const code of ['P11', 'GI1', 'MC9', 'TR1', 'C9', 'IG1', 'MC8', 'P9']) for (const side of [1, -1]) {
+  for (const code of tips) for (const side of [1, -1]) {
     const pp = scene.pointPosition(code, side);
     if (pp) box.expandByPoint(pp.p);
   }
   if (box.isEmpty()) return;
+  // hands at the chest: the head stays in the picture
+  for (const code of ['VG20', 'VC24']) { const pp = scene.pointPosition(code, 1); if (pp) box.expandByPoint(pp.p); }
   box.expandByScalar(0.06);
   // hakini reads best from the front and above (the dome and the meeting tips); anjali from the front
-  const polar = THREE.MathUtils.degToRad(state.mudra === 'hakini' ? 50 : state.mudra === 'anjali' ? 80 : 60);
+  const polar = THREE.MathUtils.degToRad(state.mudra === 'hakini' ? 55 : 80);
   const dir = new THREE.Vector3(0, Math.cos(polar), Math.sin(polar));
   scene.frameBox(box, dir, { ms: 600, minDist: 0.3 });
 }
@@ -1430,6 +1623,9 @@ function frameArms() {
     if (pp) box.expandByPoint(pp.p);
   }
   if (box.isEmpty()) { scene.setView(facing); return; }
+  // and the whole figure down to the feet with a margin above the sheet (cut at the hips, then at the toes:
+  // council rounds 1 and 2)
+  for (const code of ['VG20', 'E41', 'V67']) { const pp = scene.pointPosition(code, 1); if (pp) box.expandByPoint(pp.p); }
   box.expandByScalar(0.12);
   const polar = THREE.MathUtils.degToRad(78), az = THREE.MathUtils.degToRad(ARM_VIEW_AZ[state.mudra] ?? 35);
   const dir = new THREE.Vector3(Math.sin(polar) * Math.sin(az), Math.cos(polar), Math.sin(polar) * Math.cos(az));
@@ -1583,27 +1779,28 @@ function updateLabels() {
       if (paired) {
         if (seen.has(g.codes[0])) continue;
         seen.add(g.codes[0]);
-        items.push({ code: g.codes[0], side: null, text: g.codes[0], main: false, grazing: true });
-      } else items.push({ code: g.codes[0], side: g.side, text: g.codes.join(' · '), main: false });
+        items.push({ code: g.codes[0], side: null, text: dispCode(g.codes[0]), main: false, grazing: true });
+        // below the point, not over the fingers that touch (the label hid the mudra's contact, council)
+      } else items.push({ code: g.codes[0], side: g.side, text: g.codes.map(dispCode).join(' · '), main: false, below: true });
     }
   } else if (state.overlay === 'poses' && lv.view === 'home' && isArmPos()) {
     // the points the arm position opens (armpit, side of the chest), on the side facing the camera
-    for (const code of armItem()?.emphasized_points || []) items.push({ code, side: null, text: code, main: false });
+    for (const code of armItem()?.emphasized_points || []) items.push({ code, side: null, text: dispCode(code), main: false });
   } else if (lv.view === 'point') {
     const ch = state.channelById.get(lv.id);
     const idx = ch.points.indexOf(lv.code);
-    items.push({ code: lv.code, side: lv.side || 1, text: `${lv.code} · ${pointName(lv.code)}`, main: true });
-    for (const c of [ch.points[idx - 1], ch.points[idx + 1]]) if (c) items.push({ code: c, side: lv.side || 1, text: c });
+    items.push({ code: lv.code, side: lv.side || 1, text: `${dispCode(lv.code)} · ${pointName(lv.code)}`, main: true });
+    for (const c of [ch.points[idx - 1], ch.points[idx + 1]]) if (c) items.push({ code: c, side: lv.side || 1, text: dispCode(c) });
     // the end of the luo branch is labelled with the channel it joins
     const luo = state.luoOn ? state.data.luoLinks.find((x) => x.from === lv.code && x.to && x.to_meridian) : null;
-    if (luo) items.push({ code: luo.to, side: lv.side || 1, text: `→ ${shortName(luo.to_meridian)} · ${luo.to}` });
+    if (luo) items.push({ code: luo.to, side: lv.side || 1, text: `→ ${shortName(luo.to_meridian)} · ${dispCode(luo.to)}` });
   } else if (lv.view === 'channel') {
     const ch = state.channelById.get(lv.id);
     if (ch.kind === 'vessel') {
-      for (const c of [ch.confluent, ch.coupled]) if (c) items.push({ code: c, side: null, text: c });
+      for (const c of [ch.confluent, ch.coupled]) if (c) items.push({ code: c, side: null, text: dispCode(c) });
     } else {
-      items.push({ code: ch.points[0], side: null, text: ch.points[0] });
-      items.push({ code: ch.points[ch.points.length - 1], side: null, text: ch.points[ch.points.length - 1] });
+      items.push({ code: ch.points[0], side: null, text: dispCode(ch.points[0]) });
+      items.push({ code: ch.points[ch.points.length - 1], side: null, text: dispCode(ch.points[ch.points.length - 1]) });
     }
   }
   let used = 0;
@@ -1619,15 +1816,22 @@ function updateLabels() {
     if (it.grazing ? !(scene.isVisible(pp.p, pp.n, -0.35) && scene.unoccluded(pp.p)) : !scene.isVisible(pp.p, pp.n)) continue;
     const [sx, sy, sz] = scene.toScreen(pp.p);
     if (sz > 1 || sx < 0 || sx > window.innerWidth || sy < 0 || sy > window.innerHeight - sheetVisible()) continue;
-    // points closer than a label's height share one label (C9 and IG1 sit on the same little fingertip)
+    // not under the column of round buttons on the right
+    if (!it.main && sx > window.innerWidth - 64 && state.sheet !== 'full') continue;
+    // points closer than a label's height share one label (C9 and IG1 sit on the same little fingertip);
+    // three or more read "IG9 +2" instead of a stack of codes over the arm (artist of the council)
     const near = placed.find((q) => Math.abs(q.sx - sx) < 40 && Math.abs(q.sy - sy) < 18);
     if (near) {
-      if (!it.main) { near.el.textContent += ` · ${it.text}`; continue; }
+      if (!it.main) {
+        near.extra += 1;
+        near.el.textContent = near.extra === 1 ? `${near.first} · ${it.text}` : `${near.first} +${near.extra}`;
+        continue;
+      }
     }
     const el = label(used++);
-    placed.push({ sx, sy, el });
+    placed.push({ sx, sy, el, first: it.text, extra: 0 });
     el.textContent = it.text;
-    el.className = `plabel${it.main ? ' main' : ''}${sy < 110 ? ' below' : ''}`;
+    el.className = `plabel${it.main ? ' main' : ''}${sy < 110 || it.below ? ' below' : ''}`;
     el.style.transform = `translate(${Math.round(sx)}px, ${Math.round(sy)}px)`;
     el.hidden = false;
   }
@@ -1743,7 +1947,7 @@ async function boot() {
     try { if (tg.isVersionAtLeast?.('7.7')) tg.disableVerticalSwipes(); } catch { /* old client */ }
     try { tg.setHeaderColor?.('bg_color'); } catch { /* old client */ }
     tg.BackButton?.onClick(back);
-    try { if (tg.isVersionAtLeast?.('7.0')) { tg.SettingsButton.show(); tg.SettingsButton.onClick(openPoses); } } catch { /* old client */ }
+    try { if (tg.isVersionAtLeast?.('7.0')) { tg.SettingsButton.show(); tg.SettingsButton.onClick(() => { openMenu(); document.getElementById('prefs')?.scrollIntoView({ block: 'start' }); }); } } catch { /* old client */ }
     tg.onEvent?.('themeChanged', applyTheme);
     tg.onEvent?.('viewportChanged', () => { setSheet(state.sheet, { silent: true }); scene?.resize(); });
     tg.onEvent?.('activated', () => { if (scene) scene.paused = false; resumeFlow('hidden'); });
@@ -1795,13 +1999,31 @@ async function boot() {
     bindCanvas();
     renderChips();
     applyScenery();      // the chosen photo shows from the start, not only once the poses sheet opens
-    if (!deepLink()) { applySelection(); renderSheet(); scene.setView('front', { instant: true }); }
+    if (!deepLink()) {
+      applySelection(); renderSheet(); scene.setView('front', { instant: true });
+      // the first visit opens the sheet halfway on the three ways in
+      // shown once: remembered at once, not only after a tap inside it (whoever just turned the figure got
+      // the half-open sheet on every start, council round 2)
+      if (!store.get('onb_intro', false) && !pathChannel()) {
+        store.set('onb_intro', true);
+        state.introSession = true;
+        renderSheet();
+        setSheet('half', { silent: true });
+        // reframe once the camera offset follows the taller sheet (the head went off the top)
+        setTimeout(() => scene.setView('front', { instant: true }), 40);
+      }
+    }
     if (EDIT) renderEditbar();
     try { await scene.renderer.compileAsync(scene.scene, scene.camera); } catch { /* optional */ }
     clearTimeout(slow);
     clearTimeout(fail);
     $('loading').classList.add('hidden');
-    if (!store.get('onb_gesture', false) && !params.get('p') && !params.get('m')) $('gestureHint').hidden = false;
+    if (!store.get('onb_gesture', false) && !params.get('p') && !params.get('m')) {
+      $('gestureHint').hidden = false;
+      // shown for a few seconds, not until the first touch (it stood over the body, council)
+      setTimeout(() => $('gestureHint').classList.add('fade'), 4500);
+      setTimeout(() => { $('gestureHint').hidden = true; $('gestureHint').classList.remove('fade'); }, 5200);
+    }
     $('gestureHint').textContent = t('hint_gesture');
     const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 3000));
     idle(() => ensurePoses().then(async () => {

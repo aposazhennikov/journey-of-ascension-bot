@@ -5,9 +5,11 @@ import logging
 import re
 from html import escape
 from pathlib import Path
+from types import SimpleNamespace
 from typing import List, Dict, Any, Optional
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaAnimation, WebAppInfo
+from telegram import (
+    Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaAnimation, MenuButtonWebApp, WebAppInfo
+)
 from telegram.ext import (
     Application, CommandHandler, MessageHandler, CallbackQueryHandler,
     filters, ContextTypes, ApplicationHandlerStop
@@ -31,6 +33,7 @@ from .utils import (
     localized_point_name,
     MERIDIAN_METADATA
 )
+from .webapp import build_map_button, build_map_url, normalize_webapp_language
 
 
 logger = logging.getLogger(__name__)
@@ -353,7 +356,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                                     'easily.\n'
                                     '\n'
                                     '<b>2.</b> If the point feels silent, treat it as not yet open: stay '
-                                    'longer, gently massage it, and breathe through it with attention.\n'
+                                    'longer, gently massage it (except points marked ⚠), and breathe through it with attention.\n'
                                     '\n'
                                     '<b>3.</b> Do not force a result. A quiet, steady sensation is enough.\n'
                                     '\n'
@@ -671,7 +674,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                                     'цепляется легче.\n'
                                     '\n'
                                     '<b>2.</b> Если точка молчит, считайте её пока закрытой: побудьте с ней '
-                                    'дольше, мягко помассируйте и представляйте вдох и выдох через неё.\n'
+                                    'дольше, мягко помассируйте (кроме точек со значком ⚠) и представляйте вдох и выдох через неё.\n'
                                     '\n'
                                     '<b>3.</b> Не выжимайте результат. Достаточно тихого устойчивого '
                                     'ощущения.\n'
@@ -972,7 +975,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                                     'issiqlik, bosim yoki diqqat osonroq ushlanadigan nuqtani qidiring.\n'
                                     '\n'
                                     "<b>2.</b> Agar nuqta jim bo'lsa, uni hali ochilmagan deb qabul qiling: "
-                                    'uzoqroq turing, yengil massaj qiling va shu nuqta orqali nafas '
+                                    'uzoqroq turing, yengil massaj qiling (⚠ belgisi bor nuqtalardan tashqari) va shu nuqta orqali nafas '
                                     'olayotganingizni tasavvur qiling.\n'
                                     '\n'
                                     '<b>3.</b> Natijani majburlamang. Sokin va barqaror sezgi yetarli.\n'
@@ -1286,7 +1289,7 @@ TEXTS = {'en': {'welcome': '🕊️ <b>Welcome to Journey of Ascension!</b>\n'
                                     'немесе зейін оңай ілінетін орынды іздеңіз.\n'
                                     '\n'
                                     '<b>2.</b> Егер нүкте үнсіз болса, оны әзірге ашылмаған деп қабылдаңыз: '
-                                    'ұзағырақ болыңыз, жеңіл уқалаңыз және сол нүкте арқылы тыныс алуды '
+                                    'ұзағырақ болыңыз, жеңіл уқалаңыз (⚠ белгісі бар нүктелерден басқа) және сол нүкте арқылы тыныс алуды '
                                     'елестетіңіз.\n'
                                     '\n'
                                     '<b>3.</b> Нәтижені күштемеңіз. Тыныш әрі тұрақты сезім жеткілікті.\n'
@@ -1443,9 +1446,8 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Practice starts with noticing where your strength goes during an ordinary day. Energy is not an abstract word here: it is attention, vitality, steadiness, and the ability to act without draining yourself.\n\n"
-            "<b>Yama and Niyama</b> are the foundation. They help stop the leaks: harsh speech, conflict, hurry, excess, self-harm, resentment, and automatic reactions. <b>Ahimsa</b>, for example, is not only about not hurting others; it is also about not spending force on damaging yourself and then paying for recovery.\n\n"
-            "<b>Meridians</b> bring the same work into the body. You learn to feel channels of Qi through attention, breath, touch, warmth, pressure, and quiet areas. If a point is hard to feel, it is not a failure; it is a place that asks for more patient practice.\n\n"
+            "Yama and Niyama teach you not to waste strength in thought, speech and action; meridians bring the same work into the body, where you learn to notice points and lines with attention and breath. "
+            "You can start with one path and add the other later in the menu.\n\n"
             "What would you like to study?"
         ),
         "initial_mode_question": "What would you like to study?",
@@ -1463,18 +1465,15 @@ TEXTS_UPDATE = {
         ),
         "time_step_principles": (
             "⏰ <b>Step 2/3: Reminder Time</b>\n\n"
-            "Choose the time when the bot should send your daily <b>Yama/Niyama</b> principle.\n\n"
-            "Format: HH:MM, for example 08:00 or 20:30."
+            "Choose the time when the bot should send your daily <b>Yama/Niyama</b> principle."
         ),
         "time_step_meridians": (
             "⏰ <b>Step 2/3: Reminder Time</b>\n\n"
-            "Choose the time when the bot should send your daily <b>meridian</b> focus.\n\n"
-            "Format: HH:MM, for example 08:00 or 20:30."
+            "Choose the time when the bot should send your daily <b>meridian</b> focus."
         ),
         "time_step_both": (
             "⏰ <b>Step 2/4: Reminder Time</b>\n\n"
-            "First choose the time for your daily <b>Yama/Niyama</b> principle. The meridian reminder time comes next.\n\n"
-            "Format: HH:MM, for example 08:00 or 20:30."
+            "First choose the time for your daily <b>Yama/Niyama</b> principle. The meridian reminder time comes next."
         ),
         "continue_setup": "Continue",
         "menu": "📋 <b>Journey of Ascension</b>",
@@ -1541,51 +1540,6 @@ TEXTS_UPDATE = {
         "meridian_materials_menu": "📚 <b>Useful materials</b>\n\nChoose what to open.",
         "meridian_materials_basics": "Basic articles",
         "meridian_materials_shu": "Five shu-points",
-        "meridian_materials_sending": "📚 <b>Five shu-points</b>\n\nI will send the material below in several messages so the images stay in the right places.",
-        "shu_intro_text": (
-            "📚 <b>Five shu-points</b>\n\n"
-            "The five shu-points are five types of specific points of the twelve main channels. They are located on the distal parts of the channels: between the fingers and elbow, or between the toes and knee.\n\n"
-            "<b>Five shu-points:</b> Spring, Brook, Rapids, River and Mouth. They are also called antique shu-points, transport points, or points of the five elements.\n\n"
-            "Ancient Chinese thinkers compared these points to a river: at the fingertips and toes the channel is narrow and superficial, then it becomes wider and deeper toward the elbow or knee."
-        ),
-        "shu_flow_text": (
-            "The increase in depth and width does not depend on the direction of flow in the channel. This pattern applies to Yin and Yang channels of both arms and legs.\n\n"
-            "Even when a hand Yin channel flows toward the fingers, the fingertip point is still called a Spring, and the elbow area is compared with the river mouth."
-        ),
-        "shu_indications_text": (
-            "<b>Main indications:</b>\n"
-            "• <b>Spring points</b> — emergency help in critical states.\n"
-            "• <b>Brook points</b> — conditions with Heat qualities.\n"
-            "• <b>Rapids points</b> — joint pain.\n"
-            "• <b>River points</b> — exterior patterns with fever and chills, cough, shortness of breath and throat disorders.\n"
-            "• <b>Mouth points</b> — disorders of the stomach, intestines and other Fu organs."
-        ),
-        "shu_sources_text": (
-            "<b>1. Spring points</b>\n<i>Emergency help in critical states.</i>\n\n"
-            "Here the channel is thinnest and most superficial. Usually these points are near the nail bases of fingers and toes. Exceptions include Kidney R1 Yong-quan on the sole and Pericardium MC9 Zhong-chong on the fingertip.\n\n"
-            "(1) Shao-shang, Lung. (2) Zhong-chong, Pericardium. (3) Shao-chong, Heart. (4) Yin-bai, Spleen. (5) Da-dun, Liver. (6) Yong-quan, Kidney. (7) Shang-yang, Large Intestine. (8) Guan-chong, Triple Burner. (9) Shao-ze, Small Intestine. (10) Li-dui, Stomach. (11) Zu-qiao-yin, Gallbladder. (12) Zhi-yin, Bladder."
-        ),
-        "shu_brooks_text": (
-            "<b>2. Brook points</b>\n<i>Conditions with Heat qualities.</i>\n\n"
-            "When Qi reaches these points, it becomes more abundant, like a small brook already flowing from the spring. They are used to clear pathogenic factors, especially Heat.\n\n"
-            "(1) Yu-ji, Lung. (2) Lao-gong, Pericardium. (3) Shao-fu, Heart. (4) Da-du, Spleen. (5) Ran-gu, Kidney. (6) Xing-jian, Liver. (7) Er-jian, Large Intestine. (8) Ye-men, Triple Burner. (9) Qian-gu, Small Intestine. (10) Nei-ting, Stomach. (11) Xia-xi, Gallbladder. (12) Zu-tong-gu, Bladder."
-        ),
-        "shu_rapids_text": (
-            "<b>3. Rapids points</b>\n<i>Joint pain; illness that comes and goes.</i>\n\n"
-            "At these points Qi spreads, forms whirlpools, and the movement becomes stronger and deeper. They are traditionally used for joint pain, heaviness in the body, and blockages related to dampness and cold.\n\n"
-            "(1) Tai-yuan. (2) Da-ling. (3) Shen-men. (4) Tai-bai. (5) Tai-xi. (6) Tai-chong. (7) San-jian. (8) Zhong-zhu. (9) Hou-xi. (10) Xian-gu. (11) Zu-lin-qi. (12) Shu-gu."
-        ),
-        "shu_rivers_text": (
-            "<b>4. River points</b>\n\n"
-            "Here the Qi of the channel becomes wider, stronger and deeper, like a full river in the middle of its bed. River points are used in traditions connected with breathing, voice, cough, shortness of breath and throat disorders.\n\n"
-            "(1) Jing-qu. (2) Jian-shi. (3) Ling-dao. (4) Shang-qiu. (5) Zhong-feng. (6) Fu-liu. (7) Yang-xi. (8) Zhi-gou. (9) Yang-gu. (10) Jie-xi. (11) Yang-fu. (12) Kun-lun."
-        ),
-        "shu_mouths_text": (
-            "<b>5. Mouth points</b>\n<i>Disorders of the stomach, intestines and other Fu organs.</i>\n\n"
-            "These are the fifth points, always located around the elbow or knee. Here channel Qi becomes abundant like the mouth of a river flowing into the sea. The Qi of the channel joins the Qi of the whole body.\n\n"
-            "(1) Chi-ze. (2) Qu-ze. (3) Shao-hai. (4) Yin-ling-quan. (5) Qu-quan. (6) Yin-gu. (7) Qu-chi. (8) Tian-jing. (9) Xiao-hai. (10) Zu-san-li. (11) Yang-ling-quan. (12) Wei-zhong.\n\n"
-            "<i>Fu organs are Yang organs: stomach, large intestine, small intestine, bladder, gallbladder and triple burner. This material is educational and does not replace consultation with a specialist.</i>"
-        ),
         "principles_random": "Random principle",
         "principles_all": "All principles",
         "principles_back": "🔙 Back to Yama/Niyama",
@@ -1606,8 +1560,7 @@ TEXTS_UPDATE = {
         "meridian_time_step": "☯️ <b>Meridian Reminder Time</b>\n\nEnter time in HH:MM format, for example 20:00.",
         "meridian_time_setup_step": (
             "☯️ <b>Step 3/4: Meridian Reminder Time</b>\n\n"
-            "Now choose when the bot should return you to the current meridian or point. This can be a different time from the Yama/Niyama principle.\n\n"
-            "Format: HH:MM, for example 20:00."
+            "Now choose when the bot should return you to the current meridian or point. This can be a different time from the Yama/Niyama principle."
         ),
         "meridian_time_saved": "✅ Meridian reminder time saved.",
         "meridian_mode_menu": (
@@ -1647,7 +1600,7 @@ TEXTS_UPDATE = {
             "🖐 <b>How to find a point</b>\n\n"
             "Use the picture and cun measurements to get into the right area. The exact point is found more slowly: by touch, breath, and attention.\n\n"
             "<b>1.</b> Touch the area gently. Look for a small hollow, sensitivity, warmth, pressure, or a place where attention holds more easily.\n\n"
-            "<b>2.</b> If the point is hard to feel, treat it as not yet open for practice. Stay longer, gently massage it, and imagine breathing in and out through this place.\n\n"
+            "<b>2.</b> If the point is hard to feel, treat it as not yet open for practice. Stay longer, gently massage it (except points marked ⚠), and imagine breathing in and out through this place.\n\n"
             "<b>3.</b> Do not force a result. A quiet, steady sensation is enough.\n\n"
             "When you move to the next point, keep the previous ones in the background and add the new point to the same line of attention."
         ),
@@ -1655,7 +1608,7 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridians</b>\n\n"
             "<b>Why study meridians?</b>\n\n"
             "In Chinese tradition, meridians are the channels through which Qi moves. For practice, this is not a theory to believe in blindly. It is a way to observe the body: where sensation is clear, where the line breaks, where a point feels warm, tense, empty, or silent.\n\n"
-            "<b>What you train:</b> attention, breath, and gentle touch. A point that does not answer at first can be treated as closed for now: stay longer, massage it lightly, breathe through it with attention, and wait until the sensation becomes steadier.\n\n"
+            "<b>What you train:</b> attention, breath, and gentle touch. A point that does not answer at first can be treated as closed for now: stay longer, massage it lightly (except points marked ⚠), breathe through it with attention, and wait until the sensation becomes steadier.\n\n"
             "<b>How to move:</b> each new point is added to the previous ones. First feel point 1. Then keep it in the background and add point 2. Over time the meridian becomes one living line rather than separate dots.\n\n"
             "<b>Choose a path:</b> use the bot route if you want a calm sequence from the beginning, or free choice if a specific meridian already draws your attention.\n\n"
             "<b>Before points:</b> open the <b>cun</b> guide. It helps you find the area; the exact point is refined with fingers, breath, and attention.\n\n"
@@ -1727,9 +1680,8 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Практика начинается с простого наблюдения: куда в течение дня уходит моя сила? Энергия здесь это про внимание, живость, устойчивость и способность действовать, не опустошая себя.\n\n"
-            "<b>Яма и Нияма</b> — фундамент. Они помогают закрывать утечки: резкую речь, конфликт, спешку, излишества, вред себе, обиду и автоматические реакции. <b>Ахимса</b>, например, не только про «не вредить другим»; это ещё и про то, чтобы не тратить силу на разрушение себя, а потом не платить энергией за восстановление.\n\n"
-            "<b>Меридианы</b> переносят эту же работу в тело. Вы учитесь чувствовать каналы Ци через внимание, дыхание, касание, тепло, давление и тихие зоны. Если точка почти не ощущается, это не ошибка; это место, которому нужно больше терпеливой практики.\n\n"
+            "Яма и Нияма учат не растрачивать силы в мыслях, речи и поступках, а меридианы переносят ту же работу в тело: вы учитесь замечать точки и линии вниманием и дыханием. "
+            "Можно начать с одного пути и добавить второй позже в меню.\n\n"
             "Что вы хотели бы изучать?"
         ),
         "initial_mode_question": "Что вы хотели бы изучать?",
@@ -1747,18 +1699,15 @@ TEXTS_UPDATE = {
         ),
         "time_step_principles": (
             "⏰ <b>Шаг 2/3: Время отправки</b>\n\n"
-            "Укажите время, когда бот будет присылать ежедневный принцип <b>Ямы/Ниямы</b>.\n\n"
-            "Формат: ЧЧ:ММ, например 08:00 или 20:30."
+            "Укажите время, когда бот будет присылать ежедневный принцип <b>Ямы/Ниямы</b>."
         ),
         "time_step_meridians": (
             "⏰ <b>Шаг 2/3: Время отправки</b>\n\n"
-            "Укажите время, когда бот будет присылать ежедневный фокус по <b>меридианам</b>.\n\n"
-            "Формат: ЧЧ:ММ, например 08:00 или 20:30."
+            "Укажите время, когда бот будет присылать ежедневный фокус по <b>меридианам</b>."
         ),
         "time_step_both": (
             "⏰ <b>Шаг 2/4: Время отправки</b>\n\n"
-            "Сначала укажите время для ежедневного принципа <b>Ямы/Ниямы</b>. Время меридианов выберем следующим шагом.\n\n"
-            "Формат: ЧЧ:ММ, например 08:00 или 20:30."
+            "Сначала укажите время для ежедневного принципа <b>Ямы/Ниямы</b>. Время меридианов выберем следующим шагом."
         ),
         "continue_setup": "Продолжить",
         "menu": "📋 <b>Journey of Ascension</b>",
@@ -1825,51 +1774,6 @@ TEXTS_UPDATE = {
         "meridian_materials_menu": "📚 <b>Полезные материалы</b>\n\nВыберите, что открыть.",
         "meridian_materials_basics": "Базовые статьи",
         "meridian_materials_shu": "Пять шу-точек",
-        "meridian_materials_sending": "📚 <b>Пять шу-точек</b>\n\nОтправлю материал ниже несколькими сообщениями, чтобы картинки стояли в правильных местах.",
-        "shu_intro_text": (
-            "📚 <b>Пять шу-точек</b>\n\n"
-            "Пять шу-точек — это пять типов специфических точек двенадцати главных каналов. Они расположены на дистальных отделах каналов: между пальцами руки и локтем или между пальцами ноги и коленом.\n\n"
-            "<b>Пять шу-точек:</b> точки-истоки, точки-ручьи, точки-быстрины, точки-реки и точки-устья. Их также называют античными шу-точками, транспортировочными точками или точками пяти первоэлементов.\n\n"
-            "Древние китайские мыслители сравнивали эти точки с рекой: у кончиков пальцев канал узкий и поверхностный, затем к локтю или колену он становится шире и глубже."
-        ),
-        "shu_flow_text": (
-            "Нарастание глубины и ширины канала не зависит от направления течения энергии. Эта закономерность справедлива для Инь- и Ян-каналов рук и ног.\n\n"
-            "Даже если канал Инь руки течёт к пальцам, точка на кончике пальца всё равно считается истоком, а область локтя сравнивается с устьем реки."
-        ),
-        "shu_indications_text": (
-            "<b>Основные показания:</b>\n"
-            "• <b>Точки-истоки</b> — неотложная помощь при критических состояниях.\n"
-            "• <b>Точки-ручьи</b> — болезни со свойствами жара.\n"
-            "• <b>Точки-быстрины</b> — боль в суставах.\n"
-            "• <b>Точки-реки</b> — наружный синдром с лихорадкой и ознобом, кашель, одышка и болезни горла.\n"
-            "• <b>Точки-устья</b> — болезни желудка, кишечника и других фу-органов."
-        ),
-        "shu_sources_text": (
-            "<b>1. Точки-истоки</b>\n<i>Неотложная помощь при критических состояниях.</i>\n\n"
-            "Здесь канал тоньше всего и расположен наиболее поверхностно. Обычно точки-истоки находятся у оснований ногтей пальцев рук и ног. Исключения: Юн-цюань R1 на подошве и Чжун-чун MC9 на кончике среднего пальца.\n\n"
-            "(1) Шао-шан, лёгкие. (2) Чжун-чун, перикард. (3) Шао-чун, сердце. (4) Инь-бай, селезёнка. (5) Да-дунь, печень. (6) Юн-цюань, почки. (7) Шан-ян, толстый кишечник. (8) Гуань-чун, тройной обогреватель. (9) Шао-цзэ, тонкий кишечник. (10) Ли-дуй, желудок. (11) Цзу-цяо-инь, желчный пузырь. (12) Чжи-инь, мочевой пузырь."
-        ),
-        "shu_brooks_text": (
-            "<b>2. Точки-ручьи</b>\n<i>Болезни со свойствами жара.</i>\n\n"
-            "Когда Ци достигает этих точек, она становится обильнее, как небольшой ручей, уже вытекший из родника. Их используют для изгнания патогенных факторов, особенно для охлаждения жара.\n\n"
-            "(1) Юй-цзи, лёгкие. (2) Лао-гун, перикард. (3) Шао-фу, сердце. (4) Да-ду, селезёнка. (5) Жань-гу, почки. (6) Син-цзянь, печень. (7) Эр-цзянь, толстый кишечник. (8) Е-мэнь, тройной обогреватель. (9) Цянь-гу, тонкий кишечник. (10) Нэй-тин, желудок. (11) Ся-си, желчный пузырь. (12) Цзу-тун-гу, мочевой пузырь."
-        ),
-        "shu_rapids_text": (
-            "<b>3. Точки-быстрины</b>\n<i>Боль в суставах; болезнь то приходит, то уходит.</i>\n\n"
-            "В этих точках Ци разливается, образует водовороты, течение становится интенсивнее и глубже. Их традиционно используют при боли в суставах, тяжести в теле и блокировках, связанных с сыростью и холодом.\n\n"
-            "(1) Тай-юань. (2) Да-лин. (3) Шэнь-мэнь. (4) Тай-бай. (5) Тай-си. (6) Тай-чун. (7) Сань-цзянь. (8) Чжун-чжу. (9) Хоу-си. (10) Сянь-гу. (11) Цзу-линь-ци. (12) Шу-гу."
-        ),
-        "shu_rivers_text": (
-            "<b>4. Точки-реки</b>\n\n"
-            "Здесь Ци канала становится шире, сильнее и глубже, как полноводная река в середине русла. Точки-реки традиционно связывают с дыханием, голосом, кашлем, одышкой и болезнями горла.\n\n"
-            "(1) Цзинь-цюй. (2) Цзянь-ши. (3) Лин-дао. (4) Шан-цю. (5) Чжун-фэн. (6) Фу-лю. (7) Ян-си. (8) Чжи-гоу. (9) Ян-гу. (10) Цзе-си. (11) Ян-фу. (12) Кунь-лунь."
-        ),
-        "shu_mouths_text": (
-            "<b>5. Точки-устья</b>\n<i>Болезни желудка, кишечника и других фу-органов.</i>\n\n"
-            "Это пятые точки, которые всегда находятся на уровне локтя или колена. Здесь Ци канала становится обильной, как в устье реки, впадающей в море. Ци канала соединяется с Ци всего организма.\n\n"
-            "(1) Чи-цзэ. (2) Цюй-цзэ. (3) Шао-хай. (4) Инь-лин-цюань. (5) Цюй-цюань. (6) Инь-гу. (7) Цюй-чи. (8) Тянь-цзин. (9) Сяо-хай. (10) Цзу-сань-ли. (11) Ян-лин-цюань. (12) Вэй-чжун.\n\n"
-            "<i>Фу-органы, или Ян-органы: желудок, толстая кишка, тонкая кишка, мочевой пузырь, желчный пузырь и тройной обогреватель. Материал ознакомительный и не заменяет консультацию специалиста.</i>"
-        ),
         "principles_random": "Случайный принцип",
         "principles_all": "Все принципы",
         "principles_back": "🔙 К Яме/Нияме",
@@ -1890,8 +1794,7 @@ TEXTS_UPDATE = {
         "meridian_time_step": "☯️ <b>Время напоминания по меридианам</b>\n\nВведите время в формате ЧЧ:ММ, например 20:00.",
         "meridian_time_setup_step": (
             "☯️ <b>Шаг 3/4: Время меридианов</b>\n\n"
-            "Теперь выберите, когда бот будет возвращать вас к текущему <b>меридиану</b> или точке. Это время может отличаться от времени принципа Ямы/Ниямы.\n\n"
-            "Формат: ЧЧ:ММ, например 20:00."
+            "Теперь выберите, когда бот будет возвращать вас к текущему <b>меридиану</b> или точке. Это время может отличаться от времени принципа Ямы/Ниямы."
         ),
         "meridian_time_saved": "✅ Время напоминаний по меридианам сохранено.",
         "meridian_mode_menu": (
@@ -1931,7 +1834,7 @@ TEXTS_UPDATE = {
             "🖐 <b>Как искать точку</b>\n\n"
             "По изображению и цуням найдите нужную область. Саму точку ищите медленнее: пальцами, дыханием и вниманием.\n\n"
             "<b>1.</b> Мягко касайтесь зоны. Ищите небольшое углубление, чувствительность, тепло, давление или место, где внимание удерживается легче.\n\n"
-            "<b>2.</b> Если точка почти не ощущается, считайте её пока закрытой для практики. Побудьте с ней дольше, мягко помассируйте и представляйте вдох и выдох через это место.\n\n"
+            "<b>2.</b> Если точка почти не ощущается, считайте её пока закрытой для практики. Побудьте с ней дольше, мягко помассируйте (кроме точек со значком ⚠) и представляйте вдох и выдох через это место.\n\n"
             "<b>3.</b> Не выжимайте результат. Достаточно тихого устойчивого ощущения.\n\n"
             "Когда переходите к следующей точке, не бросайте предыдущие: удерживайте их фоном и добавляйте новую в ту же линию внимания."
         ),
@@ -1939,7 +1842,7 @@ TEXTS_UPDATE = {
             "☯️ <b>Меридианы</b>\n\n"
             "<b>Зачем изучать меридианы?</b>\n\n"
             "В китайской традиции меридианы — это каналы, по которым движется Ци. Один из способов практиковать — наблюдать тело: где ощущение ясное, где линия обрывается, где точка тёплая или холодная, напряжённая или расслабленная, пустая или «молчит».\n\n"
-            "<b>Что мы тренируем:</b> внимание, дыхание и мягкое касание. Если точка сначала «не отвечает», можно считать её пока «закрытой» для практики: задержитесь дольше, легко помассируйте, подышите через неё вниманием и дождитесь более устойчивого ощущения.\n\n"
+            "<b>Что мы тренируем:</b> внимание, дыхание и мягкое касание. Если точка сначала «не отвечает», можно считать её пока «закрытой» для практики: задержитесь дольше, легко помассируйте (кроме точек со значком ⚠), подышите через неё вниманием и дождитесь более устойчивого ощущения.\n\n"
             "<b>Как двигаться:</b> каждая новая точка добавляется к предыдущим. Сначала почувствуйте первую. Потом удерживайте её фоном в своём внимании и добавляйте вторую. Постепенно меридиан становится одной живой линией, по которой вы начнёте чувствовать движение Ци.\n\n"
             "<b>Выберите путь:</b> маршрут бота подойдёт, если пока не знаете, с чего начать. Свободный выбор — если вы опытный практик и привыкли всё проверять на своём личном опыте.\n\n"
             "<b>Перед точками:</b> откройте справку по <b>цуням</b>. Она помогает найти область, а точное место уточняется пальцами, дыханием и вниманием.\n\n"
@@ -2011,9 +1914,8 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Amaliyot oddiy kuzatishdan boshlanadi: kun davomida kuchim qayerga ketmoqda? Bu yerda energiya mavhum so'z emas. Bu diqqat, hayotiylik, barqarorlik va o'zingizni bo'shatib yubormasdan harakat qilish qobiliyatidir.\n\n"
-            "<b>Yama va Niyama</b> poydevor. Ular energiya oqib ketadigan joylarni yopishga yordam beradi: keskin so'z, ziddiyat, shoshilish, ortiqchalik, o'zingizga zarar, xafagarchilik va avtomatik reaksiyalar. <b>Ahimsa</b>, masalan, faqat boshqalarga zarar yetkazmaslik emas; u o'zingizni yemirmaslik va keyin tiklanishga yana kuch sarflamaslikdan ham boshlanadi.\n\n"
-            "<b>Meridianlar</b> shu ishni tanaga olib kiradi. Siz Qi kanallarini diqqat, nafas, teginish, iliqlik, bosim va sokin joylar orqali sezishni o'rganasiz. Agar nuqta deyarli sezilmasa, bu xato emas; bu ko'proq sabrli amaliyot so'rayotgan joy.\n\n"
+            "Yama va Niyama fikr, so'z va harakatda kuchni behuda sarflamaslikka o'rgatadi, meridianlar esa shu ishni tanaga olib kiradi: nuqta va chiziqlarni diqqat va nafas bilan sezishni o'rganasiz. "
+            "Bitta yo'ldan boshlash mumkin, ikkinchisini keyin menyuda qo'shasiz.\n\n"
             "Nimani o'rganmoqchisiz?"
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
@@ -2031,18 +1933,15 @@ TEXTS_UPDATE = {
         ),
         "time_step_principles": (
             "⏰ <b>2/3-qadam: Yuborish vaqti</b>\n\n"
-            "Bot kundalik <b>Yama/Niyama</b> tamoyilini qachon yuborishini tanlang.\n\n"
-            "Format: HH:MM, masalan 08:00 yoki 20:30."
+            "Bot kundalik <b>Yama/Niyama</b> tamoyilini qachon yuborishini tanlang."
         ),
         "time_step_meridians": (
             "⏰ <b>2/3-qadam: Yuborish vaqti</b>\n\n"
-            "Bot kundalik <b>meridian</b> fokusini qachon yuborishini tanlang.\n\n"
-            "Format: HH:MM, masalan 08:00 yoki 20:30."
+            "Bot kundalik <b>meridian</b> fokusini qachon yuborishini tanlang."
         ),
         "time_step_both": (
             "⏰ <b>2/4-qadam: Yuborish vaqti</b>\n\n"
-            "Avval kundalik <b>Yama/Niyama</b> tamoyili vaqtini tanlang. Meridian eslatmasi vaqtini keyingi qadamda tanlaymiz.\n\n"
-            "Format: HH:MM, masalan 08:00 yoki 20:30."
+            "Avval kundalik <b>Yama/Niyama</b> tamoyili vaqtini tanlang. Meridian eslatmasi vaqtini keyingi qadamda tanlaymiz."
         ),
         "continue_setup": "Davom etish",
         "menu": "📋 <b>Journey of Ascension</b>",
@@ -2109,51 +2008,6 @@ TEXTS_UPDATE = {
         "meridian_materials_menu": "📚 <b>Foydali materiallar</b>\n\nNimani ochishni tanlang.",
         "meridian_materials_basics": "Asosiy maqolalar",
         "meridian_materials_shu": "Besh shu-nuqta",
-        "meridian_materials_sending": "📚 <b>Besh shu-nuqta</b>\n\nRasmlar to'g'ri joyda turishi uchun materialni quyida bir nechta xabar qilib yuboraman.",
-        "shu_intro_text": (
-            "📚 <b>Besh shu-nuqta</b>\n\n"
-            "Besh shu-nuqta — o'n ikki asosiy kanalning besh turdagi maxsus nuqtalari. Ular kanallarning distal qismlarida: qo'l barmoqlari va tirsak orasida yoki oyoq barmoqlari va tizza orasida joylashadi.\n\n"
-            "<b>Besh shu-nuqta:</b> buloq, jilg'a, sharshara/tez oqim, daryo va og'iz nuqtalari. Ular antik shu-nuqtalar, transport nuqtalari yoki besh unsur nuqtalari deb ham ataladi.\n\n"
-            "Qadimgi Xitoy mutafakkirlari bu nuqtalarni daryoga qiyoslagan: barmoq uchlarida kanal tor va yuzaki, tirsak yoki tizza tomonga borib esa kengroq va chuqurroq bo'ladi."
-        ),
-        "shu_flow_text": (
-            "Kanalning chuqurligi va kengligi ortishi energiya oqimining yo'nalishiga bog'liq emas. Bu qonuniyat qo'l va oyoqdagi Yin hamda Yang kanallariga birdek tegishli.\n\n"
-            "Hatto qo'l Yin kanali barmoqlar tomon oqsa ham, barmoq uchidagi nuqta buloq deb ataladi, tirsak sohasi esa daryo og'ziga qiyoslanadi."
-        ),
-        "shu_indications_text": (
-            "<b>Asosiy ko'rsatmalar:</b>\n"
-            "• <b>Buloq nuqtalari</b> — kritik holatlarda shoshilinch yordam.\n"
-            "• <b>Jilg'a nuqtalari</b> — Issiqlik xususiyatiga ega holatlar.\n"
-            "• <b>Tez oqim nuqtalari</b> — bo'g'im og'rig'i.\n"
-            "• <b>Daryo nuqtalari</b> — isitma va titroq, yo'tal, hansirash va tomoq kasalliklari bilan bog'liq tashqi sindromlar.\n"
-            "• <b>Og'iz nuqtalari</b> — oshqozon, ichak va boshqa Fu organlari kasalliklari."
-        ),
-        "shu_sources_text": (
-            "<b>1. Buloq nuqtalari</b>\n<i>Kritik holatlarda shoshilinch yordam.</i>\n\n"
-            "Bu yerda kanal eng nozik va eng yuzaki bo'ladi. Odatda buloq nuqtalari qo'l va oyoq tirnoqlari asosida joylashadi. Istisnolar: oyoq kaftidagi Yong-quan R1 va o'rta barmoq uchidagi Zhong-chong MC9.\n\n"
-            "(1) Shao-shang, O'pka. (2) Zhong-chong, Perikard. (3) Shao-chong, Yurak. (4) Yin-bai, Taloq. (5) Da-dun, Jigar. (6) Yong-quan, Buyrak. (7) Shang-yang, Yo'g'on ichak. (8) Guan-chong, Uch isitkich. (9) Shao-ze, Ingichka ichak. (10) Li-dui, Oshqozon. (11) Zu-qiao-yin, O't pufagi. (12) Zhi-yin, Siydik pufagi."
-        ),
-        "shu_brooks_text": (
-            "<b>2. Jilg'a nuqtalari</b>\n<i>Issiqlik xususiyatiga ega holatlar.</i>\n\n"
-            "Qi bu nuqtalarga yetganda ko'payadi, go'yo buloqdan chiqqan kichik jilg'a kabi. Ular patogen omillarni chiqarish, ayniqsa Issiqlikni sovitish uchun ishlatiladi.\n\n"
-            "(1) Yu-ji, O'pka. (2) Lao-gong, Perikard. (3) Shao-fu, Yurak. (4) Da-du, Taloq. (5) Ran-gu, Buyrak. (6) Xing-jian, Jigar. (7) Er-jian, Yo'g'on ichak. (8) Ye-men, Uch isitkich. (9) Qian-gu, Ingichka ichak. (10) Nei-ting, Oshqozon. (11) Xia-xi, O't pufagi. (12) Zu-tong-gu, Siydik pufagi."
-        ),
-        "shu_rapids_text": (
-            "<b>3. Tez oqim nuqtalari</b>\n<i>Bo'g'im og'rig'i; kasallik goh kelib, goh ketishi.</i>\n\n"
-            "Bu nuqtalarda Qi yoyiladi, girdoblar hosil qiladi, oqim kuchliroq va chuqurroq bo'ladi. Ular an'anaviy ravishda bo'g'im og'rig'i, tanadagi og'irlik va namlik-sovuqlik bilan bog'liq bloklar uchun ishlatiladi.\n\n"
-            "(1) Tai-yuan. (2) Da-ling. (3) Shen-men. (4) Tai-bai. (5) Tai-xi. (6) Tai-chong. (7) San-jian. (8) Zhong-zhu. (9) Hou-xi. (10) Xian-gu. (11) Zu-lin-qi. (12) Shu-gu."
-        ),
-        "shu_rivers_text": (
-            "<b>4. Daryo nuqtalari</b>\n\n"
-            "Bu yerda kanal Qi kengroq, kuchliroq va chuqurroq bo'ladi, go'yo o'z o'zanida oqayotgan katta daryo kabi. Daryo nuqtalari nafas, ovoz, yo'tal, hansirash va tomoq kasalliklari bilan bog'lanadi.\n\n"
-            "(1) Jing-qu. (2) Jian-shi. (3) Ling-dao. (4) Shang-qiu. (5) Zhong-feng. (6) Fu-liu. (7) Yang-xi. (8) Zhi-gou. (9) Yang-gu. (10) Jie-xi. (11) Yang-fu. (12) Kun-lun."
-        ),
-        "shu_mouths_text": (
-            "<b>5. Og'iz nuqtalari</b>\n<i>Oshqozon, ichak va boshqa Fu organlari kasalliklari.</i>\n\n"
-            "Bu beshinchi nuqtalar bo'lib, doimo tirsak yoki tizza darajasida joylashadi. Bu yerda kanal Qi dengizga quyilayotgan daryo og'zidek serob bo'ladi. Kanal Qi butun organizm Qi bilan qo'shiladi.\n\n"
-            "(1) Chi-ze. (2) Qu-ze. (3) Shao-hai. (4) Yin-ling-quan. (5) Qu-quan. (6) Yin-gu. (7) Qu-chi. (8) Tian-jing. (9) Xiao-hai. (10) Zu-san-li. (11) Yang-ling-quan. (12) Wei-zhong.\n\n"
-            "<i>Fu organlari yoki Yang organlari: oshqozon, yo'g'on ichak, ingichka ichak, siydik pufagi, o't pufagi va uch isitkich. Material tanishish uchun; mutaxassis maslahatini almashtirmaydi.</i>"
-        ),
         "principles_random": "Tasodifiy tamoyil",
         "principles_all": "Barcha tamoyillar",
         "principles_back": "🔙 Yama/Niyamaga qaytish",
@@ -2174,8 +2028,7 @@ TEXTS_UPDATE = {
         "meridian_time_step": "☯️ <b>Meridian eslatma vaqti</b>\n\nVaqtni HH:MM formatida kiriting, masalan 20:00.",
         "meridian_time_setup_step": (
             "☯️ <b>3/4-qadam: Meridian eslatma vaqti</b>\n\n"
-            "Endi bot sizni joriy meridian yoki nuqtaga qachon qaytarishini tanlang. Bu vaqt Yama/Niyama tamoyili vaqtidan farq qilishi mumkin.\n\n"
-            "Format: HH:MM, masalan 20:00."
+            "Endi bot sizni joriy meridian yoki nuqtaga qachon qaytarishini tanlang. Bu vaqt Yama/Niyama tamoyili vaqtidan farq qilishi mumkin."
         ),
         "meridian_time_saved": "✅ Meridian eslatma vaqti saqlandi.",
         "meridian_mode_menu": (
@@ -2215,7 +2068,7 @@ TEXTS_UPDATE = {
             "🖐 <b>Nuqtani qanday topish kerak</b>\n\n"
             "Rasm va cun o'lchovlari orqali kerakli joyga yaqinlashing. Aniq nuqtani esa sekinroq toping: barmoq, nafas va diqqat bilan.\n\n"
             "<b>1.</b> Joyga yumshoq teging. Kichik chuqurcha, sezgirlik, issiqlik, bosim yoki diqqat osonroq ushlanadigan nuqtani qidiring.\n\n"
-            "<b>2.</b> Agar nuqta deyarli sezilmasa, uni amaliyot uchun hali ochilmagan deb qabul qiling. Uzoqroq turing, yengil massaj qiling va shu joy orqali nafas olayotganingizni tasavvur qiling.\n\n"
+            "<b>2.</b> Agar nuqta deyarli sezilmasa, uni amaliyot uchun hali ochilmagan deb qabul qiling. Uzoqroq turing, yengil massaj qiling (⚠ belgisi bor nuqtalardan tashqari) va shu joy orqali nafas olayotganingizni tasavvur qiling.\n\n"
             "<b>3.</b> Natijani majburlamang. Sokin va barqaror sezgi yetarli.\n\n"
             "Keyingi nuqtaga o'tganda oldingilarni fon sifatida sezib, yangi nuqtani shu diqqat chizig'iga qo'shing."
         ),
@@ -2223,7 +2076,7 @@ TEXTS_UPDATE = {
             "☯️ <b>Meridianlar</b>\n\n"
             "<b>Meridianlarni nima uchun o'rganamiz?</b>\n\n"
             "Xitoy an'anasida meridianlar Qi harakat qiladigan kanallar deb tasvirlanadi. Amaliyot uchun bu ko'r-ko'rona ishoniladigan nazariya emas. Bu tanani kuzatish usuli: qayerda sezgi ravshan, qayerda chiziq uziladi, qaysi nuqta iliq, tarang, bo'sh yoki jim.\n\n"
-            "<b>Nimani mashq qilamiz:</b> diqqat, nafas va yumshoq teginish. Agar nuqta boshida javob bermasa, uni hozircha amaliyot uchun yopiq deb qabul qiling: uzoqroq turing, yengil massaj qiling, shu joy orqali diqqat bilan nafas oling va sezgi barqarorroq bo'lishini kuting.\n\n"
+            "<b>Nimani mashq qilamiz:</b> diqqat, nafas va yumshoq teginish. Agar nuqta boshida javob bermasa, uni hozircha amaliyot uchun yopiq deb qabul qiling: uzoqroq turing, yengil massaj qiling (⚠ belgisi bor nuqtalardan tashqari), shu joy orqali diqqat bilan nafas oling va sezgi barqarorroq bo'lishini kuting.\n\n"
             "<b>Qanday harakat qilamiz:</b> har bir yangi nuqta oldingilariga qo'shiladi. Avval birinchi nuqtani sezing. Keyin uni fon sifatida ushlab, ikkinchisini qo'shing. Vaqt o'tishi bilan meridian alohida nuqtalar emas, bitta tirik chiziq bo'lib sezila boshlaydi.\n\n"
             "<b>Yo'lni tanlang:</b> boshidan sokin ketma-ketlik kerak bo'lsa bot yo'nalishini tanlang. Ma'lum meridian e'tiboringizni tortsa, erkin tanlovni tanlang.\n\n"
             "<b>Nuqtalardan oldin:</b> <b>cun</b> bo'yicha qo'llanmani oching. U kerakli sohani topishga yordam beradi; aniq joy esa barmoq, nafas va diqqat bilan aniqlanadi.\n\n"
@@ -2308,9 +2161,8 @@ TEXTS_UPDATE = {
         ),
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
-            "Тәжірибе қарапайым бақылаудан басталады: күн ішінде күшім қайда кетіп жатыр? Мұнда энергия дерексіз сөз емес. Ол — зейін, тіршілік күші, тұрақтылық және өзіңізді сарқымай әрекет ету қабілеті.\n\n"
-            "<b>Яма мен Нияма</b> — негіз. Олар энергия ағып кететін жерлерді жабуға көмектеседі: қатты сөз, қақтығыс, асығыстық, артықтық, өзіңізге зиян, реніш және автоматты реакциялар. <b>Ахимса</b>, мысалы, тек өзгеге зиян келтірмеу емес; ол өзіңізді бұзуға күш жұмсамаудан және кейін қалпына келуге тағы энергия төкпеуден де басталады.\n\n"
-            "<b>Меридиандар</b> осы жұмысты денеге әкеледі. Сіз Ци арналарының сезімін зейін, тыныс, жанасу, жылу, қысым және тыныш аймақтар арқылы үйренесіз. Егер нүкте әзірге сезілмесе, бұл қате емес; бұл көбірек сабырлы тәжірибе сұрап тұрған жер.\n\n"
+            "Яма мен Нияма ойда, сөзде және әрекетте күшті босқа шашпауға үйретеді, ал меридиандар осы жұмысты денеге әкеледі: нүктелер мен сызықтарды зейін мен тыныс арқылы сезуді үйренесіз. "
+            "Бір жолдан бастауға болады, екіншісін кейін мәзірден қосасыз.\n\n"
             "Нені зерттегіңіз келеді?"
         ),
         "initial_mode_question": "Нені зерттегіңіз келеді?",
@@ -2328,18 +2180,15 @@ TEXTS_UPDATE = {
         ),
         "time_step_principles": (
             "⏰ <b>2/3-қадам: Жіберу уақыты</b>\n\n"
-            "Бот күнделікті <b>Яма/Нияма</b> қағидасын қашан жіберетінін таңдаңыз.\n\n"
-            "Формат: HH:MM, мысалы 08:00 немесе 20:30."
+            "Бот күнделікті <b>Яма/Нияма</b> қағидасын қашан жіберетінін таңдаңыз."
         ),
         "time_step_meridians": (
             "⏰ <b>2/3-қадам: Жіберу уақыты</b>\n\n"
-            "Бот күнделікті <b>меридиан</b> фокусын қашан жіберетінін таңдаңыз.\n\n"
-            "Формат: HH:MM, мысалы 08:00 немесе 20:30."
+            "Бот күнделікті <b>меридиан</b> фокусын қашан жіберетінін таңдаңыз."
         ),
         "time_step_both": (
             "⏰ <b>2/4-қадам: Жіберу уақыты</b>\n\n"
-            "Алдымен күнделікті <b>Яма/Нияма</b> қағидасының уақытын таңдаңыз. Меридиан еске салуының уақытын келесі қадамда таңдаймыз.\n\n"
-            "Формат: HH:MM, мысалы 08:00 немесе 20:30."
+            "Алдымен күнделікті <b>Яма/Нияма</b> қағидасының уақытын таңдаңыз. Меридиан еске салуының уақытын келесі қадамда таңдаймыз."
         ),
         "continue_setup": "Жалғастыру",
         "menu": "📋 <b>Journey of Ascension</b>",
@@ -2406,51 +2255,6 @@ TEXTS_UPDATE = {
         "meridian_materials_menu": "📚 <b>Пайдалы материалдар</b>\n\nНені ашатыныңызды таңдаңыз.",
         "meridian_materials_basics": "Негізгі мақалалар",
         "meridian_materials_shu": "Бес шу-нүкте",
-        "meridian_materials_sending": "📚 <b>Бес шу-нүкте</b>\n\nСуреттер дұрыс жерде тұруы үшін материалды төменде бірнеше хабармен жіберемін.",
-        "shu_intro_text": (
-            "📚 <b>Бес шу-нүкте</b>\n\n"
-            "Бес шу-нүкте — он екі негізгі арнаның бес түрлі арнайы нүктесі. Олар арналардың дистальды бөліктерінде: қол саусақтары мен шынтақ арасында немесе аяқ саусақтары мен тізе арасында орналасады.\n\n"
-            "<b>Бес шу-нүкте:</b> бұлақ, жылға, шапшаң ағыс, өзен және саға нүктелері. Оларды антикалық шу-нүктелер, тасымалдаушы нүктелер немесе бес стихия нүктелері деп те атайды.\n\n"
-            "Ежелгі қытай ойшылдары бұл нүктелерді өзенге теңеген: саусақ ұштарында арна тар әрі беткі қабатта, ал шынтақ немесе тізе жаққа қарай кең әрі терең болады."
-        ),
-        "shu_flow_text": (
-            "Арнаның тереңдігі мен кеңдігінің артуы энергия ағымының бағытына тәуелді емес. Бұл заңдылық қол мен аяқтағы Инь және Ян арналарына бірдей қатысты.\n\n"
-            "Қолдың Инь арнасы саусақтарға қарай ақса да, саусақ ұшындағы нүкте бұлақ деп саналады, ал шынтақ аймағы өзен сағасымен салыстырылады."
-        ),
-        "shu_indications_text": (
-            "<b>Негізгі көрсеткіштер:</b>\n"
-            "• <b>Бұлақ нүктелері</b> — сыни жағдайларда шұғыл көмек.\n"
-            "• <b>Жылға нүктелері</b> — Ыстық қасиеті бар жағдайлар.\n"
-            "• <b>Шапшаң ағыс нүктелері</b> — буын ауруы.\n"
-            "• <b>Өзен нүктелері</b> — қызба мен қалтырау, жөтел, ентігу және тамақ аурулары бар сыртқы синдромдар.\n"
-            "• <b>Саға нүктелері</b> — асқазан, ішек және басқа Фу-ағзалар аурулары."
-        ),
-        "shu_sources_text": (
-            "<b>1. Бұлақ нүктелері</b>\n<i>Сыни жағдайларда шұғыл көмек.</i>\n\n"
-            "Бұл жерде арна ең жіңішке және ең беткі орналасады. Әдетте бұлақ нүктелері қол мен аяқ тырнақтарының түбінде болады. Ерекшеліктер: табандағы Юн-цюань R1 және ортаңғы саусақ ұшындағы Чжун-чун MC9.\n\n"
-            "(1) Шао-шан, Өкпе. (2) Чжун-чун, Перикард. (3) Шао-чун, Жүрек. (4) Инь-бай, Көкбауыр. (5) Да-дунь, Бауыр. (6) Юн-цюань, Бүйрек. (7) Шан-ян, Тоқ ішек. (8) Гуань-чун, Үш жылытқыш. (9) Шао-цзэ, Ащы ішек. (10) Ли-дуй, Асқазан. (11) Цзу-цяо-инь, Өт қабы. (12) Чжи-инь, Қуық."
-        ),
-        "shu_brooks_text": (
-            "<b>2. Жылға нүктелері</b>\n<i>Ыстық қасиеті бар жағдайлар.</i>\n\n"
-            "Ци бұл нүктелерге жеткенде молаяды, бұлақтан шыққан шағын жылғаға ұқсайды. Олар патогендік факторларды шығару, әсіресе Ыстықты салқындату үшін қолданылады.\n\n"
-            "(1) Юй-цзи, Өкпе. (2) Лао-гун, Перикард. (3) Шао-фу, Жүрек. (4) Да-ду, Көкбауыр. (5) Жань-гу, Бүйрек. (6) Син-цзянь, Бауыр. (7) Эр-цзянь, Тоқ ішек. (8) Е-мэнь, Үш жылытқыш. (9) Цянь-гу, Ащы ішек. (10) Нэй-тин, Асқазан. (11) Ся-си, Өт қабы. (12) Цзу-тун-гу, Қуық."
-        ),
-        "shu_rapids_text": (
-            "<b>3. Шапшаң ағыс нүктелері</b>\n<i>Буын ауруы; ауру бірде келіп, бірде кетеді.</i>\n\n"
-            "Бұл нүктелерде Ци жайылып, иірімдер түзеді, ағым күшейіп әрі тереңдейді. Олар дәстүрлі түрде буын ауруы, денедегі ауырлық және ылғал-суықпен байланысты бөгелістер үшін қолданылады.\n\n"
-            "(1) Тай-юань. (2) Да-лин. (3) Шэнь-мэнь. (4) Тай-бай. (5) Тай-си. (6) Тай-чун. (7) Сань-цзянь. (8) Чжун-чжу. (9) Хоу-си. (10) Сянь-гу. (11) Цзу-линь-ци. (12) Шу-гу."
-        ),
-        "shu_rivers_text": (
-            "<b>4. Өзен нүктелері</b>\n\n"
-            "Бұл жерде арна Ци кеңірек, күштірек және тереңірек болады, өз арнасымен аққан үлкен өзендей. Өзен нүктелері тыныс, дауыс, жөтел, ентігу және тамақ ауруларымен байланыстырылады.\n\n"
-            "(1) Цзинь-цюй. (2) Цзянь-ши. (3) Лин-дао. (4) Шан-цю. (5) Чжун-фэн. (6) Фу-лю. (7) Ян-си. (8) Чжи-гоу. (9) Ян-гу. (10) Цзе-си. (11) Ян-фу. (12) Кунь-лунь."
-        ),
-        "shu_mouths_text": (
-            "<b>5. Саға нүктелері</b>\n<i>Асқазан, ішек және басқа Фу-ағзалар аурулары.</i>\n\n"
-            "Бұл бесінші нүктелер, олар әрқашан шынтақ немесе тізе деңгейінде орналасады. Мұнда арна Ци теңізге құятын өзен сағасындай мол болады. Арна Ци бүкіл ағзаның Ци-імен қосылады.\n\n"
-            "(1) Чи-цзэ. (2) Цюй-цзэ. (3) Шао-хай. (4) Инь-лин-цюань. (5) Цюй-цюань. (6) Инь-гу. (7) Цюй-чи. (8) Тянь-цзин. (9) Сяо-хай. (10) Цзу-сань-ли. (11) Ян-лин-цюань. (12) Вэй-чжун.\n\n"
-            "<i>Фу-ағзалар немесе Ян-ағзалар: асқазан, тоқ ішек, ащы ішек, қуық, өт қабы және үш жылытқыш. Материал танысуға арналған және маман кеңесін алмастырмайды.</i>"
-        ),
         "principles_random": "Кездейсоқ қағида",
         "principles_all": "Барлық қағидалар",
         "principles_back": "🔙 Яма/Ниямаға қайту",
@@ -2471,8 +2275,7 @@ TEXTS_UPDATE = {
         "meridian_time_step": "☯️ <b>Меридиан еске салу уақыты</b>\n\nУақытты HH:MM форматында енгізіңіз, мысалы 20:00.",
         "meridian_time_setup_step": (
             "☯️ <b>3/4-қадам: Меридиан еске салу уақыты</b>\n\n"
-            "Енді бот сізді ағымдағы меридианға немесе нүктеге қашан қайтаратынын таңдаңыз. Бұл уақыт Яма/Нияма қағидасының уақытынан бөлек болуы мүмкін.\n\n"
-            "Формат: HH:MM, мысалы 20:00."
+            "Енді бот сізді ағымдағы меридианға немесе нүктеге қашан қайтаратынын таңдаңыз. Бұл уақыт Яма/Нияма қағидасының уақытынан бөлек болуы мүмкін."
         ),
         "meridian_time_saved": "✅ Меридиан еске салу уақыты сақталды.",
         "meridian_mode_menu": (
@@ -2512,7 +2315,7 @@ TEXTS_UPDATE = {
             "🖐 <b>Нүктені қалай табу керек</b>\n\n"
             "Сурет пен цунь өлшемдері арқылы керек аймаққа жақындаңыз. Нақты нүктені баяуырақ табыңыз: саусақпен, тыныспен және зейінмен.\n\n"
             "<b>1.</b> Аймаққа жұмсақ тиіңіз. Кішкентай ойыс, сезімталдық, жылу, қысым немесе зейін оңай ілінетін орынды іздеңіз.\n\n"
-            "<b>2.</b> Егер нүкте әрең сезілсе, оны тәжірибе үшін әзірге ашылмаған деп қабылдаңыз. Ұзағырақ болыңыз, жеңіл уқалаңыз және сол жер арқылы тыныс алуды елестетіңіз.\n\n"
+            "<b>2.</b> Егер нүкте әрең сезілсе, оны тәжірибе үшін әзірге ашылмаған деп қабылдаңыз. Ұзағырақ болыңыз, жеңіл уқалаңыз (⚠ белгісі бар нүктелерден басқа) және сол жер арқылы тыныс алуды елестетіңіз.\n\n"
             "<b>3.</b> Нәтижені күштемеңіз. Тыныш әрі тұрақты сезім жеткілікті.\n\n"
             "Келесі нүктеге өткенде алдыңғыларды фонда сезіп, жаңа нүктені сол зейін сызығына қосыңыз."
         ),
@@ -2520,7 +2323,7 @@ TEXTS_UPDATE = {
             "☯️ <b>Меридиандар</b>\n\n"
             "<b>Меридиандарды не үшін зерттейміз?</b>\n\n"
             "Қытай дәстүрінде меридиандар Ци қозғалатын арналар ретінде сипатталады. Тәжірибе үшін бұл соқыр сенім емес. Бұл денені бақылау тәсілі: сезім қай жерде анық, сызық қай жерде үзіледі, нүкте қай жерде жылы, кернеулі, бос немесе үнсіз.\n\n"
-            "<b>Нені жаттықтырамыз:</b> зейін, тыныс және жұмсақ жанасу. Егер нүкте басында жауап бермесе, оны әзірге тәжірибе үшін жабық деп қабылдаңыз: ұзағырақ болыңыз, жеңіл уқалаңыз, сол жер арқылы зейінмен тыныстаңыз және сезім тұрақтырақ болғанын күтіңіз.\n\n"
+            "<b>Нені жаттықтырамыз:</b> зейін, тыныс және жұмсақ жанасу. Егер нүкте басында жауап бермесе, оны әзірге тәжірибе үшін жабық деп қабылдаңыз: ұзағырақ болыңыз, жеңіл уқалаңыз (⚠ белгісі бар нүктелерден басқа), сол жер арқылы зейінмен тыныстаңыз және сезім тұрақтырақ болғанын күтіңіз.\n\n"
             "<b>Қалай қозғаламыз:</b> әр жаңа нүкте алдыңғыларына қосылады. Алдымен бірінші нүктені сезіңіз. Кейін оны фонда ұстап, екіншісін қосыңыз. Уақыт өте меридиан бөлек нүктелер емес, бір тірі сызық болып сезіледі.\n\n"
             "<b>Жолды таңдаңыз:</b> басынан тыныш реттілік керек болса, бот бағытын таңдаңыз. Белгілі бір меридиан назарыңызды тартса, еркін таңдауды таңдаңыз.\n\n"
             "<b>Нүктелерден бұрын:</b> <b>цунь</b> нұсқаулығын ашыңыз. Ол қажетті аймақты табуға көмектеседі; нақты орын саусақ, тыныс және зейін арқылы нақтыланады.\n\n"
@@ -2744,84 +2547,84 @@ for _language, _updates in TEXTS_UPDATE.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
 SHU_POINTS_ARTICLE_OVERRIDES = {
+    # Names follow the map (webapp/assets/point_categories.json): well, spring, stream, river, sea.
+    # The classical indications are told as tradition; the bot's practice is attention or a light touch,
+    # no needles and no warming (moxibustion).
     "ru": {
         "meridian_materials_sending": "📚 <b>Пять шу-точек</b>\n\nОтправлю материал как статью: текстовыми блоками и изображениями в тех местах, где они нужны по смыслу.",
         "shu_intro_text": (
             "📚 <b>Пять шу-точек</b>\n\n"
             "Пять шу-точек — это пять типов специфических точек <b>двенадцати главных каналов</b>, которые расположены <b>на дистальных отделах</b> каналов: между пальцами руки и локтем или между пальцами ноги и коленом.\n\n"
-            "<b>Пять шу-точек</b> (五输穴 wu shū xue):\n\n"
-            "• точки-истоки (井 <i>цзин</i>);\n"
-            "• точки-ручьи (荥 <i>ин</i>);\n"
-            "• точки-быстрины (输 <i>шу</i>);\n"
+            "<b>Пять шу-точек</b> (五输穴 wǔ shū xué):\n\n"
+            "• точки-колодцы (井 <i>цзин</i>);\n"
+            "• точки-родники (荥 <i>ин</i>);\n"
+            "• точки-потоки (输 <i>шу</i>);\n"
             "• точки-реки (经 <i>цзин</i>);\n"
-            "• точки-устья (合 <i>хэ</i>).\n\n"
+            "• точки-моря (合 <i>хэ</i>).\n\n"
             "Другие названия: 5 античных шу-точек, транспортировочные точки или точки 5 первоэлементов.\n\n"
-            "<b>Древние китайские мыслители сравнивали пять точек, расположенные между пальцами и коленом/локтем, с рекой.</b>"
+            "<b>Древние китайские мыслители сравнивали пять точек, расположенных между пальцами и коленом/локтем, с течением воды: от колодца до моря.</b>"
         ),
         "shu_flow_text": (
-            "Точки, расположенные на кончиках пальцев кисти или стопы, — это <b>исток</b>. Затем река становится полноводнее и глубже и заканчивается <b>точкой-устьем</b>, расположенной в области колена или локтя.\n\n"
-            "Так обозначена тенденция к <b>нарастанию глубины и ширины канала</b>, направленная от кончиков пальцев к локтю или колену. На кончике пальца канал узкий и поверхностный, а в области колена и локтя — широкий и глубокий.\n\n"
+            "Точки на кончиках пальцев кисти или стопы — это <b>колодец</b>: здесь поток только выходит на поверхность. Дальше он набирает силу, как родник, ручей и река, и у колена или локтя уходит вглубь в <b>точке-море</b>.\n\n"
+            "Так обозначена тенденция к <b>нарастанию глубины и ширины канала</b> от кончиков пальцев к локтю или колену. На кончике пальца канал узкий и поверхностный, а в области колена и локтя — широкий и глубокий.\n\n"
             "Важно: нарастание размера и глубины канала <b>не зависит от направления течения</b>. Эта закономерность справедлива для Инь- и Ян-каналов рук и ног.\n\n"
-            "Даже если каналы Инь рук текут к пальцам кисти, а каналы Ян рук текут к груди, сравнение точек на кончиках пальцев с истоком, а на локте — с устьем реки остаётся верным."
+            "Даже если каналы Инь рук текут от груди к пальцам кисти, а каналы Ян рук — от пальцев к голове, сравнение точек на кончиках пальцев с колодцем, а точек у локтя — с морем остаётся верным."
         ),
         "shu_indications_text": (
-            "<blockquote>Шу-точки расположены ближе к поверхности, чем остальные точки каналов. Энергетическое действие этих точек считается более быстрым, поэтому их часто используют в клинической практике.</blockquote>\n\n"
-            "<b>Основные показания пяти шу-точек:</b>\n\n"
-            "— <b>точки-истоки</b> — неотложная помощь при критических состояниях;\n"
-            "— <b>точки-ручьи</b> — болезни со свойствами жара;\n"
-            "— <b>точки-быстрины</b> — боль в суставах;\n"
-            "— <b>точки-реки</b> — наружный синдром с лихорадкой и ознобом, кашлем, одышкой и болезнями горла;\n"
-            "— <b>точки-устья</b> — болезни желудка, кишечника и других фу-органов."
+            "<blockquote>Традиция описывает шу-точки как более поверхностные, чем остальные точки каналов. Их действие в ней считается более быстрым, поэтому классические тексты упоминают их особенно часто.</blockquote>\n\n"
+            "<b>Классические показания пяти шу-точек.</b> Это описание традиции, а не совет по лечению.\n\n"
+            "— <b>точки-колодцы</b> — в старых текстах их связывают с острыми состояниями и обмороком;\n"
+            "— <b>точки-родники</b> — состояния со свойствами жара;\n"
+            "— <b>точки-потоки</b> — боль в суставах;\n"
+            "— <b>точки-реки</b> — наружный синдром с лихорадкой и ознобом, кашель, одышка, болезни горла;\n"
+            "— <b>точки-моря</b> — желудок, кишечник и другие фу-органы.\n\n"
+            "⚠️ При неотложном состоянии сразу вызывайте скорую помощь (103 или 112). Точки не заменяют врача. В этом боте с ними работают только вниманием или лёгким касанием, без игл и прогревания."
         ),
         "shu_sources_text": (
-            "<b>1. ТОЧКИ-ИСТОКИ</b> (井 jǐng, <i>цзин</i>)\n\n"
-            "<i>Неотложная помощь при критических состояниях.</i>\n\n"
-            "<b>井</b> jǐng, цзин = исток.\n"
-            "В этих точках канал тоньше всего и расположен <b>наиболее поверхностно</b>. Обычно точки-истоки находятся у оснований ногтей пальцев рук и ног.\n\n"
-            "Исключение составляют точка-исток ножного шао-инь канала почек <b>Юн-цюань R1</b>, расположенная в середине подошвы, и точка-исток ручного цзюэ-инь канала перикарда <b>Чжун-чун MC9</b>, расположенная на кончике среднего пальца руки.\n\n"
-            "В точках-истоках канальная энергия расположена неглубоко. Их используют как неотложную помощь в критических состояниях, при упадке сил и для быстрой стимуляции защитной реакции организма.\n\n"
+            "<b>1. ТОЧКИ-КОЛОДЦЫ</b> (井 jǐng, <i>цзин</i>)\n\n"
+            "<b>井</b> jǐng, цзин = колодец.\n"
+            "В этих точках канал тоньше всего и расположен <b>наиболее поверхностно</b>. Обычно точки-колодцы находятся у оснований ногтей пальцев рук и ног.\n\n"
+            "Исключение составляют точка-колодец ножного шао-инь канала почек <b>Юн-цюань R1</b>, расположенная на подошве в углублении на границе передней трети и задних двух третей, и точка-колодец ручного цзюэ-инь канала перикарда <b>Чжун-чун MC9</b>, расположенная на кончике среднего пальца руки.\n\n"
+            "В традиции через точки-колодцы энергия канала выходит на поверхность, и старые тексты связывают их с помощью при обмороке и упадке сил. Это историческое описание, а не инструкция: при неотложном состоянии вызывайте скорую помощь.\n\n"
             "Точка (1) <b>шао-шан</b> — канал лёгких.\n"
-            "Точка (2) <b>Чжун-чун</b> — канал перикарда.\n"
+            "Точка (2) <b>чжун-чун</b> — канал перикарда.\n"
             "Точка (3) <b>шао-чун</b> — канал сердца.\n"
-            "Точка (4) <b>ин-бай</b> — канал селезёнки.\n"
+            "Точка (4) <b>инь-бай</b> — канал селезёнки.\n"
             "Точка (5) <b>да-дунь</b> — канал печени.\n"
             "Точка (6) <b>юн-цюань</b> — канал почек.\n"
-            "Точка (7) <b>шан-ян</b> — канал толстого кишечника.\n"
+            "Точка (7) <b>шан-ян</b> — канал толстой кишки.\n"
             "Точка (8) <b>гуань-чун</b> — канал Сань-цзяо.\n"
-            "Точка (9) <b>шао-цзэ</b> — канал тонкого кишечника.\n"
+            "Точка (9) <b>шао-цзэ</b> — канал тонкой кишки.\n"
             "Точка (10) <b>ли-дуй</b> — канал желудка.\n"
             "Точка (11) <b>цзу-цяо-инь</b> — канал желчного пузыря.\n"
             "Точка (12) <b>чжи-инь</b> — канал мочевого пузыря."
         ),
         "shu_brooks_text": (
-            "<b>2. ТОЧКИ-РУЧЬИ</b> (荥 <i>ин</i>)\n\n"
-            "<i>Болезни со свойствами жара.</i>\n\n"
-            "<b>荥</b> ин = ручей.\n"
-            "Достигая этих точек, канальная Ци становится обильнее, напоминая небольшой ручей, уже вытекший из родника.\n\n"
-            "Используются для изгнания патогенных факторов, особенно <b>для охлаждения Жара</b>. Точки-ручьи применяют, чтобы погасить хронические воспаления в органах и системах.\n\n"
-            "<b>Точки-ручьи на ногах сильнее, чем эти же точки на руках.</b> Если стоит вопрос, какую из них использовать, сначала пробуют точки-ручьи на ручных каналах.\n\n"
+            "<b>2. ТОЧКИ-РОДНИКИ</b> (荥 yíng, <i>ин</i>)\n\n"
+            "<b>荥</b> yíng, ин = родник, небольшой поток.\n"
+            "Достигая этих точек, канальная Ци становится обильнее, как родник, который только набирает силу.\n\n"
+            "В традиции точки-родники связывают с охлаждением <b>Жара</b>. По классическим описаниям точки-родники на ногах действуют сильнее, чем такие же точки на руках.\n\n"
             "Точка (1) <b>юй-цзи</b> — канал лёгких.\n"
             "Точка (2) <b>лао-гун</b> — канал перикарда.\n"
             "Точка (3) <b>шао-фу</b> — канал сердца.\n"
             "Точка (4) <b>да-ду</b> — канал селезёнки.\n"
             "Точка (5) <b>жань-гу</b> — канал почек.\n"
             "Точка (6) <b>син-цзянь</b> — канал печени.\n"
-            "Точка (7) <b>эр-цзянь</b> — канал толстого кишечника.\n"
+            "Точка (7) <b>эр-цзянь</b> — канал толстой кишки.\n"
             "Точка (8) <b>е-мэнь</b> — канал Сань-цзяо."
         ),
         "shu_brooks_after_image_text": (
-            "Точка (9) <b>цянь-гу</b> — канал тонкого кишечника.\n"
+            "Точка (9) <b>цянь-гу</b> — канал тонкой кишки.\n"
             "Точка (10) <b>нэй-тин</b> — канал желудка.\n"
             "Точка (11) <b>ся-си</b> — канал желчного пузыря.\n"
             "Точка (12) <b>цзу-тун-гу</b> — канал мочевого пузыря."
         ),
         "shu_rapids_text": (
-            "<b>3. ТОЧКИ-БЫСТРИНЫ</b> (输 <i>шу</i>)\n\n"
-            "<i>Боль в суставах. Болезнь то приходит, то уходит.</i>\n\n"
-            "<b>输</b> шу = переносить.\n"
-            "В этих точках Ци «разливается», образуя водовороты, течение становится более интенсивным и глубоким. В этих точках концентрируется защитная Ци.\n\n"
-            "Точки-быстрины используют при боли в суставах, тяжести в теле и болевом синдроме, особенно при синдроме сырости, чтобы убрать блокировку, связанную с сыростью и холодом в соответствующих каналах.\n\n"
-            "<i>Когда болезнь то приходит, то уходит, используйте быстрины.</i>\n\n"
+            "<b>3. ТОЧКИ-ПОТОКИ</b> (输 shū, <i>шу</i>)\n\n"
+            "<b>输</b> shū, шу = переносить, доставлять.\n"
+            "В этих точках поток становится заметнее и глубже, как ручей. По традиции здесь собирается защитная Ци.\n\n"
+            "Классические тексты связывают точки-потоки с болью в суставах, тяжестью в теле и состояниями сырости и холода в канале.\n\n"
+            "<i>Старое правило: когда болезнь то приходит, то уходит, выбирают точки-потоки.</i>\n\n"
             "Точка (1) <b>тай-юань</b>\n"
             "Точка (2) <b>да-лин</b>\n"
             "Точка (3) <b>шэнь-мэнь</b>\n"
@@ -2837,11 +2640,11 @@ SHU_POINTS_ARTICLE_OVERRIDES = {
         ),
         "shu_rivers_text": (
             "<b>4. ТОЧКИ-РЕКИ</b> (经 jīng, <i>цзин</i>)\n\n"
-            "<b>经</b> jīng, цзин = пройти насквозь.\n\n"
-            "В этих точках Ци канала становится ещё шире, сильнее и глубже. Ци течёт как полноводная река в середине русла.\n\n"
-            "Прогревание точек-рек традиционно связывают с очищением и оздоровлением органов дыхания. Точки-реки используют при одышке, нарушениях голоса и болезнях горла.\n\n"
-            "<i>Когда болезнь проявляется в нарушениях голоса, используйте реки.</i>\n\n"
-            "(1) <b>Цзинь-цюй</b>\n"
+            "<b>经</b> jīng, цзин = проходить насквозь.\n\n"
+            "В этих точках Ци канала становится ещё шире и ровнее, как полноводная река в середине русла.\n\n"
+            "В традиции точки-реки связывают с дыханием и голосом: кашлем, одышкой, болезнями горла. Прогревание, о котором пишут старые тексты, в этом боте не применяется: с точками работают вниманием или лёгким касанием.\n\n"
+            "<i>Старое правило: когда болезнь проявляется в голосе, выбирают точки-реки.</i>\n\n"
+            "(1) <b>Цзин-цюй</b>\n"
             "(2) <b>Цзянь-ши</b>\n"
             "(3) <b>Лин-дао</b>\n"
             "(4) <b>Шан-цю</b>"
@@ -2857,11 +2660,10 @@ SHU_POINTS_ARTICLE_OVERRIDES = {
             "(12) <b>Кунь-лунь</b>"
         ),
         "shu_mouths_text": (
-            "<b>5. ТОЧКИ-УСТЬЯ</b> (合 <i>хэ</i>)\n\n"
-            "<i>Болезни желудка, кишечника и других фу-органов. Извращение тока Ци.</i>\n\n"
-            "Точки-устья — пятые точки, всегда расположенные на уровне локтя или колена.\n\n"
-            "Достигая этих точек, канальная Ци становится обильной, как в устье реки, впадающей в море. <b>合</b> хэ = слияние, объединение. В этих точках Ци канала соединяется с Ци всего организма. Здесь поток Ци шире и глубже.\n\n"
-            "Точки-устья показаны при болезнях желудка и кишечника. Для плотных органов прогревание устья каналов даёт энергетический толчок.\n\n"
+            "<b>5. ТОЧКИ-МОРЯ</b> (合 hé, <i>хэ</i>)\n\n"
+            "Точки-моря — пятые точки, всегда расположенные на уровне локтя или колена.\n\n"
+            "<b>合</b> hé, хэ = соединение. Здесь поток уходит вглубь, как река, впадающая в море, и Ци канала соединяется с Ци всего организма.\n\n"
+            "В традиции точки-моря связывают с желудком, кишечником и другими фу-органами, а также с нарушением тока Ци. Прогревание из старых текстов здесь тоже не применяется: только внимание и лёгкое касание.\n\n"
             "(1) <b>Чи-цзэ</b>\n"
             "(2) <b>Цюй-цзэ</b>\n"
             "(3) <b>Шао-хай</b>\n"
@@ -2870,20 +2672,20 @@ SHU_POINTS_ARTICLE_OVERRIDES = {
         ),
         "shu_mouths_after_image_1_text": (
             "(6) <b>Инь-гу</b>\n"
-            "(7) <b>цюй-чи</b>\n"
-            "(8) <b>тянь-цзин</b>\n"
-            "(9) <b>сяо-хай</b>"
+            "(7) <b>Цюй-чи</b>\n"
+            "(8) <b>Тянь-цзин</b>\n"
+            "(9) <b>Сяо-хай</b>"
         ),
         "shu_mouths_after_image_2_text": (
-            "(10) <b>цзу-сань-ли</b>\n"
-            "(11) <b>ян-лин-цюань</b>\n"
-            "(12) <b>вэй-чжун</b>"
+            "(10) <b>Цзу-сань-ли</b>\n"
+            "(11) <b>Ян-лин-цюань</b>\n"
+            "(12) <b>Вэй-чжун</b>"
         ),
         "shu_final_text": (
             "<b>По материалам</b>\n\n"
             "Джованни Мачоча, <i>Основы китайской медицины</i>, том 3.\n"
             "П. В. Белоусов, <i>Акупунктурные точки китайской чжэньцзю-терапии</i>.\n\n"
-            "<blockquote>Информация носит ознакомительный и просветительский характер. Перед применением метода лечения консультируйтесь со специалистами.</blockquote>\n\n"
+            "<blockquote>Материал ознакомительный: он пересказывает традицию и не является советом по лечению. При неотложном состоянии вызывайте скорую помощь (103 или 112), по вопросам здоровья обращайтесь к врачу.</blockquote>\n\n"
             "<b>Фу-органы</b>, или янские органы: желудок, толстая кишка, тонкая кишка, мочевой пузырь, желчный пузырь и три части туловища — тройной обогреватель. Эти органы являются полыми и связаны с перевариванием, всасыванием и выделением."
         ),
     },
@@ -2892,65 +2694,64 @@ SHU_POINTS_ARTICLE_OVERRIDES = {
         "shu_intro_text": (
             "📚 <b>Five shu-points</b>\n\n"
             "The five shu-points are five types of specific points of the <b>twelve main channels</b>. They are located on the <b>distal parts</b> of the channels: between fingers and elbow, or between toes and knee.\n\n"
-            "<b>Five shu-points</b> (五输穴 wu shū xue):\n\n"
-            "• Spring points (井 <i>jing</i>);\n"
-            "• Brook points (荥 <i>ying</i>);\n"
-            "• Rapids points (输 <i>shu</i>);\n"
-            "• River points (经 <i>jing</i>);\n"
-            "• Mouth points (合 <i>he</i>).\n\n"
+            "<b>Five shu-points</b> (五输穴 wǔ shū xué):\n\n"
+            "• Jing-Well points (井 <i>jǐng</i>);\n"
+            "• Ying-Spring points (荥 <i>yíng</i>);\n"
+            "• Shu-Stream points (输 <i>shū</i>);\n"
+            "• Jing-River points (经 <i>jīng</i>);\n"
+            "• He-Sea points (合 <i>hé</i>).\n\n"
             "They are also called the five antique shu-points, transport points, or five-element points.\n\n"
-            "<b>Ancient Chinese thinkers compared these five points with a river.</b>"
+            "<b>Ancient Chinese thinkers compared these five points with flowing water, from a well to the sea.</b>"
         ),
         "shu_flow_text": (
-            "Points at the tips of fingers or toes are the <b>spring</b>. Then the river becomes fuller and deeper and ends at the <b>mouth point</b> near the elbow or knee.\n\n"
+            "Points at the tips of fingers or toes are the <b>well</b>: the flow only surfaces here. Then it gathers strength like a spring, a stream and a river, and near the elbow or knee it goes deep at the <b>sea point</b>.\n\n"
             "This shows a movement toward <b>greater depth and width of the channel</b> from fingertips or toes toward the elbow or knee. At the fingertip the channel is narrow and superficial; near the elbow or knee it is wider and deeper.\n\n"
             "Important: this increase in size and depth <b>does not depend on the direction of channel flow</b>. The same rule applies to Yin and Yang channels of the arms and legs."
         ),
         "shu_indications_text": (
-            "<blockquote>Shu-points are closer to the surface than many other channel points. Their energetic action is considered faster, which explains their frequent use in clinical practice.</blockquote>\n\n"
-            "<b>Main indications:</b>\n\n"
-            "— <b>Spring points</b> — emergency help in critical states;\n"
-            "— <b>Brook points</b> — conditions with Heat qualities;\n"
-            "— <b>Rapids points</b> — joint pain;\n"
-            "— <b>River points</b> — exterior patterns with fever and chills, cough, shortness of breath and throat disorders;\n"
-            "— <b>Mouth points</b> — disorders of the stomach, intestines and other Fu organs."
+            "<blockquote>Tradition describes shu-points as lying closer to the surface than other channel points and considers their action faster, so the classical texts mention them especially often.</blockquote>\n\n"
+            "<b>Classical indications.</b> This describes the tradition; it is not treatment advice.\n\n"
+            "— <b>Jing-Well points</b> — old texts link them with acute states and fainting;\n"
+            "— <b>Ying-Spring points</b> — conditions with Heat qualities;\n"
+            "— <b>Shu-Stream points</b> — joint pain;\n"
+            "— <b>Jing-River points</b> — exterior patterns with fever and chills, cough, shortness of breath and throat disorders;\n"
+            "— <b>He-Sea points</b> — the stomach, intestines and other Fu organs.\n\n"
+            "⚠️ In an emergency, call an ambulance right away (112 or your local emergency number). The points do not replace a doctor. In this bot they are practised with attention or a light touch only, no needles and no warming."
         ),
         "shu_sources_text": (
-            "<b>1. SPRING POINTS</b> (井 jǐng)\n\n"
-            "<i>Emergency help in critical states.</i>\n\n"
-            "<b>井</b> jǐng = spring/source.\n"
-            "Here the channel is thinnest and <b>most superficial</b>. Usually Spring points are near the nail bases of fingers and toes.\n\n"
-            "Exceptions include <b>Kidney R1 Yong-quan</b> on the sole and <b>Pericardium MC9 Zhong-chong</b> on the tip of the middle finger.\n\n"
+            "<b>1. JING-WELL POINTS</b> (井 jǐng)\n\n"
+            "<b>井</b> jǐng = well.\n"
+            "Here the channel is thinnest and <b>most superficial</b>. Usually Jing-Well points are near the nail bases of fingers and toes.\n\n"
+            "Exceptions include <b>Kidney R1 Yong-quan</b> on the sole (in the depression at the junction of its anterior third and posterior two thirds) and <b>Pericardium MC9 Zhong-chong</b> on the tip of the middle finger.\n\n"
+            "In the tradition, channel energy surfaces at the well points, and old texts link them with reviving from fainting and exhaustion. This is a historical description, not an instruction: in an emergency, call an ambulance.\n\n"
             "(1) <b>Shao-shang</b> — Lung.\n(2) <b>Zhong-chong</b> — Pericardium.\n(3) <b>Shao-chong</b> — Heart.\n(4) <b>Yin-bai</b> — Spleen.\n(5) <b>Da-dun</b> — Liver.\n(6) <b>Yong-quan</b> — Kidney.\n(7) <b>Shang-yang</b> — Large Intestine.\n(8) <b>Guan-chong</b> — Triple Burner.\n(9) <b>Shao-ze</b> — Small Intestine.\n(10) <b>Li-dui</b> — Stomach.\n(11) <b>Zu-qiao-yin</b> — Gallbladder.\n(12) <b>Zhi-yin</b> — Bladder."
         ),
         "shu_brooks_text": (
-            "<b>2. BROOK POINTS</b> (荥 ying)\n\n"
-            "<i>Conditions with Heat qualities.</i>\n\n"
-            "<b>荥</b> ying = brook.\n"
-            "When Qi reaches these points, it becomes more abundant, like a small brook flowing from a spring.\n\n"
-            "They are used to clear pathogenic factors, especially <b>Heat</b>. Foot Brook points are considered stronger than the same type of points on the hands.\n\n"
+            "<b>2. YING-SPRING POINTS</b> (荥 yíng)\n\n"
+            "<b>荥</b> yíng = spring, a small flow.\n"
+            "When Qi reaches these points, it becomes more abundant, like a spring that is just gathering strength.\n\n"
+            "The tradition links them with clearing <b>Heat</b>. In the classical descriptions the foot Ying-Spring points are stronger than the same points on the hands.\n\n"
             "(1) <b>Yu-ji</b> — Lung.\n(2) <b>Lao-gong</b> — Pericardium.\n(3) <b>Shao-fu</b> — Heart.\n(4) <b>Da-du</b> — Spleen.\n(5) <b>Ran-gu</b> — Kidney.\n(6) <b>Xing-jian</b> — Liver.\n(7) <b>Er-jian</b> — Large Intestine.\n(8) <b>Ye-men</b> — Triple Burner."
         ),
         "shu_brooks_after_image_text": "(9) <b>Qian-gu</b> — Small Intestine.\n(10) <b>Nei-ting</b> — Stomach.\n(11) <b>Xia-xi</b> — Gallbladder.\n(12) <b>Zu-tong-gu</b> — Bladder.",
         "shu_rapids_text": (
-            "<b>3. RAPIDS POINTS</b> (输 shu)\n\n"
-            "<i>Joint pain; illness that comes and goes.</i>\n\n"
-            "<b>输</b> shu = to transport.\n"
-            "Here Qi spreads, forms whirlpools, and the flow becomes stronger and deeper. Protective Qi is traditionally said to concentrate here.\n\n"
-            "These points are used for joint pain, heaviness and blockages related to dampness and cold.\n\n"
+            "<b>3. SHU-STREAM POINTS</b> (输 shū)\n\n"
+            "<b>输</b> shū = to transport.\n"
+            "Here the flow becomes more noticeable and deeper, like a stream. Protective Qi is traditionally said to gather here.\n\n"
+            "The classical texts link these points with joint pain, heaviness and patterns of dampness and cold.\n\n"
             "(1) <b>Tai-yuan</b>\n(2) <b>Da-ling</b>\n(3) <b>Shen-men</b>\n(4) <b>Tai-bai</b>\n(5) <b>Tai-xi</b>\n(6) <b>Tai-chong</b>\n(7) <b>San-jian</b>\n(8) <b>Zhong-zhu</b>\n(9) <b>Hou-xi</b>\n(10) <b>Xian-gu</b>\n(11) <b>Zu-lin-qi</b>\n(12) <b>Shu-gu</b>"
         ),
         "shu_rivers_text": (
-            "<b>4. RIVER POINTS</b> (经 jīng)\n\n"
+            "<b>4. JING-RIVER POINTS</b> (经 jīng)\n\n"
             "<b>经</b> jīng = to pass through.\n\n"
-            "Here channel Qi becomes wider, stronger and deeper, like a full river in its bed. River points are associated with voice, breath, cough, shortness of breath and throat disorders.\n\n"
+            "Here channel Qi becomes wider and steadier, like a full river in its bed. The tradition links Jing-River points with breath and voice: cough, shortness of breath and throat disorders. The warming described in old texts is not used in this bot: the points are practised with attention or a light touch.\n\n"
             "(1) <b>Jing-qu</b>\n(2) <b>Jian-shi</b>\n(3) <b>Ling-dao</b>\n(4) <b>Shang-qiu</b>"
         ),
         "shu_rivers_after_image_text": "(5) <b>Zhong-feng</b>\n(6) <b>Fu-liu</b>\n(7) <b>Yang-xi</b>\n(8) <b>Zhi-gou</b>\n(9) <b>Yang-gu</b>\n(10) <b>Jie-xi</b>\n(11) <b>Yang-fu</b>\n(12) <b>Kun-lun</b>",
         "shu_mouths_text": (
-            "<b>5. MOUTH POINTS</b> (合 he)\n\n"
-            "<i>Disorders of the stomach, intestines and other Fu organs.</i>\n\n"
-            "Mouth points are the fifth points and are always near the elbow or knee. Here channel Qi becomes abundant, like the mouth of a river flowing into the sea. <b>合</b> he = union, joining.\n\n"
+            "<b>5. HE-SEA POINTS</b> (合 hé)\n\n"
+            "He-Sea points are the fifth points and are always near the elbow or knee. <b>合</b> hé = union, joining. Here the flow goes deep, like a river entering the sea, and channel Qi joins the Qi of the whole body.\n\n"
+            "The tradition links them with the stomach, intestines and other Fu organs. Warming from the old texts is not used here either: attention and a light touch only.\n\n"
             "(1) <b>Chi-ze</b>\n(2) <b>Qu-ze</b>\n(3) <b>Shao-hai</b>\n(4) <b>Yin-ling-quan</b>\n(5) <b>Qu-quan</b>"
         ),
         "shu_mouths_after_image_1_text": "(6) <b>Yin-gu</b>\n(7) <b>Qu-chi</b>\n(8) <b>Tian-jing</b>\n(9) <b>Xiao-hai</b>",
@@ -2959,14 +2760,155 @@ SHU_POINTS_ARTICLE_OVERRIDES = {
             "<b>Sources</b>\n\n"
             "Giovanni Maciocia, <i>The Foundations of Chinese Medicine</i>, vol. 3.\n"
             "P. V. Belousov, <i>Acupuncture Points of Chinese Zhenjiu Therapy</i>.\n\n"
-            "<blockquote>This material is educational. Before using any treatment method, consult a qualified specialist.</blockquote>\n\n"
+            "<blockquote>This material is educational: it retells the tradition and is not treatment advice. In an emergency, call an ambulance; for health questions, see a doctor.</blockquote>\n\n"
             "<b>Fu organs</b> are Yang organs: stomach, large intestine, small intestine, bladder, gallbladder and triple burner."
         ),
     },
+    "uz": {
+        "meridian_materials_sending": "📚 <b>Besh shu-nuqta</b>\n\nMaterialni maqola sifatida yuboraman: matn bloklari va rasmlar o'z joyida turadi.",
+        "shu_intro_text": (
+            "📚 <b>Besh shu-nuqta</b>\n\n"
+            "Besh shu-nuqta — <b>o'n ikki asosiy kanalning</b> besh turdagi maxsus nuqtalari. Ular kanallarning <b>distal qismlarida</b>: qo'l barmoqlari va tirsak orasida yoki oyoq barmoqlari va tizza orasida joylashadi.\n\n"
+            "<b>Besh shu-nuqta</b> (五输穴 wǔ shū xué):\n\n"
+            "• quduq nuqtalari (井 <i>jing</i>);\n"
+            "• buloq nuqtalari (荥 <i>ying</i>);\n"
+            "• soy nuqtalari (输 <i>shu</i>);\n"
+            "• daryo nuqtalari (经 <i>jing</i>);\n"
+            "• dengiz nuqtalari (合 <i>he</i>).\n\n"
+            "Ular antik shu-nuqtalar, transport nuqtalari yoki besh unsur nuqtalari deb ham ataladi.\n\n"
+            "<b>Qadimgi Xitoy mutafakkirlari bu besh nuqtani quduqdan dengizgacha oqayotgan suvga qiyoslagan.</b>"
+        ),
+        "shu_flow_text": (
+            "Barmoq uchlaridagi nuqtalar — <b>quduq</b>: oqim shu yerda endigina yuzaga chiqadi. Keyin u buloq, soy va daryodek kuchayib boradi va tirsak yoki tizza yonida <b>dengiz nuqtasida</b> chuqurga ketadi.\n\n"
+            "Kanalning chuqurligi va kengligi ortishi energiya oqimining yo'nalishiga bog'liq emas. Bu qonuniyat qo'l va oyoqdagi Yin hamda Yang kanallariga birdek tegishli."
+        ),
+        "shu_indications_text": (
+            "<b>Klassik ko'rsatmalar.</b> Bu an'ananing tavsifi, davolash bo'yicha maslahat emas.\n\n"
+            "— <b>quduq nuqtalari</b> — eski matnlarda o'tkir holatlar va hushdan ketish bilan bog'lanadi;\n"
+            "— <b>buloq nuqtalari</b> — Issiqlik xususiyatiga ega holatlar;\n"
+            "— <b>soy nuqtalari</b> — bo'g'im og'rig'i;\n"
+            "— <b>daryo nuqtalari</b> — isitma va titroq, yo'tal, hansirash va tomoq kasalliklari bilan bog'liq tashqi sindromlar;\n"
+            "— <b>dengiz nuqtalari</b> — oshqozon, ichak va boshqa Fu organlari.\n\n"
+            "⚠️ Shoshilinch holatda darhol tez yordam chaqiring (103 yoki 112). Nuqtalar shifokorni almashtirmaydi. Bu botda ular bilan faqat diqqat yoki yengil teginish orqali ishlanadi, ignasiz va isitmasdan."
+        ),
+        "shu_sources_text": (
+            "<b>1. QUDUQ NUQTALARI</b> (井 jǐng)\n\n"
+            "<b>井</b> jǐng = quduq.\n"
+            "Bu yerda kanal eng nozik va <b>eng yuzaki</b> bo'ladi. Odatda quduq nuqtalari qo'l va oyoq tirnoqlari asosida joylashadi. Istisnolar: oyoq tagidagi <b>Yong-quan R1</b> (old uchdan bir va orqa uchdan ikki qism chegarasidagi chuqurchada) va o'rta barmoq uchidagi <b>Zhong-chong MC9</b>.\n\n"
+            "An'anaga ko'ra kanal energiyasi quduq nuqtalarida yuzaga chiqadi, eski matnlar ularni hushdan ketish va holsizlikda yordam bilan bog'laydi. Bu tarixiy tavsif, ko'rsatma emas: shoshilinch holatda tez yordam chaqiring.\n\n"
+            "(1) <b>Shao-shang</b> — O'pka.\n(2) <b>Zhong-chong</b> — Perikard.\n(3) <b>Shao-chong</b> — Yurak.\n(4) <b>Yin-bai</b> — Taloq.\n(5) <b>Da-dun</b> — Jigar.\n(6) <b>Yong-quan</b> — Buyrak.\n(7) <b>Shang-yang</b> — Yo'g'on ichak.\n(8) <b>Guan-chong</b> — Uch isitkich.\n(9) <b>Shao-ze</b> — Ingichka ichak.\n(10) <b>Li-dui</b> — Oshqozon.\n(11) <b>Zu-qiao-yin</b> — O't pufagi.\n(12) <b>Zhi-yin</b> — Siydik pufagi."
+        ),
+        "shu_brooks_text": (
+            "<b>2. BULOQ NUQTALARI</b> (荥 yíng)\n\n"
+            "<b>荥</b> yíng = buloq, kichik oqim.\n"
+            "Qi bu nuqtalarga yetganda ko'payadi, go'yo endi kuch yig'ayotgan buloq kabi.\n\n"
+            "An'anada ular <b>Issiqlikni</b> sovitish bilan bog'lanadi. Klassik tavsiflarga ko'ra oyoqdagi buloq nuqtalari qo'ldagilardan kuchliroq.\n\n"
+            "(1) <b>Yu-ji</b> — O'pka.\n(2) <b>Lao-gong</b> — Perikard.\n(3) <b>Shao-fu</b> — Yurak.\n(4) <b>Da-du</b> — Taloq.\n(5) <b>Ran-gu</b> — Buyrak.\n(6) <b>Xing-jian</b> — Jigar.\n(7) <b>Er-jian</b> — Yo'g'on ichak.\n(8) <b>Ye-men</b> — Uch isitkich."
+        ),
+        "shu_brooks_after_image_text": "(9) <b>Qian-gu</b> — Ingichka ichak.\n(10) <b>Nei-ting</b> — Oshqozon.\n(11) <b>Xia-xi</b> — O't pufagi.\n(12) <b>Zu-tong-gu</b> — Siydik pufagi.",
+        "shu_rapids_text": (
+            "<b>3. SOY NUQTALARI</b> (输 shū)\n\n"
+            "<b>输</b> shū = tashimoq, yetkazmoq.\n"
+            "Bu nuqtalarda oqim soydek sezilarliroq va chuqurroq bo'ladi. An'anaga ko'ra himoya Qi shu yerda to'planadi.\n\n"
+            "Klassik matnlar ularni bo'g'im og'rig'i, tanadagi og'irlik va namlik-sovuqlik holatlari bilan bog'laydi.\n\n"
+            "(1) <b>Tai-yuan</b>\n(2) <b>Da-ling</b>\n(3) <b>Shen-men</b>\n(4) <b>Tai-bai</b>\n(5) <b>Tai-xi</b>\n(6) <b>Tai-chong</b>\n(7) <b>San-jian</b>\n(8) <b>Zhong-zhu</b>\n(9) <b>Hou-xi</b>\n(10) <b>Xian-gu</b>\n(11) <b>Zu-lin-qi</b>\n(12) <b>Shu-gu</b>"
+        ),
+        "shu_rivers_text": (
+            "<b>4. DARYO NUQTALARI</b> (经 jīng)\n\n"
+            "<b>经</b> jīng = o'tib ketmoq.\n\n"
+            "Bu yerda kanal Qi o'z o'zanida oqayotgan to'liq daryodek kengroq va bir tekis bo'ladi. An'anada daryo nuqtalari nafas va ovoz bilan bog'lanadi: yo'tal, hansirash, tomoq kasalliklari. Eski matnlardagi isitish bu botda qo'llanilmaydi: nuqtalar bilan diqqat yoki yengil teginish orqali ishlanadi.\n\n"
+            "(1) <b>Jing-qu</b>\n(2) <b>Jian-shi</b>\n(3) <b>Ling-dao</b>\n(4) <b>Shang-qiu</b>"
+        ),
+        "shu_rivers_after_image_text": "(5) <b>Zhong-feng</b>\n(6) <b>Fu-liu</b>\n(7) <b>Yang-xi</b>\n(8) <b>Zhi-gou</b>\n(9) <b>Yang-gu</b>\n(10) <b>Jie-xi</b>\n(11) <b>Yang-fu</b>\n(12) <b>Kun-lun</b>",
+        "shu_mouths_text": (
+            "<b>5. DENGIZ NUQTALARI</b> (合 hé)\n\n"
+            "Bu beshinchi nuqtalar bo'lib, doimo tirsak yoki tizza darajasida joylashadi. <b>合</b> hé = birlashish. Bu yerda oqim dengizga quyilayotgan daryodek chuqurga ketadi va kanal Qi butun organizm Qi bilan qo'shiladi.\n\n"
+            "An'anada ular oshqozon, ichak va boshqa Fu organlari bilan bog'lanadi. Eski matnlardagi isitish bu yerda ham qo'llanilmaydi: faqat diqqat va yengil teginish.\n\n"
+            "(1) <b>Chi-ze</b>\n(2) <b>Qu-ze</b>\n(3) <b>Shao-hai</b>\n(4) <b>Yin-ling-quan</b>\n(5) <b>Qu-quan</b>"
+        ),
+        "shu_mouths_after_image_1_text": "(6) <b>Yin-gu</b>\n(7) <b>Qu-chi</b>\n(8) <b>Tian-jing</b>\n(9) <b>Xiao-hai</b>",
+        "shu_mouths_after_image_2_text": "(10) <b>Zu-san-li</b>\n(11) <b>Yang-ling-quan</b>\n(12) <b>Wei-zhong</b>",
+        "shu_final_text": (
+            "<b>Manbalar</b>\n\n"
+            "Giovanni Maciocia, <i>The Foundations of Chinese Medicine</i>, 3-jild.\n"
+            "P. V. Belousov, <i>Xitoy chjenszyu terapiyasining akupunktura nuqtalari</i>.\n\n"
+            "<blockquote>Material tanishish uchun: u an'anani hikoya qiladi va davolash bo'yicha maslahat emas. Shoshilinch holatda tez yordam chaqiring, sog'liq masalalarida shifokorga murojaat qiling.</blockquote>\n\n"
+            "<b>Fu organlari</b> yoki Yang organlari: oshqozon, yo'g'on ichak, ingichka ichak, siydik pufagi, o't pufagi va uch isitkich."
+        ),
+    },
+    "kz": {
+        "meridian_materials_sending": "📚 <b>Бес шу-нүкте</b>\n\nМатериалды мақала ретінде жіберемін: мәтін бөліктері мен суреттер өз орнында тұрады.",
+        "shu_intro_text": (
+            "📚 <b>Бес шу-нүкте</b>\n\n"
+            "Бес шу-нүкте — <b>он екі негізгі арнаның</b> бес түрлі арнайы нүктесі. Олар арналардың <b>дистальды бөліктерінде</b>: қол саусақтары мен шынтақ арасында немесе аяқ саусақтары мен тізе арасында орналасады.\n\n"
+            "<b>Бес шу-нүкте</b> (五输穴 wǔ shū xué):\n\n"
+            "• құдық нүктелері (井 <i>цзин</i>);\n"
+            "• бұлақ нүктелері (荥 <i>ин</i>);\n"
+            "• жылға нүктелері (输 <i>шу</i>);\n"
+            "• өзен нүктелері (经 <i>цзин</i>);\n"
+            "• теңіз нүктелері (合 <i>хэ</i>).\n\n"
+            "Оларды антикалық шу-нүктелер, тасымалдаушы нүктелер немесе бес стихия нүктелері деп те атайды.\n\n"
+            "<b>Ежелгі қытай ойшылдары бұл бес нүктені құдықтан теңізге дейін аққан суға теңеген.</b>"
+        ),
+        "shu_flow_text": (
+            "Саусақ ұштарындағы нүктелер — <b>құдық</b>: ағын осы жерде енді ғана бетке шығады. Содан кейін ол бұлақ, жылға және өзендей күшейіп, шынтақ не тізе тұсында <b>теңіз нүктесінде</b> тереңге кетеді.\n\n"
+            "Арнаның тереңдігі мен кеңдігінің артуы энергия ағымының бағытына тәуелді емес. Бұл заңдылық қол мен аяқтағы Инь және Ян арналарына бірдей қатысты."
+        ),
+        "shu_indications_text": (
+            "<b>Классикалық көрсеткіштер.</b> Бұл дәстүрдің сипаттамасы, емдеу бойынша кеңес емес.\n\n"
+            "— <b>құдық нүктелері</b> — ескі мәтіндерде жедел жағдайлармен және талумен байланыстырылады;\n"
+            "— <b>бұлақ нүктелері</b> — Ыстық қасиеті бар жағдайлар;\n"
+            "— <b>жылға нүктелері</b> — буын ауруы;\n"
+            "— <b>өзен нүктелері</b> — қызба мен қалтырау, жөтел, ентігу және тамақ аурулары бар сыртқы синдромдар;\n"
+            "— <b>теңіз нүктелері</b> — асқазан, ішек және басқа Фу-ағзалар.\n\n"
+            "⚠️ Шұғыл жағдайда дереу жедел жәрдем шақырыңыз (103 немесе 112). Нүктелер дәрігерді алмастырмайды. Бұл ботта олармен тек зейін немесе жеңіл жанасу арқылы жұмыс істейді, инесіз және жылытусыз."
+        ),
+        "shu_sources_text": (
+            "<b>1. ҚҰДЫҚ НҮКТЕЛЕРІ</b> (井 jǐng, <i>цзин</i>)\n\n"
+            "<b>井</b> jǐng = құдық.\n"
+            "Бұл жерде арна ең жіңішке және <b>ең беткі</b> орналасады. Әдетте құдық нүктелері қол мен аяқ тырнақтарының түбінде болады. Ерекшеліктер: табандағы <b>Юн-цюань R1</b> (алдыңғы үштен бір мен артқы үштен екі бөлігінің шекарасындағы ойықта) және ортаңғы саусақ ұшындағы <b>Чжун-чун MC9</b>.\n\n"
+            "Дәстүр бойынша арна энергиясы құдық нүктелерінде бетке шығады, ескі мәтіндер оларды талу мен әлсіздікке көмекпен байланыстырады. Бұл тарихи сипаттама, нұсқау емес: шұғыл жағдайда жедел жәрдем шақырыңыз.\n\n"
+            "(1) <b>Шао-шан</b> — Өкпе.\n(2) <b>Чжун-чун</b> — Перикард.\n(3) <b>Шао-чун</b> — Жүрек.\n(4) <b>Инь-бай</b> — Көкбауыр.\n(5) <b>Да-дунь</b> — Бауыр.\n(6) <b>Юн-цюань</b> — Бүйрек.\n(7) <b>Шан-ян</b> — Тоқ ішек.\n(8) <b>Гуань-чун</b> — Үш жылытқыш.\n(9) <b>Шао-цзэ</b> — Ащы ішек.\n(10) <b>Ли-дуй</b> — Асқазан.\n(11) <b>Цзу-цяо-инь</b> — Өт қабы.\n(12) <b>Чжи-инь</b> — Қуық."
+        ),
+        "shu_brooks_text": (
+            "<b>2. БҰЛАҚ НҮКТЕЛЕРІ</b> (荥 yíng, <i>ин</i>)\n\n"
+            "<b>荥</b> yíng = бұлақ, шағын ағын.\n"
+            "Ци бұл нүктелерге жеткенде молаяды, енді ғана күш жинап жатқан бұлаққа ұқсайды.\n\n"
+            "Дәстүрде олар <b>Ыстықты</b> салқындатумен байланыстырылады. Классикалық сипаттамалар бойынша аяқтағы бұлақ нүктелері қолдағылардан күштірек.\n\n"
+            "(1) <b>Юй-цзи</b> — Өкпе.\n(2) <b>Лао-гун</b> — Перикард.\n(3) <b>Шао-фу</b> — Жүрек.\n(4) <b>Да-ду</b> — Көкбауыр.\n(5) <b>Жань-гу</b> — Бүйрек.\n(6) <b>Син-цзянь</b> — Бауыр.\n(7) <b>Эр-цзянь</b> — Тоқ ішек.\n(8) <b>Е-мэнь</b> — Үш жылытқыш."
+        ),
+        "shu_brooks_after_image_text": "(9) <b>Цянь-гу</b> — Ащы ішек.\n(10) <b>Нэй-тин</b> — Асқазан.\n(11) <b>Ся-си</b> — Өт қабы.\n(12) <b>Цзу-тун-гу</b> — Қуық.",
+        "shu_rapids_text": (
+            "<b>3. ЖЫЛҒА НҮКТЕЛЕРІ</b> (输 shū, <i>шу</i>)\n\n"
+            "<b>输</b> shū = тасымалдау, жеткізу.\n"
+            "Бұл нүктелерде ағын жылғадай байқалатын әрі тереңірек болады. Дәстүр бойынша қорғаныс Ци осында жиналады.\n\n"
+            "Классикалық мәтіндер оларды буын ауруымен, денедегі ауырлықпен және ылғал-суық жағдайларымен байланыстырады.\n\n"
+            "(1) <b>Тай-юань</b>\n(2) <b>Да-лин</b>\n(3) <b>Шэнь-мэнь</b>\n(4) <b>Тай-бай</b>\n(5) <b>Тай-си</b>\n(6) <b>Тай-чун</b>\n(7) <b>Сань-цзянь</b>\n(8) <b>Чжун-чжу</b>\n(9) <b>Хоу-си</b>\n(10) <b>Сянь-гу</b>\n(11) <b>Цзу-линь-ци</b>\n(12) <b>Шу-гу</b>"
+        ),
+        "shu_rivers_text": (
+            "<b>4. ӨЗЕН НҮКТЕЛЕРІ</b> (经 jīng, <i>цзин</i>)\n\n"
+            "<b>经</b> jīng = өтіп кету.\n\n"
+            "Бұл жерде арна Ци өз арнасымен аққан толық өзендей кеңірек әрі бірқалыпты болады. Дәстүрде өзен нүктелері тыныс пен дауыспен байланыстырылады: жөтел, ентігу, тамақ аурулары. Ескі мәтіндердегі жылыту бұл ботта қолданылмайды: нүктелермен зейін немесе жеңіл жанасу арқылы жұмыс істейді.\n\n"
+            "(1) <b>Цзин-цюй</b>\n(2) <b>Цзянь-ши</b>\n(3) <b>Лин-дао</b>\n(4) <b>Шан-цю</b>"
+        ),
+        "shu_rivers_after_image_text": "(5) <b>Чжун-фэн</b>\n(6) <b>Фу-лю</b>\n(7) <b>Ян-си</b>\n(8) <b>Чжи-гоу</b>\n(9) <b>Ян-гу</b>\n(10) <b>Цзе-си</b>\n(11) <b>Ян-фу</b>\n(12) <b>Кунь-лунь</b>",
+        "shu_mouths_text": (
+            "<b>5. ТЕҢІЗ НҮКТЕЛЕРІ</b> (合 hé, <i>хэ</i>)\n\n"
+            "Бұл бесінші нүктелер, олар әрқашан шынтақ немесе тізе деңгейінде орналасады. <b>合</b> hé = қосылу. Мұнда ағын теңізге құятын өзендей тереңге кетеді, арна Ци бүкіл ағзаның Ци-імен қосылады.\n\n"
+            "Дәстүрде олар асқазан, ішек және басқа Фу-ағзалармен байланыстырылады. Ескі мәтіндердегі жылыту мұнда да қолданылмайды: тек зейін және жеңіл жанасу.\n\n"
+            "(1) <b>Чи-цзэ</b>\n(2) <b>Цюй-цзэ</b>\n(3) <b>Шао-хай</b>\n(4) <b>Инь-лин-цюань</b>\n(5) <b>Цюй-цюань</b>"
+        ),
+        "shu_mouths_after_image_1_text": "(6) <b>Инь-гу</b>\n(7) <b>Цюй-чи</b>\n(8) <b>Тянь-цзин</b>\n(9) <b>Сяо-хай</b>",
+        "shu_mouths_after_image_2_text": "(10) <b>Цзу-сань-ли</b>\n(11) <b>Ян-лин-цюань</b>\n(12) <b>Вэй-чжун</b>",
+        "shu_final_text": (
+            "<b>Дереккөздер</b>\n\n"
+            "Джованни Мачоча, <i>The Foundations of Chinese Medicine</i>, 3-том.\n"
+            "П. В. Белоусов, <i>Қытай чжэньцзю-терапиясының акупунктуралық нүктелері</i>.\n\n"
+            "<blockquote>Материал танысуға арналған: ол дәстүрді баяндайды және емдеу бойынша кеңес емес. Шұғыл жағдайда жедел жәрдем шақырыңыз, денсаулық мәселелері бойынша дәрігерге жүгініңіз.</blockquote>\n\n"
+            "<b>Фу-ағзалар</b> немесе Ян-ағзалар: асқазан, тоқ ішек, ащы ішек, қуық, өт қабы және үш жылытқыш."
+        ),
+    },
 }
-
-SHU_POINTS_ARTICLE_OVERRIDES["uz"] = SHU_POINTS_ARTICLE_OVERRIDES["en"]
-SHU_POINTS_ARTICLE_OVERRIDES["kz"] = SHU_POINTS_ARTICLE_OVERRIDES["en"]
 
 for _language, _updates in SHU_POINTS_ARTICLE_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
@@ -3308,6 +3250,72 @@ MERIDIAN_MAP_3D_TEXT_OVERRIDES = {
 for _language, _updates in MERIDIAN_MAP_3D_TEXT_OVERRIDES.items():
     TEXTS.setdefault(_language, {}).update(_updates)
 
+MERIDIAN_MAP_ACCESS_TEXT_OVERRIDES = {
+    "en": {
+        "meridian_show_on_body": "📍 Show on the body",
+        "map_menu_button": "Map",
+        "map_command_text": "🧍 <b>3D meridian map</b>\n\nAll meridians and 361 points right on the body. Open it with the button below.",
+        "map_private_only": "The 3D map opens only in a private chat with the bot.",
+        "map_unavailable": "The 3D map is not available right now.",
+        "setup_map_hint": "🧍 Every point is also on the 3D body map: the button below or /map.",
+    },
+    "ru": {
+        "meridian_show_on_body": "📍 Показать на теле",
+        "map_menu_button": "Карта",
+        "map_command_text": "🧍 <b>3D-карта меридианов</b>\n\nВсе меридианы и 361 точка прямо на теле. Откройте карту кнопкой ниже.",
+        "map_private_only": "3D-карта открывается только в личном чате с ботом.",
+        "map_unavailable": "3D-карта сейчас недоступна.",
+        "setup_map_hint": "🧍 Любую точку можно посмотреть на 3D-карте тела: кнопка ниже или /map.",
+    },
+    "uz": {
+        "meridian_show_on_body": "📍 Tanada ko'rsatish",
+        "map_menu_button": "Xarita",
+        "map_command_text": "🧍 <b>Meridianlarning 3D xaritasi</b>\n\nBarcha meridianlar va 361 ta nuqta tananing o'zida. Xaritani pastdagi tugma bilan oching.",
+        "map_private_only": "3D xarita faqat bot bilan shaxsiy chatda ochiladi.",
+        "map_unavailable": "3D xarita hozircha mavjud emas.",
+        "setup_map_hint": "🧍 Istalgan nuqtani tananing 3D xaritasida ko'rish mumkin: pastdagi tugma yoki /map.",
+    },
+    "kz": {
+        "meridian_show_on_body": "📍 Денеден көрсету",
+        "map_menu_button": "Карта",
+        "map_command_text": "🧍 <b>Меридиандардың 3D картасы</b>\n\nБарлық меридиан және 361 нүкте дененің өзінде. Картаны төмендегі батырмамен ашыңыз.",
+        "map_private_only": "3D карта тек ботпен жеке чатта ашылады.",
+        "map_unavailable": "3D карта қазір қолжетімсіз.",
+        "setup_map_hint": "🧍 Кез келген нүктені дененің 3D картасынан көруге болады: төмендегі батырма немесе /map.",
+    },
+}
+
+for _language, _updates in MERIDIAN_MAP_ACCESS_TEXT_OVERRIDES.items():
+    TEXTS.setdefault(_language, {}).update(_updates)
+
+SETUP_TIME_CHOICES = ("07:00", "08:00", "09:00", "20:00")
+
+SETUP_TIME_TEXT_OVERRIDES = {
+    "en": {
+        "setup_time_other": "✏️ Other",
+        "setup_time_buttons_hint": "Pick a time with a button. For a different time, tap “Other” and type it as HH:MM.",
+        "setup_time_custom_prompt": "⌨️ Type the time as HH:MM, for example 07:30 or 21:15.",
+    },
+    "ru": {
+        "setup_time_other": "✏️ Другое",
+        "setup_time_buttons_hint": "Выберите время кнопкой. Если нужно другое, нажмите «Другое» и введите его в формате ЧЧ:ММ.",
+        "setup_time_custom_prompt": "⌨️ Введите время в формате ЧЧ:ММ, например 07:30 или 21:15.",
+    },
+    "uz": {
+        "setup_time_other": "✏️ Boshqa",
+        "setup_time_buttons_hint": "Vaqtni tugma bilan tanlang. Boshqa vaqt kerak bo'lsa, «Boshqa» tugmasini bosing va uni HH:MM formatida kiriting.",
+        "setup_time_custom_prompt": "⌨️ Vaqtni HH:MM formatida kiriting, masalan 07:30 yoki 21:15.",
+    },
+    "kz": {
+        "setup_time_other": "✏️ Басқа",
+        "setup_time_buttons_hint": "Уақытты батырмамен таңдаңыз. Басқа уақыт керек болса, «Басқа» батырмасын басып, оны HH:MM форматында енгізіңіз.",
+        "setup_time_custom_prompt": "⌨️ Уақытты HH:MM форматында енгізіңіз, мысалы 07:30 немесе 21:15.",
+    },
+}
+
+for _language, _updates in SETUP_TIME_TEXT_OVERRIDES.items():
+    TEXTS.setdefault(_language, {}).update(_updates)
+
 DEPRECATED_TEXT_KEYS = ("feedback_request", "feedback_received", "skip_days_saved")
 for _language_texts in TEXTS.values():
     for _key in DEPRECATED_TEXT_KEYS:
@@ -3348,6 +3356,7 @@ class BotHandlers:
         self.application.add_handler(CommandHandler("settings", self._handle_settings))
         self.application.add_handler(CommandHandler("test", self._handle_test))
         self.application.add_handler(CommandHandler("menu", self._handle_menu))
+        self.application.add_handler(CommandHandler("map", self._handle_map))
 
         # Admin commands.
         self.application.add_handler(
@@ -3372,6 +3381,7 @@ class BotHandlers:
         self.application.add_handler(CallbackQueryHandler(self._handle_language_callback, pattern="^lang_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_intro_callback, pattern="^intro_mode_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_timezone_callback, pattern="^tz_"))
+        self.application.add_handler(CallbackQueryHandler(self._handle_setup_time_callback, pattern="^settime_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_skipday_callback, pattern="^skipday_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_menu_callback, pattern="^menu_"))
         self.application.add_handler(CallbackQueryHandler(self._handle_principles_callback, pattern="^principles_"))
@@ -3468,6 +3478,23 @@ class BotHandlers:
             key = "time_step_principles"
 
         return self._get_text(key, language)
+
+    def _setup_time_prompt(self, language: str, user_state: Dict[str, Any], custom: bool = False) -> str:
+        """Prompt of the current setup time step: the buttons hint, or the typing prompt after "Other"."""
+        if user_state.get("step") == "meridian_time":
+            step_text = self._get_text("meridian_time_setup_step", language)
+        else:
+            step_text = self._get_time_step_text(language, user_state)
+        hint_key = "setup_time_custom_prompt" if custom else "setup_time_buttons_hint"
+        return f"{step_text}\n\n{escape(self._get_text(hint_key, language))}"
+
+    def _create_setup_time_keyboard(self, language: str) -> InlineKeyboardMarkup:
+        """Ready-made reminder times for setup; "Other" switches to typing HH:MM."""
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(value, callback_data=f"settime_{value}") for value in SETUP_TIME_CHOICES[:2]],
+            [InlineKeyboardButton(value, callback_data=f"settime_{value}") for value in SETUP_TIME_CHOICES[2:]],
+            [InlineKeyboardButton(self._get_text("setup_time_other", language), callback_data="settime_other")],
+        ])
 
     def _format_principles_list(self, language: str) -> str:
         """Format all Yama/Niyama principles as a compact catalogue heading."""
@@ -3579,7 +3606,8 @@ class BotHandlers:
 
                     confirmation = self._get_text("language_chosen", language)
                     text = self._as_html(f"{confirmation}\n\n{self._get_text('menu', language)}")
-                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
+                    await self._set_user_map_menu_button(chat_id, language)
                     logger.debug(f"Sending menu in {language} to user {chat_id}")
 
                     message = await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
@@ -3687,7 +3715,7 @@ class BotHandlers:
                                 del self.user_states[chat_id]
 
                                 text = self._as_html(f"{self._get_text('timezone_saved', language)}\n\n{self._get_text('menu', language)}")
-                                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+                                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
                                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                             else:
                                 await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='HTML')
@@ -3697,16 +3725,53 @@ class BotHandlers:
                         self.user_states[chat_id]["step"] = "time"
 
                         confirmation = self._get_text("timezone_saved", language)
-                        time_msg = self._get_time_step_text(language, self.user_states[chat_id])
+                        time_msg = self._setup_time_prompt(language, self.user_states[chat_id])
 
                         combined_msg = f"{confirmation}\n\n{time_msg}"
 
-                        await self._edit_message_text_safe(query, combined_msg, parse_mode='HTML')
+                        await self._edit_message_text_safe(
+                            query, combined_msg, reply_markup=self._create_setup_time_keyboard(language), parse_mode='HTML'
+                        )
                 else:
                     await self._edit_message_text_safe(query, self._get_text("invalid_timezone", language), parse_mode='HTML')
 
         except Exception as e:
             logger.error(f"Error in timezone callback for user {chat_id}: {e}")
+            language = self.user_states.get(chat_id, {}).get("language", "en")
+            await self._edit_message_text_safe(query, self._get_text("error", language))
+
+    async def _handle_setup_time_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle the reminder time buttons of the setup steps (typing HH:MM keeps working too)."""
+        query = update.callback_query
+        chat_id = query.message.chat.id
+        value = query.data.split("_", 1)[1]
+
+        try:
+            await query.answer()
+            user_state = self.user_states.get(chat_id)
+            if not user_state or user_state.get("step") not in ("time", "meridian_time"):
+                logger.debug(f"Invalid state for setup time callback {chat_id}: {user_state}")
+                return
+
+            language = user_state["language"]
+            user_state["registration_message_id"] = query.message.message_id
+            if value == "other":
+                await self._edit_message_text_safe(
+                    query, self._setup_time_prompt(language, user_state, custom=True), parse_mode='HTML'
+                )
+                return
+            if value not in SETUP_TIME_CHOICES:
+                return
+
+            # the typed-input handlers edit the registration message and read only the chat and the message
+            as_message = SimpleNamespace(effective_chat=update.effective_chat, message=query.message)
+            if user_state["step"] == "time":
+                await self._handle_time_input(as_message, value, language)
+            else:
+                await self._handle_setup_meridian_time_input(as_message, value, language)
+
+        except Exception as e:
+            logger.error(f"Error in setup time callback for user {chat_id}: {e}")
             language = self.user_states.get(chat_id, {}).get("language", "en")
             await self._edit_message_text_safe(query, self._get_text("error", language))
 
@@ -3807,7 +3872,7 @@ class BotHandlers:
                                 confirmation = "✅ Тыныш күндер тазартылды — күнделікті еске салулар қосылды"
 
                         text = f"{escape(confirmation)}\n\n{self._text_html('menu', language)}"
-                        keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+                        keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
 
                         await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                     else:
@@ -3854,12 +3919,13 @@ class BotHandlers:
 
                 # Add menu after setup completion
                 text += f"\n\n{self._text_html('menu', language)}"
-                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
                 logger.debug(f"Final setup message for user {chat_id} in language {language}: {text[:150]}...")
 
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                 # Store the final message ID
                 await self.storage.add_bot_message(chat_id, query.message.message_id, "setup_complete")
+                await self._set_user_map_menu_button(chat_id, language)
             else:
                 await self._edit_message_text_safe(query, self._get_text("setup_error", language), parse_mode='HTML')
 
@@ -4243,19 +4309,21 @@ class BotHandlers:
         self.user_states[chat_id]["step"] = "time"
 
         confirmation = self._get_text("timezone_saved", language)
-        time_msg = self._get_time_step_text(language, user_state)
+        time_msg = self._setup_time_prompt(language, user_state)
 
         combined_msg = f"{confirmation}\n\n{time_msg}"
+        keyboard = self._create_setup_time_keyboard(language)
 
         if message_id:
             await self._edit_bot_message_text_safe(
                 chat_id=chat_id,
                 message_id=message_id,
                 text=combined_msg,
+                reply_markup=keyboard,
                 parse_mode='HTML'
             )
         else:
-            await update.message.reply_text(combined_msg, parse_mode='HTML')
+            await update.message.reply_text(combined_msg, reply_markup=keyboard, parse_mode='HTML')
 
     async def _handle_time_input(self, update: Update, time_str: str, language: str) -> None:
         """Handle time input during registration."""
@@ -4281,18 +4349,20 @@ class BotHandlers:
         if user_state.get("principles_enabled", True) and user_state.get("meridians_enabled", False):
             self.user_states[chat_id]["step"] = "meridian_time"
             confirmation = self._get_text("time_saved", language)
-            meridian_time_msg = self._get_text("meridian_time_setup_step", language)
+            meridian_time_msg = self._setup_time_prompt(language, user_state)
             combined_msg = f"{escape(confirmation)}\n\n{meridian_time_msg}"
+            keyboard = self._create_setup_time_keyboard(language)
 
             if message_id:
                 await self._edit_bot_message_text_safe(
                     chat_id=chat_id,
                     message_id=message_id,
                     text=combined_msg,
+                    reply_markup=keyboard,
                     parse_mode='HTML'
                 )
             else:
-                await update.message.reply_text(combined_msg, parse_mode='HTML')
+                await update.message.reply_text(combined_msg, reply_markup=keyboard, parse_mode='HTML')
             return
 
         if not user_state.get("principles_enabled", True):
@@ -4334,7 +4404,8 @@ class BotHandlers:
 
             text = self._format_setup_complete(user, language, self._format_skip_days([], language))
             text += f"\n\n{self._text_html('menu', language)}"
-            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
+            await self._set_user_map_menu_button(chat_id, language)
 
             if message_id:
                 await self._edit_bot_message_text_safe(
@@ -4555,7 +4626,11 @@ class BotHandlers:
                 f"{labels['skip']} {escape(skip_days_display)}",
             ])
 
-        lines.extend(["", next_text, "", labels["hint"]])
+        lines.extend(["", next_text])
+        if self.webapp_url and getattr(user, "chat_id", 0) > 0:
+            # the 3D map row of the main menu sits right under this message
+            lines.extend(["", self._get_text("setup_map_hint", language)])
+        lines.extend(["", labels["hint"]])
         return "\n".join(lines)
 
     def _format_current_settings(self, user, language: str, skip_days_display: str) -> str:
@@ -4791,13 +4866,22 @@ class BotHandlers:
 
         return InlineKeyboardMarkup(keyboard)
 
-    def _create_main_menu_keyboard(self, language: str, is_admin: bool = False) -> InlineKeyboardMarkup:
-        """Create main menu keyboard."""
+    def _create_main_menu_keyboard(
+        self,
+        language: str,
+        is_admin: bool = False,
+        map_button: Optional[InlineKeyboardButton] = None
+    ) -> InlineKeyboardMarkup:
+        """Create main menu keyboard (map_button: the 3D map row, private chats only)."""
         keyboard = [
             [
                 InlineKeyboardButton(self._get_text("menu_principles", language), callback_data="menu_principles"),
                 InlineKeyboardButton(self._get_text("menu_meridians", language), callback_data="menu_meridians")
             ],
+        ]
+        if map_button:
+            keyboard.append([map_button])
+        keyboard.extend([
             [
                 InlineKeyboardButton(self._get_text("menu_modes", language), callback_data="menu_modes"),
                 InlineKeyboardButton(self._get_text("menu_settings", language), callback_data="menu_settings")
@@ -4809,7 +4893,7 @@ class BotHandlers:
             [
                 InlineKeyboardButton(self._get_text("menu_stop", language), callback_data="menu_stop")
             ]
-        ]
+        ])
         if is_admin:
             keyboard.append([
                 InlineKeyboardButton(self._get_text("menu_test", language), callback_data="menu_test"),
@@ -4817,9 +4901,16 @@ class BotHandlers:
             ])
         return InlineKeyboardMarkup(keyboard)
 
-    def _create_main_menu_keyboard_for_user(self, chat_id: int, language: str) -> InlineKeyboardMarkup:
+    def _create_main_menu_keyboard_for_user(
+        self,
+        chat_id: int,
+        language: str,
+        user: Optional[User] = None
+    ) -> InlineKeyboardMarkup:
         """Create main menu keyboard with admin-only actions when applicable."""
-        return self._create_main_menu_keyboard(language, is_admin=chat_id in self.admin_ids)
+        # web_app buttons are accepted only in private chats (positive chat ids)
+        map_button = self._create_meridian_map_button(language, user) if chat_id > 0 else None
+        return self._create_main_menu_keyboard(language, is_admin=chat_id in self.admin_ids, map_button=map_button)
 
     def _create_settings_menu_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
         """Create settings keyboard that reflects the user's active practice modes."""
@@ -4942,24 +5033,58 @@ class BotHandlers:
         keyboard.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")])
         return InlineKeyboardMarkup(keyboard)
 
-    def _create_meridian_map_button(self, language: str, user: Optional[User] = None) -> Optional[InlineKeyboardButton]:
-        """Mini App button for the 3D meridian map (shown to everyone once WEBAPP_URL is set)."""
-        if not self.webapp_url:
+    def _create_meridian_map_button(
+        self,
+        language: str,
+        user: Optional[User] = None,
+        point_code: Optional[str] = None,
+        meridian_id: Optional[str] = None,
+        text_key: str = "meridian_map_3d"
+    ) -> Optional[InlineKeyboardButton]:
+        """Mini App button for the 3D meridian map (shown to everyone once WEBAPP_URL is set).
+
+        point_code opens the map on that point, meridian_id selects a meridian; the URL also carries
+        the language and the user's practice progress (see webapp.build_map_url).
+        """
+        return build_map_button(
+            self.webapp_url, self._get_text(text_key, language), language, user,
+            point_code=point_code, meridian_id=meridian_id
+        )
+
+    def _create_point_map_button(
+        self,
+        language: str,
+        user: Optional[User],
+        meridian_id: Optional[str],
+        point_index: Optional[int]
+    ) -> Optional[InlineKeyboardButton]:
+        """Show-on-the-body button: the map opened on the point, or on the meridian before the first point."""
+        if not meridian_id:
             return None
-        parts = urlsplit(self.webapp_url)
-        params = {**dict(parse_qsl(parts.query)), "lang": language}
-        if user and user.meridians_enabled:
-            # the map marks the practice progress: the meridian in work (pm), the point reached (pi, 0-based),
-            # the finished meridians (pd); m and p are taken by the map's own deep links
-            if user.current_meridian_id:
-                params["pm"] = user.current_meridian_id
-                if user.current_point_index is not None and user.current_point_index >= 0:
-                    params["pi"] = str(user.current_point_index)
-            if user.completed_meridians:
-                params["pd"] = ",".join(user.completed_meridians)
-        query = urlencode(params)
-        url = urlunsplit((parts.scheme, parts.netloc, parts.path, query, parts.fragment))
-        return InlineKeyboardButton(self._get_text("meridian_map_3d", language), web_app=WebAppInfo(url=url))
+        if point_index is None or point_index < 0:
+            return self._create_meridian_map_button(language, user, meridian_id=meridian_id, text_key="meridian_show_on_body")
+        meridian = self.meridians_manager.get_meridian_by_id(meridian_id)
+        points = meridian.get("points", []) if meridian else []
+        if point_index >= len(points):
+            return None
+        return self._create_meridian_map_button(
+            language, user, point_code=points[point_index].get("code") or "", text_key="meridian_show_on_body"
+        )
+
+    async def _set_user_map_menu_button(self, chat_id: int, language: str) -> None:
+        """Chat menu button "Map" in the user's language (Telegram has no per-language default for it)."""
+        if not self.webapp_url or chat_id <= 0:
+            return
+        try:
+            await self.application.bot.set_chat_menu_button(
+                chat_id=chat_id,
+                menu_button=MenuButtonWebApp(
+                    text=self._get_text("map_menu_button", language),
+                    web_app=WebAppInfo(url=build_map_url(self.webapp_url, language))
+                )
+            )
+        except Exception as e:
+            logger.warning(f"Could not set the map menu button for chat {chat_id}: {e}")
 
     def _create_meridian_materials_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create meridian materials article selection keyboard."""
@@ -5009,9 +5134,14 @@ class BotHandlers:
         at_intro: bool = False,
         point_index: Optional[int] = None,
         points_count: Optional[int] = None,
-        meridian_id: Optional[str] = None
+        meridian_id: Optional[str] = None,
+        user: Optional[User] = None
     ) -> InlineKeyboardMarkup:
-        """Create navigation keyboard for an opened meridian or point."""
+        """Create navigation keyboard for an opened meridian or point (user: for the map button)."""
+        map_button = (
+            self._create_point_map_button(language, user, meridian_id, None if at_intro else point_index)
+            if user else None
+        )
         if at_intro:
             start_callback = (
                 f"meridian_point:{meridian_id}:0"
@@ -5023,12 +5153,16 @@ class BotHandlers:
                     self._get_text("meridian_start_points", language),
                     callback_data=start_callback
                 )],
+            ]
+            if map_button:
+                keyboard.append([map_button])
+            keyboard.extend([
                 [InlineKeyboardButton(self._get_text("meridian_video", language), callback_data="meridian_video")],
                 [
                     InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
                     InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
                 ],
-            ]
+            ])
             pair_button = self._pair_meridian_button(meridian_id, language)
             if pair_button:
                 keyboard.append([pair_button])
@@ -5056,6 +5190,8 @@ class BotHandlers:
         keyboard = []
         if navigation_row:
             keyboard.append(navigation_row)
+        if map_button:
+            keyboard.append([map_button])
         keyboard.extend([
             [InlineKeyboardButton(self._get_text("meridian_video", language), callback_data="meridian_video")],
             [
@@ -5134,7 +5270,8 @@ class BotHandlers:
                 self._create_meridian_practice_keyboard(
                     language,
                     at_intro=True,
-                    meridian_id=next_meridian.get("id")
+                    meridian_id=next_meridian.get("id"),
+                    user=user
                 ),
                 language,
                 next_meridian.get("id")
@@ -5165,7 +5302,8 @@ class BotHandlers:
                 self._create_meridian_practice_keyboard(
                     language,
                     at_intro=True,
-                    meridian_id=next_meridian.get("id")
+                    meridian_id=next_meridian.get("id"),
+                    user=user
                 ),
                 language,
                 next_meridian.get("id")
@@ -5284,7 +5422,7 @@ class BotHandlers:
                 return
 
             text = self._as_html(self._get_text("menu", language))
-            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
 
             await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
 
@@ -5297,6 +5435,39 @@ class BotHandlers:
             except:
                 error_lang = "en"
             await update.message.reply_text(self._get_text("error", language=error_lang))
+
+    async def _handle_map(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle /map command: the 3D meridian map button (works without registration)."""
+        chat = update.effective_chat
+        chat_id = chat.id
+        language = "ru"
+
+        try:
+            user = await self.storage.get_user(chat_id)
+            if user:
+                language = user.language
+            else:
+                language = normalize_webapp_language(getattr(update.effective_user, "language_code", "") or "")
+
+            if chat.type != "private":
+                await update.message.reply_text(self._get_text("map_private_only", language))
+                return
+
+            button = self._create_meridian_map_button(language, user)
+            if not button:
+                await update.message.reply_text(self._get_text("map_unavailable", language))
+                return
+
+            await update.message.reply_text(
+                self._get_text("map_command_text", language),
+                reply_markup=InlineKeyboardMarkup([[button]]),
+                parse_mode='HTML'
+            )
+            await self._set_user_map_menu_button(chat_id, language)
+
+        except Exception as e:
+            logger.error(f"Error in map handler for chat {chat_id}: {e}")
+            await update.message.reply_text(self._get_text("error", language))
 
     async def _handle_menu_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle main menu callback queries."""
@@ -5339,7 +5510,7 @@ class BotHandlers:
                 success = await self.scheduler.send_full_reminder_check_message(chat_id, language)
                 if success:
                     text = self._as_html(self._get_text("menu", language))
-                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
                     await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
                 else:
                     await self._edit_message_text_safe(query, self._get_text("test_failed", language))
@@ -5375,7 +5546,7 @@ class BotHandlers:
 
             elif action == "main":
                 text = self._as_html(self._get_text("menu", language))
-                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:
@@ -5591,7 +5762,7 @@ class BotHandlers:
                 keyboard = self._create_meridian_path_keyboard(language)
             else:
                 text = f"{self._get_text('mode_saved', language)}\n\n{self._get_text('menu', language)}"
-                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
             await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
         except Exception as e:
@@ -5783,7 +5954,7 @@ class BotHandlers:
                     await self._show_meridian_card(
                         query,
                         text,
-                        self._create_meridian_practice_keyboard(language, at_intro=True, meridian_id=meridian.get("id") if meridian else None),
+                        self._create_meridian_practice_keyboard(language, at_intro=True, meridian_id=meridian.get("id") if meridian else None, user=user),
                         language,
                         meridian.get("id") if meridian else None
                     )
@@ -5888,7 +6059,7 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridian_practice_keyboard(language, at_intro=True, meridian_id=meridian.get("id")),
+                    self._create_meridian_practice_keyboard(language, at_intro=True, meridian_id=meridian.get("id"), user=user),
                     language,
                     meridian.get("id")
                 )
@@ -5909,7 +6080,7 @@ class BotHandlers:
                 await self._show_meridian_card(
                     query,
                     text,
-                    self._create_meridian_practice_keyboard(language, at_intro=True, meridian_id=meridian.get("id")),
+                    self._create_meridian_practice_keyboard(language, at_intro=True, meridian_id=meridian.get("id"), user=user),
                     language,
                     meridian.get("id")
                 )
@@ -5958,7 +6129,8 @@ class BotHandlers:
                             at_intro=user.current_point_index < 0,
                             point_index=user.current_point_index if user.current_point_index >= 0 else None,
                             points_count=len(points),
-                            meridian_id=meridian.get("id")
+                            meridian_id=meridian.get("id"),
+                            user=user
                         ),
                         parse_mode='HTML'
                     )
@@ -5983,7 +6155,8 @@ class BotHandlers:
                             at_intro=user.current_point_index < 0,
                             point_index=user.current_point_index if user.current_point_index >= 0 else None,
                             points_count=len(points),
-                            meridian_id=meridian.get("id")
+                            meridian_id=meridian.get("id"),
+                            user=user
                         ),
                         parse_mode='HTML'
                     )
@@ -6000,7 +6173,8 @@ class BotHandlers:
                         at_intro=user.current_point_index < 0,
                         point_index=user.current_point_index if user.current_point_index >= 0 else None,
                         points_count=len(points),
-                        meridian_id=meridian.get("id")
+                        meridian_id=meridian.get("id"),
+                        user=user
                     ),
                     language,
                     meridian.get("id"),
@@ -6059,7 +6233,8 @@ class BotHandlers:
                         language,
                         point_index=point_index,
                         points_count=len(points),
-                        meridian_id=meridian.get("id")
+                        meridian_id=meridian.get("id"),
+                        user=user
                     ),
                     language,
                     meridian.get("id"),
@@ -6086,7 +6261,8 @@ class BotHandlers:
                         language,
                         point_index=user.current_point_index,
                         points_count=len(points),
-                        meridian_id=meridian.get("id")
+                        meridian_id=meridian.get("id"),
+                        user=user
                     ),
                     language,
                     meridian.get("id"),
@@ -6169,7 +6345,8 @@ class BotHandlers:
                             self._create_meridian_practice_keyboard(
                                 language,
                                 at_intro=True,
-                                meridian_id=next_meridian.get("id")
+                                meridian_id=next_meridian.get("id"),
+                                user=user
                             ),
                             language,
                             next_meridian.get("id")
@@ -6288,7 +6465,7 @@ class BotHandlers:
                     del self.user_states[chat_id]
 
                     text = f"{self._get_text('timezone_saved', language)}\n\n{self._get_text('menu', language)}"
-                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
 
                     if message_id:
                         await self._edit_bot_message_text_safe(
@@ -6368,7 +6545,7 @@ class BotHandlers:
                     del self.user_states[chat_id]
 
                     text = f"{self._get_text('time_saved', language)}\n\n{self._get_text('menu', language)}"
-                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+                    keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
 
                     if message_id:
                         await self._edit_bot_message_text_safe(
@@ -6448,7 +6625,7 @@ class BotHandlers:
                 del self.user_states[chat_id]
 
             text = f"{self._get_text('meridian_time_saved', language)}\n\n{self._get_text('menu', language)}"
-            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language)
+            keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
             if message_id:
                 await self._edit_bot_message_text_safe(
                     chat_id=chat_id,

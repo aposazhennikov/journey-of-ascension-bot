@@ -4,20 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Карта меридианов</title>
-  <link rel="stylesheet" href="styles.css?v=2026-11-08-4">
+  <link rel="stylesheet" href="styles.css?v=2026-11-13-1">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script type="importmap">
     {
       "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
-        "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/build/index.module.js"
+        "three": "./vendor/three/build/three.module.min.js",
+        "three/addons/": "./vendor/three/examples/jsm/",
+        "three-mesh-bvh": "./vendor/three-mesh-bvh/index.module.js"
       }
     }
   </script>
 </head>
 <body>
   <div id="backdrop" class="backdrop" aria-hidden="true"></div>
+  <div class="backdrop-fade" aria-hidden="true"></div>
   <div id="stage"></div>
   <div id="labels" class="labels" aria-hidden="true"></div>
   <div class="gesture-hint" id="gestureHint" hidden></div>
@@ -67,6 +68,6 @@
     <button id="retryBtn" hidden></button>
   </div>
 
-  <script type="module" src="app.js?v=2026-11-08-4"></script>
+  <script type="module" src="app.js?v=2026-11-13-1"></script>
 </body>
 </html>

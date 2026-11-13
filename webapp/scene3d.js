@@ -15,9 +15,11 @@ import { PALETTE, BODY_TONE } from './channels.js';
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
 const BODY_COLORS = {
-  // a cooler, darker clay than the page background (#f4f1ec), so the body does not melt into it
-  light: { base: '#d6cabe', shadow: '#a08c7d', rim: '#ffffff' },
-  dark: { base: '#4e4844', shadow: '#2a2522', rim: '#9fb4c8' },
+  // warm skin with warm shadows, a cool fill from the sky on the shadow side, a light rim along the
+  // silhouette and a warm band where light turns to shadow (the artist of the council: the grey-beige
+  // clay with flat front light read as a plastic dummy)
+  light: { base: '#e2c9b3', shadow: '#8c6652', rim: '#fff6ec', fill: '#a9bccd', sss: '#d58e74' },
+  dark: { base: '#574c45', shadow: '#2b221d', rim: '#c9d6e4', fill: '#5d7186', sss: '#7a4a38' },
 };
 
 export const reducedMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
@@ -56,13 +58,31 @@ const DASH_DISCARD = /if \( mod\( vLineDistance[^\n]*\n/;
 function patchLift(material, lift = 0.003) {
   let vs = material.vertexShader;
   if (!vs.includes(LINE_VERTEX_ANCHOR)) throw new Error('LineMaterial vertex shader changed');
-  vs = vs.replace('void main() {', 'uniform float uLift;\nvoid main() {')
+  // vFace: how much the skin under the line faces the camera. A line on skin seen edge-on along the
+  // silhouette turned into a solid band (the heart line along the forearm read as a red cut, council);
+  // it fades out there. Needs instanceNStart / instanceNEnd (skin normals) and uUseFace = 1.
+  vs = vs.replace('void main() {', 'uniform float uLift;\nuniform float uUseFace;\nattribute vec3 instanceNStart;\nattribute vec3 instanceNEnd;\nvarying float vFace;\nvoid main() {')
     .replace(LINE_VERTEX_ANCHOR, `${LINE_VERTEX_ANCHOR}
+      {
+        vec3 nS = normalMatrix * instanceNStart;
+        vec3 nE = normalMatrix * instanceNEnd;
+        float fS = dot( nS, nS ) > 0.0 ? dot( normalize( nS ), normalize( -start.xyz ) ) : 1.0;
+        float fE = dot( nE, nE ) > 0.0 ? dot( normalize( nE ), normalize( -end.xyz ) ) : 1.0;
+        vFace = uUseFace > 0.5 ? ( position.y < 0.5 ? fS : fE ) : 1.0;
+      }
       start.xyz -= normalize( start.xyz ) * uLift;
       end.xyz -= normalize( end.xyz ) * uLift;`);
   material.vertexShader = vs;
   material.uniforms.uLift = { value: lift };
+  material.uniforms.uUseFace = { value: 0 };
+  // the muted overview fades early; a chosen channel only right at the silhouette (the heart line on the
+  // inner arm, seen from the front, vanished with the overview's thresholds)
+  material.uniforms.uFaceLo = { value: -0.02 };
+  material.uniforms.uFaceHi = { value: 0.12 };
+  material.uniforms.uFaceFloor = { value: 0 };
 }
+
+const FACE_FADE = 'mix( uFaceFloor, 1.0, smoothstep( uFaceLo, uFaceHi, vFace ) )';
 
 /** Channel line: soft dark casing (light theme) or fading edge (dark theme), AA edges; optional beads. */
 class CasedLineMaterial extends LineMaterial {
@@ -76,13 +96,13 @@ class CasedLineMaterial extends LineMaterial {
     let fs = this.fragmentShader;
     if (!fs.includes(LINE_FRAGMENT_ANCHOR)) throw new Error('LineMaterial fragment shader changed');
     if (beads) fs = fs.replace(DASH_DISCARD, '');
-    fs = fs.replace('void main() {', 'uniform float uCasing;\nuniform float uDarkEdge;\nuniform float uBeads;\nvoid main() {')
+    fs = fs.replace('void main() {', 'uniform float uCasing;\nuniform float uDarkEdge;\nuniform float uBeads;\nuniform float uFaceLo;\nuniform float uFaceHi;\nuniform float uFaceFloor;\nvarying float vFace;\nvoid main() {')
       .replace(LINE_FRAGMENT_ANCHOR, `
         float x = abs( vUv.x );
         float aa = fwidth( x );
         vec3 casing = diffuseColor.rgb * 0.42;
         vec3 col = mix( diffuseColor.rgb, casing, smoothstep( 0.7, 0.92, x ) * uCasing );
-        float a = alpha * ( 1.0 - smoothstep( 1.0 - aa, 1.0, x ) );
+        float a = alpha * ( 1.0 - smoothstep( 1.0 - aa, 1.0, x ) ) * ${FACE_FADE};
         a *= 1.0 - 0.6 * smoothstep( 0.5, 1.0, x ) * uDarkEdge;
         #ifdef USE_DASH
           float bead = 1.0 - smoothstep( 0.55, 0.75, abs( fract( vLineDistance / 0.03 ) - 0.5 ) * 2.0 );
@@ -103,14 +123,14 @@ class FlowLineMaterial extends LineMaterial {
     if (!fs.includes(LINE_FRAGMENT_ANCHOR)) throw new Error('LineMaterial fragment shader changed');
     this.uniforms.uWhite = { value: 0.6 };
     fs = fs.replace(DASH_DISCARD, '')
-      .replace('void main() {', `${FLOW_GLSL}\nuniform float uWhite;\nvoid main() {`)
+      .replace('void main() {', `${FLOW_GLSL}\nuniform float uWhite;\nuniform float uFaceLo;\nuniform float uFaceHi;\nuniform float uFaceFloor;\nvarying float vFace;\nvoid main() {`)
       .replace(LINE_FRAGMENT_ANCHOR, `
         float I = flowPulse( vLineDistance );
         float x = abs( vUv.x );
         float core = 1.0 - smoothstep( 0.2 + 0.4 * I, 0.35 + 0.65 * I, x );
         // light theme: keep the comet in the channel colour (a white comet vanishes on light skin)
         vec3 col = mix( diffuseColor.rgb, vec3( 1.0 ), uWhite * I * ( 1.0 - x ) * ( 1.0 - x ) );
-        gl_FragColor = vec4( col, alpha * core * I );`);
+        gl_FragColor = vec4( col, alpha * core * I * ${FACE_FADE} );`);
     this.fragmentShader = fs;
   }
 }
@@ -179,16 +199,19 @@ void main() {
 
 // ---------- helpers ----------
 
-function makeClayMatcap({ base, shadow, rim }, size = 256) {
+function makeClayMatcap({ base, shadow, rim, fill, sss }, size = 256) {
   const c = document.createElement('canvas');
   c.width = c.height = size;
   const g = c.getContext('2d');
   const img = g.createImageData(size, size);
-  const L = new THREE.Vector3(-0.35, 0.55, 0.76).normalize();
+  // key light from the upper left at ~45 deg
+  const L = new THREE.Vector3(-0.5, 0.6, 0.62).normalize();
   const b = new THREE.Color(base);
   const s = new THREE.Color(shadow);
   const r = new THREE.Color(rim);
-  const ch = [[s.r, b.r, r.r], [s.g, b.g, r.g], [s.b, b.b, r.b]];
+  const f = new THREE.Color(fill || shadow);
+  const t = new THREE.Color(sss || base);
+  const ch = [[s.r, b.r, r.r, f.r, t.r], [s.g, b.g, r.g, f.g, t.g], [s.b, b.b, r.b, f.b, t.b]];
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
       const nx = ((x + 0.5) / size) * 2 - 1;
@@ -200,10 +223,19 @@ function makeClayMatcap({ base, shadow, rim }, size = 256) {
       const nz = Math.sqrt(1 - r2);
       const ndl = nx * L.x + ny * L.y + nz * L.z;
       const wrap = THREE.MathUtils.smoothstep((ndl + 0.4) / 1.4, 0, 1);
-      const fres = Math.pow(1 - nz, 3);
-      const spec = Math.pow(Math.max(0, 2 * ndl * nz - L.z), 24) * 0.04;
+      const fres = Math.pow(1 - nz, 2.5);
+      const spec = Math.pow(Math.max(0, 2 * ndl * nz - L.z), 24) * 0.035;
+      // the cool fill lifts the side away from the key; the warm band sits on the terminator; the rim
+      // is strongest on the upper and side edges (light from behind), weaker at the bottom
+      const fillK = (1 - wrap) * 0.22 * THREE.MathUtils.smoothstep(nx * 0.7 + 0.3, 0, 1);
+      // (band .26, rim .58: at .18 / .42 neither showed against the photo, artist round 2)
+      const band = Math.exp(-Math.pow((wrap - 0.42) / 0.16, 2)) * 0.26;
+      const rimK = fres * 0.58 * (0.55 + 0.45 * THREE.MathUtils.smoothstep(ny + 0.3, 0, 1));
       for (let k = 0; k < 3; k++) {
-        const v = ch[k][0] + (ch[k][1] - ch[k][0]) * wrap + ch[k][2] * fres * 0.45 + spec;
+        let v = ch[k][0] + (ch[k][1] - ch[k][0]) * wrap;
+        v += (ch[k][3] - v) * fillK;
+        v += (ch[k][4] - v) * band;
+        v += (ch[k][2] - v) * rimK + spec;
         img.data[i + k] = Math.min(255, Math.max(0, v * 255));
       }
     }
@@ -234,7 +266,8 @@ function makeFloorShadow() {
   canvas.width = canvas.height = 128;
   const ctx = canvas.getContext('2d');
   const grad = ctx.createRadialGradient(64, 64, 4, 64, 64, 64);
-  grad.addColorStop(0, 'rgba(0,0,0,0.26)');
+  // a little stronger, so the figure stands on the fog of the photos instead of floating (artist round 2)
+  grad.addColorStop(0, 'rgba(30,20,10,0.34)');
   grad.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, 128, 128);
@@ -253,12 +286,15 @@ function segmentsGeometry(polylines, { colors = null, withDistance = false } = {
   const segs = [];
   const dist = [];
   const cols = [];
+  const nrms = [];
+  const withNormals = polylines.every((pl) => pl.normals && pl.normals.length === pl.positions.length);
   for (const pl of polylines) {
     const c = colors ? colors(pl) : null;
     for (let i = 0; i < pl.positions.length - 1; i++) {
       const a = pl.positions[i];
       const b = pl.positions[i + 1];
       segs.push(a.x, a.y, a.z, b.x, b.y, b.z);
+      if (withNormals) { const na = pl.normals[i], nb = pl.normals[i + 1]; nrms.push(na.x, na.y, na.z, nb.x, nb.y, nb.z); }
       if (withDistance) dist.push(pl.arcs[i], pl.arcs[i + 1]);
       if (c) cols.push(c.r, c.g, c.b, c.r, c.g, c.b);
     }
@@ -272,7 +308,16 @@ function segmentsGeometry(polylines, { colors = null, withDistance = false } = {
     geom.setAttribute('instanceDistanceStart', new THREE.InterleavedBufferAttribute(buf, 1, 0));
     geom.setAttribute('instanceDistanceEnd', new THREE.InterleavedBufferAttribute(buf, 1, 1));
   }
+  if (withNormals) setLineNormals(geom, new Float32Array(nrms));
+  geom.userData.hasFace = withNormals;
   return geom;
+}
+
+function setLineNormals(geom, arr) {
+  const buf = new THREE.InstancedInterleavedBuffer(arr, 6, 1);
+  geom.setAttribute('instanceNStart', new THREE.InterleavedBufferAttribute(buf, 3, 0));
+  geom.setAttribute('instanceNEnd', new THREE.InterleavedBufferAttribute(buf, 3, 3));
+  return buf;
 }
 
 // ---------- scene ----------
@@ -284,7 +329,9 @@ export class MeridianScene {
     this.theme = theme;
     const weak = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 3;
     const dpr = window.devicePixelRatio || 1;
-    this.renderer = new THREE.WebGLRenderer({ antialias: dpr < 2 && !weak, alpha: true, powerPreference: 'high-performance' });
+    // antialiasing on phones too (it was off at dpr >= 2: jagged figure edges showed against the darker
+    // photo, artist of the council); MSAA is cheap on tile-based mobile GPUs, weak devices still skip it
+    this.renderer = new THREE.WebGLRenderer({ antialias: !weak, alpha: true, powerPreference: 'high-performance' });
     this.dpr = Math.min(dpr, weak ? 1.5 : 2);
     this.renderer.setPixelRatio(this.dpr);
     container.appendChild(this.renderer.domElement);
@@ -523,7 +570,11 @@ export class MeridianScene {
     const geom = new LineSegmentsGeometry();
     geom.setPositions(new Float32Array(count * 6));
     geom.setColors(new Float32Array(count * 6));
+    this.overviewNormals = setLineNormals(geom, new Float32Array(count * 6));
     this.overview = new LineSegments2(geom, new CasedLineMaterial({ vertexColors: true, linewidth: 2.5 }));
+    this.overview.material.uniforms.uUseFace.value = 1;
+    this.overview.material.uniforms.uFaceLo.value = 0.1;
+    this.overview.material.uniforms.uFaceHi.value = 0.4;
     // depth order toward the camera: all channels 3.5 mm < selected channel 5 mm < flow 6 mm
     this.overview.material.uniforms.uLift.value = 0.0035;
     this.overview.frustumCulled = false;
@@ -571,12 +622,14 @@ export class MeridianScene {
     for (const ch of this.channels.values()) {
       for (const pl of ch.polylines) {
         pl.positions = pl.atts.map((a) => this.skin.evaluate(a, new THREE.Vector3()));
+        pl.normals = pl.atts.map((a) => this.skin.smoothNormal(a, new THREE.Vector3()));
         let s = pl.s0;
         pl.arcs = [s];
         for (let i = 1; i < pl.positions.length; i++) { s += pl.positions[i].distanceTo(pl.positions[i - 1]); pl.arcs.push(s); }
       }
     }
     const arr = this.overview.geometry.attributes.instanceStart.data.array;
+    const narr = this.overviewNormals.array;
     let k = 0;
     for (const [id] of this.segRanges) {
       for (const pl of this.channels.get(id).polylines) {
@@ -584,11 +637,14 @@ export class MeridianScene {
         for (let i = 0; i < pl.positions.length - 1; i++) {
           const a = pl.positions[i];
           const b = pl.positions[i + 1];
+          const na = pl.normals[i], nb = pl.normals[i + 1];
+          narr[k] = na.x; narr[k + 1] = na.y; narr[k + 2] = na.z; narr[k + 3] = nb.x; narr[k + 4] = nb.y; narr[k + 5] = nb.z;
           arr[k++] = a.x; arr[k++] = a.y; arr[k++] = a.z; arr[k++] = b.x; arr[k++] = b.y; arr[k++] = b.z;
         }
       }
     }
     this.overview.geometry.attributes.instanceStart.data.needsUpdate = true;
+    this.overviewNormals.needsUpdate = true;
     const pos = this.points.geometry.attributes.position;
     const nrm = this.points.geometry.attributes.normal;
     const nn = new THREE.Vector3();
@@ -643,7 +699,8 @@ export class MeridianScene {
       for (let i = a; i < b; i++) colors.set([c.r, c.g, c.b, c.r, c.g, c.b], i * 6);
     }
     this.overview.geometry.attributes.instanceColorStart.data.needsUpdate = true;
-    this.overview.material.linewidth = level === 'home' ? 2.0 : 1.5;
+    // three line weights, about 1 : 2.5 : 5 (overview, a group or pose, one chosen channel), artist round 2
+    this.overview.material.linewidth = level === 'home' ? 1.5 : 1.25;
     // no white casing on the muted overview: on the light theme it made them look like scratches
     this.overview.material.uniforms.uCasing.value = 0;
     this.overview.material.uniforms.uDarkEdge.value = this.theme === 'dark' ? 1 : 0;
@@ -733,8 +790,15 @@ export class MeridianScene {
       const geom = segmentsGeometry(basePolys, { colors: (pl) => new THREE.Color(this.colorOf(pl.channelId)) });
       // poses: the whole figure is in view, so the lines are thin on screen; 2.5 px yellow and green lines
       // were lost on the skin (UX council 2026-11-12), the hand close-ups of the mudras need less
-      const width = sel.level === 'mudra' ? 3.0 : 3.5;
-      this.selBase = new LineSegments2(geom, new CasedLineMaterial({ vertexColors: true, linewidth: width }));
+      const group = baseIds.size > 1;
+      this.selBase = new LineSegments2(geom, new CasedLineMaterial({ vertexColors: true, linewidth: 3.0 }));
+      // one chosen channel is never faded: on the inner forearm seen from the front it is only visible at the
+      // silhouette, and fading it there hid most of the heart line. Several channels (a pose, a group) fade on
+      // skin turning away down to 35 %: unfaded they outlined the trunk like a comic (artist round 2)
+      this.selBase.material.uniforms.uUseFace.value = group && geom.userData.hasFace ? 1 : 0;
+      this.selBase.material.uniforms.uFaceLo.value = 0.0;
+      this.selBase.material.uniforms.uFaceHi.value = 0.3;
+      this.selBase.material.uniforms.uFaceFloor.value = 0.35;
       this.selBase.material.uniforms.uLift.value = 0.005;
       this.selBase.material.uniforms.uCasing.value = this.theme === 'light' ? 0.55 : 0;
       this.selBase.material.uniforms.uDarkEdge.value = this.theme === 'dark' ? 1 : 0;
@@ -744,8 +808,9 @@ export class MeridianScene {
       const ch = this.channels.get(vesselId);
       const geom = segmentsGeometry(ch.polylines, { withDistance: true });
       if (geom) {
-        const vb = new LineSegments2(geom, new CasedLineMaterial({ color: new THREE.Color(this.colorOf(vesselId)), linewidth: 4.5, beads: true, transparent: true }));
+        const vb = new LineSegments2(geom, new CasedLineMaterial({ color: new THREE.Color(this.colorOf(vesselId)), linewidth: 3.0, beads: true, transparent: true }));
         vb.material.uniforms.uCasing.value = this.theme === 'light' ? 0.4 : 0;
+        vb.material.uniforms.uUseFace.value = 0;
         vb.material.uniforms.uLift.value = 0.005;
         vb.renderOrder = 2;
         if (this.selBase) { this.scene.remove(this.selBase); this.selBase.geometry.dispose(); }
@@ -764,8 +829,9 @@ export class MeridianScene {
     }
     if (flowPolys.length) {
       const geom = segmentsGeometry(flowPolys, { withDistance: true, colors: (pl) => new THREE.Color(this.colorOf(pl.channelId)) });
-      const mat = new FlowLineMaterial({ vertexColors: true, linewidth: 9 }, this.flowUniforms);
+      const mat = new FlowLineMaterial({ vertexColors: true, linewidth: 6 }, this.flowUniforms);
       mat.uniforms.uWhite.value = this.theme === 'dark' ? 0.6 : 0.25;
+      mat.uniforms.uUseFace.value = 0;
       if (this.theme === 'dark') mat.blending = THREE.AdditiveBlending;
       this.selFlow = new LineSegments2(geom, mat);
       this.selFlow.renderOrder = 4;
@@ -985,7 +1051,7 @@ export class MeridianScene {
   fitDistance(height = 1.8, width = 1.15) {
     const vp = this.getViewport();
     const h = window.innerHeight;
-    const w = window.innerWidth;
+    const w = window.innerWidth - (vp.right || 0);
     const free = Math.max(0.35, (h - vp.top - vp.bottom) / h);
     const tanHalf = Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2));
     return Math.max(height / (2 * free * tanHalf), width / (2 * tanHalf * (w / h)), 1.2);
@@ -1031,8 +1097,25 @@ export class MeridianScene {
     const vp = this.getViewport();
     const free = Math.max(0.35, (window.innerHeight - vp.top - vp.bottom) / window.innerHeight);
     const tanHalf = Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2));
-    const aspect = window.innerWidth / window.innerHeight;
-    const dist = THREE.MathUtils.clamp((radius / (tanHalf * free * Math.min(1, aspect * 1.4))) * 1.05, opts.minDist || 0.3, this.fitDistance() * 1.1);
+    const aspect = (window.innerWidth - (vp.right || 0)) / window.innerHeight;
+    // height and width fitted separately (the diagonal alone pushed a standing mudra 5.6 m away on a
+    // narrow phone once the button column was left out of the free area); never farther than before
+    // extents as the camera sees them: the box corners projected on its right / up / view axes
+    const d = dir.clone().normalize();
+    const right = new THREE.Vector3(0, 1, 0).cross(d);
+    if (right.lengthSq() < 1e-6) right.set(1, 0, 0);
+    right.normalize();
+    const up = d.clone().cross(right).normalize();
+    let halfW = 0, halfH = 0, halfD = 0;
+    for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
+      const v = new THREE.Vector3(x, y, z).sub(center);
+      halfW = Math.max(halfW, Math.abs(v.dot(right)));
+      halfH = Math.max(halfH, Math.abs(v.dot(up)));
+      halfD = Math.max(halfD, Math.abs(v.dot(d)));
+    }
+    const fit = (Math.max(halfH / (tanHalf * free), halfW / (tanHalf * aspect)) + halfD) * 1.08;
+    const old = (radius / (tanHalf * free * Math.min(1, aspect * 1.4))) * 1.05;
+    const dist = THREE.MathUtils.clamp(Math.min(old, fit), opts.minDist || 0.3, this.fitDistance() * 1.1);
     const pos = center.clone().addScaledVector(dir.clone().normalize(), dist);
     if (opts.instant) {
       this.controls.target.copy(center);
@@ -1173,7 +1256,8 @@ export class MeridianScene {
     this.renderer.setSize(w, h);
     this.camera.aspect = w / h;
     const vp = this.getViewport();
-    this.camera.setViewOffset(w, h, 0, Math.round((vp.bottom - vp.top) / 2), w, h);
+    // centre the picture in the free area: above the sheet, left of the button column
+    this.camera.setViewOffset(w, h, Math.round((vp.right || 0) / 2), Math.round((vp.bottom - vp.top) / 2), w, h);
     this.camera.updateProjectionMatrix();
     this.resizeLineMaterials();
     this.requestRender();

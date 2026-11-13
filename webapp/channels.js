@@ -10,12 +10,14 @@ export const VESSEL_IDS = ['chong_mai', 'dai_mai', 'yin_wei_mai', 'yang_wei_mai'
 export const ALL_IDS = [...CLOCK_ORDER, ...MIDLINE_IDS, ...VESSEL_IDS];
 
 export const PALETTE = {
+  // pairs by element in one hue, the yin channel darker (OKLCH L .48-.55), the yang one lighter (.60-.66):
+  // contrast with the skin 2.1-4.5 instead of 1.4-6.6 (stomach yellow vanished, kidney navy shouted), and
+  // the yin-yang pair reads at a glance (artist of the council, round 2)
   light: {
-    lung: '#46546a', large_intestine: '#7c8ea6', stomach: '#e3ac00', spleen: '#b97a00',
-    heart: '#c21f32', small_intestine: '#e0552b', bladder: '#2f7be0', kidney: '#1f3a9a',
-    // gallbladder yellow-green, liver deep green: the paired wood channels must not look the same
-    pericardium: '#a3236e', triple_burner: '#e0609a', gallbladder: '#8aae12', liver: '#1e6b45',
-    governing_vessel: '#5b34b8', conception_vessel: '#9a5fd6',
+    lung: '#50667c', large_intestine: '#758ca4', stomach: '#b68b16', spleen: '#9c640d',
+    heart: '#b02a2d', small_intestine: '#d35d31', bladder: '#0b89c8', kidney: '#2f59ab',
+    pericardium: '#a13567', triple_burner: '#c35f92', gallbladder: '#799a2d', liver: '#1e7546',
+    governing_vessel: '#6c4ab3', conception_vessel: '#9a66be',
     // the eight extraordinary vessels must stay apart from each other when shown together
     chong_mai: '#0d8f8c', dai_mai: '#8a6a2f', yin_wei_mai: '#6d7a12', yang_wei_mai: '#0099c4',
     yin_qiao_mai: '#c0397a', yang_qiao_mai: '#d9781c',
@@ -30,7 +32,7 @@ export const PALETTE = {
   },
 };
 
-export const BODY_TONE = { light: '#d6cabe', dark: '#4e4844' };
+export const BODY_TONE = { light: '#e2c9b3', dark: '#574c45' };
 
 export const VIEW = {
   lung: 'front', large_intestine: 'side', stomach: 'front', spleen: 'front', heart: 'front',
@@ -58,7 +60,7 @@ export const WHO = {
 export const SHORT = {
   ru: { lung: 'Лёгкие', large_intestine: 'Толстая кишка', stomach: 'Желудок', spleen: 'Селезёнка', heart: 'Сердце', small_intestine: 'Тонкая кишка', bladder: 'Мочевой пузырь', kidney: 'Почки', pericardium: 'Перикард', triple_burner: 'Три обогревателя', gallbladder: 'Желчный пузырь', liver: 'Печень', governing_vessel: 'Ду-май', conception_vessel: 'Жэнь-май', chong_mai: 'Чун-май', dai_mai: 'Дай-май', yin_wei_mai: 'Инь-вэй', yang_wei_mai: 'Ян-вэй', yin_qiao_mai: 'Инь-цяо', yang_qiao_mai: 'Ян-цяо' },
   en: { lung: 'Lung', large_intestine: 'Large Intestine', stomach: 'Stomach', spleen: 'Spleen', heart: 'Heart', small_intestine: 'Small Intestine', bladder: 'Bladder', kidney: 'Kidney', pericardium: 'Pericardium', triple_burner: 'Triple Burner', gallbladder: 'Gallbladder', liver: 'Liver', governing_vessel: 'Du Mai', conception_vessel: 'Ren Mai', chong_mai: 'Chong Mai', dai_mai: 'Dai Mai', yin_wei_mai: 'Yin Wei', yang_wei_mai: 'Yang Wei', yin_qiao_mai: 'Yin Qiao', yang_qiao_mai: 'Yang Qiao' },
-  uz: { lung: "O'pka", large_intestine: "Yo'g'on ichak", stomach: 'Oshqozon', spleen: 'Taloq', heart: 'Yurak', small_intestine: 'Ingichka ichak', bladder: 'Siydik pufagi', kidney: 'Buyrak', pericardium: 'Perikard', triple_burner: 'Uch isitkich', gallbladder: "O't pufagi", liver: 'Jigar', governing_vessel: 'Du-may', conception_vessel: 'Ren-may', chong_mai: 'Chun-may', dai_mai: 'Day-may', yin_wei_mai: 'In-vey', yang_wei_mai: 'Yan-vey', yin_qiao_mai: 'In-tsyao', yang_qiao_mai: 'Yan-tsyao' },
+  uz: { lung: "O'pka", large_intestine: "Yo'g'on ichak", stomach: 'Oshqozon', spleen: 'Taloq', heart: 'Yurak', small_intestine: 'Ingichka ichak', bladder: 'Siydik pufagi', kidney: 'Buyrak', pericardium: 'Perikard', triple_burner: 'Uch isitkich', gallbladder: "O't pufagi", liver: 'Jigar', governing_vessel: 'Du-mai', conception_vessel: 'Ren-mai', chong_mai: 'Chong-mai', dai_mai: 'Dai-mai', yin_wei_mai: 'Yin-wei', yang_wei_mai: 'Yang-wei', yin_qiao_mai: 'Yin-qiao', yang_qiao_mai: 'Yang-qiao' },
   kz: { lung: 'Өкпе', large_intestine: 'Тоқ ішек', stomach: 'Асқазан', spleen: 'Көкбауыр', heart: 'Жүрек', small_intestine: 'Ащы ішек', bladder: 'Қуық', kidney: 'Бүйрек', pericardium: 'Перикард', triple_burner: 'Үш жылытқыш', gallbladder: 'Өт қабы', liver: 'Бауыр', governing_vessel: 'Ду-май', conception_vessel: 'Жэнь-май', chong_mai: 'Чун-май', dai_mai: 'Дай-май', yin_wei_mai: 'Инь-вэй', yang_wei_mai: 'Ян-вэй', yin_qiao_mai: 'Инь-цяо', yang_qiao_mai: 'Ян-цяо' },
 };
 

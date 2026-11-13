@@ -23,6 +23,7 @@ from .utils import (
     get_meridian_image_path,
     has_principle_image
 )
+from .webapp import build_map_button
 
 
 logger = logging.getLogger(__name__)
@@ -31,11 +32,19 @@ logger = logging.getLogger(__name__)
 class YogaScheduler:
     """Scheduler for yoga bot messages."""
     
-    def __init__(self, bot: Bot, storage: JsonStorage, principles_manager: PrinciplesManager, meridians_manager: MeridiansManager = None):
+    def __init__(
+        self,
+        bot: Bot,
+        storage: JsonStorage,
+        principles_manager: PrinciplesManager,
+        meridians_manager: MeridiansManager = None,
+        webapp_url: str = ""
+    ):
         self.bot = bot
         self.storage = storage
         self.principles_manager = principles_manager
         self.meridians_manager = meridians_manager
+        self.webapp_url = webapp_url
         self.scheduler = AsyncIOScheduler(timezone='UTC')
         self.jobs_created = 0
 
@@ -51,6 +60,7 @@ class YogaScheduler:
                 "help": "🖐 How to find a point",
                 "complete": "✅ Meridian studied / next",
                 "back": "🔙 Back to meridians",
+                "map": "📍 Show on the body",
             },
             "ru": {
                 "start": "Начать с первой точки",
@@ -61,6 +71,7 @@ class YogaScheduler:
                 "help": "🖐 Как искать точку",
                 "complete": "✅ Меридиан изучен / дальше",
                 "back": "🔙 К меридианам",
+                "map": "📍 Показать на теле",
             },
             "uz": {
                 "start": "1-nuqtadan boshlash",
@@ -71,6 +82,7 @@ class YogaScheduler:
                 "help": "🖐 Nuqtani topish",
                 "complete": "✅ Meridian o‘rganildi / keyingisi",
                 "back": "🔙 Meridianlarga qaytish",
+                "map": "📍 Tanada ko'rsatish",
             },
             "kz": {
                 "start": "1-нүктеден бастау",
@@ -81,6 +93,7 @@ class YogaScheduler:
                 "help": "🖐 Нүктені табу",
                 "complete": "✅ Меридиан зерттелді / келесі",
                 "back": "🔙 Меридиандарға қайту",
+                "map": "📍 Денеден көрсету",
             },
         }
         language_labels = labels.get(language, labels["en"])
@@ -91,10 +104,29 @@ class YogaScheduler:
         language: str,
         point_index: int,
         points_count: int,
-        meridian_id: Optional[str] = None
+        meridian_id: Optional[str] = None,
+        user: Optional[User] = None,
+        point_code: Optional[str] = None
     ) -> InlineKeyboardMarkup:
-        """Create inline navigation for daily meridian reminder messages."""
+        """Create inline navigation for daily meridian reminder messages.
+
+        user and point_code add the "show on the body" button: the 3D map opened on the point
+        (or on the meridian before the first point).
+        """
         keyboard = []
+        map_button = None
+        if user:
+            if point_index >= 0:
+                if point_code:
+                    map_button = build_map_button(
+                        self.webapp_url, self._meridian_button_text("map", language), language, user,
+                        point_code=point_code
+                    )
+            elif meridian_id:
+                map_button = build_map_button(
+                    self.webapp_url, self._meridian_button_text("map", language), language, user,
+                    meridian_id=meridian_id
+                )
 
         if point_index < 0:
             start_callback = (
@@ -125,6 +157,8 @@ class YogaScheduler:
             if navigation_row:
                 keyboard.append(navigation_row)
 
+        if map_button:
+            keyboard.append([map_button])
         keyboard.extend([
             [InlineKeyboardButton(self._meridian_button_text("video", language), callback_data="meridian_video")],
             [
@@ -343,7 +377,8 @@ class YogaScheduler:
                 image_path = get_meridian_image_path(meridian["id"])
 
             keyboard = self._create_meridian_reminder_keyboard(
-                user.language, user.current_point_index, len(points), meridian.get("id")
+                user.language, user.current_point_index, len(points), meridian.get("id"),
+                user=user, point_code=point_code if user.current_point_index >= 0 else None
             )
             success = await self._send_meridian_message_with_retry(chat_id, message_text, image_path, keyboard)
 
@@ -662,7 +697,8 @@ class YogaScheduler:
             image_path = get_meridian_image_path(meridian["id"])
 
         keyboard = self._create_meridian_reminder_keyboard(
-            language, user.current_point_index, len(points), meridian.get("id")
+            language, user.current_point_index, len(points), meridian.get("id"),
+            user=user, point_code=point_code if user.current_point_index >= 0 else None
         )
         return await self._send_meridian_message_with_retry(user.chat_id, message_text, image_path, keyboard)
     

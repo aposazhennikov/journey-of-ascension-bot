@@ -65,9 +65,10 @@ def part_normals_at(b, pos, nrm, A, pts, k=4):
     return n / np.maximum(np.linalg.norm(n, axis=1, keepdims=True), 1e-9)
 
 
-def contact_deltas(b, pos, adj, pairs=None):
+def contact_deltas(b, pos, adj, pairs=None, max_push=None):
     """Displacements (n x 3) that take soft skin out of the parts pressing on it."""
     pairs = PAIRS if pairs is None else pairs
+    MAX_PUSH = globals()["MAX_PUSH"] if max_push is None else max_push
     n = len(pos)
     delta = np.zeros((n, 3))
     nrm = vertex_normals(pos, b.tris)
@@ -329,6 +330,76 @@ def unfold(b, mush, P, region, rings=3, rounds=12, iters=10, keep=None):
     return X
 
 
+ELBOW_MAX_PUSH = 0.06
+
+
+def split_elbow_crease(b, rig, H, P, adj, gap=0.002, reach=0.12, rings=3):
+    """Deeply bent elbow: the plane through the elbow joint whose normal bisects the upper-arm and forearm
+    directions separates the two; skin of either segment on the inner (crease) side that lies across the
+    plane is moved back to its own side (gap mm), the shift fades over `rings` rings. The outer side (the
+    olecranon) is left alone."""
+    P = P.copy()
+    delta = np.zeros_like(P)
+    for s in SIDES:
+        E = H[rig.index[f"lowerarm01.{s}"]]
+        u = H[rig.index[f"upperarm01.{s}"]] - E
+        f = H[rig.index[f"wrist.{s}"]] - E
+        u /= np.linalg.norm(u)
+        f /= np.linalg.norm(f)
+        if np.dot(u, f) < -0.2:          # not bent enough for the segments to meet
+            continue
+        n = u - f
+        n /= np.linalg.norm(n)           # points toward the upper arm
+        inner = u + f
+        inner /= np.linalg.norm(inner)   # into the crease
+        for bones, sign in (([f"upperarm01.{s}", f"upperarm02.{s}"], 1.0), ([f"lowerarm01.{s}", f"lowerarm02.{s}"], -1.0)):
+            idx = b.bones(bones)
+            rel = P[idx] - E
+            near = (np.linalg.norm(rel, axis=1) < reach) & (rel @ inner > 0.005)
+            side = sign * (rel @ n)
+            bad = near & (side < gap)
+            if bad.any():
+                delta[idx[bad]] = (sign * (gap - side[bad]))[:, None] * n[None, :]
+    moved = np.linalg.norm(delta, axis=1) > 0
+    if not moved.any():
+        return P
+    # fade the shift into the neighbours (moved vertices keep theirs)
+    cur = delta.copy()
+    region = set(np.flatnonzero(moved).tolist())
+    for _ in range(rings):
+        region |= {int(j) for i in list(region) for j in adj[i]}
+    region = np.array(sorted(region))
+    for _ in range(rings * 2):
+        nxt = cur.copy()
+        for v in region:
+            if moved[v]:
+                continue
+            nxt[v] = 0.5 * cur[v] + 0.5 * cur[adj[v]].mean(0)
+        cur = nxt
+    return P + cur
+
+
+def ear_sets(b):
+    """The pinna of each side: head vertices standing off the side of the skull around the ear height."""
+    if "earL" in b.sets:
+        return True
+    head = np.flatnonzero(np.isin(b.base, ["head"]))
+    if not len(head):
+        return False
+    hp = b.rest[head]
+    top = hp[:, 1].max()
+    mid = (np.abs(hp[:, 0]) < 0.012) & (hp[:, 1] < top - 0.08) & (hp[:, 1] > top - 0.17)
+    if not mid.any():
+        return False
+    occ = hp[mid][np.argmin(hp[mid][:, 2])]
+    band = np.abs(hp[:, 1] - (occ[1] - 0.01)) < 0.045
+    lat = np.abs(hp[:, 0])
+    skull = lat[band & (hp[:, 2] < occ[2] + 0.05)].max()      # the skull's half width behind the ear
+    for s, sg in (("L", 1.0), ("R", -1.0)):
+        b.sets[f"ear{s}"] = head[band & (sg * hp[:, 0] > skull + 0.002)]
+    return True
+
+
 def arm_corrective(rig, b, adj, poses, variant, hand_id, mush):
     """Shoulder corrective of an arm position, computed on the standing body (the spine is the same in
     every pose, so it fits every body pose); stored as hand[hand_id].corr[variant]."""
@@ -348,13 +419,30 @@ def arm_corrective(rig, b, adj, poses, variant, hand_id, mush):
     pairs = []
     for s in SIDES:
         pairs += [(f"upperarm{s}", f"chest{s}", 0.5), (f"chest{s}", f"upperarm{s}", 0.5)]
-        # the deeply bent elbow of the hands behind the head: forearm and upper arm share the fold, as
-        # calf and thigh do at the knee (torn light triangles in the elbow crease, council 2026-11-12)
-        pairs += [(f"forearm{s}", f"upperarm{s}", 0.5), (f"upperarm{s}", f"forearm{s}", 0.5)]
     P = P + contact_deltas(b, P, adj, pairs)
+    # the deeply bent elbow of the hands behind the head: forearm and upper arm share the fold, as calf
+    # and thigh do at the knee (torn light triangles in the elbow crease, council 2026-11-12). They pass
+    # 4-5 cm into each other there, so this pair may push up to 6 cm (at the 3 cm cap a dark wedge stayed,
+    # seen edge-on as a black line across the male forearm, council round 2)
+    elbow = []
+    for s in SIDES:
+        elbow += [(f"forearm{s}", f"upperarm{s}", 0.5), (f"upperarm{s}", f"forearm{s}", 0.5)]
+    P = P + contact_deltas(b, P, adj, elbow, max_push=ELBOW_MAX_PUSH)
+    # the pair test misses the crease itself (there the two skins are one surface, so "facing" fails):
+    # forearm and upper arm stayed 4-5 cm inside each other at ~25 vertices, a dark arc across the male
+    # forearm seen from the side (council round 2). Split the crease with the plane through the elbow
+    # between the two segments and put each segment's skin back on its own side
+    P = split_elbow_crease(b, rig, H, P, adj)
+    # the ear gives way under the heel of the hand (it bends against the head; the palm closed round the
+    # male ear in a hollow and cut the female and neutral helix, council round 2)
+    ears = ear_sets(b)
+    if ears:
+        P = P + contact_deltas(b, P, adj, [(f"hand{s}", f"ear{s}", 1.0) for s in SIDES if f"ear{s}" in b.sets])
     # the fold of the armpit itself turns over (skin of one part folding onto itself, so no contact pair
-    # sees it): plain Laplacian relaxation, no detail restored, within 8 cm of each armpit apex
-    P = relax_armpits(b, adj, P)
+    # sees it): plain Laplacian relaxation, no detail restored, within 12 cm of each armpit apex (at 8 cm
+    # the male armpit kept 12-13 needle triangles from the shoulder mush, seen by the council; 11-14 cm:
+    # none, same stretch)
+    P = relax_armpits(b, adj, P, radius=0.12)
     # turned-over skin around the shoulders, and at the elbow and the wrist too (the hands behind the head
     # bend both deeply)
     near = np.zeros(len(P), bool)

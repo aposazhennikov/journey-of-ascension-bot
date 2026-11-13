@@ -10,7 +10,7 @@ from typing import List
 from aiohttp import web
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
-from telegram import Bot, BotCommand
+from telegram import Bot, BotCommand, MenuButtonWebApp, WebAppInfo
 from telegram.error import NetworkError
 from telegram.request import HTTPXRequest
 from telegram.ext import Application, ContextTypes
@@ -22,7 +22,7 @@ from .storage import JsonStorage
 from .scheduler import YogaScheduler
 from .handlers import BotHandlers
 from .utils import PrinciplesManager, MeridiansManager, HealthCheck, get_prometheus_metrics
-from .webapp import setup_webapp_routes
+from .webapp import build_map_url, setup_webapp_routes
 
 
 class Settings(BaseSettings):
@@ -157,7 +157,8 @@ class YogaBot:
             self.bot,
             self.storage,
             self.principles_manager,
-            self.meridians_manager
+            self.meridians_manager,
+            webapp_url=settings.webapp_url,
         )
         
         # Initialize handlers.
@@ -193,6 +194,7 @@ class YogaBot:
             # Initialize bot application.
             await self.application.initialize()
             await self.setup_bot_commands()
+            await self.setup_menu_button()
             
             # Start scheduler.
             await self.scheduler.start()
@@ -263,10 +265,38 @@ class YogaBot:
             ],
         }
 
+        if self.settings.webapp_url:
+            map_descriptions = {
+                None: "3D meridian map",
+                "en": "3D meridian map",
+                "ru": "3D-карта меридианов",
+                "uz": "Meridianlarning 3D xaritasi",
+                "kk": "Меридиандардың 3D картасы",
+            }
+            for language_code, commands in localized_commands.items():
+                commands.insert(2, BotCommand("map", map_descriptions[language_code]))
+
         for language_code, commands in localized_commands.items():
             await self.bot.set_my_commands(commands, language_code=language_code)
 
         self.logger.info("Published public Telegram command menu.")
+
+    async def setup_menu_button(self) -> None:
+        """Default chat menu button that opens the 3D map.
+
+        Telegram keeps a single default for all languages, so it is Russian; the map itself follows the
+        client's language. Users get a button in their own language once they finish setup, change the
+        language or open /map.
+        """
+        if not self.settings.webapp_url:
+            return
+        try:
+            await self.bot.set_chat_menu_button(
+                menu_button=MenuButtonWebApp(text="Карта", web_app=WebAppInfo(url=build_map_url(self.settings.webapp_url)))
+            )
+            self.logger.info("Published the 3D map chat menu button.")
+        except Exception as e:
+            self.logger.warning(f"Could not set the 3D map chat menu button: {e}")
 
     async def handle_telegram_error(self, update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle update errors that escaped command/callback handlers."""

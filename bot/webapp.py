@@ -3,16 +3,19 @@
 import json
 import re
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Dict
+from typing import TYPE_CHECKING, Any, Dict, Optional
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from aiohttp import web
+from telegram import InlineKeyboardButton, WebAppInfo
 
 from .utils import (
-    MERIDIAN_LOCALIZED_NAMES, MERIDIAN_METADATA, _clean_point_location, _localized_location,
+    MERIDIAN_LOCALIZED_NAMES, MERIDIAN_METADATA, POINT_NAMES, _clean_point_location, _localized_location,
     _metadata_label, _point_setup_practice_hint, localized_point_name,
 )
 
 if TYPE_CHECKING:
+    from .storage import User
     from .utils import MeridiansManager
 
 WEBAPP_DIR = Path(__file__).resolve().parent.parent / "webapp"
@@ -40,6 +43,75 @@ def _plain(text: str) -> str:
 def normalize_webapp_language(language: str) -> str:
     language = LANGUAGE_ALIASES.get((language or "").lower(), (language or "").lower())
     return language if language in WEBAPP_LANGUAGES else "ru"
+
+
+def map_point_code(code: str) -> str:
+    """Point code in the map's notation (P11, VB20, IG19); "" when the map would not recognise it.
+
+    The bot stores points in the same notation the map uses, WHO codes ("LU 7", "GB20") are turned back.
+    """
+    match = re.fullmatch(r"([A-Z]+)\.?(\d+)", re.sub(r"\s+", "", str(code or "")).upper())
+    if not match:
+        return ""
+    prefix, number = match.groups()
+    if prefix not in WHO_PREFIXES:
+        prefix = next((own for own, who in WHO_PREFIXES.items() if who == prefix), "")
+    return f"{prefix}{int(number)}" if prefix else ""
+
+
+def build_map_url(
+    base_url: str,
+    language: Optional[str] = None,
+    user: Optional["User"] = None,
+    point_code: Optional[str] = None,
+    meridian_id: Optional[str] = None,
+) -> str:
+    """URL of the 3D map: language, the user's practice progress and an optional point or meridian to open."""
+    parts = urlsplit(base_url)
+    params = dict(parse_qsl(parts.query))
+    if language:
+        params["lang"] = language
+    if user and user.meridians_enabled:
+        # the map marks the practice progress: the meridian in work (pm), the point reached (pi, 0-based),
+        # the finished meridians (pd)
+        if user.current_meridian_id:
+            params["pm"] = user.current_meridian_id
+            if user.current_point_index is not None and user.current_point_index >= 0:
+                params["pi"] = str(user.current_point_index)
+        if user.completed_meridians:
+            params["pd"] = ",".join(user.completed_meridians)
+    # the map's own deep links: p opens a point, m selects a meridian
+    if point_code:
+        params["p"] = point_code
+    elif meridian_id:
+        params["m"] = meridian_id
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(params), parts.fragment))
+
+
+def build_map_button(
+    base_url: str,
+    text: str,
+    language: str,
+    user: Optional["User"] = None,
+    point_code: Optional[str] = None,
+    meridian_id: Optional[str] = None,
+) -> Optional[InlineKeyboardButton]:
+    """Mini App button for the 3D map, or None when it cannot be shown.
+
+    None when WEBAPP_URL is not set, when the user's chat is not private (Telegram accepts web_app
+    buttons only there) and when a point code is given but the map would not know it.
+    """
+    if not base_url:
+        return None
+    if user is not None and getattr(user, "chat_id", 0) <= 0:
+        return None
+    code = None
+    if point_code is not None:
+        code = map_point_code(point_code)
+        if not code:
+            return None
+    url = build_map_url(base_url, language, user, point_code=code, meridian_id=meridian_id)
+    return InlineKeyboardButton(text, web_app=WebAppInfo(url=url))
 
 
 def build_meridians_payload(meridians_manager: "MeridiansManager", language: str) -> Dict[str, Any]:
@@ -85,6 +157,9 @@ def build_meridians_payload(meridians_manager: "MeridiansManager", language: str
                     "location": _clean_point_location(_localized_location(point, language)),
                     "setup": _point_setup_practice_hint(_localized_location(point, language), language),
                     "observation": pick(point.get("i18n", {})).get("observation_question", ""),
+                    # new keys for the web app (WHO 2008 names), empty when point_names.json is missing
+                    "hanzi": POINT_NAMES.get(point.get("code"), {}).get("hanzi", ""),
+                    "pinyin_tone": POINT_NAMES.get(point.get("code"), {}).get("pinyin_tone", ""),
                 }
                 for point in meridian.get("points", [])
             ],

@@ -1,0 +1,1807 @@
+{
+ "C1": {
+  "hanzi": "极泉",
+  "pinyin": "Jiquan",
+  "pinyin_tone": "Jíquán"
+ },
+ "C2": {
+  "hanzi": "青灵",
+  "pinyin": "Qingling",
+  "pinyin_tone": "Qīnglíng"
+ },
+ "C3": {
+  "hanzi": "少海",
+  "pinyin": "Shaohai",
+  "pinyin_tone": "Shàohǎi"
+ },
+ "C4": {
+  "hanzi": "灵道",
+  "pinyin": "Lingdao",
+  "pinyin_tone": "Língdào"
+ },
+ "C5": {
+  "hanzi": "通里",
+  "pinyin": "Tongli",
+  "pinyin_tone": "Tōnglǐ"
+ },
+ "C6": {
+  "hanzi": "阴郄",
+  "pinyin": "Yinxi",
+  "pinyin_tone": "Yīnxì"
+ },
+ "C7": {
+  "hanzi": "神门",
+  "pinyin": "Shenmen",
+  "pinyin_tone": "Shénmén"
+ },
+ "C8": {
+  "hanzi": "少府",
+  "pinyin": "Shaofu",
+  "pinyin_tone": "Shàofǔ"
+ },
+ "C9": {
+  "hanzi": "少冲",
+  "pinyin": "Shaochong",
+  "pinyin_tone": "Shàochōng"
+ },
+ "E1": {
+  "hanzi": "承泣",
+  "pinyin": "Chengqi",
+  "pinyin_tone": "Chéngqì"
+ },
+ "E2": {
+  "hanzi": "四白",
+  "pinyin": "Sibai",
+  "pinyin_tone": "Sìbái"
+ },
+ "E3": {
+  "hanzi": "巨髎",
+  "pinyin": "Juliao",
+  "pinyin_tone": "Jùliáo"
+ },
+ "E4": {
+  "hanzi": "地仓",
+  "pinyin": "Dicang",
+  "pinyin_tone": "Dìcāng"
+ },
+ "E5": {
+  "hanzi": "大迎",
+  "pinyin": "Daying",
+  "pinyin_tone": "Dàyíng"
+ },
+ "E6": {
+  "hanzi": "颊车",
+  "pinyin": "Jiache",
+  "pinyin_tone": "Jiáchē"
+ },
+ "E7": {
+  "hanzi": "下关",
+  "pinyin": "Xiaguan",
+  "pinyin_tone": "Xiàguān"
+ },
+ "E8": {
+  "hanzi": "头维",
+  "pinyin": "Touwei",
+  "pinyin_tone": "Tóuwéi"
+ },
+ "E9": {
+  "hanzi": "人迎",
+  "pinyin": "Renying",
+  "pinyin_tone": "Rényíng"
+ },
+ "E10": {
+  "hanzi": "水突",
+  "pinyin": "Shuitu",
+  "pinyin_tone": "Shuǐtū"
+ },
+ "E11": {
+  "hanzi": "气舍",
+  "pinyin": "Qishe",
+  "pinyin_tone": "Qìshè"
+ },
+ "E12": {
+  "hanzi": "缺盆",
+  "pinyin": "Quepen",
+  "pinyin_tone": "Quēpén"
+ },
+ "E13": {
+  "hanzi": "气户",
+  "pinyin": "Qihu",
+  "pinyin_tone": "Qìhù"
+ },
+ "E14": {
+  "hanzi": "库房",
+  "pinyin": "Kufang",
+  "pinyin_tone": "Kùfáng"
+ },
+ "E15": {
+  "hanzi": "屋翳",
+  "pinyin": "Wuyi",
+  "pinyin_tone": "Wūyì"
+ },
+ "E16": {
+  "hanzi": "膺窗",
+  "pinyin": "Yingchuang",
+  "pinyin_tone": "Yīngchuāng"
+ },
+ "E17": {
+  "hanzi": "乳中",
+  "pinyin": "Ruzhong",
+  "pinyin_tone": "Rǔzhōng"
+ },
+ "E18": {
+  "hanzi": "乳根",
+  "pinyin": "Rugen",
+  "pinyin_tone": "Rǔgēn"
+ },
+ "E19": {
+  "hanzi": "不容",
+  "pinyin": "Burong",
+  "pinyin_tone": "Bùróng"
+ },
+ "E20": {
+  "hanzi": "承满",
+  "pinyin": "Chengman",
+  "pinyin_tone": "Chéngmǎn"
+ },
+ "E21": {
+  "hanzi": "梁门",
+  "pinyin": "Liangmen",
+  "pinyin_tone": "Liángmén"
+ },
+ "E22": {
+  "hanzi": "关门",
+  "pinyin": "Guanmen",
+  "pinyin_tone": "Guānmén"
+ },
+ "E23": {
+  "hanzi": "太乙",
+  "pinyin": "Taiyi",
+  "pinyin_tone": "Tàiyǐ"
+ },
+ "E24": {
+  "hanzi": "滑肉门",
+  "pinyin": "Huaroumen",
+  "pinyin_tone": "Huáròumén"
+ },
+ "E25": {
+  "hanzi": "天枢",
+  "pinyin": "Tianshu",
+  "pinyin_tone": "Tiānshū"
+ },
+ "E26": {
+  "hanzi": "外陵",
+  "pinyin": "Wailing",
+  "pinyin_tone": "Wàilíng"
+ },
+ "E27": {
+  "hanzi": "大巨",
+  "pinyin": "Daju",
+  "pinyin_tone": "Dàjù"
+ },
+ "E28": {
+  "hanzi": "水道",
+  "pinyin": "Shuidao",
+  "pinyin_tone": "Shuǐdào"
+ },
+ "E29": {
+  "hanzi": "归来",
+  "pinyin": "Guilai",
+  "pinyin_tone": "Guīlái"
+ },
+ "E30": {
+  "hanzi": "气冲",
+  "pinyin": "Qichong",
+  "pinyin_tone": "Qìchōng"
+ },
+ "E31": {
+  "hanzi": "髀关",
+  "pinyin": "Biguan",
+  "pinyin_tone": "Bìguān"
+ },
+ "E32": {
+  "hanzi": "伏兔",
+  "pinyin": "Futu",
+  "pinyin_tone": "Fútù"
+ },
+ "E33": {
+  "hanzi": "阴市",
+  "pinyin": "Yinshi",
+  "pinyin_tone": "Yīnshì"
+ },
+ "E34": {
+  "hanzi": "梁丘",
+  "pinyin": "Liangqiu",
+  "pinyin_tone": "Liángqiū"
+ },
+ "E35": {
+  "hanzi": "犊鼻",
+  "pinyin": "Dubi",
+  "pinyin_tone": "Dúbí"
+ },
+ "E36": {
+  "hanzi": "足三里",
+  "pinyin": "Zusanli",
+  "pinyin_tone": "Zúsānlǐ"
+ },
+ "E37": {
+  "hanzi": "上巨虚",
+  "pinyin": "Shangjuxu",
+  "pinyin_tone": "Shàngjùxū"
+ },
+ "E38": {
+  "hanzi": "条口",
+  "pinyin": "Tiaokou",
+  "pinyin_tone": "Tiáokǒu"
+ },
+ "E39": {
+  "hanzi": "下巨虚",
+  "pinyin": "Xiajuxu",
+  "pinyin_tone": "Xiàjùxū"
+ },
+ "E40": {
+  "hanzi": "丰隆",
+  "pinyin": "Fenglong",
+  "pinyin_tone": "Fēnglóng"
+ },
+ "E41": {
+  "hanzi": "解溪",
+  "pinyin": "Jiexi",
+  "pinyin_tone": "Jiěxī"
+ },
+ "E42": {
+  "hanzi": "冲阳",
+  "pinyin": "Chongyang",
+  "pinyin_tone": "Chōngyáng"
+ },
+ "E43": {
+  "hanzi": "陷谷",
+  "pinyin": "Xiangu",
+  "pinyin_tone": "Xiàngǔ"
+ },
+ "E44": {
+  "hanzi": "内庭",
+  "pinyin": "Neiting",
+  "pinyin_tone": "Nèitíng"
+ },
+ "E45": {
+  "hanzi": "厉兑",
+  "pinyin": "Lidui",
+  "pinyin_tone": "Lìduì"
+ },
+ "F1": {
+  "hanzi": "大敦",
+  "pinyin": "Dadun",
+  "pinyin_tone": "Dàdūn"
+ },
+ "F2": {
+  "hanzi": "行间",
+  "pinyin": "Xingjian",
+  "pinyin_tone": "Xíngjiān"
+ },
+ "F3": {
+  "hanzi": "太冲",
+  "pinyin": "Taichong",
+  "pinyin_tone": "Tàichōng"
+ },
+ "F4": {
+  "hanzi": "中封",
+  "pinyin": "Zhongfeng",
+  "pinyin_tone": "Zhōngfēng"
+ },
+ "F5": {
+  "hanzi": "蠡沟",
+  "pinyin": "Ligou",
+  "pinyin_tone": "Lǐgōu"
+ },
+ "F6": {
+  "hanzi": "中都",
+  "pinyin": "Zhongdu",
+  "pinyin_tone": "Zhōngdū"
+ },
+ "F7": {
+  "hanzi": "膝关",
+  "pinyin": "Xiguan",
+  "pinyin_tone": "Xīguān"
+ },
+ "F8": {
+  "hanzi": "曲泉",
+  "pinyin": "Ququan",
+  "pinyin_tone": "Qūquán"
+ },
+ "F9": {
+  "hanzi": "阴包",
+  "pinyin": "Yinbao",
+  "pinyin_tone": "Yīnbāo"
+ },
+ "F10": {
+  "hanzi": "足五里",
+  "pinyin": "Zuwuli",
+  "pinyin_tone": "Zúwǔlǐ"
+ },
+ "F11": {
+  "hanzi": "阴廉",
+  "pinyin": "Yinlian",
+  "pinyin_tone": "Yīnlián"
+ },
+ "F12": {
+  "hanzi": "急脉",
+  "pinyin": "Jimai",
+  "pinyin_tone": "Jímài"
+ },
+ "F13": {
+  "hanzi": "章门",
+  "pinyin": "Zhangmen",
+  "pinyin_tone": "Zhāngmén"
+ },
+ "F14": {
+  "hanzi": "期门",
+  "pinyin": "Qimen",
+  "pinyin_tone": "Qīmén"
+ },
+ "GI1": {
+  "hanzi": "商阳",
+  "pinyin": "Shangyang",
+  "pinyin_tone": "Shāngyáng"
+ },
+ "GI2": {
+  "hanzi": "二间",
+  "pinyin": "Erjian",
+  "pinyin_tone": "Èrjiān"
+ },
+ "GI3": {
+  "hanzi": "三间",
+  "pinyin": "Sanjian",
+  "pinyin_tone": "Sānjiān"
+ },
+ "GI4": {
+  "hanzi": "合谷",
+  "pinyin": "Hegu",
+  "pinyin_tone": "Hégǔ"
+ },
+ "GI5": {
+  "hanzi": "阳溪",
+  "pinyin": "Yangxi",
+  "pinyin_tone": "Yángxī"
+ },
+ "GI6": {
+  "hanzi": "偏历",
+  "pinyin": "Pianli",
+  "pinyin_tone": "Piānlì"
+ },
+ "GI7": {
+  "hanzi": "温溜",
+  "pinyin": "Wenliu",
+  "pinyin_tone": "Wēnliū"
+ },
+ "GI8": {
+  "hanzi": "下廉",
+  "pinyin": "Xialian",
+  "pinyin_tone": "Xiàlián"
+ },
+ "GI9": {
+  "hanzi": "上廉",
+  "pinyin": "Shanglian",
+  "pinyin_tone": "Shànglián"
+ },
+ "GI10": {
+  "hanzi": "手三里",
+  "pinyin": "Shousanli",
+  "pinyin_tone": "Shǒusānlǐ"
+ },
+ "GI11": {
+  "hanzi": "曲池",
+  "pinyin": "Quchi",
+  "pinyin_tone": "Qūchí"
+ },
+ "GI12": {
+  "hanzi": "肘髎",
+  "pinyin": "Zhouliao",
+  "pinyin_tone": "Zhǒuliáo"
+ },
+ "GI13": {
+  "hanzi": "手五里",
+  "pinyin": "Shouwuli",
+  "pinyin_tone": "Shǒuwǔlǐ"
+ },
+ "GI14": {
+  "hanzi": "臂臑",
+  "pinyin": "Binao",
+  "pinyin_tone": "Bìnào"
+ },
+ "GI15": {
+  "hanzi": "肩髃",
+  "pinyin": "Jianyu",
+  "pinyin_tone": "Jiānyú"
+ },
+ "GI16": {
+  "hanzi": "巨骨",
+  "pinyin": "Jugu",
+  "pinyin_tone": "Jùgǔ"
+ },
+ "GI17": {
+  "hanzi": "天鼎",
+  "pinyin": "Tianding",
+  "pinyin_tone": "Tiāndǐng"
+ },
+ "GI18": {
+  "hanzi": "扶突",
+  "pinyin": "Futu",
+  "pinyin_tone": "Fútū"
+ },
+ "GI19": {
+  "hanzi": "口禾髎",
+  "pinyin": "Kouheliao",
+  "pinyin_tone": "Kǒuhéliáo"
+ },
+ "GI20": {
+  "hanzi": "迎香",
+  "pinyin": "Yingxiang",
+  "pinyin_tone": "Yíngxiāng"
+ },
+ "IG1": {
+  "hanzi": "少泽",
+  "pinyin": "Shaoze",
+  "pinyin_tone": "Shàozé"
+ },
+ "IG2": {
+  "hanzi": "前谷",
+  "pinyin": "Qiangu",
+  "pinyin_tone": "Qiángǔ"
+ },
+ "IG3": {
+  "hanzi": "后溪",
+  "pinyin": "Houxi",
+  "pinyin_tone": "Hòuxī"
+ },
+ "IG4": {
+  "hanzi": "腕骨",
+  "pinyin": "Wangu",
+  "pinyin_tone": "Wàngǔ"
+ },
+ "IG5": {
+  "hanzi": "阳谷",
+  "pinyin": "Yanggu",
+  "pinyin_tone": "Yánggǔ"
+ },
+ "IG6": {
+  "hanzi": "养老",
+  "pinyin": "Yanglao",
+  "pinyin_tone": "Yǎnglǎo"
+ },
+ "IG7": {
+  "hanzi": "支正",
+  "pinyin": "Zhizheng",
+  "pinyin_tone": "Zhīzhèng"
+ },
+ "IG8": {
+  "hanzi": "小海",
+  "pinyin": "Xiaohai",
+  "pinyin_tone": "Xiǎohǎi"
+ },
+ "IG9": {
+  "hanzi": "肩贞",
+  "pinyin": "Jianzhen",
+  "pinyin_tone": "Jiānzhēn"
+ },
+ "IG10": {
+  "hanzi": "臑俞",
+  "pinyin": "Naoshu",
+  "pinyin_tone": "Nàoshū"
+ },
+ "IG11": {
+  "hanzi": "天宗",
+  "pinyin": "Tianzong",
+  "pinyin_tone": "Tiānzōng"
+ },
+ "IG12": {
+  "hanzi": "秉风",
+  "pinyin": "Bingfeng",
+  "pinyin_tone": "Bǐngfēng"
+ },
+ "IG13": {
+  "hanzi": "曲垣",
+  "pinyin": "Quyuan",
+  "pinyin_tone": "Qūyuán"
+ },
+ "IG14": {
+  "hanzi": "肩外俞",
+  "pinyin": "Jianwaishu",
+  "pinyin_tone": "Jiānwàishū"
+ },
+ "IG15": {
+  "hanzi": "肩中俞",
+  "pinyin": "Jianzhongshu",
+  "pinyin_tone": "Jiānzhōngshū"
+ },
+ "IG16": {
+  "hanzi": "天窗",
+  "pinyin": "Tianchuang",
+  "pinyin_tone": "Tiānchuāng"
+ },
+ "IG17": {
+  "hanzi": "天容",
+  "pinyin": "Tianrong",
+  "pinyin_tone": "Tiānróng"
+ },
+ "IG18": {
+  "hanzi": "颧髎",
+  "pinyin": "Quanliao",
+  "pinyin_tone": "Quánliáo"
+ },
+ "IG19": {
+  "hanzi": "听宫",
+  "pinyin": "Tinggong",
+  "pinyin_tone": "Tīnggōng"
+ },
+ "MC1": {
+  "hanzi": "天池",
+  "pinyin": "Tianchi",
+  "pinyin_tone": "Tiānchí"
+ },
+ "MC2": {
+  "hanzi": "天泉",
+  "pinyin": "Tianquan",
+  "pinyin_tone": "Tiānquán"
+ },
+ "MC3": {
+  "hanzi": "曲泽",
+  "pinyin": "Quze",
+  "pinyin_tone": "Qūzé"
+ },
+ "MC4": {
+  "hanzi": "郄门",
+  "pinyin": "Ximen",
+  "pinyin_tone": "Xìmén"
+ },
+ "MC5": {
+  "hanzi": "间使",
+  "pinyin": "Jianshi",
+  "pinyin_tone": "Jiānshǐ"
+ },
+ "MC6": {
+  "hanzi": "内关",
+  "pinyin": "Neiguan",
+  "pinyin_tone": "Nèiguān"
+ },
+ "MC7": {
+  "hanzi": "大陵",
+  "pinyin": "Daling",
+  "pinyin_tone": "Dàlíng"
+ },
+ "MC8": {
+  "hanzi": "劳宫",
+  "pinyin": "Laogong",
+  "pinyin_tone": "Láogōng"
+ },
+ "MC9": {
+  "hanzi": "中冲",
+  "pinyin": "Zhongchong",
+  "pinyin_tone": "Zhōngchōng"
+ },
+ "P1": {
+  "hanzi": "中府",
+  "pinyin": "Zhongfu",
+  "pinyin_tone": "Zhōngfǔ"
+ },
+ "P2": {
+  "hanzi": "云门",
+  "pinyin": "Yunmen",
+  "pinyin_tone": "Yúnmén"
+ },
+ "P3": {
+  "hanzi": "天府",
+  "pinyin": "Tianfu",
+  "pinyin_tone": "Tiānfǔ"
+ },
+ "P4": {
+  "hanzi": "侠白",
+  "pinyin": "Xiabai",
+  "pinyin_tone": "Xiábái"
+ },
+ "P5": {
+  "hanzi": "尺泽",
+  "pinyin": "Chize",
+  "pinyin_tone": "Chǐzé"
+ },
+ "P6": {
+  "hanzi": "孔最",
+  "pinyin": "Kongzui",
+  "pinyin_tone": "Kǒngzuì"
+ },
+ "P7": {
+  "hanzi": "列缺",
+  "pinyin": "Lieque",
+  "pinyin_tone": "Lièquē"
+ },
+ "P8": {
+  "hanzi": "经渠",
+  "pinyin": "Jingqu",
+  "pinyin_tone": "Jīngqú"
+ },
+ "P9": {
+  "hanzi": "太渊",
+  "pinyin": "Taiyuan",
+  "pinyin_tone": "Tàiyuān"
+ },
+ "P10": {
+  "hanzi": "鱼际",
+  "pinyin": "Yuji",
+  "pinyin_tone": "Yújì"
+ },
+ "P11": {
+  "hanzi": "少商",
+  "pinyin": "Shaoshang",
+  "pinyin_tone": "Shàoshāng"
+ },
+ "R1": {
+  "hanzi": "涌泉",
+  "pinyin": "Yongquan",
+  "pinyin_tone": "Yǒngquán"
+ },
+ "R2": {
+  "hanzi": "然谷",
+  "pinyin": "Rangu",
+  "pinyin_tone": "Rángǔ"
+ },
+ "R3": {
+  "hanzi": "太溪",
+  "pinyin": "Taixi",
+  "pinyin_tone": "Tàixī"
+ },
+ "R4": {
+  "hanzi": "大钟",
+  "pinyin": "Dazhong",
+  "pinyin_tone": "Dàzhōng"
+ },
+ "R5": {
+  "hanzi": "水泉",
+  "pinyin": "Shuiquan",
+  "pinyin_tone": "Shuǐquán"
+ },
+ "R6": {
+  "hanzi": "照海",
+  "pinyin": "Zhaohai",
+  "pinyin_tone": "Zhàohǎi"
+ },
+ "R7": {
+  "hanzi": "复溜",
+  "pinyin": "Fuliu",
+  "pinyin_tone": "Fùliū"
+ },
+ "R8": {
+  "hanzi": "交信",
+  "pinyin": "Jiaoxin",
+  "pinyin_tone": "Jiāoxìn"
+ },
+ "R9": {
+  "hanzi": "筑宾",
+  "pinyin": "Zhubin",
+  "pinyin_tone": "Zhùbīn"
+ },
+ "R10": {
+  "hanzi": "阴谷",
+  "pinyin": "Yingu",
+  "pinyin_tone": "Yīngǔ"
+ },
+ "R11": {
+  "hanzi": "横骨",
+  "pinyin": "Henggu",
+  "pinyin_tone": "Hénggǔ"
+ },
+ "R12": {
+  "hanzi": "大赫",
+  "pinyin": "Dahe",
+  "pinyin_tone": "Dàhè"
+ },
+ "R13": {
+  "hanzi": "气穴",
+  "pinyin": "Qixue",
+  "pinyin_tone": "Qìxué"
+ },
+ "R14": {
+  "hanzi": "四满",
+  "pinyin": "Siman",
+  "pinyin_tone": "Sìmǎn"
+ },
+ "R15": {
+  "hanzi": "中注",
+  "pinyin": "Zhongzhu",
+  "pinyin_tone": "Zhōngzhù"
+ },
+ "R16": {
+  "hanzi": "肓俞",
+  "pinyin": "Huangshu",
+  "pinyin_tone": "Huāngshū"
+ },
+ "R17": {
+  "hanzi": "商曲",
+  "pinyin": "Shangqu",
+  "pinyin_tone": "Shāngqū"
+ },
+ "R18": {
+  "hanzi": "石关",
+  "pinyin": "Shiguan",
+  "pinyin_tone": "Shíguān"
+ },
+ "R19": {
+  "hanzi": "阴都",
+  "pinyin": "Yindu",
+  "pinyin_tone": "Yīndū"
+ },
+ "R20": {
+  "hanzi": "腹通谷",
+  "pinyin": "Futonggu",
+  "pinyin_tone": "Fùtōnggǔ"
+ },
+ "R21": {
+  "hanzi": "幽门",
+  "pinyin": "Youmen",
+  "pinyin_tone": "Yōumén"
+ },
+ "R22": {
+  "hanzi": "步廊",
+  "pinyin": "Bulang",
+  "pinyin_tone": "Bùláng"
+ },
+ "R23": {
+  "hanzi": "神封",
+  "pinyin": "Shenfeng",
+  "pinyin_tone": "Shénfēng"
+ },
+ "R24": {
+  "hanzi": "灵墟",
+  "pinyin": "Lingxu",
+  "pinyin_tone": "Língxū"
+ },
+ "R25": {
+  "hanzi": "神藏",
+  "pinyin": "Shencang",
+  "pinyin_tone": "Shéncáng"
+ },
+ "R26": {
+  "hanzi": "彧中",
+  "pinyin": "Yuzhong",
+  "pinyin_tone": "Yùzhōng"
+ },
+ "R27": {
+  "hanzi": "俞府",
+  "pinyin": "Shufu",
+  "pinyin_tone": "Shūfǔ"
+ },
+ "RP1": {
+  "hanzi": "隐白",
+  "pinyin": "Yinbai",
+  "pinyin_tone": "Yǐnbái"
+ },
+ "RP2": {
+  "hanzi": "大都",
+  "pinyin": "Dadu",
+  "pinyin_tone": "Dàdū"
+ },
+ "RP3": {
+  "hanzi": "太白",
+  "pinyin": "Taibai",
+  "pinyin_tone": "Tàibái"
+ },
+ "RP4": {
+  "hanzi": "公孙",
+  "pinyin": "Gongsun",
+  "pinyin_tone": "Gōngsūn"
+ },
+ "RP5": {
+  "hanzi": "商丘",
+  "pinyin": "Shangqiu",
+  "pinyin_tone": "Shāngqiū"
+ },
+ "RP6": {
+  "hanzi": "三阴交",
+  "pinyin": "Sanyinjiao",
+  "pinyin_tone": "Sānyīnjiāo"
+ },
+ "RP7": {
+  "hanzi": "漏谷",
+  "pinyin": "Lougu",
+  "pinyin_tone": "Lòugǔ"
+ },
+ "RP8": {
+  "hanzi": "地机",
+  "pinyin": "Diji",
+  "pinyin_tone": "Dìjī"
+ },
+ "RP9": {
+  "hanzi": "阴陵泉",
+  "pinyin": "Yinlingquan",
+  "pinyin_tone": "Yīnlíngquán"
+ },
+ "RP10": {
+  "hanzi": "血海",
+  "pinyin": "Xuehai",
+  "pinyin_tone": "Xuèhǎi"
+ },
+ "RP11": {
+  "hanzi": "箕门",
+  "pinyin": "Jimen",
+  "pinyin_tone": "Jīmén"
+ },
+ "RP12": {
+  "hanzi": "冲门",
+  "pinyin": "Chongmen",
+  "pinyin_tone": "Chōngmén"
+ },
+ "RP13": {
+  "hanzi": "府舍",
+  "pinyin": "Fushe",
+  "pinyin_tone": "Fǔshè"
+ },
+ "RP14": {
+  "hanzi": "腹结",
+  "pinyin": "Fujie",
+  "pinyin_tone": "Fùjié"
+ },
+ "RP15": {
+  "hanzi": "大横",
+  "pinyin": "Daheng",
+  "pinyin_tone": "Dàhéng"
+ },
+ "RP16": {
+  "hanzi": "腹哀",
+  "pinyin": "Fu'ai",
+  "pinyin_tone": "Fù'āi"
+ },
+ "RP17": {
+  "hanzi": "食窦",
+  "pinyin": "Shidou",
+  "pinyin_tone": "Shídòu"
+ },
+ "RP18": {
+  "hanzi": "天溪",
+  "pinyin": "Tianxi",
+  "pinyin_tone": "Tiānxī"
+ },
+ "RP19": {
+  "hanzi": "胸乡",
+  "pinyin": "Xiongxiang",
+  "pinyin_tone": "Xiōngxiāng"
+ },
+ "RP20": {
+  "hanzi": "周荣",
+  "pinyin": "Zhourong",
+  "pinyin_tone": "Zhōuróng"
+ },
+ "RP21": {
+  "hanzi": "大包",
+  "pinyin": "Dabao",
+  "pinyin_tone": "Dàbāo"
+ },
+ "TR1": {
+  "hanzi": "关冲",
+  "pinyin": "Guanchong",
+  "pinyin_tone": "Guānchōng"
+ },
+ "TR2": {
+  "hanzi": "液门",
+  "pinyin": "Yemen",
+  "pinyin_tone": "Yèmén"
+ },
+ "TR3": {
+  "hanzi": "中渚",
+  "pinyin": "Zhongzhu",
+  "pinyin_tone": "Zhōngzhǔ"
+ },
+ "TR4": {
+  "hanzi": "阳池",
+  "pinyin": "Yangchi",
+  "pinyin_tone": "Yángchí"
+ },
+ "TR5": {
+  "hanzi": "外关",
+  "pinyin": "Waiguan",
+  "pinyin_tone": "Wàiguān"
+ },
+ "TR6": {
+  "hanzi": "支沟",
+  "pinyin": "Zhigou",
+  "pinyin_tone": "Zhīgōu"
+ },
+ "TR7": {
+  "hanzi": "会宗",
+  "pinyin": "Huizong",
+  "pinyin_tone": "Huìzōng"
+ },
+ "TR8": {
+  "hanzi": "三阳络",
+  "pinyin": "Sanyangluo",
+  "pinyin_tone": "Sānyángluò"
+ },
+ "TR9": {
+  "hanzi": "四渎",
+  "pinyin": "Sidu",
+  "pinyin_tone": "Sìdú"
+ },
+ "TR10": {
+  "hanzi": "天井",
+  "pinyin": "Tianjing",
+  "pinyin_tone": "Tiānjǐng"
+ },
+ "TR11": {
+  "hanzi": "清冷渊",
+  "pinyin": "Qinglengyuan",
+  "pinyin_tone": "Qīnglěngyuān"
+ },
+ "TR12": {
+  "hanzi": "消泺",
+  "pinyin": "Xiaoluo",
+  "pinyin_tone": "Xiāoluò"
+ },
+ "TR13": {
+  "hanzi": "臑会",
+  "pinyin": "Naohui",
+  "pinyin_tone": "Nàohuì"
+ },
+ "TR14": {
+  "hanzi": "肩髎",
+  "pinyin": "Jianliao",
+  "pinyin_tone": "Jiānliáo"
+ },
+ "TR15": {
+  "hanzi": "天髎",
+  "pinyin": "Tianliao",
+  "pinyin_tone": "Tiānliáo"
+ },
+ "TR16": {
+  "hanzi": "天牖",
+  "pinyin": "Tianyou",
+  "pinyin_tone": "Tiānyǒu"
+ },
+ "TR17": {
+  "hanzi": "翳风",
+  "pinyin": "Yifeng",
+  "pinyin_tone": "Yìfēng"
+ },
+ "TR18": {
+  "hanzi": "瘛脉",
+  "pinyin": "Chimai",
+  "pinyin_tone": "Chìmài"
+ },
+ "TR19": {
+  "hanzi": "颅息",
+  "pinyin": "Luxi",
+  "pinyin_tone": "Lúxī"
+ },
+ "TR20": {
+  "hanzi": "角孙",
+  "pinyin": "Jiaosun",
+  "pinyin_tone": "Jiǎosūn"
+ },
+ "TR21": {
+  "hanzi": "耳门",
+  "pinyin": "Ermen",
+  "pinyin_tone": "Ěrmén"
+ },
+ "TR22": {
+  "hanzi": "耳和髎",
+  "pinyin": "Erheliao",
+  "pinyin_tone": "Ěrhéliáo"
+ },
+ "TR23": {
+  "hanzi": "丝竹空",
+  "pinyin": "Sizhukong",
+  "pinyin_tone": "Sīzhúkōng"
+ },
+ "V1": {
+  "hanzi": "睛明",
+  "pinyin": "Jingming",
+  "pinyin_tone": "Jīngmíng"
+ },
+ "V2": {
+  "hanzi": "攒竹",
+  "pinyin": "Cuanzhu",
+  "pinyin_tone": "Cuánzhú"
+ },
+ "V3": {
+  "hanzi": "眉冲",
+  "pinyin": "Meichong",
+  "pinyin_tone": "Méichōng"
+ },
+ "V4": {
+  "hanzi": "曲差",
+  "pinyin": "Qucha",
+  "pinyin_tone": "Qūchā"
+ },
+ "V5": {
+  "hanzi": "五处",
+  "pinyin": "Wuchu",
+  "pinyin_tone": "Wǔchù"
+ },
+ "V6": {
+  "hanzi": "承光",
+  "pinyin": "Chengguang",
+  "pinyin_tone": "Chéngguāng"
+ },
+ "V7": {
+  "hanzi": "通天",
+  "pinyin": "Tongtian",
+  "pinyin_tone": "Tōngtiān"
+ },
+ "V8": {
+  "hanzi": "络却",
+  "pinyin": "Luoque",
+  "pinyin_tone": "Luòquè"
+ },
+ "V9": {
+  "hanzi": "玉枕",
+  "pinyin": "Yuzhen",
+  "pinyin_tone": "Yùzhěn"
+ },
+ "V10": {
+  "hanzi": "天柱",
+  "pinyin": "Tianzhu",
+  "pinyin_tone": "Tiānzhù"
+ },
+ "V11": {
+  "hanzi": "大杼",
+  "pinyin": "Dazhu",
+  "pinyin_tone": "Dàzhù"
+ },
+ "V12": {
+  "hanzi": "风门",
+  "pinyin": "Fengmen",
+  "pinyin_tone": "Fēngmén"
+ },
+ "V13": {
+  "hanzi": "肺俞",
+  "pinyin": "Feishu",
+  "pinyin_tone": "Fèishū"
+ },
+ "V14": {
+  "hanzi": "厥阴俞",
+  "pinyin": "Jueyinshu",
+  "pinyin_tone": "Juéyīnshū"
+ },
+ "V15": {
+  "hanzi": "心俞",
+  "pinyin": "Xinshu",
+  "pinyin_tone": "Xīnshū"
+ },
+ "V16": {
+  "hanzi": "督俞",
+  "pinyin": "Dushu",
+  "pinyin_tone": "Dūshū"
+ },
+ "V17": {
+  "hanzi": "膈俞",
+  "pinyin": "Geshu",
+  "pinyin_tone": "Géshū"
+ },
+ "V18": {
+  "hanzi": "肝俞",
+  "pinyin": "Ganshu",
+  "pinyin_tone": "Gānshū"
+ },
+ "V19": {
+  "hanzi": "胆俞",
+  "pinyin": "Danshu",
+  "pinyin_tone": "Dǎnshū"
+ },
+ "V20": {
+  "hanzi": "脾俞",
+  "pinyin": "Pishu",
+  "pinyin_tone": "Píshū"
+ },
+ "V21": {
+  "hanzi": "胃俞",
+  "pinyin": "Weishu",
+  "pinyin_tone": "Wèishū"
+ },
+ "V22": {
+  "hanzi": "三焦俞",
+  "pinyin": "Sanjiaoshu",
+  "pinyin_tone": "Sānjiāoshū"
+ },
+ "V23": {
+  "hanzi": "肾俞",
+  "pinyin": "Shenshu",
+  "pinyin_tone": "Shènshū"
+ },
+ "V24": {
+  "hanzi": "气海俞",
+  "pinyin": "Qihaishu",
+  "pinyin_tone": "Qìhǎishū"
+ },
+ "V25": {
+  "hanzi": "大肠俞",
+  "pinyin": "Dachangshu",
+  "pinyin_tone": "Dàchángshū"
+ },
+ "V26": {
+  "hanzi": "关元俞",
+  "pinyin": "Guanyuanshu",
+  "pinyin_tone": "Guānyuánshū"
+ },
+ "V27": {
+  "hanzi": "小肠俞",
+  "pinyin": "Xiaochangshu",
+  "pinyin_tone": "Xiǎochángshū"
+ },
+ "V28": {
+  "hanzi": "膀胱俞",
+  "pinyin": "Pangguangshu",
+  "pinyin_tone": "Pángguāngshū"
+ },
+ "V29": {
+  "hanzi": "中膂俞",
+  "pinyin": "Zhonglüshu",
+  "pinyin_tone": "Zhōnglǚshū"
+ },
+ "V30": {
+  "hanzi": "白环俞",
+  "pinyin": "Baihuanshu",
+  "pinyin_tone": "Báihuánshū"
+ },
+ "V31": {
+  "hanzi": "上髎",
+  "pinyin": "Shangliao",
+  "pinyin_tone": "Shàngliáo"
+ },
+ "V32": {
+  "hanzi": "次髎",
+  "pinyin": "Ciliao",
+  "pinyin_tone": "Cìliáo"
+ },
+ "V33": {
+  "hanzi": "中髎",
+  "pinyin": "Zhongliao",
+  "pinyin_tone": "Zhōngliáo"
+ },
+ "V34": {
+  "hanzi": "下髎",
+  "pinyin": "Xialiao",
+  "pinyin_tone": "Xiàliáo"
+ },
+ "V35": {
+  "hanzi": "会阳",
+  "pinyin": "Huiyang",
+  "pinyin_tone": "Huìyáng"
+ },
+ "V36": {
+  "hanzi": "承扶",
+  "pinyin": "Chengfu",
+  "pinyin_tone": "Chéngfú"
+ },
+ "V37": {
+  "hanzi": "殷门",
+  "pinyin": "Yinmen",
+  "pinyin_tone": "Yīnmén"
+ },
+ "V38": {
+  "hanzi": "浮郄",
+  "pinyin": "Fuxi",
+  "pinyin_tone": "Fúxì"
+ },
+ "V39": {
+  "hanzi": "委阳",
+  "pinyin": "Weiyang",
+  "pinyin_tone": "Wěiyáng"
+ },
+ "V40": {
+  "hanzi": "委中",
+  "pinyin": "Weizhong",
+  "pinyin_tone": "Wěizhōng"
+ },
+ "V41": {
+  "hanzi": "附分",
+  "pinyin": "Fufen",
+  "pinyin_tone": "Fùfēn"
+ },
+ "V42": {
+  "hanzi": "魄户",
+  "pinyin": "Pohu",
+  "pinyin_tone": "Pòhù"
+ },
+ "V43": {
+  "hanzi": "膏肓",
+  "pinyin": "Gaohuang",
+  "pinyin_tone": "Gāohuāng"
+ },
+ "V44": {
+  "hanzi": "神堂",
+  "pinyin": "Shentang",
+  "pinyin_tone": "Shéntáng"
+ },
+ "V45": {
+  "hanzi": "譩譆",
+  "pinyin": "Yixi",
+  "pinyin_tone": "Yìxǐ"
+ },
+ "V46": {
+  "hanzi": "膈关",
+  "pinyin": "Geguan",
+  "pinyin_tone": "Géguān"
+ },
+ "V47": {
+  "hanzi": "魂门",
+  "pinyin": "Hunmen",
+  "pinyin_tone": "Húnmén"
+ },
+ "V48": {
+  "hanzi": "阳纲",
+  "pinyin": "Yanggang",
+  "pinyin_tone": "Yánggāng"
+ },
+ "V49": {
+  "hanzi": "意舍",
+  "pinyin": "Yishe",
+  "pinyin_tone": "Yìshè"
+ },
+ "V50": {
+  "hanzi": "胃仓",
+  "pinyin": "Weicang",
+  "pinyin_tone": "Wèicāng"
+ },
+ "V51": {
+  "hanzi": "肓门",
+  "pinyin": "Huangmen",
+  "pinyin_tone": "Huāngmén"
+ },
+ "V52": {
+  "hanzi": "志室",
+  "pinyin": "Zhishi",
+  "pinyin_tone": "Zhìshì"
+ },
+ "V53": {
+  "hanzi": "胞肓",
+  "pinyin": "Baohuang",
+  "pinyin_tone": "Bāohuāng"
+ },
+ "V54": {
+  "hanzi": "秩边",
+  "pinyin": "Zhibian",
+  "pinyin_tone": "Zhìbiān"
+ },
+ "V55": {
+  "hanzi": "合阳",
+  "pinyin": "Heyang",
+  "pinyin_tone": "Héyáng"
+ },
+ "V56": {
+  "hanzi": "承筋",
+  "pinyin": "Chengjin",
+  "pinyin_tone": "Chéngjīn"
+ },
+ "V57": {
+  "hanzi": "承山",
+  "pinyin": "Chengshan",
+  "pinyin_tone": "Chéngshān"
+ },
+ "V58": {
+  "hanzi": "飞扬",
+  "pinyin": "Feiyang",
+  "pinyin_tone": "Fēiyáng"
+ },
+ "V59": {
+  "hanzi": "跗阳",
+  "pinyin": "Fuyang",
+  "pinyin_tone": "Fūyáng"
+ },
+ "V60": {
+  "hanzi": "昆仑",
+  "pinyin": "Kunlun",
+  "pinyin_tone": "Kūnlún"
+ },
+ "V61": {
+  "hanzi": "仆参",
+  "pinyin": "Pucan",
+  "pinyin_tone": "Púcān"
+ },
+ "V62": {
+  "hanzi": "申脉",
+  "pinyin": "Shenmai",
+  "pinyin_tone": "Shēnmài"
+ },
+ "V63": {
+  "hanzi": "金门",
+  "pinyin": "Jinmen",
+  "pinyin_tone": "Jīnmén"
+ },
+ "V64": {
+  "hanzi": "京骨",
+  "pinyin": "Jinggu",
+  "pinyin_tone": "Jīnggǔ"
+ },
+ "V65": {
+  "hanzi": "束骨",
+  "pinyin": "Shugu",
+  "pinyin_tone": "Shùgǔ"
+ },
+ "V66": {
+  "hanzi": "足通谷",
+  "pinyin": "Zutonggu",
+  "pinyin_tone": "Zútōnggǔ"
+ },
+ "V67": {
+  "hanzi": "至阴",
+  "pinyin": "Zhiyin",
+  "pinyin_tone": "Zhìyīn"
+ },
+ "VB1": {
+  "hanzi": "瞳子髎",
+  "pinyin": "Tongziliao",
+  "pinyin_tone": "Tóngzǐliáo"
+ },
+ "VB2": {
+  "hanzi": "听会",
+  "pinyin": "Tinghui",
+  "pinyin_tone": "Tīnghuì"
+ },
+ "VB3": {
+  "hanzi": "上关",
+  "pinyin": "Shangguan",
+  "pinyin_tone": "Shàngguān"
+ },
+ "VB4": {
+  "hanzi": "颔厌",
+  "pinyin": "Hanyan",
+  "pinyin_tone": "Hànyàn"
+ },
+ "VB5": {
+  "hanzi": "悬颅",
+  "pinyin": "Xuanlu",
+  "pinyin_tone": "Xuánlú"
+ },
+ "VB6": {
+  "hanzi": "悬厘",
+  "pinyin": "Xuanli",
+  "pinyin_tone": "Xuánlí"
+ },
+ "VB7": {
+  "hanzi": "曲鬓",
+  "pinyin": "Qubin",
+  "pinyin_tone": "Qūbìn"
+ },
+ "VB8": {
+  "hanzi": "率谷",
+  "pinyin": "Shuaigu",
+  "pinyin_tone": "Shuàigǔ"
+ },
+ "VB9": {
+  "hanzi": "天冲",
+  "pinyin": "Tianchong",
+  "pinyin_tone": "Tiānchōng"
+ },
+ "VB10": {
+  "hanzi": "浮白",
+  "pinyin": "Fubai",
+  "pinyin_tone": "Fúbái"
+ },
+ "VB11": {
+  "hanzi": "头窍阴",
+  "pinyin": "Touqiaoyin",
+  "pinyin_tone": "Tóuqiàoyīn"
+ },
+ "VB12": {
+  "hanzi": "完骨",
+  "pinyin": "Wangu",
+  "pinyin_tone": "Wángǔ"
+ },
+ "VB13": {
+  "hanzi": "本神",
+  "pinyin": "Benshen",
+  "pinyin_tone": "Běnshén"
+ },
+ "VB14": {
+  "hanzi": "阳白",
+  "pinyin": "Yangbai",
+  "pinyin_tone": "Yángbái"
+ },
+ "VB15": {
+  "hanzi": "头临泣",
+  "pinyin": "Toulinqi",
+  "pinyin_tone": "Tóulínqì"
+ },
+ "VB16": {
+  "hanzi": "目窗",
+  "pinyin": "Muchuang",
+  "pinyin_tone": "Mùchuāng"
+ },
+ "VB17": {
+  "hanzi": "正营",
+  "pinyin": "Zhengying",
+  "pinyin_tone": "Zhèngyíng"
+ },
+ "VB18": {
+  "hanzi": "承灵",
+  "pinyin": "Chengling",
+  "pinyin_tone": "Chénglíng"
+ },
+ "VB19": {
+  "hanzi": "脑空",
+  "pinyin": "Naokong",
+  "pinyin_tone": "Nǎokōng"
+ },
+ "VB20": {
+  "hanzi": "风池",
+  "pinyin": "Fengchi",
+  "pinyin_tone": "Fēngchí"
+ },
+ "VB21": {
+  "hanzi": "肩井",
+  "pinyin": "Jianjing",
+  "pinyin_tone": "Jiānjǐng"
+ },
+ "VB22": {
+  "hanzi": "渊腋",
+  "pinyin": "Yuanye",
+  "pinyin_tone": "Yuānyè"
+ },
+ "VB23": {
+  "hanzi": "辄筋",
+  "pinyin": "Zhejin",
+  "pinyin_tone": "Zhéjīn"
+ },
+ "VB24": {
+  "hanzi": "日月",
+  "pinyin": "Riyue",
+  "pinyin_tone": "Rìyuè"
+ },
+ "VB25": {
+  "hanzi": "京门",
+  "pinyin": "Jingmen",
+  "pinyin_tone": "Jīngmén"
+ },
+ "VB26": {
+  "hanzi": "带脉",
+  "pinyin": "Daimai",
+  "pinyin_tone": "Dàimài"
+ },
+ "VB27": {
+  "hanzi": "五枢",
+  "pinyin": "Wushu",
+  "pinyin_tone": "Wǔshū"
+ },
+ "VB28": {
+  "hanzi": "维道",
+  "pinyin": "Weidao",
+  "pinyin_tone": "Wéidào"
+ },
+ "VB29": {
+  "hanzi": "居髎",
+  "pinyin": "Juliao",
+  "pinyin_tone": "Jūliáo"
+ },
+ "VB30": {
+  "hanzi": "环跳",
+  "pinyin": "Huantiao",
+  "pinyin_tone": "Huántiào"
+ },
+ "VB31": {
+  "hanzi": "风市",
+  "pinyin": "Fengshi",
+  "pinyin_tone": "Fēngshì"
+ },
+ "VB32": {
+  "hanzi": "中渎",
+  "pinyin": "Zhongdu",
+  "pinyin_tone": "Zhōngdú"
+ },
+ "VB33": {
+  "hanzi": "膝阳关",
+  "pinyin": "Xiyangguan",
+  "pinyin_tone": "Xīyángguān"
+ },
+ "VB34": {
+  "hanzi": "阳陵泉",
+  "pinyin": "Yanglingquan",
+  "pinyin_tone": "Yánglíngquán"
+ },
+ "VB35": {
+  "hanzi": "阳交",
+  "pinyin": "Yangjiao",
+  "pinyin_tone": "Yángjiāo"
+ },
+ "VB36": {
+  "hanzi": "外丘",
+  "pinyin": "Waiqiu",
+  "pinyin_tone": "Wàiqiū"
+ },
+ "VB37": {
+  "hanzi": "光明",
+  "pinyin": "Guangming",
+  "pinyin_tone": "Guāngmíng"
+ },
+ "VB38": {
+  "hanzi": "阳辅",
+  "pinyin": "Yangfu",
+  "pinyin_tone": "Yángfǔ"
+ },
+ "VB39": {
+  "hanzi": "悬钟",
+  "pinyin": "Xuanzhong",
+  "pinyin_tone": "Xuánzhōng"
+ },
+ "VB40": {
+  "hanzi": "丘墟",
+  "pinyin": "Qiuxu",
+  "pinyin_tone": "Qiūxū"
+ },
+ "VB41": {
+  "hanzi": "足临泣",
+  "pinyin": "Zulinqi",
+  "pinyin_tone": "Zúlínqì"
+ },
+ "VB42": {
+  "hanzi": "地五会",
+  "pinyin": "Diwuhui",
+  "pinyin_tone": "Dìwǔhuì"
+ },
+ "VB43": {
+  "hanzi": "侠溪",
+  "pinyin": "Xiaxi",
+  "pinyin_tone": "Xiáxī"
+ },
+ "VB44": {
+  "hanzi": "足窍阴",
+  "pinyin": "Zuqiaoyin",
+  "pinyin_tone": "Zúqiàoyīn"
+ },
+ "VC1": {
+  "hanzi": "会阴",
+  "pinyin": "Huiyin",
+  "pinyin_tone": "Huìyīn"
+ },
+ "VC2": {
+  "hanzi": "曲骨",
+  "pinyin": "Qugu",
+  "pinyin_tone": "Qūgǔ"
+ },
+ "VC3": {
+  "hanzi": "中极",
+  "pinyin": "Zhongji",
+  "pinyin_tone": "Zhōngjí"
+ },
+ "VC4": {
+  "hanzi": "关元",
+  "pinyin": "Guanyuan",
+  "pinyin_tone": "Guānyuán"
+ },
+ "VC5": {
+  "hanzi": "石门",
+  "pinyin": "Shimen",
+  "pinyin_tone": "Shímén"
+ },
+ "VC6": {
+  "hanzi": "气海",
+  "pinyin": "Qihai",
+  "pinyin_tone": "Qìhǎi"
+ },
+ "VC7": {
+  "hanzi": "阴交",
+  "pinyin": "Yinjiao",
+  "pinyin_tone": "Yīnjiāo"
+ },
+ "VC8": {
+  "hanzi": "神阙",
+  "pinyin": "Shenque",
+  "pinyin_tone": "Shénquè"
+ },
+ "VC9": {
+  "hanzi": "水分",
+  "pinyin": "Shuifen",
+  "pinyin_tone": "Shuǐfēn"
+ },
+ "VC10": {
+  "hanzi": "下脘",
+  "pinyin": "Xiawan",
+  "pinyin_tone": "Xiàwǎn"
+ },
+ "VC11": {
+  "hanzi": "建里",
+  "pinyin": "Jianli",
+  "pinyin_tone": "Jiànlǐ"
+ },
+ "VC12": {
+  "hanzi": "中脘",
+  "pinyin": "Zhongwan",
+  "pinyin_tone": "Zhōngwǎn"
+ },
+ "VC13": {
+  "hanzi": "上脘",
+  "pinyin": "Shangwan",
+  "pinyin_tone": "Shàngwǎn"
+ },
+ "VC14": {
+  "hanzi": "巨阙",
+  "pinyin": "Juque",
+  "pinyin_tone": "Jùquè"
+ },
+ "VC15": {
+  "hanzi": "鸠尾",
+  "pinyin": "Jiuwei",
+  "pinyin_tone": "Jiūwěi"
+ },
+ "VC16": {
+  "hanzi": "中庭",
+  "pinyin": "Zhongting",
+  "pinyin_tone": "Zhōngtíng"
+ },
+ "VC17": {
+  "hanzi": "膻中",
+  "pinyin": "Danzhong",
+  "pinyin_tone": "Dànzhōng"
+ },
+ "VC18": {
+  "hanzi": "玉堂",
+  "pinyin": "Yutang",
+  "pinyin_tone": "Yùtáng"
+ },
+ "VC19": {
+  "hanzi": "紫宫",
+  "pinyin": "Zigong",
+  "pinyin_tone": "Zǐgōng"
+ },
+ "VC20": {
+  "hanzi": "华盖",
+  "pinyin": "Huagai",
+  "pinyin_tone": "Huágài"
+ },
+ "VC21": {
+  "hanzi": "璇玑",
+  "pinyin": "Xuanji",
+  "pinyin_tone": "Xuánjī"
+ },
+ "VC22": {
+  "hanzi": "天突",
+  "pinyin": "Tiantu",
+  "pinyin_tone": "Tiāntū"
+ },
+ "VC23": {
+  "hanzi": "廉泉",
+  "pinyin": "Lianquan",
+  "pinyin_tone": "Liánquán"
+ },
+ "VC24": {
+  "hanzi": "承浆",
+  "pinyin": "Chengjiang",
+  "pinyin_tone": "Chéngjiāng"
+ },
+ "VG1": {
+  "hanzi": "长强",
+  "pinyin": "Changqiang",
+  "pinyin_tone": "Chángqiáng"
+ },
+ "VG2": {
+  "hanzi": "腰俞",
+  "pinyin": "Yaoshu",
+  "pinyin_tone": "Yāoshū"
+ },
+ "VG3": {
+  "hanzi": "腰阳关",
+  "pinyin": "Yaoyangguan",
+  "pinyin_tone": "Yāoyángguān"
+ },
+ "VG4": {
+  "hanzi": "命门",
+  "pinyin": "Mingmen",
+  "pinyin_tone": "Mìngmén"
+ },
+ "VG5": {
+  "hanzi": "悬枢",
+  "pinyin": "Xuanshu",
+  "pinyin_tone": "Xuánshū"
+ },
+ "VG6": {
+  "hanzi": "脊中",
+  "pinyin": "Jizhong",
+  "pinyin_tone": "Jǐzhōng"
+ },
+ "VG7": {
+  "hanzi": "中枢",
+  "pinyin": "Zhongshu",
+  "pinyin_tone": "Zhōngshū"
+ },
+ "VG8": {
+  "hanzi": "筋缩",
+  "pinyin": "Jinsuo",
+  "pinyin_tone": "Jīnsuō"
+ },
+ "VG9": {
+  "hanzi": "至阳",
+  "pinyin": "Zhiyang",
+  "pinyin_tone": "Zhìyáng"
+ },
+ "VG10": {
+  "hanzi": "灵台",
+  "pinyin": "Lingtai",
+  "pinyin_tone": "Língtái"
+ },
+ "VG11": {
+  "hanzi": "神道",
+  "pinyin": "Shendao",
+  "pinyin_tone": "Shéndào"
+ },
+ "VG12": {
+  "hanzi": "身柱",
+  "pinyin": "Shenzhu",
+  "pinyin_tone": "Shēnzhù"
+ },
+ "VG13": {
+  "hanzi": "陶道",
+  "pinyin": "Taodao",
+  "pinyin_tone": "Táodào"
+ },
+ "VG14": {
+  "hanzi": "大椎",
+  "pinyin": "Dazhui",
+  "pinyin_tone": "Dàzhuī"
+ },
+ "VG15": {
+  "hanzi": "哑门",
+  "pinyin": "Yamen",
+  "pinyin_tone": "Yǎmén"
+ },
+ "VG16": {
+  "hanzi": "风府",
+  "pinyin": "Fengfu",
+  "pinyin_tone": "Fēngfǔ"
+ },
+ "VG17": {
+  "hanzi": "脑户",
+  "pinyin": "Naohu",
+  "pinyin_tone": "Nǎohù"
+ },
+ "VG18": {
+  "hanzi": "强间",
+  "pinyin": "Qiangjian",
+  "pinyin_tone": "Qiángjiān"
+ },
+ "VG19": {
+  "hanzi": "后顶",
+  "pinyin": "Houding",
+  "pinyin_tone": "Hòudǐng"
+ },
+ "VG20": {
+  "hanzi": "百会",
+  "pinyin": "Baihui",
+  "pinyin_tone": "Bǎihuì"
+ },
+ "VG21": {
+  "hanzi": "前顶",
+  "pinyin": "Qianding",
+  "pinyin_tone": "Qiándǐng"
+ },
+ "VG22": {
+  "hanzi": "囟会",
+  "pinyin": "Xinhui",
+  "pinyin_tone": "Xìnhuì"
+ },
+ "VG23": {
+  "hanzi": "上星",
+  "pinyin": "Shangxing",
+  "pinyin_tone": "Shàngxīng"
+ },
+ "VG24": {
+  "hanzi": "神庭",
+  "pinyin": "Shenting",
+  "pinyin_tone": "Shéntíng"
+ },
+ "VG25": {
+  "hanzi": "素髎",
+  "pinyin": "Suliao",
+  "pinyin_tone": "Sùliáo"
+ },
+ "VG26": {
+  "hanzi": "水沟",
+  "pinyin": "Shuigou",
+  "pinyin_tone": "Shuǐgōu"
+ },
+ "VG27": {
+  "hanzi": "兑端",
+  "pinyin": "Duiduan",
+  "pinyin_tone": "Duìduān"
+ },
+ "VG28": {
+  "hanzi": "龈交",
+  "pinyin": "Yinjiao",
+  "pinyin_tone": "Yínjiāo"
+ }
+}

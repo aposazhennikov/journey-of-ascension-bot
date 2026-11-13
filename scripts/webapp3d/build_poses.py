@@ -1391,20 +1391,25 @@ def behind_head_pose(ps, hand):
         return out
 
     samp = np.linspace(0, 1, 6)
+    # the distal phalanx narrows to the fingertip: a capsule of its median radius to the very end kept the
+    # middle fingertips 12-21 mm apart (measured on the mesh) while the solver read them as touching
+    TAPER = 0.7
 
     def samples(segs):
         P = np.concatenate([a[None] + samp[:, None] * (b - a)[None] for _, _, a, b, _ in segs])
-        return P, np.concatenate([np.full(len(samp), r) for *_, r in segs])
+        return P, np.concatenate([r * (1 - TAPER * samp) if bn.endswith("-3") else np.full(len(samp), r)
+                                  for _, bn, _, _, r in segs])
 
     def overlap(segA, segB, margin=0.0):
         PA, RA = samples(segA)
         A = np.array([g[2] for g in segB])
         B = np.array([g[3] for g in segB])
         R = np.array([g[4] for g in segB])
+        dist = np.array([g[1].endswith("-3") for g in segB], float)
         ax = B - A
         tt = np.clip(np.einsum("pij,ij->pi", PA[:, None, :] - A[None], ax) / (ax * ax).sum(1)[None], 0, 1)
         d = np.linalg.norm(PA[:, None, :] - (A[None] + tt[..., None] * ax[None]), axis=2)
-        return (RA[:, None] + R[None] + margin - d).max(1)
+        return (RA[:, None] + R[None] * (1 - TAPER * tt * dist[None]) + margin - d).max(1)
 
     from check_poses import vertex_normals, joint_angles, Body
     cb = Body(rig, ps.v)
@@ -1426,6 +1431,11 @@ def behind_head_pose(ps, hand):
     ears = hp[(lat > 0.85 * lat[np.abs(hp[:, 1] - ear_y) < 0.04].max()) & (np.abs(hp[:, 1] - ear_y) < 0.04)]
 
     ear_back = float(ears[:, 2].min())          # the back edge of the pinna (the head faces +z)
+    # 15 mm on every body: 20 mm on the male body (its palm closes round the ear in a hollow, council) was
+    # not reachable: the hands went into the head and the ear stayed 12.6 mm away
+    ear_clear = 0.015
+
+    ear_ctr = {s: ears[sg * ears[:, 0] > 0].mean(0) for s, sg in SIDES.items()}
 
     def ear_dist(pts):
         return np.sqrt(((pts[:, None, :] - ears[None]) ** 2).sum(-1)).min()
@@ -1438,7 +1448,7 @@ def behind_head_pose(ps, hand):
     # palm side (the neutral palm read 2-5 mm in the head while the skin touched), and the thumb, left out
     # of a capsule test, sat 18-24 mm in the head and neck
     side_of = np.array([n.rsplit(".", 1)[-1] if "." in n else "" for n in dom])
-    skin_idx, palm_idx, finger_idx, ear_idx = {}, {}, {}, {}
+    skin_idx, palm_idx, finger_idx, ear_idx, thumb_idx, pad_idx = {}, {}, {}, {}, {}, {}
     for s in SIDES:
         d0, n0 = ps.hand_frame0(s)
         skin_idx[s] = np.concatenate([np.flatnonzero(ps.hand_mask & (side_of == s))[::3],
@@ -1447,6 +1457,13 @@ def behind_head_pose(ps, hand):
         pr = (ps.rest[mi] - ps.P(f"wrist.{s}")) @ n0
         palm_idx[s] = mi[pr > np.quantile(pr, 0.8)]
         finger_idx[s] = [np.flatnonzero(np.isin(dom, [f"finger{k}-{j}.{s}" for j in (1, 2, 3)]))[::2] for k in range(2, 6)]
+        thumb_idx[s] = np.flatnonzero(np.isin(dom, [f"finger1-2.{s}", f"finger1-3.{s}"]))[::2]
+        # the pads: each finger's distal phalanx, palm side (its skin toward the head when curled)
+        pad_idx[s] = []
+        for k in range(2, 6):
+            di = np.flatnonzero(dom == f"finger{k}-3.{s}")
+            pr = (ps.rest[di] - ps.P(f"finger{k}-3.{s}")) @ n0
+            pad_idx[s].append(di[pr > np.median(pr)])
         # every vertex of the palm, thumb and wrist for the ear (the heel of the hand is what reaches it)
         ear_idx[s] = np.flatnonzero(np.isin(dom, [f"{b}.{s}" for b in ("wrist", "lowerarm02", "metacarpal0", "metacarpal1",
                                                                        "metacarpal2", "metacarpal3", "metacarpal4",
@@ -1469,16 +1486,18 @@ def behind_head_pose(ps, hand):
         pr = (mv - ps.P(f"wrist.{s}")) @ n0
         palm_rest[s] = mv[pr > np.quantile(pr, 0.8)].mean(0) - ps.P(f"wrist.{s}")
 
-    def fingers_of(c, spr, th0, th1):
+    def fingers_of(c, spr, th0, th1, m):
         loc = {}
         for k in range(2, 6):
-            loc.update(hand.finger(k, 0.7 * c, c, 0.6 * c, spread=sp0[k] + spr * HAKINI_SPREAD[k]))
+            # m: extra bend at the knuckles, so the fingers follow the skull from the base (the council
+            # saw straight fingers leaving the head on a tangent, or claws bent only at the middle joints)
+            loc.update(hand.finger(k, 0.7 * c + m, c, 0.6 * c, spread=sp0[k] + spr * HAKINI_SPREAD[k]))
         # the thumb lies along the skin behind the ear (solved: a fixed one went into the neck)
         loc.update(hand.thumb(np.array([th0, th1, 0.0]), 10.0, 5.0))
         return loc
 
     def place(x):
-        phi, h, tilt, c, spr, th0, th1, off, py, pz = x
+        phi, h, tilt, c, spr, th0, th1, off, py, pz, m = x
         ps.W = {}
         for s, sg in SIDES.items():
             p, nh = head_point(phi, h, sg)
@@ -1493,15 +1512,16 @@ def behind_head_pose(ps, hand):
             pole = ps.P(f"upperarm01.{s}") + np.array([sg * 0.6, py, pz])
             ps.set_arm(s, wrist, pole, d, n, twist_weight=4.0)
         loc = ps.local()
-        fl = fingers_of(c, spr, th0, th1)
+        fl = fingers_of(c, spr, th0, th1, m)
         loc.update(fl)
         loc.update({k.replace(".L", ".R"): pk.qmirror(q) for k, q in fl.items()})
         return loc, fl
 
     # elbow pole height and depth (the last two) were at their bounds -0.3 and 0 on the neutral body, whose
     # fingers then stood 4 cm off the skull; the elbow term keeps the elbows from going forward of the
-    # shoulders whatever the pole
-    rng = ((10, 70), (-0.06, 0.05), (-25, 35), (3, 30), (-0.5, 1.5), (-35, 45), (-45, 35), (0.0, 0.02), (-0.6, 0.5), (-0.6, 0.15))
+    # shoulders whatever the pole. The thumb angles (6th, 7th) sat at -35 and 35 on the neutral body too
+    rng = ((10, 70), (-0.06, 0.07), (-25, 40), (3, 30), (-0.5, 1.5), (-50, 45), (-45, 50), (0.0, 0.02), (-0.6, 0.5), (-0.6, 0.15),
+           (-10, 40))
 
     def terms(x):
         loc, _ = place(x)
@@ -1516,11 +1536,15 @@ def behind_head_pose(ps, hand):
             hs = rig.skin(ps.rest, ps.v, Q, H, idx=skin_idx[s])
             # 15 mm between vertices: at 8 mm the skin still crossed (sparse hand vertices, the pinna's
             # back face; renders 2026-11-12 had the ear through the heel of the hand at 2-8 mm)
-            t[f"ear_{s}"] = 1e6 * max(0.0, 0.015 - ear_dist(rig.skin(ps.rest, ps.v, Q, H, idx=ear_idx[s]))) ** 2
+            t[f"ear_{s}"] = 1e6 * max(0.0, ear_clear - ear_dist(rig.skin(ps.rest, ps.v, Q, H, idx=ear_idx[s]))) ** 2
             sd = head_sd(hs)
             t[f"in_head_{s}"] = 1e6 * float(np.mean(np.minimum(sd - 0.0005, 0) ** 2)) * 50 + 3e5 * max(0.0, -0.002 - float(sd.min())) ** 2
             # the palm lies on the head: its skin touches (5 % quantile at 1 mm)
-            sp = head_sd(rig.skin(ps.rest, ps.v, Q, H, idx=palm_idx[s]))
+            palm_skin = rig.skin(ps.rest, ps.v, Q, H, idx=palm_idx[s])
+            # the palm centre keeps 4.5 cm from the ear centre: the nearest vertex 12-15 mm away did not stop
+            # the male palm closing round the ear like a cup (council round 2)
+            t[f"ear_ctr_{s}"] = 2e5 * max(0.0, 0.045 - float(np.linalg.norm(palm_skin.mean(0) - ear_ctr[s]))) ** 2
+            sp = head_sd(palm_skin)
             t[f"palm_{s}"] = 3e5 * (float(np.quantile(sp, 0.05)) - 0.001) ** 2 + 2e4 * max(0.0, float(np.median(sp)) - 0.008) ** 2
             # every finger comes within 6 mm of the head somewhere (resting on it, not standing off)
             near = [float(head_sd(rig.skin(ps.rest, ps.v, Q, H, idx=fi)).min()) for fi in finger_idx[s]]
@@ -1528,19 +1552,30 @@ def behind_head_pose(ps, hand):
             # wrist and shoulder within the check's limits, measured the way check_poses measures them (a
             # forearm-to-hand angle under 50 deg still let the wrist extend 82 deg and deviate 50 deg)
             a = ang[s]
-            t[f"wrist_{s}"] = 0.5 * (max(0.0, -a["wrist_flex"] - 70) ** 2 + max(0.0, a["wrist_flex"] - 70) ** 2
-                                     + max(0.0, abs(a["wrist_dev"]) - 20) ** 2 + 4 * max(0.0, abs(a["wrist_twist"]) - 4) ** 2
+            # (75 / 23 deg against the check's 80 / 25: the hands lower on the occiput need the wrist)
+            # the elbow bent at most 120 deg: at 128 the thick male arm turned the inner crease skin inside out,
+            # a hole in the forearm seen from the side (council round 2)
+            t[f"elbow_flex_{s}"] = 2.0 * max(0.0, a["elbow_flex"] - 120) ** 2
+            t[f"wrist_{s}"] = 0.5 * (max(0.0, -a["wrist_flex"] - 75) ** 2 + max(0.0, a["wrist_flex"] - 75) ** 2
+                                     + max(0.0, abs(a["wrist_dev"]) - 23) ** 2 + 4 * max(0.0, abs(a["wrist_twist"]) - 4) ** 2
                                      + max(0.0, a["humeral_rot"] - 80) ** 2 + max(0.0, -60 - a["humeral_rot"]) ** 2)
             tip3 = [g for g in segs[s] if g[1] == "finger3-3"][0][3]
-            t[f"tip_{s}"] = 3e4 * (sg * tip3[0] - seg_rad[(s, "finger3-3")] - 0.0005) ** 2
+            # the middle fingertips touch at the midline: the capsule end 3 mm out puts the mesh tip ~0.5 mm
+            # out (it sits 2.5-3 mm inside the capsule end)
+            t[f"tip_{s}"] = 1e5 * (sg * tip3[0] - 0.003) ** 2
             pc = np.mean([g[2] for g in palm], axis=0)
             t[f"behind_{s}"] = 5e3 * max(0.0, float(pc[2]) - (occ[2] + 0.05)) ** 2
-            # palms on the occiput: with the wrist limits alone they slid up onto the crown, fingers meeting
-            # over it (the council's teacher). Up to 3.5 cm above the occiput for the palm centre and 6.5 cm
-            # for the middle fingertip (the crown is ~10 cm up): 18 cm of finger and palm from the midline
-            # against 12-14 cm of head from the midline to the ear put the heel of the hand on the ear at
-            # 1.5 / 5 cm, as it would on a person, who lifts the hands above the ears
-            t[f"height_{s}"] = 2e4 * max(0.0, float(pc[1]) - (occ[1] + 0.035)) ** 2 + 2e4 * max(0.0, float(tip3[1]) - (occ[1] + 0.065)) ** 2
+            # the fingertips at the occipital bump, the heel of the hand higher and behind the ear (council
+            # 2026-11-13, teacher and 3D artist): 18 cm of finger and palm from the midline against 12-14 cm
+            # of head to the ear leave the heel on the ear when the hand lies level, so it slopes up and out.
+            # Fingertips within -1..+2 cm of the occiput, the palm centre at most 5 cm above it
+            t[f"height_{s}"] = (2e4 * max(0.0, float(pc[1]) - (occ[1] + 0.05)) ** 2
+                                + 2e5 * max(0.0, float(tip3[1]) - (occ[1] + 0.02)) ** 2
+                                + 2e5 * max(0.0, (occ[1] - 0.01) - float(tip3[1])) ** 2)
+            # every finger pad on the skin (they stood 12-25 mm off; the council saw them off the skull)
+            pads = np.array([float(np.median(head_sd(rig.skin(ps.rest, ps.v, Q, H, idx=pi)))) for pi in pad_idx[s]])
+            # (at 5e4 they still stood 9-15 mm off)
+            t[f"pads_{s}"] = 5e5 * float(np.sum(np.maximum(0.0, pads - 0.003) ** 2))
             # and it rests on the head (the fingers stood off the female occiput, then 4 cm off the neutral
             # skull at 3e4). Tilt down to -45 deg with 1e5 here and 3e4 on fingers_on brought the male heel
             # back onto the ear and the wrists past 80; with the wider elbow range 1e5 alone
@@ -1549,6 +1584,12 @@ def behind_head_pose(ps, hand):
             # the thumb stays behind the ear: free, it swung forward to its bound and cupped the male ear
             tip1 = [g for g in segs[s] if g[1] == "finger1-3"][0][3]
             t[f"thumb_{s}"] = 3e5 * max(0.0, float(tip1[2]) - (ear_back - 0.005)) ** 2
+            # and lies along the head or neck (on the neutral body it hung 1-2 cm off the neck, visible
+            # beside the jaw from the front): the median of its two outer phalanges within 4 mm
+            tsd1 = head_sd(rig.skin(ps.rest, ps.v, Q, H, idx=thumb_idx[s]))
+            t[f"thumb_on_{s}"] = 1e5 * max(0.0, float(np.median(tsd1)) - 0.004) ** 2
+            # pointing down onto the mastoid, not across the nape toward the other thumb (council)
+            t[f"thumb_down_{s}"] = 5e4 * max(0.0, float(tip1[1]) - (float(H[rig.index[f"finger1-1.{s}"]][1]) - 0.015)) ** 2
             # elbows out and a little back, not forward of the shoulder (they stood by the ears)
             el = H[rig.index[f"lowerarm01.{s}"]]
             t[f"elbow_{s}"] = 2e4 * max(0.0, float(el[2]) - float(H[rig.index[f"upperarm01.{s}"]][2])) ** 2
@@ -1557,12 +1598,13 @@ def behind_head_pose(ps, hand):
 
     def cost(x):
         return sum(terms(x).values())
-    step = np.array([6.0, 0.008, 6.0, 4.0, 0.3, 8.0, 8.0, 0.003, 0.1, 0.1])
+    step = np.array([6.0, 0.008, 6.0, 4.0, 0.3, 8.0, 8.0, 0.003, 0.1, 0.1, 6.0])
     best = None
-    # starts: the neutral, female and male solves before the wrist limits, with the elbow as it was and
-    # higher and further back
-    for x0 in ([32.5, 0.0, 13.1, 11.7, -0.43, -32, -1.6, 0.004, 0.15, -0.1], [28.1, -0.01, 20.5, 6.6, -0.4, 40, -40, 0.0035, 0.15, -0.1],
-               [30.0, -0.01, 5.0, 12.8, 0.64, 14.8, 25.1, 0.008, 0.2, -0.2], [32.5, 0.025, 0.0, 12.0, 0.3, 0, 0, 0.006, 0.0, -0.1]):
+    # starts: hands sloping up and out (fingers down toward the occipital bump) at three slopes, and the
+    # last level solve (2026-11-13). Without the level start (sloped starts only, 20 mm from the ear) the
+    # fingers crossed the midline 5 mm into each other and the female wrist deviated 25.6 deg
+    for x0 in ([30.0, 0.025, 15.0, 15.0, 0.3, -20, 0, 0.01, -0.1, 0.1, 15], [33.0, 0.02, 5.0, 20.0, 0.5, -30, -20, 0.015, 0.0, 0.15, 10],
+               [28.0, 0.03, 25.0, 12.0, 0.0, -10, 10, 0.01, -0.2, 0.1, 20], [33.3, -0.01, -24.7, 20.0, 0.25, -33, -39, 0.02, 0.22, 0.15, 0]):
         x, f = nelder_mead(cost, np.array(x0, float), step, iters=700)
         x, f = nelder_mead(cost, x, step * 0.25, iters=400)
         if best is None or f < best[1]:

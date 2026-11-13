@@ -100,7 +100,7 @@ class MeridiansManager:
         self._meridians: Dict[str, Any] = {"meridians": []}
 
     async def load_meridians(self) -> None:
-        """Load meridians from JSON file."""
+        """Load meridians from JSON file (and the per-point cautions of the 3D map)."""
         try:
             async with aiofiles.open(self.meridians_file, 'r', encoding='utf-8') as f:
                 content = await f.read()
@@ -108,6 +108,8 @@ class MeridiansManager:
         except Exception as e:
             print(f"Error loading meridians: {e}")
             self._meridians = {"meridians": []}
+        await load_point_cautions()
+        await load_point_names()
 
     def get_all_meridians(self) -> List[Dict[str, Any]]:
         """Get all meridians."""
@@ -398,7 +400,7 @@ MERIDIAN_LOCALIZED_NAMES: Dict[str, Dict[str, str]] = {
     "stomach": {"en": "Stomach Meridian", "ru": "Меридиан желудка", "uz": "Oshqozon meridiani", "kz": "Асқазан меридианы"},
     "spleen": {"en": "Spleen Meridian", "ru": "Меридиан селезёнки", "uz": "Taloq meridiani", "kz": "Көкбауыр меридианы"},
     "heart": {"en": "Heart Meridian", "ru": "Меридиан сердца", "uz": "Yurak meridiani", "kz": "Жүрек меридианы"},
-    "small_intestine": {"en": "Small Intestine Meridian", "ru": "Меридиан тонкого кишечника", "uz": "Ingichka ichak meridiani", "kz": "Ащы ішек меридианы"},
+    "small_intestine": {"en": "Small Intestine Meridian", "ru": "Меридиан тонкой кишки", "uz": "Ingichka ichak meridiani", "kz": "Ащы ішек меридианы"},
     "bladder": {"en": "Bladder Meridian", "ru": "Меридиан мочевого пузыря", "uz": "Siydik pufagi meridiani", "kz": "Қуық меридианы"},
     "kidney": {"en": "Kidney Meridian", "ru": "Меридиан почек", "uz": "Buyrak meridiani", "kz": "Бүйрек меридианы"},
     "pericardium": {"en": "Pericardium Meridian", "ru": "Меридиан перикарда", "uz": "Perikard meridiani", "kz": "Перикард меридианы"},
@@ -480,11 +482,38 @@ def _latinize_point_name(name: str) -> str:
     return "".join(part.capitalize() if part and part not in {"-", " "} else part for part in parts)
 
 
+# point code -> {"hanzi", "pinyin", "pinyin_tone"} (WHO 2008), read at startup from the map's data
+POINT_NAMES_FILE = Path(__file__).resolve().parent.parent / "webapp" / "assets" / "point_names.json"
+POINT_NAMES: Dict[str, Dict[str, str]] = {}
+
+
+async def load_point_names(path: Path = POINT_NAMES_FILE) -> int:
+    """Fill POINT_NAMES from point_names.json; without it Latin names fall back to transliteration."""
+    try:
+        async with aiofiles.open(path, 'r', encoding='utf-8') as f:
+            data = json.loads(await f.read())
+    except Exception as e:
+        print(f"Point names are not loaded from {path}: {e}")
+        return 0
+    POINT_NAMES.clear()
+    for code, names in data.items():
+        if isinstance(names, dict) and names.get("pinyin"):
+            POINT_NAMES[code] = {key: str(names.get(key) or "") for key in ("hanzi", "pinyin", "pinyin_tone")}
+    return len(POINT_NAMES)
+
+
 def localized_point_name(point: Dict[str, Any], language: str) -> str:
-    """Return a point name only when it fits the visible interface language."""
+    """Return a point name only when it fits the visible interface language.
+
+    Latin-script locales (en, uz) get the pinyin name (Quchi); ru and kz keep the Cyrillic one.
+    """
     name = _localized_value(point, language, "name", "")
-    if language in {"en", "uz"} and _has_cyrillic(name):
-        return _latinize_point_name(name)
+    if language in {"en", "uz"}:
+        pinyin = POINT_NAMES.get(str(point.get("code", "")).strip(), {}).get("pinyin")
+        if pinyin:
+            return pinyin
+        if _has_cyrillic(name):
+            return _latinize_point_name(name)
     return name
 
 
@@ -586,6 +615,8 @@ def _clean_point_location(location: str) -> str:
         ". Используют",
         ". Находят и используют",
         ". Точка расположена",
+        ". Ищите точку",
+        ". Чтобы найти точку",
         ". Цзин-цюй",
         ". Нүкте",
         ". Nuqta",
@@ -651,7 +682,7 @@ def _point_sequence_practice_hint(point_index: int, points_count: int, language:
             return (
                 "Начните только с этой точки. Найдите её по изображению, попробуйте "
                 "зацепиться за неё вниманием. Если ощущение слабое или вообще не получается "
-                "почувствовать точку, попробуйте помассировать эту точку, мягко надавите "
+                "почувствовать точку, попробуйте помассировать эту точку (кроме точек со значком ⚠), мягко надавите "
                 "пальцем на эту область, попробуйте круговые движения по часовой и против "
                 "часовой стрелке, понаблюдайте, как приятнее. Когда появилось первичное "
                 "ощущение, начните представлять дыхание через точку, визуализируйте, как вы "
@@ -686,7 +717,7 @@ def _point_sequence_practice_hint(point_index: int, points_count: int, language:
             return (
                 "Faqat shu nuqtadan boshlang. Uni rasm, teginish, nafas va sokin diqqat orqali toping. "
                 "Agar sezgi kuchsiz bo'lsa, nuqtani amaliyot uchun hali ochilmagan deb qabul qiling: "
-                "uzoqroq turing, sohani yengil massaj qiling va diqqat bu yerda osonroq turmaguncha "
+                "uzoqroq turing, sohani yengil massaj qiling (⚠ belgisi bor nuqtalardan tashqari) va diqqat bu yerda osonroq turmaguncha "
                 "nuqta orqali nafas olayotganingizni tasavvur qiling."
             )
         if is_last:
@@ -710,7 +741,7 @@ def _point_sequence_practice_hint(point_index: int, points_count: int, language:
             return (
                 "Тек осы нүктеден бастаңыз. Оны сурет, жанасу, тыныс және тыныш зейін арқылы табыңыз. "
                 "Егер сезім әлсіз болса, нүктені тәжірибе үшін әзірге ашылмаған деп қабылдаңыз: "
-                "ұзағырақ болыңыз, аймақты жеңіл уқалаңыз және зейін бұл жерде жеңілірек орныққанша "
+                "ұзағырақ болыңыз, аймақты жеңіл уқалаңыз (⚠ белгісі бар нүктелерден басқа) және зейін бұл жерде жеңілірек орныққанша "
                 "нүкте арқылы тыныстап жатқаныңызды елестетіңіз."
             )
         if is_last:
@@ -733,7 +764,7 @@ def _point_sequence_practice_hint(point_index: int, points_count: int, language:
         return (
             "Start with this point only. Find it with the image, touch, breath, and quiet attention. "
             "If the sensation is weak, treat the point as not yet open for practice: stay longer, "
-            "gently massage the area, and imagine breathing through the point until attention can rest here more easily."
+            "gently massage the area (except points marked ⚠), and imagine breathing through the point until attention can rest here more easily."
         )
     if is_last:
         return (
@@ -751,31 +782,83 @@ def _point_sequence_practice_hint(point_index: int, points_count: int, language:
     )
 
 
+# Phrases that would trip the body-area keywords: "back of the hand" is the hand, not the back line;
+# the Uzbek and Kazakh "big finger" (thumb, big toe) contains the word for head.
+# A finger width used as a measure ("на ширину пальца") says nothing about the body area either, and the
+# sternocleidomastoid muscle is a neck landmark although its name contains "clavicle".
+_AREA_HINT_REWRITES = {
+    "ru": ((r"(?:ширин\w*|поперечн\w*) (?:одного |большого |среднего )?пал(?:ец|ьц\w*)", "мера"),
+           (r"грудино-ключично-сосцевидн", "сосцевидн")),
+    "en": ((r"\bback of (?:the )?", "dorsum of "), (r"\b(?:one |a )?finger[- ]?(?:breadth|width)s?\b", "measure")),
+    "uz": ((r"\bbosh barmo", "barmo"), (r"to'sh-o'mrov-so'rg'ichsimon", "so'rg'ichsimon")),
+    "kz": ((r"\bбас бармақ", "бармақ"), (r"төс-бұғана-емізікше", "емізікше")),
+}
+# Short keywords that also occur inside unrelated words get a stricter pattern; all other keywords
+# keep matching anywhere, so stems inside compounds (предплечье, forearm) still count.
+_AREA_HINT_PATTERNS = {
+    # іш is the belly, but ішкі means "inner"
+    "іш": r"(?<!\w)іш(?:тің|ке|те|тен|ті|тік)?\b",
+    # бет / yuz are the face, but беті / бетінде / yuzasi mean "surface"
+    "бет": r"(?<!\w)бет\b",
+    "yuz": r"(?<!\w)yuz(?:i|ni|da|ning|ga)?\b",
+    # бас / bosh are the head, but also "екі басты" (two-headed muscle), "аяқ басы" (top of the foot)
+    # and "suyak boshi" (head of a bone)
+    "бас": r"(?<!аяқ )(?<!сүйегінің )(?<!медиалдық )(?<!латералдық )(?<!\w)бас(?:тың|та|қа|ы|ын|ының|ында)?\b",
+    # ерін (lip) is also the possessive ending of нүктелерін, сүйектерінің
+    "ерін": r"(?<!\w)ерін",
+    # ear as a word, not near / nearly / linear
+    "ear": r"(?<!\w)ears?\b",
+    # the iliac spine is the pelvis, not the back line; лоб (forehead) sits inside малоберцовая
+    "spine": r"(?<!iliac )spine",
+    "лоб": r"(?<!\w)(?:лоб|лба|лбу)",
+    # orqa alone means "posterior" (orqa cheti, the posterior border); the back line is orqa o'rta / orqasi
+    "orqa": r"(?<!\w)orqa(?: o'rta|si\b|sida\b|ning\b)",
+    # қас (eyebrow), not қасаға (pubis) or қасында (beside)
+    "қас": r"(?<!\w)қас(?:тың|ты|қа|ы|ын)?\b",
+    # губ (lip) sits inside глубокий, тем (темя) inside системы, затем
+    "губ": r"(?<!\w)губ",
+    "тем": r"(?<!\w)тем(?:я|ени|енн)",
+    "bosh": r"(?<!oyoq )(?<!suyagi )(?<!suyak )(?<!\w)bosh(?:i|ning|da|ga|ni)?\b",
+}
+
+
+def _area_keyword_found(keyword: str, text: str) -> bool:
+    """Match a body-area keyword in a location text."""
+    pattern = _AREA_HINT_PATTERNS.get(keyword)
+    if pattern:
+        return re.search(pattern, text) is not None
+    return keyword in text
+
+
 def _point_area_practice_hint(location: str, language: str) -> str:
     """Return a short body-area cue so point practice does not feel mechanical."""
     normalized = (location or "").lower()
+    for pattern, replacement in _AREA_HINT_REWRITES.get(language, ()):
+        normalized = re.sub(pattern, replacement, normalized)
     cues = {
         "ru": (
             (("пуп", "живот", "лобков", "промежност", "анус", "половых", "мошон"), "Смягчите живот и таз; пусть дыхание не толкает ощущение, а будто освобождает для него место."),
             (("позвон", "крестц", "копчик", "спин", "затыл"), "Выпрямитесь без напряжения и почувствуйте, как точка включается в заднюю срединную линию."),
-            (("горл", "шеи", "шее", "шейн", "шею", "подбород", "губ", "носа", "носу", "носов", "лицо", "лица", "лицев", "лоб", "тем", "голов"), "Расслабьте лицо, язык и горло; иногда точка откликается только после этого."),
+            (("горл", "шеи", "шее", "шейн", "шею", "подбород", "губ", "носогуб", "носа", "носу", "носов", "лицо", "лица", "лицев", "лоб", "тем", "голов", "челюст"), "Расслабьте лицо, язык и горло; иногда точка откликается только после этого."),
             (("грудной", "грудная", "грудной клет", "ребр", "ребер", "межреб", "ключиц", "соска", "соски"), "Дайте грудной клетке чуть больше пространства; наблюдайте, меняется ли глубина дыхания."),
             (("рук", "кист", "пал", "локт", "плеч"), "Отпустите плечо и кисть, чтобы внимание не застревало только в поверхности кожи."),
-            (("стоп", "пят", "лодыж", "голен", "колен", "бедр"), "Почувствуйте опору и вес тела; так точка легче соединяется с общей линией меридиана."),
+            (("стоп", "пят", "лодыж", "голен", "колен", "бедр", "берцов"), "Почувствуйте опору и вес тела; так точка легче соединяется с общей линией меридиана."),
         ),
         "en": (
-            (("navel", "abdomen", "pubic", "perine", "anus", "genital", "scrot"), "Soften the belly and pelvis; let the breath make room for the sensation instead of pushing it."),
+            (("navel", "umbilic", "abdomen", "pubic", "perine", "anus", "genital", "scrot"), "Soften the belly and pelvis; let the breath make room for the sensation instead of pushing it."),
             (("vertebra", "sacral", "coccyx", "spine", "back", "occip"), "Lengthen the spine without strain and feel how the point joins the central back line."),
             (("chest", "rib", "clavicle"), "Give the chest a little more space and notice whether the depth of breathing changes."),
-            (("throat", "neck", "chin", "lip", "nose", "face", "forehead", "head"), "Relax the face, tongue, and throat; sometimes the point responds only after that."),
-            (("arm", "hand", "finger", "elbow", "shoulder"), "Release the shoulder and hand so attention does not stay only on the surface of the skin."),
-            (("foot", "heel", "ankle", "leg", "knee", "thigh"), "Feel the support and weight of the body; the point can then connect more easily with the meridian line."),
+            (("throat", "neck", "chin", "lip", "nose", "face", "forehead", "head", "jaw", "ear", "eye", "temple",
+              "cheek", "mouth", "philtrum", "hairline", "scalp"), "Relax the face, tongue, and throat; sometimes the point responds only after that."),
+            (("arm", "hand", "finger", "thumb", "wrist", "palm", "elbow", "shoulder"), "Release the shoulder and hand so attention does not stay only on the surface of the skin."),
+            (("foot", "heel", "ankle", "leg", "knee", "thigh", "toe", "tibia", "calf", "malleol", "fibula", "patella"), "Feel the support and weight of the body; the point can then connect more easily with the meridian line."),
         ),
         "uz": (
             (("kindik", "qorin", "pub", "oraliq", "anus", "jinsiy"), "Qorin va tosni yumshating; nafas sezgini itarmasin, unga joy ochsin."),
             (("umurtqa", "dumg'aza", "dum", "orqa", "ensa"), "Umurtqani zo'riqmasdan tik tuting va nuqta orqa o'rta chiziqqa qanday qo'shilishini sezing."),
             (("ko'krak", "qovurg", "o'mrov"), "Ko'krak qafasiga biroz kenglik bering va nafas chuqurligi o'zgaradimi, kuzating."),
-            (("tomoq", "bo'yin", "iyak", "lab", "burun", "yuz", "peshona", "bosh"), "Yuz, til va tomoqni bo'shating; ba'zan nuqta shundan keyingina javob beradi."),
+            (("tomoq", "bo'yin", "iyak", "lab", "burun", "yuz", "peshona", "bosh", "quloq", "chakka", "soch", "ko'z",
+              "qosh", "jag'", "qalqonsimon"), "Yuz, til va tomoqni bo'shating; ba'zan nuqta shundan keyingina javob beradi."),
             (("qo'l", "kaft", "barmoq", "tirsak", "yelka"), "Yelka va kaftni bo'shating, shunda diqqat faqat teri yuzasida qolib ketmaydi."),
             (("oyoq", "tovon", "to'piq", "boldir", "tizza", "son"), "Tana tayanchini va og'irligini sezing; shunda nuqta meridian chizig'iga osonroq ulanadi."),
         ),
@@ -783,13 +866,13 @@ def _point_area_practice_hint(location: str, language: str) -> str:
             (("кіндік", "іш", "қасаға", "аралық", "анус", "жыныс"), "Іш пен жамбасты жұмсартыңыз; тыныс сезімді итермей, оған орын ашсын."),
             (("омыртқа", "сегізкөз", "құйымшақ", "арқа", "шүйде"), "Омыртқаны күш салмай түзеу ұстап, нүктенің артқы ортаңғы сызыққа қалай қосылатынын сезіңіз."),
             (("кеуде", "қабырға", "бұғана"), "Кеуде қуысына аздап кеңістік беріп, тыныс тереңдігі өзгере ме, байқаңыз."),
-            (("тамақ", "мойын", "иек", "ерін", "мұрын", "бет", "маңдай", "бас"), "Бет, тіл және тамақты босатыңыз; кейде нүкте содан кейін ғана жауап береді."),
-            (("қол", "алақан", "саусақ", "шынтақ", "иық"), "Иық пен алақанды босатыңыз, сонда зейін тек тері бетінде қалып қоймайды."),
-            (("аяқ", "өкше", "тобық", "балтыр", "тізе", "сан"), "Дененің тірегі мен салмағын сезіңіз; сонда нүкте меридиан сызығына жеңілірек қосылады."),
+            (("тамақ", "мойын", "иек", "ерін", "мұрын", "бет", "бетсүйек", "маңдай", "бас", "самай", "құлақ", "көз", "қас", "шаш", "қалқанша"), "Бет, тіл және тамақты босатыңыз; кейде нүкте содан кейін ғана жауап береді."),
+            (("қол", "алақан", "саусақ", "бармақ", "шынтақ", "иық", "білек", "білезік"), "Иық пен алақанды босатыңыз, сонда зейін тек тері бетінде қалып қоймайды."),
+            (("аяқ", "өкше", "тобық", "балтыр", "тізе", "сан", "табан", "башпай", "асықты"), "Дененің тірегі мен салмағын сезіңіз; сонда нүкте меридиан сызығына жеңілірек қосылады."),
         ),
     }.get(language, ())
     for keywords, cue in cues:
-        if any(keyword in normalized for keyword in keywords):
+        if any(_area_keyword_found(keyword, normalized) for keyword in keywords):
             return cue
     return ""
 
@@ -847,6 +930,120 @@ def _point_setup_practice_hint(source_location: str, language: str) -> str:
     return ""
 
 
+# Points where pressing or massage is unsafe: the eyeball (E1, V1), the eye socket (VB1), the axillary
+# artery (C1), the perineum and anus (VC1, VG1), the carotid artery (E9), the nipple (E17).
+# The practice there is attention only, wherever the point stands in the sequence (same rule as the map).
+NO_PRESSURE_POINT_CODES = frozenset({"E1", "V1", "VB1", "C1", "VC1", "VG1", "E9", "E17"})
+
+NO_PRESSURE_LATER_POINT_TEXT = {
+    "ru": (
+        "Сначала вспомните уже изученные точки. Удерживая их фоном, добавьте эту точку только вниманием: "
+        "не надавливайте и не массируйте её. Посмотрите, становится ли линия меридиана яснее или где-то обрывается."
+    ),
+    "en": (
+        "Recall the points you have already studied. Keep them in the background and add this point with attention "
+        "only: do not press or massage it. Notice whether the meridian line becomes clearer or breaks somewhere."
+    ),
+    "uz": (
+        "Avval o'rganilgan nuqtalarni eslang. Ularni fon sifatida ushlab, bu nuqtani faqat diqqat bilan qo'shing: "
+        "uni bosmang va massaj qilmang. Meridian chizig'i aniqroq bo'ladimi yoki qayerdadir uziladimi, kuzating."
+    ),
+    "kz": (
+        "Алдымен бұрын зерттелген нүктелерді еске түсіріңіз. Оларды фон ретінде ұстап, осы нүктені тек зейінмен "
+        "қосыңыз: оны баспаңыз және уқаламаңыз. Меридиан сызығы анығырақ бола ма, әлде бір жерде үзіле ме, байқаңыз."
+    ),
+}
+
+NO_PRESSURE_FIRST_POINT_TEXT = {
+    "ru": (
+        "Начните только с этой точки. Найдите её по изображению и работайте только вниманием: "
+        "не массируйте и не надавливайте, эта зона слишком чувствительная. Если ощущение слабое, "
+        "просто задержитесь здесь дольше и представляйте, как вдох и выдох проходят через точку. "
+        "Хороший результат: внимание держится на точке без усилия, появилось намерение почувствовать "
+        "её, и вы сразу чувствуете.\n\n"
+        "Добейтесь устойчивого ощущения и можете переходить к следующей точке."
+    ),
+    "en": (
+        "Start with this point only. Find it with the image and work with attention alone: do not massage "
+        "or press, this area is too sensitive. If the sensation is weak, simply stay longer and imagine the "
+        "breath moving in and out through the point until attention can rest here without effort."
+    ),
+    "uz": (
+        "Faqat shu nuqtadan boshlang. Uni rasm orqali toping va faqat diqqat bilan ishlang: massaj qilmang "
+        "va bosmang, bu soha juda nozik. Agar sezgi kuchsiz bo'lsa, shunchaki uzoqroq turing va diqqat bu "
+        "yerda zo'riqishsiz turmaguncha nafas nuqta orqali kirib-chiqayotganini tasavvur qiling."
+    ),
+    "kz": (
+        "Тек осы нүктеден бастаңыз. Оны сурет арқылы тауып, тек зейінмен жұмыс істеңіз: уқаламаңыз және "
+        "баспаңыз, бұл аймақ тым нәзік. Егер сезім әлсіз болса, жай ғана ұзағырақ болып, зейін бұл жерде "
+        "күш салмай орныққанша тыныс нүкте арқылы кіріп-шығып жатқанын елестетіңіз."
+    ),
+}
+
+# Short caution lines, the same wording as the map's caution_<key> texts (webapp/i18n.js).
+POINT_CAUTION_TEXTS = {
+    "pregnancy": {
+        "ru": "Во время беременности здесь только внимание, без надавливания.",
+        "en": "During pregnancy, only attention here, no pressure.",
+        "uz": "Homiladorlik paytida bu yerga faqat diqqat qarating, bosmang.",
+        "kz": "Жүктілік кезінде мұнда тек зейін, баспаңыз.",
+    },
+    "artery": {
+        "ru": "Если под пальцем пульс, сместитесь и не давите.",
+        "en": "If you feel a pulse under the finger, move aside and do not press.",
+        "uz": "Barmoq ostida tomir urishi sezilsa, biroz suring va bosmang.",
+        "kz": "Саусақ астында тамыр соғысы сезілсе, сәл жылжып, баспаңыз.",
+    },
+    "eye": {
+        "ru": "Касайтесь только края глазницы, на глаз не давите.",
+        "en": "Touch only the rim of the eye socket, never press on the eye.",
+        "uz": "Faqat ko'z kosasi chetiga teging, ko'zni bosmang.",
+        "kz": "Тек көз ұясының жиегін ұстаңыз, көзді баспаңыз.",
+    },
+    "neck": {
+        "ru": "На шее касайтесь мягко, без сильного давления.",
+        "en": "On the neck, touch gently, without strong pressure.",
+        "uz": "Bo'yinda yumshoq teging, qattiq bosmang.",
+        "kz": "Мойында жұмсақ ұстаңыз, қатты баспаңыз.",
+    },
+    "touch": {
+        "ru": "Только внимание: не надавливайте и не массируйте эту точку.",
+        "en": "Only attention here: do not press or massage this point.",
+        "uz": "Faqat diqqat: bu nuqtani bosmang va massaj qilmang.",
+        "kz": "Тек зейін: бұл нүктені баспаңыз және уқаламаңыз.",
+    },
+}
+
+# point code -> caution keys, read at startup from the map's data (the Docker image ships webapp/)
+POINT_EXTRAS_FILE = Path(__file__).resolve().parent.parent / "webapp" / "assets" / "point_extras.json"
+POINT_CAUTIONS: Dict[str, List[str]] = {}
+
+
+async def load_point_cautions(path: Path = POINT_EXTRAS_FILE) -> int:
+    """Fill POINT_CAUTIONS from point_extras.json; the bot works without it, just with no caution lines."""
+    try:
+        async with aiofiles.open(path, 'r', encoding='utf-8') as f:
+            data = json.loads(await f.read())
+    except Exception as e:
+        print(f"Point cautions are not loaded from {path}: {e}")
+        return 0
+    POINT_CAUTIONS.clear()
+    for code, extra in (data.get("points") or {}).items():
+        keys = [key for key in (extra or {}).get("caution") or [] if key in POINT_CAUTION_TEXTS]
+        if keys:
+            POINT_CAUTIONS[code] = keys
+    return len(POINT_CAUTIONS)
+
+
+def point_caution_lines(point_code: str, language: str) -> List[str]:
+    """Localized caution lines for a point, in the order the map data lists them."""
+    lines = []
+    for key in POINT_CAUTIONS.get(point_code or "", []):
+        texts = POINT_CAUTION_TEXTS[key]
+        lines.append(texts.get(language) or texts["en"])
+    return lines
+
+
 def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: str = "en") -> str:
     """Format a meridian point for meditation practice."""
     points = meridian.get("points", [])
@@ -861,8 +1058,13 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     compact_location = _compact_point_location(raw_location)
     location = escape(compact_location)
 
+    point_code = str(point.get("code", "")).strip()
     area_hint = _point_area_practice_hint(compact_location, language)
     base_instruction = _point_sequence_practice_hint(point_index, len(points), language)
+    if point_code in NO_PRESSURE_POINT_CODES:
+        # the generic texts suggest massage, pressing or touch; these places take attention only
+        texts = NO_PRESSURE_FIRST_POINT_TEXT if point_index <= 0 else NO_PRESSURE_LATER_POINT_TEXT
+        base_instruction = texts.get(language, texts["en"])
     practice_parts = [base_instruction]
     if area_hint:
         practice_parts.append(area_hint)
@@ -885,6 +1087,10 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
     message += f"<b>{escape(labels[0])} {point_index + 1}/{len(points)}:</b> {point_title}\n\n"
     if location:
         message += f"<b>{escape(labels[1])}:</b> {location}\n\n"
+    # right under the location, so a caption shortened to 1024 characters still keeps it
+    cautions = point_caution_lines(point_code, language)
+    if cautions:
+        message += "\n".join(f"⚠️ <i>{escape(line)}</i>" for line in cautions) + "\n\n"
     message += f"<b>{escape(labels[2])}:</b> {practice_note}\n\n"
     if question:
         with_question = message + f"<i>{escape(labels[3])}:</i> {question}"
