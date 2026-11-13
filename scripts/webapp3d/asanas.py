@@ -513,6 +513,14 @@ def solve_arm(ctx, Wlegs, root, s, mode, target_fn):
         # the arm reaching further forward and lower: from the table start alone the male sukhasana arm
         # stuck with the forearm level and the palm 12 cm past its target over the knee
         starts += [x0 + np.array([15, 0, 0, -25], float), x0 + np.array([-10, 0, 10, 20], float)]
+    else:
+        # the free forearm and wrist had one start only: the male right sukhasana hand settled palm up, the
+        # wrist bent back, its heel on the knee (seen by the user 2026-11-13)
+        starts += [x0 + np.array([10, 0, 0, -15, 8, -10, 0], float), x0 + np.array([-8, 4, 10, 15, -5, 10, 0], float)]
+        # the arm brought forward with a straighter elbow: on the high male knees every start above ended with
+        # the shoulder at 0, the elbow at 82 and the palm 8-10 cm over the knee at elbow height (2026-11-13)
+        for fl, el in ((20, 35), (30, 45), (35, 30)):
+            starts.append(np.array([fl, 15, 0, el, -78, -15, 0], float))
     best = None
     for s0 in starts:
         x, f = nelder_mead(cost, s0, 6.0, iters=700 if free else 500)
@@ -524,10 +532,12 @@ def solve_arm(ctx, Wlegs, root, s, mode, target_fn):
     return {k: v for k, v in W.items() if k.endswith(f".{s}") and k.split(".")[0] in ("upperarm01", "upperarm02", "lowerarm01", "lowerarm02", "wrist")}, {"x": np.round(x, 1).tolist(), "cost": round(float(f), 5)}
 
 
-def thigh_surface(ctx, H, legs_pos, s, t, up=True):
-    """Top (up) point of the posed thigh at fraction t from hip to knee (legs_pos in idx_legs order)."""
+def thigh_surface(ctx, H, legs_pos, s, t, up=True, own_thigh=False):
+    """Top (up) point of the posed thigh at fraction t from hip to knee (legs_pos in idx_legs order).
+    own_thigh: the thigh's own skin only. In sukhasana the other leg's crossed shin lies higher at the same
+    fraction and pulled the open palms into the middle of the lap, fingers toward each other (user, 2026-11-13)"""
     hip, knee = ctx.H(f"upperleg01.{s}", H), ctx.H(f"lowerleg01.{s}", H)
-    pts = legs_pos[ctx.sub[f"thigh.{s}"] | ctx.sub[f"shin.{s}"]]
+    pts = legs_pos[ctx.sub[f"thigh.{s}"]] if own_thigh else legs_pos[ctx.sub[f"thigh.{s}"] | ctx.sub[f"shin.{s}"]]
     ax = knee - hip
     tt = (pts - hip) @ ax / (ax @ ax)
     near = pts[np.abs(tt - t) < 0.06]
@@ -541,7 +551,10 @@ def make_palm_on(point, ctx_legs, normal_down=True):
         centre = palm.mean(axis=0)
         n = qrot(Q[ctx.rig.index[f"wrist.{s}"]], ctx.ps.hand_frame0(s)[1])
         c = 3e3 * float(np.sum((centre - (point + np.array([0, 0.012, 0]))) ** 2))
-        c += 20 * (n[1] + 1.0) ** 2 if normal_down else 20 * (n[1] - 1.0) ** 2
+        # palm facing down weighs as much as ~10 cm of position: at 20 a palm-up hand with its heel on the
+        # knee won over a palm-down one a few cm off the target
+        w_n = 120
+        c += w_n * (n[1] + 1.0) ** 2 if normal_down else w_n * (n[1] - 1.0) ** 2
         hand = pos[ctx.subh[f"hand.{s}"]]
         for cap in ("thigh.L", "thigh.R", "shin.L", "shin.R"):
             d = ctx.cap[cap].depth(H, hand)
@@ -787,8 +800,10 @@ def body_pose(ctx, pid, anjali_world):
             # the thick male thigh the 0.72 point was out of reach palm down and the hands hung in the air
             # past the knees (solver cost 43, palm 12 cm off its target)
             best_t = None
-            for t in ((0.72, 0.80, 0.88) if pid == "sukhasana" else (0.65, 0.74, 0.83)):
-                tgt = thigh_surface(ctx, H, legs_pos, s, t)
+            # (0.62, 0.55 last: on the high male knees no point near the knee was reachable palm down and the
+            # best of them left the palm hanging 5 cm over the knee, 2026-11-13)
+            for t in ((0.72, 0.80, 0.88, 0.62, 0.55) if pid == "sukhasana" else (0.65, 0.74, 0.83)):
+                tgt = thigh_surface(ctx, H, legs_pos, s, t, own_thigh=True)
                 Wa, ai = settle_arm(ctx, W, root, s, "thigh", lambda p: make_palm_on(p, None), tgt, fingers=[fo], palm=True)
                 ai["t"] = t
                 if best_t is None or ai["cost"] < best_t[1]["cost"]:
