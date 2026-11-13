@@ -677,8 +677,21 @@ def body_pose(ctx, pid, anjali_world):
     an = ctx.an
     info = {}
     if pid == "stand":
-        ps.W, ps.root = {}, np.zeros(3)
-        return {}, np.zeros(3), info, None
+        # the start pose: the anatomical position of acupuncture charts, arms 16 deg out with the palms
+        # forward so the inner-arm channels (lung, pericardium, heart) face the viewer; the rigged A-pose
+        # (arms at 45 deg, feet wide) read as a rigging pose and the heart line ran along the silhouette
+        # as a red band (artist, council round 2). Round 3: supination 75 -> 62 (the forearm looked wrung),
+        # toes out 12 deg, the shoulder girdle 4 deg lower (the trapezius looked hitched up). Its softer open
+        # fingers are body.stand.openRot in poses.json (hand.open.rot plus 6/9/5 deg of flexion, thumb 5), kept
+        # from the previous poses.json on a rebuild
+        W = {}
+        for s, sg in SIDES.items():
+            W[f"clavicle.{s}"] = qaxis(Z, -sg * 4.0)
+            W.update(an.leg(s, hip=(0, 3, 12), knee=0, ankle=(0, 0)))
+            W.update(an.arm(s, shoulder=(0, 16, 20), elbow=10, sup=62, wrist=(0, 0)))
+        ps.W, ps.root = W, np.zeros(3)
+        ground(ctx)
+        return W, ps.root.copy(), info, None
     if pid == "tadasana":
         W = {}
         for s in SIDES:

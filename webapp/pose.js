@@ -14,11 +14,11 @@ import * as THREE from 'three';
 
 const IDQ = [0, 0, 0, 1];
 
+// url / posesUrl: a URL, or a promise of the parsed JSON already being fetched (the page starts both
+// together with the body model so the start pose is ready when the loader goes away)
 export async function loadRig(url, posesUrl = url.replace(/rig\.json(\?.*)?$/, 'poses.json')) {
-  const [r, poses] = await Promise.all([
-    fetch(url).then((res) => res.json()),
-    posesUrl ? fetch(posesUrl).then((res) => res.json()) : Promise.resolve(null),
-  ]);
+  const json = (u) => (typeof u === 'string' ? fetch(u).then((res) => res.json()) : u);
+  const [r, poses] = await Promise.all([json(url), posesUrl ? json(posesUrl) : Promise.resolve(null)]);
   const n = r.bones.length;
   const rig = {
     names: r.bones.map((b) => b.name),
@@ -161,7 +161,8 @@ export function createSkinner(rig, restPositions, variant = 'neutral') {
   const Qw = new Float32Array(n * 4), Hw = new Float32Array(n * 3);
   const M = new Float32Array(n * 12); // per bone: 3x3 rotation (row-major) + translation
   const DQ = new Float32Array(n * 8); // per bone: dual quaternion (real xyzw, dual xyzw)
-  let targetKey = 'stand|open';
+  // none yet: the rig's rest (A-pose) is no longer the stand pose, so the first apply() must compose
+  let targetKey = '';
   let lastT = 1;
 
   function forward() {

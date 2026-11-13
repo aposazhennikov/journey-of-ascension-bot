@@ -339,7 +339,7 @@ class YogaBot:
         self.http_app.router.add_get('/healthz', self.health_handler)
         self.http_app.router.add_get('/metrics', self.metrics_handler)
         self.http_app.router.add_get('/stats', self.stats_handler)
-        setup_webapp_routes(self.http_app, self.meridians_manager)
+        setup_webapp_routes(self.http_app, self.meridians_manager, self.storage, self.settings.bot_token)
 
         # Start server.
         self.http_runner = web.AppRunner(self.http_app)

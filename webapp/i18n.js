@@ -210,6 +210,8 @@ const S = {
   how_title: ['Как выполнить', 'How to do it', 'Qanday bajariladi', 'Қалай орындалады'],
   focus_channels: ['Внимание в этой позе', 'Attention in this pose', 'Bu holatda diqqat', 'Бұл қалыпта зейін'],
   connects: ['Соединяет', 'Connects', "Bog'laydi", 'Байланыстырады'],
+  // under a one-hand mudra close-up: the camera left the figure, say how to get it back (UX council round 2)
+  closeup_hint: ['Крупно показана одна рука · ⛶ — вся фигура', 'Close-up of one hand · ⛶ shows the whole figure', "Bir qo'l yaqindan ko'rsatilgan · ⛶ — butun gavda", 'Бір қол жақыннан көрсетілген · ⛶ — бүкіл дене'],
   // the channels at the fingertips are classical (Ling Shu ch. 10); what is modern is reading the joined fingers of a mudra through them (TCM council)
   mudra_note: ['Где каналы выходят на пальцы, описано ещё в «Лин шу». Современное здесь — толкование мудр через эти каналы: в классических текстах соединению пальцев такого смысла не придавали.', 'Where the channels reach the fingers is described as early as the Ling Shu. What is modern is reading mudras through these channels: classical texts give joined fingers no such meaning.', "Kanallarning barmoqlarga chiqish joylari «Ling Shu»da tasvirlangan. Zamonaviy narsa — mudralarni shu kanallar orqali talqin qilish: mumtoz matnlarda barmoqlarni birlashtirishga bunday ma'no berilmagan.", 'Арналардың саусақтарға шығатын жері «Лин шу» мәтінінде сипатталған. Қазіргі нәрсе — мудраларды осы арналар арқылы түсіндіру: классикалық мәтіндерде саусақтарды біріктіруге мұндай мағына берілмеген.'],
   poses_loading: ['Загружаю позы…', 'Loading poses…', 'Holatlar yuklanmoqda…', 'Қалыптар жүктелуде…'],

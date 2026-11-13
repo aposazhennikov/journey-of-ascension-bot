@@ -1447,7 +1447,7 @@ TEXTS_UPDATE = {
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
             "Yama and Niyama teach you not to waste strength in thought, speech and action; meridians bring the same work into the body, where you learn to notice points and lines with attention and breath. "
-            "You can start with one path and add the other later in the menu.\n\n"
+            "You can start with one path, add the other later in the menu, and open the 3D map below even before choosing.\n\n"
             "What would you like to study?"
         ),
         "initial_mode_question": "What would you like to study?",
@@ -1681,7 +1681,7 @@ TEXTS_UPDATE = {
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
             "Яма и Нияма учат не растрачивать силы в мыслях, речи и поступках, а меридианы переносят ту же работу в тело: вы учитесь замечать точки и линии вниманием и дыханием. "
-            "Можно начать с одного пути и добавить второй позже в меню.\n\n"
+            "Можно начать с одного пути, второй добавить позже в меню, а 3D-карту ниже открыть и до выбора.\n\n"
             "Что вы хотели бы изучать?"
         ),
         "initial_mode_question": "Что вы хотели бы изучать?",
@@ -1915,7 +1915,7 @@ TEXTS_UPDATE = {
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
             "Yama va Niyama fikr, so'z va harakatda kuchni behuda sarflamaslikka o'rgatadi, meridianlar esa shu ishni tanaga olib kiradi: nuqta va chiziqlarni diqqat va nafas bilan sezishni o'rganasiz. "
-            "Bitta yo'ldan boshlash mumkin, ikkinchisini keyin menyuda qo'shasiz.\n\n"
+            "Bitta yo'ldan boshlash, ikkinchisini keyin menyuda qo'shish, pastdagi 3D xaritani esa tanlashdan oldin ham ochish mumkin.\n\n"
             "Nimani o'rganmoqchisiz?"
         ),
         "initial_mode_question": "Nimani o'rganmoqchisiz?",
@@ -2162,7 +2162,7 @@ TEXTS_UPDATE = {
         "onboarding_intro": (
             "<b>Journey of Ascension</b>\n\n"
             "Яма мен Нияма ойда, сөзде және әрекетте күшті босқа шашпауға үйретеді, ал меридиандар осы жұмысты денеге әкеледі: нүктелер мен сызықтарды зейін мен тыныс арқылы сезуді үйренесіз. "
-            "Бір жолдан бастауға болады, екіншісін кейін мәзірден қосасыз.\n\n"
+            "Бір жолдан бастап, екіншісін кейін мәзірден қосуға, ал төмендегі 3D картаны таңдауға дейін де ашуға болады.\n\n"
             "Нені зерттегіңіз келеді?"
         ),
         "initial_mode_question": "Нені зерттегіңіз келеді?",
@@ -3219,7 +3219,7 @@ MERIDIAN_MAP_3D_TEXT_OVERRIDES = {
         "meridian_map_3d": "🧍 Meridianlarning 3D xaritasi",
         "map3d_announcement": (
             "🧍 <b>Yangilik: meridianlarning 3D xaritasi</b>\n\n"
-            "Botda hajmli xarita paydo bo'ldi: 12 asosiy meridian, Du-may, Ren-may va oltita g'aroyib tomir, "
+            "Botda hajmli xarita paydo bo'ldi: 12 asosiy meridian, Du-mai, Ren-mai va oltita g'aroyib tomir, "
             "tananing o'zida 361 ta nuqta.\n\n"
             "Xarita bilan nima qilish mumkin:\n"
             "• figurani barmoq bilan aylantirish va kerakli joyni yaqinlashtirish;\n"
@@ -3630,10 +3630,19 @@ class BotHandlers:
                 confirmation = self._get_text("language_chosen", language)
                 intro_msg = self._get_text("onboarding_intro", language)
                 combined_msg = f"{confirmation}\n\n{intro_msg}"
-                keyboard = self._create_registration_modes_keyboard(language)
+                keyboard = self._create_registration_modes_keyboard(language, chat_id)
 
+                # the "Map" chat button from the first message on, not only after the setup is finished
+                await self._set_user_map_menu_button(chat_id, language)
                 logger.debug(f"Sending onboarding intro in {language} to user {chat_id}")
-                await self._edit_message_text_safe(query, combined_msg, reply_markup=keyboard, parse_mode='HTML')
+                try:
+                    await self._edit_message_text_safe(query, combined_msg, reply_markup=keyboard, parse_mode='HTML')
+                except BadRequest as e:
+                    # a map URL Telegram refuses must not leave the newcomer stuck on the language choice
+                    logger.warning(f"Onboarding intro with the map button refused for {chat_id}: {e}")
+                    await self._edit_message_text_safe(
+                        query, combined_msg, reply_markup=self._create_registration_modes_keyboard(language), parse_mode='HTML'
+                    )
 
         except Exception as e:
             logger.error(f"Error in language callback for user {chat_id}: {e}")
@@ -5008,13 +5017,21 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("stop_feedback_skip", language), callback_data="stop_feedback_skip")]
         ])
 
-    def _create_registration_modes_keyboard(self, language: str) -> InlineKeyboardMarkup:
-        """Create initial practice mode keyboard for new-user onboarding."""
-        return InlineKeyboardMarkup([
+    def _create_registration_modes_keyboard(self, language: str, chat_id: int = 0) -> InlineKeyboardMarkup:
+        """Create initial practice mode keyboard for new-user onboarding.
+
+        In a private chat it also offers the 3D map: a newcomer can look at the meridians before choosing
+        (the map was offered only after the whole setup, UX council round 2).
+        """
+        rows = [
             [InlineKeyboardButton(self._get_text("mode_meridians_only", language), callback_data="intro_mode_meridians")],
             [InlineKeyboardButton(self._get_text("mode_principles_only", language), callback_data="intro_mode_principles")],
             [InlineKeyboardButton(self._get_text("mode_both", language), callback_data="intro_mode_both")],
-        ])
+        ]
+        map_button = self._create_meridian_map_button(language) if chat_id > 0 else None
+        if map_button:
+            rows.append([map_button])
+        return InlineKeyboardMarkup(rows)
 
     def _create_meridians_menu_keyboard(self, language: str, user: Optional[User] = None) -> InlineKeyboardMarkup:
         """Create compact meridians section keyboard."""

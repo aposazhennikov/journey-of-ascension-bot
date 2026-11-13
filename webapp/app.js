@@ -629,6 +629,23 @@ function factsLine(ch) {
 
 // ---------------------------------------------------------------- practice progress (from the bot)
 
+// Opened from the chat menu button (a fixed URL without pm/pi/pd): ask the bot with the signed initData.
+// Resolves to true when the progress changed.
+function fetchProgress() {
+  if (params.has('pm') || params.has('pd') || !tg?.initData) return Promise.resolve(false);
+  return fetch('api/progress', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ initData: tg.initData }),
+  }).then((res) => (res.ok ? res.json() : {})).then((p) => {
+    if (!p || (!p.pm && !p.pd)) return false;
+    PROGRESS.m = p.pm || null;
+    PROGRESS.p = Number.isInteger(p.pi) ? p.pi : -1;
+    PROGRESS.done = new Set(Array.isArray(p.pd) ? p.pd : []);
+    return true;
+  }).catch(() => false);
+}
+
 const pathChannel = () => (PROGRESS.m && state.channelById.get(PROGRESS.m)) || null;
 function pathPoint() {
   const ch = pathChannel();
@@ -1336,7 +1353,11 @@ function renderBodyBtn() {
   const b = $('bodyBtn');
   if (!b) return;
   const male = state.body === 'male';
-  b.textContent = t(male ? 'body_m' : 'body_f');
+  // drawn like the other buttons (the ♀/♂ text glyphs were thin and font-dependent, artist round 2)
+  const g = male
+    ? '<circle cx="10" cy="14" r="5"/><path d="M13.6 10.4 19 5M14.5 5H19v4.5"/>'
+    : '<circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/>';
+  b.innerHTML = `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${g}</g></svg>`;
   b.setAttribute('aria-label', t('body_switch_aria', { name: t(male ? 'body_m_aria' : 'body_f_aria') }));
 }
 $('bodyBtn').addEventListener('click', async () => {
@@ -1368,13 +1389,39 @@ $('menuBtn').addEventListener('click', openMenu);
 
 const poseSys = { mod: null, rig: null, skinner: null, segments: [], seg: 0, t0: 0, variantRest: {}, variantEyes: {}, morph: null, loading: null };
 
+// the pose module and its data, fetched together with the body model at start (the start pose is
+// a pose of the rig: arms a little out with the palms forward, not the A-pose the model is rigged in)
+function prefetchPoses() {
+  const json = (u) => fetch(u).then((res) => { if (!res.ok) throw new Error(`${u}: ${res.status}`); return res.json(); });
+  const p = {
+    mod: import('./pose.js'),
+    rig: json(`assets/rig.json?v=${ASSET_VERSION}`),
+    poses: json(`assets/poses.json?v=${ASSET_VERSION}`),
+  };
+  for (const k of Object.keys(p)) p[k].catch(() => {});   // failures surface in ensurePoses, not as unhandled
+  return p;
+}
+
+// Put the figure into the current body pose at once (start: the stand pose) before the loader goes;
+// without the pose data in a few seconds the rigged A-pose stays
+async function applyStartPose() {
+  const ready = ensurePoses().then(() => !!poseSys.skinner);
+  const ok = await Promise.race([ready, new Promise((r) => setTimeout(() => r(false), 6000))]);
+  if (!ok) return;
+  const pos = poseSys.skinner.apply(state.pose, state.mudra, 1);
+  scene.setBodyPositions(pos, eyePositions(), { normals: true });
+  scene.refitBvh();
+}
+
 async function ensurePoses() {
   if (poseSys.loading) return poseSys.loading;
   poseSys.loading = (async () => {
     state.poseContent = state.poseContent || await loadPoseContent();
     try {
-      poseSys.mod = await import('./pose.js');
-      poseSys.rig = await poseSys.mod.loadRig(`assets/rig.json?v=${ASSET_VERSION}`, `assets/poses.json?v=${ASSET_VERSION}`);
+      const pre = poseSys.prefetch || prefetchPoses();
+      poseSys.prefetch = null;
+      poseSys.mod = await pre.mod;
+      poseSys.rig = await poseSys.mod.loadRig(pre.rig, pre.poses);
       poseSys.skinner = poseSys.mod.createSkinner(poseSys.rig, scene.restPositions, state.body);
     } catch (err) {
       console.warn('poses unavailable', err);
@@ -1441,7 +1488,8 @@ function renderPosesPeek() {
       <div class="seg" role="tablist">${['asanas', 'mudras', 'arms'].map((k) => `<button role="tab" data-tab="${k}" aria-selected="${tab === k}">${esc(t(`tab_${k}`))}</button>`).join('')}</div>
     </div>
     <div class="pose-row">${cards || `<span class="muted">${esc(poseSys.loading ? t('poses_loading') : t('poses_unavailable'))}</span>`}</div>
-    <div class="peek-sub pose-desc">${esc(poseText(cur).short || '')}</div>`;
+    <div class="peek-sub pose-desc">${esc(poseText(cur).short || '')}</div>
+    ${tab === 'mudras' && isMudraOn() && state.mudra !== 'hakini' && state.mudra !== 'anjali' ? `<div class="peek-sub closeup-hint">${esc(t('closeup_hint'))}</div>` : ''}`;
   // keep the row where it was and bring the chosen card into view (padmasana stayed off screen)
   const row = els.peek.querySelector('.pose-row');
   if (row) {
@@ -1984,6 +2032,8 @@ async function boot() {
       scene.onContextRestored = () => $('loading').classList.add('hidden');
     }
     const bodyUrl = `assets/body_${state.body}.glb?v=${ASSET_VERSION}`;
+    if (!poseSys.mod && !poseSys.loading) poseSys.prefetch = prefetchPoses();
+    const progressReady = fetchProgress();
     const [data] = await Promise.all([
       loadData(LANG),
       scene.loadBody(bodyUrl, (ev) => { if (ev.total) setLoading(t('loading'), { progress: ev.loaded / ev.total }); })
@@ -1994,6 +2044,10 @@ async function boot() {
     for (const c of [...data.channels, ...data.vessels]) state.channelById.set(c.id, c);
     scene.buildChannels([...data.channels, ...data.vessels], data.coords, data.via);
     applyPointMeta();
+    await applyStartPose();
+    // the progress usually arrives with the data; a slow answer redraws the home sheet when it comes
+    const progressLate = await Promise.race([progressReady.then(() => false), new Promise((r) => setTimeout(() => r(true), 1500))]);
+    if (progressLate) progressReady.then((changed) => { if (!changed) return; renderChips(); if (state.level.view === 'home' && !state.overlay) renderSheet(); });
     setSheet('peek', { silent: true });
     scene.resize();
     bindCanvas();

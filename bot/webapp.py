@@ -1,7 +1,10 @@
 """HTTP routes for the 3D meridian map Telegram Mini App."""
 
+import hashlib
+import hmac
 import json
 import re
+import time
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, Optional
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -15,8 +18,11 @@ from .utils import (
 )
 
 if TYPE_CHECKING:
-    from .storage import User
+    from .storage import JsonStorage, User
     from .utils import MeridiansManager
+
+# initData older than this is refused (a leaked one cannot be replayed for long)
+INIT_DATA_MAX_AGE = 24 * 3600
 
 WEBAPP_DIR = Path(__file__).resolve().parent.parent / "webapp"
 WEBAPP_LANGUAGES = ("ru", "en", "uz", "kz")
@@ -71,21 +77,58 @@ def build_map_url(
     params = dict(parse_qsl(parts.query))
     if language:
         params["lang"] = language
-    if user and user.meridians_enabled:
-        # the map marks the practice progress: the meridian in work (pm), the point reached (pi, 0-based),
-        # the finished meridians (pd)
-        if user.current_meridian_id:
-            params["pm"] = user.current_meridian_id
-            if user.current_point_index is not None and user.current_point_index >= 0:
-                params["pi"] = str(user.current_point_index)
-        if user.completed_meridians:
-            params["pd"] = ",".join(user.completed_meridians)
+    # the map marks the practice progress: the meridian in work (pm), the point reached (pi, 0-based),
+    # the finished meridians (pd)
+    for key, value in progress_payload(user).items():
+        params[key] = ",".join(value) if isinstance(value, list) else str(value)
     # the map's own deep links: p opens a point, m selects a meridian
     if point_code:
         params["p"] = point_code
     elif meridian_id:
         params["m"] = meridian_id
     return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(params), parts.fragment))
+
+
+def verify_init_data(init_data: str, bot_token: str, now: Optional[float] = None) -> Optional[Dict[str, Any]]:
+    """Telegram user of a Mini App launch, or None when initData is not signed with this bot's token.
+
+    https://core.telegram.org/bots/webapps#validating-data-received-via-the-mini-app: the data-check
+    string is every field but hash, sorted, "key=value" joined by newlines; the key is
+    HMAC-SHA256("WebAppData", bot_token).
+    """
+    if not init_data or not bot_token:
+        return None
+    fields = dict(parse_qsl(init_data, keep_blank_values=True))
+    received = fields.pop("hash", "")
+    if not received:
+        return None
+    check = "\n".join(f"{key}={value}" for key, value in sorted(fields.items()))
+    secret = hmac.new(b"WebAppData", bot_token.encode(), hashlib.sha256).digest()
+    expected = hmac.new(secret, check.encode(), hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(expected, received):
+        return None
+    try:
+        auth_date = int(fields.get("auth_date", "0"))
+        user = json.loads(fields.get("user") or "{}")
+    except (ValueError, TypeError):
+        return None
+    if (now if now is not None else time.time()) - auth_date > INIT_DATA_MAX_AGE:
+        return None
+    return user if isinstance(user, dict) and isinstance(user.get("id"), int) else None
+
+
+def progress_payload(user: Optional["User"]) -> Dict[str, Any]:
+    """The practice progress the map shows, as build_map_url puts it into the URL (pm, pi, pd)."""
+    if not user or not user.meridians_enabled:
+        return {}
+    out: Dict[str, Any] = {}
+    if user.current_meridian_id:
+        out["pm"] = user.current_meridian_id
+        if user.current_point_index is not None and user.current_point_index >= 0:
+            out["pi"] = user.current_point_index
+    if user.completed_meridians:
+        out["pd"] = list(user.completed_meridians)
+    return out
 
 
 def build_map_button(
@@ -167,8 +210,28 @@ def build_meridians_payload(meridians_manager: "MeridiansManager", language: str
     return {"language": language, "meridians": meridians}
 
 
-def setup_webapp_routes(app: web.Application, meridians_manager: "MeridiansManager") -> None:
+def setup_webapp_routes(
+    app: web.Application,
+    meridians_manager: "MeridiansManager",
+    storage: Optional["JsonStorage"] = None,
+    bot_token: str = "",
+) -> None:
     """Serve the Mini App page, its static files and the meridian data endpoint."""
+
+    async def progress_handler(request: web.Request) -> web.Response:
+        # the chat menu button opens the map with a fixed URL, so the progress cannot ride in it; the page
+        # asks here with its signed initData and gets only the progress of the user who opened it
+        if storage is None:
+            raise web.HTTPNotFound()
+        try:
+            body = await request.json()
+        except (ValueError, UnicodeDecodeError):
+            raise web.HTTPBadRequest()
+        tg_user = verify_init_data(str(body.get("initData", "")) if isinstance(body, dict) else "", bot_token)
+        if not tg_user:
+            raise web.HTTPUnauthorized()
+        user = await storage.get_user(int(tg_user["id"]))
+        return web.json_response(progress_payload(user), headers={"Cache-Control": "no-store"})
 
     async def index_handler(request: web.Request) -> web.FileResponse:
         return web.FileResponse(WEBAPP_DIR / "index.html", headers={"Cache-Control": "no-cache"})
@@ -225,5 +288,6 @@ def setup_webapp_routes(app: web.Application, meridians_manager: "MeridiansManag
     app.router.add_get("/webapp", redirect_handler)
     app.router.add_get("/webapp/", index_handler)
     app.router.add_get("/webapp/api/meridians", meridians_handler)
+    app.router.add_post("/webapp/api/progress", progress_handler)
     app.router.add_get("/webapp/assets/{name}.json", json_asset_handler)
     app.router.add_static("/webapp/", WEBAPP_DIR, show_index=False)

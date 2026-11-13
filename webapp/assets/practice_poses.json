@@ -100,28 +100,28 @@
         "ru": {
           "name": "Исходная стойка",
           "short": "Стоя прямо, руки слегка разведены, чтобы были видны линии на внутренней стороне рук.",
-          "how": "Стопы чуть шире таза, руки отведены от тела ладонями внутрь. Это не асана, а положение для просмотра: так видны все каналы, и на внутренней стороне рук тоже.",
+          "how": "Стопы на ширине таза, руки немного отведены от тела, ладони обращены вперёд, пальцы расслаблены. Это не асана, а положение для просмотра: так видны все каналы, и на внутренней стороне рук тоже.",
           "meridians_note": "Каналы показаны в обычном положении тела, без растяжения и сжатия. С этой позы удобно начинать знакомство с картой.",
           "practice": "Выберите меридиан и пройдите по нему вниманием в том направлении, которое указано в его карточке."
         },
         "en": {
           "name": "Base standing position",
           "short": "Standing upright, arms slightly out so the lines on the inner arms show.",
-          "how": "Feet a little wider than the hips, arms held away from the body, palms in. It is not an asana but a viewing position: every channel is visible, the inner arms too.",
+          "how": "Feet hip-width apart, arms a little away from the body, palms facing forward, fingers relaxed. It is not an asana but a viewing position: every channel is visible, the inner arms too.",
           "meridians_note": "Channels are shown in the ordinary body position, neither stretched nor compressed. It is a convenient starting point for exploring the map.",
           "practice": "Choose a meridian and follow it with attention in the direction given in its card."
         },
         "uz": {
           "name": "Boshlang'ich holat",
           "short": "To'g'ri turgan holat, qo'llarning ichki tomonidagi chiziqlar ko'rinishi uchun qo'llar biroz yonga ochilgan.",
-          "how": "Oyoqlar chanoqdan biroz kengroq, qo'llar tanadan uzoqlashtirilgan, kaftlar ichkariga qaragan. Bu asana emas, ko'rish uchun holat: barcha kanallar, qo'llarning ichki tomoni ham ko'rinadi.",
+          "how": "Oyoqlar chanoq kengligida, qo'llar tanadan biroz uzoqlashtirilgan, kaftlar oldinga qaragan, barmoqlar bo'sh. Bu asana emas, ko'rish uchun holat: barcha kanallar, qo'llarning ichki tomoni ham ko'rinadi.",
           "meridians_note": "Kanallar tananing oddiy holatida, cho'zilmagan va siqilmagan ko'rinishda ko'rsatilgan. Xarita bilan tanishishni shu holatdan boshlash qulay.",
           "practice": "Meridianni tanlang va uning kartasida ko'rsatilgan yo'nalish bo'yicha diqqat bilan o'tib chiqing."
         },
         "kz": {
           "name": "Бастапқы тұрыс",
           "short": "Тік тұрыс, қолдың ішкі жағындағы сызықтар көрінуі үшін қолдар сәл ашылған.",
-          "how": "Аяқтар жамбастан сәл кеңірек, қолдар денеден алыстатылған, алақандар ішке қараған. Бұл асана емес, қарауға арналған қалып: барлық арналар, қолдың ішкі жағы да көрінеді.",
+          "how": "Аяқтар жамбас енімен, қолдар денеден сәл алыстатылған, алақандар алға қараған, саусақтар босаңсыған. Бұл асана емес, қарауға арналған қалып: барлық арналар, қолдың ішкі жағы да көрінеді.",
           "meridians_note": "Арналар дененің қалыпты күйінде, созылмай да, қысылмай да көрсетілген. Картамен танысуды осы қалыптан бастаған ыңғайлы.",
           "practice": "Меридианды таңдап, оның картасында көрсетілген бағытпен зейінмен жүріп өтіңіз."
         }
@@ -902,20 +902,20 @@
       "id": "open",
       "i18n": {
         "ru": {
-          "name": "Руки опущены",
-          "short": "Руки свободно вдоль тела или на коленях, как в выбранной позе."
+          "name": "Руки свободно",
+          "short": "Руки как в выбранной позе: стоя чуть отведены ладонями вперёд, сидя лежат на коленях."
         },
         "en": {
-          "name": "Arms down",
-          "short": "Arms resting by the body or on the knees, as in the chosen pose."
+          "name": "Arms relaxed",
+          "short": "Arms as in the chosen pose: standing, a little out with the palms forward; seated, on the knees."
         },
         "uz": {
-          "name": "Qo'llar pastda",
-          "short": "Qo'llar tana bo'ylab yoki tizzalarda, tanlangan holatdagidek erkin."
+          "name": "Qo'llar erkin",
+          "short": "Qo'llar tanlangan holatdagidek: tik turganda biroz yonga ochilgan, kaftlar oldinga; o'tirganda tizzalarda."
         },
         "kz": {
-          "name": "Қолдар төменде",
-          "short": "Қолдар дене бойында немесе тізеде, таңдалған қалыптағыдай еркін."
+          "name": "Қолдар еркін",
+          "short": "Қолдар таңдалған қалыптағыдай: тұрғанда сәл ашылған, алақандар алға; отырғанда тізеде."
         }
       },
       "emphasized_meridians": [],

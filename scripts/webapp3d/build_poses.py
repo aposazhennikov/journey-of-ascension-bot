@@ -1633,7 +1633,7 @@ def main():
     args = ap.parse_args()
     rig = pk.Rig()
     labels = {
-        "stand": "Rest (A-pose)", "tadasana": "Tadasana", "vrikshasana": "Vrikshasana", "sukhasana": "Sukhasana",
+        "stand": "Start (arms slightly out, palms forward)", "tadasana": "Tadasana", "vrikshasana": "Vrikshasana", "sukhasana": "Sukhasana",
         "ardha_padmasana": "Ardha padmasana", "padmasana": "Padmasana", "vajrasana": "Vajrasana", "dandasana": "Dandasana",
         "open": "Open hand", "gyan": "Gyan mudra", "prithvi": "Prithvi mudra", "shuni": "Shuni mudra", "vyana": "Vyana mudra",
         "apana": "Apana mudra", "hakini": "Hakini mudra", "anjali": "Anjali mudra",
