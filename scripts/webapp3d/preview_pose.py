@@ -55,7 +55,10 @@ class Scene:
         Q, H = self.rig.fk(self.variant, loc, root)
         skin = self.rig.skin(self.prims[0][0], self.variant, Q, H)
         # the body pose's corrective and an arm position's own one, added after skinning as pose.js does
-        for e in (self.poses["body"][body], self.poses["hand"].get(hand) or {}):
+        h = self.poses["hand"].get(hand) or {}
+        # the stance's shoulder corrective gives way to an arm position's own (same rule as pose.js)
+        b_e = {} if body == "stand" and "arms" in h else self.poses["body"][body]
+        for e in (b_e, h):
             c = (e.get("corr") or {}).get(self.variant)
             if c and c.get("i"):
                 np.add.at(skin, np.asarray(c["i"]), np.asarray(c["d"], float).reshape(-1, 3))

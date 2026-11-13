@@ -18,7 +18,7 @@ const BODY_COLORS = {
   // warm skin with warm shadows, a cool fill from the sky on the shadow side, a light rim along the
   // silhouette and a warm band where light turns to shadow (the artist of the council: the grey-beige
   // clay with flat front light read as a plastic dummy)
-  light: { base: '#e2c9b3', shadow: '#8c6652', rim: '#fff6ec', fill: '#a9bccd', sss: '#d58e74' },
+  light: { base: '#e2c9b3', shadow: '#7f5b49', rim: '#fff6ec', fill: '#a9bccd', sss: '#d58e74' },
   dark: { base: '#574c45', shadow: '#2b221d', rim: '#c9d6e4', fill: '#5d7186', sss: '#7a4a38' },
 };
 
@@ -222,7 +222,9 @@ function makeClayMatcap({ base, shadow, rim, fill, sss }, size = 256) {
       if (r2 > 1) continue;
       const nz = Math.sqrt(1 - r2);
       const ndl = nx * L.x + ny * L.y + nz * L.z;
-      const wrap = THREE.MathUtils.smoothstep((ndl + 0.4) / 1.4, 0, 1);
+      // wrap 0.25 (was 0.4): with the wider wrap the whole front was one tone and the legs had no volume,
+      // light to shadow ~15 % (artist round 3)
+      const wrap = THREE.MathUtils.smoothstep((ndl + 0.25) / 1.25, 0, 1);
       const fres = Math.pow(1 - nz, 2.5);
       const spec = Math.pow(Math.max(0, 2 * ndl * nz - L.z), 24) * 0.035;
       // the cool fill lifts the side away from the key; the warm band sits on the terminator; the rim
@@ -267,7 +269,9 @@ function makeFloorShadow() {
   const ctx = canvas.getContext('2d');
   const grad = ctx.createRadialGradient(64, 64, 4, 64, 64, 64);
   // a little stronger, so the figure stands on the fog of the photos instead of floating (artist round 2)
-  grad.addColorStop(0, 'rgba(30,20,10,0.34)');
+  // round 3: a denser core under the feet, the contact read as barely there
+  grad.addColorStop(0, 'rgba(30,20,10,0.4)');
+  grad.addColorStop(0.45, 'rgba(30,20,10,0.22)');
   grad.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, 128, 128);
@@ -692,7 +696,7 @@ export class MeridianScene {
       const c = new THREE.Color(this.colorOf(id));
       // home: only the active channel is bright, the rest recede (14 bright lines merged into a tangle);
       // the muted lines keep a darker version of their hue instead of turning white
-      let mix = level === 'home' ? 0.55 : 0.75;
+      let mix = level === 'home' ? 0.45 : 0.75;
       if (id === sel.pair) mix = 0.5;
       if (full.has(id) || highlight.has(id)) mix = 0;
       c.lerp(tone, mix);
@@ -700,7 +704,8 @@ export class MeridianScene {
     }
     this.overview.geometry.attributes.instanceColorStart.data.needsUpdate = true;
     // three line weights, about 1 : 2.5 : 5 (overview, a group or pose, one chosen channel), artist round 2
-    this.overview.material.linewidth = level === 'home' ? 1.5 : 1.25;
+    // home 1.8: at 1.5 the muted lines read as yellow-grey scratches and nearly vanished on the male body (artist round 3)
+    this.overview.material.linewidth = level === 'home' ? 1.8 : 1.25;
     // no white casing on the muted overview: on the light theme it made them look like scratches
     this.overview.material.uniforms.uCasing.value = 0;
     this.overview.material.uniforms.uDarkEdge.value = this.theme === 'dark' ? 1 : 0;
@@ -787,11 +792,19 @@ export class MeridianScene {
       basePolys.push(...ch.polylines.filter((p) => !p.link));
     }
     if (basePolys.length) {
-      const geom = segmentsGeometry(basePolys, { colors: (pl) => new THREE.Color(this.colorOf(pl.channelId)) });
+      // home shows the channel active by the clock only as a hint: thinner and a little towards the skin tone.
+      // At full weight the bladder line, seen from the front only on the forehead and the little toes, read as
+      // two bars of war paint (artist round 3)
+      const home = (sel.level || 'home') === 'home';
+      const tone = new THREE.Color(BODY_TONE[this.theme]);
+      const geom = segmentsGeometry(basePolys, { colors: (pl) => {
+        const c = new THREE.Color(this.colorOf(pl.channelId));
+        return home ? c.lerp(tone, 0.2) : c;
+      } });
       // poses: the whole figure is in view, so the lines are thin on screen; 2.5 px yellow and green lines
       // were lost on the skin (UX council 2026-11-12), the hand close-ups of the mudras need less
       const group = baseIds.size > 1;
-      this.selBase = new LineSegments2(geom, new CasedLineMaterial({ vertexColors: true, linewidth: 3.0 }));
+      this.selBase = new LineSegments2(geom, new CasedLineMaterial({ vertexColors: true, linewidth: home ? 2.0 : 3.0 }));
       // one chosen channel is never faded: on the inner forearm seen from the front it is only visible at the
       // silhouette, and fading it there hid most of the heart line. Several channels (a pose, a group) fade on
       // skin turning away down to 35 %: unfaded they outlined the trunk like a comic (artist round 2)
@@ -800,7 +813,7 @@ export class MeridianScene {
       this.selBase.material.uniforms.uFaceHi.value = 0.3;
       this.selBase.material.uniforms.uFaceFloor.value = 0.35;
       this.selBase.material.uniforms.uLift.value = 0.005;
-      this.selBase.material.uniforms.uCasing.value = this.theme === 'light' ? 0.55 : 0;
+      this.selBase.material.uniforms.uCasing.value = this.theme === 'light' ? (home ? 0.3 : 0.55) : 0;
       this.selBase.material.uniforms.uDarkEdge.value = this.theme === 'dark' ? 1 : 0;
       this.selBase.renderOrder = 2;
     }

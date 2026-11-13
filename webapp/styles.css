@@ -68,7 +68,8 @@ button:disabled { cursor: default; opacity: 0.35; }
 .backdrop-fade {
   position: fixed; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
   /* the ground: feet and seated poses stand in the fog instead of floating in the sky (artist round 2) */
-  background: linear-gradient(to bottom, transparent 52%, color-mix(in srgb, var(--card) 85%, transparent) 80%, var(--card) 100%);
+  /* round 3: lighter and lower, the shins and feet were lost in a white fog */
+  background: linear-gradient(to bottom, transparent 64%, color-mix(in srgb, var(--card) 42%, transparent) 84%, color-mix(in srgb, var(--card) 85%, transparent) 100%);
 }
 body.scenery .backdrop-fade { opacity: 1; }
 /* the peak beside the head at shoulder height, not right behind the trunk */
@@ -146,7 +147,9 @@ body.scenery #stage { background: transparent; }
 .chip.vessel { border-style: dashed; }
 .chip.group { gap: 6px; font-weight: 600; }
 .chip.group .dots { display: inline-flex; }
-.chip.group .dots .dot { width: 8px; height: 8px; margin-left: -3px; box-shadow: 0 0 0 1.5px var(--card); }
+.chip.group .dots .dot { width: 7px; height: 7px; margin-left: -2px; box-shadow: 0 0 0 1.5px var(--card); }
+/* two dots say "a group"; three overlapped read as a stack of coins (artist round 3) */
+.chip.group .dots .dot:nth-child(n+3) { display: none; }
 .chip.group .dots .dot:first-child { margin-left: 0; }
 .chip.group .plus { font-size: 15px; line-height: 1; font-weight: 700; }
 .chip.group[aria-selected="true"] { background: var(--picked); color: var(--picked-text); border-color: var(--picked); }
@@ -246,27 +249,38 @@ body.scenery #stage { background: transparent; }
   transform: translate(-50%, calc(-100% - 24px));
 }
 .pick-chips button {
-  min-width: 56px; height: 36px;
-  padding: 0 12px;
-  border-radius: 18px;
+  min-width: 56px; min-height: 40px;
+  padding: 4px 12px;
+  border-radius: 14px;
   background: var(--card);
   box-shadow: var(--shadow);
   font-weight: 600;
   font-size: 13px;
   text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2;
 }
+.pick-chips button small { font-weight: 400; font-size: 12px; color: var(--soft); white-space: nowrap; }
 .toast {
   position: fixed;
   left: 50%;
   top: calc(var(--safe-top) + 62px);
   transform: translateX(-50%);
-  max-width: calc(100% - 32px);
-  padding: 8px 14px;
-  border-radius: 12px;
-  background: var(--text);
-  color: var(--card);
+  max-width: min(260px, calc(100% - 32px));
+  padding: 9px 14px;
+  border-radius: 14px;
+  /* glass like the buttons, not a black plate; balanced lines leave no lone word at the end (artist round 3) */
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px) saturate(0.85);
+  backdrop-filter: blur(14px) saturate(0.85);
+  box-shadow: var(--shadow);
+  color: var(--text);
   font-size: 14px;
+  line-height: 1.35;
+  text-align: center;
+  text-wrap: balance;
   z-index: 8;
+  /* it lies over the head points for a few seconds, just when it asks to tap them (UX round 3) */
+  pointer-events: none;
 }
 /* above the sheet, not over the body (it sat on the chest/pelvis, council); fades out by itself */
 .gesture-hint {
@@ -315,10 +329,14 @@ body.scenery #stage { background: transparent; }
 .sheet-body { flex: 1 1 auto; overflow-y: auto; padding: 4px 16px 28px; overscroll-behavior: contain; }
 
 .peek-row { display: flex; align-items: center; gap: 10px; min-height: 64px; width: 100%; }
+/* a two-line title ("Мочевой / пузырь" at 375 px) keeps its dot by the first line, not between the lines */
+.peek-row:has(> .dot) { align-items: flex-start; padding-top: 10px; }
+.peek-row > .dot { margin-top: 7px; }
+.peek-row:has(> .dot) > :not(.dot):not(.peek-main) { align-self: center; }
 .peek-button { text-align: left; }
 .peek-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
 /* titles in a serif with Cyrillic (the artist of the council: the system sans made everything alike) */
-.peek-title { font-size: 20px; font-weight: 400; line-height: 1.25; display: flex; align-items: baseline; gap: 6px; min-width: 0; font-family: var(--title-font); }
+.peek-title { font-size: 19px; font-weight: 400; line-height: 1.25; display: flex; align-items: baseline; gap: 6px; min-width: 0; font-family: var(--title-font); }
 /* codes as a small separate label, not sans letters of the title size beside the serif name (artist) */
 .peek-title .code { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12.5px; font-weight: 600; letter-spacing: 0.02em; color: var(--soft); }
 .peek-title .code.who { margin-right: 4px; }
@@ -467,6 +485,8 @@ h3.inline { margin: 0; }
 .caution { margin: 4px 0 8px; font-size: 13px; font-weight: 600; color: #b3261e; }
 /* a note in the text colour with a small red mark, not an error-red paragraph (artist round 2) */
 .caution.sym-flags { font-weight: 400; font-size: 12.5px; line-height: 1.4; color: var(--soft); padding-left: 12px; position: relative; }
+.row-sub .region { font-weight: 600; color: var(--text); opacity: 0.8; }
+.caution.sym-flags.strong { font-weight: 600; font-size: 14px; color: #8f1d17; }
 .caution.sym-flags::before { content: ""; position: absolute; left: 0; top: 0.45em; width: 6px; height: 6px; border-radius: 50%; background: #b3261e; }
 .warn { margin-left: 6px; color: #b3261e; font-size: 13px; white-space: nowrap; }
 

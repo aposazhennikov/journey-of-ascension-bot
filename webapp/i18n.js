@@ -210,6 +210,14 @@ const S = {
   how_title: ['Как выполнить', 'How to do it', 'Qanday bajariladi', 'Қалай орындалады'],
   focus_channels: ['Внимание в этой позе', 'Attention in this pose', 'Bu holatda diqqat', 'Бұл қалыпта зейін'],
   connects: ['Соединяет', 'Connects', "Bog'laydi", 'Байланыстырады'],
+  region_hand: ['кисть', 'hand', "kaft", 'қол басы'],
+  region_foot: ['стопа', 'foot', "oyoq panjasi", 'табан'],
+  region_head: ['голова', 'head', "bosh", 'бас'],
+  region_back: ['спина', 'back', "orqa", 'арқа'],
+  side_left: ['Точка на левой стороне тела', 'The point on the left side of the body', "Nuqta tananing chap tomonida", 'Нүкте дененің сол жағында'],
+  side_right: ['Точка на правой стороне тела', 'The point on the right side of the body', "Nuqta tananing o'ng tomonida", 'Нүкте дененің оң жағында'],
+  // the point card opened from the complaint search leads back to the list
+  to_results: ['к результатам: {q}', 'back to results: {q}', 'natijalarga: {q}', 'нәтижелерге: {q}'],
   // under a one-hand mudra close-up: the camera left the figure, say how to get it back (UX council round 2)
   closeup_hint: ['Крупно показана одна рука · ⛶ — вся фигура', 'Close-up of one hand · ⛶ shows the whole figure', "Bir qo'l yaqindan ko'rsatilgan · ⛶ — butun gavda", 'Бір қол жақыннан көрсетілген · ⛶ — бүкіл дене'],
   // the channels at the fingertips are classical (Ling Shu ch. 10); what is modern is reading the joined fingers of a mudra through them (TCM council)

@@ -470,6 +470,8 @@ def corrective(poses, variant, body_id, hand_id=None):
     """Correctives (correctives.py) of the body pose plus, for an arm position, the hand pose's own
     shoulder corrective, as (vertex ids, n x 3 displacements); ids may repeat (summed, as pose.js does)."""
     parts = [(poses["body"][body_id].get("corr") or {}).get(variant)]
+    if body_id == "stand" and "arms" in (poses["hand"].get(hand_id) or {}):
+        parts = []   # the stance's shoulder corrective gives way to the arm position's own (pose.js rule)
     if hand_id:
         parts.append(((poses["hand"].get(hand_id) or {}).get("corr") or {}).get(variant))
     parts = [c for c in parts if c and c.get("i")]

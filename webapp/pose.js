@@ -146,7 +146,10 @@ export function createSkinner(rig, restPositions, variant = 'neutral') {
   const corrOf = (bodyPose, handPose) => {
     const body = typeof bodyPose === 'string' ? rig.poses?.body?.[bodyPose] : bodyPose;
     const hand = typeof handPose === 'string' ? rig.poses?.hand?.[handPose] : handPose;
-    return [corrEntry(body), corrEntry(hand)].filter(Boolean);
+    // the start stance's corrective is a shoulder one; an arm position (own arms, own shoulder corrective)
+    // replaces it rather than adding to it
+    const bodyCorr = bodyPose === 'stand' && hand?.arms ? null : corrEntry(body);
+    return [bodyCorr, corrEntry(hand)].filter(Boolean);
   };
   let corrFrom = [], corrTo = [];
   function addCorr(list, s) {

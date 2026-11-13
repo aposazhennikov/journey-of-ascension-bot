@@ -681,13 +681,16 @@ def body_pose(ctx, pid, anjali_world):
         # forward so the inner-arm channels (lung, pericardium, heart) face the viewer; the rigged A-pose
         # (arms at 45 deg, feet wide) read as a rigging pose and the heart line ran along the silhouette
         # as a red band (artist, council round 2). Round 3: supination 75 -> 62 (the forearm looked wrung),
-        # toes out 12 deg, the shoulder girdle 4 deg lower (the trapezius looked hitched up). Its softer open
-        # fingers are body.stand.openRot in poses.json (hand.open.rot plus 6/9/5 deg of flexion, thumb 5), kept
-        # from the previous poses.json on a rebuild
+        # the shoulder girdle 4 deg lower (the trapezius looked hitched up). Round 3: feet under the hip joints
+        # (hip abduction 3 put the ankles 34 cm apart on the male body), toes out 14, inversion 2 so the outer
+        # edge of the foot rests on the floor. Its fingers (body.stand.openRot: curls growing from the index to
+        # the little finger, the thumb drawn to the palm, half the splay) and its shoulder corrective
+        # (body.stand.corr, correctives.arm_corrective with the open hand) are not rebuilt here: build_poses
+        # keeps them from the previous poses.json
         W = {}
         for s, sg in SIDES.items():
             W[f"clavicle.{s}"] = qaxis(Z, -sg * 4.0)
-            W.update(an.leg(s, hip=(0, 3, 12), knee=0, ankle=(0, 0)))
+            W.update(an.leg(s, hip=(0, 0, 14), knee=0, ankle=(0, 2)))
             W.update(an.arm(s, shoulder=(0, 16, 20), elbow=10, sup=62, wrist=(0, 0)))
         ps.W, ps.root = W, np.zeros(3)
         ground(ctx)

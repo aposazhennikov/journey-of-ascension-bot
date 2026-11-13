@@ -464,6 +464,23 @@ function setLevel(level, { fly = true, instant = false } = {}) {
 
 // camera distance for a point: hands and feet close, the head farther (a head point filled the screen
 // and it was unclear where on the body it was, council)
+// where on the body a point lies, by its number (WHO ranges), for the search results: VG11 between the
+// shoulder blades is not one to press on oneself (UX round 3). null = arm, leg, trunk front: no label
+function bodyRegion(code) {
+  const m = /^([A-Z]+)(\d+)$/.exec(code);
+  if (!m) return null;
+  const [, c, s] = m, n = Number(s);
+  const inR = (lo, hi) => n >= lo && n <= hi;
+  if ((c === 'P' && inR(10, 11)) || (c === 'GI' && inR(1, 5)) || (c === 'C' && inR(7, 9)) || (c === 'IG' && inR(1, 5))
+    || (c === 'MC' && inR(7, 9)) || (c === 'TR' && inR(1, 4))) return 'hand';
+  if ((c === 'RP' && inR(1, 5)) || (c === 'E' && inR(41, 45)) || (c === 'V' && inR(60, 67)) || (c === 'R' && inR(1, 6))
+    || (c === 'F' && inR(1, 4)) || (c === 'VB' && inR(40, 44))) return 'foot';
+  if ((c === 'VG' && n >= 16) || (c === 'VB' && inR(1, 20)) || (c === 'V' && inR(1, 10)) || (c === 'E' && inR(1, 9))
+    || (c === 'TR' && inR(17, 23)) || (c === 'IG' && inR(17, 19)) || (c === 'GI' && inR(18, 20)) || (c === 'VC' && inR(22, 24))) return 'head';
+  if ((c === 'VG' && inR(1, 15)) || (c === 'V' && (inR(11, 35) || inR(41, 54)))) return 'back';
+  return null;
+}
+
 function pointDistance(code) {
   if (/^(P1[01]|GI[1-5]|C[789]|IG[1-5]|MC[789]|TR[1-4]|RP[1-5]|E4[1-5]|V6[0-7]|R[1-6]|F[1-4]|VB4[0-4])$/.test(code)) return 0.4;
   const pp = scene.pointPosition(code, 1);
@@ -483,6 +500,7 @@ function frameChannel(ch, onEnd, instant = false) {
 
 function selectChannel(id, opts) {
   if (state.overlay === 'poses') closePoses({ refocus: false });
+  searchTrail = null;
   setLevel({ view: 'channel', id }, opts);
   if (store.get('onb_points', false) === false && state.channelById.get(id)?.kind === 'regular') {
     toast(t('hint_points'));
@@ -508,9 +526,23 @@ function selectGroup(id) {
   haptic();
 }
 
+let searchTrail = null;   // { list: codes, q, inMenu } while points found by a complaint are being looked at
+const onTrail = (code) => !!searchTrail && searchTrail.list.includes(code);
+
+function backToSearch() {
+  const trail = searchTrail;
+  searchTrail = null;
+  if (!trail) return;
+  symptom.q = trail.q;
+  if (trail.inMenu) openMenu();
+  else { setLevel({ view: 'home' }); setSheet('full'); }
+  requestAnimationFrame(() => document.getElementById('symResults')?.scrollIntoView({ block: 'start' }));
+}
+
 function openPoint(code, side, opts) {
   const owner = state.data.pointOwner.get(code);
   if (!owner) { toast(t('point_not_found', { code })); return; }
+  if (!opts?.fromSearch && !onTrail(code)) searchTrail = null;
   if (state.overlay === 'poses') closePoses({ refocus: false });
   // from the menu (search results, the practice path): leave the menu and show the point on the body (the
   // menu stayed on top and the camera flew behind it, council round 2)
@@ -525,6 +557,12 @@ function openPoint(code, side, opts) {
 function stepPoint(dir) {
   const lv = state.level;
   if (lv.view !== 'point') return;
+  if (onTrail(lv.code)) {
+    const list = searchTrail.list;
+    const next = list[list.indexOf(lv.code) + dir];
+    if (next) openPoint(next, undefined, { fromSearch: true });
+    return;
+  }
   const ch = state.channelById.get(lv.id);
   const idx = ch.points.indexOf(lv.code);
   const target = ch.points[idx + dir];
@@ -544,6 +582,7 @@ function back() {
   if (state.sheet === 'full') { setSheet('half'); return; }
   if (state.overlay === 'poses') { closePoses({ refocus: true }); return; }
   const lv = state.level;
+  if (lv.view === 'point' && onTrail(lv.code)) { backToSearch(); return; }
   if (lv.view === 'point') { setLevel(lv.multi ? { view: 'group', id: 'custom' } : { view: 'channel', id: lv.id }); return; }
   if (lv.view === 'channel' || lv.view === 'group') { setLevel({ view: 'home' }); return; }
   tg?.close?.();
@@ -686,8 +725,11 @@ const SYM_SYN = [
   // the shoulder and the top of the shoulder, not the forearm ("предплечье")
   [/^голов/, 'голов'], [/^плеч/, /(^|[^а-я])(над)?плеч/], [/^спин/, 'спин'], [/^поясниц/, 'поясниц'], [/^ше[яиюе]$/, /(^|[^а-я])ше[йияюе]/],
   [/^живот/, 'живот'], [/^желуд/, 'желуд'], [/^горл/, 'горл'], [/^кашл|^кашел/, 'каш'], [/^насморк/, 'насморк'],
-  [/^тошн/, 'тошн'], [/^запор/, 'запор'], [/^понос|^диаре/, 'диаре'], [/^бессон|^сплю$|^спится$|^уснуть$|^засып/, 'бессон'],
-  [/^тревог|^тревожн/, 'трев'], [/^давлен|^давит/, /(^|[^а-я])давлен/], [/^устал|^усталост/, 'устал'],
+  // the texts say "понос", "утомляемость", "боль в половине головы": "диаре", "устал", "мигрень" found nothing
+  // (TCM council round 3)
+  [/^тошн/, 'тошн'], [/^запор/, 'запор'], [/^понос|^диаре/, 'понос'], [/^бессон|^сплю$|^спится$|^уснуть$|^засып/, 'бессон'],
+  [/^тревог|^тревожн/, 'трев'], [/^давлен|^давит/, /(^|[^а-я])давлен/], [/^устал|^усталост|^утомл/, /устал|утомля/],
+  [/^мигрен/, /мигрен|половин\w* голов/],
   [/^отек/, /(^|[^а-я])отек/], [/^ауру|^ауыр/, /(^|[^а-яәіңғүұқөһ])ауы?р/],
   [/^колен/, 'колен'], [/^зуб/, 'зуб'], [/^глаз/, 'глаз'], [/^ух[оаеу]$|^уши|^ушей/, /(^|[^а-я])(ух[оаеу]|уш[иаеу])/],
   [/^aches?$|^aching$|^hurts?$|^painful$|^pains?$|^sore$/, 'pain'], [/^headaches?$/, 'headache'],
@@ -700,12 +742,46 @@ function symStem(w) {
   return w.length > 5 ? w.slice(0, -2) : w.length > 3 ? w.slice(0, -1) : w;
 }
 
+// The points textbooks reach for first (project codes). Results were in channel order: "головная боль"
+// listed VG4 (a lower-back point) fifth of 93 and left VB20, GI4, F3 far below (council round 3).
+const KEY_POINTS_A = new Set(['GI4', 'E36', 'RP6', 'MC6', 'C7', 'F3', 'VB20', 'VG20', 'R3', 'P7']);
+const KEY_POINTS_B = new Set(['P1', 'P5', 'P9', 'P11', 'GI11', 'GI20', 'E25', 'E40', 'E44', 'RP4', 'RP9', 'RP10', 'C5',
+  'IG3', 'V10', 'V13', 'V15', 'V17', 'V18', 'V20', 'V23', 'V40', 'V60', 'V62', 'R1', 'R6', 'R7', 'MC7', 'MC8', 'TR5',
+  'TR17', 'VB21', 'VB30', 'VB34', 'VB39', 'VB41', 'F2', 'F14', 'VG14', 'VG16', 'VG24', 'VG26', 'VC4', 'VC6', 'VC12', 'VC17', 'VC22']);
+
+// Frequent complaints -> the classic points in textbook order (assets/key_points.json, TCM council round 3),
+// fetched on the first search; until it arrives the scores below order the results alone
+let keyComplaints = null;
+function loadKeyComplaints() {
+  if (keyComplaints) return;
+  keyComplaints = [];
+  fetch(`assets/key_points.json?v=${ASSET_VERSION}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
+    keyComplaints = Array.isArray(j?.complaints) ? j.complaints : [];
+    refreshSymptomResults();
+  }).catch(() => {});
+}
+function complaintOf(raw) {
+  if (!raw || !keyComplaints?.length) return null;
+  let best = null;
+  for (const c of keyComplaints) {
+    for (const m of c.match?.[LANG] || c.match?.en || []) {
+      // the longest matching phrase wins ("боль в груди" over "боль")
+      if (m && raw.includes(m) && (!best || m.length > best.len)) best = { c, len: m.length };
+    }
+  }
+  return best?.c || null;
+}
+
 function symptomMatches() {
   const d = state.data;
   // typographic apostrophes as typed on phones (’ ‘ ʻ ʼ `) count as the ASCII one the Uzbek texts use
   const raw = symptom.q.trim().toLowerCase().replace(/ё/g, 'е').replace(/[’‘ʻʼ`´]/g, "'").replace(/[.,;:!?()«»"]/g, ' ');
   const words = raw.split(/\s+/).filter((w) => w && !SYM_STOP.has(w)).map(symStem);
   if (!words.length && !symptom.g) return [];
+  loadKeyComplaints();
+  const complaint = symptom.g ? null : complaintOf(raw);
+  symptom.complaint = complaint;
+  const lead = new Map((complaint?.points || []).map((code, i) => [code, i]));
   const out = [];
   for (const code of d.pointOwner.keys()) {
     const ind = d.extraText(code).indications;
@@ -718,9 +794,18 @@ function symptomMatches() {
         if (words.every((w) => (typeof w === 'string' ? low.includes(w) : w.test(low)))) hits.push(item);
       }
     }
-    if (hits.length) out.push({ code, hits });
+    if (!hits.length && !lead.has(code)) continue;
+    // the complaint in the point's own summary or main functions: it is what the point is for, not one of
+    // twenty listed indications
+    const tx = d.extraText(code);
+    const head = [tx.why || '', ...(Array.isArray(tx.functions) ? tx.functions : [])].join(' ').toLowerCase().replace(/ё/g, 'е');
+    const inHead = words.length && words.every((w) => (typeof w === 'string' ? head.includes(w) : w.test(head)));
+    let score = Math.min(hits.length, 3) + (inHead ? 3 : 0) + (KEY_POINTS_A.has(code) ? 3 : KEY_POINTS_B.has(code) ? 1.5 : 0);
+    if (lead.has(code)) score = 100 - lead.get(code);
+    // a lead point whose texts word the complaint differently still shows why it is listed
+    out.push({ code, hits: hits.length ? hits : [symptom.q.trim()], score });
   }
-  out.sort((a, b) => b.hits.length - a.hits.length);
+  out.sort((a, b) => b.score - a.score);
   return out;
 }
 
@@ -733,15 +818,19 @@ function symptomResultsHtml() {
     const owner = state.data.pointOwner.get(code);
     // a point with a caution (pregnancy, an artery, the eye...) is marked here too, not only in its card
     const warn = (state.data.extras[code]?.caution || []).length ? `<span class="warn" title="${esc(t('sym_warn_title'))}">⚠</span>` : '';
-    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(dispCode(code))}</span><span class="name"><span>${esc(pointName(code))}${warn}</span><span class="row-sub">${esc(hits.slice(0, 3).join(', '))}</span></span><span class="dot" style="background:${color(owner)}"></span></button>`;
+    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(dispCode(code))}</span><span class="name"><span>${esc(pointName(code))}${warn}</span><span class="row-sub">${bodyRegion(code) ? `<b class="region">${esc(t(`region_${bodyRegion(code)}`))}</b> · ` : ''}${esc(hits.slice(0, 3).join(', '))}</span></span><span class="dot" style="background:${color(owner)}"></span></button>`;
   }).join('');
   // a query that may mean pregnancy (no periods) or blood / retained urine gets its own line: the search
   // offered exactly the points not used in pregnancy for "нет месячных" (TCM council round 2)
   const q = symptom.q.toLowerCase();
-  const preg = symptom.g === 'cycle' || /месячн|менстру|беремен|задерж|period|menstru|pregnan|hayz|homilador|етеккір|жүкті/.test(q);
+  const preg = symptom.g === 'cycle' || symptom.complaint?.pregnancy || /месячн|менстру|беремен|задерж|period|menstru|pregnan|hayz|homilador|етеккір|жүкті/.test(q);
   const blood = /кров|задержк\w* моч|не могу помочит|blood|bleed|retention|qon|siydik tutil|қан|зәр ұста/.test(q);
   const extra = (preg ? `<p class="caution sym-flags">${esc(t('sym_pregnancy'))}</p>` : '') + (blood ? `<p class="caution sym-flags">${esc(t('sym_blood'))}</p>` : '');
-  return `${extra}<p class="caution sym-flags">${esc(t('sym_red_flags'))}</p>
+  // a complaint that can be an emergency (chest pain...) puts the warning first and in full weight
+  const flag = `<p class="caution sym-flags${symptom.complaint?.red_flag ? ' strong' : ''}">${esc(t('sym_red_flags'))}</p>`;
+  // the complaint's own warning ("одышка в покое, синие губы — сразу скорая"); written in Russian only
+  const note = LANG === 'ru' && symptom.complaint?.note ? `<p class="caution sym-flags${symptom.complaint.red_flag ? ' strong' : ''}">${esc(symptom.complaint.note)}</p>` : '';
+  return `${symptom.complaint?.red_flag ? flag + note + extra : note + extra + flag}
     <p class="text muted small-gap">${esc(t('sym_found', { n: res.length }))}</p><div class="rows">${rows}</div>
     ${res.length > shown.length ? `<button class="more" data-act="symmore">${esc(t('more_n', { n: res.length - shown.length }))}</button>` : ''}
     <p class="note">${esc(t('ind_note'))}</p>`;
@@ -830,13 +919,19 @@ function renderPeek() {
   els.sheet.style.setProperty('--chan', color(ch.id));
   if (lv.view === 'point') {
     const idx = ch.points.indexOf(lv.code);
-    const hasPrev = idx > 0 || (!ch.midline && prevChannelOf(ch.id));
-    const hasNext = idx < ch.points.length - 1 || (!ch.midline && TRANSITIONS[ch.id]);
+    const trail = onTrail(lv.code) ? searchTrail : null;
+    const ti = trail ? trail.list.indexOf(lv.code) : -1;
+    const hasPrev = trail ? ti > 0 : idx > 0 || (!ch.midline && prevChannelOf(ch.id));
+    const hasNext = trail ? ti < trail.list.length - 1 : idx < ch.points.length - 1 || (!ch.midline && TRANSITIONS[ch.id]);
+    // found by a complaint: the line under the title leads back to the results and counts in them
+    const sub = trail
+      ? `<button class="link" data-act="tosearch">← ${esc(t('to_results', { q: trail.q.trim() }))}</button> · ${ti + 1}/${trail.list.length}`
+      : `<button class="link" data-chan="${ch.id}">${esc(shortName(ch.id))}</button> · ${idx + 1}/${ch.points.length}`;
     els.peek.innerHTML = `<div class="peek-row">
       <button class="round" data-act="prev" ${hasPrev ? '' : 'disabled'} aria-label="${esc(t('aria_prev'))}">‹</button>
       <div class="peek-main">
         <div class="peek-title">${codePair(lv.code)} <span class="ellipsis">${esc(pointName(lv.code))}</span></div>
-        <div class="peek-sub"><button class="link" data-chan="${ch.id}">${esc(shortName(ch.id))}</button> · ${idx + 1}/${ch.points.length}</div>
+        <div class="peek-sub">${sub}</div>
       </div>
       <button class="round" data-act="next" ${hasNext ? '' : 'disabled'} aria-label="${esc(t('aria_next'))}">›</button></div>`;
     return;
@@ -887,7 +982,6 @@ function homeBody() {
   // first run: what this is and three ways in (a new person saw a figure, chips and four unlabelled buttons
   // and did not know where to start, council)
   const intro = state.introSession && state.overlay !== 'list' ? `<div class="section intro"><p class="text lead">${esc(t('intro_text'))}</p><div class="rows">
-    <button class="row-btn" data-act="introsearch"><span class="name"><span class="row-title">${esc(t('intro_search'))}</span></span><span class="chev">›</span></button>
     <button class="row-btn" data-act="introposes"><span class="name"><span class="row-title">${esc(t('intro_poses'))}</span></span><span class="chev">›</span></button>
   </div></div>` : '';
   // search and the practice path first, the settings last (the language and photo rows stood on top, the
@@ -1272,7 +1366,16 @@ function onSheetClick(e) {
   }
   if (ds.filter) { state.special = ds.filter === 'special'; applySelection(); renderSheet(); return; }
   if (ds.chan) { state.overlay = state.overlay === 'list' ? null : state.overlay; selectChannel(ds.chan); return; }
-  if (ds.goto) { openPoint(ds.goto); return; }
+  if (ds.act === 'tosearch') { backToSearch(); return; }
+  if (ds.goto) {
+    // a point found by a complaint: ‹ › step through the found points and back returns to the list
+    // (back led to a channel nobody had opened and the list was lost, UX council round 3)
+    if (el.closest('#symResults')) {
+      searchTrail = { list: symptomMatches().map((r) => r.code), q: symptom.q, inMenu: state.overlay === 'list' };
+    }
+    openPoint(ds.goto, undefined, { fromSearch: !!el.closest('#symResults') });
+    return;
+  }
   if (ds.point) openPoint(ds.point, lv.side);
 }
 els.peek.addEventListener('click', onSheetClick);
@@ -1329,6 +1432,9 @@ $('turnBtn').addEventListener('click', () => {
     scene.focusPoint(lv.code, lv.side, { distance: pointDistance(lv.code) });
     applySelection();
     haptic('light');
+    // the button means "turn" elsewhere; here it changes the side, so say which one is shown (UX round 3).
+    // side +1 is the body's left (+x)
+    toast(t(lv.side > 0 ? 'side_left' : 'side_right'));
     return;
   }
   // a midline point (Du Mai / Ren Mai) has no other side: the whole figure from the opposite side
@@ -1777,7 +1883,8 @@ function handleTap(x, y, dbl) {
       scene.flyTo(p.clone(), p.clone().addScaledVector(dir, scene.camera.position.distanceTo(p) / 2));
       return;
     }
-    els.pick.innerHTML = res.candidates.map((c) => `<button data-code="${c.code}" data-side="${c.side}">${esc(c.code)}</button>`).join('');
+    // the name under the code: "C8 / MC8" said nothing to a newcomer (UX round 3)
+    els.pick.innerHTML = res.candidates.map((c) => `<button data-code="${c.code}" data-side="${c.side}">${esc(dispCode(c.code))}<small>${esc(pointName(c.code))}</small></button>`).join('');
     els.pick.style.left = `${x}px`;
     els.pick.style.top = `${y}px`;
     els.pick.hidden = false;
