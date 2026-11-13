@@ -2,7 +2,7 @@
 
 import { CLOCK_ORDER, MIDLINE_IDS, VESSEL_IDS, VIEW, TRANSITIONS } from './channels.js';
 
-export const ASSET_VERSION = '2026-11-13-6';
+export const ASSET_VERSION = '2026-11-14-1';
 
 async function getJson(url, optional = false) {
   try {
@@ -21,7 +21,7 @@ export function loadPoseContent() {
 }
 
 export async function loadData(lang) {
-  const [api, points3d, vessels, categories, extras, profiles, names] = await Promise.all([
+  const [api, points3d, vessels, categories, extras, profiles, names, check] = await Promise.all([
     getJson(`api/meridians?lang=${encodeURIComponent(lang)}`),
     getJson('assets/points3d.json'),
     getJson('assets/extra_vessels.json', true),
@@ -29,6 +29,7 @@ export async function loadData(lang) {
     getJson(`assets/point_extras.json?lang=${encodeURIComponent(lang)}`, true),   // the server keeps only this language
     getJson('assets/meridian_profiles.json', true),
     getJson('assets/point_names.json', true),   // WHO 2008 hanzi and pinyin per point
+    getJson('assets/self_check.json', true),    // "which channel to start with", shared with the bot
   ]);
   const data = shapeData(lang, api, points3d, vessels, categories, extras);
   data.pointNames = names || {};
@@ -36,6 +37,15 @@ export async function loadData(lang) {
   data.profile = (id) => {
     const p = profiles?.channels?.[id];
     return p ? { start: p.start_code, ...pick(p.i18n, lang) } : null;
+  };
+  // each question is an imbalance item of a channel profile: the texts and translations come from there
+  data.selfCheck = {
+    own: Number(check?.own) || 2,
+    also: Number(check?.also_weight) || 1,
+    questions: (check?.questions || []).map((q) => {
+      const text = pick(profiles?.channels?.[q.ch]?.i18n, lang).imbalance?.[q.i];
+      return text && data.byId.has(q.ch) ? { ch: q.ch, also: q.also || [], text } : null;
+    }).filter(Boolean),
   };
   return data;
 }

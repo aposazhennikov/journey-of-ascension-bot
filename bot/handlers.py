@@ -35,6 +35,7 @@ from .utils import (
 )
 from .webapp import build_map_button, build_map_url, normalize_webapp_language
 from . import feel as diary
+from . import selfcheck
 
 
 logger = logging.getLogger(__name__)
@@ -5041,6 +5042,7 @@ class BotHandlers:
             keyboard.append([InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")])
         keyboard.extend([
             [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
+            [InlineKeyboardButton(selfcheck.text("menu", language), callback_data=selfcheck.PREFIX)],
         ])
         if user and user.point_feel:
             # the sensation diary appears once there is something in it
@@ -5279,6 +5281,31 @@ class BotHandlers:
             except BadRequest as e:
                 if "not modified" not in str(e).lower():
                     logger.warning(f"Could not update the diary buttons for {user.chat_id}: {e}")
+
+    async def _handle_selfcheck_callback(self, query, user: User, language: str) -> None:
+        """Self-check "which channel to start with": two pages of numbered signs, then the result.
+
+        The ticks travel in the callback data, nothing is stored until the user picks the channel."""
+        parsed = selfcheck.parse_callback(query.data or "")
+        if not parsed:
+            return
+        kind, page, mask, _ = parsed
+        if kind == "result":
+            completed = list(user.completed_meridians or [])
+            fallback = self.meridians_manager.get_next_meridian(None, completed)
+            text, rows, top = selfcheck.result_screen(
+                mask, language, self.meridians_manager, diary.point_lookup(self.meridians_manager),
+                self._diary_point_title,
+                lambda mid, lang: self._localized_meridian_name(self.meridians_manager.get_meridian_by_id(mid), lang),
+                fallback.get("id") if fallback else None,
+                user.current_meridian_id if user.meridians_enabled else None,
+            )
+            map_button = self._create_meridian_map_button(language, user, meridian_id=top) if top else None
+            if map_button:
+                rows.insert(-2, [map_button])
+        else:
+            text, rows = selfcheck.page_screen(page, mask, language)
+        await self._edit_message_text_safe(query, text, reply_markup=InlineKeyboardMarkup(rows), parse_mode='HTML')
 
     def _create_meridian_path_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create meridian learning mode selection keyboard."""
@@ -6000,6 +6027,10 @@ class BotHandlers:
                     reply_markup=self._create_meridian_help_keyboard(language, user),
                     parse_mode='HTML'
                 )
+                return
+
+            if action.startswith("check"):
+                await self._handle_selfcheck_callback(query, user, language)
                 return
 
             if action == "diary":

@@ -418,6 +418,29 @@ h3.inline { margin: 0; }
 .feel-chip[aria-pressed="true"] { background: var(--picked); color: var(--picked-text); border-color: var(--picked); }
 .diary-counts { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 2px 0 6px; font-size: 14px; color: var(--soft); }
 .mk.feel { font-size: 13px; }
+/* self-check: which channel to start with */
+.check-list { display: flex; flex-direction: column; margin: 4px 0 10px; }
+.check-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  min-height: 48px; padding: 10px 0;
+  text-align: left; line-height: 1.35; font-size: 15px;
+  border-bottom: 1px solid var(--line);
+}
+.check-item:last-child { border-bottom: 0; }
+.check-item .box {
+  flex: 0 0 22px; width: 22px; height: 22px; margin-top: 1px;
+  display: grid; place-items: center;
+  border: 1.5px solid var(--soft); border-radius: 6px;
+  font-size: 14px; font-weight: 700;
+}
+.check-item[aria-checked="true"] .box { background: var(--picked); border-color: var(--picked); color: var(--picked-text); }
+.primary-btn {
+  width: 100%; min-height: 46px; margin-top: 4px;
+  border-radius: 12px; font-size: 15px; font-weight: 600;
+  background: var(--picked); color: var(--picked-text);
+}
+.check-signs { margin: 0 0 4px; padding-left: 18px; font-size: 14px; }
+.check-signs li { margin: 0 0 4px; line-height: 1.4; }
 .tag-explain { margin: 8px 0 0; padding: 8px 10px; border-radius: 10px; background: color-mix(in srgb, var(--chan, var(--accent)) 8%, transparent); font-size: 14px; }
 .explain-actions { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px 12px; }
 

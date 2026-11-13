@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "note": "Self-check 'which channel to start with', shared by the bot and the map. Each question is an imbalance item of meridian_profiles.json (channel + index, the texts and translations come from there); a tick gives the channel 2, the channels in 'also' get 1. Two items per regular channel, picked so that no two questions say the same thing, in a mixed order.",
+  "own": 2,
+  "also_weight": 1,
+  "questions": [
+    {"ch": "lung", "i": 0},
+    {"ch": "liver", "i": 0, "also": ["gallbladder"]},
+    {"ch": "stomach", "i": 0, "also": ["spleen"]},
+    {"ch": "heart", "i": 0},
+    {"ch": "bladder", "i": 1, "also": ["kidney"]},
+    {"ch": "gallbladder", "i": 3},
+    {"ch": "spleen", "i": 1},
+    {"ch": "small_intestine", "i": 3, "also": ["bladder"]},
+    {"ch": "kidney", "i": 0},
+    {"ch": "pericardium", "i": 0},
+    {"ch": "large_intestine", "i": 1},
+    {"ch": "triple_burner", "i": 0},
+    {"ch": "heart", "i": 3},
+    {"ch": "kidney", "i": 1},
+    {"ch": "liver", "i": 2},
+    {"ch": "spleen", "i": 3, "also": ["stomach"]},
+    {"ch": "large_intestine", "i": 2, "also": ["lung"]},
+    {"ch": "gallbladder", "i": 0, "also": ["liver"]},
+    {"ch": "lung", "i": 3},
+    {"ch": "triple_burner", "i": 3},
+    {"ch": "stomach", "i": 2},
+    {"ch": "bladder", "i": 3},
+    {"ch": "small_intestine", "i": 0},
+    {"ch": "pericardium", "i": 1}
+  ]
+}

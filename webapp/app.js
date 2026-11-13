@@ -10,6 +10,7 @@ const tg = window.Telegram?.WebApp;
 const params = new URLSearchParams(location.search);
 const startTokens = parseStartParam(tg?.initDataUnsafe?.start_param || params.get('tgWebAppStartParam') || '');
 
+const CHECK_VERSION = 2;   // "version" of assets/self_check.json: stored ticks of another set are dropped
 const store = {
   get(key, def) { try { const v = localStorage.getItem(`m3d-${key}`); return v == null ? def : JSON.parse(v); } catch { return def; } },
   set(key, val) {
@@ -65,6 +66,11 @@ const state = {
   pregnant: store.get('pregnant', false),
   // sensation diary {code: {f, d}}: shared with the bot through api/feel when opened inside Telegram
   feel: ((v) => (v && typeof v === 'object' ? v : {}))(store.get('feel', {})),
+  // self-check "which channel to start with": ticked question indices and whether the result is shown
+  // (kept with the question set's version: indices of an older set would point at other questions)
+  check: ((v) => (v?.v === CHECK_VERSION && Array.isArray(v.picked)
+    ? { picked: new Set(v.picked.filter(Number.isInteger)), done: v.done === true }
+    : { picked: new Set(), done: false }))(store.get('check', null)),
   // one of SCENERY (photos behind the figure) or 'off'; older builds stored a boolean
   scenery: ((v) => (v === false ? 'off' : ([...SCENERY, 'off'].includes(v) ? v : 'k1')))(store.get('scenery', 'k1')),
   special: false,
@@ -754,6 +760,63 @@ function diarySection() {
     ${back.length ? `<p class="text muted">${esc(t('diary_return'))}</p><div class="rows">${rows}</div>${back.length > LIMIT ? `<button class="more" data-toggle="diaryall">${esc(t('diary_all', { n: back.length }))}</button>` : ''}` : `<p class="text muted">${esc(t('diary_all_heard'))}</p>`}</div>`;
 }
 
+// ---------------------------------------------------------------- self-check: which channel to start with
+// 24 everyday signs, two per regular channel (the imbalance items of the profiles); a tick gives its channel
+// 2 and the related ones 1. The channel with most ticks is a place to begin, with its source point.
+const saveCheck = () => store.set('check', { v: CHECK_VERSION, picked: [...state.check.picked], done: state.check.done });
+
+function checkRanking() {
+  const sc = state.data.selfCheck;
+  const table = new Map();
+  const first = new Map();
+  const row = (ch) => { if (!table.has(ch)) table.set(ch, { ch, score: 0, own: [] }); return table.get(ch); };
+  sc.questions.forEach((q, i) => {
+    if (!first.has(q.ch)) first.set(q.ch, i);
+    if (!state.check.picked.has(i)) return;
+    const r = row(q.ch);   // (indices beyond the set never match: forEach stops at its end)
+    r.score += sc.own;
+    r.own.push(i);
+    for (const o of q.also) row(o).score += sc.also;
+  });
+  // a channel reached only through "also" never comes first
+  return [...table.values()].filter((r) => r.own.length && state.channelById.has(r.ch))
+    .sort((a, b) => b.score - a.score || b.own.length - a.own.length || (first.get(a.ch) ?? 99) - (first.get(b.ch) ?? 99));
+}
+
+function checkSection() {
+  const sc = state.data.selfCheck;
+  if (!sc?.questions.length) return '';
+  const open = state.expanded.has('check');
+  const head = (sub) => `<button class="row-btn ind-head" data-toggle="check" aria-expanded="${open}"><span class="name"><span class="row-title">${esc(t('check_title'))}</span>${sub ? `<span class="row-sub">${esc(sub)}</span>` : ''}</span><span class="chev">${open ? '⌄' : '›'}</span></button>`;
+  if (!open) {
+    const top = state.check.done ? checkRanking()[0] : null;
+    return `<div class="section check">${head(top ? t('check_sub_result', { name: shortName(top.ch) }) : t('check_sub'))}</div>`;
+  }
+  if (!state.check.done) {
+    const items = sc.questions.map((q, i) => {
+      const on = state.check.picked.has(i);
+      return `<button class="check-item" role="checkbox" aria-checked="${on}" data-check="${i}"><span class="box" aria-hidden="true">${on ? '✓' : ''}</span><span>${esc(q.text)}</span></button>`;
+    }).join('');
+    const n = state.check.picked.size;
+    return `<div class="section check">${head('')}<p class="text muted">${esc(t('check_intro'))}</p>
+      <div class="check-list" role="group" aria-label="${esc(t('check_title'))}">${items}</div>
+      <button class="primary-btn" data-act="checkdone">${esc(n ? t('check_show', { n }) : t('check_show_none'))}</button></div>`;
+  }
+  const ranked = checkRanking();
+  const top = ranked[0]?.ch || activeChannelNow(state.data.channels)?.id || CLOCK_ORDER.find((id) => state.channelById.has(id));
+  const pr = top ? state.data.profile(top) : null;
+  const chanRow = top ? `<div class="rows"><button class="row-btn tall" data-chan="${top}"><span class="dot big" style="background:${color(top)}"></span><span class="name"><span class="row-title">${esc(fullName(top))}</span><span class="row-sub">${esc(t('check_open_channel'))}</span></span><span class="chev">›</span></button></div>` : '';
+  const signs = ranked[0] ? `<p class="text muted small-gap">${esc(t('check_your_signs'))}</p><ul class="check-signs">${ranked[0].own.map((i) => `<li>${esc(sc.questions[i].text)}</li>`).join('')}</ul>` : '';
+  const start = pr?.start && state.data.pointOwner.get(pr.start) === top
+    ? `<p class="text muted small-gap">${esc(t('check_first_point'))}</p><div class="rows"><button class="row-btn" data-goto="${pr.start}"><span class="code">${esc(dispCode(pr.start))}</span><span class="name">${esc(pointName(pr.start))}${pr.start_why ? `<span class="row-sub">${esc(pr.start_why)}</span>` : ''}</span><span class="chev">›</span></button></div>${(state.data.extras[pr.start]?.caution || []).map((k) => `<p class="caution${state.pregnant && k === 'pregnancy' ? ' strong-caution' : ''}">⚠ ${esc(t(`caution_${k}`))}</p>`).join('')}` : '';
+  const others = ranked.slice(1, 3).filter((r) => r.own.length);
+  const alsoHtml = others.length ? `<p class="text muted small-gap">${esc(t('check_also'))}</p><div class="tags">${others.map((r) => `<button class="tag button chip-like" data-chan="${r.ch}"><span class="dot" style="background:${color(r.ch)}"></span>${esc(shortName(r.ch))}</button>`).join('')}</div>` : '';
+  const lead = ranked[0] ? t('check_result') : t('check_result_none');
+  return `<div class="section check">${head('')}<p class="text">${esc(lead)}</p>${chanRow}${signs}${start}${alsoHtml}
+    <p class="note">${esc(t('check_note'))}</p>
+    <button class="more" data-act="checkredo">${esc(t('check_redo'))}</button></div>`;
+}
+
 const pathChannel = () => (PROGRESS.m && state.channelById.get(PROGRESS.m)) || null;
 function pathPoint() {
   const ch = pathChannel();
@@ -1065,6 +1128,7 @@ function homeBody() {
   // search in the middle, council)
   return `${intro}${pathSection()}
     ${symptomSection()}
+    ${checkSection()}
     ${diarySection()}
     ${state.overlay === 'list' && !state.expanded.has('allch') ? `<div class="section"><button class="row-btn ind-head" data-toggle="allch" aria-expanded="false"><span class="name"><span class="row-title">${esc(t('all_channels_row'))}</span><span class="row-sub">${esc(t('all_channels_sub'))}</span></span><span class="chev">›</span></button></div>` : `
     <div class="section"><h3>${esc(t('sec_main'))}</h3><div class="rows">${regRows}</div></div>
@@ -1548,6 +1612,29 @@ function onSheetClick(e) {
   if (ds.act === 'practicedone' && lv.view === 'point') { finishPractice(state.channelById.get(lv.id), lv.code); return; }
   if (ds.act === 'practicestop') { stopPractice(); renderSheet(); return; }
   if (ds.feel && lv.view === 'point') { setFeel(lv.code, ds.feel); return; }
+  if (ds.check !== undefined) {
+    const i = Number(ds.check);
+    if (state.check.picked.has(i)) state.check.picked.delete(i); else state.check.picked.add(i);
+    saveCheck();
+    haptic('light');
+    // only this item and the button change: a full render would jump the long list
+    const on = state.check.picked.has(i);
+    el.setAttribute('aria-checked', String(on));
+    el.querySelector('.box').textContent = on ? '✓' : '';
+    const btn = els.body.querySelector('[data-act="checkdone"]');
+    const n = state.check.picked.size;
+    if (btn) btn.textContent = n ? t('check_show', { n }) : t('check_show_none');
+    return;
+  }
+  if (ds.act === 'checkdone') {
+    state.check.done = true;
+    saveCheck();
+    haptic('medium');
+    renderSheet();
+    els.body.querySelector('.section.check')?.scrollIntoView({ block: 'start', behavior: reducedMotion ? 'auto' : 'smooth' });
+    return;
+  }
+  if (ds.act === 'checkredo') { state.check.done = false; state.check.picked.clear(); saveCheck(); renderSheet(); return; }
   if (ds.act === 'trypose') {
     const { pose, tab } = ds;
     openPoses().then(() => { state.posesTab = tab; choosePose(pose); });
