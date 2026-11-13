@@ -1972,6 +1972,9 @@ function updateLabels() {
     if (!pp) continue;
     // fingertips pressed together face each other, edge-on to the camera: shown when nothing hides them
     if (it.grazing ? !(scene.isVisible(pp.p, pp.n, -0.35) && scene.unoccluded(pp.p)) : !scene.isVisible(pp.p, pp.n)) continue;
+    // a point facing the camera can still be behind an arm: VB20 got its label on the forearm in the
+    // hands-behind-head view (council round 3). The chosen point keeps its label whatever covers it
+    if (!it.main && !it.grazing && !scene.unoccluded(pp.p)) continue;
     const [sx, sy, sz] = scene.toScreen(pp.p);
     if (sz > 1 || sx < 0 || sx > window.innerWidth || sy < 0 || sy > window.innerHeight - sheetVisible()) continue;
     // not under the column of round buttons on the right
