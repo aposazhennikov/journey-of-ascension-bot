@@ -706,6 +706,7 @@ function fetchProgress() {
 const FEELS = ['warm', 'cool', 'tense', 'empty', 'silent'];
 const FEEL_ICON = { warm: '☀️', cool: '❄️', tense: '⚡️', empty: '🫧', silent: '🤫' };
 const RETURN_FEELS = ['silent', 'empty'];
+let feelSeq = 0;   // only the answer to the latest tap may replace the marks (two quick taps raced)
 const feelOf = (code) => (FEELS.includes(state.feel[code]?.f) ? state.feel[code].f : null);
 
 function feelHtml(code) {
@@ -726,13 +727,14 @@ async function setFeel(code, f) {
   toast(clear ? t('feel_cleared') : t('feel_saved', { label: t(`feel_${f}`).toLowerCase() }));
   renderSheet();
   if (!tg?.initData) return;
+  const seq = ++feelSeq;
   try {
     const res = await fetch('api/feel', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ initData: tg.initData, code, feel: clear ? '' : f }),
     });
     const p = res.ok ? await res.json() : null;
-    if (p?.feel && typeof p.feel === 'object') { state.feel = p.feel; store.set('feel', p.feel); }
+    if (seq === feelSeq && p?.feel && typeof p.feel === 'object') { state.feel = p.feel; store.set('feel', p.feel); }
   } catch { /* offline: the mark stays on this device */ }
 }
 
@@ -743,13 +745,13 @@ function diarySection() {
     .map(([f, n]) => `<span class="diary-count"><span aria-hidden="true">${FEEL_ICON[f]}</span> ${esc(t(`feel_${f}`))} ${n}</span>`).join('');
   const back = marks.filter(([, e]) => RETURN_FEELS.includes(e.f))
     .sort((a, b) => RETURN_FEELS.indexOf(a[1].f) - RETURN_FEELS.indexOf(b[1].f) || String(a[1].d).localeCompare(String(b[1].d)));
-  const LIMIT = 6;
+  const LIMIT = state.expanded.has('diaryall') ? Infinity : 6;
   const rows = back.slice(0, LIMIT).map(([code, e]) => {
     const owner = state.data.pointOwner.get(code);
-    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(dispCode(code))}</span><span class="name">${esc(pointName(code))}<span class="row-sub">${esc(shortName(owner))}</span></span><span class="marks"><span class="mk" title="${esc(t(`feel_${e.f}`))}">${FEEL_ICON[e.f]}</span></span></button>`;
+    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(dispCode(code))}</span><span class="name">${esc(pointName(code))}<span class="row-sub">${esc(shortName(owner))} · ${FEEL_ICON[e.f]} ${esc(t(`feel_${e.f}`).toLowerCase())}</span></span><span class="chev">›</span></button>`;
   }).join('');
   return `<div class="section diary"><h3>${esc(t('diary_title'))}</h3><div class="diary-counts">${counts}</div>
-    ${back.length ? `<p class="text muted">${esc(t('diary_return'))}</p><div class="rows">${rows}</div>${back.length > LIMIT ? `<p class="note">${esc(t('diary_more', { n: back.length - LIMIT }))}</p>` : ''}` : `<p class="text muted">${esc(t('diary_all_heard'))}</p>`}</div>`;
+    ${back.length ? `<p class="text muted">${esc(t('diary_return'))}</p><div class="rows">${rows}</div>${back.length > LIMIT ? `<button class="more" data-toggle="diaryall">${esc(t('diary_all', { n: back.length }))}</button>` : ''}` : `<p class="text muted">${esc(t('diary_all_heard'))}</p>`}</div>`;
 }
 
 const pathChannel = () => (PROGRESS.m && state.channelById.get(PROGRESS.m)) || null;

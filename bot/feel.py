@@ -39,7 +39,8 @@ TEXTS = {
         "count": "Отмечено точек: {n}",
         "none": "Пока ни одной отметки. После точки нажмите «Как отозвалась точка?»: тёплая, прохладная, "
                 "напряжённая, пустая или молчит. Здесь соберутся точки, к которым стоит вернуться.",
-        "return": "К молчащим и пустым точкам стоит вернуться: точка часто отзывается не с первого раза. "
+        "return": "К молчащим и пустым точкам можно вернуться в другой день. Точка не обязана откликнуться сразу, "
+                  "и давить на неё не нужно. Если онемение, покалывание или боль не проходят, обратитесь к врачу.\n\n"
                   "Нажмите на точку, чтобы открыть её.",
         "all_heard": "Молчащих и пустых точек нет.",
         "more": "И ещё {n}.",
@@ -55,8 +56,9 @@ TEXTS = {
         "count": "Points marked: {n}",
         "none": "No marks yet. After a point, tap \"How did the point respond?\": warm, cool, tense, empty "
                 "or silent. The points worth coming back to will gather here.",
-        "return": "Silent and empty points are worth coming back to: a point often responds on a later try. "
-                  "Tap a point to open it.",
+        "return": "You can come back to the silent and empty points on another day. A point does not have to "
+                  "respond at once, and there is no need to press harder. If numbness, tingling or pain does not "
+                  "go away, see a doctor.\n\nTap a point to open it.",
         "all_heard": "No silent or empty points.",
         "more": "And {n} more.",
     },
@@ -71,8 +73,9 @@ TEXTS = {
         "count": "Belgilangan nuqtalar: {n}",
         "none": "Hali belgi yo'q. Nuqtadan keyin «Nuqta qanday javob berdi?» tugmasini bosing: iliq, salqin, "
                 "tarang, bo'sh yoki jim. Qaytish kerak bo'lgan nuqtalar shu yerda yig'iladi.",
-        "return": "Jim va bo'sh nuqtalarga qaytgan ma'qul: nuqta ko'pincha birinchi urinishda javob bermaydi. "
-                  "Ochish uchun nuqtani bosing.",
+        "return": "Jim va bo'sh nuqtalarga boshqa kuni qaytish mumkin. Nuqta darhol javob berishi shart emas, "
+                  "unga kuch bilan bosish kerak emas. Uvishish, sanchish yoki og'riq o'tmasa, shifokorga murojaat "
+                  "qiling.\n\nOchish uchun nuqtani bosing.",
         "all_heard": "Jim yoki bo'sh nuqtalar yo'q.",
         "more": "Yana {n} ta.",
     },
@@ -87,7 +90,8 @@ TEXTS = {
         "count": "Белгіленген нүктелер: {n}",
         "none": "Әзірге белгі жоқ. Нүктеден кейін «Нүкте қалай жауап берді?» батырмасын басыңыз: жылы, салқын, "
                 "кернеулі, бос немесе үнсіз. Қайта оралатын нүктелер осында жиналады.",
-        "return": "Үнсіз және бос нүктелерге қайта оралған жөн: нүкте көбіне бірінші реттен жауап бермейді. "
+        "return": "Үнсіз және бос нүктелерге басқа күні оралуға болады. Нүкте бірден жауап беруге міндетті емес, "
+                  "оны қатты басудың қажеті жоқ. Ұю, шаншу немесе ауырсыну басылмаса, дәрігерге қаралыңыз.\n\n"
                   "Ашу үшін нүктені басыңыз.",
         "all_heard": "Үнсіз немесе бос нүктелер жоқ.",
         "more": "Тағы {n}.",
