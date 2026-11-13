@@ -485,6 +485,15 @@ h3.inline { margin: 0; }
 .caution { margin: 4px 0 8px; font-size: 13px; font-weight: 600; color: #b3261e; }
 /* a note in the text colour with a small red mark, not an error-red paragraph (artist round 2) */
 .caution.sym-flags { font-weight: 400; font-size: 12.5px; line-height: 1.4; color: var(--soft); padding-left: 12px; position: relative; }
+/* staying with a point: a slow ring in the channel's colour, 4 s in, 6 s out */
+.practice.breathing { text-align: center; }
+.breath-ring { width: 84px; height: 84px; margin: 6px auto 10px; border-radius: 50%; border: 3px solid var(--chan, var(--soft)); opacity: 0.55; transform: scale(0.72); }
+.breath-ring.on { animation: breath 10s ease-in-out infinite; }
+@keyframes breath { 0% { transform: scale(0.72); opacity: 0.45; } 40% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(0.72); opacity: 0.45; } }
+.practice .rows { text-align: left; }
+.practice .link { display: block; margin: 8px auto 0; }
+.practice-start .row-title { color: var(--chan, var(--text)); }
+.caution.strong-caution { font-weight: 700; font-size: 15px; }
 .row-sub .region { font-weight: 600; color: var(--text); opacity: 0.8; }
 .caution.sym-flags.strong { font-weight: 600; font-size: 14px; color: #8f1d17; }
 :root[data-theme="dark"] .caution.sym-flags.strong { color: #ff8a80; }

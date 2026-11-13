@@ -233,6 +233,36 @@ def setup_webapp_routes(
         user = await storage.get_user(int(tg_user["id"]))
         return web.json_response(progress_payload(user), headers={"Cache-Control": "no-store"})
 
+    async def advance_handler(request: web.Request) -> web.Response:
+        # "the point is done" pressed in the map after staying with it: the practice moves on by one point,
+        # as the bot's "next" button does, and only to the very next point of the user's own meridian (no
+        # jumps, no finishing a meridian - that keeps its confirmation in the bot). Nothing moves by itself
+        if storage is None:
+            raise web.HTTPNotFound()
+        try:
+            body = await request.json()
+        except (ValueError, UnicodeDecodeError):
+            raise web.HTTPBadRequest()
+        if not isinstance(body, dict):
+            raise web.HTTPBadRequest()
+        tg_user = verify_init_data(str(body.get("initData", "")), bot_token)
+        if not tg_user:
+            raise web.HTTPUnauthorized()
+        user = await storage.get_user(int(tg_user["id"]))
+        if not user or not user.meridians_enabled or not user.current_meridian_id:
+            return web.json_response({"moved": False, **progress_payload(user)}, headers={"Cache-Control": "no-store"})
+        meridian = meridians_manager.get_meridian_by_id(user.current_meridian_id)
+        points = meridian.get("points", []) if meridian else []
+        code = str(body.get("code", ""))
+        moved = False
+        if str(body.get("meridian", "")) == user.current_meridian_id and code:
+            idx = next((i for i, p in enumerate(points) if map_point_code(p.get("code") or "") == code), -1)
+            current = user.current_point_index if user.current_point_index is not None else -1
+            if idx == current + 1 and idx < len(points):
+                user.current_point_index = idx
+                moved = bool(await storage.save_user(user))
+        return web.json_response({"moved": moved, **progress_payload(user)}, headers={"Cache-Control": "no-store"})
+
     async def index_handler(request: web.Request) -> web.FileResponse:
         return web.FileResponse(WEBAPP_DIR / "index.html", headers={"Cache-Control": "no-cache"})
 
@@ -311,6 +341,7 @@ def setup_webapp_routes(
     app.router.add_get("/webapp/", index_handler)
     app.router.add_get("/webapp/api/meridians", meridians_handler)
     app.router.add_post("/webapp/api/progress", progress_handler)
+    app.router.add_post("/webapp/api/advance", advance_handler)
     app.router.add_get("/webapp/assets/{name}.json", json_asset_handler)
     app.router.add_get(r"/webapp/{tail:.+\.(?:js|css|glb)}", compressed_static_handler)
     app.router.add_static("/webapp/", WEBAPP_DIR, show_index=False)

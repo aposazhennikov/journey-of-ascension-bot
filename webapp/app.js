@@ -60,6 +60,9 @@ const state = {
   flowAuto: store.get('flow_auto', true),
   flowSlow: store.get('flow_slow', false),
   luoOn: store.get('luo_links', true),
+  // "I am pregnant": the points not used in pregnancy leave the complaint search and their cards say so
+  // first (council round 3: the filter worked only when the query itself said "pregnancy")
+  pregnant: store.get('pregnant', false),
   // one of SCENERY (photos behind the figure) or 'off'; older builds stored a boolean
   scenery: ((v) => (v === false ? 'off' : ([...SCENERY, 'off'].includes(v) ? v : 'k1')))(store.get('scenery', 'k1')),
   special: false,
@@ -433,6 +436,8 @@ function toggleFlow() {
 // ---------------------------------------------------------------- navigation
 
 function setLevel(level, { fly = true, instant = false } = {}) {
+  // leaving the point ends a breathing practice with it (its timers kept tapping on another card)
+  if (state.practice && (level.view !== 'point' || level.code !== state.practice.code)) stopPractice();
   state.level = level;
   wholeShown = false;
   state.expanded.clear();
@@ -783,7 +788,7 @@ function symptomMatches() {
   symptom.complaint = complaint;
   const lead = new Map((complaint?.points || []).map((code, i) => [code, i]));
   // a query about pregnancy shows no point marked "not in pregnancy" (TCM council round 3)
-  const pregnant = complaint?.pregnancy || /беремен|pregnan|жүкті|homilador/.test(raw);
+  const pregnant = state.pregnant || complaint?.pregnancy || /беремен|pregnan|жүкті|homilador/.test(raw);
   const out = [];
   for (const code of d.pointOwner.keys()) {
     if (pregnant && (d.extras[code]?.caution || []).includes('pregnancy')) continue;
@@ -826,7 +831,7 @@ function symptomResultsHtml() {
   // a query that may mean pregnancy (no periods) or blood / retained urine gets its own line: the search
   // offered exactly the points not used in pregnancy for "нет месячных" (TCM council round 2)
   const q = symptom.q.toLowerCase();
-  const preg = symptom.g === 'cycle' || symptom.complaint?.pregnancy || /месячн|менстру|беремен|задерж|period|menstru|pregnan|hayz|homilador|етеккір|жүкті/.test(q);
+  const preg = state.pregnant || symptom.g === 'cycle' || symptom.complaint?.pregnancy || /месячн|менстру|беремен|задерж|period|menstru|pregnan|hayz|homilador|етеккір|жүкті/.test(q);
   const blood = /кров|задержк\w* моч|не могу помочит|blood|bleed|retention|qon|siydik tutil|қан|зәр ұста/.test(q);
   const extra = (preg ? `<p class="caution sym-flags">${esc(t('sym_pregnancy'))}</p>` : '') + (blood ? `<p class="caution sym-flags">${esc(t('sym_blood'))}</p>` : '');
   // a complaint that can be an emergency (chest pain...) puts the warning first and in full weight
@@ -1002,7 +1007,9 @@ function homeBody() {
     <div class="section"><h3>${esc(t('sec_vessels'))}</h3><div class="rows">${vesRows}</div></div>`}
     <div class="section prefs" id="prefs"><h3>${esc(t('settings_title'))}</h3>${langRowHtml()}${sceneryRowHtml()}
       <div class="toggle-row"><span id="lbl-luo">${esc(t('luo_toggle'))}</span><button class="switch" role="switch" data-act="luo" aria-checked="${state.luoOn}" aria-labelledby="lbl-luo"></button></div>
-      <div class="toggle-row"><span id="lbl-slow">${esc(t('slow_toggle'))}</span><button class="switch" role="switch" data-act="slow" aria-checked="${state.flowSlow}" aria-labelledby="lbl-slow"></button></div></div>
+      <div class="toggle-row"><span id="lbl-slow">${esc(t('slow_toggle'))}</span><button class="switch" role="switch" data-act="slow" aria-checked="${state.flowSlow}" aria-labelledby="lbl-slow"></button></div>
+      <div class="toggle-row"><span id="lbl-preg">${esc(t('pregnant_toggle'))}</span><button class="switch" role="switch" data-act="pregnant" aria-checked="${state.pregnant}" aria-labelledby="lbl-preg"></button></div>
+      ${state.pregnant ? `<p class="note">${esc(t('pregnant_note'))}</p>` : ''}</div>
     <p class="note">${esc(t('disclaimer'))}</p>
     <button class="row-btn" data-toggle="about"><span class="name">${esc(t('about_title'))}</span><span class="chev">${about ? '⌄' : '›'}</span></button>
     ${about ? `<p class="text">${esc(t('about_text'))}</p>` : ''}`;
@@ -1106,6 +1113,10 @@ function channelBody(ch) {
   const pr = state.data.profile(ch.id);
   const start = pr?.start && state.data.pointOwner.has(pr.start)
     ? `<div class="rows"><button class="row-btn start-btn" data-goto="${pr.start}"><span class="name"><span class="row-title">${esc(t('start_with', { name: pointName(pr.start), code: dispCode(pr.start) }))}${(state.data.extras[pr.start]?.caution || []).length ? `<span class="warn" title="${esc(t('sym_warn_title'))}">⚠</span>` : ''}</span>${pr.start_why ? `<span class="row-sub">${esc(pr.start_why)}</span>` : ''}</span><span class="chev">›</span></button></div>` : '';
+  // a pose that opens this channel, one tap from the profile (council round 3). The lotus and half lotus are
+  // left out: their knee warning needs reading first, a quick button is the wrong way in
+  const pose = poseForChannel(ch.id);
+  const poseRow = pose ? `<div class="rows"><button class="row-btn" data-act="trypose" data-pose="${pose.item.id}" data-tab="${pose.tab}"><span class="name"><span class="row-title">${esc(t('try_pose', { name: (poseText(pose.item).name || pose.item.id).split('(')[0].trim() }))}</span><span class="row-sub">${esc(poseText(pose.item).short || '')}</span></span><span class="chev">›</span></button></div>` : '';
   const tradOpen = state.expanded.has('trad');
   const trad = (pr?.organ || m.description) ? `<div class="section"><button class="row-btn ind-head" data-toggle="trad" aria-expanded="${tradOpen}"><span class="name"><span class="row-title">${esc(t('profile_title'))}</span><span class="row-sub">${esc(t('trad_sub'))}</span></span><span class="chev">${tradOpen ? '⌄' : '›'}</span></button>
     ${tradOpen ? `${profileSection(ch.id, { bare: true })}${m.description ? `<h3>${esc(t('description_title'))}</h3><p class="text">${richText(m.description)}</p>` : ''}${m.labels?.level ? `<p class="text muted">${esc(t('level_label'))}: ${esc(m.labels.level)}</p>` : ''}` : ''}</div>` : '';
@@ -1113,6 +1124,7 @@ function channelBody(ch) {
     ${path}
     ${pr?.organ ? `<p class="text lead">${esc(pr.organ)}</p>` : ''}
     ${start}
+    ${poseRow}
     ${m.intro_practice ? `<div class="section"><h3>${esc(t('practice_title'))}</h3><p class="text">${richText(m.intro_practice)}</p></div>` : ''}
     <p class="text flow-line">${esc(t('flow_label'))}: ${esc(FLOW_SHORT[LANG][ch.id] || m.direction || '')}</p>
     ${hours}
@@ -1124,6 +1136,18 @@ function channelBody(ch) {
       <div class="rows">${rows}</div>
     </div>
     ${trad}`;
+}
+
+function poseForChannel(id) {
+  const c = state.poseContent;
+  if (!c) return null;
+  const skip = new Set(['stand', 'padmasana', 'ardha_padmasana', 'open']);
+  const lists = [['asanas', c.asanas, 'emphasized_meridians'], ['arms', c.arm_positions, 'emphasized_meridians'], ['mudras', c.mudras, 'connected_meridians']];
+  for (const [tab, list, key] of lists) {
+    const item = (list || []).find((x) => !skip.has(x.id) && (x[key] || []).includes(id));
+    if (item) return { tab, item };
+  }
+  return null;
 }
 
 function fmtCun(n) {
@@ -1234,7 +1258,10 @@ function pointBody(ch, code) {
     if (openBadge === 'transition') actions = `<button class="link" data-chan="${nextChannelOf(ch.id)}">${esc(shortName(nextChannelOf(ch.id)))} ›</button>`;
     explain = `<div class="tag-explain">${esc(text)}${actions ? `<div class="explain-actions">${actions}</div>` : ''}</div>`;
   }
-  const cautions = (extra.caution || []).map((k) => `<p class="caution">⚠ ${esc(t(`caution_${k}`))}</p>`).join('');
+  // with "I am pregnant" on, the pregnancy caution goes first and in full weight
+  const ck = [...(extra.caution || [])];
+  if (state.pregnant && ck.includes('pregnancy')) ck.sort((a, b) => (b === 'pregnancy') - (a === 'pregnancy'));
+  const cautions = ck.map((k) => `<p class="caution${state.pregnant && k === 'pregnancy' ? ' strong-caution' : ''}">⚠ ${esc(t(`caution_${k}`))}</p>`).join('');
   const cr = d.crossings.get(code);
   const meets = cr ? (cr.meridians || []).filter((m) => state.channelById.has(m)) : [];
   const meetChips = meets.length > 1 ? `<div class="section"><h3>${esc(t('crossings_title'))}${cr.confidence === 'medium' ? ` · <span class="muted">${esc(t('some_sources'))}</span>` : ''}</h3>
@@ -1278,11 +1305,113 @@ function pointBody(ch, code) {
     ${keys.length ? `<div class="tags">${badges}</div>${explain}` : ''}
     ${info?.location ? `<div class="section"><h3>${esc(t('location_title'))}</h3>${cautions}<p class="text big">${esc(info.location.charAt(0).toUpperCase() + info.location.slice(1))}</p></div>` : cautions}
     ${findHtml}
+    ${practiceHtml(ch, code, extra)}
     ${fnHtml}
     ${indHtml}
     ${meetChips}
     ${other}
     <p class="note">${esc(t('source'))}: ${esc(t('source_line'))}</p>`;
+}
+
+// ---------------------------------------------------------------- staying with a point (council round 3)
+// Find it, then six calm breaths with attention on it (a slow ring, a soft tap per breath), then "the point is
+// done". The next point of the bot's path is marked in the bot too; nothing moves by itself.
+const BREATHS = 6, BREATH_MS = 10000, INHALE_MS = 4000;
+const ATTENTION_ONLY = new Set(['artery', 'eye', 'touch', 'neck', 'pregnancy']);
+let practiceTimers = [];
+
+function isNextPathPoint(ch, code) {
+  return PROGRESS.m === ch.id && ch.points.indexOf(code) === PROGRESS.p + 1;
+}
+
+function stopPractice() {
+  for (const id of practiceTimers) { clearTimeout(id); clearInterval(id); }
+  practiceTimers = [];
+  state.practice = null;
+}
+
+function practiceHtml(ch, code, extra) {
+  const pr = state.practice?.code === code ? state.practice : null;
+  const next = isNextPathPoint(ch, code);
+  const gentle = (extra.caution || []).some((k) => ATTENTION_ONLY.has(k)) ? t('practice_attention_only') : t('practice_touch_ok');
+  if (!pr) {
+    return `<div class="section practice"><button class="row-btn practice-start" data-act="practice"><span class="name"><span class="row-title">${esc(t('practice_start'))}</span>
+      <span class="row-sub">${esc(next ? t('practice_start_sub_path') : t('practice_start_sub'))}</span></span><span class="chev">›</span></button></div>`;
+  }
+  if (pr.phase === 'done') {
+    return `<div class="section practice"><p class="text lead">${esc(pr.message || t('practice_done'))}</p></div>`;
+  }
+  const breathing = pr.phase === 'breath';
+  return `<div class="section practice${breathing ? ' breathing' : ''}" style="--chan:${color(ch.id)}">
+    <div class="breath-ring${breathing && !reducedMotion.matches ? ' on' : ''}" aria-hidden="true"></div>
+    <p class="text lead breath-text" aria-live="polite">${esc(breathing ? t('practice_breath', { i: pr.breath, n: BREATHS }) : t('practice_find'))}</p>
+    <p class="text muted">${esc(gentle)}</p>
+    <div class="rows">${breathing
+      ? `<button class="row-btn" data-act="practicedone"><span class="name"><span class="row-title">${esc(t(next ? 'practice_finish_path' : 'practice_finish'))}</span></span><span class="chev">✓</span></button>`
+      : `<button class="row-btn" data-act="practicefound"><span class="name"><span class="row-title">${esc(t('practice_found'))}</span></span><span class="chev">›</span></button>`}
+      <button class="link" data-act="practicestop">${esc(t('practice_stop'))}</button></div></div>`;
+}
+
+function startBreathing() {
+  const pr = state.practice;
+  if (!pr) return;
+  pr.phase = 'breath';
+  pr.breath = 1;
+  renderSheet();
+  const tick = () => {
+    if (!state.practice || state.practice !== pr) return;
+    haptic('soft');
+    const el = document.querySelector('.breath-text');
+    if (el) el.textContent = t('practice_breath', { i: pr.breath, n: BREATHS });
+    practiceTimers.push(setTimeout(() => {
+      const e2 = document.querySelector('.breath-text');
+      if (e2 && state.practice === pr) e2.textContent = t('practice_exhale', { i: pr.breath, n: BREATHS });
+    }, INHALE_MS));
+  };
+  tick();
+  practiceTimers.push(setInterval(() => {
+    if (!state.practice || state.practice !== pr) return;
+    if (pr.breath >= BREATHS) {
+      for (const id of practiceTimers) { clearTimeout(id); clearInterval(id); }
+      practiceTimers = [];
+      const el = document.querySelector('.breath-text');
+      if (el) el.textContent = t('practice_rest');
+      document.querySelector('.breath-ring')?.classList.remove('on');
+      haptic('light');
+      return;
+    }
+    pr.breath += 1;
+    tick();
+  }, BREATH_MS));
+}
+
+async function finishPractice(ch, code) {
+  const pr = state.practice;
+  if (!pr) return;
+  for (const id of practiceTimers) { clearTimeout(id); clearInterval(id); }
+  practiceTimers = [];
+  let message = t('practice_done');
+  if (isNextPathPoint(ch, code) && tg?.initData) {
+    try {
+      const res = await fetch('api/advance', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ initData: tg.initData, meridian: ch.id, code }),
+      });
+      const p = res.ok ? await res.json() : null;
+      if (p?.moved) {
+        PROGRESS.m = p.pm || null;
+        PROGRESS.p = Number.isInteger(p.pi) ? p.pi : PROGRESS.p;
+        if (Array.isArray(p.pd)) PROGRESS.done = new Set(p.pd);
+        const after = ch.points[ch.points.indexOf(code) + 1];
+        message = after ? t('practice_marked_next', { code: dispCode(after), name: pointName(after) }) : t('practice_marked_last');
+      }
+    } catch { /* offline: the practice still counts for the person, the bot keeps its own mark */ }
+  }
+  pr.phase = 'done';
+  pr.message = message;
+  haptic('medium');
+  renderSheet();
+  renderChips();
 }
 
 function vesselBody(v) {
@@ -1346,6 +1475,16 @@ function onSheetClick(e) {
   }
   if (ds.scenery) { state.scenery = ds.scenery; store.set('scenery', state.scenery); applyScenery(); renderSheet(); return; }
   if (ds.act === 'luo') { state.luoOn = !state.luoOn; store.set('luo_links', state.luoOn); applySelection(); renderSheet(); return; }
+  if (ds.act === 'practice' && lv.view === 'point') { stopPractice(); state.practice = { code: lv.code, phase: 'find' }; setSheet('full'); renderSheet(); return; }
+  if (ds.act === 'practicefound') { startBreathing(); return; }
+  if (ds.act === 'practicedone' && lv.view === 'point') { finishPractice(state.channelById.get(lv.id), lv.code); return; }
+  if (ds.act === 'practicestop') { stopPractice(); renderSheet(); return; }
+  if (ds.act === 'trypose') {
+    const { pose, tab } = ds;
+    openPoses().then(() => { state.posesTab = tab; choosePose(pose); });
+    return;
+  }
+  if (ds.act === 'pregnant') { state.pregnant = !state.pregnant; store.set('pregnant', state.pregnant); renderSheet(); return; }
   if (ds.act === 'slow') {
     state.flowSlow = !state.flowSlow;
     store.set('flow_slow', state.flowSlow);

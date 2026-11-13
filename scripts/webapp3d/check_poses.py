@@ -65,6 +65,9 @@ LIM = {
     "buttock_floor": 0.003, "floor_pen": -0.003, "buttock_heel_gap": 0.010,
     "foot_thigh_gap": 0.005, "foot_thigh_sink": 0.010,
     "hand_leg_sink": 0.005, "hand_leg_gap": 0.010, "hand_floor_gap": 0.010, "palm_leg_gap": 0.012,
+    # the palm's median gap: 26-33 mm on the neutral palms that lie right (the arch and the wrist skin stand
+    # off), 60 mm on the male right hand that the user saw hanging over the knee
+    "palm_down": -0.6, "palm_leg_med": 0.035,
     # added after the lotus review: forearms went 5 cm into the belly, the hands into each other and the
     # feet were buried in the thighs, and nothing here measured it
     "arm_trunk_pen": 0.006, "hand_hand_pen": 0.004, "foot_top_visible": 0.30,
@@ -629,6 +632,12 @@ def evaluate(b, local, root, body_id, hand_id, has_arms, corr=None):
                 # above while the palm hung 1-2 cm over the thigh (sukhasana)
                 sdp = surface_sd(b, pos, nrm, b.palm_bones(s), legs)
                 C.add("palm_leg_gap", float(sdp.min()), "<=", LIM["palm_leg_gap"], s, "m")
+                # ...and lies on it facing down, not standing up with only its heel on the knee: the male right
+                # sukhasana hand did that and passed both gaps (user, 2026-11-13). Palm normal's vertical part,
+                # -1 = straight down; and the palm as a whole near the thigh, not one corner of it
+                n_palm = qrot(Q[b.I[f"wrist.{s}"]], b.hand[s][2])
+                C.add("palm_down", float(n_palm[1]), "<=", LIM["palm_down"], s, "")
+                C.add("palm_leg_med", float(np.median(sdp)), "<=", LIM["palm_leg_med"], s, "m")
     if body_id == "dandasana" and not has_arms:
         for s in SIDES:
             C.add("hand_floor_gap", float(pos[b.sets[f"hand{s}"], 1].min()), "<=", LIM["hand_floor_gap"], s, "m")
