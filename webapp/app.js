@@ -782,8 +782,11 @@ function symptomMatches() {
   const complaint = symptom.g ? null : complaintOf(raw);
   symptom.complaint = complaint;
   const lead = new Map((complaint?.points || []).map((code, i) => [code, i]));
+  // a query about pregnancy shows no point marked "not in pregnancy" (TCM council round 3)
+  const pregnant = complaint?.pregnancy || /беремен|pregnan|жүкті|homilador/.test(raw);
   const out = [];
   for (const code of d.pointOwner.keys()) {
+    if (pregnant && (d.extras[code]?.caution || []).includes('pregnancy')) continue;
     const ind = d.extraText(code).indications;
     if (!Array.isArray(ind)) continue;
     const hits = [];
@@ -1975,7 +1978,8 @@ function updateLabels() {
     if (!it.main && sx > window.innerWidth - 64 && state.sheet !== 'full') continue;
     // points closer than a label's height share one label (C9 and IG1 sit on the same little fingertip);
     // three or more read "IG9 +2" instead of a stack of codes over the arm (artist of the council)
-    const near = placed.find((q) => Math.abs(q.sx - sx) < 40 && Math.abs(q.sy - sy) < 18);
+    // (a label is ~22 px tall: at 18 px IG9 and VB22 still touched in the hands-behind-head view, artist round 3)
+    const near = placed.find((q) => Math.abs(q.sx - sx) < 46 && Math.abs(q.sy - sy) < 23);
     if (near) {
       if (!it.main) {
         near.extra += 1;
