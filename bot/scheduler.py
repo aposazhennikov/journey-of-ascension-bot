@@ -24,6 +24,7 @@ from .utils import (
     has_principle_image
 )
 from .webapp import build_map_button
+from . import feel as diary
 
 
 logger = logging.getLogger(__name__)
@@ -156,6 +157,11 @@ class YogaScheduler:
                 )
             if navigation_row:
                 keyboard.append(navigation_row)
+            # the sensation diary: how the point responded, right under the way to the next one
+            if meridian_id:
+                keyboard.extend(diary.collapsed_rows(
+                    meridian_id, point_index, diary.feel_of(user.point_feel if user else None, point_code), language
+                ))
 
         if map_button:
             keyboard.append([map_button])

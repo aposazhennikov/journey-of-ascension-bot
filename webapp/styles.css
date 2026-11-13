@@ -414,6 +414,10 @@ h3.inline { margin: 0; }
 .tag.button::before { content: ""; position: absolute; inset: -8px 0; }
 .tag[aria-expanded="true"] { background: var(--chan, var(--accent)); color: #fff; }
 .tag.chip-like { height: 36px; border-radius: 18px; background: transparent; border: 1px solid var(--line); }
+.feel .tags { gap: 8px; }
+.feel-chip[aria-pressed="true"] { background: var(--picked); color: var(--picked-text); border-color: var(--picked); }
+.diary-counts { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 2px 0 6px; font-size: 14px; color: var(--soft); }
+.mk.feel { font-size: 13px; }
 .tag-explain { margin: 8px 0 0; padding: 8px 10px; border-radius: 10px; background: color-mix(in srgb, var(--chan, var(--accent)) 8%, transparent); font-size: 14px; }
 .explain-actions { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px 12px; }
 

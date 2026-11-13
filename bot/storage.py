@@ -26,6 +26,8 @@ class User:
     completed_meridians: List[str] = None
     meridian_learning_mode: Optional[str] = None
     secret_tasks: Dict[str, str] = None
+    # sensation diary: {map point code: {"f": warm|cool|tense|empty|silent, "d": "YYYY-MM-DD"}} (bot/feel.py)
+    point_feel: Dict[str, Dict[str, str]] = None
 
     def __post_init__(self):
         """Initialize default values."""
@@ -54,6 +56,8 @@ class User:
             for key, value in self.secret_tasks.items()
             if key is not None and value is not None
         }
+        from .feel import normalize_point_feel  # local: feel pulls in telegram and the web app helpers
+        self.point_feel = normalize_point_feel(self.point_feel)
         # Ensure last_feedback_time is None if not set
         if not hasattr(self, 'last_feedback_time'):
             self.last_feedback_time = None

@@ -63,6 +63,8 @@ const state = {
   // "I am pregnant": the points not used in pregnancy leave the complaint search and their cards say so
   // first (council round 3: the filter worked only when the query itself said "pregnancy")
   pregnant: store.get('pregnant', false),
+  // sensation diary {code: {f, d}}: shared with the bot through api/feel when opened inside Telegram
+  feel: ((v) => (v && typeof v === 'object' ? v : {}))(store.get('feel', {})),
   // one of SCENERY (photos behind the figure) or 'off'; older builds stored a boolean
   scenery: ((v) => (v === false ? 'off' : ([...SCENERY, 'off'].includes(v) ? v : 'k1')))(store.get('scenery', 'k1')),
   special: false,
@@ -675,19 +677,79 @@ function factsLine(ch) {
 
 // Opened from the chat menu button (a fixed URL without pm/pi/pd): ask the bot with the signed initData.
 // Resolves to true when the progress changed.
+// The sensation diary comes the same way on every open from Telegram (it does not fit into the button URL).
 function fetchProgress() {
-  if (params.has('pm') || params.has('pd') || !tg?.initData) return Promise.resolve(false);
+  if (!tg?.initData) return Promise.resolve(false);
+  const urlProgress = params.has('pm') || params.has('pd');
   return fetch('api/progress', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ initData: tg.initData }),
-  }).then((res) => (res.ok ? res.json() : {})).then((p) => {
-    if (!p || (!p.pm && !p.pd)) return false;
+  }).then((res) => (res.ok ? res.json() : null)).then((p) => {
+    if (!p) return false;
+    let changed = false;
+    if (p.feel && typeof p.feel === 'object') {
+      changed = JSON.stringify(p.feel) !== JSON.stringify(state.feel);
+      state.feel = p.feel;
+      store.set('feel', state.feel);
+    }
+    if (urlProgress || (!p.pm && !p.pd)) return changed;
     PROGRESS.m = p.pm || null;
     PROGRESS.p = Number.isInteger(p.pi) ? p.pi : -1;
     PROGRESS.done = new Set(Array.isArray(p.pd) ? p.pd : []);
     return true;
   }).catch(() => false);
+}
+
+// ---------------------------------------------------------------- sensation diary (council round 3)
+// After a point one tap says how it responded; silent and empty points are the ones to come back to.
+const FEELS = ['warm', 'cool', 'tense', 'empty', 'silent'];
+const FEEL_ICON = { warm: '☀️', cool: '❄️', tense: '⚡️', empty: '🫧', silent: '🤫' };
+const RETURN_FEELS = ['silent', 'empty'];
+const feelOf = (code) => (FEELS.includes(state.feel[code]?.f) ? state.feel[code].f : null);
+
+function feelHtml(code) {
+  const cur = feelOf(code);
+  const chips = FEELS.map((f) => `<button class="tag button chip-like feel-chip" data-feel="${f}" aria-pressed="${cur === f}"><span aria-hidden="true">${FEEL_ICON[f]}</span> ${esc(t(`feel_${f}`))}</button>`).join('');
+  return `<div class="section feel"><h3>${esc(t('feel_title'))}</h3><div class="tags">${chips}</div>
+    <p class="note">${esc(t(tg?.initData ? 'feel_sub' : 'feel_sub_local'))}</p></div>`;
+}
+
+async function setFeel(code, f) {
+  const clear = feelOf(code) === f;
+  const next = { ...state.feel };
+  if (clear) delete next[code];
+  else next[code] = { f, d: new Date().toISOString().slice(0, 10) };
+  state.feel = next;
+  store.set('feel', next);
+  haptic('light');
+  toast(clear ? t('feel_cleared') : t('feel_saved', { label: t(`feel_${f}`).toLowerCase() }));
+  renderSheet();
+  if (!tg?.initData) return;
+  try {
+    const res = await fetch('api/feel', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ initData: tg.initData, code, feel: clear ? '' : f }),
+    });
+    const p = res.ok ? await res.json() : null;
+    if (p?.feel && typeof p.feel === 'object') { state.feel = p.feel; store.set('feel', p.feel); }
+  } catch { /* offline: the mark stays on this device */ }
+}
+
+function diarySection() {
+  const marks = Object.entries(state.feel).filter(([code, e]) => FEELS.includes(e?.f) && state.data.pointOwner.has(code));
+  if (!marks.length) return '';
+  const counts = FEELS.map((f) => [f, marks.filter(([, e]) => e.f === f).length]).filter(([, n]) => n)
+    .map(([f, n]) => `<span class="diary-count"><span aria-hidden="true">${FEEL_ICON[f]}</span> ${esc(t(`feel_${f}`))} ${n}</span>`).join('');
+  const back = marks.filter(([, e]) => RETURN_FEELS.includes(e.f))
+    .sort((a, b) => RETURN_FEELS.indexOf(a[1].f) - RETURN_FEELS.indexOf(b[1].f) || String(a[1].d).localeCompare(String(b[1].d)));
+  const LIMIT = 6;
+  const rows = back.slice(0, LIMIT).map(([code, e]) => {
+    const owner = state.data.pointOwner.get(code);
+    return `<button class="row-btn" data-goto="${code}"><span class="code">${esc(dispCode(code))}</span><span class="name">${esc(pointName(code))}<span class="row-sub">${esc(shortName(owner))}</span></span><span class="marks"><span class="mk" title="${esc(t(`feel_${e.f}`))}">${FEEL_ICON[e.f]}</span></span></button>`;
+  }).join('');
+  return `<div class="section diary"><h3>${esc(t('diary_title'))}</h3><div class="diary-counts">${counts}</div>
+    ${back.length ? `<p class="text muted">${esc(t('diary_return'))}</p><div class="rows">${rows}</div>${back.length > LIMIT ? `<p class="note">${esc(t('diary_more', { n: back.length - LIMIT }))}</p>` : ''}` : `<p class="text muted">${esc(t('diary_all_heard'))}</p>`}</div>`;
 }
 
 const pathChannel = () => (PROGRESS.m && state.channelById.get(PROGRESS.m)) || null;
@@ -1001,6 +1063,7 @@ function homeBody() {
   // search in the middle, council)
   return `${intro}${pathSection()}
     ${symptomSection()}
+    ${diarySection()}
     ${state.overlay === 'list' && !state.expanded.has('allch') ? `<div class="section"><button class="row-btn ind-head" data-toggle="allch" aria-expanded="false"><span class="name"><span class="row-title">${esc(t('all_channels_row'))}</span><span class="row-sub">${esc(t('all_channels_sub'))}</span></span><span class="chev">›</span></button></div>` : `
     <div class="section"><h3>${esc(t('sec_main'))}</h3><div class="rows">${regRows}</div></div>
     <div class="section"><h3>${esc(t('sec_mid'))}</h3><div class="rows">${midRows}</div></div>
@@ -1212,6 +1275,8 @@ function pointRow(ch, code) {
   const has = !!state.data.coords[code];
   if (pathPoint() === code) marks.unshift(`<span class="mk here" title="${esc(t('path_here_short'))}">●</span>`);
   else if (pointPassed(ch, code)) marks.unshift(`<span class="mk passed" title="${esc(t('path_done'))}">✓</span>`);
+  const f = feelOf(code);
+  if (f) marks.push(`<span class="mk feel" title="${esc(t(`feel_${f}`))}">${FEEL_ICON[f]}</span>`);
   return `<button class="row-btn${has ? '' : ' missing'}" data-point="${code}"><span class="code">${esc(dispCode(code))}</span>
     <span class="name">${esc(pointName(code))}${has ? '' : `<span class="row-sub">${esc(t('not_on_model'))}</span>`}</span><span class="marks">${marks.join('')}</span></button>`;
 }
@@ -1306,6 +1371,7 @@ function pointBody(ch, code) {
     ${info?.location ? `<div class="section"><h3>${esc(t('location_title'))}</h3>${cautions}<p class="text big">${esc(info.location.charAt(0).toUpperCase() + info.location.slice(1))}</p></div>` : cautions}
     ${findHtml}
     ${practiceHtml(ch, code, extra)}
+    ${feelHtml(code)}
     ${fnHtml}
     ${indHtml}
     ${meetChips}
@@ -1479,6 +1545,7 @@ function onSheetClick(e) {
   if (ds.act === 'practicefound') { startBreathing(); return; }
   if (ds.act === 'practicedone' && lv.view === 'point') { finishPractice(state.channelById.get(lv.id), lv.code); return; }
   if (ds.act === 'practicestop') { stopPractice(); renderSheet(); return; }
+  if (ds.feel && lv.view === 'point') { setFeel(lv.code, ds.feel); return; }
   if (ds.act === 'trypose') {
     const { pose, tab } = ds;
     openPoses().then(() => { state.posesTab = tab; choosePose(pose); });

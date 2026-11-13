@@ -131,6 +131,11 @@ def progress_payload(user: Optional["User"]) -> Dict[str, Any]:
     return out
 
 
+def feel_payload(user: Optional["User"]) -> Dict[str, Dict[str, str]]:
+    """The user's sensation diary for the map: {map code: {"f": feeling, "d": date}}."""
+    return dict(getattr(user, "point_feel", None) or {}) if user else {}
+
+
 def build_map_button(
     base_url: str,
     text: str,
@@ -231,7 +236,42 @@ def setup_webapp_routes(
         if not tg_user:
             raise web.HTTPUnauthorized()
         user = await storage.get_user(int(tg_user["id"]))
-        return web.json_response(progress_payload(user), headers={"Cache-Control": "no-store"})
+        # the sensation diary rides along (it is too long for the button URL)
+        return web.json_response(
+            {**progress_payload(user), "feel": feel_payload(user)}, headers={"Cache-Control": "no-store"}
+        )
+
+    known_codes: set = set()
+
+    async def feel_handler(request: web.Request) -> web.Response:
+        # a point marked in the map's card (warm, cool, tense, empty, silent; "" clears): the same diary the
+        # bot's buttons write to
+        from .feel import FEELS, set_feel
+        if storage is None:
+            raise web.HTTPNotFound()
+        try:
+            body = await request.json()
+        except (ValueError, UnicodeDecodeError):
+            raise web.HTTPBadRequest()
+        if not isinstance(body, dict):
+            raise web.HTTPBadRequest()
+        tg_user = verify_init_data(str(body.get("initData", "")), bot_token)
+        if not tg_user:
+            raise web.HTTPUnauthorized()
+        if not known_codes:
+            for meridian in meridians_manager.get_recommended_path_meridians():
+                known_codes.update(map_point_code(p.get("code") or "") for p in meridian.get("points", []))
+            known_codes.discard("")
+        code = map_point_code(str(body.get("code", "")))
+        feel = str(body.get("feel", ""))
+        if code not in known_codes or (feel and feel not in FEELS):
+            raise web.HTTPBadRequest()
+        user = await storage.get_user(int(tg_user["id"]))
+        if not user:
+            return web.json_response({"saved": False, "feel": {}}, headers={"Cache-Control": "no-store"})
+        set_feel(user.point_feel, code, feel)
+        saved = bool(await storage.save_user(user))
+        return web.json_response({"saved": saved, "feel": feel_payload(user)}, headers={"Cache-Control": "no-store"})
 
     async def advance_handler(request: web.Request) -> web.Response:
         # "the point is done" pressed in the map after staying with it: the practice moves on by one point,
@@ -342,6 +382,7 @@ def setup_webapp_routes(
     app.router.add_get("/webapp/api/meridians", meridians_handler)
     app.router.add_post("/webapp/api/progress", progress_handler)
     app.router.add_post("/webapp/api/advance", advance_handler)
+    app.router.add_post("/webapp/api/feel", feel_handler)
     app.router.add_get("/webapp/assets/{name}.json", json_asset_handler)
     app.router.add_get(r"/webapp/{tail:.+\.(?:js|css|glb)}", compressed_static_handler)
     app.router.add_static("/webapp/", WEBAPP_DIR, show_index=False)

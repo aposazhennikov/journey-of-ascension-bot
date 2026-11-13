@@ -34,6 +34,7 @@ from .utils import (
     MERIDIAN_METADATA
 )
 from .webapp import build_map_button, build_map_url, normalize_webapp_language
+from . import feel as diary
 
 
 logger = logging.getLogger(__name__)
@@ -5040,6 +5041,11 @@ class BotHandlers:
             keyboard.append([InlineKeyboardButton(self._get_text("current_meridian", language), callback_data="meridian_current")])
         keyboard.extend([
             [InlineKeyboardButton(self._get_text("meridian_change_path", language), callback_data="meridian_path")],
+        ])
+        if user and user.point_feel:
+            # the sensation diary appears once there is something in it
+            keyboard.append([InlineKeyboardButton(diary.text("menu", language), callback_data="meridian_diary")])
+        keyboard.extend([
             [InlineKeyboardButton(self._get_text("meridian_practice_advice", language), callback_data="meridian_practice_advice")],
             [InlineKeyboardButton(self._get_text("meridian_measurements", language), callback_data="meridian_measurements")],
             [InlineKeyboardButton(self._get_text("useful_materials", language), callback_data="meridian_materials")],
@@ -5207,6 +5213,13 @@ class BotHandlers:
         keyboard = []
         if navigation_row:
             keyboard.append(navigation_row)
+        # the sensation diary: how the point responded (bot/feel.py)
+        if meridian_id and point_index is not None and point_index >= 0:
+            point_code = self._point_code_at(meridian_id, point_index)
+            if point_code:
+                keyboard.extend(diary.collapsed_rows(
+                    meridian_id, point_index, diary.feel_of(user.point_feel if user else None, point_code), language
+                ))
         if map_button:
             keyboard.append([map_button])
         keyboard.extend([
@@ -5220,6 +5233,52 @@ class BotHandlers:
             keyboard.append([InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")])
         keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
         return InlineKeyboardMarkup(keyboard)
+
+    def _point_code_at(self, meridian_id: Optional[str], point_index: Optional[int]) -> Optional[str]:
+        """Code of a meridian's point by index, None when there is no such point."""
+        meridian = self.meridians_manager.get_meridian_by_id(meridian_id) if meridian_id else None
+        points = meridian.get("points", []) if meridian else []
+        if point_index is None or point_index < 0 or point_index >= len(points):
+            return None
+        return points[point_index].get("code")
+
+    def _diary_point_title(self, point: Dict[str, Any], language: str) -> str:
+        name = localized_point_name(point, language) if point else ""
+        code = point.get("code", "") if point else ""
+        return f"{code} {name}".strip() if name and name != code else code
+
+    async def _handle_feel_callback(self, query, user: Optional[User], language: str) -> None:
+        """Diary buttons under a point message: open the five feelings, save one, or fold them back."""
+        parsed = diary.parse_callback(query.data or "")
+        if not parsed or not user or not user.is_active:
+            await query.answer()
+            return
+        kind, meridian_id, point_index, feel = parsed
+        point_code = self._point_code_at(meridian_id, point_index)
+        if not point_code:
+            await query.answer()
+            return
+        current = diary.feel_of(user.point_feel, point_code)
+        toast = None
+        if kind == "set":
+            if feel == current:
+                diary.set_feel(user.point_feel, point_code, "")
+                current = None
+                toast = diary.text("cleared", language)
+            else:
+                diary.set_feel(user.point_feel, point_code, feel)
+                current = feel
+                toast = diary.text("saved", language, label=diary.feel_label(feel, language).lower())
+            await self.storage.save_user(user)
+        rows = (diary.open_rows if kind == "open" else diary.collapsed_rows)(meridian_id, point_index, current, language)
+        markup = diary.swap_feel_rows(query.message.reply_markup if query.message else None, rows)
+        await query.answer(toast or None)
+        if markup is not None:
+            try:
+                await query.edit_message_reply_markup(reply_markup=markup)
+            except BadRequest as e:
+                if "not modified" not in str(e).lower():
+                    logger.warning(f"Could not update the diary buttons for {user.chat_id}: {e}")
 
     def _create_meridian_path_keyboard(self, language: str) -> InlineKeyboardMarkup:
         """Create meridian learning mode selection keyboard."""
@@ -5822,6 +5881,11 @@ class BotHandlers:
                 await query.answer(self._get_text("page_indicator_hint", language), show_alert=False)
                 return
 
+            if action.startswith("feel"):
+                # answers the query itself: saving a feeling shows a short toast
+                await self._handle_feel_callback(query, user, language)
+                return
+
             await query.answer()
             if not user or not user.is_active:
                 await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
@@ -5935,6 +5999,16 @@ class BotHandlers:
                     self._get_text("meridian_point_help_text", language),
                     reply_markup=self._create_meridian_help_keyboard(language, user),
                     parse_mode='HTML'
+                )
+                return
+
+            if action == "diary":
+                text, rows = diary.diary_page(
+                    user.point_feel, self.meridians_manager, language, self._diary_point_title
+                )
+                rows.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
+                await self._edit_message_text_safe(
+                    query, text, reply_markup=InlineKeyboardMarkup(rows), parse_mode='HTML'
                 )
                 return
 
