@@ -4736,6 +4736,8 @@ class BotHandlers:
         send_time, follows = self.scheduler.meridian_send_time(user)
         name = escape(self._localized_meridian_name(meridian, language))
         window = str((meridian or {}).get("active_time") or "")
+        if follows and self.scheduler.channel_window_now_run(user) is not None:
+            return channel_time.text("on_now", language, name=name)
         if follows:
             return channel_time.text("on_day", language, name=name, time=escape(send_time))
         if re.match(r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$", window):

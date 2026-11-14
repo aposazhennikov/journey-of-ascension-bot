@@ -1201,6 +1201,14 @@ def channel_window_send_time(active_time: Any, hours: tuple = CHANNEL_REMINDER_H
     or the channel has no window (the midline vessels): the caller then keeps the user's own time.
     Less than half an hour of overlap counts as night too.
     """
+    window = channel_window_minutes(active_time, hours)
+    if window is None:
+        return None
+    return f"{window[0] // 60:02d}:{window[0] % 60:02d}"
+
+
+def channel_window_minutes(active_time: Any, hours: tuple = CHANNEL_REMINDER_HOURS) -> Optional[tuple]:
+    """(start, end) local minutes of a channel's active window clipped to the waking hours, or None."""
     match = _ACTIVE_RANGE.match(str(active_time or "").strip())
     if not match:
         return None
@@ -1212,11 +1220,9 @@ def channel_window_send_time(active_time: Any, hours: tuple = CHANNEL_REMINDER_H
     for shift in (-24 * 60, 0):   # a window crossing midnight may reach into the morning hours
         lo = max(start + shift, hours[0])
         hi = min(end + shift, hours[1])
-        if hi - lo >= 30 and (best is None or lo < best):
-            best = lo
-    if best is None:
-        return None
-    return f"{best // 60:02d}:{best % 60:02d}"
+        if hi - lo >= 30 and (best is None or lo < best[0]):
+            best = (lo, hi)
+    return best
 
 
 def validate_skip_days(skip_days: List[int]) -> bool:

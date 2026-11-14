@@ -14,6 +14,8 @@ TEXTS = {
                   "напоминание придёт в {time}.",
         "on_night": "✅ Напоминания по меридианам теперь идут по часам канала. <b>{name}</b> активен ночью "
                     "({window}), поэтому напоминание придёт в ваше время {time}.",
+        "on_now": "✅ Напоминания по меридианам теперь идут по часам канала. Часы канала <b>{name}</b> идут прямо "
+                  "сейчас, поэтому напоминание придёт через минуту.",
         "on_none": "✅ Напоминания по меридианам теперь идут по часам канала. У канала <b>{name}</b> нет своего "
                    "часа, поэтому напоминание придёт в ваше время {time}.",
         "off": "✅ Напоминания по меридианам снова приходят в ваше время {time}.",
@@ -30,6 +32,8 @@ TEXTS = {
                   "reminder comes at {time}.",
         "on_night": "✅ Meridian reminders now follow the channel hours. <b>{name}</b> is active at night "
                     "({window}), so the reminder comes at your time {time}.",
+        "on_now": "✅ Meridian reminders now follow the channel hours. The hours of <b>{name}</b> are going on "
+                  "right now, so the reminder comes in a minute.",
         "on_none": "✅ Meridian reminders now follow the channel hours. <b>{name}</b> has no hour of its own, so "
                    "the reminder comes at your time {time}.",
         "off": "✅ Meridian reminders come at your time {time} again.",
@@ -46,6 +50,8 @@ TEXTS = {
                   "eslatma vaqti: {time}.",
         "on_night": "✅ Meridian eslatmalari endi kanal soatlari bo'yicha keladi. <b>{name}</b> tunda faol "
                     "({window}), shuning uchun eslatma sizning vaqtingizda keladi: {time}.",
+        "on_now": "✅ Meridian eslatmalari endi kanal soatlari bo'yicha keladi. <b>{name}</b> soatlari hozir "
+                  "davom etmoqda, shuning uchun eslatma bir daqiqadan keyin keladi.",
         "on_none": "✅ Meridian eslatmalari endi kanal soatlari bo'yicha keladi. <b>{name}</b> kanalining o'z "
                    "soati yo'q, shuning uchun eslatma sizning vaqtingizda keladi: {time}.",
         "off": "✅ Meridian eslatmalari yana sizning vaqtingizda keladi: {time}.",
@@ -62,6 +68,8 @@ TEXTS = {
                   "еске салу уақыты: {time}.",
         "on_night": "✅ Меридиан еске салулары енді арна сағаттары бойынша келеді. <b>{name}</b> түнде белсенді "
                     "({window}), сондықтан еске салу сіздің уақытыңызда келеді: {time}.",
+        "on_now": "✅ Меридиан еске салулары енді арна сағаттары бойынша келеді. <b>{name}</b> сағаттары дәл "
+                  "қазір жүріп жатыр, сондықтан еске салу бір минуттан кейін келеді.",
         "on_none": "✅ Меридиан еске салулары енді арна сағаттары бойынша келеді. <b>{name}</b> арнасының өз "
                    "сағаты жоқ, сондықтан еске салу сіздің уақытыңызда келеді: {time}.",
         "off": "✅ Меридиан еске салулары қайтадан сіздің уақытыңызда келеді: {time}.",

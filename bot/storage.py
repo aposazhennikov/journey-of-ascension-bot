@@ -1,5 +1,6 @@
 """Storage module for yoga bot data management."""
 
+import asyncio
 import json
 import os
 import re
@@ -198,9 +199,22 @@ class JsonStorage:
         
         # Ensure data directory exists.
         os.makedirs(data_dir, exist_ok=True)
-        
-    async def _read_json(self, filepath: str) -> Dict[str, Any]:
-        """Read JSON file asynchronously."""
+        # one lock per file around read-modify-write: two saves in flight wrote back each other's stale copy
+        self._locks: Dict[str, asyncio.Lock] = {}
+
+    def _lock(self, filepath: str) -> asyncio.Lock:
+        """The read-modify-write lock of a file."""
+        lock = self._locks.get(filepath)
+        if lock is None:
+            lock = self._locks[filepath] = asyncio.Lock()
+        return lock
+
+    async def _read_json(self, filepath: str, strict: bool = False) -> Dict[str, Any]:
+        """Read JSON file asynchronously.
+
+        strict (read-modify-write paths): a file that exists but does not parse raises instead of reading as
+        {}, so a save cannot replace the whole file with the one record it changed.
+        """
         try:
             if os.path.exists(filepath):
                 async with aiofiles.open(filepath, 'r', encoding='utf-8') as f:
@@ -208,26 +222,38 @@ class JsonStorage:
                     return json.loads(content)
             return {}
         except Exception:
+            if strict:
+                raise
             return {}
-    
+
     async def _write_json(self, filepath: str, data: Dict[str, Any]) -> bool:
-        """Write JSON file asynchronously."""
+        """Write JSON file asynchronously and atomically.
+
+        The data goes to a temporary file next to it, then os.replace swaps it in: a reader sees the old or the
+        new file, never the truncated one being written (which read as {} and looked like "no users").
+        """
         import logging
         logger = logging.getLogger(__name__)
-        
+        tmp_path = f"{filepath}.tmp{os.getpid()}"
+
         try:
             # Ensure directory exists
             os.makedirs(os.path.dirname(filepath), exist_ok=True)
-            
-            # Write data to file
-            async with aiofiles.open(filepath, 'w', encoding='utf-8') as f:
-                content = json.dumps(data, ensure_ascii=False, indent=2)
+
+            content = json.dumps(data, ensure_ascii=False, indent=2)
+            async with aiofiles.open(tmp_path, 'w', encoding='utf-8') as f:
                 await f.write(content)
-                logger.info(f"Successfully wrote data to {filepath}")
+                await f.flush()
+            os.replace(tmp_path, filepath)
+            logger.info(f"Successfully wrote data to {filepath}")
             return True
-            
+
         except Exception as e:
             logger.error(f"Error writing to {filepath}: {e}")
+            try:
+                os.remove(tmp_path)
+            except OSError:
+                pass
             return False
     
     async def get_user(self, chat_id: int) -> Optional[User]:
@@ -244,12 +270,12 @@ class JsonStorage:
         logger = logging.getLogger(__name__)
         
         try:
-            users_data = await self._read_json(self.users_file)
             user_dict = asdict(user)
-            users_data[str(user.chat_id)] = user_dict
             logger.info(f"Saving user data: {user_dict}")
-            
-            success = await self._write_json(self.users_file, users_data)
+            async with self._lock(self.users_file):
+                users_data = await self._read_json(self.users_file, strict=True)
+                users_data[str(user.chat_id)] = user_dict
+                success = await self._write_json(self.users_file, users_data)
             if not success:
                 logger.error(f"Failed to write user data to {self.users_file}")
             return success
@@ -280,24 +306,24 @@ class JsonStorage:
             return await self.save_user(user)
         return False
     
+    async def _update_json(self, filepath: str, change) -> bool:
+        """Read a file, let change(data) edit it in place (False = nothing to write), write it back, under the lock."""
+        async with self._lock(filepath):
+            data = await self._read_json(filepath)
+            if change(data) is False:
+                return True
+            return await self._write_json(filepath, data)
+
     async def add_sent_log(self, chat_id: int, principle_id: int) -> bool:
         """Add sent message log."""
-        logs_data = await self._read_json(self.logs_file)
-        
-        # Initialize logs for user if not exists.
-        chat_id_str = str(chat_id)
-        if chat_id_str not in logs_data:
-            logs_data[chat_id_str] = []
-        
-        # Add new log entry.
         log_entry = {
             "chat_id": chat_id,
             "principle_id": principle_id,
             "sent_at": datetime.now(timezone.utc).isoformat()
         }
-        logs_data[chat_id_str].append(log_entry)
-        
-        return await self._write_json(self.logs_file, logs_data)
+        return await self._update_json(
+            self.logs_file, lambda logs_data: logs_data.setdefault(str(chat_id), []).append(log_entry)
+        )
     
     async def get_user_sent_principles(self, chat_id: int) -> List[int]:
         """Get list of principle IDs already sent to user."""
@@ -307,32 +333,23 @@ class JsonStorage:
     
     async def reset_user_cycle(self, chat_id: int) -> bool:
         """Reset user's principle cycle."""
-        logs_data = await self._read_json(self.logs_file)
-        logs_data[str(chat_id)] = []
-        return await self._write_json(self.logs_file, logs_data)
-    
+        return await self._update_json(self.logs_file, lambda logs_data: logs_data.__setitem__(str(chat_id), []))
+
     async def add_bot_message(self, chat_id: int, message_id: int, message_type: str = "general") -> bool:
         """Add bot message for dialog cleanup."""
-        messages_data = await self._read_json(self.messages_file)
-        
-        # Initialize messages for user if not exists.
-        chat_id_str = str(chat_id)
-        if chat_id_str not in messages_data:
-            messages_data[chat_id_str] = []
-        
-        # Add new message entry.
         message_entry = {
             "chat_id": chat_id,
             "message_id": message_id,
             "sent_at": datetime.now(timezone.utc).isoformat(),
             "message_type": message_type
         }
-        messages_data[chat_id_str].append(message_entry)
-        
-        # Keep only last 50 messages per user to avoid file growth.
-        messages_data[chat_id_str] = messages_data[chat_id_str][-50:]
-        
-        return await self._write_json(self.messages_file, messages_data)
+
+        def change(messages_data):
+            # Keep only last 50 messages per user to avoid file growth.
+            chat_id_str = str(chat_id)
+            messages_data[chat_id_str] = (messages_data.get(chat_id_str) or [])[-49:] + [message_entry]
+
+        return await self._update_json(self.messages_file, change)
     
     async def get_user_bot_messages(self, chat_id: int) -> List[BotMessage]:
         """Get list of bot messages for user."""
@@ -350,14 +367,12 @@ class JsonStorage:
     
     async def clear_user_bot_messages(self, chat_id: int) -> bool:
         """Clear all stored bot messages for user."""
-        messages_data = await self._read_json(self.messages_file)
-        chat_id_str = str(chat_id)
-        
-        if chat_id_str in messages_data:
-            del messages_data[chat_id_str]
-            return await self._write_json(self.messages_file, messages_data)
-        
-        return True
+        def change(messages_data):
+            if str(chat_id) not in messages_data:
+                return False
+            del messages_data[str(chat_id)]
+
+        return await self._update_json(self.messages_file, change)
     
     async def get_stats(self) -> Dict[str, Any]:
         """Get bot statistics."""
