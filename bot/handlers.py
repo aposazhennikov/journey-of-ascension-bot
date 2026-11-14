@@ -6215,13 +6215,25 @@ class BotHandlers:
                         parse_mode='HTML'
                     )
                     return
-                user.meridian_learning_mode = "free"
+                # The channel list sets "free" before it is shown; the self-check button keeps a guided route.
+                if not getattr(user, "meridian_learning_mode", None):
+                    user.meridian_learning_mode = "free"
                 user.current_meridian_id = meridian_id
                 user.current_point_index = -1
                 user.meridians_enabled = True
                 await self.storage.save_user(user)
                 await self.scheduler.schedule_user_immediately(chat_id)
                 text = format_meridian_intro(meridian, language)
+                if user.meridian_learning_mode == "guided":
+                    done = list(user.completed_meridians or [])
+                    after = self.meridians_manager.get_next_meridian(meridian_id, done)
+                    note = None
+                    if after and after.get("id") != meridian_id:
+                        note = selfcheck.text("path_kept", language, name=self._localized_meridian_name(after, language))
+                    elif meridian_id not in done:
+                        note = selfcheck.text("path_kept_last", language)
+                    if note:
+                        text = f"{note}\n\n{text}"
                 await self._show_meridian_card(
                     query,
                     text,
