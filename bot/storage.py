@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass, asdict, fields
@@ -28,6 +29,10 @@ class User:
     secret_tasks: Dict[str, str] = None
     # sensation diary: {map point code: {"f": warm|cool|tense|empty|silent, "d": "YYYY-MM-DD"}} (bot/feel.py)
     point_feel: Dict[str, Dict[str, str]] = None
+    # meridian reminders follow the active window of the current channel (07-22 only, else meridian_time_for_send)
+    meridian_time_auto: bool = False
+    # local date (YYYY-MM-DD) of the last daily meridian reminder: a channel change must not send a second one
+    meridian_sent_on: Optional[str] = None
 
     def __post_init__(self):
         """Initialize default values."""
@@ -39,6 +44,9 @@ class User:
         self.is_active = self._normalize_bool(self.is_active, True)
         self.principles_enabled = self._normalize_bool(self.principles_enabled, True)
         self.meridians_enabled = self._normalize_bool(self.meridians_enabled, False)
+        self.meridian_time_auto = self._normalize_bool(self.meridian_time_auto, False)
+        if not (isinstance(self.meridian_sent_on, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", self.meridian_sent_on)):
+            self.meridian_sent_on = None
         self.current_point_index = self._normalize_int(self.current_point_index, -1)
         self.meridian_learning_mode = (
             self.meridian_learning_mode if self.meridian_learning_mode in {"guided", "free", None} else None

@@ -3,7 +3,8 @@
 import asyncio
 import logging
 from datetime import datetime, timedelta, timezone
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Tuple
+import pytz
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.date import DateTrigger
@@ -19,6 +20,7 @@ from .utils import (
     format_meridian_point,
     fit_html_caption,
     get_next_send_time,
+    channel_window_send_time,
     get_principle_image_path,
     get_meridian_image_path,
     has_principle_image
@@ -205,7 +207,14 @@ class YogaScheduler:
             id="daily_schedule_all_users",
             replace_existing=True
         )
-        
+        # Reminders that follow the channel clock move when the user changes channel.
+        self.scheduler.add_job(
+            self._refresh_channel_time_jobs,
+            CronTrigger(minute="*/10"),
+            id="refresh_channel_time_jobs",
+            replace_existing=True
+        )
+
         # Initial scheduling for all users.
         await self._schedule_all_users()
         
@@ -258,7 +267,7 @@ class YogaScheduler:
             # Schedule new job.
             self.scheduler.add_job(
                 self._send_principle_to_user,
-                DateTrigger(run_date=next_send_time_utc),
+                DateTrigger(run_date=next_send_time_utc, timezone=timezone.utc),
                 args=[user.chat_id],
                 id=job_id,
                 replace_existing=True
@@ -283,17 +292,12 @@ class YogaScheduler:
                 logger.info(f"Guided meridian route is completed for user {user.chat_id}; reminder is not scheduled.")
                 return
 
-            next_send_time = get_next_send_time(
-                user.timezone,
-                user.meridian_time_for_send,
-                user.skip_day_id
-            )
-            next_send_time_utc = next_send_time.astimezone(timezone.utc).replace(tzinfo=None)
+            next_send_time_utc = self._next_meridian_run_utc(user)
             job_id = f"meridian_user_{user.chat_id}_{next_send_time_utc.strftime('%Y%m%d_%H%M')}"
 
             self.scheduler.add_job(
                 self._send_meridian_to_user,
-                DateTrigger(run_date=next_send_time_utc),
+                DateTrigger(run_date=next_send_time_utc, timezone=timezone.utc),
                 args=[user.chat_id],
                 id=job_id,
                 replace_existing=True
@@ -304,7 +308,59 @@ class YogaScheduler:
 
         except Exception as e:
             logger.error(f"Error scheduling meridian reminder for user {user.chat_id}: {e}")
-    
+
+    def reminder_meridian(self, user: User) -> Optional[Dict[str, Any]]:
+        """The meridian the next reminder is about (the same choice _send_meridian_to_user makes)."""
+        if not self.meridians_manager:
+            return None
+        meridian = self.meridians_manager.get_meridian_by_id(user.current_meridian_id) if user.current_meridian_id else None
+        return meridian or self.meridians_manager.get_first_meridian()
+
+    def meridian_send_time(self, user: User) -> Tuple[str, bool]:
+        """Local HH:MM of the meridian reminder and whether it follows the channel window.
+
+        With meridian_time_auto the reminder comes at the start of the current channel's active window when
+        that window falls within 07-22; night channels and the midline vessels keep the user's own time.
+        """
+        if user.meridian_time_auto:
+            meridian = self.reminder_meridian(user)
+            window_time = channel_window_send_time(meridian.get("active_time")) if meridian else None
+            if window_time:
+                return window_time, True
+        return user.meridian_time_for_send, False
+
+    def _next_meridian_run_utc(self, user: User) -> datetime:
+        """Naive UTC run time of the next meridian reminder."""
+        send_time, _ = self.meridian_send_time(user)
+        # in the channel mode a change of channel moves the time: today's reminder, once sent, stays the only one
+        not_on = user.meridian_sent_on if user.meridian_time_auto else None
+        next_send_time = get_next_send_time(user.timezone, send_time, user.skip_day_id, not_on=not_on)
+        return next_send_time.astimezone(timezone.utc).replace(tzinfo=None)
+
+    async def _refresh_channel_time_jobs(self) -> None:
+        """Move the reminders of the channel-hours users after a change of channel.
+
+        The current channel changes in many handlers; checking here every few minutes keeps them untouched.
+        """
+        try:
+            users = await self.storage.get_all_active_users()
+        except Exception as e:
+            logger.error(f"Error loading users for the channel time refresh: {e}")
+            return
+        for user in users:
+            if not (user.meridian_time_auto and user.meridians_enabled and user.meridian_learning_mode):
+                continue
+            try:
+                jobs = [job for job in self.scheduler.get_jobs() if job.id.startswith(f"meridian_user_{user.chat_id}_")]
+                wanted = self._next_meridian_run_utc(user)
+                current = jobs[0].next_run_time if len(jobs) == 1 else None
+                if current is not None:
+                    current = current.astimezone(timezone.utc).replace(tzinfo=None, second=0, microsecond=0)
+                if current != wanted:
+                    await self._schedule_user_meridian_message(user)
+            except Exception as e:
+                logger.error(f"Error refreshing the channel time for user {user.chat_id}: {e}")
+
     async def _send_principle_to_user(self, chat_id: int) -> bool:
         """Send principle message to user."""
         try:
@@ -389,6 +445,9 @@ class YogaScheduler:
             success = await self._send_meridian_message_with_retry(chat_id, message_text, image_path, keyboard)
 
             current_user = await self.storage.get_user(chat_id)
+            if current_user and success:
+                current_user.meridian_sent_on = self._local_today(current_user.timezone)
+                await self.storage.save_user(current_user)
             if current_user and current_user.is_active and current_user.meridians_enabled:
                 await self._schedule_user_meridian_message(current_user)
             return success
@@ -396,6 +455,15 @@ class YogaScheduler:
         except Exception as e:
             logger.error(f"Error sending meridian focus to user {chat_id}: {e}")
             return False
+
+    @staticmethod
+    def _local_today(user_timezone: str) -> str:
+        """The user's local date as YYYY-MM-DD."""
+        try:
+            tz = pytz.timezone(user_timezone)
+        except pytz.exceptions.UnknownTimeZoneError:
+            tz = pytz.UTC
+        return datetime.now(tz).date().isoformat()
 
     async def resend_daily_reminders_to_all(self) -> tuple[int, int, int]:
         """Resend enabled daily practices to every active user."""

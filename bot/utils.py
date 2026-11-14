@@ -1173,15 +1173,50 @@ def should_skip_today(skip_days: List[int], target_datetime: datetime) -> bool:
     return weekday in skip_days
 
 
-def get_next_send_time(user_timezone: str, target_time: str, skip_days: List[int]) -> datetime:
-    """Get next valid send time considering skip days."""
+def get_next_send_time(
+    user_timezone: str, target_time: str, skip_days: List[int], not_on: Optional[str] = None
+) -> datetime:
+    """Get next valid send time considering skip days.
+
+    not_on is a local date (YYYY-MM-DD) that already had its message: the next one goes to a later day.
+    """
     target_dt = get_user_local_time(user_timezone, target_time)
-    
+
     # Keep checking future days until we find one that's not skipped.
-    while should_skip_today(skip_days, target_dt):
+    while should_skip_today(skip_days, target_dt) or (not_on and target_dt.date().isoformat() == not_on):
         target_dt += timedelta(days=1)
-    
+
     return target_dt
+
+
+# reminders that follow the channel clock come only in these local hours
+CHANNEL_REMINDER_HOURS = (7 * 60, 22 * 60)
+_ACTIVE_RANGE = re.compile(r"^(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})$")
+
+
+def channel_window_send_time(active_time: Any, hours: tuple = CHANNEL_REMINDER_HOURS) -> Optional[str]:
+    """Start of a channel's active window clipped to the waking hours, as HH:MM.
+
+    None when the window lies at night (lung 03-05, large intestine 05-07, gallbladder 23-01, liver 01-03)
+    or the channel has no window (the midline vessels): the caller then keeps the user's own time.
+    Less than half an hour of overlap counts as night too.
+    """
+    match = _ACTIVE_RANGE.match(str(active_time or "").strip())
+    if not match:
+        return None
+    start = int(match.group(1)) * 60 + int(match.group(2))
+    end = int(match.group(3)) * 60 + int(match.group(4))
+    if end <= start:
+        end += 24 * 60
+    best = None
+    for shift in (-24 * 60, 0):   # a window crossing midnight may reach into the morning hours
+        lo = max(start + shift, hours[0])
+        hi = min(end + shift, hours[1])
+        if hi - lo >= 30 and (best is None or lo < best):
+            best = lo
+    if best is None:
+        return None
+    return f"{best // 60:02d}:{best % 60:02d}"
 
 
 def validate_skip_days(skip_days: List[int]) -> bool:

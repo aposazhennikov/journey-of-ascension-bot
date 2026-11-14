@@ -36,6 +36,7 @@ from .utils import (
 from .webapp import build_map_button, build_map_url, normalize_webapp_language
 from . import feel as diary
 from . import selfcheck
+from . import channel_time
 
 
 logger = logging.getLogger(__name__)
@@ -4715,9 +4716,31 @@ class BotHandlers:
         if user.principles_enabled:
             lines.append(f"{labels['principle_time']} <code>{escape(user.time_for_send)}</code>")
         if user.meridians_enabled:
-            lines.append(f"{labels['meridian_time']} <code>{escape(user.meridian_time_for_send)}</code>")
+            lines.append(f"{labels['meridian_time']} {self._meridian_time_label(user, language)}")
         lines.append(f"{labels['quiet']} {escape(skip_days_display)}")
         return "\n".join(lines)
+
+    def _meridian_time_label(self, user, language: str) -> str:
+        """Meridian reminder time for the settings text (HTML): the fixed time or the channel-hours one."""
+        if getattr(user, "meridian_time_auto", False) and self.scheduler:
+            send_time, _ = self.scheduler.meridian_send_time(user)
+            return channel_time.text("settings_auto", language, time=f"<code>{escape(send_time)}</code>")
+        return f"<code>{escape(user.meridian_time_for_send)}</code>"
+
+    def _channel_time_confirmation(self, user, language: str) -> str:
+        """What the "by channel hours" switch just did, with the time the next reminder comes at (HTML)."""
+        fixed = escape(user.meridian_time_for_send)
+        if not user.meridian_time_auto:
+            return channel_time.text("off", language, time=fixed)
+        meridian = self.scheduler.reminder_meridian(user)
+        send_time, follows = self.scheduler.meridian_send_time(user)
+        name = escape(self._localized_meridian_name(meridian, language))
+        window = str((meridian or {}).get("active_time") or "")
+        if follows:
+            return channel_time.text("on_day", language, name=name, time=escape(send_time))
+        if re.match(r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$", window):
+            return channel_time.text("on_night", language, name=name, window=escape(window.replace("-", "–")), time=fixed)
+        return channel_time.text("on_none", language, name=name, time=fixed)
 
     def _create_timezone_keyboard(self, language: str, add_back_button: bool = False) -> InlineKeyboardMarkup:
         """Create timezone selection keyboard."""
@@ -5777,12 +5800,31 @@ class BotHandlers:
 
             elif setting == "meridian_time":
                 self.user_states[chat_id] = {"step": "change_meridian_time", "language": language, "settings_message_id": query.message.message_id}
-                keyboard = [[InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="settings_back")]]
+                if user.meridian_time_auto:
+                    hint = channel_time.text("hint_on", language)
+                    auto_button = channel_time.text("btn_off", language, time=user.meridian_time_for_send)
+                else:
+                    hint = channel_time.text("hint", language, time=escape(user.meridian_time_for_send))
+                    auto_button = channel_time.text("btn_on", language)
+                keyboard = [
+                    [InlineKeyboardButton(auto_button, callback_data="change_meridianauto")],
+                    [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="settings_back")],
+                ]
                 await self._edit_message_text_safe(query,
-                    self._get_text("meridian_time_step", language),
+                    f"{self._get_text('meridian_time_step', language)}\n\n{hint}",
                     reply_markup=InlineKeyboardMarkup(keyboard),
                     parse_mode='HTML'
                 )
+
+            elif setting == "meridianauto":
+                # "by channel hours" on or off; typing a time on the previous screen turns it off as well
+                self.user_states.pop(chat_id, None)
+                user.meridian_time_auto = not user.meridian_time_auto
+                await self.storage.save_user(user)
+                await self.scheduler.schedule_user_immediately(chat_id)
+                text = f"{self._channel_time_confirmation(user, language)}\n\n{self._get_text('menu', language)}"
+                keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
 
             elif setting == "time":
                 self.user_states[chat_id] = {"step": "change_time", "language": language, "settings_message_id": query.message.message_id}
@@ -6740,6 +6782,7 @@ class BotHandlers:
                 return
 
             user.meridian_time_for_send = time_str
+            user.meridian_time_auto = False
             await self.storage.save_user(user)
             await self.scheduler.schedule_user_immediately(chat_id)
 
@@ -7512,8 +7555,8 @@ class BotHandlers:
         if user.principles_enabled:
             modes.append(f"🕊 {user.time_for_send}")
         if user.meridians_enabled:
-            modes.append(f"☯️ {user.meridian_time_for_send}")
-        details = " · ".join([f"<code>{user.chat_id}</code>", user.language, escape(user.timezone)] + (modes or ["no reminders"]))
+            modes.append(f"☯️ {user.meridian_time_for_send}" + (" 🕰" if user.meridian_time_auto else ""))
+        details =" · ".join([f"<code>{user.chat_id}</code>", user.language, escape(user.timezone)] + (modes or ["no reminders"]))
         return f'{number}. <a href="{href}">{escape(name)}</a>{handle}\n    {details}'
 
     async def _send_subscribers_list(self, chat_id: int, context: ContextTypes.DEFAULT_TYPE) -> None:
