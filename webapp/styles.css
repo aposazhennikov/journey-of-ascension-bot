@@ -282,6 +282,27 @@ body.scenery #stage { background: transparent; }
   /* it lies over the head points for a few seconds, just when it asks to tap them (UX round 3) */
   pointer-events: none;
 }
+/* with an undo button the toast takes taps: text and button in one row */
+.toast.has-action {
+  pointer-events: auto;
+  max-width: min(340px, calc(100% - 32px));
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 6px 6px 14px;
+  text-align: left;
+}
+.toast-action {
+  flex: none;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(127, 127, 127, 0.16);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
 /* above the sheet, not over the body (it sat on the chest/pelvis, council); fades out by itself */
 .gesture-hint {
   position: fixed;

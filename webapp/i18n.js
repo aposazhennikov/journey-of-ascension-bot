@@ -69,6 +69,8 @@ const S = {
   feel_silent: ['Молчит', 'Silent', 'Jim', 'Үнсіз'],
   feel_saved: ['Записано в дневник: {label}', 'Saved to the diary: {label}', 'Kundalikka yozildi: {label}', 'Күнделікке жазылды: {label}'],
   feel_cleared: ['Отметка убрана', 'Mark removed', 'Belgi olib tashlandi', 'Белгі алынды'],
+  feel_undone: ['Отметка возвращена как была', 'The mark is back as it was', 'Belgi avvalgi holiga qaytdi', 'Белгі бұрынғы күйіне қайтты'],
+  undo: ['Отменить', 'Undo', 'Bekor qilish', 'Болдырмау'],
   diary_title: ['Дневник ощущений', 'Sensation diary', 'Sezgilar kundaligi', 'Сезімдер күнделігі'],
   diary_return: ['К молчащим и пустым точкам можно вернуться в другой день. Точка не обязана откликнуться сразу, и давить на неё не нужно. Если онемение, покалывание или боль не проходят, обратитесь к врачу.', 'You can come back to the silent and empty points on another day. A point does not have to respond at once, and there is no need to press harder. If numbness, tingling or pain does not go away, see a doctor.', "Jim va bo'sh nuqtalarga boshqa kuni qaytish mumkin. Nuqta darhol javob berishi shart emas, unga kuch bilan bosish kerak emas. Uvishish, sanchish yoki og'riq o'tmasa, shifokorga murojaat qiling.", 'Үнсіз және бос нүктелерге басқа күні оралуға болады. Нүкте бірден жауап беруге міндетті емес, оны қатты басудың қажеті жоқ. Ұю, шаншу немесе ауырсыну басылмаса, дәрігерге қаралыңыз.'],
   diary_all: ['Показать все ({n})', 'Show all ({n})', 'Hammasini ko\'rsatish ({n})', 'Барлығын көрсету ({n})'],

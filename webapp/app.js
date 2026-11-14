@@ -222,8 +222,23 @@ function setSheet(s, { silent = false } = {}) {
 // ---------------------------------------------------------------- toast, next chip
 
 let toastTimer = null;
-function toast(text, ms = 3000) {
+// action = { label, run }: a button in the toast (undo); only then the toast takes taps
+function toast(text, ms = 3000, action = null) {
   els.toast.textContent = text;
+  els.toast.classList.toggle('has-action', !!action);
+  if (action) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'toast-action';
+    btn.textContent = action.label;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      clearTimeout(toastTimer);
+      els.toast.hidden = true;
+      action.run();
+    }, { once: true });
+    els.toast.append(btn);
+  }
   els.toast.hidden = false;
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { els.toast.hidden = true; }, ms);
@@ -722,22 +737,31 @@ function feelHtml(code) {
     <p class="note">${esc(t(tg?.initData ? 'feel_sub' : 'feel_sub_local'))}</p></div>`;
 }
 
-async function setFeel(code, f) {
+function setFeel(code, f) {
   const clear = feelOf(code) === f;
+  // a mis-tap is undone from the toast: back to the mark the point had, or to none
+  const prev = feelOf(code) ? { ...state.feel[code] } : null;
+  writeFeel(code, clear ? null : { f, d: new Date().toISOString().slice(0, 10) });
+  toast(clear ? t('feel_cleared') : t('feel_saved', { label: t(`feel_${f}`).toLowerCase() }), 5000, {
+    label: t('undo'),
+    run: () => { writeFeel(code, prev); toast(t('feel_undone')); },
+  });
+}
+
+async function writeFeel(code, entry) {
   const next = { ...state.feel };
-  if (clear) delete next[code];
-  else next[code] = { f, d: new Date().toISOString().slice(0, 10) };
+  if (entry) next[code] = entry;
+  else delete next[code];
   state.feel = next;
   store.set('feel', next);
   haptic('light');
-  toast(clear ? t('feel_cleared') : t('feel_saved', { label: t(`feel_${f}`).toLowerCase() }));
   renderSheet();
   if (!tg?.initData) return;
   const seq = ++feelSeq;
   try {
     const res = await fetch('api/feel', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ initData: tg.initData, code, feel: clear ? '' : f }),
+      body: JSON.stringify({ initData: tg.initData, code, feel: entry ? entry.f : '' }),
     });
     const p = res.ok ? await res.json() : null;
     if (seq === feelSeq && p?.feel && typeof p.feel === 'object') { state.feel = p.feel; store.set('feel', p.feel); }
