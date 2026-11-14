@@ -20,6 +20,7 @@ TEXTS = {
                    "часа, поэтому напоминание придёт в ваше время {time}.",
         "off": "✅ Напоминания по меридианам снова приходят в ваше время {time}.",
         "settings_auto": "по часам канала, сейчас {time}",
+        "sent_today": "Сегодня напоминание уже приходило, следующее будет завтра.",
     },
     "en": {
         "btn_on": "🕰 By channel hours",
@@ -38,6 +39,7 @@ TEXTS = {
                    "the reminder comes at your time {time}.",
         "off": "✅ Meridian reminders come at your time {time} again.",
         "settings_auto": "by channel hours, now {time}",
+        "sent_today": "Today's reminder has already come, the next one is tomorrow.",
     },
     "uz": {
         "btn_on": "🕰 Kanal soatlari bo'yicha",
@@ -56,6 +58,7 @@ TEXTS = {
                    "soati yo'q, shuning uchun eslatma sizning vaqtingizda keladi: {time}.",
         "off": "✅ Meridian eslatmalari yana sizning vaqtingizda keladi: {time}.",
         "settings_auto": "kanal soatlari bo'yicha, hozir {time}",
+        "sent_today": "Bugungi eslatma allaqachon kelgan, keyingisi ertaga.",
     },
     "kz": {
         "btn_on": "🕰 Арна сағаттары бойынша",
@@ -74,6 +77,7 @@ TEXTS = {
                    "сағаты жоқ, сондықтан еске салу сіздің уақытыңызда келеді: {time}.",
         "off": "✅ Меридиан еске салулары қайтадан сіздің уақытыңызда келеді: {time}.",
         "settings_auto": "арна сағаттары бойынша, қазір {time}",
+        "sent_today": "Бүгінгі еске салу келіп қойды, келесісі ертең.",
     },
 }
 

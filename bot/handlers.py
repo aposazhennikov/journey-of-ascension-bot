@@ -4739,10 +4739,15 @@ class BotHandlers:
         if follows and self.scheduler.channel_window_now_run(user) is not None:
             return channel_time.text("on_now", language, name=name)
         if follows:
-            return channel_time.text("on_day", language, name=name, time=escape(send_time))
-        if re.match(r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$", window):
-            return channel_time.text("on_night", language, name=name, window=escape(window.replace("-", "–")), time=fixed)
-        return channel_time.text("on_none", language, name=name, time=fixed)
+            text = channel_time.text("on_day", language, name=name, time=escape(send_time))
+        elif re.match(r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$", window):
+            text = channel_time.text("on_night", language, name=name, window=escape(window.replace("-", "–")), time=fixed)
+        else:
+            text = channel_time.text("on_none", language, name=name, time=fixed)
+        # in this mode a reminder already sent today keeps the next one off today (scheduler not_on)
+        if user.meridian_sent_on and user.meridian_sent_on == self.scheduler._local_today(user.timezone):
+            text += " " + channel_time.text("sent_today", language)
+        return text
 
     def _create_timezone_keyboard(self, language: str, add_back_button: bool = False) -> InlineKeyboardMarkup:
         """Create timezone selection keyboard."""
