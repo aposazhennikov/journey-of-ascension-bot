@@ -216,7 +216,15 @@ function setSheet(s, { silent = false } = {}) {
     el.addEventListener('pointerup', end);
     el.addEventListener('pointercancel', end);
   }
-  $('sheetGrip').addEventListener('click', () => setSheet(state.sheet === 'peek' ? 'half' : 'peek'));
+  const grip = $('sheetGrip');
+  grip.addEventListener('click', () => setSheet(state.sheet === 'peek' ? 'half' : 'peek'));
+  // reachable without a finger too: a button for screen readers and the keyboard
+  grip.setAttribute('role', 'button');
+  grip.tabIndex = 0;
+  grip.setAttribute('aria-label', t('sheet_toggle'));
+  grip.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); grip.click(); }
+  });
 })();
 
 // ---------------------------------------------------------------- toast, next chip
@@ -461,6 +469,8 @@ function toggleFlow() {
 function setLevel(level, { fly = true, instant = false } = {}) {
   // leaving the point ends a breathing practice with it (its timers kept tapping on another card)
   if (state.practice && (level.view !== 'point' || level.code !== state.practice.code)) stopPractice();
+  // the first-run card has done its job once the person went anywhere (it came back on every return home)
+  if (level.view !== 'home') state.introSession = false;
   state.level = level;
   wholeShown = false;
   state.expanded.clear();
@@ -710,9 +720,16 @@ function fetchProgress() {
     if (!p) return false;
     let changed = false;
     if (p.feel && typeof p.feel === 'object') {
-      changed = JSON.stringify(p.feel) !== JSON.stringify(state.feel);
-      state.feel = p.feel;
+      // marks that never reached the bot (no network at the tap) stay as on this device and go again
+      const merged = { ...p.feel };
+      for (const code of feelPending) {
+        if (state.feel[code]) merged[code] = state.feel[code];
+        else delete merged[code];
+      }
+      changed = JSON.stringify(merged) !== JSON.stringify(state.feel);
+      state.feel = merged;
       store.set('feel', state.feel);
+      if (feelPending.size) setTimeout(resendFeel, 0);
     }
     if (urlProgress || (!p.pm && !p.pd)) return changed;
     PROGRESS.m = p.pm || null;
@@ -728,6 +745,9 @@ const FEELS = ['warm', 'cool', 'tense', 'empty', 'silent'];
 const FEEL_ICON = { warm: '☀️', cool: '❄️', tense: '⚡️', empty: '🫧', silent: '🤫' };
 const RETURN_FEELS = ['silent', 'empty'];
 let feelSeq = 0;   // only the answer to the latest tap may replace the marks (two quick taps raced)
+// codes whose last change the bot has not confirmed; kept across opens, sent again on the next one
+const feelPending = new Set(((v) => (Array.isArray(v) ? v.filter((c) => typeof c === 'string') : []))(store.get('feelPending', [])));
+const savePending = () => store.set('feelPending', [...feelPending]);
 const feelOf = (code) => (FEELS.includes(state.feel[code]?.f) ? state.feel[code].f : null);
 
 function feelHtml(code) {
@@ -761,15 +781,40 @@ async function writeFeel(code, entry) {
   haptic('light');
   renderSheet();
   if (!tg?.initData) return;
+  feelPending.add(code);
+  savePending();
   const seq = ++feelSeq;
+  const p = await postFeel(code, entry);
+  if (seq === feelSeq && p?.feel && typeof p.feel === 'object') {
+    state.feel = { ...p.feel };
+    // a mark still waiting for the bot is not in its answer yet
+    for (const c of feelPending) {
+      if (next[c]) state.feel[c] = next[c];
+      else delete state.feel[c];
+    }
+    store.set('feel', state.feel);
+  }
+}
+
+// One mark to the bot. Resolves to its answer, or null when it did not get through (the code stays pending;
+// a refusal of the request itself, 4xx, would repeat forever, so that one is dropped).
+async function postFeel(code, entry) {
   try {
     const res = await fetch('api/feel', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ initData: tg.initData, code, feel: entry ? entry.f : '' }),
     });
-    const p = res.ok ? await res.json() : null;
-    if (seq === feelSeq && p?.feel && typeof p.feel === 'object') { state.feel = p.feel; store.set('feel', p.feel); }
-  } catch { /* offline: the mark stays on this device */ }
+    if (res.ok || (res.status >= 400 && res.status < 500)) { feelPending.delete(code); savePending(); }
+    return res.ok ? await res.json() : null;
+  } catch { return null; }   // offline: the mark stays on this device
+}
+
+async function resendFeel() {
+  for (const code of [...feelPending]) {
+    const entry = state.feel[code] || null;
+    const p = await postFeel(code, entry);
+    if (!p) return;   // still no network: try on the next open
+  }
 }
 
 function diarySection() {
@@ -1496,7 +1541,8 @@ function stopPractice() {
 
 function practiceHtml(ch, code, extra) {
   const pr = state.practice?.code === code ? state.practice : null;
-  const next = isNextPathPoint(ch, code);
+  // the bot is told only from Telegram (finishPractice): outside it the card must not promise a mark there
+  const next = !!tg?.initData && isNextPathPoint(ch, code);
   const gentle = (extra.caution || []).some((k) => ATTENTION_ONLY.has(k)) ? t('practice_attention_only') : t('practice_touch_ok');
   if (!pr) {
     return `<div class="section practice"><button class="row-btn practice-start" data-act="practice"><span class="name"><span class="row-title">${esc(t('practice_start'))}</span>
