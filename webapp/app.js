@@ -733,8 +733,12 @@ const feelOf = (code) => (FEELS.includes(state.feel[code]?.f) ? state.feel[code]
 function feelHtml(code) {
   const cur = feelOf(code);
   const chips = FEELS.map((f) => `<button class="tag button chip-like feel-chip" data-feel="${f}" aria-pressed="${cur === f}"><span aria-hidden="true">${FEEL_ICON[f]}</span> ${esc(t(`feel_${f}`))}</button>`).join('');
+  // the hint teaches the chips: gone once the diary holds a few marks (this point's own mark keeps it, to show
+  // that a second tap removes it); the "only on this device" warning stays while it is true
+  const known = Object.values(state.feel).filter((e) => FEELS.includes(e?.f)).length >= 3 && !cur;
+  const sub = tg?.initData ? (known ? '' : 'feel_sub') : 'feel_sub_local';
   return `<div class="section feel"><h3>${esc(t('feel_title'))}</h3><div class="tags">${chips}</div>
-    <p class="note">${esc(t(tg?.initData ? 'feel_sub' : 'feel_sub_local'))}</p></div>`;
+    ${sub ? `<p class="note">${esc(t(sub))}</p>` : ''}</div>`;
 }
 
 function setFeel(code, f) {
@@ -742,7 +746,7 @@ function setFeel(code, f) {
   // a mis-tap is undone from the toast: back to the mark the point had, or to none
   const prev = feelOf(code) ? { ...state.feel[code] } : null;
   writeFeel(code, clear ? null : { f, d: new Date().toISOString().slice(0, 10) });
-  toast(clear ? t('feel_cleared') : t('feel_saved', { label: t(`feel_${f}`).toLowerCase() }), 5000, {
+  toast(clear ? t('feel_cleared') : t('feel_saved', { label: t(`feel_${f}`).toLowerCase() }), 7000, {
     label: t('undo'),
     run: () => { writeFeel(code, prev); toast(t('feel_undone')); },
   });
@@ -1001,7 +1005,11 @@ function symptomResultsHtml() {
 }
 
 function symptomSection() {
-  const pills = SYM_GROUPS.map((g) => `<button data-symg="${g}" aria-pressed="${symptom.g === g}" aria-selected="${symptom.g === g}">${esc(t(`ind_${g}`))}</button>`).join('');
+  // six topics, the rest one tap away: sixteen buttons pushed the channel list below the fold (UX council)
+  const SHOWN = 6;
+  const all = state.expanded.has('symall') || SYM_GROUPS.indexOf(symptom.g) >= SHOWN;
+  const pills = (all ? SYM_GROUPS : SYM_GROUPS.slice(0, SHOWN)).map((g) => `<button data-symg="${g}" aria-pressed="${symptom.g === g}" aria-selected="${symptom.g === g}">${esc(t(`ind_${g}`))}</button>`).join('')
+    + (all ? '' : `<button class="sym-more" data-toggle="symall" aria-expanded="false">${esc(t('more_n', { n: SYM_GROUPS.length - SHOWN }))}</button>`);
   // the results right under the field: below the 16 topic buttons they were off screen while typing with
   // the keyboard open (council round 2)
   return `<div class="section sym"><h3 id="symTitle">${esc(t('sym_title'))}</h3>

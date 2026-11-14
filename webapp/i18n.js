@@ -82,7 +82,7 @@ const S = {
     'So\'nggi haftalarda sizga xos bo\'lganlarini belgilang, xohlagancha. Belgilar qaysi kanal boshqalardan ko\'proq javob berishini ko\'rsatadi: tanishuvni undan boshlash qulay. Bu maslahat, tashxis emas.',
     'Соңғы апталарда сізге тән болғанын белгілеңіз, қалағаныңызша. Белгілер қай арна басқаларынан көбірек жауап беретінін көрсетеді: танысуды содан бастаған ыңғайлы. Бұл кеңес, диагноз емес.'],
   check_show: ['Показать результат ({n})', 'Show the result ({n})', 'Natijani ko\'rsatish ({n})', 'Нәтижені көрсету ({n})'],
-  check_show_none: ['Ничего не подходит', 'Nothing fits', 'Hech biri mos emas', 'Ештеңе сәйкес емес'],
+  check_show_none: ['Ничего из этого: показать канал этого часа', 'None of these: show the channel of this hour', "Hech biri: shu soat kanalini ko'rsatish", 'Ешқайсысы: осы сағат арнасын көрсету'],
   check_result: ['Больше всего отметок у этого канала. С него удобно начать.', 'Most of your ticks fall on this channel. It is a good place to begin.', 'Belgilaringizning ko\'pi shu kanalga to\'g\'ri keldi. Undan boshlash qulay.', 'Белгілеріңіздің көбі осы арнаға түсті. Содан бастаған ыңғайлы.'],
   check_result_none: ['Вы ничего не отметили. Тогда начните с канала, который активен сейчас.', 'Nothing is ticked. Then begin with the channel that is active now.', 'Hech narsa belgilanmadi. Unda hozir faol bo\'lgan kanaldan boshlang.', 'Ештеңе белгіленбеді. Онда қазір белсенді арнадан бастаңыз.'],
   check_open_channel: ['Открыть канал на теле', 'Open the channel on the body', 'Kanalni tanada ochish', 'Арнаны денеде ашу'],
