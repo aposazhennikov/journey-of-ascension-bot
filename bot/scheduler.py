@@ -601,7 +601,11 @@ class YogaScheduler:
                 return False
             except BadRequest as e:
                 logger.error(f"Bad request for user {chat_id}: {e}")
-                return False
+                # a map (web app) button Telegram refuses would fail every day: send once more without it
+                trimmed = self._without_web_app_buttons(reply_markup)
+                if trimmed is reply_markup:
+                    return False
+                reply_markup = trimmed
             except NetworkError as e:
                 logger.warning(f"Telegram network error for user {chat_id}: {e}")
                 if attempt < max_retries - 1:
@@ -615,6 +619,17 @@ class YogaScheduler:
                 if attempt < max_retries - 1:
                     await asyncio.sleep(2 ** attempt)
         return False
+
+    @staticmethod
+    def _without_web_app_buttons(markup: Optional[InlineKeyboardMarkup]) -> Optional[InlineKeyboardMarkup]:
+        """The same keyboard without web app buttons, or the very same object when it has none."""
+        if not markup:
+            return markup
+        rows = [[b for b in row if not getattr(b, "web_app", None)] for row in markup.inline_keyboard]
+        if sum(len(r) for r in rows) == sum(len(r) for r in markup.inline_keyboard):
+            return markup
+        rows = [r for r in rows if r]
+        return InlineKeyboardMarkup(rows) if rows else None
     
     async def _send_message_with_retry(self, chat_id: int, message: str, max_retries: int = 3, principle_id: Optional[int] = None) -> bool:
         """Send message with retry logic for error handling."""

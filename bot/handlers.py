@@ -2413,6 +2413,10 @@ LIVE_TEXT_OVERRIDES = {
         "timezone_step": "📍 Time zone\n\nChoose your time zone so reminders arrive at the right local time.",
         "timezone_custom": "⌨️ Enter manually",
         "timezone_manual_prompt": "Enter your time zone in IANA format.\n\nExamples: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC",
+        "timezone_back_to_list": "‹ Back to the list",
+        "stop_confirm": "Stop the bot? Reminders will stop coming until you press /start again.",
+        "stop_confirm_yes": "Yes, stop",
+        "stop_confirm_no": "‹ Keep going",
         "timezone_saved": "✅ Time zone saved.",
         "time_saved": "✅ Reminder time saved.",
         "invalid_timezone": "❌ I could not recognize this time zone. Try a format like Europe/Moscow, Asia/Tashkent, Asia/Almaty, or UTC.",
@@ -2451,6 +2455,10 @@ LIVE_TEXT_OVERRIDES = {
         "timezone_step": "📍 Часовой пояс\n\nВыберите ваш часовой пояс, чтобы напоминания приходили в правильное местное время.",
         "timezone_custom": "⌨️ Ввести вручную",
         "timezone_manual_prompt": "Введите часовой пояс в формате IANA.\n\nПримеры: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC",
+        "timezone_back_to_list": "‹ Выбрать из списка",
+        "stop_confirm": "Остановить бота? Напоминания перестанут приходить, пока вы снова не нажмёте /start.",
+        "stop_confirm_yes": "Да, остановить",
+        "stop_confirm_no": "‹ Не останавливать",
         "timezone_saved": "✅ Часовой пояс сохранён.",
         "time_saved": "✅ Время напоминаний сохранено.",
         "invalid_timezone": "❌ Не удалось распознать часовой пояс. Попробуйте формат Europe/Moscow, Asia/Tashkent, Asia/Almaty или UTC.",
@@ -2488,6 +2496,10 @@ LIVE_TEXT_OVERRIDES = {
         "timezone_step": "📍 Vaqt mintaqasi\n\nEslatmalar to'g'ri mahalliy vaqtda kelishi uchun vaqt mintaqangizni tanlang.",
         "timezone_custom": "⌨️ Qo'lda kiritish",
         "timezone_manual_prompt": "Vaqt mintaqasini IANA formatida kiriting.\n\nMisollar: Asia/Tashkent, Europe/Moscow, Asia/Almaty, UTC",
+        "timezone_back_to_list": "‹ Ro'yxatdan tanlash",
+        "stop_confirm": "Botni to'xtatasizmi? /start ni qayta bosmaguningizcha eslatmalar kelmaydi.",
+        "stop_confirm_yes": "Ha, to'xtatish",
+        "stop_confirm_no": "‹ To'xtatmaslik",
         "timezone_saved": "✅ Vaqt mintaqasi saqlandi.",
         "time_saved": "✅ Eslatma vaqti saqlandi.",
         "invalid_timezone": "❌ Bu vaqt mintaqasini taniy olmadim. Asia/Tashkent, Europe/Moscow, Asia/Almaty yoki UTC kabi formatni sinab ko'ring.",
@@ -2519,6 +2531,10 @@ LIVE_TEXT_OVERRIDES = {
         "timezone_step": "📍 Уақыт белдеуі\n\nЕске салулар дұрыс жергілікті уақытта келуі үшін уақыт белдеуіңізді таңдаңыз.",
         "timezone_custom": "⌨️ Қолмен енгізу",
         "timezone_manual_prompt": "Уақыт белдеуін IANA форматында енгізіңіз.\n\nМысалдар: Asia/Almaty, Asia/Tashkent, Europe/Moscow, UTC",
+        "timezone_back_to_list": "‹ Тізімнен таңдау",
+        "stop_confirm": "Ботты тоқтатасыз ба? /start қайта баспайынша еске салулар келмейді.",
+        "stop_confirm_yes": "Иә, тоқтату",
+        "stop_confirm_no": "‹ Тоқтатпау",
         "timezone_saved": "✅ Уақыт белдеуі сақталды.",
         "time_saved": "✅ Еске салу уақыты сақталды.",
         "invalid_timezone": "❌ Бұл уақыт белдеуін тани алмадым. Asia/Almaty, Asia/Tashkent, Europe/Moscow немесе UTC сияқты форматты қолданып көріңіз.",
@@ -3539,6 +3555,8 @@ class BotHandlers:
         chat_id = update.effective_chat.id
 
         try:
+            # a step left waiting for text (feedback after /stop) ends here; the language button starts a new one
+            self.user_states.pop(chat_id, None)
             # Check if user already exists.
             user = await self.storage.get_user(chat_id)
             if user and user.is_active:
@@ -3688,31 +3706,38 @@ class BotHandlers:
             logger.debug(f"Timezone callback for user {chat_id}: {tz_data}")
 
             user_state = self.user_states.get(chat_id)
-            if not user_state or user_state.get("step") not in ["timezone", "change_timezone"]:
+            steps = ["timezone", "change_timezone", "timezone_manual", "change_timezone_manual"]
+            if not user_state or user_state.get("step") not in steps:
                 logger.debug(f"Invalid state for user {chat_id}: {user_state}")
                 return
 
             language = user_state["language"]
             logger.debug(f"User {chat_id} timezone selection in language: {language}")
             message_id = user_state.get("registration_message_id")
+            changing = user_state.get("step", "").startswith("change_")
 
             if tz_data == "custom":
-                # Switch to manual input mode
-                if user_state.get("step") == "change_timezone":
-                    self.user_states[chat_id]["step"] = "change_timezone_manual"
-                else:
-                    self.user_states[chat_id]["step"] = "timezone_manual"
+                # Switch to manual input mode; one button leads back to the list
+                self.user_states[chat_id]["step"] = "change_timezone_manual" if changing else "timezone_manual"
 
                 custom_msg = (
                     f"{self._get_text('timezone_step', language)}\n\n"
                     f"{self._get_text('timezone_manual_prompt', language)}"
                 )
-                await self._edit_message_text_safe(query, custom_msg, parse_mode='HTML')
+                keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(
+                    self._get_text("timezone_back_to_list", language), callback_data="tz_list"
+                )]])
+                await self._edit_message_text_safe(query, custom_msg, reply_markup=keyboard, parse_mode='HTML')
+            elif tz_data == "list":
+                self.user_states[chat_id]["step"] = "change_timezone" if changing else "timezone"
+                text = self._get_text("timezone_step", language) if changing else self._get_timezone_step_text(language, user_state)
+                keyboard = self._create_timezone_keyboard(language, add_back_button=changing)
+                await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
             else:
                 # Use selected timezone
                 timezone_str = tz_data
                 if is_valid_timezone(timezone_str):
-                    if user_state.get("step") == "change_timezone":
+                    if changing:
                         # Handle timezone change
                         user = await self.storage.get_user(chat_id)
                         if user:
@@ -4305,15 +4330,7 @@ class BotHandlers:
         message_id = user_state.get("registration_message_id")
 
         if not is_valid_timezone(timezone_str):
-            if message_id:
-                await self._edit_bot_message_text_safe(
-                    chat_id=chat_id,
-                    message_id=message_id,
-                    text=self._get_text("invalid_timezone", language),
-                    parse_mode='HTML'
-                )
-            else:
-                await update.message.reply_text(self._get_text("invalid_timezone", language), parse_mode='HTML')
+            await self._show_invalid_input(update, chat_id, message_id, "invalid_timezone", language)
             return
 
         # Save timezone and move to next step.
@@ -4344,15 +4361,7 @@ class BotHandlers:
         message_id = user_state.get("registration_message_id")
 
         if not is_valid_time_format(time_str):
-            if message_id:
-                await self._edit_bot_message_text_safe(
-                    chat_id=chat_id,
-                    message_id=message_id,
-                    text=self._get_text("invalid_time", language),
-                    parse_mode='HTML'
-                )
-            else:
-                await update.message.reply_text(self._get_text("invalid_time", language))
+            await self._show_invalid_input(update, chat_id, message_id, "invalid_time", language)
             return
 
         # Save time and move to next step.
@@ -4452,8 +4461,40 @@ class BotHandlers:
                 parse_mode='HTML'
             )
         else:
-            await update.message.reply_text(combined_msg, parse_mode='HTML')
+            await update.message.reply_text(combined_msg, reply_markup=keyboard, parse_mode='HTML')
 
+
+    async def _show_invalid_input(self, update: Update, chat_id: int, message_id: Optional[int], key: str, language: str) -> None:
+        """A typed value was not understood: say so and keep the step's buttons (a bare edit drops them)."""
+        state = self.user_states.get(chat_id, {})
+        step = state.get("step", "")
+        keyboard = None
+        if step in ("timezone", "timezone_manual", "change_timezone", "change_timezone_manual"):
+            changing = step.startswith("change_")
+            # back to the list: its buttons only work on the list step
+            state["step"] = "change_timezone" if changing else "timezone"
+            keyboard = self._create_timezone_keyboard(language, add_back_button=changing)
+        elif step in ("time", "meridian_time"):
+            keyboard = self._create_setup_time_keyboard(language)
+        elif step in ("change_time", "change_meridian_time"):
+            rows = []
+            if step == "change_meridian_time":
+                user = await self.storage.get_user(chat_id)
+                if user:
+                    label = (
+                        channel_time.text("btn_off", language, time=user.meridian_time_for_send)
+                        if user.meridian_time_auto else channel_time.text("btn_on", language)
+                    )
+                    rows.append([InlineKeyboardButton(label, callback_data="change_meridianauto")])
+            rows.append([InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="settings_back")])
+            keyboard = InlineKeyboardMarkup(rows)
+        text = self._get_text(key, language)
+        if message_id:
+            await self._edit_bot_message_text_safe(
+                chat_id=chat_id, message_id=message_id, text=text, reply_markup=keyboard, parse_mode='HTML'
+            )
+        else:
+            await update.message.reply_text(text, reply_markup=keyboard, parse_mode='HTML')
 
     async def _handle_setup_meridian_time_input(self, update: Update, time_str: str, language: str) -> None:
         """Handle separate meridian reminder time during registration."""
@@ -4462,15 +4503,7 @@ class BotHandlers:
         message_id = user_state.get("registration_message_id")
 
         if not is_valid_time_format(time_str):
-            if message_id:
-                await self._edit_bot_message_text_safe(
-                    chat_id=chat_id,
-                    message_id=message_id,
-                    text=self._get_text("invalid_time", language),
-                    parse_mode='HTML'
-                )
-            else:
-                await update.message.reply_text(self._get_text("invalid_time", language), parse_mode='HTML')
+            await self._show_invalid_input(update, chat_id, message_id, "invalid_time", language)
             return
 
         self.user_states[chat_id]["meridian_time"] = time_str
@@ -5554,6 +5587,7 @@ class BotHandlers:
                 await update.message.reply_text(self._get_text("not_subscribed_test", language))
                 return
 
+            self.user_states.pop(chat_id, None)
             text = self._as_html(self._get_text("menu", language))
             keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
 
@@ -5662,6 +5696,15 @@ class BotHandlers:
                 await self._edit_message_text_safe(query, text, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='HTML')
 
             elif action == "stop":
+                # one tap away from losing the reminders: ask first
+                self.user_states.pop(chat_id, None)
+                keyboard = InlineKeyboardMarkup([
+                    [InlineKeyboardButton(self._get_text("stop_confirm_yes", language), callback_data="menu_stopyes")],
+                    [InlineKeyboardButton(self._get_text("stop_confirm_no", language), callback_data="menu_main")],
+                ])
+                await self._edit_message_text_safe(query, self._get_text("stop_confirm", language), reply_markup=keyboard, parse_mode='HTML')
+
+            elif action == "stopyes":
                 success = await self.storage.deactivate_user(chat_id)
                 if success:
                     await self.scheduler.remove_user_jobs(chat_id)
@@ -5678,6 +5721,8 @@ class BotHandlers:
                     await self._edit_message_text_safe(query, self._get_text("not_subscribed", language))
 
             elif action == "main":
+                # leaving a screen that waited for text (feedback): the next message is not that text
+                self.user_states.pop(chat_id, None)
                 text = self._as_html(self._get_text("menu", language))
                 keyboard = self._create_main_menu_keyboard_for_user(chat_id, language, user)
                 await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
@@ -5757,6 +5802,8 @@ class BotHandlers:
                 await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
                 return
 
+            # back from a screen that waited for a typed time or zone: later text must not change it
+            self.user_states.pop(chat_id, None)
             text = self._as_html(self._get_text("settings_menu", language))
             keyboard = self._create_settings_menu_keyboard(language, user)
             await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')
@@ -6623,15 +6670,7 @@ class BotHandlers:
         message_id = user_state.get("settings_message_id")
 
         if not is_valid_timezone(timezone_str):
-            if message_id:
-                await self._edit_bot_message_text_safe(
-                    chat_id=chat_id,
-                    message_id=message_id,
-                    text=self._get_text("invalid_timezone", language),
-                    parse_mode='HTML'
-                )
-            else:
-                await update.message.reply_text(self._get_text("invalid_timezone", language), parse_mode='HTML')
+            await self._show_invalid_input(update, chat_id, message_id, "invalid_timezone", language)
             return
 
         try:
@@ -6703,15 +6742,7 @@ class BotHandlers:
         message_id = user_state.get("settings_message_id")
 
         if not is_valid_time_format(time_str):
-            if message_id:
-                await self._edit_bot_message_text_safe(
-                    chat_id=chat_id,
-                    message_id=message_id,
-                    text=self._get_text("invalid_time", language),
-                    parse_mode='HTML'
-                )
-            else:
-                await update.message.reply_text(self._get_text("invalid_time", language))
+            await self._show_invalid_input(update, chat_id, message_id, "invalid_time", language)
             return
 
         try:
@@ -6783,15 +6814,7 @@ class BotHandlers:
         message_id = user_state.get("settings_message_id")
 
         if not is_valid_time_format(time_str):
-            if message_id:
-                await self._edit_bot_message_text_safe(
-                    chat_id=chat_id,
-                    message_id=message_id,
-                    text=self._get_text("invalid_time", language),
-                    parse_mode='HTML'
-                )
-            else:
-                await update.message.reply_text(self._get_text("invalid_time", language))
+            await self._show_invalid_input(update, chat_id, message_id, "invalid_time", language)
             return
 
         try:
