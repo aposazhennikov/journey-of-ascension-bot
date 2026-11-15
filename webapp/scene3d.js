@@ -12,6 +12,11 @@ import { MeshBVH, acceleratedRaycast } from 'three-mesh-bvh';
 import { SkinSurface, SURFACE_OFFSET } from './geometry.js';
 import { PALETTE, BODY_TONE } from './channels.js';
 
+// Du Mai / Ren Mai follow the middle between the skin this far to either side (see midSides)
+const MIDLINE_SIDE = 0.03;
+const MID_A = new THREE.Vector3();
+const MID_B = new THREE.Vector3();
+
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
 const BODY_COLORS = {
@@ -533,7 +538,28 @@ export class MeridianScene {
     });
     if (stops.length < 2) return null;
     const { atts, stopIndex } = this.restSkin.layCurve(stops, 0.005, { midline: !!flags.midline, quiet: true });
-    return { side, atts, stopIndex, stopCodes, s0, positions: null, arcs: null, ...flags };
+    const sides = flags.midline ? atts.map((a) => this.midSides(a)) : null;
+    return { side, atts, sides, stopIndex, stopCodes, s0, positions: null, arcs: null, ...flags };
+  }
+
+  /**
+   * Unpaired channels on a posed body: the skin ON the midline is pulled by both thighs, and crossed legs
+   * (half lotus, lotus, sukhasana) shift it 1-3 mm off the skin either side, so Du Mai drew a kinked
+   * line over a straight back. The eye reads the middle between the two sides as the midline: these
+   * are the skin spots MIDLINE_SIDE to the left and right of a midline attachment (rest body).
+   */
+  midSides(att) {
+    const p = this.restSkin.evaluate({ ...att, offset: 0 });
+    const l = this.restSkin.attachNearest(new THREE.Vector3(p.x + MIDLINE_SIDE, p.y, p.z));
+    const r = this.restSkin.attachNearest(new THREE.Vector3(p.x - MIDLINE_SIDE, p.y, p.z));
+    return l && r ? [l, r] : null;
+  }
+
+  /** x of the middle between the two side spots on the current (posed) body. */
+  midX(sides) {
+    this.skin.evaluate({ ...sides[0], offset: 0 }, MID_A);
+    this.skin.evaluate({ ...sides[1], offset: 0 }, MID_B);
+    return (MID_A.x + MID_B.x) / 2;
   }
 
   layChannel(ch) {
@@ -606,7 +632,7 @@ export class MeridianScene {
           const st = this.restAtt(code, side);
           if (!st?.att) continue;
           this.pointIndex.set(`${code}|${side}`, entries.length);
-          entries.push({ code, side, channel: ch.id, att: st.att });
+          entries.push({ code, side, channel: ch.id, att: st.att, sides: ch.midline ? this.midSides(st.att) : null });
         }
       }
     }
@@ -635,6 +661,7 @@ export class MeridianScene {
     for (const ch of this.channels.values()) {
       for (const pl of ch.polylines) {
         pl.positions = pl.atts.map((a) => this.skin.evaluate(a, new THREE.Vector3()));
+        if (pl.sides) pl.sides.forEach((s, i) => { if (s) pl.positions[i].x = this.midX(s); });
         pl.normals = pl.atts.map((a) => this.skin.smoothNormal(a, new THREE.Vector3()));
         let s = pl.s0;
         pl.arcs = [s];
@@ -663,6 +690,7 @@ export class MeridianScene {
     const nn = new THREE.Vector3();
     this.pointEntries.forEach((e, i) => {
       this.skin.evaluate(e.att, tmp);
+      if (e.sides) tmp.x = this.midX(e.sides);   // on the same midline as the Du Mai / Ren Mai line
       pos.setXYZ(i, tmp.x, tmp.y, tmp.z);
       this.skin.normal(e.att.tri, nn);
       nrm.setXYZ(i, nn.x, nn.y, nn.z);
