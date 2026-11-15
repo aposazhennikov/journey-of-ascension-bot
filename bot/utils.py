@@ -45,8 +45,10 @@ class PrinciplesManager:
         lang_principles = self._principles.get(language, self._principles.get("en", []))
         if not lang_principles:
             return None
-        
-        return random.choice(lang_principles)
+
+        excluded = set(excluded_ids or [])
+        pool = [p for p in lang_principles if p.get("id") not in excluded]
+        return random.choice(pool or lang_principles)
     
     def get_all_principles(self, language: str = "en") -> List[Dict[str, Any]]:
         """Get all principles for specified language."""
@@ -171,8 +173,13 @@ class MeridiansManager:
         return None
 
 
-def format_principle_message(principle: Dict[str, Any], language: str = "en", max_length: int = 1024) -> str:
-    """Format a daily Yama/Niyama focus as an HTML caption-safe message."""
+def format_principle_message(
+    principle: Dict[str, Any], language: str = "en", max_length: int = 1024, daily: bool = True
+) -> str:
+    """Format a Yama/Niyama card as an HTML caption-safe message.
+
+    daily=False is a card opened from the menu: it has no "Today's focus" line (it is not today's).
+    """
     labels = {
         "en": ("Part", "Today's focus", "Practice"),
         "ru": ("Часть", "Фокус дня", "Практика"),
@@ -221,7 +228,7 @@ def format_principle_message(principle: Dict[str, Any], language: str = "en", ma
         ]
         if short_desc:
             parts.append(escape(short_desc))
-        if reminders:
+        if reminders and daily:
             parts.append(f"<b>{escape(labels[1])}:</b> {escape(reminders)}")
         if desc:
             parts.append(escape(desc))
@@ -1181,9 +1188,15 @@ def get_next_send_time(
     not_on is a local date (YYYY-MM-DD) that already had its message: the next one goes to a later day.
     """
     target_dt = get_user_local_time(user_timezone, target_time)
+    skip = [d for d in (skip_days or []) if isinstance(d, int) and 0 <= d <= 6]
+    # all seven days quiet would never end the loop below (and the loop blocks the whole bot): ignore them
+    if len(set(skip)) == 7:
+        skip = []
 
-    # Keep checking future days until we find one that's not skipped.
-    while should_skip_today(skip_days, target_dt) or (not_on and target_dt.date().isoformat() == not_on):
+    # Keep checking future days until we find one that's not skipped (a week and the not_on day at most).
+    for _ in range(9):
+        if not (should_skip_today(skip, target_dt) or (not_on and target_dt.date().isoformat() == not_on)):
+            break
         target_dt += timedelta(days=1)
 
     return target_dt

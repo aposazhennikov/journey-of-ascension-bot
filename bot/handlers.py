@@ -1509,7 +1509,7 @@ TEXTS_UPDATE = {
             "<b>Yama</b> works with your contact with the world: non-harm, truthfulness, non-stealing, moderation, and non-possessiveness. It teaches you to stop losing force in conflict, pressure, comparison, and grabbing.\n\n"
             "<b>Niyama</b> works with your inner ground: purity, contentment, discipline, self-study, and surrender of the fruits of action. It gathers attention back into a cleaner rhythm.\n\n"
             "The daily principle is only the accent of the day. It does not mean you practise Ahimsa today and forget it tomorrow. We keep all principles in life at once; each day one of them comes closer to the surface.\n\n"
-            "Open one principle for today or view the full list."
+            "Open a random principle or view the full list. The principle of the day comes in its own message at your time."
         ),
         "useful_materials": "📚 Useful materials",
         "useful_materials_soon": (
@@ -1743,7 +1743,7 @@ TEXTS_UPDATE = {
             "<b>Яма</b> работает с вашим контактом с миром: бережное отношение к себе и миру, правдивость, признание и уважение чужих ценностей, умеренность и нестяжательство. Она учит сохранять силу и энергию.\n\n"
             "<b>Нияма</b> работает с внутренней опорой: чистота, удовлетворённость, дисциплина, самоизучение и посвящение плодов практики высшему. Она собирает внимание в более чистый ритм.\n\n"
             "Принцип дня — это только акцент. Это не значит, что сегодня мы практикуем Ахимсу, а завтра забываем о ней. Мы держим все принципы в жизни одновременно; просто каждый день один из них выходит ближе к поверхности.\n\n"
-            "Откройте принцип дня или посмотрите весь список."
+            "Откройте случайный принцип или посмотрите весь список. Принцип дня приходит отдельным сообщением в ваше время."
         ),
         "useful_materials": "📚 Полезные материалы",
         "useful_materials_soon": (
@@ -1977,7 +1977,7 @@ TEXTS_UPDATE = {
             "<b>Yama</b> dunyo bilan munosabatda ishlaydi: zarar yetkazmaslik, rostgo'ylik, o'g'irlamaslik, mo'tadillik va ortiqcha egalik qilmaslik. U kuchni ziddiyat, bosim, taqqoslash va ortiqcha narsaga yopishishda yo'qotmaslikni o'rgatadi.\n\n"
             "<b>Niyama</b> ichki tayanch bilan ishlaydi: poklik, qanoat, intizom, o'zini o'rganish va amaliyot mevasini oliy maqsadga bag'ishlash. U diqqatni tozaroq ritmga yig'adi.\n\n"
             "Kun tamoyili faqat urg'u. Bu bugun Ahimsani mashq qilib, ertaga uni unutamiz degani emas. Biz barcha tamoyillarni hayotda birga ushlab turamiz; har kuni bittasi yuzaga yaqinroq chiqadi.\n\n"
-            "Bugungi tamoyilni oching yoki to'liq ro'yxatni ko'ring."
+            "Tasodifiy tamoyilni oching yoki to'liq ro'yxatni ko'ring. Kun tamoyili sizning vaqtingizda alohida xabar bo'lib keladi."
         ),
         "useful_materials": "📚 Foydali materiallar",
         "useful_materials_soon": (
@@ -2224,7 +2224,7 @@ TEXTS_UPDATE = {
             "<b>Яма</b> әлеммен байланыста жұмыс істейді: зиян келтірмеу, шыншылдық, ұрламау, ұстамдылық және артыққа жабыспау. Ол күшті қақтығысқа, қысымға, салыстыруға және артық нәрсені қармауға жоғалтпауға үйретеді.\n\n"
             "<b>Нияма</b> ішкі тірекпен жұмыс істейді: тазалық, қанағат, тәртіп, өзін-өзі зерттеу және тәжірибе жемісін жоғары мақсатқа арнау. Ол зейінді таза ырғаққа жинайды.\n\n"
             "Күн қағидасы — тек екпін. Бұл бүгін Ахимсаны жасап, ертең оны ұмытамыз деген сөз емес. Біз барлық қағидаларды өмірде бірге ұстаймыз; әр күні біреуі бетке жақынырақ шығады.\n\n"
-            "Бүгінгі қағиданы ашыңыз немесе толық тізімді көріңіз."
+            "Кездейсоқ қағиданы ашыңыз немесе толық тізімді көріңіз. Күн қағидасы сіздің уақытыңызда бөлек хабар болып келеді."
         ),
         "useful_materials": "📚 Пайдалы материалдар",
         "useful_materials_soon": (
@@ -2414,9 +2414,10 @@ LIVE_TEXT_OVERRIDES = {
         "timezone_custom": "⌨️ Enter manually",
         "timezone_manual_prompt": "Enter your time zone in IANA format.\n\nExamples: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC",
         "timezone_back_to_list": "‹ Back to the list",
-        "stop_confirm": "Stop the bot? Reminders will stop coming until you press /start again.",
-        "stop_confirm_yes": "Yes, stop",
+        "stop_confirm": "Pause the practice? Reminders will stop coming until you press /start again.",
+        "stop_confirm_yes": "Yes, pause",
         "stop_confirm_no": "‹ Keep going",
+        "skip_days_all": "All seven days cannot be quiet: then no reminder would ever come. To take a break, use «Pause practice» in the menu.",
         "timezone_saved": "✅ Time zone saved.",
         "time_saved": "✅ Reminder time saved.",
         "invalid_timezone": "❌ I could not recognize this time zone. Try a format like Europe/Moscow, Asia/Tashkent, Asia/Almaty, or UTC.",
@@ -2456,9 +2457,10 @@ LIVE_TEXT_OVERRIDES = {
         "timezone_custom": "⌨️ Ввести вручную",
         "timezone_manual_prompt": "Введите часовой пояс в формате IANA.\n\nПримеры: Europe/Moscow, Asia/Tashkent, Asia/Almaty, UTC",
         "timezone_back_to_list": "‹ Выбрать из списка",
-        "stop_confirm": "Остановить бота? Напоминания перестанут приходить, пока вы снова не нажмёте /start.",
-        "stop_confirm_yes": "Да, остановить",
-        "stop_confirm_no": "‹ Не останавливать",
+        "stop_confirm": "Поставить практику на паузу? Напоминания перестанут приходить, пока вы снова не нажмёте /start.",
+        "stop_confirm_yes": "Да, на паузу",
+        "stop_confirm_no": "‹ Продолжать практику",
+        "skip_days_all": "Все семь дней тишины выбрать нельзя: тогда напоминания не придут ни разу. Чтобы сделать перерыв, нажмите в меню «Пауза практики».",
         "timezone_saved": "✅ Часовой пояс сохранён.",
         "time_saved": "✅ Время напоминаний сохранено.",
         "invalid_timezone": "❌ Не удалось распознать часовой пояс. Попробуйте формат Europe/Moscow, Asia/Tashkent, Asia/Almaty или UTC.",
@@ -2497,9 +2499,10 @@ LIVE_TEXT_OVERRIDES = {
         "timezone_custom": "⌨️ Qo'lda kiritish",
         "timezone_manual_prompt": "Vaqt mintaqasini IANA formatida kiriting.\n\nMisollar: Asia/Tashkent, Europe/Moscow, Asia/Almaty, UTC",
         "timezone_back_to_list": "‹ Ro'yxatdan tanlash",
-        "stop_confirm": "Botni to'xtatasizmi? /start ni qayta bosmaguningizcha eslatmalar kelmaydi.",
-        "stop_confirm_yes": "Ha, to'xtatish",
-        "stop_confirm_no": "‹ To'xtatmaslik",
+        "stop_confirm": "Amaliyotni pauza qilasizmi? /start ni qayta bosmaguningizcha eslatmalar kelmaydi.",
+        "stop_confirm_yes": "Ha, pauza",
+        "stop_confirm_no": "‹ Amaliyotni davom ettirish",
+        "skip_days_all": "Yettala kunni ham sokin qilib bo'lmaydi: unda eslatma umuman kelmaydi. Tanaffus qilish uchun menyuda «Amaliyotni pauza qilish» ni bosing.",
         "timezone_saved": "✅ Vaqt mintaqasi saqlandi.",
         "time_saved": "✅ Eslatma vaqti saqlandi.",
         "invalid_timezone": "❌ Bu vaqt mintaqasini taniy olmadim. Asia/Tashkent, Europe/Moscow, Asia/Almaty yoki UTC kabi formatni sinab ko'ring.",
@@ -2532,9 +2535,10 @@ LIVE_TEXT_OVERRIDES = {
         "timezone_custom": "⌨️ Қолмен енгізу",
         "timezone_manual_prompt": "Уақыт белдеуін IANA форматында енгізіңіз.\n\nМысалдар: Asia/Almaty, Asia/Tashkent, Europe/Moscow, UTC",
         "timezone_back_to_list": "‹ Тізімнен таңдау",
-        "stop_confirm": "Ботты тоқтатасыз ба? /start қайта баспайынша еске салулар келмейді.",
-        "stop_confirm_yes": "Иә, тоқтату",
-        "stop_confirm_no": "‹ Тоқтатпау",
+        "stop_confirm": "Тәжірибені паузаға қоясыз ба? /start қайта баспайынша еске салулар келмейді.",
+        "stop_confirm_yes": "Иә, паузаға қою",
+        "stop_confirm_no": "‹ Тәжірибені жалғастыру",
+        "skip_days_all": "Жеті күннің бәрін тыныш күн етуге болмайды: онда еске салу мүлде келмейді. Үзіліс жасау үшін мәзірде «Тәжірибені паузаға қою» батырмасын басыңыз.",
         "timezone_saved": "✅ Уақыт белдеуі сақталды.",
         "time_saved": "✅ Еске салу уақыты сақталды.",
         "invalid_timezone": "❌ Бұл уақыт белдеуін тани алмадым. Asia/Almaty, Asia/Tashkent, Europe/Moscow немесе UTC сияқты форматты қолданып көріңіз.",
@@ -3548,7 +3552,8 @@ class BotHandlers:
 
     def _format_principle_detail(self, principle: Dict[str, Any], language: str, max_length: Optional[int] = None) -> str:
         """Format a selected principle exactly like the daily principle card."""
-        return format_principle_message(principle, language, max_length or 4096)
+        # the daily card's layout without its "Today's focus" line: opened from the menu, it is not today's
+        return format_principle_message(principle, language, max_length or 4096, daily=False)
 
     async def _handle_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
@@ -3819,11 +3824,11 @@ class BotHandlers:
         skipday_data = query.data.split("_", 1)[1]  # Extract day number or action
 
         try:
-            await query.answer()
             logger.debug(f"Skip day callback for user {chat_id}: {skipday_data}")
 
             user_state = self.user_states.get(chat_id)
             if not user_state or user_state.get("step") not in ["skip_days", "change_skip_days"]:
+                await query.answer()
                 logger.debug(f"Invalid state for skipday callback {chat_id}: {user_state}")
                 return
 
@@ -3834,6 +3839,15 @@ class BotHandlers:
                 user_state["selected_skip_days"] = []
 
             selected_days = user_state["selected_skip_days"]
+
+            # all seven quiet days would mean no reminders at all: say so instead of ticking the seventh
+            if skipday_data.isdigit() and int(skipday_data) not in selected_days and len(set(selected_days)) >= 6:
+                await query.answer(self._get_text("skip_days_all", language), show_alert=True)
+                return
+            if skipday_data.isdigit() and not 0 <= int(skipday_data) <= 6:
+                await query.answer()
+                return
+            await query.answer()
 
             if skipday_data == "finish":
                 # Finish selection and proceed
@@ -5020,7 +5034,7 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("principles_random", language), callback_data="principles_random"),
                 InlineKeyboardButton(self._get_text("principles_all", language), callback_data="principles_all")
             ],
-            [InlineKeyboardButton(self._get_text("useful_materials", language), callback_data="principles_materials")],
+            # no "Useful materials" here: it only said "coming soon" (principles_materials still answers old buttons)
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
@@ -5031,7 +5045,6 @@ class BotHandlers:
                 InlineKeyboardButton(self._get_text("principles_random", language), callback_data="principles_random"),
                 InlineKeyboardButton(self._get_text("principles_all", language), callback_data="principles_all")
             ],
-            [InlineKeyboardButton(self._get_text("useful_materials", language), callback_data="principles_materials")],
             [InlineKeyboardButton(self._get_text("principles_back", language), callback_data="principles_back")],
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
@@ -7145,43 +7158,11 @@ class BotHandlers:
 
         if image_path:
             caption = self._format_principle_detail(principle, language, max_length=1024)
+            sent_message = None
             if not query.message.photo:
+                # the card first, then the menu goes: a failed photo left the chat with neither; now the
+                # text card replaces the menu instead (below)
                 try:
-                    await query.delete_message()
-                except Exception:
-                    pass
-                with open(image_path, "rb") as photo:
-                    sent_message = await self.application.bot.send_photo(
-                        chat_id=chat_id,
-                        photo=photo,
-                        caption=caption,
-                        reply_markup=keyboard,
-                        parse_mode='HTML'
-                    )
-                await self.storage.add_bot_message(chat_id, sent_message.message_id, "principle")
-                return
-
-            try:
-                with open(image_path, "rb") as photo:
-                    await query.edit_message_media(
-                        media=InputMediaPhoto(
-                            media=photo,
-                            caption=caption,
-                            parse_mode='HTML'
-                        ),
-                        reply_markup=keyboard
-                    )
-                await self.storage.add_bot_message(chat_id, query.message.message_id, "principle")
-                return
-            except BadRequest as e:
-                if "message is not modified" in str(e).lower():
-                    logger.debug("Ignored Telegram no-op media edit for principle detail")
-                    return
-                if "no media" in str(e).lower() or "there is no media" in str(e).lower():
-                    try:
-                        await query.delete_message()
-                    except Exception:
-                        pass
                     with open(image_path, "rb") as photo:
                         sent_message = await self.application.bot.send_photo(
                             chat_id=chat_id,
@@ -7190,11 +7171,35 @@ class BotHandlers:
                             reply_markup=keyboard,
                             parse_mode='HTML'
                         )
+                except Exception as e:
+                    logger.warning(f"Could not send principle image {image_path} to {chat_id}: {e}")
+                if sent_message:
+                    try:
+                        await query.delete_message()
+                    except Exception:
+                        pass
                     await self.storage.add_bot_message(chat_id, sent_message.message_id, "principle")
                     return
-                logger.warning(f"Could not edit principle message as media for {chat_id}: {e}")
-            except Exception as e:
-                logger.warning(f"Could not show principle image {image_path} to {chat_id}: {e}")
+            else:
+                try:
+                    with open(image_path, "rb") as photo:
+                        await query.edit_message_media(
+                            media=InputMediaPhoto(
+                                media=photo,
+                                caption=caption,
+                                parse_mode='HTML'
+                            ),
+                            reply_markup=keyboard
+                        )
+                    await self.storage.add_bot_message(chat_id, query.message.message_id, "principle")
+                    return
+                except BadRequest as e:
+                    if "message is not modified" in str(e).lower():
+                        logger.debug("Ignored Telegram no-op media edit for principle detail")
+                        return
+                    logger.warning(f"Could not edit principle message as media for {chat_id}: {e}")
+                except Exception as e:
+                    logger.warning(f"Could not show principle image {image_path} to {chat_id}: {e}")
 
         try:
             await self._edit_message_text_safe(query, text, reply_markup=keyboard, parse_mode='HTML')

@@ -401,8 +401,14 @@ class YogaScheduler:
                 logger.warning(f"User {chat_id} not found, inactive, or principle practice is disabled.")
                 return False
             
-            # Get completely random principle for this user in their language.
-            principle = self.principles_manager.get_random_principle(user.language)
+            # A round: every principle once in random order, then the next round (the new one does not open
+            # with yesterday's principle). Each sent principle is one log entry, so the round so far is the
+            # tail of the log after the last whole round.
+            sent = await self.storage.get_user_sent_principles(chat_id)
+            count = len(self.principles_manager.get_all_principles(user.language)) or 1
+            in_round = sent[len(sent) - len(sent) % count:] if len(sent) % count else []
+            excluded = list(in_round) + sent[-1:]
+            principle = self.principles_manager.get_random_principle(user.language, excluded_ids=excluded)
             if not principle:
                 logger.warning(f"No principles available for user {chat_id} in language {user.language}.")
                 return False
