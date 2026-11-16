@@ -1652,13 +1652,6 @@ function onSheetClick(e) {
   if (ds.act === 'next') { stepPoint(1); return; }
   if (ds.act === 'closemenu') { back(); return; }
   if (el.closest('.intro')) state.introSession = false;
-  if (ds.act === 'introsearch') {
-    setSheet('full');
-    const inp = els.body.querySelector('input[type="search"], .sym-input, input');
-    inp?.scrollIntoView({ block: 'center' });
-    inp?.focus();
-    return;
-  }
   if (ds.act === 'introposes') { openPoses(); return; }
   if (ds.symg) {
     symptom.g = symptom.g === ds.symg ? null : ds.symg;
