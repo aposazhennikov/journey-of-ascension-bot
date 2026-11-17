@@ -18,7 +18,7 @@ from .utils import (
     format_principle_message,
     format_meridian_intro,
     format_meridian_point,
-    fit_html_caption,
+    split_card_text,
     get_next_send_time,
     missed_send_run,
     channel_window_send_time,
@@ -651,48 +651,60 @@ class YogaScheduler:
         reply_markup: Optional[InlineKeyboardMarkup] = None,
         max_retries: int = 3
     ) -> bool:
-        """Send meridian message with optional image."""
+        """Send meridian message with optional image.
+
+        A text longer than a caption goes as the picture with the paragraphs that fit and a message with the
+        rest and the buttons (split_card_text); a retry after the picture went out sends only the rest.
+        """
+        caption, rest = split_card_text(message) if image_path else (message, "")
+        use_image = bool(image_path)
+        photo_message = None
         for attempt in range(max_retries):
             try:
                 sent_message = None
-                if image_path:
-                    caption = fit_html_caption(message)
+                if use_image and photo_message is None:
                     try:
                         with open(image_path, 'rb') as media_file:
-                            if image_path.lower().endswith(".gif"):
-                                sent_message = await self.bot.send_animation(
-                                    chat_id=chat_id,
-                                    animation=media_file,
-                                    caption=caption,
-                                    reply_markup=reply_markup,
-                                    parse_mode='HTML'
-                                )
-                            else:
-                                sent_message = await self.bot.send_photo(
-                                    chat_id=chat_id,
-                                    photo=media_file,
-                                    caption=caption,
-                                    reply_markup=reply_markup,
-                                    parse_mode='HTML'
-                                )
-                    except NetworkError:
+                            is_gif = image_path.lower().endswith(".gif")
+                            send = self.bot.send_animation if is_gif else self.bot.send_photo
+                            photo_message = await send(
+                                chat_id=chat_id,
+                                caption=caption or None,
+                                reply_markup=None if rest else reply_markup,
+                                parse_mode='HTML',
+                                **{"animation" if is_gif else "photo": media_file}
+                            )
+                        await self.storage.add_bot_message(chat_id, photo_message.message_id, "meridian")
+                    except (NetworkError, RetryAfter, Forbidden):
                         raise
+                    except BadRequest as img_error:
+                        if _chat_gone(img_error):
+                            raise
+                        logger.error(f"Error sending meridian image {image_path}: {img_error}")
+                        use_image = False
                     except Exception as img_error:
                         logger.error(f"Error sending meridian image {image_path}: {img_error}")
+                        use_image = False
+                if use_image and photo_message is not None:
+                    if rest:
                         sent_message = await self.bot.send_message(
                             chat_id=chat_id,
-                            text=message,
+                            text=rest,
                             reply_markup=reply_markup,
                             parse_mode='HTML'
                         )
-                else:
-                    sent_message = await self.bot.send_message(
-                        chat_id=chat_id,
-                        text=message,
-                        reply_markup=reply_markup,
-                        parse_mode='HTML'
-                    )
+                        await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
+                        await self.storage.add_bot_message(
+                            chat_id, photo_message.message_id, f"card_photo:{sent_message.message_id}"
+                        )
+                    return True
 
+                sent_message = await self.bot.send_message(
+                    chat_id=chat_id,
+                    text=message,
+                    reply_markup=reply_markup,
+                    parse_mode='HTML'
+                )
                 if sent_message:
                     await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
                 return True

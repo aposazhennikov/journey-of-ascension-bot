@@ -6,7 +6,7 @@ import os
 import re
 from html import escape, unescape
 from datetime import datetime, timezone, timedelta
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 from pathlib import Path
 import pytz
 import aiofiles
@@ -317,6 +317,28 @@ def fit_html_caption(text: str, max_length: int = 1024) -> str:
             return fitted
 
     return plain_fallback(text)
+
+
+CAPTION_LIMIT = 1024
+
+
+def split_card_text(text: str, limit: int = CAPTION_LIMIT) -> Tuple[str, str]:
+    """Split a card into a media caption of whole paragraphs and the rest for a message after it.
+
+    A caption holds 1024 characters; channel intros, the first point and a finished channel with the next
+    intro run to 1100-1600, and fit_html_caption cut their ends: the practice part, the closing advice.
+    An empty rest means the whole card fits. Tags never span paragraphs in the cards.
+    """
+    if len(text) <= limit:
+        return text, ""
+    paragraphs = text.split("\n\n")
+    if len(paragraphs[0]) > limit:
+        return "", text
+    head, index = paragraphs[0], 1
+    while index < len(paragraphs) and len(head) + 2 + len(paragraphs[index]) <= limit:
+        head += "\n\n" + paragraphs[index]
+        index += 1
+    return head.rstrip(), "\n\n".join(paragraphs[index:]).strip()
 
 
 def _localized_value(item: Dict[str, Any], language: str, key: str, default: str = "") -> str:
@@ -1100,9 +1122,8 @@ def format_meridian_point(meridian: Dict[str, Any], point_index: int, language: 
         message += "\n".join(f"⚠️ <i>{escape(line)}</i>" for line in cautions) + "\n\n"
     message += f"<b>{escape(labels[2])}:</b> {practice_note}\n\n"
     if question:
-        with_question = message + f"<i>{escape(labels[3])}:</i> {question}"
-        if len(with_question) <= 1024:
-            message = with_question
+        # a card longer than a caption goes on in a message after the picture (split_card_text)
+        message += f"<i>{escape(labels[3])}:</i> {question}"
     return message
 
 

@@ -28,6 +28,7 @@ from .utils import (
     format_meridian_intro,
     format_meridian_point,
     fit_html_caption,
+    split_card_text,
     get_principle_image_path,
     get_meridian_image_path,
     localized_point_name,
@@ -6972,6 +6973,9 @@ class BotHandlers:
 
     async def _edit_message_text_safe(self, query, text: str, **kwargs):
         """Edit a callback message and ignore Telegram's no-op edit error."""
+        message = getattr(query, "message", None)
+        if message is not None and not (getattr(message, "photo", None) or getattr(message, "animation", None)):
+            await self._drop_card_photo(message.chat.id, message.message_id)
         try:
             return await query.edit_message_text(text, **kwargs)
         except BadRequest as e:
@@ -7312,6 +7316,44 @@ class BotHandlers:
         """Fit simple HTML text into Telegram caption limit without cutting tags."""
         return fit_html_caption(text, max_length)
 
+    async def _send_card(self, chat_id: int, image_path: str, caption: str, rest: str, keyboard):
+        """Send a card picture, and the rest of its text with the buttons when the caption could not hold it."""
+        with open(image_path, "rb") as media_file:
+            send = self.application.bot.send_animation if image_path.lower().endswith(".gif") else self.application.bot.send_photo
+            media_key = "animation" if image_path.lower().endswith(".gif") else "photo"
+            photo_message = await send(
+                chat_id=chat_id,
+                caption=caption or None,
+                reply_markup=None if rest else keyboard,
+                parse_mode='HTML',
+                **{media_key: media_file}
+            )
+        await self.storage.add_bot_message(chat_id, photo_message.message_id, "meridian")
+        if not rest:
+            return photo_message
+        return await self._send_card_rest(chat_id, photo_message.message_id, rest, keyboard)
+
+    async def _send_card_rest(self, chat_id: int, photo_message_id: int, rest: str, keyboard):
+        """The part of a card after its picture, with the buttons; the picture is tied to it for cleanup."""
+        message = await self.application.bot.send_message(
+            chat_id=chat_id, text=rest, reply_markup=keyboard, parse_mode='HTML'
+        )
+        await self.storage.add_bot_message(chat_id, message.message_id, "meridian")
+        await self.storage.add_bot_message(chat_id, photo_message_id, f"card_photo:{message.message_id}")
+        return message
+
+    async def _drop_card_photo(self, chat_id: int, message_id: int) -> None:
+        """Delete the picture of a long card when its text message turns into another screen."""
+        try:
+            messages = await self.storage.get_user_bot_messages(chat_id)
+        except Exception as e:
+            logger.debug("Could not read bot messages of %s: %s", chat_id, e)
+            return
+        marker = f"card_photo:{message_id}"
+        for message in messages:
+            if getattr(message, "message_type", "") == marker:
+                await self._delete_message_safe(chat_id, message.message_id)
+
     async def _show_meridian_card(
         self,
         query,
@@ -7322,31 +7364,22 @@ class BotHandlers:
         point_code: Optional[str] = None,
         append: bool = False
     ) -> None:
-        """Show meridian content with an image when available."""
+        """Show meridian content with an image when available.
+
+        A card longer than a caption is the picture with the paragraphs that fit and a message with the rest
+        and the buttons right after it; the picture is stored as card_photo:<message id> and goes away
+        with that message's next screen.
+        """
         chat_id = query.message.chat.id
         image_path = get_meridian_image_path(meridian_id, point_code) if meridian_id else None
+        caption, rest = split_card_text(text) if image_path else (text, "")
+        has_media = bool(getattr(query.message, "photo", None) or getattr(query.message, "animation", None))
+        if not append and not has_media:
+            await self._drop_card_photo(chat_id, query.message.message_id)
 
         if append:
             if image_path:
-                caption = self._fit_html_caption(text)
-                is_gif = image_path.lower().endswith(".gif")
-                with open(image_path, "rb") as media_file:
-                    if is_gif:
-                        sent_message = await self.application.bot.send_animation(
-                            chat_id=chat_id,
-                            animation=media_file,
-                            caption=caption,
-                            reply_markup=keyboard,
-                            parse_mode='HTML'
-                        )
-                    else:
-                        sent_message = await self.application.bot.send_photo(
-                            chat_id=chat_id,
-                            photo=media_file,
-                            caption=caption,
-                            reply_markup=keyboard,
-                            parse_mode='HTML'
-                        )
+                sent_message = await self._send_card(chat_id, image_path, caption, rest, keyboard)
             else:
                 sent_message = await self.application.bot.send_message(
                     chat_id=chat_id,
@@ -7354,7 +7387,7 @@ class BotHandlers:
                     reply_markup=keyboard,
                     parse_mode='HTML'
                 )
-            await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
+                await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
             try:
                 await query.edit_message_reply_markup(reply_markup=None)
             except BadRequest as e:
@@ -7365,46 +7398,29 @@ class BotHandlers:
             return
 
         if image_path:
-            caption = self._fit_html_caption(text)
             is_gif = image_path.lower().endswith(".gif")
-            has_media = bool(query.message.photo or query.message.animation)
             if not has_media:
                 try:
                     await query.delete_message()
                 except Exception:
                     pass
-                with open(image_path, "rb") as media_file:
-                    if is_gif:
-                        sent_message = await self.application.bot.send_animation(
-                            chat_id=chat_id,
-                            animation=media_file,
-                            caption=caption,
-                            reply_markup=keyboard,
-                            parse_mode='HTML'
-                        )
-                    else:
-                        sent_message = await self.application.bot.send_photo(
-                            chat_id=chat_id,
-                            photo=media_file,
-                            caption=caption,
-                            reply_markup=keyboard,
-                            parse_mode='HTML'
-                        )
-                await self.storage.add_bot_message(chat_id, sent_message.message_id, "meridian")
+                await self._send_card(chat_id, image_path, caption, rest, keyboard)
                 return
 
             try:
                 with open(image_path, "rb") as media_file:
                     media = (
-                        InputMediaAnimation(media=media_file, caption=caption, parse_mode='HTML')
+                        InputMediaAnimation(media=media_file, caption=caption or None, parse_mode='HTML')
                         if is_gif
-                        else InputMediaPhoto(media=media_file, caption=caption, parse_mode='HTML')
+                        else InputMediaPhoto(media=media_file, caption=caption or None, parse_mode='HTML')
                     )
                     await query.edit_message_media(
                         media=media,
-                        reply_markup=keyboard
+                        reply_markup=None if rest else keyboard
                     )
                 await self.storage.add_bot_message(chat_id, query.message.message_id, "meridian")
+                if rest:
+                    await self._send_card_rest(chat_id, query.message.message_id, rest, keyboard)
                 return
             except BadRequest as e:
                 if "message is not modified" in str(e).lower():
