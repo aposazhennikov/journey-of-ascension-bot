@@ -11,13 +11,13 @@ from telegram import (
     Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaAnimation, MenuButtonWebApp, WebAppInfo
 )
 from telegram.ext import (
-    Application, CommandHandler, MessageHandler, CallbackQueryHandler,
+    Application, CommandHandler, MessageHandler, CallbackQueryHandler, TypeHandler,
     filters, ContextTypes, ApplicationHandlerStop
 )
 from telegram.error import BadRequest
 
 from .storage import JsonStorage, User, Feedback
-from .scheduler import YogaScheduler
+from .scheduler import YogaScheduler, meridian_action_data
 from .utils import (
     PrinciplesManager,
     MeridiansManager,
@@ -2418,6 +2418,8 @@ LIVE_TEXT_OVERRIDES = {
         "stop_confirm_yes": "Yes, pause",
         "stop_confirm_no": "‹ Keep going",
         "skip_days_all": "All seven days cannot be quiet: then no reminder would ever come. To take a break, use «Pause practice» in the menu.",
+        "screen_expired": "This screen is out of date. Press /start to go on with the setup or /settings to change the settings.",
+        "stale_channel_button": "This message is about {name}, and you are now on {current}. Open the current channel from the menu: «Meridians».",
         "timezone_saved": "✅ Time zone saved.",
         "time_saved": "✅ Reminder time saved.",
         "invalid_timezone": "❌ I could not recognize this time zone. Try a format like Europe/Moscow, Asia/Tashkent, Asia/Almaty, or UTC.",
@@ -2461,6 +2463,8 @@ LIVE_TEXT_OVERRIDES = {
         "stop_confirm_yes": "Да, на паузу",
         "stop_confirm_no": "‹ Продолжать практику",
         "skip_days_all": "Все семь дней тишины выбрать нельзя: тогда напоминания не придут ни разу. Чтобы сделать перерыв, нажмите в меню «Пауза практики».",
+        "screen_expired": "Этот экран устарел. Нажмите /start, чтобы продолжить настройку, или /settings, чтобы изменить настройки.",
+        "stale_channel_button": "Это сообщение про канал «{name}», а сейчас у вас в работе «{current}». Текущий канал открывается из меню, раздел «Меридианы».",
         "timezone_saved": "✅ Часовой пояс сохранён.",
         "time_saved": "✅ Время напоминаний сохранено.",
         "invalid_timezone": "❌ Не удалось распознать часовой пояс. Попробуйте формат Europe/Moscow, Asia/Tashkent, Asia/Almaty или UTC.",
@@ -2503,6 +2507,8 @@ LIVE_TEXT_OVERRIDES = {
         "stop_confirm_yes": "Ha, pauza",
         "stop_confirm_no": "‹ Amaliyotni davom ettirish",
         "skip_days_all": "Yettala kunni ham sokin qilib bo'lmaydi: unda eslatma umuman kelmaydi. Tanaffus qilish uchun menyuda «Amaliyotni pauza qilish» ni bosing.",
+        "screen_expired": "Bu ekran eskirgan. Sozlashni davom ettirish uchun /start, sozlamalarni o'zgartirish uchun /settings ni bosing.",
+        "stale_channel_button": "Bu xabar «{name}» kanali haqida, hozir esa sizda «{current}». Joriy kanalni menyudagi «Meridianlar» bo'limidan oching.",
         "timezone_saved": "✅ Vaqt mintaqasi saqlandi.",
         "time_saved": "✅ Eslatma vaqti saqlandi.",
         "invalid_timezone": "❌ Bu vaqt mintaqasini taniy olmadim. Asia/Tashkent, Europe/Moscow, Asia/Almaty yoki UTC kabi formatni sinab ko'ring.",
@@ -2539,6 +2545,8 @@ LIVE_TEXT_OVERRIDES = {
         "stop_confirm_yes": "Иә, паузаға қою",
         "stop_confirm_no": "‹ Тәжірибені жалғастыру",
         "skip_days_all": "Жеті күннің бәрін тыныш күн етуге болмайды: онда еске салу мүлде келмейді. Үзіліс жасау үшін мәзірде «Тәжірибені паузаға қою» батырмасын басыңыз.",
+        "screen_expired": "Бұл экран ескірген. Баптауды жалғастыру үшін /start, баптауларды өзгерту үшін /settings басыңыз.",
+        "stale_channel_button": "Бұл хабарлама «{name}» арнасы туралы, ал қазір сізде «{current}». Ағымдағы арнаны мәзірдегі «Меридиандар» бөлімінен ашыңыз.",
         "timezone_saved": "✅ Уақыт белдеуі сақталды.",
         "time_saved": "✅ Еске салу уақыты сақталды.",
         "invalid_timezone": "❌ Бұл уақыт белдеуін тани алмадым. Asia/Almaty, Asia/Tashkent, Europe/Moscow немесе UTC сияқты форматты қолданып көріңіз.",
@@ -3370,8 +3378,58 @@ class BotHandlers:
         # Register handlers.
         self._register_handlers()
 
+    # Text steps that turn the next typed message into input, with the buttons that belong to their screens.
+    # Leaving such a screen any other way (a command, a button of another message) ends the step: the next
+    # message went to the admins as feedback, or edited an old settings message into "invalid time".
+    # The steps of the first setup stay: a newcomer must not lose the setup to a stray tap.
+    TEXT_STEP_BUTTONS = {
+        "feedback": (),
+        "stop_feedback": ("stop_feedback_skip",),
+        "change_time": ("change_", "settime_"),
+        "change_meridian_time": ("change_", "settime_"),
+        "change_timezone": ("change_", "tz_"),
+        "change_timezone_manual": ("change_", "tz_"),
+        "change_skip_days": ("change_", "skipday_"),
+    }
+
+    async def _drop_stale_text_step(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Runs before every other handler: ends a text step the user has left (see TEXT_STEP_BUTTONS)."""
+        try:
+            chat = update.effective_chat
+            state = self.user_states.get(chat.id) if chat else None
+            buttons = self.TEXT_STEP_BUTTONS.get(state.get("step")) if state else None
+            if buttons is None:
+                return
+            query = update.callback_query
+            message = update.message
+            if query is not None:
+                if not str(query.data or "").startswith(buttons) or not buttons:
+                    self.user_states.pop(chat.id, None)
+            elif message is not None and (message.text or "").startswith("/"):
+                self.user_states.pop(chat.id, None)
+        except Exception as e:  # never stop the update over this
+            logger.debug(f"Text step check failed: {e}")
+
+    async def _answer_expired_screen(self, query: Any, chat_id: int) -> None:
+        """A setup button whose step is gone (a restart, another command): say what to do instead of silence."""
+        language = "ru"
+        try:
+            user = await self.storage.get_user(chat_id)
+            if user and user.language:
+                language = user.language
+            elif getattr(query, "from_user", None) and query.from_user.language_code:
+                language = normalize_webapp_language(query.from_user.language_code)
+        except Exception:
+            pass
+        try:
+            await query.answer(self._get_text("screen_expired", language), show_alert=True)
+        except Exception as e:
+            logger.debug(f"Could not answer an expired screen for {chat_id}: {e}")
+
     def _register_handlers(self) -> None:
         """Register all event handlers."""
+
+        self.application.add_handler(TypeHandler(Update, self._drop_stale_text_step), group=-2)
 
         # User commands.
         self.application.add_handler(CommandHandler("start", self._handle_start))
@@ -3626,8 +3684,9 @@ class BotHandlers:
                 logger.debug(f"Language save success for user {chat_id}: {success}")
 
                 if success:
-                    # Clear any previous dialog before showing new menu
-                    await self._clear_user_dialog(chat_id)
+                    # Clear any previous dialog before showing new menu; the message with the language
+                    # buttons is edited below, so it stays (deleting it left the user with no menu at all)
+                    await self._clear_user_dialog(chat_id, keep=query.message.message_id)
                     logger.debug(f"Cleared dialog for user {chat_id} before language change")
 
                     confirmation = self._get_text("language_chosen", language)
@@ -3681,11 +3740,12 @@ class BotHandlers:
         mode = query.data.rsplit("_", 1)[1]
 
         try:
-            await query.answer()
             user_state = self.user_states.get(chat_id)
             if not user_state or user_state.get("step") != "intro":
                 logger.debug(f"Invalid state for intro callback {chat_id}: {user_state}")
+                await self._answer_expired_screen(query, chat_id)
                 return
+            await query.answer()
 
             language = user_state["language"]
             user_state["principles_enabled"] = mode in ["principles", "both"]
@@ -3707,14 +3767,15 @@ class BotHandlers:
         tz_data = query.data.split("_", 1)[1]  # Extract timezone or 'custom'
 
         try:
-            await query.answer()
             logger.debug(f"Timezone callback for user {chat_id}: {tz_data}")
 
             user_state = self.user_states.get(chat_id)
             steps = ["timezone", "change_timezone", "timezone_manual", "change_timezone_manual"]
             if not user_state or user_state.get("step") not in steps:
                 logger.debug(f"Invalid state for user {chat_id}: {user_state}")
+                await self._answer_expired_screen(query, chat_id)
                 return
+            await query.answer()
 
             language = user_state["language"]
             logger.debug(f"User {chat_id} timezone selection in language: {language}")
@@ -3789,11 +3850,12 @@ class BotHandlers:
         value = query.data.split("_", 1)[1]
 
         try:
-            await query.answer()
             user_state = self.user_states.get(chat_id)
             if not user_state or user_state.get("step") not in ("time", "meridian_time"):
                 logger.debug(f"Invalid state for setup time callback {chat_id}: {user_state}")
+                await self._answer_expired_screen(query, chat_id)
                 return
+            await query.answer()
 
             language = user_state["language"]
             user_state["registration_message_id"] = query.message.message_id
@@ -3828,8 +3890,8 @@ class BotHandlers:
 
             user_state = self.user_states.get(chat_id)
             if not user_state or user_state.get("step") not in ["skip_days", "change_skip_days"]:
-                await query.answer()
                 logger.debug(f"Invalid state for skipday callback {chat_id}: {user_state}")
+                await self._answer_expired_screen(query, chat_id)
                 return
 
             language = user_state["language"]
@@ -3935,25 +3997,16 @@ class BotHandlers:
 
         else:
             # Handle new registration
-            from bot.storage import User
-
-            user = User(
-                chat_id=chat_id,
-                language=language,
+            user = await self._registration_user(
+                chat_id,
+                language,
                 timezone=user_state["timezone"],
                 time_for_send=user_state["time"],
                 meridian_time_for_send=user_state.get("meridian_time", user_state["time"]),
                 skip_day_id=selected_days,
                 principles_enabled=user_state.get("principles_enabled", True),
                 meridians_enabled=user_state.get("meridians_enabled", False),
-                is_active=True
             )
-            if user.meridians_enabled and not user.current_meridian_id:
-                user.meridian_learning_mode = "guided"
-                first_meridian = self.meridians_manager.get_first_meridian()
-                if first_meridian:
-                    user.current_meridian_id = first_meridian["id"]
-                    user.current_point_index = -1
 
             success = await self.storage.save_user(user)
             if success:
@@ -4401,25 +4454,16 @@ class BotHandlers:
             return
 
         if not user_state.get("principles_enabled", True):
-            from bot.storage import User
-
-            user = User(
-                chat_id=chat_id,
-                language=language,
+            user = await self._registration_user(
+                chat_id,
+                language,
                 timezone=user_state["timezone"],
                 time_for_send=time_str,
                 meridian_time_for_send=time_str,
                 skip_day_id=[],
                 principles_enabled=False,
                 meridians_enabled=user_state.get("meridians_enabled", True),
-                is_active=True
             )
-            if user.meridians_enabled and not user.current_meridian_id:
-                user.meridian_learning_mode = "guided"
-                first_meridian = self.meridians_manager.get_first_meridian()
-                if first_meridian:
-                    user.current_meridian_id = first_meridian["id"]
-                    user.current_point_index = -1
 
             success = await self.storage.save_user(user)
             if not success:
@@ -5195,6 +5239,33 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
         ])
 
+    async def _registration_user(self, chat_id: int, language: str, **settings: Any) -> Any:
+        """The record a finished setup saves.
+
+        Someone coming back after a pause (/stop, then /start) keeps the passed meridians, the current point,
+        the sensation diary and the secret tasks: only the settings of this setup change (a fresh User
+        replaced the whole record before).
+        """
+        from bot.storage import User
+
+        user = await self.storage.get_user(chat_id)
+        if user:
+            for key, value in settings.items():
+                setattr(user, key, value)
+            user.language = language
+            user.is_active = True
+        else:
+            user = User(chat_id=chat_id, language=language, is_active=True, **settings)
+        if user.meridians_enabled:
+            if not user.meridian_learning_mode:
+                user.meridian_learning_mode = "guided"
+            if not user.current_meridian_id:
+                first_meridian = self.meridians_manager.get_first_meridian()
+                if first_meridian:
+                    user.current_meridian_id = first_meridian["id"]
+                    user.current_point_index = -1
+        return user
+
     def _localized_meridian_name(self, meridian: Optional[Dict[str, Any]], language: str) -> str:
         """Return a meridian name in the user's language."""
         if not meridian:
@@ -5258,9 +5329,9 @@ class BotHandlers:
             if map_button:
                 keyboard.append([map_button])
             keyboard.extend([
-                [InlineKeyboardButton(self._get_text("meridian_video", language), callback_data="meridian_video")],
+                [InlineKeyboardButton(self._get_text("meridian_video", language), callback_data=meridian_action_data("video", meridian_id))],
                 [
-                    InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
+                    InlineKeyboardButton(self._get_text("all_points", language), callback_data=meridian_action_data("all", meridian_id)),
                     InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
                 ],
             ])
@@ -5268,7 +5339,7 @@ class BotHandlers:
             if pair_button:
                 keyboard.append([pair_button])
             keyboard.extend([
-                [InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")],
+                [InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data=meridian_action_data("complete", meridian_id))],
                 [InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")]
             ])
             return InlineKeyboardMarkup(keyboard)
@@ -5301,14 +5372,14 @@ class BotHandlers:
         if map_button:
             keyboard.append([map_button])
         keyboard.extend([
-            [InlineKeyboardButton(self._get_text("meridian_video", language), callback_data="meridian_video")],
+            [InlineKeyboardButton(self._get_text("meridian_video", language), callback_data=meridian_action_data("video", meridian_id))],
             [
-                InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all"),
+                InlineKeyboardButton(self._get_text("all_points", language), callback_data=meridian_action_data("all", meridian_id)),
                 InlineKeyboardButton(self._get_text("meridian_point_help", language), callback_data="meridian_point_help")
             ],
         ])
         if points_count is None or points_count > 0:
-            keyboard.append([InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data="meridian_complete")])
+            keyboard.append([InlineKeyboardButton(self._get_text("complete_meridian", language), callback_data=meridian_action_data("complete", meridian_id))])
         keyboard.append([InlineKeyboardButton(self._get_text("meridian_back", language), callback_data="meridian_main")])
         return InlineKeyboardMarkup(keyboard)
 
@@ -5399,12 +5470,12 @@ class BotHandlers:
             [InlineKeyboardButton(self._get_text("back_to_menu", language), callback_data="menu_main")]
         ])
 
-    def _create_meridian_complete_confirm_keyboard(self, language: str) -> InlineKeyboardMarkup:
+    def _create_meridian_complete_confirm_keyboard(self, language: str, meridian_id: Optional[str] = None) -> InlineKeyboardMarkup:
         """Create confirmation keyboard for finishing a meridian before the last point."""
         return InlineKeyboardMarkup([
-            [InlineKeyboardButton(self._get_text("complete_meridian_confirm_yes", language), callback_data="meridian_complete_confirm")],
+            [InlineKeyboardButton(self._get_text("complete_meridian_confirm_yes", language), callback_data=meridian_action_data("complete_confirm", meridian_id))],
             [InlineKeyboardButton(self._get_text("complete_meridian_confirm_no", language), callback_data="meridian_current")],
-            [InlineKeyboardButton(self._get_text("all_points", language), callback_data="meridian_all")]
+            [InlineKeyboardButton(self._get_text("all_points", language), callback_data=meridian_action_data("all", meridian_id))]
         ])
 
     def _create_secret_task_offer_keyboard(self, language: str) -> InlineKeyboardMarkup:
@@ -6022,6 +6093,24 @@ class BotHandlers:
                 await self._handle_feel_callback(query, user, language)
                 return
 
+            # video / all / complete name their channel (meridian_action_data): on an old message about
+            # another channel they would act on the current one, so they explain instead
+            base, _, about = action.partition(":")
+            if base in ("video", "all", "complete", "complete_confirm"):
+                if about and user and user.current_meridian_id and about != user.current_meridian_id:
+                    shown = self.meridians_manager.get_meridian_by_id(about)
+                    current = self.meridians_manager.get_meridian_by_id(user.current_meridian_id)
+                    await query.answer(
+                        self._get_text(
+                            "stale_channel_button", language,
+                            name=self._localized_meridian_name(shown, language) or about,
+                            current=self._localized_meridian_name(current, language),
+                        ),
+                        show_alert=True,
+                    )
+                    return
+                action = base
+
             await query.answer()
             if not user or not user.is_active:
                 await self._edit_message_text_safe(query, self._get_text("not_subscribed_test", language))
@@ -6519,7 +6608,7 @@ class BotHandlers:
                     await self._edit_message_text_safe(
                         query,
                         self._get_text("complete_meridian_confirm", language),
-                        reply_markup=self._create_meridian_complete_confirm_keyboard(language),
+                        reply_markup=self._create_meridian_complete_confirm_keyboard(language, user.current_meridian_id),
                         parse_mode='HTML'
                     )
                     return
@@ -6932,13 +7021,15 @@ class BotHandlers:
             logger.error(f"Error replying to message in {update.effective_chat.id}: {e}")
             return None
 
-    async def _clear_user_dialog(self, chat_id: int) -> None:
-        """Clear user dialog by deleting all stored bot messages."""
+    async def _clear_user_dialog(self, chat_id: int, keep: Optional[int] = None) -> None:
+        """Clear user dialog by deleting all stored bot messages (keep: the message about to be edited)."""
         try:
             bot_messages = await self.storage.get_user_bot_messages(chat_id)
 
             deleted_count = 0
             for bot_message in bot_messages:
+                if keep is not None and bot_message.message_id == keep:
+                    continue
                 success = await self._delete_message_safe(chat_id, bot_message.message_id)
                 if success:
                     deleted_count += 1

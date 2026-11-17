@@ -38,6 +38,14 @@ logger = logging.getLogger(__name__)
 CHANNEL_RETRY_MINUTES = 15
 
 
+def meridian_action_data(action: str, meridian_id: Optional[str]) -> str:
+    """Callback data of a channel button (video, all, complete) that names its channel.
+
+    A button on yesterday's message must not act on the channel the user has moved to since.
+    """
+    return f"meridian_{action}:{meridian_id}" if meridian_id else f"meridian_{action}"
+
+
 def _chat_gone(error: Exception) -> bool:
     """A BadRequest that will fail the same way every day: the chat no longer exists."""
     text = str(error).lower()
@@ -211,12 +219,12 @@ class YogaScheduler:
         if map_button:
             keyboard.append([map_button])
         keyboard.extend([
-            [InlineKeyboardButton(self._meridian_button_text("video", language), callback_data="meridian_video")],
+            [InlineKeyboardButton(self._meridian_button_text("video", language), callback_data=meridian_action_data("video", meridian_id))],
             [
-                InlineKeyboardButton(self._meridian_button_text("all", language), callback_data="meridian_all"),
+                InlineKeyboardButton(self._meridian_button_text("all", language), callback_data=meridian_action_data("all", meridian_id)),
                 InlineKeyboardButton(self._meridian_button_text("help", language), callback_data="meridian_point_help"),
             ],
-            [InlineKeyboardButton(self._meridian_button_text("complete", language), callback_data="meridian_complete")],
+            [InlineKeyboardButton(self._meridian_button_text("complete", language), callback_data=meridian_action_data("complete", meridian_id))],
             [InlineKeyboardButton(self._meridian_button_text("back", language), callback_data="meridian_main")],
         ])
         return InlineKeyboardMarkup(keyboard)
