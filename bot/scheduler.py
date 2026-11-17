@@ -9,7 +9,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.date import DateTrigger
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.error import TelegramError, Forbidden, BadRequest, NetworkError
+from telegram.error import TelegramError, Forbidden, BadRequest, NetworkError, RetryAfter
 
 from .storage import JsonStorage, User, BotMessage
 from .utils import (
@@ -20,6 +20,7 @@ from .utils import (
     format_meridian_point,
     fit_html_caption,
     get_next_send_time,
+    missed_send_run,
     channel_window_send_time,
     channel_window_minutes,
     should_skip_today,
@@ -32,6 +33,42 @@ from . import feel as diary
 
 
 logger = logging.getLogger(__name__)
+
+# after a failed channel-hours reminder the next try comes this much later (it was every minute)
+CHANNEL_RETRY_MINUTES = 15
+
+
+def _chat_gone(error: Exception) -> bool:
+    """A BadRequest that will fail the same way every day: the chat no longer exists."""
+    text = str(error).lower()
+    return "chat not found" in text or "user not found" in text
+
+
+def principle_round(sent_ids: list, current_ids: list) -> list:
+    """The principles of the current round, in send order.
+
+    A round closes once every current principle was sent in it. Counting from the log itself keeps the
+    rounds right when principles are added or removed (len(sent) % count shifted every later round).
+    """
+    current = set(current_ids)
+    seen: list = []
+    for pid in sent_ids:
+        if pid in current and pid not in seen:
+            seen.append(pid)
+        if current and current.issubset(seen):
+            seen = []
+    return seen
+
+
+def _local_date_of(sent_at: Any, tz: Any) -> Optional[str]:
+    """Local date (YYYY-MM-DD) of a UTC ISO timestamp, None when it does not parse."""
+    try:
+        moment = datetime.fromisoformat(str(sent_at))
+    except ValueError:
+        return None
+    if moment.tzinfo is None:
+        moment = moment.replace(tzinfo=timezone.utc)
+    return moment.astimezone(tz).date().isoformat()
 
 
 class YogaScheduler:
@@ -50,9 +87,12 @@ class YogaScheduler:
         self.principles_manager = principles_manager
         self.meridians_manager = meridians_manager
         self.webapp_url = webapp_url
-        self.scheduler = AsyncIOScheduler(timezone='UTC')
+        # a run that starts late (a busy loop) still goes out within 5 minutes; by default APScheduler drops
+        # it after one second and the date job is gone until the next day's rescheduling
+        self.scheduler = AsyncIOScheduler(timezone='UTC', job_defaults={"misfire_grace_time": 300, "coalesce": True})
         self.jobs_created = 0
         self._sending: set = set()   # chat ids whose meridian reminder is being sent
+        self._channel_retry_at: Dict[int, datetime] = {}   # chat id -> UTC time a failed reminder retries
 
     def _meridian_button_text(self, key: str, language: str) -> str:
         """Return localized labels for meridian reminder buttons."""
@@ -218,8 +258,8 @@ class YogaScheduler:
             replace_existing=True
         )
 
-        # Initial scheduling for all users.
-        await self._schedule_all_users()
+        # Initial scheduling for all users; a reminder due while the bot was down goes out now.
+        await self._schedule_all_users(catch_up=True)
         
         logger.info("Yoga scheduler started successfully.")
     
@@ -229,22 +269,34 @@ class YogaScheduler:
         self.scheduler.shutdown()
         logger.info("Yoga scheduler stopped.")
     
-    async def _schedule_all_users(self) -> None:
-        """Schedule messages for all active users."""
+    async def _schedule_all_users(self, catch_up: bool = False) -> None:
+        """Schedule messages for all active users (catch_up: also today's ones missed while the bot was down)."""
         logger.info("Scheduling messages for all active users...")
-        
+
         active_users = await self.storage.get_all_active_users()
         logger.info(f"Found {len(active_users)} active users.")
-        
-        for user in active_users:
-            await self._schedule_user_jobs(user)
-    
-    async def _schedule_user_jobs(self, user: User) -> None:
-        """Schedule enabled practice messages for a specific user."""
-        await self._schedule_user_message(user)
-        await self._schedule_user_meridian_message(user)
 
-    async def _schedule_user_message(self, user: User) -> None:
+        for user in active_users:
+            await self._schedule_user_jobs(user, catch_up=catch_up)
+
+    async def _schedule_user_jobs(self, user: User, catch_up: bool = False) -> None:
+        """Schedule enabled practice messages for a specific user."""
+        await self._schedule_user_message(user, catch_up=catch_up)
+        await self._schedule_user_meridian_message(user, catch_up=catch_up)
+
+    @staticmethod
+    def _tz(user_timezone: str) -> Any:
+        try:
+            return pytz.timezone(user_timezone)
+        except pytz.exceptions.UnknownTimeZoneError:
+            return pytz.UTC
+
+    async def _principle_sent_on(self, user: User) -> Optional[str]:
+        """Local date of the user's last principle, None before the first one."""
+        log = await self.storage.get_user_sent_log(user.chat_id)
+        return _local_date_of(log[-1].get("sent_at"), self._tz(user.timezone)) if log else None
+
+    async def _schedule_user_message(self, user: User, catch_up: bool = False) -> None:
         """Schedule next principle message for specific user."""
         try:
             existing_jobs = [job for job in self.scheduler.get_jobs() if job.id.startswith(f"principle_user_{user.chat_id}_")]
@@ -254,13 +306,12 @@ class YogaScheduler:
             if not user.principles_enabled:
                 return
 
-            # Calculate next send time.
-            next_send_time = get_next_send_time(
-                user.timezone,
-                user.time_for_send,
-                user.skip_day_id
-            )
-            
+            # One principle a day: a change of time after today's one moves the next to tomorrow.
+            sent_on = await self._principle_sent_on(user)
+            next_send_time = missed_send_run(user.timezone, user.time_for_send, user.skip_day_id, sent_on) if catch_up else None
+            if next_send_time is None:
+                next_send_time = get_next_send_time(user.timezone, user.time_for_send, user.skip_day_id, not_on=sent_on)
+
             # Convert to UTC for scheduler.
             next_send_time_utc = next_send_time.astimezone(timezone.utc).replace(tzinfo=None)
             
@@ -282,7 +333,7 @@ class YogaScheduler:
         except Exception as e:
             logger.error(f"Error scheduling message for user {user.chat_id}: {e}")
 
-    async def _schedule_user_meridian_message(self, user: User) -> None:
+    async def _schedule_user_meridian_message(self, user: User, catch_up: bool = False) -> None:
         """Schedule next meridian reminder for a specific user."""
         try:
             existing_jobs = [job for job in self.scheduler.get_jobs() if job.id.startswith(f"meridian_user_{user.chat_id}_")]
@@ -295,8 +346,11 @@ class YogaScheduler:
                 logger.info(f"Guided meridian route is completed for user {user.chat_id}; reminder is not scheduled.")
                 return
 
-            next_send_time_utc = self._next_meridian_run_utc(user)
+            missed = self._missed_meridian_run_utc(user) if catch_up else None
+            next_send_time_utc = missed or self._next_meridian_run_utc(user)
             job_id = f"meridian_user_{user.chat_id}_{next_send_time_utc.strftime('%Y%m%d_%H%M')}"
+            if missed:
+                job_id += "_catchup"   # the channel refresh leaves it alone
 
             self.scheduler.add_job(
                 self._send_meridian_to_user,
@@ -351,7 +405,31 @@ class YogaScheduler:
             return None
         if user.meridian_sent_on == now.date().isoformat() or should_skip_today(user.skip_day_id, now):
             return None
-        return (now + timedelta(minutes=1)).replace(second=0, microsecond=0)
+        soon = (now + timedelta(minutes=1)).replace(second=0, microsecond=0)
+        retry_at = self._channel_retry_at.get(user.chat_id)
+        if retry_at is not None:
+            if retry_at <= datetime.now(timezone.utc):
+                self._channel_retry_at.pop(user.chat_id, None)
+            else:
+                # the last try failed: wait a while instead of trying again every minute
+                later = retry_at.astimezone(tz)
+                if later.hour * 60 + later.minute >= window[1] - 10 or later.date() != now.date():
+                    return None
+                soon = later.replace(second=0, microsecond=0) + timedelta(minutes=1)
+        return soon
+
+    def _missed_meridian_run_utc(self, user: User) -> Optional[datetime]:
+        """Naive UTC run a minute from now for today's reminder missed while the bot was down, or None.
+
+        A channel-hours reminder is caught up by channel_window_now_run, inside its window only.
+        """
+        if self.channel_window_now_run(user) is not None:
+            return None
+        send_time, follows_window = self.meridian_send_time(user)
+        if follows_window:
+            return None
+        missed = missed_send_run(user.timezone, send_time, user.skip_day_id, user.meridian_sent_on)
+        return missed.astimezone(timezone.utc).replace(tzinfo=None) if missed else None
 
     def _next_meridian_run_utc(self, user: User) -> datetime:
         """Naive UTC run time of the next meridian reminder."""
@@ -385,29 +463,35 @@ class YogaScheduler:
                 current = jobs[0].next_run_time if len(jobs) == 1 else None
                 if current is not None:
                     current = current.astimezone(timezone.utc).replace(tzinfo=None, second=0, microsecond=0)
+                    # a catch-up run (a reminder missed while the bot was down) stays
+                    if jobs[0].id.endswith("_catchup") and current < wanted:
+                        continue
                 if current != wanted:
                     await self._schedule_user_meridian_message(user)
             except Exception as e:
                 logger.error(f"Error refreshing the channel time for user {user.chat_id}: {e}")
 
-    async def _send_principle_to_user(self, chat_id: int) -> bool:
-        """Send principle message to user."""
+    async def _send_principle_to_user(self, chat_id: int, force: bool = False) -> bool:
+        """Send principle message to user (force: the admin resend, even when today's one already came)."""
         try:
             logger.info(f"Sending principle to user {chat_id}...")
-            
+
             # Get user data.
             user = await self.storage.get_user(chat_id)
             if not user or not user.is_active or not user.principles_enabled:
                 logger.warning(f"User {chat_id} not found, inactive, or principle practice is disabled.")
                 return False
-            
+            if not force and await self._principle_sent_on(user) == self._local_today(user.timezone):
+                # a job left over from before a change of time: today's principle already went out
+                logger.info(f"Principle for user {chat_id} already sent today; rescheduling.")
+                await self._schedule_user_message(user)
+                return False
+
             # A round: every principle once in random order, then the next round (the new one does not open
-            # with yesterday's principle). Each sent principle is one log entry, so the round so far is the
-            # tail of the log after the last whole round.
+            # with yesterday's principle).
             sent = await self.storage.get_user_sent_principles(chat_id)
-            count = len(self.principles_manager.get_all_principles(user.language)) or 1
-            in_round = sent[len(sent) - len(sent) % count:] if len(sent) % count else []
-            excluded = list(in_round) + sent[-1:]
+            current_ids = [p.get("id") for p in self.principles_manager.get_all_principles(user.language)]
+            excluded = principle_round(sent, current_ids) + sent[-1:]
             principle = self.principles_manager.get_random_principle(user.language, excluded_ids=excluded)
             if not principle:
                 logger.warning(f"No principles available for user {chat_id} in language {user.language}.")
@@ -497,6 +581,10 @@ class YogaScheduler:
             )
             success = await self._send_meridian_message_with_retry(chat_id, message_text, image_path, keyboard)
 
+            if success:
+                self._channel_retry_at.pop(chat_id, None)
+            else:
+                self._channel_retry_at[chat_id] = datetime.now(timezone.utc) + timedelta(minutes=CHANNEL_RETRY_MINUTES)
             current_user = await self.storage.get_user(chat_id)
             if current_user and success:
                 current_user.meridian_sent_on = self._local_today(current_user.timezone)
@@ -531,7 +619,7 @@ class YogaScheduler:
 
             if user.principles_enabled:
                 attempted += 1
-                if await self._send_principle_to_user(user.chat_id):
+                if await self._send_principle_to_user(user.chat_id, force=True):
                     successful += 1
 
             if user.meridians_enabled and user.meridian_learning_mode:
@@ -607,11 +695,19 @@ class YogaScheduler:
                 return False
             except BadRequest as e:
                 logger.error(f"Bad request for user {chat_id}: {e}")
+                if _chat_gone(e):
+                    logger.warning(f"Chat {chat_id} no longer exists, deactivating.")
+                    await self.storage.deactivate_user(chat_id)
+                    return False
                 # a map (web app) button Telegram refuses would fail every day: send once more without it
                 trimmed = self._without_web_app_buttons(reply_markup)
                 if trimmed is reply_markup:
                     return False
                 reply_markup = trimmed
+            except RetryAfter as e:
+                logger.warning(f"Flood control for user {chat_id}: retry in {e.retry_after} s")
+                if attempt < max_retries - 1:
+                    await asyncio.sleep(min(float(e.retry_after), 60.0))
             except NetworkError as e:
                 logger.warning(f"Telegram network error for user {chat_id}: {e}")
                 if attempt < max_retries - 1:
@@ -699,7 +795,14 @@ class YogaScheduler:
                 
             except BadRequest as e:
                 logger.error(f"Bad request for user {chat_id}: {e}")
+                if _chat_gone(e):
+                    logger.warning(f"Chat {chat_id} no longer exists, deactivating.")
+                    await self.storage.deactivate_user(chat_id)
                 return False
+            except RetryAfter as e:
+                logger.warning(f"Flood control for user {chat_id}: retry in {e.retry_after} s")
+                if attempt < max_retries - 1:
+                    await asyncio.sleep(min(float(e.retry_after), 60.0))
             except NetworkError as e:
                 logger.warning(f"Telegram network error for user {chat_id}: {e}")
                 if attempt < max_retries - 1:

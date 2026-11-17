@@ -330,7 +330,12 @@ class JsonStorage:
         logs_data = await self._read_json(self.logs_file)
         user_logs = logs_data.get(str(chat_id), [])
         return [log["principle_id"] for log in user_logs]
-    
+
+    async def get_user_sent_log(self, chat_id: int) -> List[Dict[str, Any]]:
+        """The user's sent principle entries in order: {"principle_id", "sent_at" (UTC ISO)}."""
+        logs_data = await self._read_json(self.logs_file)
+        return list(logs_data.get(str(chat_id), []))
+
     async def reset_user_cycle(self, chat_id: int) -> bool:
         """Reset user's principle cycle."""
         return await self._update_json(self.logs_file, lambda logs_data: logs_data.__setitem__(str(chat_id), []))

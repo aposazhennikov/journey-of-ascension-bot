@@ -1162,15 +1162,24 @@ def get_user_local_time(user_timezone: str, target_time: str) -> datetime:
     
     # Get current time in user's timezone.
     now = datetime.now(tz)
-    
-    # Create target datetime for today.
-    target_dt = now.replace(hour=target_hour, minute=target_minute, second=0, microsecond=0)
-    
-    # If target time already passed today, schedule for tomorrow.
+
+    # Target for today; if it already passed, for tomorrow (a local calendar day, see _local_at).
+    target_dt = _local_at(tz, now.date(), target_hour, target_minute)
     if target_dt <= now:
-        target_dt += timedelta(days=1)
-    
+        target_dt = _local_at(tz, now.date() + timedelta(days=1), target_hour, target_minute)
+
     return target_dt
+
+
+def _local_at(tz: Any, day: Any, hour: int, minute: int) -> datetime:
+    """hour:minute on a local calendar day with that day's own UTC offset.
+
+    pytz times keep a fixed offset: replace(hour=...) or + timedelta(days=1) on them carries today's offset
+    into the day after a daylight-saving switch, and the message came an hour off (twice that Sunday in autumn).
+    A time inside the spring gap moves forward past it.
+    """
+    naive = datetime(day.year, day.month, day.day, hour, minute)
+    return tz.normalize(tz.localize(naive)) if hasattr(tz, "localize") else naive.replace(tzinfo=tz)
 
 
 def should_skip_today(skip_days: List[int], target_datetime: datetime) -> bool:
@@ -1188,6 +1197,11 @@ def get_next_send_time(
     not_on is a local date (YYYY-MM-DD) that already had its message: the next one goes to a later day.
     """
     target_dt = get_user_local_time(user_timezone, target_time)
+    try:
+        tz = pytz.timezone(user_timezone)
+    except pytz.exceptions.UnknownTimeZoneError:
+        tz = pytz.UTC
+    target_hour, target_minute = map(int, target_time.split(":"))
     skip = [d for d in (skip_days or []) if isinstance(d, int) and 0 <= d <= 6]
     # all seven days quiet would never end the loop below (and the loop blocks the whole bot): ignore them
     if len(set(skip)) == 7:
@@ -1197,9 +1211,44 @@ def get_next_send_time(
     for _ in range(9):
         if not (should_skip_today(skip, target_dt) or (not_on and target_dt.date().isoformat() == not_on)):
             break
-        target_dt += timedelta(days=1)
+        target_dt = _local_at(tz, target_dt.date() + timedelta(days=1), target_hour, target_minute)
 
     return target_dt
+
+
+# a reminder whose time passed while the bot was restarting is sent late, up to this many minutes late
+MISSED_SEND_GRACE_MINUTES = 180
+
+
+def missed_send_run(
+    user_timezone: str, target_time: str, skip_days: List[int], not_on: Optional[str] = None,
+    grace_minutes: int = MISSED_SEND_GRACE_MINUTES,
+) -> Optional[datetime]:
+    """A run a minute from now when today's target_time passed less than grace_minutes ago and today still
+    has no message (not_on is the local date of the last one); None otherwise.
+
+    The scheduler keeps its jobs in memory: on a start at 09:03 the next 09:00 was tomorrow and today's
+    message was lost.
+    """
+    try:
+        tz = pytz.timezone(user_timezone)
+    except pytz.exceptions.UnknownTimeZoneError:
+        tz = pytz.UTC
+    try:
+        target_hour, target_minute = map(int, target_time.split(":"))
+    except (AttributeError, ValueError):
+        return None
+    now = datetime.now(tz)
+    today = now.date()
+    if not_on == today.isoformat():
+        return None
+    skip = {d for d in (skip_days or []) if isinstance(d, int) and 0 <= d <= 6}
+    if len(skip) < 7 and today.weekday() in skip:
+        return None
+    target_dt = _local_at(tz, today, target_hour, target_minute)
+    if not target_dt <= now < target_dt + timedelta(minutes=grace_minutes):
+        return None
+    return (now + timedelta(minutes=1)).replace(second=0, microsecond=0)
 
 
 # reminders that follow the channel clock come only in these local hours
