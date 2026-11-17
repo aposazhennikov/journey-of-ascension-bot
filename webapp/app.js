@@ -719,7 +719,9 @@ function fetchProgress() {
   }).then((res) => (res.ok ? res.json() : null)).then((p) => {
     if (!p) return false;
     let changed = false;
-    if (p.feel && typeof p.feel === 'object') {
+    // a Telegram user the bot does not know yet (the menu button before /start): the diary stays on the device
+    feelLocal = p.known === false;
+    if (p.feel && typeof p.feel === 'object' && !feelLocal) {
       // marks that never reached the bot (no network at the tap) stay as on this device and go again
       const merged = { ...p.feel };
       for (const code of feelPending) {
@@ -748,6 +750,7 @@ let feelSeq = 0;   // only the answer to the latest tap may replace the marks (t
 // codes whose last change the bot has not confirmed; kept across opens, sent again on the next one
 const feelPending = new Set(((v) => (Array.isArray(v) ? v.filter((c) => typeof c === 'string') : []))(store.get('feelPending', [])));
 const savePending = () => store.set('feelPending', [...feelPending]);
+let feelLocal = false;   // the bot answered that it has no such user: marks are kept only here
 const feelOf = (code) => (FEELS.includes(state.feel[code]?.f) ? state.feel[code].f : null);
 
 function feelHtml(code) {
@@ -756,7 +759,7 @@ function feelHtml(code) {
   // the hint teaches the chips: gone once the diary holds a few marks (this point's own mark keeps it, to show
   // that a second tap removes it); the "only on this device" warning stays while it is true
   const known = Object.values(state.feel).filter((e) => FEELS.includes(e?.f)).length >= 3 && !cur;
-  const sub = tg?.initData ? (known ? '' : 'feel_sub') : 'feel_sub_local';
+  const sub = tg?.initData && !feelLocal ? (known ? '' : 'feel_sub') : 'feel_sub_local';
   return `<div class="section feel"><h3>${esc(t('feel_title'))}</h3><div class="tags">${chips}</div>
     ${sub ? `<p class="note">${esc(t(sub))}</p>` : ''}</div>`;
 }
@@ -785,6 +788,7 @@ async function writeFeel(code, entry) {
   savePending();
   const seq = ++feelSeq;
   const p = await postFeel(code, entry);
+  if (p?.known === false) { feelLocal = true; return; }   // nothing on the bot's side to take over
   if (seq === feelSeq && p?.feel && typeof p.feel === 'object') {
     state.feel = { ...p.feel };
     // a mark still waiting for the bot is not in its answer yet
@@ -804,8 +808,10 @@ async function postFeel(code, entry) {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ initData: tg.initData, code, feel: entry ? entry.f : '' }),
     });
-    if (res.ok || (res.status >= 400 && res.status < 500)) { feelPending.delete(code); savePending(); }
-    return res.ok ? await res.json() : null;
+    const p = res.ok ? await res.json() : null;
+    // a user the bot does not know yet keeps the mark pending: it goes to the bot once they press /start
+    if (p?.known !== false && (res.ok || (res.status >= 400 && res.status < 500))) { feelPending.delete(code); savePending(); }
+    return p;
   } catch { return null; }   // offline: the mark stays on this device
 }
 
@@ -960,10 +966,12 @@ let keyComplaints = null;
 function loadKeyComplaints() {
   if (keyComplaints) return;
   keyComplaints = [];
+  // a failed load is tried again on the next search: the red-flag complaints (chest pain) come from this file
   fetch(`assets/key_points.json?v=${ASSET_VERSION}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
-    keyComplaints = Array.isArray(j?.complaints) ? j.complaints : [];
+    if (!Array.isArray(j?.complaints)) { keyComplaints = null; return; }
+    keyComplaints = j.complaints;
     refreshSymptomResults();
-  }).catch(() => {});
+  }).catch(() => { keyComplaints = null; });
 }
 function complaintOf(raw) {
   if (!raw || !keyComplaints?.length) return null;
@@ -1843,9 +1851,20 @@ function renderBodyBtn() {
   b.setAttribute('aria-label', t('body_switch_aria', { name: t(male ? 'body_m_aria' : 'body_f_aria') }));
 }
 $('bodyBtn').addEventListener('click', async () => {
-  await ensurePoses();
+  const b = $('bodyBtn');
+  if (b.disabled) return;   // the other body (about 0.5 MB) is still loading: one switch at a time
+  b.disabled = true;
+  b.setAttribute('aria-busy', 'true');
   const next = state.body === 'male' ? 'female' : 'male';
-  await setBody(next);
+  try {
+    await ensurePoses();
+    await setBody(next);
+  } catch (err) {
+    console.warn('body switch failed', err);   // offline: the toast below says so
+  } finally {
+    b.disabled = false;
+    b.removeAttribute('aria-busy');
+  }
   renderBodyBtn();
   // only when it really switched (without the poses setBody returns quietly)
   if (state.body === next) toast(t(next === 'male' ? 'body_switched_m' : 'body_switched_f'));
@@ -1897,18 +1916,25 @@ async function applyStartPose() {
 
 async function ensurePoses() {
   if (poseSys.loading) return poseSys.loading;
+  poseSys.pending = true;
   poseSys.loading = (async () => {
     state.poseContent = state.poseContent || await loadPoseContent();
-    try {
-      const pre = poseSys.prefetch || prefetchPoses();
-      poseSys.prefetch = null;
-      poseSys.mod = await pre.mod;
-      poseSys.rig = await poseSys.mod.loadRig(pre.rig, pre.poses);
-      poseSys.skinner = poseSys.mod.createSkinner(poseSys.rig, scene.restPositions, state.body);
-    } catch (err) {
-      console.warn('poses unavailable', err);
-      poseSys.mod = null;
+    if (!poseSys.skinner) {
+      try {
+        const pre = poseSys.prefetch || prefetchPoses();
+        poseSys.prefetch = null;
+        poseSys.mod = await pre.mod;
+        poseSys.rig = await poseSys.mod.loadRig(pre.rig, pre.poses);
+        poseSys.skinner = poseSys.mod.createSkinner(poseSys.rig, scene.restPositions, state.body);
+      } catch (err) {
+        console.warn('poses unavailable', err);
+        poseSys.mod = null;
+      }
     }
+    poseSys.pending = false;
+    // a failed load (offline at the first open) is tried again on the next one; the panel said
+    // "loading poses" forever before
+    if (!poseSys.skinner || !state.poseContent) poseSys.loading = null;
   })();
   return poseSys.loading;
 }
@@ -1969,7 +1995,7 @@ function renderPosesPeek() {
   els.peek.innerHTML = `<div class="poses-head">
       <div class="seg" role="tablist">${['asanas', 'mudras', 'arms'].map((k) => `<button role="tab" data-tab="${k}" aria-selected="${tab === k}">${esc(t(`tab_${k}`))}</button>`).join('')}</div>
     </div>
-    <div class="pose-row">${cards || `<span class="muted">${esc(poseSys.loading ? t('poses_loading') : t('poses_unavailable'))}</span>`}</div>
+    <div class="pose-row">${cards || `<span class="muted">${esc(poseSys.pending ? t('poses_loading') : t('poses_unavailable'))}</span>`}</div>
     <div class="peek-sub pose-desc">${esc(poseText(cur).short || '')}</div>
     ${tab === 'mudras' && isMudraOn() && state.mudra !== 'hakini' && state.mudra !== 'anjali' ? `<div class="peek-sub closeup-hint">${esc(t('closeup_hint'))}</div>` : ''}`;
   // keep the row where it was and bring the chosen card into view (padmasana stayed off screen)
@@ -2467,6 +2493,7 @@ function deepLink() {
 }
 
 let booting = false;
+let tgBound = false;
 async function boot() {
   if (booting) return;
   booting = true;
@@ -2476,7 +2503,8 @@ async function boot() {
   $('retryBtn').textContent = t('retry');
   for (const [id, key] of [['menuBtn', 'aria_menu'], ['turnBtn', 'aria_turn'], ['fitBtn', 'aria_fit'], ['poseBtn', 'aria_pose']]) $(id).setAttribute('aria-label', t(key));
   setLoading(t('loading'));
-  if (tg) {
+  if (tg && !tgBound) {
+    tgBound = true;   // a retry after an error must not add a second Back handler
     tg.ready();
     tg.expand();
     try { if (tg.isVersionAtLeast?.('7.7')) tg.disableVerticalSwipes(); } catch { /* old client */ }
@@ -2566,7 +2594,9 @@ async function boot() {
       setTimeout(() => { $('gestureHint').hidden = true; $('gestureHint').classList.remove('fade'); }, 5200);
     }
     $('gestureHint').textContent = t('hint_gesture');
-    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 3000));
+    // with the render loop running the browser may never be idle: the timeout makes the callbacks come anyway
+    const idle = (fn) => (window.requestIdleCallback ? window.requestIdleCallback(fn, { timeout: 3000 }) : setTimeout(fn, 3000));
+    idle(() => loadKeyComplaints());   // ready before the first search types "боль в груди"
     idle(() => ensurePoses().then(async () => {
       const pose = params.get('pose') || startTokens.a;
       const mudra = params.get('mudra') || startTokens.u;
@@ -2587,7 +2617,12 @@ async function boot() {
   }
 }
 
-$('retryBtn').addEventListener('click', () => { $('loading').classList.remove('hidden'); boot(); });
+$('retryBtn').addEventListener('click', () => {
+  // the 25 s error shows while the first load still hangs (fetches have no timeout): start over
+  if (booting) { location.reload(); return; }
+  $('loading').classList.remove('hidden');
+  boot();
+});
 document.addEventListener('visibilitychange', () => {
   if (!scene) return;
   scene.paused = document.hidden;

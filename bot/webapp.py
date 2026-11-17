@@ -56,7 +56,8 @@ def map_point_code(code: str) -> str:
 
     The bot stores points in the same notation the map uses, WHO codes ("LU 7", "GB20") are turned back.
     """
-    match = re.fullmatch(r"([A-Z]+)\.?(\d+)", re.sub(r"\s+", "", str(code or "")).upper())
+    # point numbers have at most two digits; a longer one would also overflow int() (a 500 from the API)
+    match = re.fullmatch(r"([A-Z]{1,4})\.?(\d{1,3})", re.sub(r"\s+", "", str(code or "")[:32]).upper())
     if not match:
         return ""
     prefix, number = match.groups()
@@ -236,9 +237,11 @@ def setup_webapp_routes(
         if not tg_user:
             raise web.HTTPUnauthorized()
         user = await storage.get_user(int(tg_user["id"]))
-        # the sensation diary rides along (it is too long for the button URL)
+        # the sensation diary rides along (it is too long for the button URL); known: False tells the map the
+        # bot has no such user, so its marks stay on the device instead of being replaced by an empty diary
         return web.json_response(
-            {**progress_payload(user), "feel": feel_payload(user)}, headers={"Cache-Control": "no-store"}
+            {**progress_payload(user), "feel": feel_payload(user), "known": user is not None},
+            headers={"Cache-Control": "no-store"},
         )
 
     known_codes: set = set()
@@ -268,10 +271,12 @@ def setup_webapp_routes(
             raise web.HTTPBadRequest()
         user = await storage.get_user(int(tg_user["id"]))
         if not user:
-            return web.json_response({"saved": False, "feel": {}}, headers={"Cache-Control": "no-store"})
+            return web.json_response({"saved": False, "known": False, "feel": {}}, headers={"Cache-Control": "no-store"})
         set_feel(user.point_feel, code, feel)
         saved = bool(await storage.save_user(user))
-        return web.json_response({"saved": saved, "feel": feel_payload(user)}, headers={"Cache-Control": "no-store"})
+        return web.json_response(
+            {"saved": saved, "known": True, "feel": feel_payload(user)}, headers={"Cache-Control": "no-store"}
+        )
 
     async def advance_handler(request: web.Request) -> web.Response:
         # "the point is done" pressed in the map after staying with it: the practice moves on by one point,
